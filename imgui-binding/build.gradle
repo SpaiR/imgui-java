@@ -1,0 +1,10 @@
+import imgui.generate.GenerateLibs
+
+plugins {
+    id 'java'
+}
+
+sourceCompatibility = 1.8
+
+assemble.dependsOn clean
+task generateLibs(type: GenerateLibs, dependsOn: assemble)

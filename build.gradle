@@ -1,16 +1,8 @@
-plugins {
-    id 'java'
-}
-
-group 'imgui'
-version '1.0'
-
-sourceCompatibility = 1.8
-
-repositories {
-    jcenter()
-    mavenCentral()
-}
-
-dependencies {
+allprojects {
+    group 'imgui-java'
+    version property('version')
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
 }

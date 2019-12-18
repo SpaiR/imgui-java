@@ -1,0 +1,19 @@
+plugins {
+    id 'groovy'
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+ext {
+    jnigenVersion = '1.9.10'
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+
+    implementation "com.badlogicgames.gdx:gdx-jnigen:$jnigenVersion"
+}
