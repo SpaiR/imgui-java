@@ -15,7 +15,12 @@ public class ImGuiString {
     }
 
     public ImGuiString(String text) {
-        this(100);
+        this(text.length());
+        setValue(text);
+    }
+
+    public ImGuiString(String text, int size) {
+        this(size);
         setValue(text);
     }
 

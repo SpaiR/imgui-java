@@ -11,7 +11,7 @@ public class ImGuiHoveredFlags {
     public static ImGuiHoveredFlags RootWindow = new ImGuiHoveredFlags(1 << 1);
     public static ImGuiHoveredFlags AnyWindow = new ImGuiHoveredFlags(1 << 2);
     public static ImGuiHoveredFlags AllowWhenBlockedByPopup = new ImGuiHoveredFlags(1 << 3);
-    //	public static ImGuiHoveredFlags AllowWhenBlockedByModal = new ImGuiHoveredFlags(1 << 4);
+    //    public static ImGuiHoveredFlags AllowWhenBlockedByModal = new ImGuiHoveredFlags(1 << 4);
     public static ImGuiHoveredFlags AllowWhenBlockedByActiveItem = new ImGuiHoveredFlags(1 << 5);
     public static ImGuiHoveredFlags AllowWhenOverlapped = new ImGuiHoveredFlags(1 << 6);
     public static ImGuiHoveredFlags AllowWhenDisabled = new ImGuiHoveredFlags(1 << 7);

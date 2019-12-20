@@ -16,8 +16,8 @@ public class ImGuiTreeNodeFlags {
     public static ImGuiTreeNodeFlags Leaf = new ImGuiTreeNodeFlags(1 << 8);
     public static ImGuiTreeNodeFlags Bullet = new ImGuiTreeNodeFlags(1 << 9);
     public static ImGuiTreeNodeFlags FramePadding = new ImGuiTreeNodeFlags(1 << 10);
-    //	public static ImGuiTreeNodeFlags SpanAllAvailWidth = new ImGuiTreeNodeFlags(1 << 11);
-//	public static ImGuiTreeNodeFlags NoScrollOnOpen = new ImGuiTreeNodeFlags(1 << 12);
+    //    public static ImGuiTreeNodeFlags SpanAllAvailWidth = new ImGuiTreeNodeFlags(1 << 11);
+//    public static ImGuiTreeNodeFlags NoScrollOnOpen = new ImGuiTreeNodeFlags(1 << 12);
     public static ImGuiTreeNodeFlags NavLeftJumpsBackHere = new ImGuiTreeNodeFlags(1 << 13);
     public static ImGuiTreeNodeFlags CollapsingHeader = new ImGuiTreeNodeFlags(Framed.getValue() | NoTreePushOnOpen.getValue() | NoAutoOpenOnLog.getValue());
     private static ImGuiTreeNodeFlags Custom = new ImGuiTreeNodeFlags(0);

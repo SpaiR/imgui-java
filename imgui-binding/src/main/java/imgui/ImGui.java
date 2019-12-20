@@ -41,6 +41,10 @@ public class ImGui {
         Native.CreateContext();
     }
 
+    public static void destroy() {
+        Native.DestroyContext();
+    }
+
     public static ImGuiIO GetIO() {
         return imguiIO;
     }
@@ -69,10 +73,24 @@ public class ImGui {
         Native.ShowMetricsWindow(open);
     }
 
-    public static void UpdateDisplayAndInputAndFrame(float deltaTime, float w, float h, float backBufferWidth, float backBufferHeight,
-                                                     int mouseX, int mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2) {
-        Native.UpdateDisplayAndInputAndFrame(imguiIO, imguiStyle, deltaTime, w, h, backBufferWidth, backBufferHeight,
-                mouseX, mouseY, mouseDown0, mouseDown1, mouseDown2, false, false, false);
+    public static void UpdateDisplaySize(float width, float height, float frameBufferWidth, float frameBufferHeight) {
+        Native.UpdateDisplaySize(width, height, frameBufferWidth, frameBufferHeight);
+    }
+
+    public static void UpdateMousePos(float mouseX, float mouseY) {
+        Native.UpdateMousePos(mouseX, mouseY);
+    }
+
+    public static void UpdateMouseState(boolean mouseDown0, boolean mouseDown1, boolean mouseDown2, boolean mouseDown3, boolean mouseDown4, boolean mouseDown5) {
+        Native.UpdateMouseState(mouseDown0, mouseDown1, mouseDown2, mouseDown3, mouseDown4, mouseDown5);
+    }
+
+    public static void UpdateImGui() {
+        Native.UpdateImGui(imguiIO, imguiStyle);
+    }
+
+    public static void UpdateDeltaTime(float deltaTime) {
+        Native.UpdateDeltaTime(deltaTime);
     }
 
     public static void initKeyMap(int[] keys) {
@@ -80,15 +98,23 @@ public class ImGui {
     }
 
     public static void UpdateKey(int key, boolean pressed, boolean released, boolean ctrlKey, boolean shiftKey, boolean altKey, boolean superKey) {
-        Native.updateKey(key, pressed, released, ctrlKey, shiftKey, altKey, superKey);
+        Native.UpdateKey(key, pressed, released, ctrlKey, shiftKey, altKey, superKey);
     }
 
     public static void UpdateScroll(float amountX, float amountY) {
-        Native.updateScroll(amountX, amountY);
+        Native.UpdateScroll(amountX, amountY);
     }
 
     public static void UpdateKeyTyped(int c) {
-        Native.updateKeyTyped(c);
+        Native.UpdateKeyTyped(c);
+    }
+
+    public static void NewFrame() {
+        Native.NewFrame();
+    }
+
+    public static void EndFrame() {
+        Native.EndFrame();
     }
 
     public static void Render() {
@@ -248,6 +274,10 @@ public class ImGui {
         Native.SetNextWindowPos(x, y);
     }
 
+    public static void SetNextWindowPos(float x, float y, ImGuiCond cond) {
+        Native.SetNextWindowPos(x, y, cond.getValue());
+    }
+
     public static void SetNextWindowPos(float x, float y, ImGuiCond cond, float pivotX, float pivotY) {
         Native.SetNextWindowPos(x, y, cond.getValue(), pivotX, pivotY);
     }
@@ -287,10 +317,11 @@ public class ImGui {
     }
 
     public static void SetWindowFocus(String name) {
-        if (name == null)
+        if (name == null) {
             Native.RemoveWindowFocus();
-        else
+        } else {
             Native.SetWindowFocus(name);
+        }
     }
 
     // Content region
@@ -841,9 +872,9 @@ public class ImGui {
     }
 
     //TODO impl
-//	public static boolean DragScalar(String label, ImGuiDataType_ data_type, ImGuiInt v, ImGuiInt v_current_max, float v_speed, float v_min, float v_max, String format, String format_max) {
-//		return ImGuiNative.DragScalar(label, data_type.getValue(), v.data, v_current_max.data, v_speed, v_min, v_max, format, format_max);
-//	}
+//    public static boolean DragScalar(String label, ImGuiDataType_ data_type, ImGuiInt v, ImGuiInt v_current_max, float v_speed, float v_min, float v_max, String format, String format_max) {
+//        return ImGuiNative.DragScalar(label, data_type.getValue(), v.data, v_current_max.data, v_speed, v_min, v_max, format, format_max);
+//    }
 
 
     // Widgets: Sliders

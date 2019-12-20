@@ -10,10 +10,10 @@ import java.util.Objects;
 import static org.lwjgl.opengl.GL30.*;
 
 /**
- * This class mostly a straightforward port of the https://raw.githubusercontent.com/ocornut/imgui/v1.74/examples/imgui_impl_opengl3.cpp adapted to Java and LWJGL realms.
+ * This class mostly a straightforward port of the https://raw.githubusercontent.com/ocornut/imgui/v1.74/examples/imgui_impl_opengl3.cpp adapted for Java and LWJGL realms.
  * <p>
  * It do support a backup of the current GL state before rendering and restoring of its initial state after.
- * But some specific state variables may be missed (all which are hidden under '#ifdef' macros in the original imgui file).
+ * But some specific state variables may be missed (all which are hidden under '#ifdef' macros in the original 'imgui_impl_opengl3.cpp' file).
  * <p>
  * By default this implementation uses shaders with 130 version of GLSL (OpenGL 3.0).
  * You can provide your own shaders into the {@link ImGuiImplGl3#init(CharSequence, CharSequence)} method.
@@ -55,7 +55,7 @@ public class ImGuiImplGl3 {
 
     /**
      * This method SHOULD be called before calling of {@link ImGuiImplGl3#render(DrawData)} method.
-     * By using this method shaders with 130 version of GLSL will be used for render.
+     * By using this method shaders with 130 version of GLSL (OpenGL 3.0) will be used for render.
      */
     public void init() {
         final CharSequence fragShaderSource = readFromResources("default.frag");
@@ -86,8 +86,8 @@ public class ImGuiImplGl3 {
         }
 
         // Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer coordinates)
-        int fbWidth = (int) (drawData.displaySizeX * drawData.framebufferScaleX);
-        int fbHeight = (int) (drawData.displaySizeY * drawData.framebufferScaleY);
+        final int fbWidth = (int) (drawData.displaySizeX * drawData.framebufferScaleX);
+        final int fbHeight = (int) (drawData.displaySizeY * drawData.framebufferScaleY);
 
         if (fbWidth <= 0 || fbHeight <= 0) {
             return;
@@ -169,7 +169,7 @@ public class ImGuiImplGl3 {
     }
 
     /**
-     * Call this method in the end of your app working state to clear used resources.
+     * Call this method in the end of your app working state to dispose resources.
      */
     public void dispose() {
         glDeleteTextures(gFontTexture);
@@ -196,7 +196,7 @@ public class ImGuiImplGl3 {
     }
 
     private void prepareFont() {
-        TexDataRGBA32 texData = new TexDataRGBA32();
+        final TexDataRGBA32 texData = new TexDataRGBA32();
         ImGui.GetTexDataAsRGBA32(texData, texData.pixelBuffer);
 
         gFontTexture = glGenTextures();
@@ -314,20 +314,23 @@ public class ImGuiImplGl3 {
     }
 
     private int loadAndCompileShader(final int type, final CharSequence source) {
-        int id = glCreateShader(type);
+        final int id = glCreateShader(type);
+
         glShaderSource(id, source);
         glCompileShader(id);
+
         if (glGetShaderi(id, GL_COMPILE_STATUS) != GL_TRUE) {
             throw new IllegalStateException(glGetShaderInfoLog(id));
         }
+
         return id;
     }
 
     private CharSequence readFromResources(final String path) {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
 
-        try (InputStream in = getClass().getClassLoader().getResourceAsStream(path);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(in)))) {
+        try (final InputStream in = getClass().getClassLoader().getResourceAsStream(path);
+             final BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(in)))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 builder.append(line).append('\n');
