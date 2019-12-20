@@ -2,6 +2,7 @@ import org.gradle.internal.os.OperatingSystem
 
 plugins {
     id 'java'
+    id 'checkstyle'
 }
 
 sourceCompatibility = 1.8

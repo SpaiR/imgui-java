@@ -1,6 +1,9 @@
 import imgui.ImGui;
 import imgui.ImGuiString;
-import imgui.enums.*;
+import imgui.enums.ImGuiCond;
+import imgui.enums.ImGuiInputTextFlags;
+import imgui.enums.ImGuiKey;
+import imgui.enums.ImGuiTreeNodeFlags;
 import imgui.gl3.ImGuiImplGl3;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -12,11 +15,12 @@ import java.util.Objects;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
-public class ImGuiGlfwExample {
+@SuppressWarnings("MagicNumber")
+public final class ImGuiGlfwExample {
     private static final int DEFAULT_WIDTH = 1024;
     private static final int DEFAULT_HEIGHT = 768;
 
@@ -34,7 +38,7 @@ public class ImGuiGlfwExample {
     private final double[] mousePosX = new double[1];
     private final double[] mousePosY = new double[1];
 
-    // TODO: move this into ImGuiIO.KeysDown
+    // TODO move this into ImGuiIO.KeysDown
     private boolean ctrlKeyDown;
     private boolean shiftKeyDown;
     private boolean altKeyDown;
@@ -75,7 +79,7 @@ public class ImGuiGlfwExample {
         }
 
         // Get the thread stack and push a new frame
-        try (final MemoryStack stack = stackPush()) {
+        try (MemoryStack stack = stackPush()) {
             final IntBuffer pWidth = stack.mallocInt(1); // int*
             final IntBuffer pHeight = stack.mallocInt(1); // int*
 
@@ -83,7 +87,7 @@ public class ImGuiGlfwExample {
             glfwGetWindowSize(window, pWidth, pHeight);
 
             // Get the resolution of the primary monitor
-            GLFWVidMode vidmode = Objects.requireNonNull(glfwGetVideoMode(glfwGetPrimaryMonitor()));
+            final GLFWVidMode vidmode = Objects.requireNonNull(glfwGetVideoMode(glfwGetPrimaryMonitor()));
 
             // Center the window
             glfwSetWindowPos(window, (vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2);

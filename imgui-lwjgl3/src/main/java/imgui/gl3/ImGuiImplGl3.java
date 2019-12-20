@@ -4,13 +4,18 @@ import imgui.DrawData;
 import imgui.ImGui;
 import imgui.TexDataRGBA32;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UncheckedIOException;
 import java.util.Objects;
 
 import static org.lwjgl.opengl.GL30.*;
 
 /**
- * This class mostly a straightforward port of the https://raw.githubusercontent.com/ocornut/imgui/v1.74/examples/imgui_impl_opengl3.cpp adapted for Java and LWJGL realms.
+ * This class mostly a straightforward port of the https://raw.githubusercontent.com/ocornut/imgui/v1.74/examples/imgui_impl_opengl3.cpp
+ * adapted for Java and LWJGL realms.
  * <p>
  * It do support a backup of the current GL state before rendering and restoring of its initial state after.
  * But some specific state variables may be missed (all which are hidden under '#ifdef' macros in the original 'imgui_impl_opengl3.cpp' file).
@@ -18,7 +23,8 @@ import static org.lwjgl.opengl.GL30.*;
  * By default this implementation uses shaders with 130 version of GLSL (OpenGL 3.0).
  * You can provide your own shaders into the {@link ImGuiImplGl3#init(CharSequence, CharSequence)} method.
  */
-public class ImGuiImplGl3 {
+@SuppressWarnings("MagicNumber")
+public final class ImGuiImplGl3 {
     private int vBufferHandle = 0;
     private int iBufferHandle = 0;
 
@@ -240,12 +246,12 @@ public class ImGuiImplGl3 {
         glBindBuffer(GL_ARRAY_BUFFER, lastArrayBuffer[0]);
         glBlendEquationSeparate(lastBlendEquationRgb[0], lastBlendEquationAlpha[0]);
         glBlendFuncSeparate(lastBlendSrcRgb[0], lastBlendDstRgb[0], lastBlendSrcAlpha[0], lastBlendDstAlpha[0]);
-        // @formatter:off
+        // @formatter:off CHECKSTYLE:OFF
         if (lastEnableBlend) glEnable(GL_BLEND); else glDisable(GL_BLEND);
         if (lastEnableCullFace) glEnable(GL_CULL_FACE); else glDisable(GL_CULL_FACE);
         if (lastEnableDepthTest) glEnable(GL_DEPTH_TEST); else glDisable(GL_DEPTH_TEST);
         if (lastEnableScissorTest) glEnable(GL_SCISSOR_TEST); else glDisable(GL_SCISSOR_TEST);
-        // @formatter:on
+        // @formatter:on CHECKSTYLE:ON
         glViewport(lastViewport[0], lastViewport[1], lastViewport[2], lastViewport[3]);
         glScissor(lastScissorBox[0], lastScissorBox[1], lastScissorBox[2], lastScissorBox[3]);
     }
@@ -260,17 +266,17 @@ public class ImGuiImplGl3 {
         glDisable(GL_DEPTH_TEST);
         glEnable(GL_SCISSOR_TEST);
 
-        final float L = drawData.displayPosX;
-        final float R = drawData.displayPosX + drawData.displaySizeX;
-        final float T = drawData.displayPosY;
-        final float B = drawData.displayPosY + drawData.displaySizeY;
+        final float left = drawData.displayPosX;
+        final float right = drawData.displayPosX + drawData.displaySizeX;
+        final float top = drawData.displayPosY;
+        final float bottom = drawData.displayPosY + drawData.displaySizeY;
 
         // Orthographic matrix projection
-        projMatrix[0] = 2.0f / (R - L);
-        projMatrix[5] = 2.0f / (T - B);
+        projMatrix[0] = 2.0f / (right - left);
+        projMatrix[5] = 2.0f / (top - bottom);
         projMatrix[10] = -1.0f;
-        projMatrix[12] = (R + L) / (L - R);
-        projMatrix[13] = (T + B) / (B - T);
+        projMatrix[12] = (right + left) / (left - right);
+        projMatrix[13] = (top + bottom) / (bottom - top);
         projMatrix[15] = 1.0f;
 
         // Bind vertices
@@ -329,8 +335,8 @@ public class ImGuiImplGl3 {
     private CharSequence readFromResources(final String path) {
         final StringBuilder builder = new StringBuilder();
 
-        try (final InputStream in = getClass().getClassLoader().getResourceAsStream(path);
-             final BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(in)))) {
+        try (InputStream in = getClass().getClassLoader().getResourceAsStream(path);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(in)))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 builder.append(line).append('\n');
