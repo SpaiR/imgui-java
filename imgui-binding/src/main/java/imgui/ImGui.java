@@ -1568,6 +1568,14 @@ public class ImGui {
         return Native.IsMouseHoveringRect(minX, minY, maxX, maxY, clip);
     }
 
+    public static ImGuiMouseCursor GetMouseCursor() {
+        return ImGuiMouseCursor.valueOf(Native.GetMouseCursor());
+    }
+
+    public static void SetMouseCursor(ImGuiMouseCursor type) {
+        Native.SetMouseCursor(type.getValue());
+    }
+
     // Internal methods
 
     public static void PushMultiItemsWidths(int components, float w_full) {

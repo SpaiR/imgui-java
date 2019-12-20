@@ -20,8 +20,7 @@ import static org.lwjgl.opengl.GL30.*;
  * It do support a backup of the current GL state before rendering and restoring of its initial state after.
  * But some specific state variables may be missed (all which are hidden under '#ifdef' macros in the original 'imgui_impl_opengl3.cpp' file).
  * <p>
- * By default this implementation uses shaders with 130 version of GLSL (OpenGL 3.0).
- * You can provide your own shaders into the {@link ImGuiImplGl3#init(CharSequence, CharSequence)} method.
+ * This implementation uses shaders with 130 version of GLSL (OpenGL 3.0).
  */
 @SuppressWarnings("MagicNumber")
 public final class ImGuiImplGl3 {
@@ -61,23 +60,9 @@ public final class ImGuiImplGl3 {
 
     /**
      * This method SHOULD be called before calling of {@link ImGuiImplGl3#render(DrawData)} method.
-     * By using this method shaders with 130 version of GLSL (OpenGL 3.0) will be used for render.
      */
     public void init() {
-        final CharSequence fragShaderSource = readFromResources("default.frag");
-        final CharSequence vertShaderSource = readFromResources("default.vert");
-        prepareShader(fragShaderSource, vertShaderSource);
-        prepareFont();
-    }
-
-    /**
-     * This method SHOULD be called before calling of {@link ImGuiImplGl3#render(DrawData)} method.
-     *
-     * @param fragShaderSource fragment shader to use for render
-     * @param vertShaderSource vertex shader to use for render
-     */
-    public void init(final CharSequence fragShaderSource, final CharSequence vertShaderSource) {
-        prepareShader(fragShaderSource, vertShaderSource);
+        prepareShader();
         prepareFont();
     }
 
@@ -187,7 +172,10 @@ public final class ImGuiImplGl3 {
         glDeleteProgram(programId);
     }
 
-    private void prepareShader(final CharSequence fragShaderSource, final CharSequence vertShaderSource) {
+    private void prepareShader() {
+        final CharSequence fragShaderSource = readFromResources("default.frag");
+        final CharSequence vertShaderSource = readFromResources("default.vert");
+
         fragmentShaderId = loadAndCompileShader(GL_FRAGMENT_SHADER, fragShaderSource);
         vertexShaderId = loadAndCompileShader(GL_VERTEX_SHADER, vertShaderSource);
 

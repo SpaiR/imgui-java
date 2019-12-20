@@ -1,5 +1,7 @@
 package imgui;
 
+import imgui.enums.ImGuiMouseCursor;
+
 import java.nio.Buffer;
 
 /**
@@ -2146,6 +2148,14 @@ class Native {
 
     static native boolean IsMouseHoveringRect(float minX, float minY, float maxX, float maxY, boolean clip); /*
         return ImGui::IsMouseHoveringRect(ImVec2(minX, minY), ImVec2(maxX, maxY), clip);
+    */
+
+    static native int GetMouseCursor(); /*
+        return (int)ImGui::GetMouseCursor();
+    */
+
+    static native void SetMouseCursor(int type); /*
+        ImGui::SetMouseCursor(type);
     */
 
     // @formatter:on

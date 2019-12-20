@@ -3,6 +3,7 @@ import imgui.ImGuiString;
 import imgui.enums.ImGuiCond;
 import imgui.enums.ImGuiInputTextFlags;
 import imgui.enums.ImGuiKey;
+import imgui.enums.ImGuiMouseCursor;
 import imgui.enums.ImGuiTreeNodeFlags;
 import imgui.gl3.ImGuiImplGl3;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -24,8 +25,6 @@ public final class ImGuiGlfwExample {
     private static final int DEFAULT_WIDTH = 1024;
     private static final int DEFAULT_HEIGHT = 768;
 
-    private static final ImGuiString IMGUI_DEMO_LINK = new ImGuiString("https://raw.githubusercontent.com/ocornut/imgui/v1.74/imgui_demo.cpp");
-
     private long window; // current GLFW window ID
 
     // Those are used to track window size properties
@@ -44,7 +43,13 @@ public final class ImGuiGlfwExample {
     private boolean altKeyDown;
     private boolean superKeyDown;
 
+    private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT.getValue()];
+
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+
+    // Local app variables go here
+    private final ImGuiString imguiDemoLink = new ImGuiString("https://raw.githubusercontent.com/ocornut/imgui/v1.74/imgui_demo.cpp");
+    private int clickCount = 0;
 
     public void run() {
         initGlfw();
@@ -70,6 +75,7 @@ public final class ImGuiGlfwExample {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE); // the window will be maximized
+        glfwWindowHint(GLFW_DECORATED, GLFW_TRUE); // the window will be decorated
 
         // Create the window
         window = glfwCreateWindow(DEFAULT_WIDTH, DEFAULT_HEIGHT, "ImGui+GLFW+LWJGL Example", NULL, NULL);
@@ -97,6 +103,7 @@ public final class ImGuiGlfwExample {
         glfwSwapInterval(GLFW_TRUE); // Enable v-sync
         glfwShowWindow(window); // Make the window visible
 
+        // IMPORTANT!!
         // This line is critical for LWJGL's interoperation with GLFW's
         // OpenGL context, or any context that is managed externally.
         // LWJGL detects the context that is current in the current thread,
@@ -107,6 +114,7 @@ public final class ImGuiGlfwExample {
 
     // Here we will initialize ImGui stuff.
     private void initImGui() {
+        // IMPORTANT!!
         // This line is critical for ImGui to work.
         // It loads native library, creates ImGui context and does other necessary stuff.
         ImGui.init();
@@ -141,6 +149,16 @@ public final class ImGuiGlfwExample {
         keys[ImGuiKey.Y.code] = GLFW_KEY_Y;
         keys[ImGuiKey.Z.code] = GLFW_KEY_Z;
         ImGui.initKeyMap(keys);
+
+        // Mouse cursors mapping
+        mouseCursors[ImGuiMouseCursor.Arrow.getValue()] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+        mouseCursors[ImGuiMouseCursor.TextInput.getValue()] = glfwCreateStandardCursor(GLFW_IBEAM_CURSOR);
+        mouseCursors[ImGuiMouseCursor.ResizeAll.getValue()] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+        mouseCursors[ImGuiMouseCursor.ResizeNS.getValue()] = glfwCreateStandardCursor(GLFW_VRESIZE_CURSOR);
+        mouseCursors[ImGuiMouseCursor.ResizeEW.getValue()] = glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR);
+        mouseCursors[ImGuiMouseCursor.ResizeNESW.getValue()] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+        mouseCursors[ImGuiMouseCursor.ResizeNWSE.getValue()] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+        mouseCursors[ImGuiMouseCursor.Hand.getValue()] = glfwCreateStandardCursor(GLFW_HAND_CURSOR);
 
         // Here goes GLFW callbacks to update user input stuff in ImGui
         glfwSetKeyCallback(window, (w, key, scancode, action, mods) -> {
@@ -210,9 +228,15 @@ public final class ImGuiGlfwExample {
             ImGui.UpdateMousePos((float) mousePosX[0], (float) mousePosY[0]);
             ImGui.UpdateDeltaTime((float) deltaTime);
 
+            // Update mouse cursor
+            final ImGuiMouseCursor imguiCursor = ImGui.GetMouseCursor();
+            glfwSetCursor(window, mouseCursors[imguiCursor.getValue()]);
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
             // Render itself starts here
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
+            // IMPORTANT!!
             // Any ImGui code SHOULD go between NewFrame()/Render() methods
             ImGui.NewFrame();
 
@@ -221,6 +245,14 @@ public final class ImGuiGlfwExample {
 
             ImGui.Begin("Custom window");
             ImGui.Text("Hello from Java!");
+            if (ImGui.Button("Click")) {
+                clickCount++;
+            }
+            if (ImGui.IsItemHovered()) {
+                ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
+            }
+            ImGui.SameLine();
+            ImGui.Text("Count: " + clickCount);
             ImGui.Separator();
 
             ImGui.BeginChild("##custom_window_child", 200, 50);
@@ -233,11 +265,14 @@ public final class ImGuiGlfwExample {
             ImGui.Separator();
             ImGui.Text("Consider to look the original ImGui demo: ");
             ImGui.SetNextItemWidth(500);
-            ImGui.InputText("##input_to_copy_link", IMGUI_DEMO_LINK, ImGuiInputTextFlags.ReadOnly);
+            ImGui.InputText("##input_to_copy_link", imguiDemoLink, ImGuiInputTextFlags.ReadOnly);
+            if (ImGui.IsItemHovered()) {
+                ImGui.SetMouseCursor(ImGuiMouseCursor.TextInput);
+            }
             ImGui.SameLine();
             ImGui.Text("(?)");
             if (ImGui.IsItemHovered()) {
-                ImGui.SetTooltip("You can copy and paste this link");
+                ImGui.SetTooltip("You can copy and paste this link to browser");
             }
             ImGui.End();
 
@@ -260,6 +295,10 @@ public final class ImGuiGlfwExample {
     }
 
     private void destroyGlfw() {
+        for (long mouseCursor : mouseCursors) {
+            glfwDestroyCursor(mouseCursor);
+        }
+
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
         glfwTerminate();
