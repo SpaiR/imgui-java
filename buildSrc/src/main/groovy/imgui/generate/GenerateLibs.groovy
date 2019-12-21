@@ -24,7 +24,6 @@ class GenerateLibs extends DefaultTask {
         // Copy ImGui h/cpp files
         project.copy { CopySpec spec ->
             spec.from(project.rootProject.file('imgui')) { CopySpec it -> it.include('*.h', '*.cpp') }
-            spec.from(project.file('src/main/native'))
             spec.into(jniDir)
         }
 

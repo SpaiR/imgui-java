@@ -5,8 +5,6 @@ import imgui.enums.*;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
-//import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
-
 public class ImGui {
     private static final String LIB_NAME_PROP = "imgui.library.name";
     private static final String LIB_NAME_DEFAULT = "imgui-java";
@@ -1574,19 +1572,5 @@ public class ImGui {
 
     public static void SetMouseCursor(ImGuiMouseCursor type) {
         Native.SetMouseCursor(type.getValue());
-    }
-
-    // Internal methods
-
-    public static void PushMultiItemsWidths(int components, float w_full) {
-        NativeInternal.PushMultiItemsWidths(components, w_full);
-    }
-
-    public static void ItemAdd(float x1, float y1, float x2, float y2, String id) {
-        NativeInternal.ItemAdd(x1, y1, x2, y2, id);
-    }
-
-    public static void ItemSize(float x1, float y1, float x2, float y2, float text_offset_y) {
-        NativeInternal.ItemSize(x1, y1, x2, y2, text_offset_y);
     }
 }
