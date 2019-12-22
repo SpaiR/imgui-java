@@ -3,7 +3,7 @@ package imgui.enums;
 /**
  * Flags for ImGui::Begin()
  */
-public class ImGuiWindowFlags {
+public final class ImGuiWindowFlags {
     public static ImGuiWindowFlags None = new ImGuiWindowFlags(0);
     public static ImGuiWindowFlags NoTitleBar = new ImGuiWindowFlags(1 << 0);
     public static ImGuiWindowFlags NoResize = new ImGuiWindowFlags(1 << 1);

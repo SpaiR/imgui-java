@@ -3,7 +3,7 @@ package imgui.enums;
 /**
  * Flags for ImGui::IsWindowFocused()
  */
-public class ImGuiFocusedFlags {
+public final class ImGuiFocusedFlags {
     public static ImGuiFocusedFlags None = new ImGuiFocusedFlags(0);
     public static ImGuiFocusedFlags ChildWindows = new ImGuiFocusedFlags(1 << 0);
     public static ImGuiFocusedFlags RootWindow = new ImGuiFocusedFlags(1 << 1);

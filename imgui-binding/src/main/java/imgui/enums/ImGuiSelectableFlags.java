@@ -3,7 +3,7 @@ package imgui.enums;
 /**
  * Flags for ImGui::Selectable()
  */
-public class ImGuiSelectableFlags {
+public final class ImGuiSelectableFlags {
     public static ImGuiSelectableFlags None = new ImGuiSelectableFlags(0);
     public static ImGuiSelectableFlags DontClosePopups = new ImGuiSelectableFlags(1 << 0);
     public static ImGuiSelectableFlags SpanAllColumns = new ImGuiSelectableFlags(1 << 1);

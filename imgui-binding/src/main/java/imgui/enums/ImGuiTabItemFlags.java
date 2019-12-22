@@ -3,7 +3,7 @@ package imgui.enums;
 /**
  * Flags for ImGui::BeginTabItem()
  */
-public class ImGuiTabItemFlags {
+public final class ImGuiTabItemFlags {
     public static ImGuiTabItemFlags None = new ImGuiTabItemFlags(0);
     public static ImGuiTabItemFlags UnsavedDocument = new ImGuiTabItemFlags(1 << 0);
     public static ImGuiTabItemFlags SetSelected = new ImGuiTabItemFlags(1 << 1);

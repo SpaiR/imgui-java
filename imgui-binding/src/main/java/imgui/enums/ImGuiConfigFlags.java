@@ -3,7 +3,7 @@ package imgui.enums;
 /**
  * Configuration flags stored in io.ConfigFlags. Set by user/application.
  */
-public class ImGuiConfigFlags {
+public final class ImGuiConfigFlags {
     public static ImGuiConfigFlags None = new ImGuiConfigFlags(0);
     public static ImGuiConfigFlags NavEnableKeyboard = new ImGuiConfigFlags(1 << 0);
     public static ImGuiConfigFlags NavEnableGamepad = new ImGuiConfigFlags(1 << 1);

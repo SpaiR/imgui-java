@@ -1,10 +1,14 @@
+import imgui.ImBool;
 import imgui.ImGui;
-import imgui.ImGuiString;
+import imgui.ImGuiIO;
+import imgui.ImString;
+import imgui.enums.ImGuiBackendFlags;
+import imgui.enums.ImGuiColorEditFlags;
 import imgui.enums.ImGuiCond;
+import imgui.enums.ImGuiConfigFlags;
 import imgui.enums.ImGuiInputTextFlags;
 import imgui.enums.ImGuiKey;
 import imgui.enums.ImGuiMouseCursor;
-import imgui.enums.ImGuiTreeNodeFlags;
 import imgui.gl3.ImGuiImplGl3;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -25,7 +29,7 @@ public final class ImGuiGlfwExample {
     private static final int DEFAULT_WIDTH = 1024;
     private static final int DEFAULT_HEIGHT = 768;
 
-    private long window; // current GLFW window ID
+    private long window; // current GLFW window pointer
 
     // Those are used to track window size properties
     private final int[] winWidth = new int[1];
@@ -37,19 +41,19 @@ public final class ImGuiGlfwExample {
     private final double[] mousePosX = new double[1];
     private final double[] mousePosY = new double[1];
 
-    // TODO move this into ImGuiIO.KeysDown
-    private boolean ctrlKeyDown;
-    private boolean shiftKeyDown;
-    private boolean altKeyDown;
-    private boolean superKeyDown;
-
+    // Mouse cursors provided by GLFW
     private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT.getValue()];
 
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
 
     // Local app variables go here
-    private final ImGuiString imguiDemoLink = new ImGuiString("https://raw.githubusercontent.com/ocornut/imgui/v1.74/imgui_demo.cpp");
+    private final ImString imguiDemoLink = new ImString("https://raw.githubusercontent.com/ocornut/imgui/v1.74/imgui_demo.cpp");
+    private float[] backgroundColor = new float[]{0.5f, 0, 0};
     private int clickCount = 0;
+    private final byte[] testPayload = "Test Payload".getBytes();
+    private String dropTargetText = "Drop Here";
+
+    private final ImBool showDemoWindow = new ImBool();
 
     public void run() {
         initGlfw();
@@ -116,39 +120,47 @@ public final class ImGuiGlfwExample {
     private void initImGui() {
         // IMPORTANT!!
         // This line is critical for ImGui to work.
-        // It loads native library, creates ImGui context and does other necessary stuff.
-        ImGui.init();
+        ImGui.CreateContext();
 
         // ImGui provides three different color schemas for styling. We will use the classic one here.
         ImGui.StyleColorsClassic();
         // ImGui.StyleColorsDark(); // This is a default style for ImGui
         // ImGui.StyleColorsLight();
 
+        // Initialize ImGuiIO config
+        final ImGuiIO io = ImGui.GetIO();
+
+        io.setIniFilename(null);
+        io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard.getValue());
+        io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors.getValue());
+        io.setBackendPlatformName("imgui_java_impl_glfw");
+        io.setBackendRendererName("imgui_java_impl_lwjgl");
+
         // Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array.
-        final int[] keys = new int[ImGuiKey.COUNT.code];
-        keys[ImGuiKey.Tab.code] = GLFW_KEY_TAB;
-        keys[ImGuiKey.LeftArrow.code] = GLFW_KEY_LEFT;
-        keys[ImGuiKey.RightArrow.code] = GLFW_KEY_RIGHT;
-        keys[ImGuiKey.UpArrow.code] = GLFW_KEY_UP;
-        keys[ImGuiKey.DownArrow.code] = GLFW_KEY_DOWN;
-        keys[ImGuiKey.PageUp.code] = GLFW_KEY_PAGE_UP;
-        keys[ImGuiKey.PageDown.code] = GLFW_KEY_PAGE_DOWN;
-        keys[ImGuiKey.Home.code] = GLFW_KEY_HOME;
-        keys[ImGuiKey.End.code] = GLFW_KEY_END;
-        keys[ImGuiKey.Insert.code] = GLFW_KEY_INSERT;
-        keys[ImGuiKey.Delete.code] = GLFW_KEY_DELETE;
-        keys[ImGuiKey.Backspace.code] = GLFW_KEY_BACKSPACE;
-        keys[ImGuiKey.Space.code] = GLFW_KEY_SPACE;
-        keys[ImGuiKey.Enter.code] = GLFW_KEY_ENTER;
-        keys[ImGuiKey.Escape.code] = GLFW_KEY_ESCAPE;
-        keys[ImGuiKey.KeyPadEnter.code] = GLFW_KEY_KP_ENTER;
-        keys[ImGuiKey.A.code] = GLFW_KEY_A;
-        keys[ImGuiKey.C.code] = GLFW_KEY_C;
-        keys[ImGuiKey.V.code] = GLFW_KEY_V;
-        keys[ImGuiKey.X.code] = GLFW_KEY_X;
-        keys[ImGuiKey.Y.code] = GLFW_KEY_Y;
-        keys[ImGuiKey.Z.code] = GLFW_KEY_Z;
-        ImGui.initKeyMap(keys);
+        final int[] keyMap = new int[ImGuiKey.COUNT.code];
+        keyMap[ImGuiKey.Tab.code] = GLFW_KEY_TAB;
+        keyMap[ImGuiKey.LeftArrow.code] = GLFW_KEY_LEFT;
+        keyMap[ImGuiKey.RightArrow.code] = GLFW_KEY_RIGHT;
+        keyMap[ImGuiKey.UpArrow.code] = GLFW_KEY_UP;
+        keyMap[ImGuiKey.DownArrow.code] = GLFW_KEY_DOWN;
+        keyMap[ImGuiKey.PageUp.code] = GLFW_KEY_PAGE_UP;
+        keyMap[ImGuiKey.PageDown.code] = GLFW_KEY_PAGE_DOWN;
+        keyMap[ImGuiKey.Home.code] = GLFW_KEY_HOME;
+        keyMap[ImGuiKey.End.code] = GLFW_KEY_END;
+        keyMap[ImGuiKey.Insert.code] = GLFW_KEY_INSERT;
+        keyMap[ImGuiKey.Delete.code] = GLFW_KEY_DELETE;
+        keyMap[ImGuiKey.Backspace.code] = GLFW_KEY_BACKSPACE;
+        keyMap[ImGuiKey.Space.code] = GLFW_KEY_SPACE;
+        keyMap[ImGuiKey.Enter.code] = GLFW_KEY_ENTER;
+        keyMap[ImGuiKey.Escape.code] = GLFW_KEY_ESCAPE;
+        keyMap[ImGuiKey.KeyPadEnter.code] = GLFW_KEY_KP_ENTER;
+        keyMap[ImGuiKey.A.code] = GLFW_KEY_A;
+        keyMap[ImGuiKey.C.code] = GLFW_KEY_C;
+        keyMap[ImGuiKey.V.code] = GLFW_KEY_V;
+        keyMap[ImGuiKey.X.code] = GLFW_KEY_X;
+        keyMap[ImGuiKey.Y.code] = GLFW_KEY_Y;
+        keyMap[ImGuiKey.Z.code] = GLFW_KEY_Z;
+        io.setKeyMap(keyMap);
 
         // Mouse cursors mapping
         mouseCursors[ImGuiMouseCursor.Arrow.getValue()] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
@@ -162,42 +174,44 @@ public final class ImGuiGlfwExample {
 
         // Here goes GLFW callbacks to update user input stuff in ImGui
         glfwSetKeyCallback(window, (w, key, scancode, action, mods) -> {
-            final boolean isKeyDown = action == GLFW_PRESS;
-
-            if (key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_RIGHT_CONTROL) {
-                ctrlKeyDown = isKeyDown;
-            } else if (key == GLFW_KEY_LEFT_SHIFT || key == GLFW_KEY_RIGHT_SHIFT) {
-                shiftKeyDown = isKeyDown;
-            } else if (key == GLFW_KEY_LEFT_ALT || key == GLFW_KEY_RIGHT_ALT) {
-                altKeyDown = isKeyDown;
-            } else if (key == GLFW_KEY_LEFT_SUPER || key == GLFW_KEY_RIGHT_SUPER) {
-                superKeyDown = isKeyDown;
+            if (action == GLFW_PRESS) {
+                io.setKeysDown(key, true);
+            } else if (action == GLFW_RELEASE) {
+                io.setKeysDown(key, false);
             }
 
-            ImGui.UpdateKey(key, isKeyDown, action == GLFW_RELEASE, ctrlKeyDown, shiftKeyDown, altKeyDown, superKeyDown);
+            io.setKeyCtrl(io.getKeysDown(GLFW_KEY_LEFT_CONTROL) || io.getKeysDown(GLFW_KEY_RIGHT_CONTROL));
+            io.setKeyShift(io.getKeysDown(GLFW_KEY_LEFT_SHIFT) || io.getKeysDown(GLFW_KEY_RIGHT_SHIFT));
+            io.setKeyAlt(io.getKeysDown(GLFW_KEY_LEFT_ALT) || io.getKeysDown(GLFW_KEY_RIGHT_ALT));
+            io.setKeySuper(io.getKeysDown(GLFW_KEY_LEFT_SUPER) || io.getKeysDown(GLFW_KEY_RIGHT_SUPER));
         });
 
         glfwSetCharCallback(window, (w, c) -> {
             if (c != GLFW_KEY_DELETE) {
-                ImGui.UpdateKeyTyped(c);
+                io.AddInputCharacter(c);
             }
         });
 
         glfwSetMouseButtonCallback(window, (w, button, action, mods) -> {
-            final boolean mouseDown0 = button == GLFW_MOUSE_BUTTON_1 && action != GLFW_RELEASE;
-            final boolean mouseDown1 = button == GLFW_MOUSE_BUTTON_2 && action != GLFW_RELEASE;
-            final boolean mouseDown2 = button == GLFW_MOUSE_BUTTON_3 && action != GLFW_RELEASE;
-            final boolean mouseDown3 = button == GLFW_MOUSE_BUTTON_4 && action != GLFW_RELEASE;
-            final boolean mouseDown4 = button == GLFW_MOUSE_BUTTON_5 && action != GLFW_RELEASE;
-            final boolean mouseDown5 = button == GLFW_MOUSE_BUTTON_6 && action != GLFW_RELEASE;
-            ImGui.UpdateMouseState(mouseDown0, mouseDown1, mouseDown2, mouseDown3, mouseDown4, mouseDown5);
+            final boolean[] mouseDown = new boolean[5];
 
-            if (!ImGui.GetIO().WantCaptureMouse && mouseDown1) {
+            mouseDown[0] = button == GLFW_MOUSE_BUTTON_1 && action != GLFW_RELEASE;
+            mouseDown[1] = button == GLFW_MOUSE_BUTTON_2 && action != GLFW_RELEASE;
+            mouseDown[2] = button == GLFW_MOUSE_BUTTON_3 && action != GLFW_RELEASE;
+            mouseDown[3] = button == GLFW_MOUSE_BUTTON_4 && action != GLFW_RELEASE;
+            mouseDown[4] = button == GLFW_MOUSE_BUTTON_5 && action != GLFW_RELEASE;
+
+            io.setMouseDown(mouseDown);
+
+            if (!io.getWantCaptureMouse() && mouseDown[1]) {
                 ImGui.SetWindowFocus(null);
             }
         });
 
-        glfwSetScrollCallback(window, (w, xOffset, yOffset) -> ImGui.UpdateScroll((float) xOffset, (float) yOffset));
+        glfwSetScrollCallback(window, (w, xOffset, yOffset) -> {
+            io.setMouseWheelH(io.getMouseWheelH() + (float) xOffset);
+            io.setMouseWheel(io.getMouseWheel() + (float) yOffset);
+        });
 
         // Initialize renderer itself
         imGuiGl3.init();
@@ -206,15 +220,15 @@ public final class ImGuiGlfwExample {
     private void loop() {
         double time = 0; // to track our frame delta value
 
-        // Set the clear color
-        glClearColor(0.5f, 0.0f, 0.0f, 0.0f);
-
         // Run the rendering loop until the user has attempted to close the window
         while (!glfwWindowShouldClose(window)) {
             // Count frame delta value
             final double currentTime = glfwGetTime();
             final double deltaTime = (time > 0) ? (currentTime - time) : 1f / 60f;
             time = currentTime;
+
+            // Set the clear color
+            glClearColor(backgroundColor[0], backgroundColor[1], backgroundColor[2], 0.0f);
 
             // Get window size properties and mouse position
             glfwGetWindowSize(window, winWidth, winHeight);
@@ -223,14 +237,15 @@ public final class ImGuiGlfwExample {
 
             // IMPORTANT!!
             // We SHOULD call those methods to update ImGui state for current frame
-            ImGui.UpdateImGui();
-            ImGui.UpdateDisplaySize(winWidth[0], winHeight[0], fbWidth[0], fbHeight[0]);
-            ImGui.UpdateMousePos((float) mousePosX[0], (float) mousePosY[0]);
-            ImGui.UpdateDeltaTime((float) deltaTime);
+            final ImGuiIO io = ImGui.GetIO();
+            io.setDisplaySize(winWidth[0], winHeight[0]);
+            io.setDisplayFramebufferScale((float) fbWidth[0] / winWidth[0], (float) fbHeight[0] / winHeight[0]);
+            io.setMousePos((float) mousePosX[0], (float) mousePosY[0]);
+            io.setDeltaTime((float) deltaTime);
 
             // Update mouse cursor
-            final ImGuiMouseCursor imguiCursor = ImGui.GetMouseCursor();
-            glfwSetCursor(window, mouseCursors[imguiCursor.getValue()]);
+            final int imguiCursor = ImGui.GetMouseCursor();
+            glfwSetCursor(window, mouseCursors[imguiCursor]);
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
             // Render itself starts here
@@ -239,44 +254,13 @@ public final class ImGuiGlfwExample {
             // IMPORTANT!!
             // Any ImGui code SHOULD go between NewFrame()/Render() methods
             ImGui.NewFrame();
-
-            ImGui.SetNextWindowSize(600, 200, ImGuiCond.Once);
-            ImGui.SetNextWindowPos(10, 10, ImGuiCond.Once);
-
-            ImGui.Begin("Custom window");
-            ImGui.Text("Hello from Java!");
-            if (ImGui.Button("Click")) {
-                clickCount++;
-            }
-            if (ImGui.IsItemHovered()) {
-                ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
-            }
-            ImGui.SameLine();
-            ImGui.Text("Count: " + clickCount);
-            ImGui.Separator();
-
-            ImGui.BeginChild("##custom_window_child", 200, 50);
-            if (ImGui.TreeNode("Simple..")) {
-                ImGui.TreeNodeEx("..tree", ImGuiTreeNodeFlags.Leaf.or(ImGuiTreeNodeFlags.Bullet).or(ImGuiTreeNodeFlags.NoTreePushOnOpen));
-                ImGui.TreePop();
-            }
-            ImGui.EndChild();
-
-            ImGui.Separator();
-            ImGui.Text("Consider to look the original ImGui demo: ");
-            ImGui.SetNextItemWidth(500);
-            ImGui.InputText("##input_to_copy_link", imguiDemoLink, ImGuiInputTextFlags.ReadOnly);
-            if (ImGui.IsItemHovered()) {
-                ImGui.SetMouseCursor(ImGuiMouseCursor.TextInput);
-            }
-            ImGui.SameLine();
-            ImGui.Text("(?)");
-            if (ImGui.IsItemHovered()) {
-                ImGui.SetTooltip("You can copy and paste this link to browser");
-            }
+            showUi();
             ImGui.End();
 
-            ImGui.ShowDemoWindow();
+            if (showDemoWindow.get()) {
+                ImGui.ShowDemoWindow(showDemoWindow);
+            }
+
             ImGui.Render();
 
             imGuiGl3.render(ImGui.GetDrawData()); // render DrawData from ImGui into our OpenGL context
@@ -288,10 +272,61 @@ public final class ImGuiGlfwExample {
         }
     }
 
+    private void showUi() {
+        ImGui.SetNextWindowSize(600, 210, ImGuiCond.Once.getValue());
+        ImGui.SetNextWindowPos(10, 10, ImGuiCond.FirstUseEver.getValue());
+
+        ImGui.Begin("Custom window");
+        ImGui.Text("Hello from Java!");
+        ImGui.Button("Drag me");
+        if (ImGui.BeginDragDropSource()) {
+            ImGui.SetDragDropPayload("payload_type", testPayload, testPayload.length);
+            ImGui.Text("Drag started");
+            ImGui.EndDragDropSource();
+        }
+        ImGui.SameLine();
+        ImGui.Text(dropTargetText);
+        if (ImGui.BeginDragDropTarget()) {
+            final byte[] payload = ImGui.AcceptDragDropPayload("payload_type");
+            if (payload != null) {
+                dropTargetText = new String(payload);
+            }
+            ImGui.EndDragDropTarget();
+        }
+
+        ImGui.AlignTextToFramePadding();
+        ImGui.Text("Background color:");
+        ImGui.SameLine();
+        ImGui.ColorEdit3("##click_counter_col", backgroundColor, ImGuiColorEditFlags.NoInputs.or(ImGuiColorEditFlags.NoDragDrop).getValue());
+        if (ImGui.Button("Click")) {
+            clickCount++;
+        }
+        if (ImGui.IsItemHovered()) {
+            ImGui.SetMouseCursor(ImGuiMouseCursor.Hand.getValue());
+        }
+        ImGui.SameLine();
+        ImGui.Text("Count: " + clickCount);
+        ImGui.Checkbox("Show demo window", showDemoWindow);
+        ImGui.NewLine();
+
+        ImGui.Separator();
+        ImGui.Text("Consider to look the original ImGui demo: ");
+        ImGui.SetNextItemWidth(500);
+        ImGui.InputText("##input_to_copy_link", imguiDemoLink, ImGuiInputTextFlags.ReadOnly);
+        if (ImGui.IsItemHovered()) {
+            ImGui.SetMouseCursor(ImGuiMouseCursor.TextInput.getValue());
+        }
+        ImGui.SameLine();
+        ImGui.Text("(?)");
+        if (ImGui.IsItemHovered()) {
+            ImGui.SetTooltip("You can copy and paste this link to browser");
+        }
+    }
+
     // If you want to clean a room after yourself - do it by yourself
     private void destroyImGui() {
         imGuiGl3.dispose();
-        ImGui.destroy();
+        ImGui.DestroyContext();
     }
 
     private void destroyGlfw() {

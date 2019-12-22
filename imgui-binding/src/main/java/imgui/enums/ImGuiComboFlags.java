@@ -3,7 +3,7 @@ package imgui.enums;
 /**
  * Flags for ImGui::BeginCombo()
  */
-public class ImGuiComboFlags {
+public final class ImGuiComboFlags {
     public static ImGuiComboFlags None = new ImGuiComboFlags(0);
     public static ImGuiComboFlags PopupAlignLeft = new ImGuiComboFlags(1 << 0);
     public static ImGuiComboFlags HeightSmall = new ImGuiComboFlags(1 << 1);

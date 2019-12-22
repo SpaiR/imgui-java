@@ -28,5 +28,5 @@ public enum ImGuiKey {
     Z,
     COUNT;
 
-    public final int code = ordinal();
+    public int code = ordinal();
 }

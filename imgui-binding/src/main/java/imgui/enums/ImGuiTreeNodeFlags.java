@@ -3,7 +3,7 @@ package imgui.enums;
 /**
  * Flags for ImGui::TreeNodeEx(), ImGui::CollapsingHeader*()
  */
-public class ImGuiTreeNodeFlags {
+public final class ImGuiTreeNodeFlags {
     public static ImGuiTreeNodeFlags None = new ImGuiTreeNodeFlags(0);
     public static ImGuiTreeNodeFlags Selected = new ImGuiTreeNodeFlags(1 << 0);
     public static ImGuiTreeNodeFlags Framed = new ImGuiTreeNodeFlags(1 << 1);

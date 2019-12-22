@@ -22,9 +22,10 @@ public enum ImGuiNavInput {
     FocusPrev(12),
     FocusNext(13),
     TweakSlow(14),
-    TweakFast(15);
+    TweakFast(15),
+    COUNT(16);
 
-    private final int code;
+    private int code;
 
     ImGuiNavInput(int code) {
         this.code = code;

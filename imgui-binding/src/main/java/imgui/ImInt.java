@@ -1,14 +1,14 @@
 package imgui;
 
-public class ImGuiInt {
-    public static ImGuiInt TMP = new ImGuiInt();
+public final class ImInt {
+    public static ImInt TMP = new ImInt();
 
     int[] data = new int[]{0};
 
-    public ImGuiInt() {
+    public ImInt() {
     }
 
-    public ImGuiInt(int value) {
+    public ImInt(int value) {
         setValue(value);
     }
 

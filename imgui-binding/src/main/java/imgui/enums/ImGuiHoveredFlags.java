@@ -5,7 +5,7 @@ package imgui.enums;
  * Note: if you are trying to check whether your mouse should be dispatched to imgui or to your app, you should use the 'io.WantCaptureMouse' boolean for that. Please read the FAQ!
  * Note: windows with the ImGuiWindowFlags_NoInputs flag are ignored by IsWindowHovered() calls.
  */
-public class ImGuiHoveredFlags {
+public final class ImGuiHoveredFlags {
     public static ImGuiHoveredFlags None = new ImGuiHoveredFlags(0);
     public static ImGuiHoveredFlags ChildWindows = new ImGuiHoveredFlags(1 << 0);
     public static ImGuiHoveredFlags RootWindow = new ImGuiHoveredFlags(1 << 1);

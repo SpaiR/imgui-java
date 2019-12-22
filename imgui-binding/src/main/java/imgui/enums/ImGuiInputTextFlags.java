@@ -3,7 +3,7 @@ package imgui.enums;
 /**
  * Flags for ImGui::InputText()
  */
-public class ImGuiInputTextFlags {
+public final class ImGuiInputTextFlags {
     public static ImGuiInputTextFlags None = new ImGuiInputTextFlags(0);
     /**
      * Allow 0123456789.+-*

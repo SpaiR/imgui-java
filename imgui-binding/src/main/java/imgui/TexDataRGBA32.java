@@ -1,18 +1,48 @@
 package imgui;
 
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-public class TexDataRGBA32 {
+public final class TexDataRGBA32 {
     public int width;
     public int height;
 
     public ByteBuffer pixelBuffer;
 
-    public TexDataRGBA32() {
+    private TexDataRGBA32() {
         int pixelMax = 131072;
-        ByteBuffer buffer = ByteBuffer.allocateDirect(pixelMax);
-        buffer.order(ByteOrder.nativeOrder());
-        pixelBuffer = buffer;
+        pixelBuffer = ByteBuffer.allocateDirect(pixelMax).order(ByteOrder.nativeOrder());
     }
+
+    public static TexDataRGBA32 create() {
+        TexDataRGBA32 data = new TexDataRGBA32();
+        data.nFillData(data.pixelBuffer);
+        return data;
+    }
+
+    /*JNI
+        #include <imgui.h>
+     */
+
+    private native void nFillData(Buffer pixelBuffer); /*
+        jclass jTexDataClass = env->GetObjectClass(object);
+
+        if(jTexDataClass == NULL)
+            return;
+
+        jfieldID widthID = env->GetFieldID(jTexDataClass, "width", "I");
+        jfieldID heightID = env->GetFieldID(jTexDataClass, "height", "I");
+
+        unsigned char* pixels;
+        int width, height;
+
+        ImGuiIO& io = ImGui::GetIO();
+        io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
+
+        env->SetIntField(object, widthID, width);
+        env->SetIntField(object, heightID, height);
+
+        memcpy(pixelBuffer, pixels, width * height * 4);
+    */
 }

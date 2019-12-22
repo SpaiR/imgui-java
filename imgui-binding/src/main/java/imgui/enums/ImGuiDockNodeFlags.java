@@ -1,6 +1,6 @@
 package imgui.enums;
 
-public class ImGuiDockNodeFlags {
+public final class ImGuiDockNodeFlags {
     public static ImGuiDockNodeFlags KeepAliveOnly = new ImGuiDockNodeFlags(1 << 0);
     public static ImGuiDockNodeFlags NoDockingInCentralNode = new ImGuiDockNodeFlags(1 << 2);
     public static ImGuiDockNodeFlags PassthruCentralNode = new ImGuiDockNodeFlags(1 << 3);

@@ -4,7 +4,7 @@ package imgui.enums;
  * Enumeration for GetMouseCursor()
  * User code may request binding to display given cursor by calling SetMouseCursor(), which is why we have some cursors that are marked unused here
  */
-public class ImGuiColorEditFlags {
+public final class ImGuiColorEditFlags {
     public static ImGuiColorEditFlags None = new ImGuiColorEditFlags(0);
     public static ImGuiColorEditFlags NoAlpha = new ImGuiColorEditFlags(1 << 1);
     public static ImGuiColorEditFlags NoPicker = new ImGuiColorEditFlags(1 << 2);

@@ -5,7 +5,7 @@ package imgui.enums;
  * Represent a condition.
  * Important: Treat as a regular enum! Do NOT combine multiple values using binary operators! All the functions above treat 0 as a shortcut to ImGuiCond_Always.
  */
-public class ImGuiCond {
+public final class ImGuiCond {
     public static ImGuiCond Always = new ImGuiCond(1 << 0);
     public static ImGuiCond Once = new ImGuiCond(1 << 1);
     public static ImGuiCond FirstUseEver = new ImGuiCond(1 << 2);

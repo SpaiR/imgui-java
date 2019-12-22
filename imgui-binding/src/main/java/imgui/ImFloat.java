@@ -1,14 +1,14 @@
 package imgui;
 
-public class ImGuiFloat {
-    public static ImGuiFloat TMP = new ImGuiFloat();
+public final class ImFloat {
+    public static ImFloat TMP = new ImFloat();
 
     float[] data = new float[]{0.0f};
 
-    public ImGuiFloat() {
+    public ImFloat() {
     }
 
-    public ImGuiFloat(float value) {
+    public ImFloat(float value) {
         setValue(value);
     }
 

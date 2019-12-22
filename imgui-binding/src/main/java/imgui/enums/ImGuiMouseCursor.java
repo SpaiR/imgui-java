@@ -22,10 +22,6 @@ public enum ImGuiMouseCursor {
         value = code;
     }
 
-    public int getValue() {
-        return value;
-    }
-
     public static ImGuiMouseCursor valueOf(int value) {
         for (ImGuiMouseCursor cursor : values()) {
             if (cursor.value == value) {
@@ -33,5 +29,9 @@ public enum ImGuiMouseCursor {
             }
         }
         throw new IllegalArgumentException("Invalid cursor value: " + value);
+    }
+
+    public int getValue() {
+        return value;
     }
 }

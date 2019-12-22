@@ -1,6 +1,6 @@
 package imgui.gl3;
 
-import imgui.DrawData;
+import imgui.ImDrawData;
 import imgui.ImGui;
 import imgui.TexDataRGBA32;
 
@@ -59,7 +59,7 @@ public final class ImGuiImplGl3 {
     private boolean lastEnableScissorTest = false;
 
     /**
-     * This method SHOULD be called before calling of {@link ImGuiImplGl3#render(DrawData)} method.
+     * This method SHOULD be called before calling of {@link ImGuiImplGl3#render(ImDrawData)} method.
      */
     public void init() {
         prepareShader();
@@ -67,11 +67,11 @@ public final class ImGuiImplGl3 {
     }
 
     /**
-     * Method which renders {@link DrawData} from ImGui.
+     * Method which renders {@link ImDrawData} from ImGui.
      *
      * @param drawData data used to draw ImGui interface to your current OpenGL context
      */
-    public void render(final DrawData drawData) {
+    public void render(final ImDrawData drawData) {
         if (drawData.cmdListsCount <= 0) {
             return;
         }
@@ -113,8 +113,8 @@ public final class ImGuiImplGl3 {
             drawData.vByteBuffer.position(verticesStartOffset);
             drawData.iByteBuffer.position(indexStartOffset);
 
-            final int newVlimit = verticesStartOffset + verticesSize * DrawData.vBufferSize;
-            final int newIlimit = indexStartOffset + indexSize * DrawData.iBufferSize;
+            final int newVlimit = verticesStartOffset + verticesSize * ImDrawData.V_BUFFER_SIZE;
+            final int newIlimit = indexStartOffset + indexSize * ImDrawData.I_BUFFER_SIZE;
 
             drawData.vByteBuffer.limit(newVlimit);
             drawData.iByteBuffer.limit(newIlimit);
@@ -122,8 +122,8 @@ public final class ImGuiImplGl3 {
             glBufferData(GL_ARRAY_BUFFER, drawData.vByteBuffer, GL_STATIC_DRAW);
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, drawData.iByteBuffer, GL_STATIC_DRAW);
 
-            verticesOffset += ((verticesSize) * DrawData.vBufferSize) + 4;
-            indexOffset += ((indexSize) * DrawData.iBufferSize) + 2;
+            verticesOffset += ((verticesSize) * ImDrawData.V_BUFFER_SIZE) + 4;
+            indexOffset += ((indexSize) * ImDrawData.I_BUFFER_SIZE) + 2;
 
             final float clipOffX = drawData.displayPosX; // (0,0) unless using multi-viewports
             final float clipOffY = drawData.displayPosY;
@@ -190,8 +190,7 @@ public final class ImGuiImplGl3 {
     }
 
     private void prepareFont() {
-        final TexDataRGBA32 texData = new TexDataRGBA32();
-        ImGui.GetTexDataAsRGBA32(texData, texData.pixelBuffer);
+        final TexDataRGBA32 texData = TexDataRGBA32.create();
 
         gFontTexture = glGenTextures();
 
@@ -202,7 +201,7 @@ public final class ImGuiImplGl3 {
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texData.width, texData.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData.pixelBuffer);
 
-        ImGui.SetFontTexID(gFontTexture);
+        ImGui.GetIO().SetFontsTexID(gFontTexture);
     }
 
     private void backupGlState() {
@@ -244,7 +243,7 @@ public final class ImGuiImplGl3 {
         glScissor(lastScissorBox[0], lastScissorBox[1], lastScissorBox[2], lastScissorBox[3]);
     }
 
-    private void bind(final DrawData drawData) {
+    private void bind(final ImDrawData drawData) {
         glViewport(0, 0, (int) drawData.displaySizeX, (int) drawData.displaySizeY);
         glActiveTexture(GL_TEXTURE0);
         glEnable(GL_BLEND);

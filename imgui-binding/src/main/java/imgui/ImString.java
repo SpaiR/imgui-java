@@ -1,25 +1,25 @@
 package imgui;
 
-public class ImGuiString {
-    public static ImGuiString TMP = new ImGuiString();
-    final ImGuiInputTextData inputData = new ImGuiInputTextData();
+public final class ImString {
+    public static ImString TMP = new ImString();
+    ImGuiInputTextData inputData = new ImGuiInputTextData();
     byte[] data;
     private String text;
 
-    public ImGuiString() {
+    public ImString() {
         this(100);
     }
 
-    public ImGuiString(int size) {
+    public ImString(int size) {
         data = new byte[size];
     }
 
-    public ImGuiString(String text) {
+    public ImString(String text) {
         this(text.length());
         setValue(text);
     }
 
-    public ImGuiString(String text, int size) {
+    public ImString(String text, int size) {
         this(size);
         setValue(text);
     }

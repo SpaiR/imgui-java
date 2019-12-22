@@ -3,7 +3,7 @@ package imgui.enums;
 /**
  * Flags for ImGui::BeginTabBar()
  */
-public class ImGuiTabBarFlags {
+public final class ImGuiTabBarFlags {
     public static ImGuiTabBarFlags None = new ImGuiTabBarFlags(0);
     public static ImGuiTabBarFlags Reorderable = new ImGuiTabBarFlags(1 << 0);
     public static ImGuiTabBarFlags AutoSelectNewTabs = new ImGuiTabBarFlags(1 << 1);

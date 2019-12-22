@@ -1,6 +1,6 @@
 package imgui.enums;
 
-public class ImDrawCornerFlags {
+public final class ImDrawCornerFlags {
     public static ImDrawCornerFlags TopLeft = new ImDrawCornerFlags(1 << 0);
     public static ImDrawCornerFlags TopRight = new ImDrawCornerFlags(1 << 1);
     public static ImDrawCornerFlags BotLeft = new ImDrawCornerFlags(1 << 2);

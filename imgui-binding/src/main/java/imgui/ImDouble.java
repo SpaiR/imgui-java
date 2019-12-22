@@ -1,14 +1,14 @@
 package imgui;
 
-public class ImGuiDouble {
-    public static ImGuiDouble TMP = new ImGuiDouble();
+public final class ImDouble {
+    public static ImDouble TMP = new ImDouble();
 
     double[] data = new double[]{0.0d};
 
-    public ImGuiDouble() {
+    public ImDouble() {
     }
 
-    public ImGuiDouble(double value) {
+    public ImDouble(double value) {
         setValue(value);
     }
 

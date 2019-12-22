@@ -8,7 +8,7 @@ public enum ImGuiDir {
     Down(3),
     COUNT(4);
 
-    private final int code;
+    private int code;
 
     ImGuiDir(int code) {
         this.code = code;
