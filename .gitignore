@@ -25,5 +25,4 @@ logs/
 .gradle/
 !gradle/wrapper/*.jar
 build/
-bin/
 out/
