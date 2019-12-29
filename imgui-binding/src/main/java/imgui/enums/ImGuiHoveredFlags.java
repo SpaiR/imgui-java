@@ -6,30 +6,18 @@ package imgui.enums;
  * Note: windows with the ImGuiWindowFlags_NoInputs flag are ignored by IsWindowHovered() calls.
  */
 public final class ImGuiHoveredFlags {
-    public static ImGuiHoveredFlags None = new ImGuiHoveredFlags(0);
-    public static ImGuiHoveredFlags ChildWindows = new ImGuiHoveredFlags(1 << 0);
-    public static ImGuiHoveredFlags RootWindow = new ImGuiHoveredFlags(1 << 1);
-    public static ImGuiHoveredFlags AnyWindow = new ImGuiHoveredFlags(1 << 2);
-    public static ImGuiHoveredFlags AllowWhenBlockedByPopup = new ImGuiHoveredFlags(1 << 3);
-    //    public static ImGuiHoveredFlags AllowWhenBlockedByModal = new ImGuiHoveredFlags(1 << 4);
-    public static ImGuiHoveredFlags AllowWhenBlockedByActiveItem = new ImGuiHoveredFlags(1 << 5);
-    public static ImGuiHoveredFlags AllowWhenOverlapped = new ImGuiHoveredFlags(1 << 6);
-    public static ImGuiHoveredFlags AllowWhenDisabled = new ImGuiHoveredFlags(1 << 7);
-    public static ImGuiHoveredFlags RectOnly = new ImGuiHoveredFlags(AllowWhenBlockedByPopup.getValue() | AllowWhenBlockedByActiveItem.getValue() | AllowWhenOverlapped.getValue());
-    public static ImGuiHoveredFlags RootAndChildWindows = new ImGuiHoveredFlags(RootWindow.getValue() | ChildWindows.getValue());
-    private static ImGuiHoveredFlags Custom = new ImGuiHoveredFlags(0);
-    int value;
-
-    private ImGuiHoveredFlags(int code) {
-        value = code;
+    private ImGuiHoveredFlags() {
     }
 
-    public ImGuiHoveredFlags or(ImGuiHoveredFlags otherEnum) {
-        ImGuiHoveredFlags.Custom.value = value | otherEnum.value;
-        return ImGuiHoveredFlags.Custom;
-    }
-
-    public int getValue() {
-        return value;
-    }
+    public static final int None = 0;                              // Return true if directly over the item/window, not obstructed by another window, not obstructed by an active popup or modal blocking inputs under them.
+    public static final int ChildWindows = 1;                      // IsWindowHovered() only: Return true if any children of the window is hovered
+    public static final int RootWindow = 1 << 1;                   // IsWindowHovered() only: Test from root window (top most parent of the current hierarchy)
+    public static final int AnyWindow = 1 << 2;                    // IsWindowHovered() only: Return true if any window is hovered
+    public static final int AllowWhenBlockedByPopup = 1 << 3;      // Return true even if a popup window is normally blocking access to this item/window
+    //ImGuiHoveredFlags_AllowWhenBlockedByModal     = 1 << 4,      // Return true even if a modal popup window is normally blocking access to this item/window. FIXME-TODO: Unavailable yet.
+    public static final int AllowWhenBlockedByActiveItem = 1 << 5; // Return true even if an active item is blocking access to this item/window. Useful for Drag and Drop patterns.
+    public static final int AllowWhenOverlapped = 1 << 6;          // Return true even if the position is obstructed or overlapped by another window
+    public static final int AllowWhenDisabled = 1 << 7;            // Return true even if the item is disabled
+    public static final int RectOnly = AllowWhenBlockedByPopup | AllowWhenBlockedByActiveItem | AllowWhenOverlapped;
+    public static final int RootAndChildWindows = RootWindow | ChildWindows;
 }

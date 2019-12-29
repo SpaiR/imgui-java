@@ -4,24 +4,12 @@ package imgui.enums;
  * Flags for ImGui::IsWindowFocused()
  */
 public final class ImGuiFocusedFlags {
-    public static ImGuiFocusedFlags None = new ImGuiFocusedFlags(0);
-    public static ImGuiFocusedFlags ChildWindows = new ImGuiFocusedFlags(1 << 0);
-    public static ImGuiFocusedFlags RootWindow = new ImGuiFocusedFlags(1 << 1);
-    public static ImGuiFocusedFlags AnyWindow = new ImGuiFocusedFlags(1 << 2);
-    public static ImGuiFocusedFlags RootAndChildWindows = new ImGuiFocusedFlags(RootWindow.getValue() | ChildWindows.getValue());
-    private static ImGuiFocusedFlags Custom = new ImGuiFocusedFlags(0);
-    int value;
-
-    private ImGuiFocusedFlags(int code) {
-        value = code;
+    private ImGuiFocusedFlags() {
     }
 
-    public ImGuiFocusedFlags or(ImGuiFocusedFlags otherEnum) {
-        ImGuiFocusedFlags.Custom.value = value | otherEnum.value;
-        return ImGuiFocusedFlags.Custom;
-    }
-
-    public int getValue() {
-        return value;
-    }
+    public static final int None = 0;
+    public static final int ChildWindows = 1;    // IsWindowFocused(): Return true if any children of the window is focused
+    public static final int RootWindow = 1 << 1; // IsWindowFocused(): Test from root window (top most parent of the current hierarchy)
+    public static final int AnyWindow = 1 << 2;  // IsWindowFocused(): Return true if any window is focused. Important: If you are trying to tell how to dispatch your low-level inputs, do NOT use this. Use ImGui::GetIO().WantCaptureMouse instead.
+    public static final int RootAndChildWindows = RootWindow | ChildWindows;
 }

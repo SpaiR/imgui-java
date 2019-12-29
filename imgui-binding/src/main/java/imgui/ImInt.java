@@ -1,27 +1,40 @@
 package imgui;
 
-public final class ImInt {
-    public static ImInt TMP = new ImInt();
+import java.util.Objects;
 
+public final class ImInt {
     int[] data = new int[]{0};
 
     public ImInt() {
     }
 
     public ImInt(int value) {
-        setValue(value);
+        set(value);
     }
 
-    public int getValue() {
+    public int get() {
         return this.data[0];
     }
 
-    public void setValue(int value) {
+    public void set(int value) {
         this.data[0] = value;
     }
 
     @Override
     public String toString() {
-        return String.valueOf(getValue());
+        return String.valueOf(get());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ImInt imInt = (ImInt) o;
+        return data[0] == imInt.data[0];
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(data[0]);
     }
 }

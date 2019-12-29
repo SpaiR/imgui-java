@@ -1,89 +1,60 @@
 package imgui.enums;
 
-public enum ImGuiCol {
-    Text(0),
-    TextDisabled(1),
-    /**
-     * Background of normal windows
-     */
-    WindowBg(2),
-    /**
-     * Background of child windows
-     */
-    ChildBg(3),
-    /**
-     * Background of popups, menus, tooltips windows
-     */
-    PopupBg(4),
-    Border(5),
-    BorderShadow(6),
-    /**
-     * Background of checkbox, radio button, plot, slider, text input
-     */
-    FrameBg(7),
-    FrameBgHovered(8),
-    FrameBgActive(9),
-    TitleBg(10),
-    TitleBgActive(11),
-    TitleBgCollapsed(12),
-    MenuBarBg(13),
-    ScrollbarBg(14),
-    ScrollbarGrab(15),
-    ScrollbarGrabHovered(16),
-    ScrollbarGrabActive(17),
-    CheckMark(18),
-    SliderGrab(19),
-    SliderGrabActive(20),
-    Button(21),
-    ButtonHovered(22),
-    ButtonActive(23),
-    Header(24),
-    HeaderHovered(25),
-    HeaderActive(26),
-    Separator(27),
-    SeparatorHovered(28),
-    SeparatorActive(29),
-    ResizeGrip(30),
-    ResizeGripHovered(31),
-    ResizeGripActive(32),
-    Tab(33),
-    TabHovered(34),
-    TabActive(35),
-    TabUnfocused(36),
-    TabUnfocusedActive(37),
-    DockingPrevie(38),
-    DockingEmptyBg(39),
-    PlotLines(40),
-    PlotLinesHovered(41),
-    PlotHistogram(42),
-    PlotHistogramHovered(43),
-    TextSelectedBg(44),
-    DragDropTarget(45),
-    /**
-     * Gamepad/keyboard: current highlighted item
-     */
-    NavHighlight(46),
-    /**
-     * Highlight window when using CTRL+TAB
-     */
-    NavWindowingHighlight(47),
-    /**
-     * Darken/colorize entire screen behind the CTRL+TAB window list, when active
-     */
-    NavWindowingDimBg(48),
-    /**
-     * Darken/colorize entire screen behind a modal window, when one is active
-     */
-    ModalWindowDimBg(49),
-    COUNT(48);
-
-    int value;
-
-    ImGuiCol(int code) {
-        value = code;
+/**
+ * Enumeration for PushStyleColor() / PopStyleColor()
+ */
+public final class ImGuiCol {
+    private ImGuiCol() {
     }
 
-    public int getValue() {
-        return value;
-    }
+    public static final int Text = 0;
+    public static final int TextDisabled = 1;
+    public static final int WindowBg = 2; // Background of normal windows
+    public static final int ChildBg = 3;  // Background of child windows
+    public static final int PopupBg = 4;  // Background of popups, menus, tooltips windows
+    public static final int Border = 5;
+    public static final int BorderShadow = 6;
+    public static final int FrameBg = 7;  // Background of checkbox, radio button, plot, slider, text input
+    public static final int FrameBgHovered = 8;
+    public static final int FrameBgActive = 9;
+    public static final int TitleBg = 10;
+    public static final int TitleBgActive = 11;
+    public static final int TitleBgCollapsed = 12;
+    public static final int MenuBarBg = 13;
+    public static final int ScrollbarBg = 14;
+    public static final int ScrollbarGrab = 15;
+    public static final int ScrollbarGrabHovered = 16;
+    public static final int ScrollbarGrabActive = 17;
+    public static final int CheckMark = 18;
+    public static final int SliderGrab = 19;
+    public static final int SliderGrabActive = 20;
+    public static final int Button = 21;
+    public static final int ButtonHovered = 22;
+    public static final int ButtonActive = 23;
+    public static final int Header = 24;  // Header* colors are used for CollapsingHeader, TreeNode, Selectable, MenuItem
+    public static final int HeaderHovered = 25;
+    public static final int HeaderActive = 26;
+    public static final int Separator = 27;
+    public static final int SeparatorHovered = 28;
+    public static final int SeparatorActive = 29;
+    public static final int ResizeGrip = 30;
+    public static final int ResizeGripHovered = 31;
+    public static final int ResizeGripActive = 32;
+    public static final int Tab = 33;
+    public static final int TabHovered = 34;
+    public static final int TabActive = 35;
+    public static final int TabUnfocused = 36;
+    public static final int TabUnfocusedActive = 37;
+    public static final int PlotLines = 38;
+    public static final int PlotLinesHovered = 39;
+    public static final int PlotHistogram = 40;
+    public static final int PlotHistogramHovered = 41;
+    public static final int TextSelectedBg = 42;
+    public static final int DragDropTarget = 43;
+    public static final int NavHighlight = 44;  // Gamepad/keyboard: current highlighted item
+    public static final int NavWindowingHighlight = 45;  // Highlight window when using CTRL+TAB
+    public static final int NavWindowingDimBg = 46;  // Darken/colorize entire screen behind the CTRL+TAB window list, when active
+    public static final int ModalWindowDimBg = 47;  // Darken/colorize entire screen behind a modal window, when one is active
+    public static final int COUNT = 48;
+
 }

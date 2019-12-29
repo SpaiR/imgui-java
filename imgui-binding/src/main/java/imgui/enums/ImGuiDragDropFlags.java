@@ -1,37 +1,23 @@
 package imgui.enums;
 
 /**
- * Flags for ImGui::IsItemHovered(), ImGui::IsWindowHovered()
- * Note: if you are trying to check whether your mouse should be dispatched to imgui or to your app, you should use the 'io.WantCaptureMouse' boolean for that. Please read the FAQ!
- * Note: windows with the ImGuiWindowFlags_NoInputs flag are ignored by IsWindowHovered() calls.
+ * Flags for ImGui::BeginDragDropSource(), ImGui::AcceptDragDropPayload()
  */
 public final class ImGuiDragDropFlags {
-    public static ImGuiDragDropFlags None = new ImGuiDragDropFlags(0);
+    private ImGuiDragDropFlags() {
+    }
+
+    public static final int None = 0;
     // BeginDragDropSource() flags
-    public static ImGuiDragDropFlags SourceNoPreviewTooltip = new ImGuiDragDropFlags(1 << 0);
-    public static ImGuiDragDropFlags SourceNoDisableHover = new ImGuiDragDropFlags(1 << 1);
-    public static ImGuiDragDropFlags SourceNoHoldToOpenOthers = new ImGuiDragDropFlags(1 << 2);
-    public static ImGuiDragDropFlags SourceAllowNullID = new ImGuiDragDropFlags(1 << 3);
-    public static ImGuiDragDropFlags SourceExtern = new ImGuiDragDropFlags(1 << 4);
-    public static ImGuiDragDropFlags SourceAutoExpirePayload = new ImGuiDragDropFlags(1 << 5);
+    public static final int SourceNoPreviewTooltip = 1;          // By default, a successful call to BeginDragDropSource opens a tooltip so you can display a preview or description of the source contents. This flag disable this behavior.
+    public static final int SourceNoDisableHover = 1 << 1;      // By default, when dragging we clear data so that IsItemHovered() will return false, to avoid subsequent user code submitting tooltips. This flag disable this behavior so you can still call IsItemHovered() on the source item.
+    public static final int SourceNoHoldToOpenOthers = 1 << 2;  // Disable the behavior that allows to open tree nodes and collapsing header by holding over them while dragging a source item.
+    public static final int SourceAllowNullID = 1 << 3;         // Allow items such as Text(), Image() that have no unique identifier to be used as drag source, by manufacturing a temporary identifier based on their window-relative position. This is extremely unusual within the dear imgui ecosystem and so we made it explicit.
+    public static final int SourceExtern = 1 << 4;              // External source (from outside of dear imgui), won't attempt to read current item/window info. Will always return true. Only one Extern source can be active simultaneously.
+    public static final int SourceAutoExpirePayload = 1 << 5;   // Automatically expire the payload if the source cease to be submitted (otherwise payloads are persisting while being dragged)
     // AcceptDragDropPayload() flags
-    public static ImGuiDragDropFlags AcceptBeforeDelivery = new ImGuiDragDropFlags(1 << 10);
-    public static ImGuiDragDropFlags AcceptNoDrawDefaultRect = new ImGuiDragDropFlags(1 << 11);
-    public static ImGuiDragDropFlags AcceptNoPreviewTooltip = new ImGuiDragDropFlags(1 << 12);
-    public static ImGuiDragDropFlags AcceptPeekOnly = new ImGuiDragDropFlags(AcceptBeforeDelivery.getValue() | AcceptNoDrawDefaultRect.getValue());
-    private static ImGuiDragDropFlags Custom = new ImGuiDragDropFlags(0);
-    int value;
-
-    private ImGuiDragDropFlags(int code) {
-        value = code;
-    }
-
-    public ImGuiDragDropFlags or(ImGuiDragDropFlags otherEnum) {
-        ImGuiDragDropFlags.Custom.value = value | otherEnum.value;
-        return ImGuiDragDropFlags.Custom;
-    }
-
-    public int getValue() {
-        return value;
-    }
+    public static final int AcceptBeforeDelivery = 1 << 10;     // AcceptDragDropPayload() will returns true even before the mouse button is released. You can then call IsDelivery() to test if the payload needs to be delivered.
+    public static final int AcceptNoDrawDefaultRect = 1 << 11;  // Do not draw the default highlight rectangle when hovering over target.
+    public static final int AcceptNoPreviewTooltip = 1 << 12;   // Request hiding the BeginDragDropSource tooltip from the BeginDragDropTarget site.
+    public static final int AcceptPeekOnly = AcceptBeforeDelivery | AcceptNoDrawDefaultRect;  // For peeking ahead and inspecting the payload before delivery.
 }

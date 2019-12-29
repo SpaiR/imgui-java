@@ -4,28 +4,16 @@ package imgui.enums;
  * Flags for ImGui::BeginCombo()
  */
 public final class ImGuiComboFlags {
-    public static ImGuiComboFlags None = new ImGuiComboFlags(0);
-    public static ImGuiComboFlags PopupAlignLeft = new ImGuiComboFlags(1 << 0);
-    public static ImGuiComboFlags HeightSmall = new ImGuiComboFlags(1 << 1);
-    public static ImGuiComboFlags HeightRegular = new ImGuiComboFlags(1 << 2);
-    public static ImGuiComboFlags HeightLarge = new ImGuiComboFlags(1 << 3);
-    public static ImGuiComboFlags HeightLargest = new ImGuiComboFlags(1 << 4);
-    public static ImGuiComboFlags NoArrowButton = new ImGuiComboFlags(1 << 5);
-    public static ImGuiComboFlags NoPreview = new ImGuiComboFlags(1 << 6);
-    public static ImGuiComboFlags HeightMask = new ImGuiComboFlags(HeightSmall.getValue() | HeightRegular.getValue() | HeightLarge.getValue() | HeightLargest.getValue());
-    private static ImGuiComboFlags Custom = new ImGuiComboFlags(0);
-    int value;
-
-    private ImGuiComboFlags(int code) {
-        value = code;
+    private ImGuiComboFlags() {
     }
 
-    public ImGuiComboFlags or(ImGuiComboFlags otherEnum) {
-        ImGuiComboFlags.Custom.value = value | otherEnum.value;
-        return ImGuiComboFlags.Custom;
-    }
-
-    public int getValue() {
-        return value;
-    }
+    public static final int None = 0;
+    public static final int PopupAlignLeft = 1;     // Align the popup toward the left by default
+    public static final int HeightSmall = 1 << 1;   // Max ~4 items visible. Tip: If you want your combo popup to be a specific size you can use SetNextWindowSizeConstraints() prior to calling BeginCombo()
+    public static final int HeightRegular = 1 << 2; // Max ~8 items visible (default)
+    public static final int HeightLarge = 1 << 3;   // Max ~20 items visible
+    public static final int HeightLargest = 1 << 4; // As many fitting items as possible
+    public static final int NoArrowButton = 1 << 5; // Display on the preview box without the square arrow button
+    public static final int NoPreview = 1 << 6;     // Display only a square arrow button
+    public static final int HeightMask_ = HeightSmall | HeightRegular | HeightLarge | HeightLargest;
 }

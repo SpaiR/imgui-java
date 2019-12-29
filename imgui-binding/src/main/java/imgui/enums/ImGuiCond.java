@@ -1,28 +1,16 @@
 package imgui.enums;
 
 /**
- * Enumateration for ImGui::SetWindow***(), SetNextWindow***(), SetNextTreeNode***() functions
+ * Enumateration for ImGui::SetWindow***(), SetNextWindow***(), SetNextItem***() functions
  * Represent a condition.
  * Important: Treat as a regular enum! Do NOT combine multiple values using binary operators! All the functions above treat 0 as a shortcut to ImGuiCond_Always.
  */
 public final class ImGuiCond {
-    public static ImGuiCond Always = new ImGuiCond(1 << 0);
-    public static ImGuiCond Once = new ImGuiCond(1 << 1);
-    public static ImGuiCond FirstUseEver = new ImGuiCond(1 << 2);
-    public static ImGuiCond Appearing = new ImGuiCond(1 << 3);
-    private static ImGuiCond Custom = new ImGuiCond(0);
-    int value;
-
-    private ImGuiCond(int code) {
-        value = code;
+    private ImGuiCond() {
     }
 
-    public ImGuiCond or(ImGuiCond otherEnum) {
-        ImGuiCond.Custom.value = value | otherEnum.value;
-        return ImGuiCond.Custom;
-    }
-
-    public int getValue() {
-        return value;
-    }
+    public static final int Always = 1 << 0;        // Set the variable
+    public static final int Once = 1 << 1;          // Set the variable once per runtime session (only the first call with succeed)
+    public static final int FirstUseEver = 1 << 2;  // Set the variable if the object/window has no persistently saved data (no entry in .ini file)
+    public static final int Appearing = 1 << 3;     // Set the variable if the object/window is appearing after being hidden/inactive (or the first time)
 }

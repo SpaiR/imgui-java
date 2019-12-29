@@ -1,28 +1,17 @@
 package imgui.enums;
 
 public final class ImDrawCornerFlags {
-    public static ImDrawCornerFlags TopLeft = new ImDrawCornerFlags(1 << 0);
-    public static ImDrawCornerFlags TopRight = new ImDrawCornerFlags(1 << 1);
-    public static ImDrawCornerFlags BotLeft = new ImDrawCornerFlags(1 << 2);
-    public static ImDrawCornerFlags BotRight = new ImDrawCornerFlags(1 << 3);
-    public static ImDrawCornerFlags Top = new ImDrawCornerFlags(TopLeft.getValue() | TopRight.getValue());
-    public static ImDrawCornerFlags Bot = new ImDrawCornerFlags(BotLeft.getValue() | BotRight.getValue());
-    public static ImDrawCornerFlags Left = new ImDrawCornerFlags(TopLeft.getValue() | BotLeft.getValue());
-    public static ImDrawCornerFlags Right = new ImDrawCornerFlags(TopRight.getValue() | BotRight.getValue());
-    public static ImDrawCornerFlags All = new ImDrawCornerFlags(0xF);
-    private static ImDrawCornerFlags Custom = new ImDrawCornerFlags(0);
-    int value;
-
-    private ImDrawCornerFlags(int code) {
-        value = code;
+    private ImDrawCornerFlags() {
     }
 
-    public ImDrawCornerFlags or(ImDrawCornerFlags otherEnum) {
-        ImDrawCornerFlags.Custom.value = value | otherEnum.value;
-        return ImDrawCornerFlags.Custom;
-    }
-
-    public int getValue() {
-        return value;
-    }
+    public static final int None = 0;
+    public static final int TopLeft = 1;  // 0x1
+    public static final int TopRight = 1 << 1; // 0x2
+    public static final int BotLeft = 1 << 2;  // 0x4
+    public static final int BotRight = 1 << 3; // 0x8
+    public static final int Top = TopLeft | TopRight;    // 0x3
+    public static final int Bot = BotLeft | BotRight;    // 0xC
+    public static final int Left = TopLeft | BotLeft;    // 0x5
+    public static final int Right = TopRight | BotRight; // 0xA
+    public static final int All = 0xF; // In your function calls you may use ~0 (= all bits sets) instead of All, as a convenience
 }

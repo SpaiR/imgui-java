@@ -4,23 +4,12 @@ package imgui.enums;
  * Back-end capabilities flags stored in io.BackendFlags. Set by imgui_impl_xxx or custom back-end.
  */
 public final class ImGuiBackendFlags {
-    public static ImGuiBackendFlags None = new ImGuiBackendFlags(0);
-    public static ImGuiBackendFlags HasGamepad = new ImGuiBackendFlags(1 << 0);
-    public static ImGuiBackendFlags HasMouseCursors = new ImGuiBackendFlags(1 << 1);
-    public static ImGuiBackendFlags HasSetMousePos = new ImGuiBackendFlags(1 << 2);
-    private static ImGuiBackendFlags Custom = new ImGuiBackendFlags(0);
-    int value;
-
-    private ImGuiBackendFlags(int code) {
-        value = code;
+    private ImGuiBackendFlags() {
     }
 
-    public ImGuiBackendFlags or(ImGuiBackendFlags otherEnum) {
-        ImGuiBackendFlags.Custom.value = value | otherEnum.value;
-        return ImGuiBackendFlags.Custom;
-    }
-
-    public int getValue() {
-        return value;
-    }
+    public static final int None = 0;
+    public static final int HasGamepad = 1;           // Back-end Platform supports gamepad and currently has one connected.
+    public static final int HasMouseCursors = 1 << 1;      // Back-end Platform supports honoring GetMouseCursor() value to change the OS cursor shape.
+    public static final int HasSetMousePos = 1 << 2;       // Back-end Platform supports io.WantSetMousePos requests to reposition the OS mouse position (only used if ImGuiConfigFlags_NavEnableSetMousePos is set).
+    public static final int RendererHasVtxOffset = 1 << 3; // Back-end Renderer supports ImDrawCmd::VtxOffset. This enables output of large meshes (64K+ vertices) while still using 16-bit indices.
 }

@@ -1,13 +1,16 @@
 package imgui;
 
+import java.util.Arrays;
+
 public final class ImString {
-    public static ImString TMP = new ImString();
+    private static final int DEFAULT_SIZE = 100;
+
     ImGuiInputTextData inputData = new ImGuiInputTextData();
     byte[] data;
     private String text;
 
     public ImString() {
-        this(100);
+        this(DEFAULT_SIZE);
     }
 
     public ImString(int size) {
@@ -16,15 +19,15 @@ public final class ImString {
 
     public ImString(String text) {
         this(text.length());
-        setValue(text);
+        set(text);
     }
 
     public ImString(String text, int size) {
         this(size);
-        setValue(text);
+        set(text);
     }
 
-    public String getValue() {
+    public String get() {
         if (inputData.isDirty) {
             inputData.isDirty = false;
             text = new String(data, 0, inputData.size);
@@ -32,7 +35,7 @@ public final class ImString {
         return text;
     }
 
-    public void setValue(String value) {
+    public void set(String value) {
         inputData.size = value.length();
         text = value;
         for (int i = 0; i < inputData.size; i++) {
@@ -42,6 +45,19 @@ public final class ImString {
 
     @Override
     public String toString() {
-        return getValue();
+        return get();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ImString imString = (ImString) o;
+        return Arrays.equals(data, imString.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(data);
     }
 }

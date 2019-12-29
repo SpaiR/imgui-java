@@ -1,20 +1,16 @@
 package imgui.enums;
 
-public enum ImGuiDir {
-    None(-1),
-    Left(0),
-    Right(1),
-    Up(2),
-    Down(3),
-    COUNT(4);
-
-    private int code;
-
-    ImGuiDir(int code) {
-        this.code = code;
+/**
+ * A cardinal direction
+ */
+public final class ImGuiDir {
+    private ImGuiDir() {
     }
 
-    public int toInt() {
-        return code;
-    }
+    public static final int None = -1;
+    public static final int Left = 0;
+    public static final int Right = 1;
+    public static final int Up = 2;
+    public static final int Down = 3;
+    public static final int COUNT = 5;
 }

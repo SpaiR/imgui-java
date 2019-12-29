@@ -1,27 +1,40 @@
 package imgui;
 
-public final class ImFloat {
-    public static ImFloat TMP = new ImFloat();
+import java.util.Objects;
 
+public final class ImFloat {
     float[] data = new float[]{0.0f};
 
     public ImFloat() {
     }
 
     public ImFloat(float value) {
-        setValue(value);
+        set(value);
     }
 
-    public float getValue() {
+    public float get() {
         return this.data[0];
     }
 
-    public void setValue(float value) {
+    public void set(float value) {
         this.data[0] = value;
     }
 
     @Override
     public String toString() {
-        return String.valueOf(getValue());
+        return String.valueOf(get());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ImFloat imFloat = (ImFloat) o;
+        return data[0] == imFloat.data[0];
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(data[0]);
     }
 }

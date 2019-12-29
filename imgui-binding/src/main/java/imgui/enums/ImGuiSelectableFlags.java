@@ -4,24 +4,13 @@ package imgui.enums;
  * Flags for ImGui::Selectable()
  */
 public final class ImGuiSelectableFlags {
-    public static ImGuiSelectableFlags None = new ImGuiSelectableFlags(0);
-    public static ImGuiSelectableFlags DontClosePopups = new ImGuiSelectableFlags(1 << 0);
-    public static ImGuiSelectableFlags SpanAllColumns = new ImGuiSelectableFlags(1 << 1);
-    public static ImGuiSelectableFlags AllowDoubleClick = new ImGuiSelectableFlags(1 << 2);
-    public static ImGuiSelectableFlags Disabled = new ImGuiSelectableFlags(1 << 3);
-    private static ImGuiSelectableFlags Custom = new ImGuiSelectableFlags(0);
-    int value;
-
-    private ImGuiSelectableFlags(int code) {
-        value = code;
+    private ImGuiSelectableFlags() {
     }
 
-    public ImGuiSelectableFlags or(ImGuiSelectableFlags otherEnum) {
-        ImGuiSelectableFlags.Custom.value = value | otherEnum.value;
-        return ImGuiSelectableFlags.Custom;
-    }
-
-    public int getValue() {
-        return value;
-    }
+    public static final int None = 0;
+    public static final int DontClosePopups = 1;       // Clicking this don't close parent popup window
+    public static final int SpanAllColumns = 1 << 1;   // Selectable frame can span all columns (text will still fit in current column)
+    public static final int AllowDoubleClick = 1 << 2; // Generate press events on double clicks too
+    public static final int Disabled = 1 << 3;         // Cannot be selected, display grayed out text
+    public static final int AllowItemOverlap = 1 << 4; // (WIP) Hit testing to allow subsequent widgets to overlap this one
 }

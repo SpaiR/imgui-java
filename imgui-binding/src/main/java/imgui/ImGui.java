@@ -2424,8 +2424,8 @@ public final class ImGui {
         return nInputText(label, text.data, text.data.length, 0, text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
     }
 
-    public static boolean InputText(String label, ImString text, ImGuiInputTextFlags flags) {
-        return nInputText(label, text.data, text.data.length, flags.getValue(), text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
+    public static boolean InputText(String label, ImString text, int imGuiInputTextFlags) {
+        return nInputText(label, text.data, text.data.length, imGuiInputTextFlags, text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
     }
 
     private static native boolean nInputText(String label, byte[] buff, int maxSize, int flags, ImGuiInputTextData textInputData, int maxChar, String allowedChar, int allowedCharLength); /*
@@ -2470,8 +2470,8 @@ public final class ImGui {
         return nInputTextMultiline(label, text.data, text.data.length, width, height, 0, text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
     }
 
-    public static boolean InputTextMultiline(String label, ImString text, float width, float height, ImGuiInputTextFlags flags) {
-        return nInputTextMultiline(label, text.data, text.data.length, width, height, flags.getValue(), text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
+    public static boolean InputTextMultiline(String label, ImString text, float width, float height, int imGuiInputTextFlags) {
+        return nInputTextMultiline(label, text.data, text.data.length, width, height, imGuiInputTextFlags, text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
     }
 
     private static native boolean nInputTextMultiline(String label, byte[] buff, int maxSize, float width, float height, int flags, ImGuiInputTextData textInputData, int maxChar, String allowedChar, int allowedCharLength); /*

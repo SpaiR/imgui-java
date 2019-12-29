@@ -42,7 +42,7 @@ public final class ImGuiGlfwExample {
     private final double[] mousePosY = new double[1];
 
     // Mouse cursors provided by GLFW
-    private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT.getValue()];
+    private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
 
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
 
@@ -131,46 +131,46 @@ public final class ImGuiGlfwExample {
         final ImGuiIO io = ImGui.GetIO();
 
         io.setIniFilename(null);
-        io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard.getValue());
-        io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors.getValue());
+        io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard);
+        io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors);
         io.setBackendPlatformName("imgui_java_impl_glfw");
         io.setBackendRendererName("imgui_java_impl_lwjgl");
 
         // Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array.
-        final int[] keyMap = new int[ImGuiKey.COUNT.code];
-        keyMap[ImGuiKey.Tab.code] = GLFW_KEY_TAB;
-        keyMap[ImGuiKey.LeftArrow.code] = GLFW_KEY_LEFT;
-        keyMap[ImGuiKey.RightArrow.code] = GLFW_KEY_RIGHT;
-        keyMap[ImGuiKey.UpArrow.code] = GLFW_KEY_UP;
-        keyMap[ImGuiKey.DownArrow.code] = GLFW_KEY_DOWN;
-        keyMap[ImGuiKey.PageUp.code] = GLFW_KEY_PAGE_UP;
-        keyMap[ImGuiKey.PageDown.code] = GLFW_KEY_PAGE_DOWN;
-        keyMap[ImGuiKey.Home.code] = GLFW_KEY_HOME;
-        keyMap[ImGuiKey.End.code] = GLFW_KEY_END;
-        keyMap[ImGuiKey.Insert.code] = GLFW_KEY_INSERT;
-        keyMap[ImGuiKey.Delete.code] = GLFW_KEY_DELETE;
-        keyMap[ImGuiKey.Backspace.code] = GLFW_KEY_BACKSPACE;
-        keyMap[ImGuiKey.Space.code] = GLFW_KEY_SPACE;
-        keyMap[ImGuiKey.Enter.code] = GLFW_KEY_ENTER;
-        keyMap[ImGuiKey.Escape.code] = GLFW_KEY_ESCAPE;
-        keyMap[ImGuiKey.KeyPadEnter.code] = GLFW_KEY_KP_ENTER;
-        keyMap[ImGuiKey.A.code] = GLFW_KEY_A;
-        keyMap[ImGuiKey.C.code] = GLFW_KEY_C;
-        keyMap[ImGuiKey.V.code] = GLFW_KEY_V;
-        keyMap[ImGuiKey.X.code] = GLFW_KEY_X;
-        keyMap[ImGuiKey.Y.code] = GLFW_KEY_Y;
-        keyMap[ImGuiKey.Z.code] = GLFW_KEY_Z;
+        final int[] keyMap = new int[ImGuiKey.COUNT];
+        keyMap[ImGuiKey.Tab] = GLFW_KEY_TAB;
+        keyMap[ImGuiKey.LeftArrow] = GLFW_KEY_LEFT;
+        keyMap[ImGuiKey.RightArrow] = GLFW_KEY_RIGHT;
+        keyMap[ImGuiKey.UpArrow] = GLFW_KEY_UP;
+        keyMap[ImGuiKey.DownArrow] = GLFW_KEY_DOWN;
+        keyMap[ImGuiKey.PageUp] = GLFW_KEY_PAGE_UP;
+        keyMap[ImGuiKey.PageDown] = GLFW_KEY_PAGE_DOWN;
+        keyMap[ImGuiKey.Home] = GLFW_KEY_HOME;
+        keyMap[ImGuiKey.End] = GLFW_KEY_END;
+        keyMap[ImGuiKey.Insert] = GLFW_KEY_INSERT;
+        keyMap[ImGuiKey.Delete] = GLFW_KEY_DELETE;
+        keyMap[ImGuiKey.Backspace] = GLFW_KEY_BACKSPACE;
+        keyMap[ImGuiKey.Space] = GLFW_KEY_SPACE;
+        keyMap[ImGuiKey.Enter] = GLFW_KEY_ENTER;
+        keyMap[ImGuiKey.Escape] = GLFW_KEY_ESCAPE;
+        keyMap[ImGuiKey.KeyPadEnter] = GLFW_KEY_KP_ENTER;
+        keyMap[ImGuiKey.A] = GLFW_KEY_A;
+        keyMap[ImGuiKey.C] = GLFW_KEY_C;
+        keyMap[ImGuiKey.V] = GLFW_KEY_V;
+        keyMap[ImGuiKey.X] = GLFW_KEY_X;
+        keyMap[ImGuiKey.Y] = GLFW_KEY_Y;
+        keyMap[ImGuiKey.Z] = GLFW_KEY_Z;
         io.setKeyMap(keyMap);
 
         // Mouse cursors mapping
-        mouseCursors[ImGuiMouseCursor.Arrow.getValue()] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
-        mouseCursors[ImGuiMouseCursor.TextInput.getValue()] = glfwCreateStandardCursor(GLFW_IBEAM_CURSOR);
-        mouseCursors[ImGuiMouseCursor.ResizeAll.getValue()] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
-        mouseCursors[ImGuiMouseCursor.ResizeNS.getValue()] = glfwCreateStandardCursor(GLFW_VRESIZE_CURSOR);
-        mouseCursors[ImGuiMouseCursor.ResizeEW.getValue()] = glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR);
-        mouseCursors[ImGuiMouseCursor.ResizeNESW.getValue()] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
-        mouseCursors[ImGuiMouseCursor.ResizeNWSE.getValue()] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
-        mouseCursors[ImGuiMouseCursor.Hand.getValue()] = glfwCreateStandardCursor(GLFW_HAND_CURSOR);
+        mouseCursors[ImGuiMouseCursor.Arrow] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+        mouseCursors[ImGuiMouseCursor.TextInput] = glfwCreateStandardCursor(GLFW_IBEAM_CURSOR);
+        mouseCursors[ImGuiMouseCursor.ResizeAll] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+        mouseCursors[ImGuiMouseCursor.ResizeNS] = glfwCreateStandardCursor(GLFW_VRESIZE_CURSOR);
+        mouseCursors[ImGuiMouseCursor.ResizeEW] = glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR);
+        mouseCursors[ImGuiMouseCursor.ResizeNESW] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+        mouseCursors[ImGuiMouseCursor.ResizeNWSE] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+        mouseCursors[ImGuiMouseCursor.Hand] = glfwCreateStandardCursor(GLFW_HAND_CURSOR);
 
         // Here goes GLFW callbacks to update user input stuff in ImGui
         glfwSetKeyCallback(window, (w, key, scancode, action, mods) -> {
@@ -273,8 +273,8 @@ public final class ImGuiGlfwExample {
     }
 
     private void showUi() {
-        ImGui.SetNextWindowSize(600, 210, ImGuiCond.Once.getValue());
-        ImGui.SetNextWindowPos(10, 10, ImGuiCond.FirstUseEver.getValue());
+        ImGui.SetNextWindowSize(600, 210, ImGuiCond.Once);
+        ImGui.SetNextWindowPos(10, 10, ImGuiCond.FirstUseEver);
 
         ImGui.Begin("Custom window");
         ImGui.Text("Hello from Java!");
@@ -297,12 +297,12 @@ public final class ImGuiGlfwExample {
         ImGui.AlignTextToFramePadding();
         ImGui.Text("Background color:");
         ImGui.SameLine();
-        ImGui.ColorEdit3("##click_counter_col", backgroundColor, ImGuiColorEditFlags.NoInputs.or(ImGuiColorEditFlags.NoDragDrop).getValue());
+        ImGui.ColorEdit3("##click_counter_col", backgroundColor, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.NoDragDrop);
         if (ImGui.Button("Click")) {
             clickCount++;
         }
         if (ImGui.IsItemHovered()) {
-            ImGui.SetMouseCursor(ImGuiMouseCursor.Hand.getValue());
+            ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
         }
         ImGui.SameLine();
         ImGui.Text("Count: " + clickCount);
@@ -314,7 +314,7 @@ public final class ImGuiGlfwExample {
         ImGui.SetNextItemWidth(500);
         ImGui.InputText("##input_to_copy_link", imguiDemoLink, ImGuiInputTextFlags.ReadOnly);
         if (ImGui.IsItemHovered()) {
-            ImGui.SetMouseCursor(ImGuiMouseCursor.TextInput.getValue());
+            ImGui.SetMouseCursor(ImGuiMouseCursor.TextInput);
         }
         ImGui.SameLine();
         ImGui.Text("(?)");
