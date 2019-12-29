@@ -381,8 +381,8 @@ public final class ImGui {
     /**
      * Set next window position. call before Begin(). use pivot=(0.5f,0.5f) to center on given point, etc.
      */
-    public static native void SetNextWindowPos(float x, float y, int cond, float pivotX, float pivotY); /*
-        ImGui::SetNextWindowPos(ImVec2(x, y), cond, ImVec2(pivotX, pivotY));
+    public static native void SetNextWindowPos(float x, float y, int imGuiCond, float pivotX, float pivotY); /*
+        ImGui::SetNextWindowPos(ImVec2(x, y), imGuiCond, ImVec2(pivotX, pivotY));
      */
 
     /**
@@ -2524,12 +2524,12 @@ public final class ImGui {
         return nInputFloat(label, v.data, step, step_fast, format, 0);
     }
 
-    public static boolean InputFloat(String label, ImFloat v, float step, float step_fast, String format, int flags) {
-        return nInputFloat(label, v.data, step, step_fast, format, flags);
+    public static boolean InputFloat(String label, ImFloat v, float step, float step_fast, String format, int imGuiInputTextFlags) {
+        return nInputFloat(label, v.data, step, step_fast, format, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputFloat(String label, float[] v, float step, float step_fast, String format, int flags); /*
-        return ImGui::InputFloat(label, &v[0], step, step_fast, format, flags);
+    private static native boolean nInputFloat(String label, float[] v, float step, float step_fast, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputFloat(label, &v[0], step, step_fast, format, imGuiInputTextFlags);
     */
 
     public static native boolean InputFloat2(String label, float[] v); /*
@@ -2540,8 +2540,8 @@ public final class ImGui {
         return ImGui::InputFloat2(label, v, format, 0);
     */
 
-    public static native boolean InputFloat2(String label, float[] v, String format, int flags); /*
-        return ImGui::InputFloat2(label, v, format, flags);
+    public static native boolean InputFloat2(String label, float[] v, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputFloat2(label, v, format, imGuiInputTextFlags);
     */
 
     public static native boolean InputFloat3(String label, float[] v); /*
@@ -2552,8 +2552,8 @@ public final class ImGui {
         return ImGui::InputFloat2(label, v, format, 0);
     */
 
-    public static native boolean InputFloat3(String label, float[] v, String format, int flags); /*
-        return ImGui::InputFloat2(label, v, format, flags);
+    public static native boolean InputFloat3(String label, float[] v, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputFloat2(label, v, format, imGuiInputTextFlags);
     */
 
     public static native boolean InputFloat4(String label, float[] v); /*
@@ -2564,8 +2564,8 @@ public final class ImGui {
         return ImGui::InputFloat2(label, v, format, 0);
     */
 
-    public static native boolean InputFloat4(String label, float[] v, String format, int flags); /*
-        return ImGui::InputFloat2(label, v, format, flags);
+    public static native boolean InputFloat4(String label, float[] v, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputFloat2(label, v, format, imGuiInputTextFlags);
     */
 
     public static boolean InputInt(String label, ImInt v) {
@@ -2580,36 +2580,36 @@ public final class ImGui {
         return nInputInt(label, v.data, step, step_fast, 0);
     }
 
-    public static boolean InputInt(String label, ImInt v, int step, int step_fast, int flags) {
-        return nInputInt(label, v.data, step, step_fast, flags);
+    public static boolean InputInt(String label, ImInt v, int step, int step_fast, int imGuiInputTextFlags) {
+        return nInputInt(label, v.data, step, step_fast, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputInt(String label, int[] v, int step, int step_fast, int flags); /*
-        return ImGui::InputInt(label, &v[0], step, step_fast, flags);
+    private static native boolean nInputInt(String label, int[] v, int step, int step_fast, int imGuiInputTextFlags); /*
+        return ImGui::InputInt(label, &v[0], step, step_fast, imGuiInputTextFlags);
     */
 
     public static native boolean InputInt2(String label, int[] v); /*
         return ImGui::InputInt2(label, v, 0);
     */
 
-    public static native boolean InputInt2(String label, int[] v, int flags); /*
-        return ImGui::InputInt2(label, v, flags);
+    public static native boolean InputInt2(String label, int[] v, int imGuiInputTextFlags); /*
+        return ImGui::InputInt2(label, v, imGuiInputTextFlags);
     */
 
     public static native boolean InputInt3(String label, int[] v); /*
         return ImGui::InputInt2(label, v, 0);
     */
 
-    public static native boolean InputInt3(String label, int[] v, int flags); /*
-        return ImGui::InputInt2(label, v, flags);
+    public static native boolean InputInt3(String label, int[] v, int imGuiInputTextFlags); /*
+        return ImGui::InputInt2(label, v, imGuiInputTextFlags);
     */
 
     public static native boolean InputInt4(String label, int[] v); /*
         return ImGui::InputInt2(label, v, 0);
     */
 
-    public static native boolean InputInt4(String label, int[] v, int flags); /*
-        return ImGui::InputInt2(label, v, flags);
+    public static native boolean InputInt4(String label, int[] v, int imGuiInputTextFlags); /*
+        return ImGui::InputInt2(label, v, imGuiInputTextFlags);
     */
 
     public static boolean InputDouble(String label, ImDouble v) {
@@ -2628,12 +2628,12 @@ public final class ImGui {
         return nInputDouble(label, v.data, step, step_fast, format, 0);
     }
 
-    public static boolean InputDouble(String label, ImDouble v, double step, double step_fast, String format, int flags) {
-        return nInputDouble(label, v.data, step, step_fast, format, flags);
+    public static boolean InputDouble(String label, ImDouble v, double step, double step_fast, String format, int imGuiInputTextFlags) {
+        return nInputDouble(label, v.data, step, step_fast, format, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputDouble(String label, double[] v, double step, double step_fast, String format, int flags); /*
-        return ImGui::InputDouble(label, &v[0], step, step_fast, format, flags);
+    private static native boolean nInputDouble(String label, double[] v, double step, double step_fast, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputDouble(label, &v[0], step, step_fast, format, imGuiInputTextFlags);
     */
 
     public static boolean InputScalar(String label, int data_type, ImInt p_data) {
@@ -2668,12 +2668,12 @@ public final class ImGui {
         return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format);
     */
 
-    public static boolean InputScalar(String label, int data_type, ImInt p_data, int p_step, int p_step_fast, String format, int flags) {
-        return nInputScalar(label, data_type, p_data.data, p_step, p_step_fast, format, flags);
+    public static boolean InputScalar(String label, int data_type, ImInt p_data, int p_step, int p_step_fast, String format, int imGuiInputTextFlags) {
+        return nInputScalar(label, data_type, p_data.data, p_step, p_step_fast, format, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputScalar(String label, int data_type, int[] p_data, int p_step, int p_step_fast, String format, int flags); /*
-        return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format, flags);
+    private static native boolean nInputScalar(String label, int data_type, int[] p_data, int p_step, int p_step_fast, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format, imGuiInputTextFlags);
     */
 
     public static boolean InputScalar(String label, int data_type, ImFloat p_data) {
@@ -2708,12 +2708,12 @@ public final class ImGui {
         return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format);
     */
 
-    public static boolean InputScalar(String label, int data_type, ImFloat p_data, float p_step, float p_step_fast, String format, int flags) {
-        return nInputScalar(label, data_type, p_data.data, p_step, p_step_fast, format, flags);
+    public static boolean InputScalar(String label, int data_type, ImFloat p_data, float p_step, float p_step_fast, String format, int imGuiInputTextFlags) {
+        return nInputScalar(label, data_type, p_data.data, p_step, p_step_fast, format, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputScalar(String label, int data_type, float[] p_data, float p_step, float p_step_fast, String format, int flags); /*
-        return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format, flags);
+    private static native boolean nInputScalar(String label, int data_type, float[] p_data, float p_step, float p_step_fast, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format, imGuiInputTextFlags);
     */
 
     public static boolean InputScalar(String label, int data_type, ImLong p_data) {
@@ -2748,12 +2748,12 @@ public final class ImGui {
         return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format);
     */
 
-    public static boolean InputScalar(String label, int data_type, ImLong p_data, long p_step, long p_step_fast, String format, int flags) {
-        return nInputScalar(label, data_type, p_data.data, p_step, p_step_fast, format, flags);
+    public static boolean InputScalar(String label, int data_type, ImLong p_data, long p_step, long p_step_fast, String format, int imGuiInputTextFlags) {
+        return nInputScalar(label, data_type, p_data.data, p_step, p_step_fast, format, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputScalar(String label, int data_type, long[] p_data, long p_step, long p_step_fast, String format, int flags); /*
-        return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format, flags);
+    private static native boolean nInputScalar(String label, int data_type, long[] p_data, long p_step, long p_step_fast, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format, imGuiInputTextFlags);
     */
 
     public static boolean InputScalar(String label, int data_type, ImDouble p_data) {
@@ -2788,12 +2788,12 @@ public final class ImGui {
         return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format);
     */
 
-    public static boolean InputScalar(String label, int data_type, ImDouble p_data, double p_step, double p_step_fast, String format, int flags) {
-        return nInputScalar(label, data_type, p_data.data, p_step, p_step_fast, format, flags);
+    public static boolean InputScalar(String label, int data_type, ImDouble p_data, double p_step, double p_step_fast, String format, int imGuiInputTextFlags) {
+        return nInputScalar(label, data_type, p_data.data, p_step, p_step_fast, format, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputScalar(String label, int data_type, double[] p_data, double p_step, double p_step_fast, String format, int flags); /*
-        return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format, flags);
+    private static native boolean nInputScalar(String label, int data_type, double[] p_data, double p_step, double p_step_fast, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format, imGuiInputTextFlags);
     */
 
     public static boolean InputScalar(String label, int data_type, ImShort p_data) {
@@ -2828,12 +2828,12 @@ public final class ImGui {
         return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format);
     */
 
-    public static boolean InputScalar(String label, int data_type, ImShort p_data, short p_step, short p_step_fast, String format, int flags) {
-        return nInputScalar(label, data_type, p_data.data, p_step, p_step_fast, format, flags);
+    public static boolean InputScalar(String label, int data_type, ImShort p_data, short p_step, short p_step_fast, String format, int imGuiInputTextFlags) {
+        return nInputScalar(label, data_type, p_data.data, p_step, p_step_fast, format, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputScalar(String label, int data_type, short[] p_data, short p_step, short p_step_fast, String format, int flags); /*
-        return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format, flags);
+    private static native boolean nInputScalar(String label, int data_type, short[] p_data, short p_step, short p_step_fast, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputScalar(label, data_type, &p_data[0], &p_step, &p_step_fast, format, imGuiInputTextFlags);
     */
 
     public static boolean InputScalarN(String label, int data_type, ImInt p_data, int components) {
@@ -2868,12 +2868,12 @@ public final class ImGui {
         return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format);
     */
 
-    public static boolean InputScalarN(String label, int data_type, ImInt p_data, int components, int p_step, int p_step_fast, String format, int flags) {
-        return nInputScalarN(label, data_type, p_data.data, components, p_step, p_step_fast, format, flags);
+    public static boolean InputScalarN(String label, int data_type, ImInt p_data, int components, int p_step, int p_step_fast, String format, int imGuiInputTextFlags) {
+        return nInputScalarN(label, data_type, p_data.data, components, p_step, p_step_fast, format, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputScalarN(String label, int data_type, int[] p_data, int components, int p_step, int p_step_fast, String format, int flags); /*
-        return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format, flags);
+    private static native boolean nInputScalarN(String label, int data_type, int[] p_data, int components, int p_step, int p_step_fast, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format, imGuiInputTextFlags);
     */
 
     public static boolean InputScalarN(String label, int data_type, ImFloat p_data, int components) {
@@ -2908,12 +2908,12 @@ public final class ImGui {
         return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format);
     */
 
-    public static boolean InputScalarN(String label, int data_type, ImFloat p_data, int components, float p_step, float p_step_fast, String format, int flags) {
-        return nInputScalarN(label, data_type, p_data.data, components, p_step, p_step_fast, format, flags);
+    public static boolean InputScalarN(String label, int data_type, ImFloat p_data, int components, float p_step, float p_step_fast, String format, int imGuiInputTextFlags) {
+        return nInputScalarN(label, data_type, p_data.data, components, p_step, p_step_fast, format, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputScalarN(String label, int data_type, float[] p_data, int components, float p_step, float p_step_fast, String format, int flags); /*
-        return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format, flags);
+    private static native boolean nInputScalarN(String label, int data_type, float[] p_data, int components, float p_step, float p_step_fast, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format, imGuiInputTextFlags);
     */
 
     public static boolean InputScalarN(String label, int data_type, ImLong p_data, int components) {
@@ -2948,12 +2948,12 @@ public final class ImGui {
         return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format);
     */
 
-    public static boolean InputScalarN(String label, int data_type, ImLong p_data, int components, long p_step, long p_step_fast, String format, int flags) {
-        return nInputScalarN(label, data_type, p_data.data, components, p_step, p_step_fast, format, flags);
+    public static boolean InputScalarN(String label, int data_type, ImLong p_data, int components, long p_step, long p_step_fast, String format, int imGuiInputTextFlags) {
+        return nInputScalarN(label, data_type, p_data.data, components, p_step, p_step_fast, format, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputScalarN(String label, int data_type, long[] p_data, int components, long p_step, long p_step_fast, String format, int flags); /*
-        return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format, flags);
+    private static native boolean nInputScalarN(String label, int data_type, long[] p_data, int components, long p_step, long p_step_fast, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format, imGuiInputTextFlags);
     */
 
     public static boolean InputScalarN(String label, int data_type, ImDouble p_data, int components) {
@@ -2988,12 +2988,12 @@ public final class ImGui {
         return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format);
     */
 
-    public static boolean InputScalarN(String label, int data_type, ImDouble p_data, int components, double p_step, double p_step_fast, String format, int flags) {
-        return nInputScalarN(label, data_type, p_data.data, components, p_step, p_step_fast, format, flags);
+    public static boolean InputScalarN(String label, int data_type, ImDouble p_data, int components, double p_step, double p_step_fast, String format, int imGuiInputTextFlags) {
+        return nInputScalarN(label, data_type, p_data.data, components, p_step, p_step_fast, format, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputScalarN(String label, int data_type, double[] p_data, int components, double p_step, double p_step_fast, String format, int flags); /*
-        return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format, flags);
+    private static native boolean nInputScalarN(String label, int data_type, double[] p_data, int components, double p_step, double p_step_fast, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format, imGuiInputTextFlags);
     */
 
     public static boolean InputScalarN(String label, int data_type, ImShort p_data, int components) {
@@ -3028,12 +3028,12 @@ public final class ImGui {
         return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format);
     */
 
-    public static boolean InputScalarN(String label, int data_type, ImShort p_data, int components, short p_step, short p_step_fast, String format, int flags) {
-        return nInputScalarN(label, data_type, p_data.data, components, p_step, p_step_fast, format, flags);
+    public static boolean InputScalarN(String label, int data_type, ImShort p_data, int components, short p_step, short p_step_fast, String format, int imGuiInputTextFlags) {
+        return nInputScalarN(label, data_type, p_data.data, components, p_step, p_step_fast, format, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputScalarN(String label, int data_type, short[] p_data, int components, short p_step, short p_step_fast, String format, int flags); /*
-        return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format, flags);
+    private static native boolean nInputScalarN(String label, int data_type, short[] p_data, int components, short p_step, short p_step_fast, String format, int imGuiInputTextFlags); /*
+        return ImGui::InputScalarN(label, data_type, &p_data[0], components, &p_step, &p_step_fast, format, imGuiInputTextFlags);
     */
 
     // Widgets: Color Editor/Picker (tip: the ColorEdit* functions have a little colored preview square that can be left-clicked to open a picker, and right-clicked to open an option menu.)
@@ -3128,16 +3128,16 @@ public final class ImGui {
         return ImGui::TreeNodeEx(label);
     */
 
-    public static native boolean TreeNodeEx(String label, int flags); /*
-        return ImGui::TreeNodeEx(label, flags);
+    public static native boolean TreeNodeEx(String label, int imGuiTreeNodeFlags); /*
+        return ImGui::TreeNodeEx(label, imGuiTreeNodeFlags);
     */
 
-    public static native boolean TreeNodeEx(String str_id, int flags, String label); /*
-        return ImGui::TreeNodeEx(str_id, flags, label);
+    public static native boolean TreeNodeEx(String str_id, int imGuiTreeNodeFlags, String label); /*
+        return ImGui::TreeNodeEx(str_id, imGuiTreeNodeFlags, label);
     */
 
-    public static native boolean TreeNodeEx(int ptr_id, int flags, String label); /*
-        return ImGui::TreeNodeEx((void*)(intptr_t)ptr_id, flags, label);
+    public static native boolean TreeNodeEx(int ptr_id, int imGuiTreeNodeFlags, String label); /*
+        return ImGui::TreeNodeEx((void*)(intptr_t)ptr_id, imGuiTreeNodeFlags, label);
     */
 
     /**
@@ -3183,8 +3183,8 @@ public final class ImGui {
     /**
      * If returning 'true' the header is open. doesn't indent nor push on ID stack. user doesn't have to call TreePop().
      */
-    public static native boolean CollapsingHeader(String label, int flags); /*
-        return ImGui::CollapsingHeader(label, flags);
+    public static native boolean CollapsingHeader(String label, int imGuiTreeNodeFlags); /*
+        return ImGui::CollapsingHeader(label, imGuiTreeNodeFlags);
     */
 
     /**
@@ -3197,12 +3197,12 @@ public final class ImGui {
     /**
      * When 'p_open' isn't NULL, display an additional small close button on upper right of the header
      */
-    public static boolean CollapsingHeader(String label, ImBool p_open, int flags) {
-        return nCollapsingHeader(label, p_open.data, flags);
+    public static boolean CollapsingHeader(String label, ImBool p_open, int imGuiTreeNodeFlags) {
+        return nCollapsingHeader(label, p_open.data, imGuiTreeNodeFlags);
     }
 
-    private static native boolean nCollapsingHeader(String label, boolean[] p_open, int flags); /*
-        return ImGui::CollapsingHeader(label, p_open, flags);
+    private static native boolean nCollapsingHeader(String label, boolean[] p_open, int imGuiTreeNodeFlags); /*
+        return ImGui::CollapsingHeader(label, p_open, imGuiTreeNodeFlags);
     */
 
     /**
@@ -3231,28 +3231,28 @@ public final class ImGui {
         return ImGui::Selectable(label, selected);
     */
 
-    public static native boolean Selectable(String label, boolean selected, int flags); /*
-        return ImGui::Selectable(label, selected, flags);
+    public static native boolean Selectable(String label, boolean selected, int imGuiSelectableFlags); /*
+        return ImGui::Selectable(label, selected, imGuiSelectableFlags);
     */
 
-    public static native boolean Selectable(String label, boolean selected, int flags, float sizeX, float sizeY); /*
-        return ImGui::Selectable(label, selected, flags, ImVec2(sizeX, sizeY));
+    public static native boolean Selectable(String label, boolean selected, int imGuiSelectableFlags, float sizeX, float sizeY); /*
+        return ImGui::Selectable(label, selected, imGuiSelectableFlags, ImVec2(sizeX, sizeY));
     */
 
     public static boolean Selectable(String label, ImBool selected) {
         return nSelectable(label, selected.data, 0, 0, 0);
     }
 
-    public static boolean Selectable(String label, ImBool selected, int flags) {
-        return nSelectable(label, selected.data, flags, 0, 0);
+    public static boolean Selectable(String label, ImBool selected, int imGuiSelectableFlags) {
+        return nSelectable(label, selected.data, imGuiSelectableFlags, 0, 0);
     }
 
-    public static boolean Selectable(String label, ImBool selected, int flags, float sizeX, float sizeY) {
-        return nSelectable(label, selected.data, flags, sizeX, sizeY);
+    public static boolean Selectable(String label, ImBool selected, int imGuiSelectableFlags, float sizeX, float sizeY) {
+        return nSelectable(label, selected.data, imGuiSelectableFlags, sizeX, sizeY);
     }
 
-    private static native boolean nSelectable(String label, boolean[] selected, int flags, float sizeX, float sizeY); /*
-        return ImGui::Selectable(label,  &selected[0], flags, ImVec2(sizeX, sizeY));
+    private static native boolean nSelectable(String label, boolean[] selected, int imGuiSelectableFlags, float sizeX, float sizeY); /*
+        return ImGui::Selectable(label,  &selected[0], imGuiSelectableFlags, ImVec2(sizeX, sizeY));
     */
 
     // Widgets: List Boxes
@@ -3542,8 +3542,8 @@ public final class ImGui {
     /**
      * Return true if the popup is open, and you can start outputting to it. only call EndPopup() if BeginPopup() returns true!
      */
-    public static native boolean BeginPopup(String str_id, int flags); /*
-        return ImGui::BeginPopup(str_id, flags);
+    public static native boolean BeginPopup(String str_id, int imGuiWindowFlags); /*
+        return ImGui::BeginPopup(str_id, imGuiWindowFlags);
     */
 
     /**
@@ -3636,12 +3636,12 @@ public final class ImGui {
     /**
      * Modal dialog (regular window with title bar, block interactions behind the modal window, can't close the modal window by clicking outside)
      */
-    public static boolean BeginPopupModal(String name, ImBool p_open, int flags) {
-        return nBeginPopupModal(name, p_open.data, flags);
+    public static boolean BeginPopupModal(String name, ImBool p_open, int imGuiWindowFlags) {
+        return nBeginPopupModal(name, p_open.data, imGuiWindowFlags);
     }
 
-    private static native boolean nBeginPopupModal(String name, boolean[] p_open, int flags); /*
-        return ImGui::BeginPopupModal(name, &p_open[0], flags);
+    private static native boolean nBeginPopupModal(String name, boolean[] p_open, int imGuiWindowFlags); /*
+        return ImGui::BeginPopupModal(name, &p_open[0], imGuiWindowFlags);
     */
 
     /**
@@ -3782,8 +3782,8 @@ public final class ImGui {
     /**
      * Create and append into a TabBar
      */
-    public static native boolean BeginTabBar(String str_id, int flags); /*
-        return ImGui::BeginTabBar(str_id, flags);
+    public static native boolean BeginTabBar(String str_id, int imGuiTabBarFlags); /*
+        return ImGui::BeginTabBar(str_id, imGuiTabBarFlags);
     */
 
     /**
@@ -3810,12 +3810,12 @@ public final class ImGui {
     /**
      * Create a Tab. Returns true if the Tab is selected.
      */
-    public static boolean BeginTabItem(String label, ImBool p_open, int flags) {
-        return nBeginTabItem(label, p_open.data, flags);
+    public static boolean BeginTabItem(String label, ImBool p_open, int imGuiTabBarFlags) {
+        return nBeginTabItem(label, p_open.data, imGuiTabBarFlags);
     }
 
-    private static native boolean nBeginTabItem(String label, boolean[] p_open, int flags); /*
-        return ImGui::BeginTabItem(label, &p_open[0], flags);
+    private static native boolean nBeginTabItem(String label, boolean[] p_open, int imGuiTabBarFlags); /*
+        return ImGui::BeginTabItem(label, &p_open[0], imGuiTabBarFlags);
     */
 
     /**
@@ -3920,8 +3920,8 @@ public final class ImGui {
     /**
      * Call when the current item is active. If this return true, you can call SetDragDropPayload() + EndDragDropSource()
      */
-    public static native boolean BeginDragDropSource(int flags); /*
-        return ImGui::BeginDragDropSource(flags);
+    public static native boolean BeginDragDropSource(int imGuiDragDropFlags); /*
+        return ImGui::BeginDragDropSource(imGuiDragDropFlags);
     */
 
     /**
@@ -3936,8 +3936,8 @@ public final class ImGui {
      * Type is a user defined string of maximum 32 characters. Strings starting with '_' are reserved for dear imgui internal types.
      * Data is copied and held by imgui.
      */
-    public static native boolean SetDragDropPayload(String type, byte[] data, int sz, int cond); /*
-        return ImGui::SetDragDropPayload(type, &data[0], sz, cond);
+    public static native boolean SetDragDropPayload(String type, byte[] data, int sz, int imGuiCond); /*
+        return ImGui::SetDragDropPayload(type, &data[0], sz, imGuiCond);
     */
 
     /**
@@ -3964,12 +3964,12 @@ public final class ImGui {
     /**
      * Accept contents of a given type. If ImGuiDragDropFlags_AcceptBeforeDelivery is set you can peek into the payload before the mouse button is released.
      */
-    public static byte[] AcceptDragDropPayload(String type, int flags) {
-        return nAcceptDragDropPayload(type, flags);
+    public static byte[] AcceptDragDropPayload(String type, int imGuiDragDropFlags) {
+        return nAcceptDragDropPayload(type, imGuiDragDropFlags);
     }
 
-    private static native byte[] nAcceptDragDropPayload(String type, int flags); /*
-        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(type, flags)) {
+    private static native byte[] nAcceptDragDropPayload(String type, int imGuiDragDropFlags); /*
+        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(type, imGuiDragDropFlags)) {
             jbyteArray array = env->NewByteArray(payload->DataSize);
             env->SetByteArrayRegion(array, 0, payload->DataSize, (jbyte*)payload->Data);
             return array;
@@ -4045,8 +4045,8 @@ public final class ImGui {
     /**
      * Is the last item hovered? (and usable, aka not blocked by a popup, etc.). See ImGuiHoveredFlags for more options.
      */
-    public static native boolean IsItemHovered(int flags); /*
-        return ImGui::IsItemHovered(flags);
+    public static native boolean IsItemHovered(int imGuiHoveredFlags); /*
+        return ImGui::IsItemHovered(imGuiHoveredFlags);
     */
 
     /**
@@ -4264,8 +4264,8 @@ public final class ImGui {
     /**
      * Helper to create a child window / scrolling region that looks like a normal widget frame
      */
-    public static native boolean BeginChildFrame(int id, float width, float height, int flags); /*
-        return ImGui::BeginChildFrame(id, ImVec2(width, height), flags);
+    public static native boolean BeginChildFrame(int id, float width, float height, int imGuiWindowFlags); /*
+        return ImGui::BeginChildFrame(id, ImVec2(width, height), imGuiWindowFlags);
     */
 
     /**
