@@ -27,6 +27,7 @@ public final class ImGui {
     }
 
     /*JNI
+        #include <stdint.h>
         #include <imgui.h>
         #include "jni_common.h"
      */

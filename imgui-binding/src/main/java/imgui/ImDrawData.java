@@ -44,6 +44,7 @@ public final class ImDrawData {
     }
 
     /*JNI
+        #include <stdint.h>
         #include <imgui.h>
 
         jfieldID totalVtxCountID;
@@ -153,7 +154,7 @@ public final class ImDrawData {
             for (int cmd_i = 0; cmd_i < imDrawCmdList.Size; cmd_i++) {
                 const ImDrawCmd* pcmd = &imDrawCmdList[cmd_i];
 
-                float  textureID = (float)(intptr_t)pcmd->TextureId;
+                float textureID = (float)(intptr_t)pcmd->TextureId;
                 float tempArray [6] = {
                     pcmd->ElemCount,
                     pcmd->ClipRect.x, pcmd->ClipRect.y,

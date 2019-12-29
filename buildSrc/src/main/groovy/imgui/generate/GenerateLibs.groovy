@@ -30,11 +30,23 @@ class GenerateLibs extends DefaultTask {
 
         // Generate platform dependant ant configs and header files
         def buildConfig = new BuildConfig('imgui-java', tmpFolder, libsFolder, jniDir)
+
+        def win32 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, false)
+        win32.compilerPrefix = 'mingw32-'
         def win64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, true)
-        new AntScriptGenerator().generate(buildConfig, win64)
+
+        def linux32 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, false)
+        def linux64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, true)
+
+        new AntScriptGenerator().generate(buildConfig, win32, win64)
 
         // Generate native libraries
+        // Comment/uncomment lines with OS you need.
+
+        BuildExecutor.executeAnt(jniDir + '/build-windows32.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
         BuildExecutor.executeAnt(jniDir + '/build-windows64.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
+        //BuildExecutor.executeAnt(jniDir + '/build-linux32.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
+        //BuildExecutor.executeAnt(jniDir + '/build-linux64.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
         BuildExecutor.executeAnt(jniDir + '/build.xml', '-v', 'pack-natives')
 
         // Ant creates this folder in the root of the project. Since it will be empty we delete it
