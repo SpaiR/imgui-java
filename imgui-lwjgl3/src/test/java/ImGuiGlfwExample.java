@@ -274,7 +274,7 @@ public final class ImGuiGlfwExample {
 
     private void showUi() {
         ImGui.SetNextWindowSize(600, 210, ImGuiCond.Once);
-        ImGui.SetNextWindowPos(10, 10, ImGuiCond.FirstUseEver);
+        ImGui.SetNextWindowPos(10, 10, ImGuiCond.Once);
 
         ImGui.Begin("Custom window");
         ImGui.Text("Hello from Java!");

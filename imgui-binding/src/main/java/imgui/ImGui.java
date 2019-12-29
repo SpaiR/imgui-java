@@ -1,7 +1,5 @@
 package imgui;
 
-import imgui.enums.ImGuiInputTextFlags;
-
 import java.nio.ByteBuffer;
 
 public final class ImGui {
