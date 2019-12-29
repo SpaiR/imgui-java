@@ -2,9 +2,46 @@ import imgui.generate.GenerateLibs
 
 plugins {
     id 'java'
+    id 'com.jfrog.bintray' version '1.8.4'
+    id 'maven-publish'
 }
 
 sourceCompatibility = 1.8
 
 assemble.dependsOn clean
 task generateLibs(type: GenerateLibs, dependsOn: assemble)
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            groupId 'imgui-java'
+            artifactId 'binding'
+            version property('version')
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_API_KEY')
+    publications = ['MyPublication']
+    override = true
+    pkg {
+        repo = 'imgui-java'
+        name = 'binding'
+        userOrg = user
+        desc = 'A handcrafted 1-1 Java binding for the Dear-ImGui'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/SpaiR/imgui-java'
+        labels = ['dear-imgui', 'java', 'jni']
+        githubRepo = 'SpaiR/imgui-java'
+        publicDownloadNumbers = true
+    }
+}
