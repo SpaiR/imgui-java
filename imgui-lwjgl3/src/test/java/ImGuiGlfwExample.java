@@ -47,7 +47,7 @@ public final class ImGuiGlfwExample {
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
 
     // Local app variables go here
-    private final ImString imguiDemoLink = new ImString("https://raw.githubusercontent.com/ocornut/imgui/v1.74/imgui_demo.cpp");
+    private final ImString imguiDemoLink = new ImString("https://raw.githubusercontent.com/ocornut/imgui/v1.74/imgui_demo.cpp", 100);
     private float[] backgroundColor = new float[]{0.5f, 0, 0};
     private int clickCount = 0;
     private final byte[] testPayload = "Test Payload".getBytes();
