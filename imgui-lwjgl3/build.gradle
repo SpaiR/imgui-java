@@ -21,7 +21,11 @@ dependencies {
     implementation project(':imgui-binding')
 }
 
-
+task startExample(type: JavaExec, dependsOn: build) {
+    main = 'ImGuiGlfwExample'
+    classpath = sourceSets.test.runtimeClasspath
+    jvmArgs = ['-Djava.library.path=../bin', '-Dimgui.library.name=imgui-java64', '-Dorg.lwjgl.librarypath=./lwjgl-libs']
+}
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     archiveClassifier.set('sources')
