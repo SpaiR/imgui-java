@@ -4521,6 +4521,16 @@ public final class ImGui {
         ImGui::CaptureMouseFromApp(want_capture_mouse_value);
     */
 
+    // Clipboard Utilities (also see the LogToClipboard() function to capture or output text data to the clipboard)
+    
+    public static native String GetClipboardText(); /*
+        return env->NewStringUTF(ImGui::GetClipboardText());
+    */
+
+    public static native void SetClipboardText(String text); /*
+        ImGui::SetClipboardText(text);
+    */
+
     // Settings/.Ini Utilities
     // - The disk functions are automatically called if io.IniFilename != NULL (default is "imgui.ini").
     // - Set io.IniFilename to NULL to load/save manually. Read io.WantSaveIniSettings description about handling .ini saving manually.

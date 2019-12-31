@@ -317,9 +317,8 @@ public final class ImGuiGlfwExample {
             ImGui.SetMouseCursor(ImGuiMouseCursor.TextInput);
         }
         ImGui.SameLine();
-        ImGui.Text("(?)");
-        if (ImGui.IsItemHovered()) {
-            ImGui.SetTooltip("You can copy and paste this link to browser");
+        if (ImGui.Button("Copy")) {
+            ImGui.SetClipboardText(imguiDemoLink.get());
         }
     }
 
