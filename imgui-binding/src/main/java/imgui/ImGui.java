@@ -11,7 +11,8 @@ public final class ImGui {
     private static final ImDrawData DRAW_DATA = new ImDrawData(100_000, 100_000, 1000);
     private static final ImGuiIO IMGUI_IO = new ImGuiIO();
     private static final ImGuiStyle IMGUI_STYLE = new ImGuiStyle();
-    private static final ImDrawList IM_DRAW_LIST = new ImDrawList(ImDrawList.TYPE_DEFAULT);
+
+    private static final ImDrawList IM_DRAW_LIST_WINDOW = new ImDrawList(ImDrawList.TYPE_WINDOW);
     private static final ImDrawList IM_DRAW_LIST_BACKGROUND = new ImDrawList(ImDrawList.TYPE_BACKGROUND);
     private static final ImDrawList IM_DRAW_LIST_FOREGROUND = new ImDrawList(ImDrawList.TYPE_FOREGROUND);
 
@@ -32,7 +33,7 @@ public final class ImGui {
         #include "jni_common.h"
      */
 
-    private native static void initJniCommon(); /*
+    private static native void initJniCommon(); /*
         Jni::InitCommon(env);
     */
 
@@ -43,13 +44,13 @@ public final class ImGui {
     //
     // BINDING NOTICE: Getting of the current context is not implemented since it's a part of internal API which is not exposed here.
 
-    public native static void CreateContext(); /*
+    public static native void CreateContext(); /*
         ImGui::CreateContext();
     */
 
     // public static void CreateContext(ImFontAtlas sharedFontAtlas) TODO create context with fonts
 
-    public native static void DestroyContext(); /*
+    public static native void DestroyContext(); /*
         ImGui::DestroyContext();
     */
 
@@ -72,7 +73,7 @@ public final class ImGui {
     /**
      * Start a new Dear ImGui frame, you can submit any command from this point until Render()/EndFrame().
      */
-    public native static void NewFrame(); /*
+    public static native void NewFrame(); /*
         ImGui::NewFrame();
     */
 
@@ -81,7 +82,7 @@ public final class ImGui {
      * If you don't need to render data (skipping rendering) you may call EndFrame() but you'll have wasted CPU already!
      * If you don't need to render, better to not create any imgui windows and not call NewFrame() at all!
      */
-    public native static void EndFrame(); /*
+    public static native void EndFrame(); /*
         ImGui::EndFrame();
     */
 
@@ -89,7 +90,7 @@ public final class ImGui {
      * Ends the Dear ImGui frame, finalize the draw data.
      * You can get call GetDrawData() to obtain it and run your rendering function.
      */
-    public native static void Render(); /*
+    public static native void Render(); /*
         ImGui::Render();
     */
 
@@ -113,7 +114,7 @@ public final class ImGui {
      * Create Demo window (previously called ShowTestWindow). demonstrate most ImGui features.
      * Call this to learn about the library!
      */
-    public native static void ShowDemoWindow(); /*
+    public static native void ShowDemoWindow(); /*
         ImGui::ShowDemoWindow();
     */
 
@@ -121,14 +122,14 @@ public final class ImGui {
         nShowDemoWindow(pOpen.data);
     }
 
-    private native static void nShowDemoWindow(boolean[] pOpen); /*
+    private static native void nShowDemoWindow(boolean[] pOpen); /*
         ImGui::ShowDemoWindow(&pOpen[0]);
     */
 
     /**
      * Create About window. display Dear ImGui version, credits and build/system information.
      */
-    public native static void ShowAboutWindow(); /*
+    public static native void ShowAboutWindow(); /*
         ImGui::ShowAboutWindow();
     */
 
@@ -136,7 +137,7 @@ public final class ImGui {
         nShowAboutWindow(pOpen.data);
     }
 
-    private native static void nShowAboutWindow(boolean[] pOpen); /*
+    private static native void nShowAboutWindow(boolean[] pOpen); /*
         ImGui::ShowAboutWindow(&pOpen[0]);
     */
 
@@ -144,7 +145,7 @@ public final class ImGui {
      * Create Metrics/Debug window.
      * Display Dear ImGui internals: draw commands (with individual draw calls and vertices), window list, basic internal state, etc.
      */
-    public native static void ShowMetricsWindow(); /*
+    public static native void ShowMetricsWindow(); /*
         ImGui::ShowMetricsWindow();
     */
 
@@ -152,7 +153,7 @@ public final class ImGui {
         nShowMetricsWindow(pOpen.data);
     }
 
-    private native static void nShowMetricsWindow(boolean[] pOpen); /*
+    private static native void nShowMetricsWindow(boolean[] pOpen); /*
         ImGui::ShowMetricsWindow(&pOpen[0]);
     */
 
@@ -160,35 +161,35 @@ public final class ImGui {
      * Add style editor block (not a window).
      * You can pass in a reference ImGuiStyle structure to compare to, revert to and save to (else it uses the default style)
      */
-    public native static void ShowStyleEditor(); /*
+    public static native void ShowStyleEditor(); /*
         ImGui::ShowStyleEditor();
     */
 
     /**
      * Add style selector block (not a window), essentially a combo listing the default styles.
      */
-    public native static boolean ShowStyleSelector(String label); /*
+    public static native boolean ShowStyleSelector(String label); /*
         return ImGui::ShowStyleSelector(label);
     */
 
     /**
      * Add font selector block (not a window), essentially a combo listing the loaded fonts.
      */
-    public native static void ShowFontSelector(String label); /*
+    public static native void ShowFontSelector(String label); /*
         ImGui::ShowFontSelector(label);
     */
 
     /**
      * Add basic help/info block (not a window): how to manipulate ImGui as a end-user (mouse/keyboard controls).
      */
-    public native static void ShowUserGuide(); /*
+    public static native void ShowUserGuide(); /*
         ImGui::ShowUserGuide();
     */
 
     /**
      * Get the compiled version string e.g. "1.23" (essentially the compiled value for IMGUI_VERSION)
      */
-    public native static String GetVersion(); /*
+    public static native String GetVersion(); /*
         return env->NewStringUTF(ImGui::GetVersion());
     */
 
@@ -197,21 +198,21 @@ public final class ImGui {
     /**
      * New, recommended style (default)
      */
-    public native static void StyleColorsDark(); /*
+    public static native void StyleColorsDark(); /*
         ImGui::StyleColorsDark();
     */
 
     /**
      * Classic imgui style
      */
-    public native static void StyleColorsClassic(); /*
+    public static native void StyleColorsClassic(); /*
         ImGui::StyleColorsClassic();
     */
 
     /**
      * Best used with borders and a custom, thicker font
      */
-    public native static void StyleColorsLight(); /*
+    public static native void StyleColorsLight(); /*
         ImGui::StyleColorsLight();
     */
 
@@ -227,7 +228,7 @@ public final class ImGui {
     //    returned true. Begin and BeginChild are the only odd ones out. Will be fixed in a future update.]
     // - Note that the bottom of window stack always contains a window called "Debug".
 
-    public native static boolean Begin(String title); /*
+    public static native boolean Begin(String title); /*
         return ImGui::Begin(title);
     */
 
@@ -239,11 +240,11 @@ public final class ImGui {
         return nBegin(title, pOpen.data, imGuiWindowFlags);
     }
 
-    private native static boolean nBegin(String title, boolean[] pOpen, int imGuiWindowFlags); /*
+    private static native boolean nBegin(String title, boolean[] pOpen, int imGuiWindowFlags); /*
         return ImGui::Begin(title, &pOpen[0], imGuiWindowFlags);
     */
 
-    public native static void End(); /*
+    public static native void End(); /*
         ImGui::End();
     */
 
@@ -253,7 +254,7 @@ public final class ImGui {
     // - BeginChild() returns false to indicate the window is collapsed or fully clipped, so you may early out and omit submitting anything to the window.
     //   Always call a matching EndChild() for each BeginChild() call, regardless of its return value [this is due to legacy reason and is inconsistent with most other functions such as BeginMenu/EndMenu, BeginPopup/EndPopup, etc. where the EndXXX call should only be called if the corresponding BeginXXX function returned true.]
 
-    public native static boolean BeginChild(String strId); /*
+    public static native boolean BeginChild(String strId); /*
         return ImGui::BeginChild(strId);
     */
 
@@ -332,13 +333,13 @@ public final class ImGui {
      * Get draw list associated to the current window, to append your own drawing primitives
      */
     public static ImDrawList GetWindowDrawList() {
-        return IM_DRAW_LIST;
+        return IM_DRAW_LIST_WINDOW;
     }
 
     /**
      * Get current window position in screen space (useful if you want to do your own drawing via the DrawList API)
      */
-    public native static void GetWindowPos(ImVec2 dstImVec2); /*
+    public static native void GetWindowPos(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::GetWindowPos(), dstImVec2);
     */
 
@@ -3033,60 +3034,60 @@ public final class ImGui {
     // - Note that in C++ a 'float v[X]' function argument is the _same_ as 'float* v', the array syntax is just a way to document the number of elements that are expected to be accessible.
     // - You can pass the address of a first float element out of a contiguous structure, e.g. &myvector.x
 
-    public native static boolean ColorEdit3(String label, float[] col); /*
+    public static native boolean ColorEdit3(String label, float[] col); /*
         return ImGui::ColorEdit3(label, col);
     */
 
-    public native static boolean ColorEdit3(String label, float[] col, int imGuiColorEditFlags); /*
+    public static native boolean ColorEdit3(String label, float[] col, int imGuiColorEditFlags); /*
         return ImGui::ColorEdit3(label, col, imGuiColorEditFlags);
     */
 
-    public native static boolean ColorEdit4(String label, float[] col); /*
+    public static native boolean ColorEdit4(String label, float[] col); /*
         return ImGui::ColorEdit4(label, col);
     */
 
-    public native static boolean ColorEdit4(String label, float[] col, int imGuiColorEditFlags); /*
+    public static native boolean ColorEdit4(String label, float[] col, int imGuiColorEditFlags); /*
         return ImGui::ColorEdit4(label, col, imGuiColorEditFlags);
     */
 
-    public native static boolean ColorPicker3(String label, float[] col); /*
+    public static native boolean ColorPicker3(String label, float[] col); /*
         return ImGui::ColorPicker3(label, col);
     */
 
-    public native static boolean ColorPicker3(String label, float[] col, int imGuiColorEditFlags); /*
+    public static native boolean ColorPicker3(String label, float[] col, int imGuiColorEditFlags); /*
         return ImGui::ColorPicker3(label, col, imGuiColorEditFlags);
     */
 
-    public native static boolean ColorPicker4(String label, float[] col); /*
+    public static native boolean ColorPicker4(String label, float[] col); /*
         return ImGui::ColorPicker4(label, col);
     */
 
-    public native static boolean ColorPicker4(String label, float[] col, int imGuiColorEditFlags); /*
+    public static native boolean ColorPicker4(String label, float[] col, int imGuiColorEditFlags); /*
         return ImGui::ColorPicker4(label, col, imGuiColorEditFlags);
     */
 
-    public native static boolean ColorPicker4(String label, float[] col, int imGuiColorEditFlags, float ref_col); /*
+    public static native boolean ColorPicker4(String label, float[] col, int imGuiColorEditFlags, float ref_col); /*
         return ImGui::ColorPicker4(label, col, imGuiColorEditFlags, &ref_col);
     */
 
     /**
      * Display a colored square/button, hover for details, return true when pressed.
      */
-    public native static boolean ColorButton(String desc_id, float[] col); /*
+    public static native boolean ColorButton(String desc_id, float[] col); /*
         return ImGui::ColorButton(desc_id, ImVec4(col[0], col[1], col[2], col[3]));
     */
 
     /**
      * Display a colored square/button, hover for details, return true when pressed.
      */
-    public native static boolean ColorButton(String desc_id, float[] col, int imGuiColorEditFlags); /*
+    public static native boolean ColorButton(String desc_id, float[] col, int imGuiColorEditFlags); /*
         return ImGui::ColorButton(desc_id, ImVec4(col[0], col[1], col[2], col[3]), imGuiColorEditFlags);
     */
 
     /**
      * Display a colored square/button, hover for details, return true when pressed.
      */
-    public native static boolean ColorButton(String desc_id, float[] col, int imGuiColorEditFlags, float width, float height); /*
+    public static native boolean ColorButton(String desc_id, float[] col, int imGuiColorEditFlags, float width, float height); /*
         return ImGui::ColorButton(desc_id, ImVec4(col[0], col[1], col[2], col[3]), imGuiColorEditFlags, ImVec2(width, height));
     */
 
@@ -3094,7 +3095,7 @@ public final class ImGui {
      * Initialize current options (generally on application startup) if you want to select a default format,
      * picker type, etc. User will be able to change many settings, unless you pass the _NoOptions flag to your calls.
      */
-    public native static void SetColorEditOptions(int imGuiColorEditFlags); /*
+    public static native void SetColorEditOptions(int imGuiColorEditFlags); /*
         ImGui::SetColorEditOptions(imGuiColorEditFlags);
     */
 

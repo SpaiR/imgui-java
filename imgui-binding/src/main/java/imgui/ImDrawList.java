@@ -12,7 +12,7 @@ package imgui;
  * Important: Primitives are always added to the list and not culled (culling is done at higher-level by ImGui:: functions), if you use this API a lot consider coarse culling your drawn objects.
  */
 public final class ImDrawList {
-    public static final int TYPE_DEFAULT = 0;
+    public static final int TYPE_WINDOW = 0;
     public static final int TYPE_BACKGROUND = 1;
     public static final int TYPE_FOREGROUND = 2;
 
@@ -26,13 +26,13 @@ public final class ImDrawList {
         #include <imgui.h>
         #include "jni_common.h"
 
-        const static int DRAWLIST_TYPE_DEFAULT    = 0;
+        const static int DRAWLIST_TYPE_WINDOW     = 0;
         const static int DRAWLIST_TYPE_BACKGROUND = 1;
         const static int DRAWLIST_TYPE_FOREGROUND = 2;
 
         ImDrawList* getDrawList(int drawListType) {
             switch (drawListType) {
-                case DRAWLIST_TYPE_DEFAULT:
+                case DRAWLIST_TYPE_WINDOW:
                     return ImGui::GetWindowDrawList();
                 case DRAWLIST_TYPE_BACKGROUND:
                     return ImGui::GetBackgroundDrawList();
