@@ -26,7 +26,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 @SuppressWarnings("MagicNumber")
 public final class ImGuiGlfwExample {
-    private static final int DEFAULT_WIDTH = 1024;
+    private static final int DEFAULT_WIDTH = 1280;
     private static final int DEFAULT_HEIGHT = 768;
 
     private long window; // current GLFW window pointer
@@ -80,7 +80,6 @@ public final class ImGuiGlfwExample {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE); // the window will be maximized
-        glfwWindowHint(GLFW_DECORATED, GLFW_TRUE); // the window will be decorated
 
         // Create the window
         window = glfwCreateWindow(DEFAULT_WIDTH, DEFAULT_HEIGHT, "ImGui+GLFW+LWJGL Example", NULL, NULL);
@@ -249,22 +248,18 @@ public final class ImGuiGlfwExample {
             glfwSetCursor(window, mouseCursors[imguiCursor]);
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
-            // Render itself starts here
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+            // Clear the framebuffer
+            glClear(GL_COLOR_BUFFER_BIT);
 
             // IMPORTANT!!
             // Any ImGui code SHOULD go between NewFrame()/Render() methods
             ImGui.newFrame();
-            showUi();
-            ImGui.end();
-
-            if (showDemoWindow.get()) {
-                ImGui.showDemoWindow(showDemoWindow);
-            }
-
+            showUi();  // ImGui calls goes here
             ImGui.render();
 
-            imGuiGl3.render(ImGui.getDrawData()); // render DrawData from ImGui into our OpenGL context
+            // After ImGui#render call we provide draw data into LWJGL3 render.
+            // At that moment ImGui will be rendered to the current OpenGL context.
+            imGuiGl3.render(ImGui.getDrawData());
 
             glfwSwapBuffers(window); // swap the color buffers
 
@@ -277,7 +272,7 @@ public final class ImGuiGlfwExample {
         ImGui.setNextWindowSize(600, 300, ImGuiCond.Once);
         ImGui.setNextWindowPos(10, 10, ImGuiCond.Once);
 
-        ImGui.begin("Custom window");
+        ImGui.begin("Custom window");  // Start Custom window
         ImGui.text("Hello from Java!");
 
         ImGui.button("Drag me");
@@ -323,6 +318,12 @@ public final class ImGuiGlfwExample {
         ImGui.sameLine();
         if (ImGui.button("Copy")) {
             ImGui.setClipboardText(imguiDemoLink);
+        }
+
+        ImGui.end();  // End Custom window
+
+        if (showDemoWindow.get()) {
+            ImGui.showDemoWindow(showDemoWindow);
         }
     }
 
