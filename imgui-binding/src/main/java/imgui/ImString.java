@@ -3,7 +3,7 @@ package imgui;
 import java.util.Objects;
 
 /**
- * Wrapper for {@link String} to use inside of ImGui input widgets.
+ * Wrapper for {@link String} to use inside of th Dear ImGui input widgets.
  */
 public final class ImString {
     private static final short DEFAULT_LENGTH = 100;
@@ -66,7 +66,7 @@ public final class ImString {
     }
 
     /**
-     * Get the size of the data buffer. Buffer size will always have '+1' to its size, since it's used by the Dear ImGui to draw a caret.
+     * Get the size of the data buffer. Buffer size will always have '+1' to its size, since it's used by the Dear ImGui to draw a caret char.
      * @return size of the data buffer
      */
     public int getBufferSize() {
