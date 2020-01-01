@@ -1,8 +1,25 @@
 package imgui;
 
-final class ImGuiInputTextData {
-    public int size;
-    public int maxChar = -1;
-    public String allowedChar = "";
+/**
+ * Use this class to customize your ImGui input.
+ */
+public final class ImGuiInputTextData {
+    /**
+     * If not empty, then other chars which are different from provided will be filtered during the {@link ImGui#InputText(String, ImString)}
+     * and {@link ImGui#InputTextMultiline} methods.
+     */
+    public String allowedChars = "";
+
+    /**
+     * If true, then string will be resized during the the {@link ImGui#InputText(String, ImString)} and {@link ImGui#InputTextMultiline} methods.
+     * Alternatively you can provide {@link imgui.enums.ImGuiInputTextFlags#CallbackResize} flag to the input text widgets to enable string resizing.
+     */
+    public boolean isResizable;
+
+    int size;
     boolean isDirty;
+    boolean isResized = false;
+
+    ImGuiInputTextData() {
+    }
 }

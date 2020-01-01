@@ -1,5 +1,7 @@
 package imgui;
 
+import imgui.enums.ImGuiInputTextFlags;
+
 import java.nio.ByteBuffer;
 
 public final class ImGui {
@@ -2382,25 +2384,26 @@ public final class ImGui {
     /*JNI
         jfieldID imTextInputDataSizeID;
         jfieldID imTextInputDataIsDirtyID;
+        jfieldID imTextInputDataIsResizedID;
 
-        struct InputTextCallback_UserData {
-            jobject* textInputData;
+        char* resizedBuf;
+
+        struct InputTextCallbackUserData {
             JNIEnv* env;
-            int maxChar;
-            char* allowedChar;
-            int allowedCharLength;
-            int maxSize;
-            int curSize;
+            jobject* textInputData;
+            char* buf;
+            char* allowedChars;
         };
 
         static int TextEditCallbackStub(ImGuiInputTextCallbackData* data) {
-            InputTextCallback_UserData* userData = (InputTextCallback_UserData*)data->UserData;
+            InputTextCallbackUserData* userData = (InputTextCallbackUserData*)data->UserData;
 
             if (data->EventFlag == ImGuiInputTextFlags_CallbackCharFilter) {
-                if(userData->allowedCharLength > 0) {
+                int allowedCharLength = strlen(userData->allowedChars);
+                if(allowedCharLength > 0) {
                     bool found = false;
-                    for(int i = 0; i < userData->allowedCharLength; i++) {
-                        if(userData->allowedChar[i] == data->EventChar) {
+                    for(int i = 0; i < allowedCharLength; i++) {
+                        if(userData->allowedChars[i] == data->EventChar) {
                             found = true;
                             break;
                         }
@@ -2417,94 +2420,85 @@ public final class ImGui {
         jclass jImInputTextDataClass = env->FindClass("imgui/ImGuiInputTextData");
         imTextInputDataSizeID = env->GetFieldID(jImInputTextDataClass, "size", "I");
         imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
+        imTextInputDataIsResizedID = env->GetFieldID(jImInputTextDataClass, "isResized", "Z");
     */
 
     public static boolean InputText(String label, ImString text) {
-        return nInputText(label, text.data, text.data.length, 0, text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
+        return preInputText(false, label, text, 0, 0, 0);
     }
 
     public static boolean InputText(String label, ImString text, int imGuiInputTextFlags) {
-        return nInputText(label, text.data, text.data.length, imGuiInputTextFlags, text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
+        return preInputText(false, label, text, 0, 0, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputText(String label, byte[] buff, int maxSize, int flags, ImGuiInputTextData textInputData, int maxChar, String allowedChar, int allowedCharLength); /*
-        int size = (int)strlen(buff);
-
-        InputTextCallback_UserData cb_user_data;
-        cb_user_data.textInputData = &textInputData;
-        cb_user_data.env = env;
-        cb_user_data.curSize = size;
-        cb_user_data.maxSize = maxSize;
-        cb_user_data.maxChar = maxChar;
-        cb_user_data.allowedChar = allowedChar;
-        cb_user_data.allowedCharLength = allowedCharLength;
-
-        char tempArray[maxSize];
-
-        memset(tempArray, 0, sizeof(tempArray));
-        memcpy(tempArray, buff, size);
-
-        if(maxChar >= 0 && maxChar < maxSize) {
-            maxSize = maxChar;
-        }
-
-        bool flag = ImGui::InputText(label, tempArray, maxSize, flags | ImGuiInputTextFlags_CallbackCharFilter, &TextEditCallbackStub, &cb_user_data);
-
-        if (flag) {
-            size = (int)strlen(tempArray);
-            env->SetIntField(textInputData, imTextInputDataSizeID, size);
-            env->SetBooleanField(textInputData, imTextInputDataIsDirtyID, true);
-            memset(buff, 0, maxSize);
-            memcpy(buff, tempArray, size);
-        }
-
-        return flag;
-    */
-
     public static boolean InputTextMultiline(String label, ImString text) {
-        return nInputTextMultiline(label, text.data, text.data.length, 0, 0, 0, text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
+        return preInputText(true, label, text, 0, 0, 0);
     }
 
     public static boolean InputTextMultiline(String label, ImString text, float width, float height) {
-        return nInputTextMultiline(label, text.data, text.data.length, width, height, 0, text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
+        return preInputText(true, label, text, width, height, 0);
+    }
+
+    public static boolean InputTextMultiline(String label, ImString text, int imGuiInputTextFlags) {
+        return preInputText(true, label, text, 0, 0, imGuiInputTextFlags);
     }
 
     public static boolean InputTextMultiline(String label, ImString text, float width, float height, int imGuiInputTextFlags) {
-        return nInputTextMultiline(label, text.data, text.data.length, width, height, imGuiInputTextFlags, text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
+        return preInputText(true, label, text, width, height, imGuiInputTextFlags);
     }
 
-    private static native boolean nInputTextMultiline(String label, byte[] buff, int maxSize, float width, float height, int flags, ImGuiInputTextData textInputData, int maxChar, String allowedChar, int allowedCharLength); /*
-        int size = (int)strlen(buff);
+    private static boolean preInputText(boolean multiline, String label, ImString text, float width, float height, int flags) {
+        ImGuiInputTextData inputData = text.inputData;
 
-        InputTextCallback_UserData cb_user_data;
-        cb_user_data.textInputData = &textInputData;
-        cb_user_data.env = env;
-        cb_user_data.curSize = size;
-        cb_user_data.maxSize = maxSize;
-        cb_user_data.maxChar = maxChar;
-        cb_user_data.allowedChar = allowedChar;
-        cb_user_data.allowedCharLength = allowedCharLength;
-
-        char tempArray[maxSize];
-
-        memset(tempArray, 0, sizeof(tempArray));
-        memcpy(tempArray, buff, size);
-
-        if(maxChar >= 0 && maxChar < maxSize) {
-            maxSize = maxChar;
+        if (inputData.isResizable) {
+            flags |= ImGuiInputTextFlags.CallbackResize;
         }
 
-        bool flag = ImGui::InputTextMultiline(label, tempArray, maxSize, ImVec2(width, height), flags | ImGuiInputTextFlags_CallbackCharFilter, &TextEditCallbackStub, &cb_user_data);
+        boolean hasInput = nInputText(multiline, label, text.data, text.data.length, width, height, flags, inputData, inputData.allowedChars);
 
-        if (flag) {
-            size = (int)strlen(tempArray);
+        if (inputData.isResized) {
+            inputData.isResized = false;
+            text.set(nGetResizedStr(), true);
+        }
+
+        return hasInput;
+    }
+
+    private static native boolean nInputText(boolean multiline, String label, byte[] buf, int maxSize, float width, float height, int flags, ImGuiInputTextData textInputData, String allowedChars); /*
+        InputTextCallbackUserData userData;
+        userData.textInputData = &textInputData;
+        userData.env = env;
+        userData.buf = buf;
+        userData.allowedChars = allowedChars;
+
+        if (strlen(allowedChars) > 0)
+            flags |= ImGuiInputTextFlags_CallbackCharFilter;
+
+        bool hasInput;
+
+        if (multiline) {
+            hasInput = ImGui::InputTextMultiline(label, buf, maxSize, ImVec2(width, height), flags, &TextEditCallbackStub, &userData);
+        } else {
+            hasInput = ImGui::InputText(label, buf, maxSize, flags, &TextEditCallbackStub, &userData);
+        }
+
+        if (hasInput) {
+            int size = strlen(buf);
+
+            if (((size + 1) > maxSize) && (flags & ImGuiInputTextFlags_CallbackResize)) {
+                env->SetBooleanField(textInputData, imTextInputDataIsResizedID, true);
+                resizedBuf = buf;
+            }
+
             env->SetIntField(textInputData, imTextInputDataSizeID, size);
             env->SetBooleanField(textInputData, imTextInputDataIsDirtyID, true);
-            memset(buff, 0, maxSize);
-            memcpy(buff, tempArray, size);
         }
 
-        return flag;
+        return hasInput;
+    */
+
+    private static native String nGetResizedStr(); /*
+        return env->NewStringUTF(resizedBuf);
     */
 
     public static boolean InputFloat(String label, ImFloat v) {
@@ -4522,7 +4516,7 @@ public final class ImGui {
     */
 
     // Clipboard Utilities (also see the LogToClipboard() function to capture or output text data to the clipboard)
-    
+
     public static native String GetClipboardText(); /*
         return env->NewStringUTF(ImGui::GetClipboardText());
     */

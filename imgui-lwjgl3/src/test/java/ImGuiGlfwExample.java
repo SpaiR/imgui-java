@@ -47,11 +47,12 @@ public final class ImGuiGlfwExample {
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
 
     // Local app variables go here
-    private final ImString imguiDemoLink = new ImString("https://raw.githubusercontent.com/ocornut/imgui/v1.74/imgui_demo.cpp", 100);
-    private float[] backgroundColor = new float[]{0.5f, 0, 0};
-    private int clickCount = 0;
+    private final String imguiDemoLink = "https://raw.githubusercontent.com/ocornut/imgui/v1.74/imgui_demo.cpp";
     private final byte[] testPayload = "Test Payload".getBytes();
     private String dropTargetText = "Drop Here";
+    private float[] backgroundColor = new float[]{0.5f, 0, 0};
+    private int clickCount = 0;
+    private final ImString resizableStr = new ImString(5);
 
     private final ImBool showDemoWindow = new ImBool();
 
@@ -273,11 +274,12 @@ public final class ImGuiGlfwExample {
     }
 
     private void showUi() {
-        ImGui.SetNextWindowSize(600, 210, ImGuiCond.Once);
+        ImGui.SetNextWindowSize(600, 300, ImGuiCond.Once);
         ImGui.SetNextWindowPos(10, 10, ImGuiCond.Once);
 
         ImGui.Begin("Custom window");
         ImGui.Text("Hello from Java!");
+
         ImGui.Button("Drag me");
         if (ImGui.BeginDragDropSource()) {
             ImGui.SetDragDropPayload("payload_type", testPayload, testPayload.length);
@@ -298,6 +300,7 @@ public final class ImGuiGlfwExample {
         ImGui.Text("Background color:");
         ImGui.SameLine();
         ImGui.ColorEdit3("##click_counter_col", backgroundColor, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.NoDragDrop);
+
         if (ImGui.Button("Click")) {
             clickCount++;
         }
@@ -309,16 +312,17 @@ public final class ImGuiGlfwExample {
         ImGui.Checkbox("Show demo window", showDemoWindow);
         ImGui.NewLine();
 
+        ImGui.InputText("Resizable input", resizableStr, ImGuiInputTextFlags.CallbackResize);
+        ImGui.Text(String.format("text len: %d | buffer size: %d", resizableStr.getLength(), resizableStr.getBufferSize()));
+        ImGui.NewLine();
+
         ImGui.Separator();
         ImGui.Text("Consider to look the original ImGui demo: ");
         ImGui.SetNextItemWidth(500);
-        ImGui.InputText("##input_to_copy_link", imguiDemoLink, ImGuiInputTextFlags.ReadOnly);
-        if (ImGui.IsItemHovered()) {
-            ImGui.SetMouseCursor(ImGuiMouseCursor.TextInput);
-        }
+        ImGui.TextColored(0, .8f, 0, 1, imguiDemoLink);
         ImGui.SameLine();
         if (ImGui.Button("Copy")) {
-            ImGui.SetClipboardText(imguiDemoLink.get());
+            ImGui.SetClipboardText(imguiDemoLink);
         }
     }
 
