@@ -23,16 +23,16 @@ public final class ImString {
         this(DEFAULT_LENGTH);
     }
 
-    public ImString(int length) {
+    public ImString(final int length) {
         data = new byte[length + CARET_LEN];
     }
 
-    public ImString(String text) {
+    public ImString(final String text) {
         this(text.length());
         set(text);
     }
 
-    public ImString(String text, int length) {
+    public ImString(final String text, final int length) {
         this(length);
         set(text);
     }
@@ -45,12 +45,12 @@ public final class ImString {
         return text;
     }
 
-    public void set(String value) {
+    public void set(final String value) {
         set(value.getBytes());
     }
 
-    public void set(String value, boolean resize) {
-        byte[] str = value.getBytes();
+    public void set(final String value, final boolean resize) {
+        final byte[] str = value.getBytes();
         if (resize && data.length - CARET_LEN < str.length) {
             data = new byte[str.length + resizeFactor + CARET_LEN];
         }
@@ -73,8 +73,8 @@ public final class ImString {
         return data.length;
     }
 
-    private void set(byte[] str) {
-        int len = Math.min(str.length, data.length);
+    private void set(final byte[] str) {
+        final int len = Math.min(str.length, data.length);
         System.arraycopy(str, 0, data, 0, len);
         inputData.isDirty = true;
         inputData.size = len;
@@ -86,10 +86,14 @@ public final class ImString {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ImString imString = (ImString) o;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final ImString imString = (ImString) o;
         return Objects.equals(text, imString.text);
     }
 

@@ -3,12 +3,12 @@ package imgui;
 import java.util.Objects;
 
 public final class ImFloat {
-    float[] data = new float[]{0.0f};
+    final float[] data = new float[]{0};
 
     public ImFloat() {
     }
 
-    public ImFloat(float value) {
+    public ImFloat(final float value) {
         set(value);
     }
 
@@ -16,7 +16,7 @@ public final class ImFloat {
         return this.data[0];
     }
 
-    public void set(float value) {
+    public void set(final float value) {
         this.data[0] = value;
     }
 
@@ -26,10 +26,14 @@ public final class ImFloat {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ImFloat imFloat = (ImFloat) o;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final ImFloat imFloat = (ImFloat) o;
         return data[0] == imFloat.data[0];
     }
 

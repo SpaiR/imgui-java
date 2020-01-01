@@ -3,12 +3,12 @@ package imgui;
 import java.util.Objects;
 
 public final class ImInt {
-    int[] data = new int[]{0};
+    final int[] data = new int[]{0};
 
     public ImInt() {
     }
 
-    public ImInt(int value) {
+    public ImInt(final int value) {
         set(value);
     }
 
@@ -16,7 +16,7 @@ public final class ImInt {
         return this.data[0];
     }
 
-    public void set(int value) {
+    public void set(final int value) {
         this.data[0] = value;
     }
 
@@ -26,10 +26,14 @@ public final class ImInt {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ImInt imInt = (ImInt) o;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final ImInt imInt = (ImInt) o;
         return data[0] == imInt.data[0];
     }
 

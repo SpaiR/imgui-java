@@ -11,12 +11,12 @@ public final class TexDataRGBA32 {
     public ByteBuffer pixelBuffer;
 
     private TexDataRGBA32() {
-        int pixelMax = 131072;
+        final int pixelMax = 131072;
         pixelBuffer = ByteBuffer.allocateDirect(pixelMax).order(ByteOrder.nativeOrder());
     }
 
     public static TexDataRGBA32 create() {
-        TexDataRGBA32 data = new TexDataRGBA32();
+        final TexDataRGBA32 data = new TexDataRGBA32();
         data.nFillData(data.pixelBuffer);
         return data;
     }
@@ -25,7 +25,7 @@ public final class TexDataRGBA32 {
         #include <imgui.h>
      */
 
-    private native void nFillData(Buffer pixelBuffer); /*
+    private native void nFillData(Buffer pixelBuf); /*
         jclass jTexDataClass = env->GetObjectClass(object);
 
         if(jTexDataClass == NULL)
@@ -43,6 +43,6 @@ public final class TexDataRGBA32 {
         env->SetIntField(object, widthID, width);
         env->SetIntField(object, heightID, height);
 
-        memcpy(pixelBuffer, pixels, width * height * 4);
+        memcpy(pixelBuf, pixels, width * height * 4);
     */
 }

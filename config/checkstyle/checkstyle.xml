@@ -91,6 +91,10 @@
     <!-- Suppress warnings by using   -->
     <module name="SuppressWarningsFilter"/>
 
+    <module name="SuppressionFilter">
+        <property name="file" value="${config_loc}/suppressions.xml" />
+    </module>
+
     <module name="TreeWalker">
 
         <!-- Checks for Javadoc comments.                     -->
@@ -160,7 +164,10 @@
         <!-- See https://checkstyle.org/config_coding.html -->
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
-        <module name="HiddenField"/>
+        <module name="HiddenField" >
+            <property name="ignoreSetter" value="true" />
+            <property name="ignoreConstructorParameter" value="true" />
+        </module>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
         <module name="MagicNumber"/>
@@ -178,11 +185,11 @@
         <module name="VisibilityModifier"/>
 
         <!-- Miscellaneous other checks.                   -->
-        <!-- See https://checkstyle.org/config_misc.html -->
+        <!-- See https://checkstyle.org/config_misc.html   -->
         <module name="ArrayTypeStyle"/>
         <module name="FinalParameters"/>
         <module name="FinalLocalVariable"/>
-        <module name="TodoComment"/>
+        <!-- <module name="TodoComment"/>                  -->
         <module name="UpperEll"/>
 
         <!-- See https://checkstyle.sourceforge.io/config_annotation.html#SuppressWarningsHolder -->

@@ -11,7 +11,7 @@ public final class ImVec4 {
     public ImVec4() {
     }
 
-    public ImVec4(float x, float y, float z, float w) {
+    public ImVec4(final float x, final float y, final float z, final float w) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -20,19 +20,23 @@ public final class ImVec4 {
 
     @Override
     public String toString() {
-        return "ImVec4{" +
-            "x=" + x +
-            ", y=" + y +
-            ", z=" + z +
-            ", w=" + w +
-            '}';
+        return "ImVec4{"
+            + "x=" + x
+            + ", y=" + y
+            + ", z=" + z
+            + ", w=" + w
+            + '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ImVec4 imVec4 = (ImVec4) o;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final ImVec4 imVec4 = (ImVec4) o;
         return Float.compare(imVec4.x, x) == 0 && Float.compare(imVec4.y, y) == 0 && Float.compare(imVec4.z, z) == 0 && Float.compare(imVec4.w, w) == 0;
     }
 

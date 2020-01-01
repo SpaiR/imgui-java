@@ -121,15 +121,15 @@ public final class ImGuiGlfwExample {
     private void initImGui() {
         // IMPORTANT!!
         // This line is critical for ImGui to work.
-        ImGui.CreateContext();
+        ImGui.createContext();
 
         // ImGui provides three different color schemas for styling. We will use the classic one here.
-        ImGui.StyleColorsClassic();
+        ImGui.styleColorsClassic();
         // ImGui.StyleColorsDark(); // This is a default style for ImGui
         // ImGui.StyleColorsLight();
 
         // Initialize ImGuiIO config
-        final ImGuiIO io = ImGui.GetIO();
+        final ImGuiIO io = ImGui.getIO();
 
         io.setIniFilename(null);
         io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard);
@@ -189,7 +189,7 @@ public final class ImGuiGlfwExample {
 
         glfwSetCharCallback(window, (w, c) -> {
             if (c != GLFW_KEY_DELETE) {
-                io.AddInputCharacter(c);
+                io.addInputCharacter(c);
             }
         });
 
@@ -205,7 +205,7 @@ public final class ImGuiGlfwExample {
             io.setMouseDown(mouseDown);
 
             if (!io.getWantCaptureMouse() && mouseDown[1]) {
-                ImGui.SetWindowFocus(null);
+                ImGui.setWindowFocus(null);
             }
         });
 
@@ -238,14 +238,14 @@ public final class ImGuiGlfwExample {
 
             // IMPORTANT!!
             // We SHOULD call those methods to update ImGui state for current frame
-            final ImGuiIO io = ImGui.GetIO();
+            final ImGuiIO io = ImGui.getIO();
             io.setDisplaySize(winWidth[0], winHeight[0]);
             io.setDisplayFramebufferScale((float) fbWidth[0] / winWidth[0], (float) fbHeight[0] / winHeight[0]);
             io.setMousePos((float) mousePosX[0], (float) mousePosY[0]);
             io.setDeltaTime((float) deltaTime);
 
             // Update mouse cursor
-            final int imguiCursor = ImGui.GetMouseCursor();
+            final int imguiCursor = ImGui.getMouseCursor();
             glfwSetCursor(window, mouseCursors[imguiCursor]);
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
@@ -254,17 +254,17 @@ public final class ImGuiGlfwExample {
 
             // IMPORTANT!!
             // Any ImGui code SHOULD go between NewFrame()/Render() methods
-            ImGui.NewFrame();
+            ImGui.newFrame();
             showUi();
-            ImGui.End();
+            ImGui.end();
 
             if (showDemoWindow.get()) {
-                ImGui.ShowDemoWindow(showDemoWindow);
+                ImGui.showDemoWindow(showDemoWindow);
             }
 
-            ImGui.Render();
+            ImGui.render();
 
-            imGuiGl3.render(ImGui.GetDrawData()); // render DrawData from ImGui into our OpenGL context
+            imGuiGl3.render(ImGui.getDrawData()); // render DrawData from ImGui into our OpenGL context
 
             glfwSwapBuffers(window); // swap the color buffers
 
@@ -274,62 +274,62 @@ public final class ImGuiGlfwExample {
     }
 
     private void showUi() {
-        ImGui.SetNextWindowSize(600, 300, ImGuiCond.Once);
-        ImGui.SetNextWindowPos(10, 10, ImGuiCond.Once);
+        ImGui.setNextWindowSize(600, 300, ImGuiCond.Once);
+        ImGui.setNextWindowPos(10, 10, ImGuiCond.Once);
 
-        ImGui.Begin("Custom window");
-        ImGui.Text("Hello from Java!");
+        ImGui.begin("Custom window");
+        ImGui.text("Hello from Java!");
 
-        ImGui.Button("Drag me");
-        if (ImGui.BeginDragDropSource()) {
-            ImGui.SetDragDropPayload("payload_type", testPayload, testPayload.length);
-            ImGui.Text("Drag started");
-            ImGui.EndDragDropSource();
+        ImGui.button("Drag me");
+        if (ImGui.beginDragDropSource()) {
+            ImGui.setDragDropPayload("payload_type", testPayload, testPayload.length);
+            ImGui.text("Drag started");
+            ImGui.endDragDropSource();
         }
-        ImGui.SameLine();
-        ImGui.Text(dropTargetText);
-        if (ImGui.BeginDragDropTarget()) {
-            final byte[] payload = ImGui.AcceptDragDropPayload("payload_type");
+        ImGui.sameLine();
+        ImGui.text(dropTargetText);
+        if (ImGui.beginDragDropTarget()) {
+            final byte[] payload = ImGui.acceptDragDropPayload("payload_type");
             if (payload != null) {
                 dropTargetText = new String(payload);
             }
-            ImGui.EndDragDropTarget();
+            ImGui.endDragDropTarget();
         }
 
-        ImGui.AlignTextToFramePadding();
-        ImGui.Text("Background color:");
-        ImGui.SameLine();
-        ImGui.ColorEdit3("##click_counter_col", backgroundColor, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.NoDragDrop);
+        ImGui.alignTextToFramePadding();
+        ImGui.text("Background color:");
+        ImGui.sameLine();
+        ImGui.colorEdit3("##click_counter_col", backgroundColor, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.NoDragDrop);
 
-        if (ImGui.Button("Click")) {
+        if (ImGui.button("Click")) {
             clickCount++;
         }
-        if (ImGui.IsItemHovered()) {
-            ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
+        if (ImGui.isItemHovered()) {
+            ImGui.setMouseCursor(ImGuiMouseCursor.Hand);
         }
-        ImGui.SameLine();
-        ImGui.Text("Count: " + clickCount);
-        ImGui.Checkbox("Show demo window", showDemoWindow);
-        ImGui.NewLine();
+        ImGui.sameLine();
+        ImGui.text("Count: " + clickCount);
+        ImGui.checkbox("Show demo window", showDemoWindow);
+        ImGui.newLine();
 
-        ImGui.InputText("Resizable input", resizableStr, ImGuiInputTextFlags.CallbackResize);
-        ImGui.Text(String.format("text len: %d | buffer size: %d", resizableStr.getLength(), resizableStr.getBufferSize()));
-        ImGui.NewLine();
+        ImGui.inputText("Resizable input", resizableStr, ImGuiInputTextFlags.CallbackResize);
+        ImGui.text(String.format("text len: %d | buffer size: %d", resizableStr.getLength(), resizableStr.getBufferSize()));
+        ImGui.newLine();
 
-        ImGui.Separator();
-        ImGui.Text("Consider to look the original ImGui demo: ");
-        ImGui.SetNextItemWidth(500);
-        ImGui.TextColored(0, .8f, 0, 1, imguiDemoLink);
-        ImGui.SameLine();
-        if (ImGui.Button("Copy")) {
-            ImGui.SetClipboardText(imguiDemoLink);
+        ImGui.separator();
+        ImGui.text("Consider to look the original ImGui demo: ");
+        ImGui.setNextItemWidth(500);
+        ImGui.textColored(0, .8f, 0, 1, imguiDemoLink);
+        ImGui.sameLine();
+        if (ImGui.button("Copy")) {
+            ImGui.setClipboardText(imguiDemoLink);
         }
     }
 
     // If you want to clean a room after yourself - do it by yourself
     private void destroyImGui() {
         imGuiGl3.dispose();
-        ImGui.DestroyContext();
+        ImGui.destroyContext();
     }
 
     private void destroyGlfw() {

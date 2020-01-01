@@ -2,13 +2,13 @@ package imgui;
 
 import java.util.Objects;
 
-public class ImLong {
-    long[] data = new long[]{0};
+public final class ImLong {
+    final long[] data = new long[]{0};
 
     public ImLong() {
     }
 
-    public ImLong(long value) {
+    public ImLong(final long value) {
         set(value);
     }
 
@@ -16,7 +16,7 @@ public class ImLong {
         return this.data[0];
     }
 
-    public void set(long value) {
+    public void set(final long value) {
         this.data[0] = value;
     }
 
@@ -26,10 +26,14 @@ public class ImLong {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ImLong imLong = (ImLong) o;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final ImLong imLong = (ImLong) o;
         return data[0] == imLong.data[0];
     }
 

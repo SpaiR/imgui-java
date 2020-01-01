@@ -4,7 +4,7 @@ package imgui;
  * You may modify the ImGui::GetStyle() main instance during initialization and before NewFrame().
  * During the frame, use ImGui::PushStyleVar(ImGuiStyleVar_XXXX)/PopStyleVar() to alter the main style values,
  * and ImGui::PushStyleColor(ImGuiCol_XXX)/PopStyleColor() for colors.
- *
+ * <p>
  * BINDING NOTICE: This is not a fully featured representation of ImGuiStyle struct from C++.
  * Mostly it's a stub which communicates with default ImGuiStyle used by ImGuiIO.
  * Still can be used to make your interface look different, since all of the fields from the original header file are represented here.
@@ -34,12 +34,12 @@ public final class ImGuiStyle {
     //
     public native void getWindowPadding(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &ImGui::GetStyle().WindowPadding, dstImVec2);
-	*/
+    */
 
     public native void setWindowPadding(float x, float y); /*
         ImGui::GetStyle().WindowPadding.x = x;
         ImGui::GetStyle().WindowPadding.y = y;
-	*/
+    */
 
     // WindowRounding
     // Radius of window corners rounding. Set to 0.0f to have rectangular windows.
@@ -68,24 +68,24 @@ public final class ImGuiStyle {
     //
     public native void getWindowMinSize(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &ImGui::GetStyle().WindowMinSize, dstImVec2);
-	*/
+    */
 
     public native void setWindowMinSize(float x, float y); /*
         ImGui::GetStyle().WindowMinSize.x = x;
         ImGui::GetStyle().WindowMinSize.y = y;
-	*/
+    */
 
     // WindowTitleAlign
     // Alignment for title bar text. Defaults to (0.0f,0.5f) for left-aligned,vertically centered.
     //
     public native void getWindowTitleAlign(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &ImGui::GetStyle().WindowTitleAlign, dstImVec2);
-	*/
+    */
 
     public native void setWindowTitleAlign(float x, float y); /*
         ImGui::GetStyle().WindowTitleAlign.x = x;
         ImGui::GetStyle().WindowTitleAlign.y = y;
-	*/
+    */
 
     // WindowMenuButtonPosition
     // Side of the collapsing/docking button in the title bar (None/Left/Right). Defaults to ImGuiDir_Left.
@@ -147,12 +147,12 @@ public final class ImGuiStyle {
     //
     public native void getFramePadding(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &ImGui::GetStyle().FramePadding, dstImVec2);
-	*/
+    */
 
     public native void setFramePadding(float x, float y); /*
         ImGui::GetStyle().FramePadding.x = x;
         ImGui::GetStyle().FramePadding.y = y;
-	*/
+    */
 
     // FrameRounding
     // Radius of frame corners rounding. Set to 0.0f to have rectangular frame (used by most widgets).
@@ -187,6 +187,7 @@ public final class ImGuiStyle {
         ImGui::GetStyle().ItemSpacing.x = x;
         ImGui::GetStyle().ItemSpacing.y = y;
     */
+
     // ItemInnerSpacing
     // Horizontal and vertical spacing between within elements of a composed widget (e.g. a slider and its label).
     //
@@ -198,6 +199,7 @@ public final class ImGuiStyle {
         ImGui::GetStyle().ItemInnerSpacing.x = x;
         ImGui::GetStyle().ItemInnerSpacing.y = y;
     */
+
     // TouchExtraPadding
     // Expand reactive bounding box for touch-based system where touch position is not accurate enough.
     // Unfortunately we don't sort widgets so priority on overlap will always be given to the first widget. So don't grow this too much!
@@ -305,6 +307,7 @@ public final class ImGuiStyle {
     public native int getColorButtonPosition(); /*
         return ImGui::GetStyle().ColorButtonPosition;
     */
+
     public native void setColorButtonPosition(int colorButtonPosition); /*
         ImGui::GetStyle().ColorButtonPosition = colorButtonPosition;
     */

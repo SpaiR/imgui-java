@@ -3,12 +3,12 @@ package imgui;
 import java.util.Objects;
 
 public final class ImDouble {
-    double[] data = new double[]{0.0d};
+    final double[] data = new double[]{0.0d};
 
     public ImDouble() {
     }
 
-    public ImDouble(double value) {
+    public ImDouble(final double value) {
         set(value);
     }
 
@@ -16,7 +16,7 @@ public final class ImDouble {
         return this.data[0];
     }
 
-    public void set(double value) {
+    public void set(final double value) {
         this.data[0] = value;
     }
 
@@ -26,10 +26,14 @@ public final class ImDouble {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ImDouble imDouble = (ImDouble) o;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final ImDouble imDouble = (ImDouble) o;
         return data[0] == imDouble.data[0];
     }
 

@@ -9,9 +9,9 @@ import java.nio.ByteOrder;
  * BINDING NOTICE: DO NOT TRY TO MODIFY FIELDS OF THIS CLASS MANUALLY! You should only access their values after {@link ImGui#Render()} call.
  */
 public final class ImDrawData {
-    public static int V_BUFFER_SIZE = (4 + 1) * 4;
-    public static int I_BUFFER_SIZE = 2;
-    public static int CMD_BUFFER_SIZE = (1 + 4 + 1) * 4;
+    public static final int V_BUFFER_SIZE = (4 + 1) * 4;
+    public static final int I_BUFFER_SIZE = 2;
+    public static final int CMD_BUFFER_SIZE = (1 + 4 + 1) * 4;
 
     public ByteBuffer vByteBuffer;
     public ByteBuffer iByteBuffer;
@@ -37,7 +37,7 @@ public final class ImDrawData {
     public float framebufferScaleX;
     public float framebufferScaleY;
 
-    ImDrawData(int maxVertices, int maxIndices, int maxCmd) {
+    ImDrawData(final int maxVertices, final int maxIndices, final int maxCmd) {
         vByteBuffer = ByteBuffer.allocateDirect(maxVertices * V_BUFFER_SIZE).order(ByteOrder.nativeOrder());
         iByteBuffer = ByteBuffer.allocateDirect(maxIndices * I_BUFFER_SIZE).order(ByteOrder.nativeOrder());
         cmdByteBuffer = ByteBuffer.allocateDirect(maxCmd * CMD_BUFFER_SIZE).order(ByteOrder.nativeOrder());

@@ -3,12 +3,12 @@ package imgui;
 import java.util.Objects;
 
 public final class ImBool {
-    boolean[] data = new boolean[]{false};
+    final boolean[] data = new boolean[]{false};
 
     public ImBool() {
     }
 
-    public ImBool(boolean value) {
+    public ImBool(final boolean value) {
         data[0] = value;
     }
 
@@ -16,7 +16,7 @@ public final class ImBool {
         return data[0];
     }
 
-    public void set(boolean value) {
+    public void set(final boolean value) {
         data[0] = value;
     }
 
@@ -26,10 +26,14 @@ public final class ImBool {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ImBool imBool = (ImBool) o;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final ImBool imBool = (ImBool) o;
         return data[0] == imBool.data[0];
     }
 

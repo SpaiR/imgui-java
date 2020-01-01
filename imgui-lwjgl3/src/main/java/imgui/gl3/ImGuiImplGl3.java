@@ -15,7 +15,7 @@ import static org.lwjgl.opengl.GL30.*;
 
 /**
  * This class mostly a straightforward port of the
- *  <a href="https://raw.githubusercontent.com/ocornut/imgui/v1.74/examples/imgui_impl_opengl3.cpp">https://raw.githubusercontent.com/ocornut/imgui/v1.74/examples/imgui_impl_opengl3.cpp</a>
+ * <a href="https://raw.githubusercontent.com/ocornut/imgui/v1.74/examples/imgui_impl_opengl3.cpp">imgui_impl_opengl3.cpp</a>
  * adapted for Java and LWJGL realms.
  * <p>
  * It do support a backup of the current GL state before rendering and restoring of its initial state after.
@@ -202,7 +202,7 @@ public final class ImGuiImplGl3 {
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texData.width, texData.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData.pixelBuffer);
 
-        ImGui.GetIO().SetFontsTexID(gFontTexture);
+        ImGui.getIO().setFontsTexID(gFontTexture);
     }
 
     private void backupGlState() {

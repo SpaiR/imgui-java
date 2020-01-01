@@ -2,6 +2,7 @@ import imgui.generate.GenerateLibs
 
 plugins {
     id 'java'
+    id 'checkstyle'
     id 'com.jfrog.bintray' version '1.8.4'
     id 'maven-publish'
 }
