@@ -44,7 +44,7 @@ bintray {
         repo = 'io.imgui.java'
         name = 'binding'
         userOrg = user
-        desc = 'A handcrafted 1-1 Java binding for the Dear-ImGui'
+        desc = 'A handcrafted/generated Java binding for the Dear-ImGui'
         licenses = ['Apache-2.0']
         websiteUrl = 'https://github.com/SpaiR/imgui-java'
         issueTrackerUrl  = 'https://github.com/SpaiR/imgui-java/issues'
