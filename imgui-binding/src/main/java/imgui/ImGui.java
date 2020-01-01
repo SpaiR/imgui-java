@@ -5,8 +5,8 @@ import imgui.enums.ImGuiInputTextFlags;
 import java.nio.ByteBuffer;
 
 public final class ImGui {
-    private final static String LIB_NAME_PROP = "imgui.library.name";
-    private final static String LIB_NAME_DEFAULT = "imgui-java";
+    private static final String LIB_NAME_PROP = "imgui.library.name";
+    private static final String LIB_NAME_DEFAULT = "imgui-java";
 
     private static final ImDrawData DRAW_DATA = new ImDrawData(100_000, 100_000, 1000);
     private static final ImGuiIO IMGUI_IO = new ImGuiIO();
