@@ -6,7 +6,7 @@ import java.nio.ByteOrder;
 
 /**
  * All draw data to render a Dear ImGui frame.
- * BINDING NOTICE: DO NOT TRY TO MODIFY FIELDS OF THIS CLASS MANUALLY! You should only access their values after {@link ImGui#Render()} call.
+ * BINDING NOTICE: DO NOT TRY TO MODIFY FIELDS OF THIS CLASS MANUALLY! You should only access their values after {@link ImGui#render()} call.
  */
 public final class ImDrawData {
     public static final int V_BUFFER_SIZE = (4 + 1) * 4;
