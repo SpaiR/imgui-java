@@ -795,8 +795,8 @@ public final class ImGui {
     // Parameters stacks (current window)
 
     /**
-     * Set width of items for common large "item+label" widgets. >0.0f: width in pixels,
-     * <0.0f align xx pixels to the right of window (so -1.0f always align width to the right side). 0.0f = default to ~2/3 of windows width,
+     * Set width of items for common large "item+label" widgets. {@code > 0.0f}: width in pixels,
+     * {@code <0.0f} align xx pixels to the right of window (so -1.0f always align width to the right side). 0.0f = default to ~2/3 of windows width,
      */
     public static native void PushItemWidth(float item_width); /*
         ImGui::PushItemWidth(item_width);
@@ -807,8 +807,8 @@ public final class ImGui {
     */
 
     /**
-     * Set width of the _next_ common large "item+label" widget. >0.0f: width in pixels,
-     * <0.0f align xx pixels to the right of window (so -1.0f always align width to the right side)
+     * Set width of the _next_ common large "item+label" widget. {@code > 0.0f}: width in pixels,
+     * {@code <0.0f} align xx pixels to the right of window (so -1.0f always align width to the right side)
      */
     public static native void SetNextItemWidth(float item_width); /*
         ImGui::SetNextItemWidth(item_width);
@@ -822,7 +822,7 @@ public final class ImGui {
     */
 
     /**
-     * Word-wrapping for Text*() commands. < 0.0f: no wrapping; 0.0f: wrap to end of window (or column); > 0.0f: wrap at 'wrap_pos_x'
+     * Word-wrapping for Text*() commands. {@code < 0.0f}: no wrapping; 0.0f: wrap to end of window (or column); {@code > 0.0f}: wrap at 'wrap_pos_x'
      * position in window local space
      */
     public static native void PushTextWrapPos(); /*
@@ -830,7 +830,7 @@ public final class ImGui {
     */
 
     /**
-     * Word-wrapping for Text*() commands. < 0.0f: no wrapping; 0.0f: wrap to end of window (or column); > 0.0f: wrap at 'wrap_pos_x'
+     * Word-wrapping for Text*() commands. {@code < 0.0f}: no wrapping; 0.0f: wrap to end of window (or column); {@code > 0.0f}: wrap at 'wrap_pos_x'
      * position in window local space
      */
     public static native void PushTextWrapPos(float wrap_local_pos_x); /*
@@ -1223,21 +1223,21 @@ public final class ImGui {
     */
 
     /**
-     * <0 frame_padding uses default frame padding settings. 0 for no padding
+     * {@code <0} frame_padding uses default frame padding settings. 0 for no padding
      */
     public static native boolean ImageButton(int textureID, float sizeX, float sizeY); /*
         return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY));
     */
 
     /**
-     * <0 frame_padding uses default frame padding settings. 0 for no padding
+     * {@code <0} frame_padding uses default frame padding settings. 0 for no padding
      */
     public static native boolean ImageButton(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, int frame_padding); /*
         return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0_x, uv0_y), ImVec2(uv1_x, uv1_y), frame_padding);
     */
 
     /**
-     * <0 frame_padding uses default frame padding settings. 0 for no padding
+     * {@code <0} frame_padding uses default frame padding settings. 0 for no padding
      */
     public static native boolean ImageButton(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, int frame_padding, float bg_color_r, float bg_color_g, float bg_color_b, float bg_color_a, float tint_col_r, float tint_col_g, float tint_col_b, float tint_col_a); /*
         return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0_x, uv0_y), ImVec2(uv1_x, uv1_y), frame_padding, ImVec4(bg_color_r, bg_color_g, bg_color_b, bg_color_a), ImVec4(tint_col_r, tint_col_g, tint_col_b, tint_col_a));
@@ -1365,21 +1365,21 @@ public final class ImGui {
     */
 
     /**
-     * If v_min >= v_max we have no bound
+     * If {@code v_min >= v_max} we have no bound
      */
     public static native boolean DragFloat(String label, float[] v, float v_speed, float v_min, float v_max); /*
         return ImGui::DragFloat(label, &v[0], v_speed, v_min, v_max);
     */
 
     /**
-     * If v_min >= v_max we have no bound
+     * If {@code v_min >= v_max} we have no bound
      */
     public static native boolean DragFloat(String label, float[] v, float v_speed, float v_min, float v_max, String format); /*
         return ImGui::DragFloat(label, &v[0], v_speed, v_min, v_max, format);
     */
 
     /**
-     * If v_min >= v_max we have no bound
+     * If {@code v_min >= v_max} we have no bound
      */
     public static native boolean DragFloat(String label, float[] v, float v_speed, float v_min, float v_max, String format, float power); /*
         return ImGui::DragFloat(label, &v[0], v_speed, v_min, v_max, format, power);
@@ -1498,14 +1498,14 @@ public final class ImGui {
     */
 
     /**
-     * If v_min >= v_max we have no bound
+     * If {@code v_min >= v_max} we have no bound
      */
     public static native boolean DragInt(String label, int[] v, float v_speed, float v_min, float v_max); /*
         return ImGui::DragInt(label, &v[0], v_speed, v_min, v_max);
     */
 
     /**
-     * If v_min >= v_max we have no bound
+     * If {@code v_min >= v_max} we have no bound
      */
     public static native boolean DragInt(String label, int[] v, float v_speed, float v_min, float v_max, String format); /*
         return ImGui::DragInt(label, &v[0], v_speed, v_min, v_max, format);
@@ -4060,14 +4060,14 @@ public final class ImGui {
     */
 
     /**
-     * Is the last item clicked? (e.g. button/node just clicked on) == IsMouseClicked(mouse_button) && IsItemHovered()
+     * Is the last item clicked? (e.g. button/node just clicked on) == {@code IsMouseClicked(mouse_button) && IsItemHovered()}
      */
     public static native boolean IsItemClicked(); /*
         return ImGui::IsItemClicked();
     */
 
     /**
-     * Is the last item clicked? (e.g. button/node just clicked on) == IsMouseClicked(mouse_button) && IsItemHovered()
+     * Is the last item clicked? (e.g. button/node just clicked on) == {@code IsMouseClicked(mouse_button) && IsItemHovered()}
      */
     public static native boolean IsItemClicked(int mouse_button); /*
         return ImGui::IsItemClicked(mouse_button);
@@ -4326,7 +4326,8 @@ public final class ImGui {
     */
 
     /**
-     * uUses provided repeat rate/delay. return a count, most often 0 or 1 but might be >1 if RepeatRate is small enough that DeltaTime > RepeatRate
+     * Uses provided repeat rate/delay.
+     * Return a count, most often 0 or 1 but might be {@code >1} if RepeatRate is small enough that {@code DeltaTime > RepeatRate}
      */
     public static native boolean GetKeyPressedAmount(int key_index, float repeat_delay, float rate); /*
         return ImGui::GetKeyPressedAmount(key_index, repeat_delay, rate);
@@ -4372,21 +4373,21 @@ public final class ImGui {
     */
 
     /**
-     * Is mouse dragging. if lock_threshold < -1.0f uses io.MouseDraggingThreshold
+     * Is mouse dragging. if lock_threshold {@code < -1.0f} uses io.MouseDraggingThreshold
      */
     public static native boolean IsMouseDragging(); /*
         return ImGui::IsMouseDragging();
     */
 
     /**
-     * Is mouse dragging. if lock_threshold < -1.0f uses io.MouseDraggingThreshold
+     * Is mouse dragging. if lock_threshold {@code < -1.0f} uses io.MouseDraggingThreshold
      */
     public static native boolean IsMouseDragging(int button); /*
         return ImGui::IsMouseDragging(button);
     */
 
     /**
-     * Is mouse dragging. if lock_threshold < -1.0f uses io.MouseDraggingThreshold
+     * Is mouse dragging. if lock_threshold {@code < -1.0f} uses io.MouseDraggingThreshold
      */
     public static native boolean IsMouseDragging(int button, float lock_threshold); /*
         return ImGui::IsMouseDragging(button, lock_threshold);
@@ -4437,7 +4438,7 @@ public final class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lock_threshold < -1.0f uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lock_threshold {@code < -1.0f} uses io.MouseDraggingThreshold.
      */
     public static native void GetMouseDragDelta(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::GetMouseDragDelta(), dstImVec2);
@@ -4445,7 +4446,7 @@ public final class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lock_threshold < -1.0f uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lock_threshold {@code < -1.0f} uses io.MouseDraggingThreshold.
      */
     public static native void GetMouseDragDelta(ImVec2 dstImVec2, int button); /*
         Jni::ImVec2Cpy(env, ImGui::GetMouseDragDelta(button), dstImVec2);
@@ -4453,7 +4454,7 @@ public final class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lock_threshold < -1.0f uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lock_threshold {@code < -1.0f} uses io.MouseDraggingThreshold.
      */
     public static native void GetMouseDragDelta(ImVec2 dstImVec2, int button, float lock_threshold); /*
         Jni::ImVec2Cpy(env, ImGui::GetMouseDragDelta(button, lock_threshold), dstImVec2);

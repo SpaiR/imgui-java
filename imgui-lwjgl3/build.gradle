@@ -32,13 +32,19 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set('javadoc')
+    from javadoc.destinationDir
+}
+
 publishing {
     publications {
         MyPublication(MavenPublication) {
             from components.java
-            groupId 'imgui-java'
-            artifact sourcesJar
+            groupId 'io.imgui.java'
             artifactId 'lwjgl3'
+            artifact sourcesJar
+            artifact javadocJar
             version property('version')
         }
     }
@@ -50,7 +56,7 @@ bintray {
     publications = ['MyPublication']
     override = true
     pkg {
-        repo = 'imgui-java'
+        repo = 'io.imgui.java'
         name = 'lwjgl3'
         userOrg = user
         desc = 'Backend implementation for imgui-java based on LWJGL3'

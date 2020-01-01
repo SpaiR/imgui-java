@@ -14,7 +14,8 @@ import java.util.Objects;
 import static org.lwjgl.opengl.GL30.*;
 
 /**
- * This class mostly a straightforward port of the https://raw.githubusercontent.com/ocornut/imgui/v1.74/examples/imgui_impl_opengl3.cpp
+ * This class mostly a straightforward port of the
+ *  <a href="https://raw.githubusercontent.com/ocornut/imgui/v1.74/examples/imgui_impl_opengl3.cpp">https://raw.githubusercontent.com/ocornut/imgui/v1.74/examples/imgui_impl_opengl3.cpp</a>
  * adapted for Java and LWJGL realms.
  * <p>
  * It do support a backup of the current GL state before rendering and restoring of its initial state after.
