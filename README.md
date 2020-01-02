@@ -54,7 +54,7 @@ repositories {
 Add binding dependency:
 ```
 dependecies {
-    implementation 'io.imgui.java:binding:1.74-0.1'
+    implementation 'io.imgui.java:binding:1.74-0.2'
 }
 ```
 
@@ -62,8 +62,8 @@ dependecies {
 If you want to use LWJGL3 renderer:
 ```
 dependecies {
-    implementation 'io.imgui.java:binding:1.74-0.1'
-    implementation 'io.imgui.java:lwjgl3:1.74-0.1'
+    implementation 'io.imgui.java:binding:1.74-0.2'
+    implementation 'io.imgui.java:lwjgl3:1.74-0.2'
 }
 ```
 **Disclaimer!**<br>
