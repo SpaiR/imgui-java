@@ -7,12 +7,8 @@ plugins {
 
 sourceCompatibility = 1.8
 
-ext {
-    lwjglVersion = '3.2.3'
-}
-
 dependencies {
-    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+    implementation platform("org.lwjgl:lwjgl-bom:3.2.3")
 
     implementation 'org.lwjgl:lwjgl'
     implementation 'org.lwjgl:lwjgl-glfw'
@@ -24,7 +20,7 @@ dependencies {
 task startExample(type: JavaExec, dependsOn: build) {
     main = 'ImGuiGlfwExample'
     classpath = sourceSets.test.runtimeClasspath
-    jvmArgs = ['-Djava.library.path=../bin', '-Dimgui.library.name=imgui-java64', '-Dorg.lwjgl.librarypath=./lwjgl-libs']
+    jvmArgs = ['-Djava.library.path=../bin', '-Dorg.lwjgl.librarypath=./lwjgl-libs']
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
