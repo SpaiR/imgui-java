@@ -9,6 +9,7 @@ import imgui.enums.ImGuiConfigFlags;
 import imgui.enums.ImGuiInputTextFlags;
 import imgui.enums.ImGuiKey;
 import imgui.enums.ImGuiMouseCursor;
+import imgui.enums.ImGuiWindowFlags;
 import imgui.gl3.ImGuiImplGl3;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -272,7 +273,7 @@ public final class ImGuiGlfwExample {
         ImGui.setNextWindowSize(600, 300, ImGuiCond.Once);
         ImGui.setNextWindowPos(10, 10, ImGuiCond.Once);
 
-        ImGui.begin("Custom window");  // Start Custom window
+        ImGui.begin("Custom window", ImGuiWindowFlags.NoDecoration);  // Start Custom window
         ImGui.text("Hello from Java!");
 
         ImGui.button("Drag me");

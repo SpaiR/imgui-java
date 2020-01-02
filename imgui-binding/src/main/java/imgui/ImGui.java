@@ -236,9 +236,17 @@ public final class ImGui {
         return nBegin(title, pOpen.data, 0);
     }
 
+    public static boolean begin(String title, int imGuiWindowFlags) {
+        return nBegin(title, imGuiWindowFlags);
+    }
+
     public static boolean begin(String title, ImBool pOpen, int imGuiWindowFlags) {
         return nBegin(title, pOpen.data, imGuiWindowFlags);
     }
+
+    private static native boolean nBegin(String title, int imGuiWindowFlags); /*
+        return ImGui::Begin(title, NULL, imGuiWindowFlags);
+    */
 
     private static native boolean nBegin(String title, boolean[] pOpen, int imGuiWindowFlags); /*
         return ImGui::Begin(title, &pOpen[0], imGuiWindowFlags);
@@ -3196,7 +3204,7 @@ public final class ImGui {
     }
 
     private static native boolean nCollapsingHeader(String label, boolean[] pOpen, int imGuiTreeNodeFlags); /*
-        return ImGui::CollapsingHeader(label, pOpen, imGuiTreeNodeFlags);
+        return ImGui::CollapsingHeader(label, &pOpen[0], imGuiTreeNodeFlags);
     */
 
     /**
@@ -3630,9 +3638,20 @@ public final class ImGui {
     /**
      * Modal dialog (regular window with title bar, block interactions behind the modal window, can't close the modal window by clicking outside)
      */
+    public static boolean beginPopupModal(String name, int imGuiWindowFlags) {
+        return nBeginPopupModal(name, imGuiWindowFlags);
+    }
+
+    /**
+     * Modal dialog (regular window with title bar, block interactions behind the modal window, can't close the modal window by clicking outside)
+     */
     public static boolean beginPopupModal(String name, ImBool pOpen, int imGuiWindowFlags) {
         return nBeginPopupModal(name, pOpen.data, imGuiWindowFlags);
     }
+
+    private static native boolean nBeginPopupModal(String name, int imGuiWindowFlags); /*
+        return ImGui::BeginPopupModal(name, NULL, imGuiWindowFlags);
+    */
 
     private static native boolean nBeginPopupModal(String name, boolean[] pOpen, int imGuiWindowFlags); /*
         return ImGui::BeginPopupModal(name, &pOpen[0], imGuiWindowFlags);
@@ -3804,9 +3823,20 @@ public final class ImGui {
     /**
      * Create a Tab. Returns true if the Tab is selected.
      */
+    public static boolean beginTabItem(String label, int imGuiTabBarFlags) {
+        return nBeginTabItem(label, imGuiTabBarFlags);
+    }
+
+    /**
+     * Create a Tab. Returns true if the Tab is selected.
+     */
     public static boolean beginTabItem(String label, ImBool pOpen, int imGuiTabBarFlags) {
         return nBeginTabItem(label, pOpen.data, imGuiTabBarFlags);
     }
+
+    private static native boolean nBeginTabItem(String label, int imGuiTabBarFlags); /*
+        return ImGui::BeginTabItem(label, NULL, imGuiTabBarFlags);
+    */
 
     private static native boolean nBeginTabItem(String label, boolean[] pOpen, int imGuiTabBarFlags); /*
         return ImGui::BeginTabItem(label, &pOpen[0], imGuiTabBarFlags);
