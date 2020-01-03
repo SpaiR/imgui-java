@@ -14,7 +14,7 @@ Despite this fact, see official [documentation](https://github.com/ocornut/imgui
 to get more info about how to do things in ImGui. 
 
 Binding doesn't force you to use backend renderer which is introduced here. Feel free to use your own renderer engine if you need so.
-See how things are done in [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/master/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java).
+See how things are done in [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.74-0.2.1/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java).
 
 Binding has the next version naming: `imguiVersion-bindingVersion`.<br>
 For example `1.74-0.1` means that binding uses `1.74` version of **ImGui** and binding itself has version `0.1`.
@@ -27,13 +27,13 @@ _Make sure you have installed Java 8 or higher._
 You can try this binding by yourself in a three simple steps:
 
 ```
-git clone https://github.com/SpaiR/imgui-java.git
+git clone --branch v1.74-0.2.1 https://github.com/SpaiR/imgui-java.git
 cd imgui-java
 gradlew :imgui-lwjgl3:startExample
 ```
 
-That's it! This will start an example app [ImGuiGlfwExample](https://github.com/SpaiR/imgui-java/blob/master/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java)
-which relies on the GLFW and LWJGL3. Feel free to modify [ImGuiGlfwExample#showUi](https://github.com/SpaiR/imgui-java/blob/master/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java#L271)
+That's it! This will start an example app [ImGuiGlfwExample](https://github.com/SpaiR/imgui-java/blob/v1.74-0.2.1/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java)
+which relies on the GLFW and LWJGL3. Feel free to modify [ImGuiGlfwExample#showUi](https://github.com/SpaiR/imgui-java/blob/v1.74-0.2.1/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java#L272)
 method to try different ImGui widgets in action.
 
 <details>
