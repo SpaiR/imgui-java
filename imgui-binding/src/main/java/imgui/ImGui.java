@@ -18,7 +18,7 @@ public final class ImGui {
 
     static {
         System.loadLibrary(System.getProperty(LIB_NAME_PROP, LIB_NAME_DEFAULT));
-        initJniCommon();
+        initJni();
         ImDrawList.nInit();
         ImDrawData.nInit();
         nInitInputTextData();
@@ -31,10 +31,12 @@ public final class ImGui {
         #include <stdint.h>
         #include <imgui.h>
         #include "jni_common.h"
+        #include "jni_callbacks.h"
      */
 
-    private static native void initJniCommon(); /*
+    private static native void initJni(); /*
         Jni::InitCommon(env);
+        Jni::InitCallbacks(env);
     */
 
     // Context creation and access

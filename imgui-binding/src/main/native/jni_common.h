@@ -8,6 +8,8 @@ namespace Jni
 {
 void InitCommon(JNIEnv* env);
 
+JNIEnv* GetEnv();
+
 void ImVec2Cpy(JNIEnv* env, ImVec2* src, jobject dst);
 void ImVec2Cpy(JNIEnv* env, ImVec2 src, jobject dst);
 

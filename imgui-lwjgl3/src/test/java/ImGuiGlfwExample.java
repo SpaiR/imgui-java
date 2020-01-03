@@ -2,6 +2,8 @@ import imgui.ImBool;
 import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.ImString;
+import imgui.callbacks.ImStrConsumer;
+import imgui.callbacks.ImStrSupplier;
 import imgui.enums.ImGuiBackendFlags;
 import imgui.enums.ImGuiColorEditFlags;
 import imgui.enums.ImGuiCond;
@@ -212,6 +214,20 @@ public final class ImGuiGlfwExample {
         glfwSetScrollCallback(window, (w, xOffset, yOffset) -> {
             io.setMouseWheelH(io.getMouseWheelH() + (float) xOffset);
             io.setMouseWheel(io.getMouseWheel() + (float) yOffset);
+        });
+
+        io.setSetClipboardTextFn(new ImStrConsumer() {
+            @Override
+            public void accept(final String s) {
+                glfwSetClipboardString(window, s);
+            }
+        });
+
+        io.setGetClipboardTextFn(new ImStrSupplier() {
+            @Override
+            public String get() {
+                return glfwGetClipboardString(window);
+            }
         });
 
         // Initialize renderer itself

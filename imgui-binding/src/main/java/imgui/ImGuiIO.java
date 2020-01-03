@@ -1,5 +1,8 @@
 package imgui;
 
+import imgui.callbacks.ImStrConsumer;
+import imgui.callbacks.ImStrSupplier;
+
 /**
  * Communicate most settings and inputs/outputs to Dear ImGui using this structure.
  * Access via ImGui::GetIO(). Read 'Programmer guide' section in .cpp file for general usage.
@@ -11,6 +14,7 @@ public final class ImGuiIO {
     /*JNI
         #include <imgui.h>
         #include "jni_common.h"
+        #include "jni_callbacks.h"
      */
 
     //------------------------------------------------------------------
@@ -253,7 +257,41 @@ public final class ImGuiIO {
         ImGui::GetIO().BackendRendererName = obj_backendRendererName == NULL ? NULL : (char*)env->GetStringUTFChars(obj_backendRendererName, JNI_FALSE);
     */
 
-    // TODO clipboard callback
+    // Optional: Access OS clipboard
+    // (default to use native Win32 clipboard on Windows, otherwise uses a private clipboard. Override to access OS clipboard on other architectures)
+
+    /*JNI
+        jobject _setClipboardTextCallback = nullptr;
+        jobject _getClipboardTextCallback = nullptr;
+
+        void setClipboardTextStub(void* userData, const char* text) {
+            Jni::CallImStrConsumer(Jni::GetEnv(), _setClipboardTextCallback, text);
+        }
+
+        const char* getClipboardTextStub(void* user_data) {
+            JNIEnv* env = Jni::GetEnv();
+            jstring jstr = Jni::CallImStrSupplier(env, _getClipboardTextCallback);
+            return env->GetStringUTFChars(jstr, 0);
+        }
+     */
+
+    public native void setSetClipboardTextFn(ImStrConsumer setClipboardTextCallback); /*
+        if (_setClipboardTextCallback != nullptr) {
+            env->DeleteGlobalRef(_setClipboardTextCallback);
+        }
+
+        _setClipboardTextCallback = env->NewGlobalRef(setClipboardTextCallback);
+        ImGui::GetIO().SetClipboardTextFn = setClipboardTextStub;
+    */
+
+    public native void setGetClipboardTextFn(ImStrSupplier getClipboardTextCallback); /*
+        if (_getClipboardTextCallback != nullptr) {
+            env->DeleteGlobalRef(_getClipboardTextCallback);
+        }
+
+        _getClipboardTextCallback = env->NewGlobalRef(getClipboardTextCallback);
+        ImGui::GetIO().GetClipboardTextFn = getClipboardTextStub;
+    */
 
     //------------------------------------------------------------------
     // Input - Fill before calling NewFrame()
