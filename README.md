@@ -33,7 +33,7 @@ gradlew :imgui-lwjgl3:startExample
 ```
 
 That's it! This will start an example app [ImGuiGlfwExample](https://github.com/SpaiR/imgui-java/blob/v1.74-0.3/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java)
-which relies on the GLFW and LWJGL3. Feel free to modify [ImGuiGlfwExample#showUi](https://github.com/SpaiR/imgui-java/blob/v1.74-0.3/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java#L272)
+which relies on the GLFW and LWJGL3. Feel free to modify [ImGuiGlfwExample#showUi](https://github.com/SpaiR/imgui-java/blob/v1.74-0.3/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java#L288)
 method to try different ImGui widgets in action.
 
 <details>
