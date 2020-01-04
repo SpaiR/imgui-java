@@ -47,8 +47,5 @@ class GenerateLibs extends DefaultTask {
         BuildExecutor.executeAnt(jniDir + '/build-linux32.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
         BuildExecutor.executeAnt(jniDir + '/build-linux64.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
         BuildExecutor.executeAnt(jniDir + '/build.xml', '-v', 'pack-natives')
-
-        // Ant creates this folder in the root of the project. Since it will be empty we delete it
-        project.rootProject.file(libsFolder).deleteDir()
     }
 }
