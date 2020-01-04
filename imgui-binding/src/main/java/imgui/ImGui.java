@@ -2473,7 +2473,9 @@ public final class ImGui {
 
         if (inputData.isResized) {
             inputData.isResized = false;
-            text.resize(nGetResizeValue(), true);
+            final int resizeValue = nGetResizeValue();
+            text.resize(resizeValue + inputData.resizeFactor);
+            inputData.size = resizeValue;
         }
 
         return hasInput;

@@ -14,20 +14,12 @@ public final class ImString {
      * Size of ImGui caret which is shown during the input text focus.
      */
     public static final short CARET_LEN = 1;
-    /**
-     * Default resize value, used to set up {@link ImString#resizeFactor}.
-     */
-    public static final short DEFAULT_RESIZE = 10;
 
     /**
      * Configuration class to setup some specific behaviour for current string.
      * This is useful when string used inside of ImGui#InputText*() methods.
      */
     public final ImGuiInputTextData inputData = new ImGuiInputTextData();
-    /**
-     * String will be resized to the value equal to a new size plus this resize factor.
-     */
-    public int resizeFactor = DEFAULT_RESIZE;
 
     byte[] data;
     private String text = "";
@@ -75,11 +67,11 @@ public final class ImString {
     }
 
     public void set(final String value) {
-        set(value, inputData.isResizable, resizeFactor);
+        set(value, inputData.isResizable, inputData.resizeFactor);
     }
 
     public void set(final String value, final boolean resize) {
-        set(value, resize, resizeFactor);
+        set(value, resize, inputData.resizeFactor);
     }
 
     public void set(final String value, final boolean resize, final int resizeValue) {
@@ -87,11 +79,13 @@ public final class ImString {
         final int currentLen = data == null ? 0 : data.length;
         byte[] newBuff = null;
 
+        // If provided value require bigger buffer and we can resize it
         if (resize && (currentLen - CARET_LEN) < valueBuff.length) {
             newBuff = new byte[valueBuff.length + resizeValue + CARET_LEN];
             inputData.size = valueBuff.length;
         }
 
+        // If there were no resize and we still need a new buffer
         if (newBuff == null) {
             newBuff = new byte[currentLen];
             inputData.size = Math.max(0, Math.min(valueBuff.length, currentLen - CARET_LEN));
@@ -103,15 +97,11 @@ public final class ImString {
     }
 
     public void resize(final int newSize) {
-        resize(newSize, false);
-    }
-
-    public void resize(final int newSize, final boolean respectResizeFactor) {
         if (newSize < data.length) {
             throw new IllegalArgumentException("New size should be greater than current size of the buffer");
         }
 
-        final int size = newSize + CARET_LEN + (respectResizeFactor ? resizeFactor : 0);
+        final int size = newSize + CARET_LEN;
         final byte[] newBuffer = new byte[size];
         System.arraycopy(data, 0, newBuffer, 0, data.length);
         data = newBuffer;
