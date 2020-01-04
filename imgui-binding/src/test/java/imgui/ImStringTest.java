@@ -50,6 +50,6 @@ class ImStringTest {
         str.set("0123456789", true);
         assertEquals("0123456789", str.get());
         assertEquals(10, str.getLength());
-        assertEquals(10 + str.resizeFactor + 1, str.getBufferSize());
+        assertEquals(10 + str.inputData.resizeFactor + 1, str.getBufferSize());
     }
 }
