@@ -6,10 +6,23 @@ import java.util.Objects;
  * Wrapper for {@link String} to use inside of th Dear ImGui input widgets.
  */
 public final class ImString {
-    private static final short DEFAULT_LENGTH = 100;
-    private static final short CARET_LEN = 1;
-    private static final short DEFAULT_RESIZE = 10;
+    /**
+     * Default size of the inner buffer, if {@link ImString} created with a constructor without args.
+     */
+    public static final short DEFAULT_LENGTH = 100;
+    /**
+     * Size of ImGui caret which is shown during the input text focus.
+     */
+    public static final short CARET_LEN = 1;
+    /**
+     * Default resize value, used to set up {@link ImString#resizeFactor}.
+     */
+    public static final short DEFAULT_RESIZE = 10;
 
+    /**
+     * Configuration class to setup some specific behaviour for current string.
+     * This is useful when string used inside of ImGui#InputText*() methods.
+     */
     public final ImGuiInputTextData inputData = new ImGuiInputTextData();
     /**
      * String will be resized to the value equal to a new size plus this resize factor.
@@ -19,19 +32,35 @@ public final class ImString {
     byte[] data;
     private String text = "";
 
+    /**
+     * Creates an {@link ImString} instance with {@link ImString#DEFAULT_LENGTH} size for the inner buffer.
+     */
     public ImString() {
         this(DEFAULT_LENGTH);
     }
 
+    /**
+     * Creates an {@link ImString} instance with provided size for the inner buffer.
+     * @param length size of the inner buffer to use
+     */
     public ImString(final int length) {
         data = new byte[length + CARET_LEN];
     }
 
+    /**
+     * Creates an {@link ImString} instance from provided string.
+     * Inner buffer size will be equal to the length of the string + {@link ImString#CARET_LEN}.
+     * @param text string to create a new {@link ImString}
+     */
     public ImString(final String text) {
-        this(text.length());
-        set(text);
+        set(text, true, 0);
     }
 
+    /**
+     * Create an {@link ImString} instance from provided string with custom size for the inner buffer.
+     * @param text string to a create a new {@link ImString}
+     * @param length custom size for the inner buffer
+     */
     public ImString(final String text, final int length) {
         this(length);
         set(text);
@@ -46,15 +75,46 @@ public final class ImString {
     }
 
     public void set(final String value) {
-        set(value.getBytes());
+        set(value, inputData.isResizable, resizeFactor);
     }
 
     public void set(final String value, final boolean resize) {
-        final byte[] str = value.getBytes();
-        if (resize && data.length - CARET_LEN < str.length) {
-            data = new byte[str.length + resizeFactor + CARET_LEN];
+        set(value, resize, resizeFactor);
+    }
+
+    public void set(final String value, final boolean resize, final int resizeValue) {
+        final byte[] valueBuff = value.getBytes();
+        final int currentLen = data == null ? 0 : data.length;
+        byte[] newBuff = null;
+
+        if (resize && (currentLen - CARET_LEN) < valueBuff.length) {
+            newBuff = new byte[valueBuff.length + resizeValue + CARET_LEN];
+            inputData.size = valueBuff.length;
         }
-        set(str);
+
+        if (newBuff == null) {
+            newBuff = new byte[currentLen];
+            inputData.size = Math.max(0, Math.min(valueBuff.length, currentLen - CARET_LEN));
+        }
+
+        System.arraycopy(valueBuff, 0, newBuff, 0, Math.min(valueBuff.length, newBuff.length - CARET_LEN));
+        data = newBuff;
+        inputData.isDirty = true;
+    }
+
+    public void resize(final int newSize) {
+        resize(newSize, false);
+    }
+
+    public void resize(final int newSize, final boolean respectResizeFactor) {
+        if (newSize < data.length) {
+            throw new IllegalArgumentException("New size should be greater than current size of the buffer");
+        }
+
+        final int size = newSize + CARET_LEN + (respectResizeFactor ? resizeFactor : 0);
+        final byte[] newBuffer = new byte[size];
+        System.arraycopy(data, 0, newBuffer, 0, data.length);
+        data = newBuffer;
     }
 
     /**
@@ -71,13 +131,6 @@ public final class ImString {
      */
     public int getBufferSize() {
         return data.length;
-    }
-
-    private void set(final byte[] str) {
-        final int len = Math.min(str.length, data.length);
-        System.arraycopy(str, 0, data, 0, len);
-        inputData.isDirty = true;
-        inputData.size = len;
     }
 
     @Override

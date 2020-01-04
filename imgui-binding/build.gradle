@@ -9,6 +9,15 @@ plugins {
 
 sourceCompatibility = 1.8
 
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
+}
+
+test {
+    useJUnitPlatform()
+}
+
 assemble.dependsOn clean
 task generateLibs(type: GenerateLibs, dependsOn: assemble)
 

@@ -261,8 +261,8 @@ public final class ImGuiIO {
     // (default to use native Win32 clipboard on Windows, otherwise uses a private clipboard. Override to access OS clipboard on other architectures)
 
     /*JNI
-        jobject _setClipboardTextCallback = nullptr;
-        jobject _getClipboardTextCallback = nullptr;
+        jobject _setClipboardTextCallback = NULL;
+        jobject _getClipboardTextCallback = NULL;
 
         void setClipboardTextStub(void* userData, const char* text) {
             Jni::CallImStrConsumer(Jni::GetEnv(), _setClipboardTextCallback, text);
@@ -276,7 +276,7 @@ public final class ImGuiIO {
      */
 
     public native void setSetClipboardTextFn(ImStrConsumer setClipboardTextCallback); /*
-        if (_setClipboardTextCallback != nullptr) {
+        if (_setClipboardTextCallback != NULL) {
             env->DeleteGlobalRef(_setClipboardTextCallback);
         }
 
@@ -285,7 +285,7 @@ public final class ImGuiIO {
     */
 
     public native void setGetClipboardTextFn(ImStrSupplier getClipboardTextCallback); /*
-        if (_getClipboardTextCallback != nullptr) {
+        if (_getClipboardTextCallback != NULL) {
             env->DeleteGlobalRef(_getClipboardTextCallback);
         }
 

@@ -2397,7 +2397,7 @@ public final class ImGui {
         jfieldID imTextInputDataIsDirtyID;
         jfieldID imTextInputDataIsResizedID;
 
-        char* resizedBuf;
+        int resizeValue;
 
         struct InputTextCallbackUserData {
             JNIEnv* env;
@@ -2432,6 +2432,10 @@ public final class ImGui {
         imTextInputDataSizeID = env->GetFieldID(jImInputTextDataClass, "size", "I");
         imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
         imTextInputDataIsResizedID = env->GetFieldID(jImInputTextDataClass, "isResized", "Z");
+    */
+
+    private static native int nGetResizeValue(); /*
+        return resizeValue;
     */
 
     public static boolean inputText(String label, ImString text) {
@@ -2469,7 +2473,7 @@ public final class ImGui {
 
         if (inputData.isResized) {
             inputData.isResized = false;
-            text.set(nGetResizedStr(), true);
+            text.resize(nGetResizeValue(), true);
         }
 
         return hasInput;
@@ -2485,31 +2489,27 @@ public final class ImGui {
         if (strlen(allowedChars) > 0)
             flags |= ImGuiInputTextFlags_CallbackCharFilter;
 
-        bool hasInput;
+        bool valueChanged;
 
         if (multiline) {
-            hasInput = ImGui::InputTextMultiline(label, buf, maxSize, ImVec2(width, height), flags, &TextEditCallbackStub, &userData);
+            valueChanged = ImGui::InputTextMultiline(label, buf, maxSize, ImVec2(width, height), flags, &TextEditCallbackStub, &userData);
         } else {
-            hasInput = ImGui::InputText(label, buf, maxSize, flags, &TextEditCallbackStub, &userData);
+            valueChanged = ImGui::InputText(label, buf, maxSize, flags, &TextEditCallbackStub, &userData);
         }
 
-        if (hasInput) {
-            int size = strlen(buf);
+        int size = strlen(buf);
 
-            if (((size + 1) > maxSize) && (flags & ImGuiInputTextFlags_CallbackResize)) {
-                env->SetBooleanField(textInputData, imTextInputDataIsResizedID, true);
-                resizedBuf = buf;
-            }
+        if ((flags & ImGuiInputTextFlags_CallbackResize) && ((size + 1) > maxSize)) {
+            env->SetBooleanField(textInputData, imTextInputDataIsResizedID, true);
+            resizeValue = size;
+        }
 
+        if (valueChanged) {
             env->SetIntField(textInputData, imTextInputDataSizeID, size);
             env->SetBooleanField(textInputData, imTextInputDataIsDirtyID, true);
         }
 
-        return hasInput;
-    */
-
-    private static native String nGetResizedStr(); /*
-        return env->NewStringUTF(resizedBuf);
+        return valueChanged;
     */
 
     public static boolean inputFloat(String label, ImFloat v) {
