@@ -6,4 +6,4 @@ You can change that by using 'imgui.library.name' VM option (ex: -Dimgui.library
 - imgui-java.dll   << win32
 - imgui-java64.dll << win64
 - libimgui-java.so << linux32
-- libimgui-java.so << linux64
+- libimgui-java64.so << linux64
