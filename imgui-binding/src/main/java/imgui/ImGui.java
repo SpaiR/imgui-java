@@ -718,7 +718,7 @@ public final class ImGui {
         ImGui::PopFont();
     */
 
-    public static native void pushStyleColor(int imGuiCol, long col); /*
+    public static native void pushStyleColor(int imGuiCol, int col); /*
         ImGui::PushStyleColor(imGuiCol, col);
     */
 
@@ -777,28 +777,29 @@ public final class ImGui {
     /**
      * Retrieve given style color with style alpha applied and optional extra alpha multiplier
      */
-    public static native long getColorU32(int imGuiCol); /*
+    public static native int getColorU32(int imGuiCol); /*
         return ImGui::GetColorU32((ImGuiCol)imGuiCol);
     */
 
     /**
      * Retrieve given style color with style alpha applied and optional extra alpha multiplier
      */
-    public static native long getColorU32(int imGuiCol, float alphaMul); /*
+    public static native int getColorU32(int imGuiCol, float alphaMul); /*
         return ImGui::GetColorU32(imGuiCol, alphaMul);
     */
 
     /**
      * Retrieve given color with style alpha applied
      */
-    public static native long getColorU32(float r, float g, float b, float a); /*
+    public static native int getColorU32(float r, float g, float b, float a); /*
         return ImGui::GetColorU32(ImVec4(r, g, b, a));
     */
 
     /**
      * Retrieve given color with style alpha applied
+     * BINDING NOTICE: Since {@link #getColorU32(int)} has the same signature, this specific method has an 'i' suffix.
      */
-    public static native long getColorU32(long col); /*
+    public static native int getColorU32i(int col); /*
         return ImGui::GetColorU32((ImU32)col);
     */
 
@@ -4309,7 +4310,7 @@ public final class ImGui {
         Jni::ImVec4Cpy(env, ImGui::ColorConvertU32ToFloat4(in), dstImVec4);
     */
 
-    public static native long colorConvertFloat4ToU32(float r, float g, float b, float a); /*
+    public static native int colorConvertFloat4ToU32(float r, float g, float b, float a); /*
         return ImGui::ColorConvertFloat4ToU32(ImVec4(r, g, b, a));
     */
 
