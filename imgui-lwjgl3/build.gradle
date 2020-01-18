@@ -1,3 +1,5 @@
+import org.gradle.internal.os.OperatingSystem
+
 plugins {
     id 'java'
     id 'checkstyle'
@@ -7,6 +9,15 @@ plugins {
 
 sourceCompatibility = 1.8
 
+switch (OperatingSystem.current()) {
+    case OperatingSystem.LINUX:
+        project.ext.lwjglNatives = 'natives-linux'
+        break
+    case OperatingSystem.WINDOWS:
+        project.ext.lwjglNatives = 'natives-windows'
+        break
+}
+
 dependencies {
     implementation platform("org.lwjgl:lwjgl-bom:3.2.3")
 
@@ -14,13 +25,17 @@ dependencies {
     implementation 'org.lwjgl:lwjgl-glfw'
     implementation 'org.lwjgl:lwjgl-opengl'
 
+    testRuntimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
+    testRuntimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
+    testRuntimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
+
     implementation project(':imgui-binding')
 }
 
 task startExample(type: JavaExec, dependsOn: build) {
     main = 'ImGuiGlfwExample'
     classpath = sourceSets.test.runtimeClasspath
-    jvmArgs = ['-Djava.library.path=../bin', '-Dorg.lwjgl.librarypath=./lwjgl-libs']
+    jvmArgs = ['-Djava.library.path=../bin']
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
