@@ -63,14 +63,5 @@ bintray {
     pkg {
         repo = 'io.imgui.java'
         name = 'lwjgl3'
-        userOrg = user
-        desc = 'Backend renderer for imgui-java based on LWJGL3'
-        licenses = ['Apache-2.0']
-        websiteUrl = 'https://github.com/SpaiR/imgui-java'
-        issueTrackerUrl  = 'https://github.com/SpaiR/imgui-java/issues'
-        vcsUrl = 'https://github.com/SpaiR/imgui-java.git'
-        labels = ['dear-imgui', 'java', 'lwjgl3', 'opengl']
-        githubRepo = 'SpaiR/imgui-java'
-        publicDownloadNumbers = true
     }
 }

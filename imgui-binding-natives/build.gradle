@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+    id 'com.jfrog.bintray' version '1.8.4'
+    id 'maven-publish'
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
+def packageName = 'natives-linux'
+def libName = 'libimgui-java64.so'
+
+if (System.getProperty('deployWin32')) {
+    packageName = 'natives-windows-x86'
+    libName = 'imgui-java.dll'
+} else if (System.getProperty('deployWin64')) {
+    packageName = 'natives-windows'
+    libName = 'imgui-java64.dll'
+} else if (System.getProperty('deployLinux32')) {
+    packageName = 'natives-linux-x86'
+    libName = 'libimgui-java.so'
+} else if (System.getProperty('deployLinux64')) {
+    packageName = 'natives-linux'
+    libName = 'libimgui-java64.so'
+}
+
+jar {
+    from('../bin') {
+        include "$libName" // it's ok
+        into 'io/imgui/java/native-bin/'
+    }
+}
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            groupId 'io.imgui.java'
+            artifactId packageName
+            artifact sourcesJar
+            version property('version')
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_API_KEY')
+    publications = ['MyPublication']
+    override = true
+    pkg {
+        repo = 'io.imgui.java'
+        name = packageName
+    }
+}

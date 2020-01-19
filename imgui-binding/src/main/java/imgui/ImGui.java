@@ -2,11 +2,20 @@ package imgui;
 
 import imgui.enums.ImGuiInputTextFlags;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 public final class ImGui {
+    private static final String LIB_PATH_PROP = "imgui.library.path";
     private static final String LIB_NAME_PROP = "imgui.library.name";
     private static final String LIB_NAME_DEFAULT = System.getProperty("os.arch").contains("64") ? "imgui-java64" : "imgui-java";
+    private static final String LIB_TMP_DIR_PREFIX = "imgui-java-bin_" + System.getProperty("user.name", "user");
 
     private static final ImDrawData DRAW_DATA = new ImDrawData(100_000, 100_000, 1000);
     private static final ImGuiIO IMGUI_IO = new ImGuiIO();
@@ -17,11 +26,59 @@ public final class ImGui {
     private static final ImDrawList IM_DRAW_LIST_FOREGROUND = new ImDrawList(ImDrawList.TYPE_FOREGROUND);
 
     static {
-        System.loadLibrary(System.getProperty(LIB_NAME_PROP, LIB_NAME_DEFAULT));
-        initJni();
+        final String libPath = System.getProperty(LIB_PATH_PROP);
+        final String libName = System.getProperty(LIB_NAME_PROP, LIB_NAME_DEFAULT);
+        final String fullLibName = resolveFullLibName();
+
+        final String extractedLibAbsPath = tryLoadFromClasspath(fullLibName);
+
+        if (extractedLibAbsPath != null) {
+            System.load(extractedLibAbsPath);
+        } else if (libPath != null) {
+            System.load(Paths.get(libPath).resolve(fullLibName).toFile().getAbsolutePath());
+        } else {
+            System.loadLibrary(libName);
+        }
+
+        nInitJni();
         ImDrawList.nInit();
         ImDrawData.nInit();
         nInitInputTextData();
+    }
+
+    private static String resolveFullLibName() {
+        final boolean isWin = System.getProperty("os.name").toLowerCase().contains("win");
+        final String libPrefix;
+        final String libSuffix;
+
+        if (isWin) {
+            libPrefix = "";
+            libSuffix = ".dll";
+        } else { // Only linux as an alternative OS
+            libPrefix = "lib";
+            libSuffix = ".so";
+        }
+
+        return System.getProperty(LIB_NAME_PROP, libPrefix + LIB_NAME_DEFAULT + libSuffix);
+    }
+
+    // This method tries to unpack the library binary from classpath into the temp dir.
+    private static String tryLoadFromClasspath(final String fullLibName) {
+        try (InputStream is = ImGui.class.getClassLoader().getResourceAsStream("io/imgui/java/native-bin/" + fullLibName)) {
+            if (is == null) {
+                return null;
+            }
+
+            final Path tmpDir = Paths.get(System.getProperty("java.io.tmpdir")).resolve(LIB_TMP_DIR_PREFIX);
+            tmpDir.toFile().mkdirs();
+
+            final Path libBin = tmpDir.resolve(fullLibName);
+            Files.copy(is, libBin, StandardCopyOption.REPLACE_EXISTING);
+
+            return libBin.toFile().getAbsolutePath();
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     private ImGui() {
@@ -34,7 +91,7 @@ public final class ImGui {
         #include "jni_callbacks.h"
      */
 
-    private static native void initJni(); /*
+    private static native void nInitJni(); /*
         Jni::InitCommon(env);
         Jni::InitCallbacks(env);
     */

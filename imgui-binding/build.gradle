@@ -52,14 +52,5 @@ bintray {
     pkg {
         repo = 'io.imgui.java'
         name = 'binding'
-        userOrg = user
-        desc = 'A handcrafted/generated Java binding for the Dear-ImGui'
-        licenses = ['Apache-2.0']
-        websiteUrl = 'https://github.com/SpaiR/imgui-java'
-        issueTrackerUrl  = 'https://github.com/SpaiR/imgui-java/issues'
-        vcsUrl = 'https://github.com/SpaiR/imgui-java.git'
-        labels = ['dear-imgui', 'java', 'jni']
-        githubRepo = 'SpaiR/imgui-java'
-        publicDownloadNumbers = true
     }
 }
