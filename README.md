@@ -14,7 +14,7 @@ Despite this fact, see official [documentation](https://github.com/ocornut/imgui
 to get more info about how to do things in ImGui. 
 
 Binding doesn't force you to use backend renderer which is introduced here. Feel free to use your own renderer engine if you need so.
-See how things are done in [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.74-0.3.2/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java).
+See how things are done in [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.74-0.4/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java).
 
 Binding has the next version naming: `imguiVersion-bindingVersion`.<br>
 For example `1.74-0.1` means that binding uses `1.74` version of **ImGui** and binding itself has version `0.1`.
@@ -27,13 +27,13 @@ _Make sure you have installed Java 8 or higher._
 You can try this binding by yourself in a three simple steps:
 
 ```
-git clone --branch v1.74-0.3.2 https://github.com/SpaiR/imgui-java.git
+git clone --branch v1.74-0.4 https://github.com/SpaiR/imgui-java.git
 cd imgui-java
 gradlew :imgui-lwjgl3:startExample
 ```
 
-That's it! This will start an example app [ImGuiGlfwExample](https://github.com/SpaiR/imgui-java/blob/v1.74-0.3.2/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java)
-which relies on the GLFW and LWJGL3. Feel free to modify [ImGuiGlfwExample#showUi](https://github.com/SpaiR/imgui-java/blob/v1.74-0.3.2/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java#L288)
+That's it! This will start an example app [ImGuiGlfwExample](https://github.com/SpaiR/imgui-java/blob/v1.74-0.4/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java)
+which relies on the GLFW and LWJGL3. Feel free to modify [ImGuiGlfwExample#showUi](https://github.com/SpaiR/imgui-java/blob/v1.74-0.4/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java#L288)
 method to try different ImGui widgets in action.
 
 <details>
@@ -53,18 +53,13 @@ repositories {
 #### Step 2
 Add binding dependency:
 ```
-dependecies {
-    implementation 'io.imgui.java:binding:1.74-0.3.2'
-}
+implementation 'io.imgui.java:binding:1.74-0.4'
 ```
 
-#### Step 3 (optional, but recommended)
+#### Step 3
 If you want to use LWJGL3 renderer:
 ```
-dependecies {
-    implementation 'io.imgui.java:binding:1.74-0.3.2'
-    implementation 'io.imgui.java:lwjgl3:1.74-0.3.2'
-}
+implementation 'io.imgui.java:lwjgl3:1.74-0.4'
 ```
 **Disclaimer!**<br>
 LWJGL3 renderer is based on the `3.2.3` version of the [LWJGL](https://www.lwjgl.org/). 
@@ -72,8 +67,37 @@ You'll need to add additional dependencies to it. Specifically `lwjgl` itself, `
 You can find how to do it [here](https://www.lwjgl.org/customize).
 
 #### Step 4
-Go to the `/bin` folder and pick a native library for your OS. Then you'll need to provide `java.library.path` VM option with folder
-where you placed the downloaded file.
+Add binary lib dependency:
+```
+runtimeOnly "io.imgui.java:$imguiNatives:1.74-0.4"
+```
+Where `imguiNatives` could be:
+ - `natives-linux`
+ - `natives-linux-x86`
+ - `natives-windows`
+ - `natives-windows-x86`
+
+_(`x86` suffix is to get 32bit library)_
+
+Or alternatively you can download binaries manually:<br>
+Go to the `/bin` folder and pick a native library for your OS. Then you'll need to provide `imgui.library.path` or `java.library.path` 
+VM option with path to a folder where you placed downloaded file.
+
+<details>
+    <summary>Result build.gradle could look like this</summary>
+
+    ```
+    repositories {
+        jcenter()
+    }
+    
+    dependencies {
+        implementation 'io.imgui.java:binding:1.74-0.4'
+        implementation 'io.imgui.java:lwjgl3:1.74-0.4'
+        runtimeOnly "io.imgui.java:natives-windows:1.74-0.4"
+    }
+    ```
+</details>
 
 **You are ready to use imgui-java binding!**
 
