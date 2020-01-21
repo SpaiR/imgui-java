@@ -5,10 +5,10 @@
 [![JCenter](https://img.shields.io/bintray/v/spair/io.imgui.java/lwjgl3.svg?label=lwjgl3)](https://bintray.com/spair/io.imgui.java/lwjgl3/_latestVersion)
 [![javadoc](https://javadoc.io/badge2/io.imgui.java/binding/javadoc.svg)](https://javadoc.io/doc/io.imgui.java/binding)
 
-A handcrafted/generated Java binding for [Dear-ImGui](https://github.com/ocornut/imgui) with no dependencies 
+A handcrafted/generated Java binding for [Dear ImGui](https://github.com/ocornut/imgui) with no dependencies 
 and ready to use pre-compiled binaries.
 
-It's a straightforward binding, which uses JNI to do a direct calls to Dear-ImGui API.<br>
+It's a straightforward binding, which uses JNI to do a direct calls to Dear ImGui API.<br>
 Since we live in Java world - some things require to do them respectively to that fact. Please read **Binding notice**.
 Despite this fact, see official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki) 
 to get more info about how to do things in ImGui. 
