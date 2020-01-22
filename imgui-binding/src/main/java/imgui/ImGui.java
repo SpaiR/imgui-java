@@ -1282,8 +1282,16 @@ public final class ImGui {
         ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY));
     */
 
+    public static native void image(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y); /*
+        ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y));
+    */
+
     public static native void image(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*
         ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y));
+    */
+
+    public static native void image(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColorR, float tintColorG, float tintColorB, float tintColorA); /*
+        ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), ImVec4(tintColorR, tintColorG, tintColorB, tintColorA));
     */
 
     public static native void image(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColorR, float tintColorG, float tintColorB, float tintColorA, float borderR, float borderG, float borderB, float borderA); /*
@@ -1300,8 +1308,29 @@ public final class ImGui {
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
+    public static native boolean imageButton(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y); /*
+        return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y));
+    */
+
+    /**
+     * {@code <0} framePadding uses default frame padding settings. 0 for no padding
+     */
+    public static native boolean imageButton(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*
+        return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y));
+    */
+
+    /**
+     * {@code <0} framePadding uses default frame padding settings. 0 for no padding
+     */
     public static native boolean imageButton(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding); /*
         return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), framePadding);
+    */
+
+    /**
+     * {@code <0} framePadding uses default frame padding settings. 0 for no padding
+     */
+    public static native boolean imageButton(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding, float bgColorR, float bgColorG, float bgColorB, float bgColorA); /*
+        return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), framePadding, ImVec4(bgColorR, bgColorG, bgColorB, bgColorA));
     */
 
     /**
