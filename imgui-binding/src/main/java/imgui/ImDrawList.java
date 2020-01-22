@@ -16,6 +16,7 @@ public final class ImDrawList {
     public static final int TYPE_BACKGROUND = 1;
     public static final int TYPE_FOREGROUND = 2;
 
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final int drawListType;
 
     ImDrawList(final int drawListType) {
@@ -58,6 +59,48 @@ public final class ImDrawList {
 
     public native void setImDrawListFlags(int imDrawListFlags); /*
         getDrawList(env->GetIntField(object, drawListTypeID))->Flags = imDrawListFlags;
+    */
+
+    /**
+     * Render-level scissoring.
+     * This is passed down to your render function but not used for CPU-side coarse clipping.
+     * Prefer using higher-level ImGui::PushClipRect() to affect logic (hit-testing and widget culling)
+     */
+    public native void pushClipRect(float clipRectMinX, float clipRectMinY, float clipRectMaxX, float clipRectMaxY); /*
+        getDrawList(env->GetIntField(object, drawListTypeID))->PushClipRect(ImVec2(clipRectMinX, clipRectMinY), ImVec2(clipRectMaxX, clipRectMaxY));
+    */
+
+    /**
+     * Render-level scissoring.
+     * This is passed down to your render function but not used for CPU-side coarse clipping.
+     * Prefer using higher-level ImGui::PushClipRect() to affect logic (hit-testing and widget culling)
+     */
+    public native void pushClipRect(float clipRectMinX, float clipRectMinY, float clipRectMaxX, float clipRectMaxY, boolean intersectWithCurrentClipRect); /*
+        getDrawList(env->GetIntField(object, drawListTypeID))->PushClipRect(ImVec2(clipRectMinX, clipRectMinY), ImVec2(clipRectMaxX, clipRectMaxY), intersectWithCurrentClipRect);
+    */
+
+    public native void pushClipRectFullScreen(); /*
+        getDrawList(env->GetIntField(object, drawListTypeID))->PushClipRectFullScreen();
+    */
+
+    public native void popClipRect(); /*
+        getDrawList(env->GetIntField(object, drawListTypeID))->PopClipRect();
+    */
+
+    public native void pushTextureId(int textureId); /*
+        getDrawList(env->GetIntField(object, drawListTypeID))->PushTextureID((ImTextureID)textureId);
+    */
+
+    public native void popTextureId(); /*
+        getDrawList(env->GetIntField(object, drawListTypeID))->PopTextureID();
+    */
+
+    public native void getClipRectMin(ImVec2 dstImVec2); /*
+        Jni::ImVec2Cpy(env, getDrawList(env->GetIntField(object, drawListTypeID))->GetClipRectMin(), dstImVec2);
+    */
+
+    public native void getClipRectMax(ImVec2 dstImVec2); /*
+        Jni::ImVec2Cpy(env, getDrawList(env->GetIntField(object, drawListTypeID))->GetClipRectMax(), dstImVec2);
     */
 
     // Primitives
