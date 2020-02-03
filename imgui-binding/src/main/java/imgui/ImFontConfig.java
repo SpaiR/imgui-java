@@ -47,6 +47,37 @@ public final class ImFontConfig implements ImDestroyable {
     */
 
     /**
+     * TTF/OTF data
+     */
+    public native byte[] getFontData(); /*
+        int size = IM_FONT_CONFIG->FontDataSize;
+        jbyteArray jBytes = env->NewByteArray(size);
+        env->SetByteArrayRegion(jBytes, 0, size, (jbyte*)IM_FONT_CONFIG->FontData);
+        return jBytes;
+    */
+
+    /**
+     * TTF/OTF data
+     */
+    public native void setFontData(byte[] fontData); /*
+        IM_FONT_CONFIG->FontData = &fontData[0];
+    */
+
+    /**
+     * TTF/OTF data size
+     */
+    public native int getFontDataSize(); /*
+        return IM_FONT_CONFIG->FontDataSize;
+    */
+
+    /**
+     * TTF/OTF data size
+     */
+    public native void setFontDataSize(int fontDataSize); /*
+        IM_FONT_CONFIG->FontDataSize = fontDataSize;
+    */
+
+    /**
      * TTF/OTF data ownership taken by the container ImFontAtlas (will delete memory itself).
      */
     public native boolean getFontDataOwnedByAtlas(); /*
