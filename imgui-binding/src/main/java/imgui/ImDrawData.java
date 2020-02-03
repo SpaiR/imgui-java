@@ -6,6 +6,7 @@ import java.nio.ByteOrder;
 
 /**
  * All draw data to render a Dear ImGui frame.
+ * <p>
  * BINDING NOTICE: DO NOT TRY TO MODIFY FIELDS OF THIS CLASS MANUALLY! You should only access their values after {@link ImGui#render()} call.
  */
 public final class ImDrawData {

@@ -17,9 +17,9 @@ public final class ImGui {
     private static final String LIB_NAME_DEFAULT = System.getProperty("os.arch").contains("64") ? "imgui-java64" : "imgui-java";
     private static final String LIB_TMP_DIR_PREFIX = "imgui-java-bin_" + System.getProperty("user.name", "user");
 
-    private static final ImDrawData DRAW_DATA = new ImDrawData(100_000, 100_000, 1000);
-    private static final ImGuiIO IMGUI_IO = new ImGuiIO();
-    private static final ImGuiStyle IMGUI_STYLE = new ImGuiStyle();
+    private static final ImDrawData DRAW_DATA;
+    private static final ImGuiIO IMGUI_IO;
+    private static final ImGuiStyle IMGUI_STYLE;
 
     private static final ImDrawList IM_DRAW_LIST_WINDOW = new ImDrawList(ImDrawList.TYPE_WINDOW);
     private static final ImDrawList IM_DRAW_LIST_BACKGROUND = new ImDrawList(ImDrawList.TYPE_BACKGROUND);
@@ -40,9 +40,15 @@ public final class ImGui {
             System.loadLibrary(libName);
         }
 
+        DRAW_DATA = new ImDrawData(100_000, 100_000, 1000);
+        IMGUI_IO = new ImGuiIO();
+        IMGUI_STYLE = new ImGuiStyle();
+
         nInitJni();
         ImDrawList.nInit();
         ImDrawData.nInit();
+        ImFontAtlas.nInit();
+        ImFontConfig.nInit();
         nInitInputTextData();
     }
 
@@ -79,6 +85,14 @@ public final class ImGui {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    /**
+     * For internal usage.
+     * Method is used to initiate static instantiation (loading of the native libraries etc.).
+     * Otherwise native libraries will be loaded on demand and natively mapped objects won't work.
+     */
+    static void touch() {
     }
 
     private ImGui() {
@@ -854,6 +868,7 @@ public final class ImGui {
 
     /**
      * Retrieve given color with style alpha applied
+     * <p>
      * BINDING NOTICE: Since {@link #getColorU32(int)} has the same signature, this specific method has an 'i' suffix.
      */
     public static native int getColorU32i(int col); /*
@@ -1196,6 +1211,7 @@ public final class ImGui {
 
     /**
      * Formatted text
+     * <p>
      * BINDING NOTICE: Since all text formatting could be done on Java side, this call is equal to {@link ImGui#textUnformatted(String)}.
      */
     public static native void text(String text); /*

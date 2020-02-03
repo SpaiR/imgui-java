@@ -122,7 +122,7 @@ public final class ImGuiGlfwExample {
     // Here we will initialize ImGui stuff.
     private void initImGui() {
         // IMPORTANT!!
-        // This line is critical for ImGui to work.
+        // This line is critical for Dear ImGui to work.
         ImGui.createContext();
 
         // ImGui provides three different color schemas for styling. We will use the classic one here.
@@ -230,7 +230,10 @@ public final class ImGuiGlfwExample {
             }
         });
 
-        // Initialize renderer itself
+        // IMPORTANT!!!
+        // Method initializes renderer itself.
+        // This method SHOULD be called after you've initialized your ImGui configuration (fonts and so on).
+        // ImGui context should be created as well.
         imGuiGl3.init();
     }
 

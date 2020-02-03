@@ -1,14 +1,16 @@
 package imgui.gl3;
 
 import imgui.ImDrawData;
+import imgui.ImFontAtlas;
 import imgui.ImGui;
-import imgui.TexDataRGBA32;
+import imgui.ImInt;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UncheckedIOException;
+import java.nio.ByteBuffer;
 import java.util.Objects;
 
 import static org.lwjgl.opengl.GL30.*;
@@ -191,18 +193,21 @@ public final class ImGuiImplGl3 {
     }
 
     private void prepareFont() {
-        final TexDataRGBA32 texData = TexDataRGBA32.create();
-
         gFontTexture = glGenTextures();
+
+        final ImFontAtlas fontAtlas = ImGui.getIO().getFonts();
+        final ImInt width = new ImInt();
+        final ImInt height = new ImInt();
+        final ByteBuffer buffer = fontAtlas.getTexDataAsRGBA32(width, height);
 
         glBindTexture(GL_TEXTURE_2D, gFontTexture);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texData.width, texData.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData.pixelBuffer);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width.get(), height.get(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 
-        ImGui.getIO().setFontsTexID(gFontTexture);
+        fontAtlas.setTexID(gFontTexture);
     }
 
     private void backupGlState() {

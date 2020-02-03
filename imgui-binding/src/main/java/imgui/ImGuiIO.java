@@ -8,6 +8,8 @@ import imgui.callbacks.ImStrSupplier;
  * Access via ImGui::GetIO(). Read 'Programmer guide' section in .cpp file for general usage.
  */
 public final class ImGuiIO {
+    private ImFontAtlas imFontAtlas;
+
     ImGuiIO() {
     }
 
@@ -16,6 +18,10 @@ public final class ImGuiIO {
         #include "jni_common.h"
         #include "jni_callbacks.h"
      */
+
+    private native long nGetFontsPtr(); /*
+        return (long)ImGui::GetIO().Fonts;
+    */
 
     //------------------------------------------------------------------
     // Configuration (fill once)
@@ -152,12 +158,32 @@ public final class ImGuiIO {
         ImGui::GetIO().KeyRepeatRate = keyRepeatRate;
     */
 
-    // TODO fonts configuration
+    /**
+     * Font atlas: load, rasterize and pack one or more fonts into a single texture.
+     */
+    public ImFontAtlas getFonts() {
+        // on demand instantiation
+        // will throw native exception if Dear ImGui context isn't created (like in the original library)
+        if (imFontAtlas == null) {
+            imFontAtlas = new ImFontAtlas(nGetFontsPtr());
+        }
+        return imFontAtlas;
+    }
 
-    // BINDING NOTICE: this is a stub to pass important for ImGui info
-    public native void setFontsTexID(int id); /*
-        ImGui::GetIO().Fonts->TexID = (ImTextureID)id;
-    */
+    /**
+     * Font atlas: load, rasterize and pack one or more fonts into a single texture.
+     * <p>
+     * BINDING NOTICE: You should manually destroy previously used ImFontAtlas:
+     * <pre>
+     *     io.getFonts().destroy();
+     *     io.setFonts(newImFontAtlas);
+     * </pre>
+     */
+    public void setFonts(final ImFontAtlas imFontAtlas) {
+        this.imFontAtlas = imFontAtlas;
+    }
+
+    // TODO fonts configuration
 
     // Miscellaneous options
 
@@ -626,8 +652,7 @@ public final class ImGuiIO {
      * Queue new character input.
      */
     public native void addInputCharacter(int c); /*
-        if (c > 0 && c < 0x10000)
-            ImGui::GetIO().AddInputCharacter((unsigned short)c);
+        ImGui::GetIO().AddInputCharacter((unsigned int)c);
     */
 
     /**
