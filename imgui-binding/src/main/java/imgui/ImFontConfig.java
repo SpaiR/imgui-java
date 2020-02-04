@@ -247,14 +247,16 @@ public final class ImFontConfig implements ImDestroyable {
     */
 
     /**
-     * Merge into previous ImFont, so you can combine multiple inputs font into one ImFont (e.g. ASCII font + icons + Japanese glyphs). You may want to use GlyphOffset.y when merge font of different heights.
+     * Merge into previous ImFont, so you can combine multiple inputs font into one ImFont (e.g. ASCII font + icons + Japanese glyphs).
+     * You may want to use GlyphOffset.y when merge font of different heights.
      */
     public native boolean getMergeMode(); /*
         return IM_FONT_CONFIG->MergeMode;
     */
 
     /**
-     * Merge into previous ImFont, so you can combine multiple inputs font into one ImFont (e.g. ASCII font + icons + Japanese glyphs). You may want to use GlyphOffset.y when merge font of different heights.
+     * Merge into previous ImFont, so you can combine multiple inputs font into one ImFont (e.g. ASCII font + icons + Japanese glyphs).
+     * You may want to use GlyphOffset.y when merge font of different heights.
      */
     public native void setMergeMode(boolean mergeMode); /*
         IM_FONT_CONFIG->MergeMode = mergeMode;

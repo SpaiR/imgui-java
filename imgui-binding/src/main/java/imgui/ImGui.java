@@ -49,6 +49,7 @@ public final class ImGui {
         ImDrawData.nInit();
         ImFontAtlas.nInit();
         ImFontConfig.nInit();
+        ImFontGlyph.nInit();
         nInitInputTextData();
     }
 
