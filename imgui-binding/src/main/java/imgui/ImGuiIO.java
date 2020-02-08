@@ -19,10 +19,6 @@ public final class ImGuiIO {
         #include "jni_callbacks.h"
      */
 
-    private native long nGetFontsPtr(); /*
-        return (long)ImGui::GetIO().Fonts;
-    */
-
     //------------------------------------------------------------------
     // Configuration (fill once)
     //------------------------------------------------------------------
@@ -170,18 +166,23 @@ public final class ImGuiIO {
         return imFontAtlas;
     }
 
+    private native long nGetFontsPtr(); /*
+        return (long)ImGui::GetIO().Fonts;
+    */
+
     /**
      * Font atlas: load, rasterize and pack one or more fonts into a single texture.
      * <p>
-     * BINDING NOTICE: You should manually destroy previously used ImFontAtlas:
-     * <pre>
-     *     io.getFonts().destroy();
-     *     io.setFonts(newImFontAtlas);
-     * </pre>
+     * BINDING NOTICE: You SHOULD manually destroy previously used ImFontAtlas.
      */
     public void setFonts(final ImFontAtlas imFontAtlas) {
         this.imFontAtlas = imFontAtlas;
+        nSetImFontAtlas(imFontAtlas.ptr);
     }
+
+    private native void nSetImFontAtlas(long imFontAtlasPtr); /*
+        ImGui::GetIO().Fonts = (ImFontAtlas*)imFontAtlasPtr;
+    */
 
     // TODO fonts configuration
 
