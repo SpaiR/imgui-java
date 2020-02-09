@@ -177,14 +177,48 @@ public final class ImGuiIO {
      */
     public void setFonts(final ImFontAtlas imFontAtlas) {
         this.imFontAtlas = imFontAtlas;
-        nSetImFontAtlas(imFontAtlas.ptr);
+        nSetFonts(imFontAtlas.ptr);
     }
 
-    private native void nSetImFontAtlas(long imFontAtlasPtr); /*
+    private native void nSetFonts(long imFontAtlasPtr); /*
         ImGui::GetIO().Fonts = (ImFontAtlas*)imFontAtlasPtr;
     */
 
-    // TODO fonts configuration
+    /**
+     * Global scale all fonts
+     */
+    public native float getFontGlobalScale(); /*
+        return ImGui::GetIO().FontGlobalScale;
+    */
+
+    /**
+     * Global scale all fonts
+     */
+    public native void setFontGlobalScale(float fontGlobalScale); /*
+        ImGui::GetIO().FontGlobalScale = fontGlobalScale;
+    */
+
+    /**
+     * Allow user scaling text of individual window with CTRL+Wheel.
+     */
+    public native boolean getFontAllowUserScaling(); /*
+        return ImGui::GetIO().FontAllowUserScaling;
+    */
+
+    /**
+     * Allow user scaling text of individual window with CTRL+Wheel.
+     */
+    public native void setFontAllowUserScaling(boolean fontAllowUserScaling); /*
+        ImGui::GetIO().FontAllowUserScaling = fontAllowUserScaling;
+    */
+
+    public void setFontDefault(final ImFont fontDefault) {
+        nSetFontDefault(fontDefault.ptr);
+    }
+
+    private native void nSetFontDefault(long fontDefaultPtr); /*
+        ImGui::GetIO().FontDefault = (ImFont*)fontDefaultPtr;
+    */
 
     // Miscellaneous options
 

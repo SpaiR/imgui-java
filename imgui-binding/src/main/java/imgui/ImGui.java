@@ -25,6 +25,8 @@ public final class ImGui {
     private static final ImDrawList IM_DRAW_LIST_BACKGROUND = new ImDrawList(ImDrawList.TYPE_BACKGROUND);
     private static final ImDrawList IM_DRAW_LIST_FOREGROUND = new ImDrawList(ImDrawList.TYPE_FOREGROUND);
 
+    private static ImFont font;
+
     static {
         final String libPath = System.getProperty(LIB_PATH_PROP);
         final String libName = System.getProperty(LIB_NAME_PROP, LIB_NAME_DEFAULT);
@@ -123,7 +125,13 @@ public final class ImGui {
         ImGui::CreateContext();
     */
 
-    // public static void CreateContext(ImFontAtlas sharedFontAtlas) TODO create context with fonts
+    public static void createContext(ImFontAtlas sharedFontAtlas) {
+        nCreateContext(sharedFontAtlas.ptr);
+    }
+
+    private static native void nCreateContext(long sharedFontAtlasPtr); /*
+        ImGui::CreateContext((ImFontAtlas*)sharedFontAtlasPtr);
+    */
 
     public static native void destroyContext(); /*
         ImGui::DestroyContext();
@@ -785,7 +793,13 @@ public final class ImGui {
 
     // Parameters stacks (shared)
 
-    // TODO void PushFont(ImFont* font);
+    public static void pushFont(ImFont font) {
+        nPushFont(font.ptr);
+    }
+
+    private static native void nPushFont(long fontPtr); /*
+        ImGui::PushFont((ImFont*)fontPtr);
+    */
 
     public static native void popFont(); /*
         ImGui::PopFont();
@@ -831,7 +845,19 @@ public final class ImGui {
         Jni::ImVec4Cpy(env, ImGui::GetStyleColorVec4(imGuiStyleVar), dstImVec4);
     */
 
-    // TODO ImFont* GetFont();
+    /**
+     * Get current font.
+     */
+    public static ImFont getFont() {
+        if (font == null) {
+            font = new ImFont(nGetFont());
+        }
+        return font;
+    }
+
+    private static native long nGetFont(); /*
+        return (long)ImGui::GetFont();
+    */
 
     /**
      * Get current font size (= height in pixels) of current font with current scale applied
@@ -3367,7 +3393,6 @@ public final class ImGui {
     */
 
     // Widgets: List Boxes
-    // - FIXME: To be consistent with all the newer API, ListBoxHeader/ListBoxFooter should in reality be called BeginListBox/EndListBox. Will rename them.
 
     public static void listBox(String label, ImInt currentItem, String[] items, int itemsCount) {
         nListBox(label, currentItem.data, items, itemsCount, -1);
