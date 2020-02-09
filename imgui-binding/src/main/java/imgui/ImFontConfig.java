@@ -12,10 +12,12 @@ public final class ImFontConfig implements ImDestroyable {
     public ImFontConfig() {
         ImGui.touch();
         ptr = nCreate();
+        setFontDataOwnedByAtlas(false); // Read method javadoc
     }
 
     ImFontConfig(final long ptr) {
         this.ptr = ptr;
+        setFontDataOwnedByAtlas(false); // Read method javadoc
     }
 
     @Override
@@ -86,6 +88,10 @@ public final class ImFontConfig implements ImDestroyable {
 
     /**
      * TTF/OTF data ownership taken by the container ImFontAtlas (will delete memory itself).
+     * <p>
+     * BINDING NOTICE: By default binding will set this value to <b>false</b>.
+     * If this is not done, Dear ImGui will try to free memory allocated by JVM to store fonts data while running {@link ImGui#destroyContext()}.
+     * This will result into a native exception, since JVM by itself controls it's own resources.
      */
     public native void setFontDataOwnedByAtlas(boolean isFontDataOwnedByAtlas); /*
         IM_FONT_CONFIG->FontDataOwnedByAtlas = isFontDataOwnedByAtlas;

@@ -1,4 +1,6 @@
 import imgui.ImBool;
+import imgui.ImFontAtlas;
+import imgui.ImFontConfig;
 import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.ImString;
@@ -17,6 +19,10 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.nio.IntBuffer;
 import java.util.Objects;
 
@@ -230,6 +236,33 @@ public final class ImGuiGlfwExample {
             }
         });
 
+        // ------------------------------------------------------------
+        // Fonts configuration
+
+        final ImFontAtlas fontAtlas = io.getFonts();
+
+        // Dear ImGui uses 'ProggyClean.ttf, 13px' by default
+        fontAtlas.addFontDefault();
+
+        final ImFontConfig fontConfig = new ImFontConfig(); // Keep in mind that creation of the ImFontConfig will allocate native memory
+        fontConfig.setRasterizerMultiply(1.2f); // This will make fonts a bit more readable
+        fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesCyrillic()); // Additional glyphs could be added like here or in addFontFrom*() methods
+
+        // We can add new fonts directly from file
+        fontAtlas.addFontFromFileTTF("imgui-lwjgl3/src/test/resources/DroidSans.ttf", 13, fontConfig);
+        fontAtlas.addFontFromFileTTF("imgui-lwjgl3/src/test/resources/DroidSans.ttf", 14, fontConfig);
+        fontAtlas.addFontFromFileTTF("imgui-lwjgl3/src/test/resources/JetBrainsMono-Regular.ttf", 13, fontConfig);
+        fontAtlas.addFontFromFileTTF("imgui-lwjgl3/src/test/resources/JetBrainsMono-Regular.ttf", 14, fontConfig);
+
+        // Or directly from memory
+        fontConfig.setName("Roboto-Regular.ttf, 13px"); // This name will be displayed in Style Editor
+        fontAtlas.addFontFromMemoryTTF(loadFromResources("Roboto-Regular.ttf"), 13, fontConfig);
+        fontConfig.setName("Roboto-Regular.ttf, 14px"); // We can apply a new config value every time we add a new font
+        fontAtlas.addFontFromMemoryTTF(loadFromResources("Roboto-Regular.ttf"), 14, fontConfig);
+
+        // After fonts were added and since we won't use fontConfig again - we should clean it
+        fontConfig.destroy();
+
         // IMPORTANT!!!
         // Method initializes renderer itself.
         // This method SHOULD be called after you've initialized your ImGui configuration (fonts and so on).
@@ -378,6 +411,23 @@ public final class ImGuiGlfwExample {
         glfwDestroyWindow(window);
         glfwTerminate();
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
+    }
+
+    private byte[] loadFromResources(final String fileName) {
+        try (InputStream is = Objects.requireNonNull(ImGuiGlfwExample.class.getClassLoader().getResourceAsStream(fileName));
+             ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
+
+            final byte[] data = new byte[16384];
+
+            int nRead;
+            while ((nRead = is.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, nRead);
+            }
+
+            return buffer.toByteArray();
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     public static void main(final String[] args) {
