@@ -11,7 +11,6 @@ import imgui.enums.ImGuiConfigFlags;
 import imgui.enums.ImGuiInputTextFlags;
 import imgui.enums.ImGuiKey;
 import imgui.enums.ImGuiMouseCursor;
-import imgui.enums.ImGuiWindowFlags;
 import imgui.gl3.ImGuiImplGl3;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -47,16 +46,16 @@ public final class ImGuiGlfwExample {
     // Mouse cursors provided by GLFW
     private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
 
+    // LWJGL3 rendered itself (SHOULD be initialized)
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
 
-    // Local app variables go here
-    private final String imguiDemoLink = "https://raw.githubusercontent.com/ocornut/imgui/v1.74/imgui_demo.cpp";
-    private final byte[] testPayload = "Test Payload".getBytes();
+    // Local variables for application goes here
+    private final String imguiDemoLink = "https://raw.githubusercontent.com/ocornut/imgui/v1.74/imgui_demo.cpp"; // Link to put into clipboard
+    private final byte[] testPayload = "Test Payload".getBytes(); // Test data for payload. Should be represented as raw byt array.
     private String dropTargetText = "Drop Here";
-    private float[] backgroundColor = new float[]{0.5f, 0, 0};
+    private float[] backgroundColor = new float[]{0.5f, 0, 0}; // To modify background color dynamically
     private int clickCount = 0;
     private final ImString resizableStr = new ImString(5);
-
     private final ImBool showDemoWindow = new ImBool();
 
     public void run() {
@@ -67,7 +66,7 @@ public final class ImGuiGlfwExample {
         destroyGlfw();
     }
 
-    // Method initializes GLFW window. All code is mostly a copy-paste from the official LWJGL3 website.
+    // Method initializes GLFW window. All code is mostly a copy-paste from the official LWJGL3 "Get Started": https://www.lwjgl.org/guide
     private void initGlfw() {
         // Setup an error callback. The default implementation
         // will print the error message in System.err.
@@ -85,7 +84,7 @@ public final class ImGuiGlfwExample {
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE); // the window will be maximized
 
         // Create the window
-        window = glfwCreateWindow(DEFAULT_WIDTH, DEFAULT_HEIGHT, "ImGui+GLFW+LWJGL Example", NULL, NULL);
+        window = glfwCreateWindow(DEFAULT_WIDTH, DEFAULT_HEIGHT, "Dear ImGui + GLFW + LWJGL Example", NULL, NULL);
 
         if (window == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
@@ -125,19 +124,18 @@ public final class ImGuiGlfwExample {
         // This line is critical for Dear ImGui to work.
         ImGui.createContext();
 
-        // ImGui provides three different color schemas for styling. We will use the classic one here.
+        // ImGui provides 3 different color schemas for styling. We will use the classic one here.
+        // Try others with ImGui.styleColors*() methods.
         ImGui.styleColorsClassic();
-        // ImGui.StyleColorsDark(); // This is a default style for ImGui
-        // ImGui.StyleColorsLight();
 
         // Initialize ImGuiIO config
         final ImGuiIO io = ImGui.getIO();
 
-        io.setIniFilename(null);
-        io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard);
-        io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors);
-        io.setBackendPlatformName("imgui_java_impl_glfw");
-        io.setBackendRendererName("imgui_java_impl_lwjgl");
+        io.setIniFilename(null); // We don't want to save .ini file
+        io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard); // Navigation with keyboard
+        io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors); // Mouse cursors to display while resizing windows etc.
+        io.setBackendPlatformName("imgui_java_impl_glfw"); // For debug purpose
+        io.setBackendRendererName("imgui_java_impl_lwjgl"); // For debug purpose
 
         // Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array.
         final int[] keyMap = new int[ImGuiKey.COUNT];
@@ -175,7 +173,9 @@ public final class ImGuiGlfwExample {
         mouseCursors[ImGuiMouseCursor.ResizeNWSE] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
         mouseCursors[ImGuiMouseCursor.Hand] = glfwCreateStandardCursor(GLFW_HAND_CURSOR);
 
-        // Here goes GLFW callbacks to update user input stuff in ImGui
+        // ------------------------------------------------------------
+        // Here goes GLFW callbacks to update user input in Dear ImGui
+
         glfwSetKeyCallback(window, (w, key, scancode, action, mods) -> {
             if (action == GLFW_PRESS) {
                 io.setKeysDown(key, true);
@@ -237,6 +237,7 @@ public final class ImGuiGlfwExample {
         imGuiGl3.init();
     }
 
+    // Main application loop
     private void loop() {
         double time = 0; // to track our frame delta value
 
@@ -247,8 +248,9 @@ public final class ImGuiGlfwExample {
             final double deltaTime = (time > 0) ? (currentTime - time) : 1f / 60f;
             time = currentTime;
 
-            // Set the clear color
+            // Set the clear color and do clear itself
             glClearColor(backgroundColor[0], backgroundColor[1], backgroundColor[2], 0.0f);
+            glClear(GL_COLOR_BUFFER_BIT);
 
             // Get window size properties and mouse position
             glfwGetWindowSize(window, winWidth, winHeight);
@@ -268,16 +270,13 @@ public final class ImGuiGlfwExample {
             glfwSetCursor(window, mouseCursors[imguiCursor]);
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
-            // Clear the framebuffer
-            glClear(GL_COLOR_BUFFER_BIT);
-
             // IMPORTANT!!
-            // Any ImGui code SHOULD go between NewFrame()/Render() methods
+            // Any Dear ImGui code SHOULD go between NewFrame()/Render() methods
             ImGui.newFrame();
-            showUi();  // ImGui calls goes here
+            showUi();
             ImGui.render();
 
-            // After ImGui#render call we provide draw data into LWJGL3 render.
+            // After ImGui#render call we provide draw data into LWJGL3 renderer.
             // At that moment ImGui will be rendered to the current OpenGL context.
             imGuiGl3.render(ImGui.getDrawData());
 
@@ -292,9 +291,14 @@ public final class ImGuiGlfwExample {
         ImGui.setNextWindowSize(600, 300, ImGuiCond.Once);
         ImGui.setNextWindowPos(10, 10, ImGuiCond.Once);
 
-        ImGui.begin("Custom window", ImGuiWindowFlags.NoDecoration);  // Start Custom window
-        ImGui.text("Hello from Java!");
+        ImGui.begin("Custom window");  // Start Custom window
 
+        // Simple text label
+        ImGui.checkbox("Show demo window", showDemoWindow);
+
+        ImGui.separator();
+
+        // Drag'n'Drop functionality
         ImGui.button("Drag me");
         if (ImGui.beginDragDropSource()) {
             ImGui.setDragDropPayload("payload_type", testPayload, testPayload.length);
@@ -311,11 +315,13 @@ public final class ImGuiGlfwExample {
             ImGui.endDragDropTarget();
         }
 
+        // Color picker
         ImGui.alignTextToFramePadding();
         ImGui.text("Background color:");
         ImGui.sameLine();
         ImGui.colorEdit3("##click_counter_col", backgroundColor, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.NoDragDrop);
 
+        // Simple click counter
         if (ImGui.button("Click")) {
             clickCount++;
         }
@@ -324,14 +330,24 @@ public final class ImGuiGlfwExample {
         }
         ImGui.sameLine();
         ImGui.text("Count: " + clickCount);
-        ImGui.checkbox("Show demo window", showDemoWindow);
-        ImGui.newLine();
-
-        ImGui.inputText("Resizable input", resizableStr, ImGuiInputTextFlags.CallbackResize);
-        ImGui.text(String.format("text len: %d | buffer size: %d", resizableStr.getLength(), resizableStr.getBufferSize()));
-        ImGui.newLine();
 
         ImGui.separator();
+
+        // Input field with auto-resize ability
+        ImGui.text("You can use text inputs with auto-resizable strings!");
+        ImGui.inputText("Resizable input", resizableStr, ImGuiInputTextFlags.CallbackResize);
+        ImGui.text("text len:");
+        ImGui.sameLine();
+        ImGui.textColored(.12f, .6f, 1, 1, Integer.toString(resizableStr.getLength()));
+        ImGui.sameLine();
+        ImGui.text("| buffer size:");
+        ImGui.sameLine();
+        ImGui.textColored(1, .6f, 0, 1, Integer.toString(resizableStr.getBufferSize()));
+
+        ImGui.separator();
+        ImGui.newLine();
+
+        // Link to the original demo file
         ImGui.text("Consider to look the original ImGui demo: ");
         ImGui.setNextItemWidth(500);
         ImGui.textColored(0, .8f, 0, 1, imguiDemoLink);
