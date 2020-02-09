@@ -303,4 +303,13 @@ public final class ImFontConfig implements ImDestroyable {
     public native void setEllipsisChar(short ellipsisChar); /*
         IM_FONT_CONFIG->EllipsisChar = (ImWchar)ellipsisChar;
     */
+
+    // [Internal]
+
+    /**
+     * Name (strictly to ease debugging)
+     */
+    public native void setName(String name); /*
+        strcpy(IM_FONT_CONFIG->Name, name);
+    */
 }

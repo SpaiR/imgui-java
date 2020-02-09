@@ -65,6 +65,227 @@ public final class ImFontAtlas implements ImDestroyable {
         delete (ImFontAtlas*)ptr;
     */
 
+    public ImFont addFont(final ImFontConfig imFontConfig) {
+        return new ImFont(nAddFont(imFontConfig.ptr));
+    }
+
+    private native long nAddFont(long imFontConfigPtr); /*
+        return (long)IM_FONT_ATLAS->AddFont((ImFontConfig*)imFontConfigPtr);
+    */
+
+    public ImFont addFontDefault() {
+        return new ImFont(nAddFontDefault());
+    }
+
+    private native long nAddFontDefault(); /*
+        return (long)IM_FONT_ATLAS->AddFontDefault();
+    */
+
+    public ImFont addFontDefault(final ImFontConfig imFontConfig) {
+        return new ImFont(nAddFontDefault(imFontConfig.ptr));
+    }
+
+    private native long nAddFontDefault(long imFontConfigPtr); /*
+        return (long)IM_FONT_ATLAS->AddFontDefault((ImFontConfig*)imFontConfigPtr);
+    */
+
+    public ImFont addFontFromFileTTF(final String filename, final float sizePixels) {
+        return new ImFont(nAddFontFromFileTTF(filename, sizePixels));
+    }
+
+    private native long nAddFontFromFileTTF(String filename, float sizePixels); /*
+        return (long)IM_FONT_ATLAS->AddFontFromFileTTF(filename, sizePixels);
+    */
+
+    public ImFont addFontFromFileTTF(final String filename, final float sizePixels, final ImFontConfig imFontConfig) {
+        return new ImFont(nAddFontFromFileTTF(filename, sizePixels, imFontConfig.ptr));
+    }
+
+    private native long nAddFontFromFileTTF(String filename, float sizePixels, long imFontConfigPtr); /*
+        return (long)IM_FONT_ATLAS->AddFontFromFileTTF(filename, sizePixels, (ImFontConfig*)imFontConfigPtr);
+    */
+
+    public ImFont addFontFromFileTTF(final String filename, final float sizePixels, final short[] glyphRanges) {
+        return new ImFont(nAddFontFromFileTTF(filename, sizePixels, glyphRanges));
+    }
+
+    private native long nAddFontFromFileTTF(String filename, float sizePixels, short[] glyphRanges); /*
+        return (long)IM_FONT_ATLAS->AddFontFromFileTTF(filename, sizePixels, NULL, (ImWchar*)&glyphRanges[0]);
+    */
+
+    public ImFont addFontFromFileTTF(final String filename, final float sizePixels, final ImFontConfig imFontConfig, final short[] glyphRanges) {
+        return new ImFont(nAddFontFromFileTTF(filename, sizePixels, imFontConfig.ptr, glyphRanges));
+    }
+
+    private native long nAddFontFromFileTTF(String filename, float sizePixels, long imFontConfigPtr, short[] glyphRanges); /*
+        return (long)IM_FONT_ATLAS->AddFontFromFileTTF(filename, sizePixels, (ImFontConfig*)imFontConfigPtr, (ImWchar*)&glyphRanges[0]);
+    */
+
+    /**
+     * Note: Transfer ownership of 'ttf_data' to ImFontAtlas! Will be deleted after destruction of the atlas.
+     * Set font_cfg->FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
+     */
+    public ImFont addFontFromMemoryTTF(final byte[] fontData, final float sizePixels) {
+        return new ImFont(nAddFontFromMemoryTTF(fontData, fontData.length, sizePixels));
+    }
+
+    private native long nAddFontFromMemoryTTF(byte[] fontData, int fontSize, float sizePixels); /*
+        return (long)IM_FONT_ATLAS->AddFontFromMemoryTTF(&fontData[0], fontSize, sizePixels);
+    */
+
+
+    /**
+     * Note: Transfer ownership of 'ttf_data' to ImFontAtlas! Will be deleted after destruction of the atlas.
+     * Set font_cfg->FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
+     */
+    public ImFont addFontFromMemoryTTF(final byte[] fontData, final float sizePixels, final ImFontConfig imFontConfig) {
+        return new ImFont(nAddFontFromMemoryTTF(fontData, fontData.length, sizePixels, imFontConfig.ptr));
+    }
+
+    private native long nAddFontFromMemoryTTF(byte[] fontData, int fontSize, float sizePixels, long imFontConfigPtr); /*
+        return (long)IM_FONT_ATLAS->AddFontFromMemoryTTF(&fontData[0], fontSize, sizePixels, (ImFontConfig*)imFontConfigPtr);
+    */
+
+    /**
+     * Note: Transfer ownership of 'ttf_data' to ImFontAtlas! Will be deleted after destruction of the atlas.
+     * Set font_cfg->FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
+     */
+    public ImFont addFontFromMemoryTTF(final byte[] fontData, final float sizePixels, final short[] glyphRanges) {
+        return new ImFont(nAddFontFromMemoryTTF(fontData, fontData.length, sizePixels, glyphRanges));
+    }
+
+    private native long nAddFontFromMemoryTTF(byte[] fontData, int fontSize, float sizePixels, short[] glyphRanges); /*
+        return (long)IM_FONT_ATLAS->AddFontFromMemoryTTF(&fontData[0], fontSize, sizePixels, NULL, (ImWchar*)&glyphRanges[0]);
+    */
+
+    /**
+     * Note: Transfer ownership of 'ttf_data' to ImFontAtlas! Will be deleted after destruction of the atlas.
+     * Set font_cfg->FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
+     */
+    public ImFont addFontFromMemoryTTF(final byte[] fontData, final float sizePixels, final ImFontConfig imFontConfig, final short[] glyphRanges) {
+        return new ImFont(nAddFontFromMemoryTTF(fontData, fontData.length, sizePixels, imFontConfig.ptr, glyphRanges));
+    }
+
+    private native long nAddFontFromMemoryTTF(byte[] fontData, int fontSize, float sizePixels, long imFontConfigPtr, short[] glyphRanges); /*
+        return (long)IM_FONT_ATLAS->AddFontFromMemoryTTF(&fontData[0], fontSize, sizePixels, (ImFontConfig*)imFontConfigPtr, (ImWchar*)&glyphRanges[0]);
+    */
+
+    /**
+     * 'compressed_font_data' still owned by caller. Compress with binary_to_compressed_c.cpp.
+     */
+    public ImFont addFontFromMemoryCompressedTTF(final byte[] compressedFontData, final float sizePixels) {
+        return new ImFont(nAddFontFromMemoryCompressedTTF(compressedFontData, compressedFontData.length, sizePixels));
+    }
+
+    private native long nAddFontFromMemoryCompressedTTF(byte[] compressedFontData, int fontSize, float sizePixels); /*
+        return (long)IM_FONT_ATLAS->AddFontFromMemoryCompressedTTF(&compressedFontData[0], fontSize, sizePixels);
+    */
+
+    /**
+     * 'compressed_font_data' still owned by caller. Compress with binary_to_compressed_c.cpp.
+     */
+    public ImFont addFontFromMemoryCompressedTTF(final byte[] compressedFontData, final float sizePixels, final ImFontConfig imFontConfig) {
+        return new ImFont(nAddFontFromMemoryCompressedTTF(compressedFontData, compressedFontData.length, sizePixels, imFontConfig.ptr));
+    }
+
+    private native long nAddFontFromMemoryCompressedTTF(byte[] compressedFontData, int fontSize, float sizePixels, long imFontConfigPtr); /*
+        return (long)IM_FONT_ATLAS->AddFontFromMemoryCompressedTTF(&compressedFontData[0], fontSize, sizePixels, (ImFontConfig*)imFontConfigPtr);
+    */
+
+    /**
+     * 'compressed_font_data' still owned by caller. Compress with binary_to_compressed_c.cpp.
+     */
+    public ImFont addFontFromMemoryCompressedTTF(final byte[] compressedFontData, final float sizePixels, final short[] glyphRanges) {
+        return new ImFont(nAddFontFromMemoryCompressedTTF(compressedFontData, compressedFontData.length, sizePixels, glyphRanges));
+    }
+
+    private native long nAddFontFromMemoryCompressedTTF(byte[] compressedFontData, int fontSize, float sizePixels, short[] glyphRanges); /*
+        return (long)IM_FONT_ATLAS->AddFontFromMemoryCompressedTTF(&compressedFontData[0], fontSize, sizePixels, NULL, (ImWchar*)&glyphRanges[0]);
+    */
+
+    /**
+     * 'compressed_font_data' still owned by caller. Compress with binary_to_compressed_c.cpp.
+     */
+    public ImFont addFontFromMemoryCompressedTTF(final byte[] compressedFontData, final float sizePixels, final ImFontConfig imFontConfig, final short[] glyphRanges) {
+        return new ImFont(nAddFontFromMemoryCompressedTTF(compressedFontData, compressedFontData.length, sizePixels, imFontConfig.ptr, glyphRanges));
+    }
+
+    private native long nAddFontFromMemoryCompressedTTF(byte[] compressedFontData, int fontSize, float sizePixels, long imFontConfigPtr, short[] glyphRanges); /*
+        return (long)IM_FONT_ATLAS->AddFontFromMemoryCompressedTTF(&compressedFontData[0], fontSize, sizePixels, (ImFontConfig*)imFontConfigPtr, (ImWchar*)&glyphRanges[0]);
+    */
+
+    /**
+     * 'compressed_font_data_base85' still owned by caller. Compress with binary_to_compressed_c.cpp with -base85 parameter.
+     */
+    public ImFont addFontFromMemoryCompressedBase85TTF(final String compressedFontDataBase85, final float sizePixels) {
+        return new ImFont(nAddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels));
+    }
+
+    private native long nAddFontFromMemoryCompressedBase85TTF(String compressedFontDataBase85, float sizePixels); /*
+        return (long)IM_FONT_ATLAS->AddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels);
+    */
+
+    /**
+     * 'compressed_font_data' still owned by caller. Compress with binary_to_compressed_c.cpp.
+     */
+    public ImFont addFontFromMemoryCompressedBase85TTF(final String compressedFontDataBase85, final float sizePixels, final ImFontConfig imFontConfig) {
+        return new ImFont(nAddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels, imFontConfig.ptr));
+    }
+
+    private native long nAddFontFromMemoryCompressedBase85TTF(String compressedFontDataBase85, float sizePixels, long imFontConfigPtr); /*
+        return (long)IM_FONT_ATLAS->AddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels, (ImFontConfig*)imFontConfigPtr);
+    */
+
+    /**
+     * 'compressed_font_data_base85' still owned by caller. Compress with binary_to_compressed_c.cpp with -base85 parameter.
+     */
+    public ImFont addFontFromMemoryCompressedBase85TTF(final String compressedFontDataBase85, final float sizePixels, final short[] glyphRanges) {
+        return new ImFont(nAddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels, glyphRanges));
+    }
+
+    private native long nAddFontFromMemoryCompressedBase85TTF(String compressedFontDataBase85, float sizePixels, short[] glyphRanges); /*
+        return (long)IM_FONT_ATLAS->AddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels, NULL, (ImWchar*)&glyphRanges[0]);
+    */
+
+    /**
+     * 'compressed_font_data_base85' still owned by caller. Compress with binary_to_compressed_c.cpp with -base85 parameter.
+     */
+    public ImFont addFontFromMemoryCompressedBase85TTF(final String compressedFontDataBase85, final float sizePixels, final ImFontConfig imFontConfig, final short[] glyphRanges) {
+        return new ImFont(nAddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels, imFontConfig.ptr, glyphRanges));
+    }
+
+    private native long nAddFontFromMemoryCompressedBase85TTF(String compressedFontDataBase85, float sizePixels, long imFontConfigPtr, short[] glyphRanges); /*
+        return (long)IM_FONT_ATLAS->AddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels, (ImFontConfig*)imFontConfigPtr, (ImWchar*)&glyphRanges[0]);
+    */
+
+    /**
+     * Clear input data (all ImFontConfig structures including sizes, TTF data, glyph ranges, etc.) = all the data used to build the texture and fonts.
+     */
+    public native void clearInputData(); /*
+        IM_FONT_ATLAS->ClearInputData();
+    */
+
+    /**
+     * Clear output texture data (CPU side). Saves RAM once the texture has been copied to graphics memory.
+     */
+    public native void clearTexData(); /*
+        IM_FONT_ATLAS->ClearTexData();
+    */
+
+    /**
+     * Clear output font data (glyphs storage, UV coordinates).
+     */
+    public native void clearFonts(); /*
+        IM_FONT_ATLAS->ClearFonts();
+    */
+
+    /**
+     * Clear all input and output.
+     */
+    public native void clear(); /*
+        IM_FONT_ATLAS->Clear();
+    */
+
     // Build atlas, retrieve pixel data.
     // User is in charge of copying the pixels into graphics memory (e.g. create a texture with your engine). Then store your texture handle with SetTexID().
     // The pitch is always = Width * BytesPerPixels (1 or 4)
@@ -138,5 +359,190 @@ public final class ImFontAtlas implements ImDestroyable {
 
     public native void setTexID(int imTextureId); /*
         IM_FONT_ATLAS->SetTexID((ImTextureID)imTextureId);
+    */
+
+    //-------------------------------------------
+    // Glyph Ranges
+    //-------------------------------------------
+
+    // Helpers to retrieve list of common Unicode ranges (2 value per range, values are inclusive, zero-terminated list)
+    // NB: Make sure that your string are UTF-8 and NOT in your local code page. In C++11, you can create UTF-8 string literal using the u8"Hello world" syntax. See FAQ for details.
+    // NB: Consider using ImFontGlyphRangesBuilder to build glyph ranges from textual data.
+
+    /*JNI
+        #define RETURN_GLYPH_2_SHORT(glyphs) \
+            int size = sizeof(glyphs); \
+            jshortArray jShorts = env->NewShortArray(size); \
+            env->SetShortArrayRegion(jShorts, 0, size, (jshort*)glyphs); \
+            return jShorts;
+     */
+
+    /**
+     * Basic Latin, Extended Latin
+     */
+    public native short[] getGlyphRangesDefault(); /*
+        RETURN_GLYPH_2_SHORT(IM_FONT_ATLAS->GetGlyphRangesDefault());
+    */
+
+    /**
+     * Default + Korean characters
+     */
+    public native short[] getGlyphRangesKorean(); /*
+        RETURN_GLYPH_2_SHORT(IM_FONT_ATLAS->GetGlyphRangesKorean());
+    */
+
+    /**
+     * Default + Hiragana, Katakana, Half-Width, Selection of 1946 Ideographs
+     */
+    public native short[] getGlyphRangesJapanese(); /*
+        RETURN_GLYPH_2_SHORT(IM_FONT_ATLAS->GetGlyphRangesJapanese());
+    */
+
+    /**
+     * Default + Half-Width + Japanese Hiragana/Katakana + full set of about 21000 CJK Unified Ideographs
+     */
+    public native short[] getGlyphRangesChineseFull(); /*
+        RETURN_GLYPH_2_SHORT(IM_FONT_ATLAS->GetGlyphRangesChineseFull());
+    */
+
+    /**
+     * Default + Half-Width + Japanese Hiragana/Katakana + set of 2500 CJK Unified Ideographs for common simplified Chinese
+     */
+    public native short[] getGlyphRangesChineseSimplifiedCommon(); /*
+        RETURN_GLYPH_2_SHORT(IM_FONT_ATLAS->GetGlyphRangesChineseSimplifiedCommon());
+    */
+
+    /**
+     * Default + about 400 Cyrillic characters
+     */
+    public native short[] getGlyphRangesCyrillic(); /*
+        RETURN_GLYPH_2_SHORT(IM_FONT_ATLAS->GetGlyphRangesCyrillic());
+    */
+
+    /**
+     * Default + Thai characters
+     */
+    public native short[] getGlyphRangesThai(); /*
+        RETURN_GLYPH_2_SHORT(IM_FONT_ATLAS->GetGlyphRangesThai());
+    */
+
+    /**
+     * Default + Vietnamese characters
+     */
+    public native short[] getGlyphRangesVietnamese(); /*
+        RETURN_GLYPH_2_SHORT(IM_FONT_ATLAS->GetGlyphRangesVietnamese());
+    */
+
+    //-------------------------------------------
+    // [BETA] Custom Rectangles/Glyphs API
+    //-------------------------------------------
+
+    // You can request arbitrary rectangles to be packed into the atlas, for your own purposes.
+    // After calling Build(), you can query the rectangle position and render your pixels.
+    // You can also request your rectangles to be mapped as font glyph (given a font + Unicode point),
+    // so you can render e.g. custom colorful icons and use them as regular glyphs.
+    // Read docs/FONTS.txt for more details about using colorful icons.
+
+    /**
+     * Id needs to be >= 0x110000. Id >= 0x80000000 are reserved for ImGui and ImDrawList
+     */
+    public native int addCustomRectRegular(int id, int width, int height); /*
+        return IM_FONT_ATLAS->AddCustomRectRegular((unsigned int)id, width, height);
+    */
+
+    /**
+     * Id needs to be < 0x110000 to register a rectangle to map into a specific font.
+     */
+    public int addCustomRectFontGlyph(final ImFont imFont, final short id, final int width, final int height, final float advanceX) {
+        return nAddCustomRectFontGlyph(imFont.ptr, id, width, height, advanceX);
+    }
+
+    private native int nAddCustomRectFontGlyph(long imFontPtr, short id, int width, int height, float advanceX); /*
+        return IM_FONT_ATLAS->AddCustomRectFontGlyph((ImFont*)imFontPtr, id, width, height, advanceX);
+    */
+
+    /**
+     * Id needs to be < 0x110000 to register a rectangle to map into a specific font.
+     */
+    public int addCustomRectFontGlyph(final ImFont imFont, final short id, final int width, final int height, final float advanceX, final float offsetX, final float offsetY) {
+        return nAddCustomRectFontGlyph(imFont.ptr, id, width, height, advanceX, offsetX, offsetY);
+    }
+
+    private native int nAddCustomRectFontGlyph(long imFontPtr, short id, int width, int height, float advanceX, float offsetX, float offsetY); /*
+        return IM_FONT_ATLAS->AddCustomRectFontGlyph((ImFont*)imFontPtr, id, width, height, advanceX, ImVec2(offsetX, offsetY));
+    */
+
+    // TODO GetCustomRectByIndex
+
+    //-------------------------------------------
+    // Members
+    //-------------------------------------------
+
+    /**
+     * Marked as Locked by ImGui::NewFrame() so attempt to modify the atlas will assert.
+     */
+    public native boolean getLocked(); /*
+        return IM_FONT_ATLAS->Locked;
+    */
+
+    /**
+     * Marked as Locked by ImGui::NewFrame() so attempt to modify the atlas will assert.
+     */
+    public native void setLocked(boolean locked); /*
+        IM_FONT_ATLAS->Locked = locked;
+    */
+
+    /**
+     * Build flags (see ImFontAtlasFlags_)
+     */
+    public native int getFlags(); /*
+        return IM_FONT_ATLAS->Flags;
+    */
+
+    /**
+     * Build flags (see ImFontAtlasFlags_)
+     */
+    public native void setFlags(int imFontAtlasFlags); /*
+        IM_FONT_ATLAS->Flags = imFontAtlasFlags;
+    */
+
+    /**
+     * User data to refer to the texture once it has been uploaded to user's graphic systems.
+     * It is passed back to you during rendering via the ImDrawCmd structure.
+     */
+    public native int getTexID(); /*
+        return (int)(long)(void*)IM_FONT_ATLAS->TexID;
+    */
+
+    /**
+     * Texture width desired by user before Build(). Must be a power-of-two.
+     * If have many glyphs your graphics API have texture size restrictions you may want to increase texture width to decrease height.
+     */
+    public native int getTexDesiredWidth(); /*
+        return IM_FONT_ATLAS->TexDesiredWidth;
+    */
+
+    /**
+     * Texture width desired by user before Build(). Must be a power-of-two.
+     * If have many glyphs your graphics API have texture size restrictions you may want to increase texture width to decrease height.
+     */
+    public native void setTexDesiredWidth(int texDesiredWidth); /*
+        IM_FONT_ATLAS->TexDesiredWidth = texDesiredWidth;
+    */
+
+    /**
+     * Padding between glyphs within texture in pixels. Defaults to 1.
+     * If your rendering method doesn't rely on bilinear filtering you may set this to 0.
+     */
+    public native int getTexGlyphPadding(); /*
+        return IM_FONT_ATLAS->TexGlyphPadding;
+    */
+
+    /**
+     * Padding between glyphs within texture in pixels. Defaults to 1.
+     * If your rendering method doesn't rely on bilinear filtering you may set this to 0.
+     */
+    public native void setTexGlyphPadding(int texGlyphPadding); /*
+        IM_FONT_ATLAS->TexGlyphPadding = texGlyphPadding;
     */
 }
