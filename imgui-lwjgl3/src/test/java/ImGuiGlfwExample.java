@@ -4,6 +4,7 @@ import imgui.ImFontConfig;
 import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.ImString;
+import imgui.ImVec2;
 import imgui.callbacks.ImStrConsumer;
 import imgui.callbacks.ImStrSupplier;
 import imgui.enums.ImGuiBackendFlags;
@@ -14,15 +15,20 @@ import imgui.enums.ImGuiInputTextFlags;
 import imgui.enums.ImGuiKey;
 import imgui.enums.ImGuiMouseCursor;
 import imgui.gl3.ImGuiImplGl3;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
+import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.Objects;
 
@@ -63,8 +69,11 @@ public final class ImGuiGlfwExample {
     private int clickCount = 0;
     private final ImString resizableStr = new ImString(5);
     private final ImBool showDemoWindow = new ImBool();
+    private int dukeTexture;
+    private ImVec2 windowSize = new ImVec2(); // Vector to store "Custom Window" size
+    private ImVec2 windowPos = new ImVec2(); // Vector to store "Custom Window" position
 
-    public void run() {
+    public void run() throws Exception {
         initGlfw();
         initImGui();
         loop();
@@ -271,7 +280,10 @@ public final class ImGuiGlfwExample {
     }
 
     // Main application loop
-    private void loop() {
+    private void loop() throws Exception {
+        // Load Duke image and convert it into OpenGL texture
+        dukeTexture = loadTexture(ImageIO.read(new File("imgui-lwjgl3/src/test/resources/Duke_waving.png")));
+
         double time = 0; // to track our frame delta value
 
         // Run the rendering loop until the user has attempted to close the window
@@ -326,7 +338,14 @@ public final class ImGuiGlfwExample {
 
         ImGui.begin("Custom window");  // Start Custom window
 
-        // Simple text label
+        // Example of how to draw an image in the bottom-right corner of the window
+        ImGui.getWindowSize(windowSize);
+        ImGui.getWindowPos(windowPos);
+        float xPoint = windowPos.x + windowSize.x - 100;
+        float yPoint = windowPos.y + windowSize.y;
+        ImGui.getWindowDrawList().addImage(dukeTexture, xPoint, yPoint - 180, xPoint + 100, yPoint);
+
+        // Simple checkbox to show demo window
         ImGui.checkbox("Show demo window", showDemoWindow);
 
         ImGui.separator();
@@ -430,7 +449,37 @@ public final class ImGuiGlfwExample {
         }
     }
 
-    public static void main(final String[] args) {
+    private int loadTexture(BufferedImage image) {
+        int[] pixels = new int[image.getWidth() * image.getHeight()];
+        image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
+
+        ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * 4); // 4 for RGBA, 3 for RGB
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                int pixel = pixels[y * image.getWidth() + x];
+                buffer.put((byte) ((pixel >> 16) & 0xFF));
+                buffer.put((byte) ((pixel >> 8) & 0xFF));
+                buffer.put((byte) (pixel & 0xFF));
+                buffer.put((byte) ((pixel >> 24) & 0xFF));
+            }
+        }
+        buffer.flip();
+
+        int textureID = glGenTextures();
+        glBindTexture(GL_TEXTURE_2D, textureID);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+
+        return textureID;
+    }
+
+    public static void main(final String[] args) throws Exception {
         new ImGuiGlfwExample().run();
     }
 }
