@@ -45,6 +45,8 @@ public final class ImDrawList {
         }
 
         jfieldID drawListTypeID;
+
+        #define IM_DRAW_LIST getDrawList(env->GetIntField(object, drawListTypeID))
      */
 
     static native void nInit(); /*
@@ -54,11 +56,11 @@ public final class ImDrawList {
 
     // Flags, you may poke into these to adjust anti-aliasing settings per-primitive.
     public native int getImDrawListFlags(); /*
-        return getDrawList(env->GetIntField(object, drawListTypeID))->Flags;
+        return IM_DRAW_LIST->Flags;
     */
 
     public native void setImDrawListFlags(int imDrawListFlags); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->Flags = imDrawListFlags;
+        IM_DRAW_LIST->Flags = imDrawListFlags;
     */
 
     /**
@@ -67,7 +69,7 @@ public final class ImDrawList {
      * Prefer using higher-level ImGui::PushClipRect() to affect logic (hit-testing and widget culling)
      */
     public native void pushClipRect(float clipRectMinX, float clipRectMinY, float clipRectMaxX, float clipRectMaxY); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PushClipRect(ImVec2(clipRectMinX, clipRectMinY), ImVec2(clipRectMaxX, clipRectMaxY));
+        IM_DRAW_LIST->PushClipRect(ImVec2(clipRectMinX, clipRectMinY), ImVec2(clipRectMaxX, clipRectMaxY));
     */
 
     /**
@@ -76,31 +78,31 @@ public final class ImDrawList {
      * Prefer using higher-level ImGui::PushClipRect() to affect logic (hit-testing and widget culling)
      */
     public native void pushClipRect(float clipRectMinX, float clipRectMinY, float clipRectMaxX, float clipRectMaxY, boolean intersectWithCurrentClipRect); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PushClipRect(ImVec2(clipRectMinX, clipRectMinY), ImVec2(clipRectMaxX, clipRectMaxY), intersectWithCurrentClipRect);
+        IM_DRAW_LIST->PushClipRect(ImVec2(clipRectMinX, clipRectMinY), ImVec2(clipRectMaxX, clipRectMaxY), intersectWithCurrentClipRect);
     */
 
     public native void pushClipRectFullScreen(); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PushClipRectFullScreen();
+        IM_DRAW_LIST->PushClipRectFullScreen();
     */
 
     public native void popClipRect(); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PopClipRect();
+        IM_DRAW_LIST->PopClipRect();
     */
 
     public native void pushTextureId(int textureId); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PushTextureID((ImTextureID)textureId);
+        IM_DRAW_LIST->PushTextureID((ImTextureID)textureId);
     */
 
     public native void popTextureId(); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PopTextureID();
+        IM_DRAW_LIST->PopTextureID();
     */
 
     public native void getClipRectMin(ImVec2 dstImVec2); /*
-        Jni::ImVec2Cpy(env, getDrawList(env->GetIntField(object, drawListTypeID))->GetClipRectMin(), dstImVec2);
+        Jni::ImVec2Cpy(env, IM_DRAW_LIST->GetClipRectMin(), dstImVec2);
     */
 
     public native void getClipRectMax(ImVec2 dstImVec2); /*
-        Jni::ImVec2Cpy(env, getDrawList(env->GetIntField(object, drawListTypeID))->GetClipRectMax(), dstImVec2);
+        Jni::ImVec2Cpy(env, IM_DRAW_LIST->GetClipRectMax(), dstImVec2);
     */
 
     // Primitives
@@ -110,107 +112,107 @@ public final class ImDrawList {
     //   Use AddNgon() and AddNgonFilled() functions if you need to guaranteed a specific number of sides.
 
     public native void addLine(float p1X, float p1Y, float p2X, float p2Y, int col); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddLine(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), col);
+        IM_DRAW_LIST->AddLine(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), col);
     */
 
     public native void addLine(float p1X, float p1Y, float p2X, float p2Y, int col, float thickness); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddLine(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), col, thickness);
+        IM_DRAW_LIST->AddLine(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), col, thickness);
     */
 
     public native void addRect(float pMinX, float pMinY, float pMaxX, float pMaxY, int col); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col);
+        IM_DRAW_LIST->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col);
      */
 
     public native void addRect(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding);
+        IM_DRAW_LIST->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding);
      */
 
     public native void addRect(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding, int roundingCornersFlags); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, roundingCornersFlags);
+        IM_DRAW_LIST->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, roundingCornersFlags);
      */
 
     public native void addRect(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding, int roundingCornersFlags, float thickness); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, roundingCornersFlags, thickness);
+        IM_DRAW_LIST->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, roundingCornersFlags, thickness);
      */
 
     public native void addRectFilled(float pMinX, float pMinY, float pMaxX, float pMaxY, int col); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddRectFilled(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col);
+        IM_DRAW_LIST->AddRectFilled(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col);
      */
 
     public native void addRectFilled(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddRectFilled(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding);
+        IM_DRAW_LIST->AddRectFilled(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding);
      */
 
     public native void addRectFilled(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding, int roundingCornersFlags); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddRectFilled(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, roundingCornersFlags);
+        IM_DRAW_LIST->AddRectFilled(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, roundingCornersFlags);
      */
 
     public native void addRectFilledMultiColor(float pMinX, float pMinY, float pMaxX, float pMaxY, long colUprLeft, long colUprRight, long colBotRight, long colBotLeft); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddRectFilledMultiColor(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), colUprLeft, colUprRight, colBotRight, colBotLeft);
+        IM_DRAW_LIST->AddRectFilledMultiColor(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), colUprLeft, colUprRight, colBotRight, colBotLeft);
      */
 
     public native void addQuad(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddQuad(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col);
+        IM_DRAW_LIST->AddQuad(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col);
     */
 
     public native void addQuad(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col, float thickness); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddQuad(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness);
+        IM_DRAW_LIST->AddQuad(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness);
     */
 
     public native void addQuadFilled(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddQuadFilled(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col);
+        IM_DRAW_LIST->AddQuadFilled(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col);
     */
 
     public native void addTriangle(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, int col); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddTriangle(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), col);
+        IM_DRAW_LIST->AddTriangle(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), col);
     */
 
     public native void addTriangle(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, int col, float thickness); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddTriangle(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), col, thickness);
+        IM_DRAW_LIST->AddTriangle(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), col, thickness);
     */
 
     public native void addTriangleFilled(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, int col); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddTriangleFilled(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), col);
+        IM_DRAW_LIST->AddTriangleFilled(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), col);
     */
 
     public native void addCircle(float centreX, float centreY, float radius, int col); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddCircle(ImVec2(centreX, centreY), radius, col);
+        IM_DRAW_LIST->AddCircle(ImVec2(centreX, centreY), radius, col);
     */
 
     public native void addCircle(float centreX, float centreY, float radius, int col, int numSegments); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddCircle(ImVec2(centreX, centreY), radius, col, numSegments);
+        IM_DRAW_LIST->AddCircle(ImVec2(centreX, centreY), radius, col, numSegments);
     */
 
     public native void addCircle(float centreX, float centreY, float radius, int col, int numSegments, float thickness); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddCircle(ImVec2(centreX, centreY), radius, col, numSegments, thickness);
+        IM_DRAW_LIST->AddCircle(ImVec2(centreX, centreY), radius, col, numSegments, thickness);
     */
 
     public native void addCircleFilled(float centreX, float centreY, float radius, int col); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddCircleFilled(ImVec2(centreX, centreY), radius, col);
+        IM_DRAW_LIST->AddCircleFilled(ImVec2(centreX, centreY), radius, col);
     */
 
     public native void addCircleFilled(float centreX, float centreY, float radius, int col, int numSegments); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddCircleFilled(ImVec2(centreX, centreY), radius, col, numSegments);
+        IM_DRAW_LIST->AddCircleFilled(ImVec2(centreX, centreY), radius, col, numSegments);
     */
 
     public native void AddNgon(float centreX, float centreY, float radius, int col, int numSegments); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddNgon(ImVec2(centreX, centreY), radius, col, numSegments);
+        IM_DRAW_LIST->AddNgon(ImVec2(centreX, centreY), radius, col, numSegments);
     */
 
     public native void AddNgon(float centreX, float centreY, float radius, int col, int numSegments, float thickness); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddNgon(ImVec2(centreX, centreY), radius, col, numSegments, thickness);
+        IM_DRAW_LIST->AddNgon(ImVec2(centreX, centreY), radius, col, numSegments, thickness);
     */
 
     public native void AddNgonFilled(float centreX, float centreY, float radius, int col, int numSegments); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddNgonFilled(ImVec2(centreX, centreY), radius, col, numSegments);
+        IM_DRAW_LIST->AddNgonFilled(ImVec2(centreX, centreY), radius, col, numSegments);
     */
 
     public native void addText(float posX, float posY, int col, String textBegin); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddText(ImVec2(posX, posY), col, textBegin);
+        IM_DRAW_LIST->AddText(ImVec2(posX, posY), col, textBegin);
     */
 
     public native void addText(float posX, float posY, int col, String textBegin, String textEnd); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddText(ImVec2(posX, posY), col, textBegin, textEnd);
+        IM_DRAW_LIST->AddText(ImVec2(posX, posY), col, textBegin, textEnd);
     */
 
     // TODO add text with font support
@@ -224,7 +226,7 @@ public final class ImDrawList {
             Jni::ImVec2Cpy(env, jImVec2, &dst);
             _points[i] = dst;
         }
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddPolyline(_points, numPoints, col, closed, thickness);
+        IM_DRAW_LIST->AddPolyline(_points, numPoints, col, closed, thickness);
     */
 
     // Note: Anti-aliased filling requires points to be in clockwise order.
@@ -237,15 +239,15 @@ public final class ImDrawList {
             Jni::ImVec2Cpy(env, jImVec2, &dst);
             _points[i] = dst;
         }
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddConvexPolyFilled(_points, numPoints, col);
+        IM_DRAW_LIST->AddConvexPolyFilled(_points, numPoints, col);
     */
 
     public native void addBezierCurve(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col, float thickness); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddBezierCurve(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness);
+        IM_DRAW_LIST->AddBezierCurve(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness);
     */
 
     public native void addBezierCurve(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col, float thickness, int numSegments); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddBezierCurve(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness, numSegments);
+        IM_DRAW_LIST->AddBezierCurve(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness, numSegments);
     */
 
     // Image primitives
@@ -254,119 +256,107 @@ public final class ImDrawList {
     // - "uvMin" and "uvMax" represent the normalized texture coordinates to use for those corners. Using (0,0)->(1,1) texture coordinates will generally display the entire texture.
 
     public native void addImage(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->AddImage((ImTextureID)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY));
+        IM_DRAW_LIST->AddImage((ImTextureID)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY));
     */
 
     public native void addImage(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->AddImage((ImTextureID)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY));
+        IM_DRAW_LIST->AddImage((ImTextureID)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY));
     */
 
     public native void addImage(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->AddImage((ImTextureID)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY));
+        IM_DRAW_LIST->AddImage((ImTextureID)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY));
     */
 
     public native void addImage(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY, int col); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->AddImage((ImTextureID)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY), col);
+        IM_DRAW_LIST->AddImage((ImTextureID)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY), col);
     */
 
     public native void addImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->AddImageQuad((ImTextureID)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y));
+        IM_DRAW_LIST->AddImageQuad((ImTextureID)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y));
     */
 
     public native void addImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->AddImageQuad((ImTextureID)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y));
+        IM_DRAW_LIST->AddImageQuad((ImTextureID)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y));
     */
 
     public native void addImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->AddImageQuad((ImTextureID)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y), ImVec2(uv2X, uv2Y));
+        IM_DRAW_LIST->AddImageQuad((ImTextureID)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y), ImVec2(uv2X, uv2Y));
     */
 
     public native void addImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y, float uv3X, float uv3Y); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->AddImageQuad((ImTextureID)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y), ImVec2(uv2X, uv2Y), ImVec2(uv3X, uv3Y));
+        IM_DRAW_LIST->AddImageQuad((ImTextureID)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y), ImVec2(uv2X, uv2Y), ImVec2(uv3X, uv3Y));
     */
 
     public native void addImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y, float uv3X, float uv3Y, float uv4X, float uv4Y); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->AddImageQuad((ImTextureID)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y), ImVec2(uv2X, uv2Y), ImVec2(uv3X, uv3Y), ImVec2(uv4X, uv4Y));
+        IM_DRAW_LIST->AddImageQuad((ImTextureID)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y), ImVec2(uv2X, uv2Y), ImVec2(uv3X, uv3Y), ImVec2(uv4X, uv4Y));
     */
 
     public native void addImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y, float uv3X, float uv3Y, float uv4X, float uv4Y, int col); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->AddImageQuad((ImTextureID)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y), ImVec2(uv2X, uv2Y), ImVec2(uv3X, uv3Y), ImVec2(uv4X, uv4Y), col);
+        IM_DRAW_LIST->AddImageQuad((ImTextureID)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y), ImVec2(uv2X, uv2Y), ImVec2(uv3X, uv3Y), ImVec2(uv4X, uv4Y), col);
     */
 
     public native void addImageRounded(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY, int col, float rounding); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->AddImageRounded((ImTextureID)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY), col, rounding);
+        IM_DRAW_LIST->AddImageRounded((ImTextureID)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY), col, rounding);
     */
 
     public native void addImageRounded(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY, int col, float rounding, int imDrawCornerFlags); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->AddImageRounded((ImTextureID)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY), col, rounding, imDrawCornerFlags);
+        IM_DRAW_LIST->AddImageRounded((ImTextureID)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY), col, rounding, imDrawCornerFlags);
     */
 
     // Stateful path API, add points then finish with PathFillConvex() or PathStroke()
 
     public native void pathClear(); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PathClear();
+        IM_DRAW_LIST->PathClear();
     */
 
     public native void pathLineTo(float posX, float posY); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PathLineTo(ImVec2(posX, posY));
+        IM_DRAW_LIST->PathLineTo(ImVec2(posX, posY));
     */
 
     public native void pathLineToMergeDuplicate(float posX, float posY); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PathLineToMergeDuplicate(ImVec2(posX, posY));
+        IM_DRAW_LIST->PathLineToMergeDuplicate(ImVec2(posX, posY));
     */
 
     // Note: Anti-aliased filling requires points to be in clockwise order.
     public native void pathFillConvex(int col); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PathFillConvex(col);
+        IM_DRAW_LIST->PathFillConvex(col);
     */
 
     public native void pathStroke(int col, boolean closed); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PathStroke(col, closed);
+        IM_DRAW_LIST->PathStroke(col, closed);
     */
 
     public native void pathStroke(int col, boolean closed, float thickness); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PathStroke(col, closed, thickness);
+        IM_DRAW_LIST->PathStroke(col, closed, thickness);
     */
 
     public native void pathArcTo(float centerX, float centerY, float radius, float aMin, float aMax); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PathArcTo(ImVec2(centerX, centerY), radius, aMin, aMax);
+        IM_DRAW_LIST->PathArcTo(ImVec2(centerX, centerY), radius, aMin, aMax);
     */
 
     public native void pathArcTo(float centerX, float centerY, float radius, float aMin, float aMax, int numSegments); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PathArcTo(ImVec2(centerX, centerY), radius, aMin, aMax, numSegments);
+        IM_DRAW_LIST->PathArcTo(ImVec2(centerX, centerY), radius, aMin, aMax, numSegments);
     */
 
     // Use precomputed angles for a 12 steps circle
     public native void pathArcToFast(float centerX, float centerY, float radius, int aMinOf12, int aMaxOf12); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PathArcToFast(ImVec2(centerX, centerY), radius, aMinOf12, aMaxOf12);
+        IM_DRAW_LIST->PathArcToFast(ImVec2(centerX, centerY), radius, aMinOf12, aMaxOf12);
     */
 
     public native void pathBezierCurveTo(float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int numSegments); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PathBezierCurveTo(ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), numSegments);
+        IM_DRAW_LIST->PathBezierCurveTo(ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), numSegments);
     */
 
     public native void pathRect(float rectMinX, float rectMinY, float rectMaxX, float rectMaxY); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PathRect(ImVec2(rectMinX, rectMinY), ImVec2(rectMaxX, rectMaxY));
+        IM_DRAW_LIST->PathRect(ImVec2(rectMinX, rectMinY), ImVec2(rectMaxX, rectMaxY));
     */
 
     public native void pathRect(float rectMinX, float rectMinY, float rectMaxX, float rectMaxY, float rounding); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PathRect(ImVec2(rectMinX, rectMinY), ImVec2(rectMaxX, rectMaxY), rounding);
+        IM_DRAW_LIST->PathRect(ImVec2(rectMinX, rectMinY), ImVec2(rectMaxX, rectMaxY), rounding);
     */
 
     public native void pathRect(float rectMinX, float rectMinY, float rectMaxX, float rectMaxY, float rounding, int imDrawCornerFlags); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PathRect(ImVec2(rectMinX, rectMinY), ImVec2(rectMaxX, rectMaxY), rounding, imDrawCornerFlags);
+        IM_DRAW_LIST->PathRect(ImVec2(rectMinX, rectMinY), ImVec2(rectMaxX, rectMaxY), rounding, imDrawCornerFlags);
     */
 
     // Advanced: Channels
@@ -376,17 +366,14 @@ public final class ImDrawList {
     //   Using the ImDrawList::ChannelsXXXX you cannot stack a split over another.
 
     public native void channelsSplit(int count); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->ChannelsSplit(count);
+        IM_DRAW_LIST->ChannelsSplit(count);
     */
 
     public native void channelsMerge(); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->ChannelsMerge();
+        IM_DRAW_LIST->ChannelsMerge();
     */
 
     public native void channelsSetCurrent(int n); /*
-        ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));
-        drawList->ChannelsSetCurrent(n);
+        IM_DRAW_LIST->ChannelsSetCurrent(n);
     */
 }
