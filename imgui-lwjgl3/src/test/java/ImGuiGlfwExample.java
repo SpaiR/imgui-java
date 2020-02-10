@@ -258,10 +258,10 @@ public final class ImGuiGlfwExample {
         fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesCyrillic()); // Additional glyphs could be added like here or in addFontFrom*() methods
 
         // We can add new fonts directly from file
-        fontAtlas.addFontFromFileTTF("imgui-lwjgl3/src/test/resources/DroidSans.ttf", 13, fontConfig);
-        fontAtlas.addFontFromFileTTF("imgui-lwjgl3/src/test/resources/DroidSans.ttf", 14, fontConfig);
-        fontAtlas.addFontFromFileTTF("imgui-lwjgl3/src/test/resources/JetBrainsMono-Regular.ttf", 13, fontConfig);
-        fontAtlas.addFontFromFileTTF("imgui-lwjgl3/src/test/resources/JetBrainsMono-Regular.ttf", 14, fontConfig);
+        fontAtlas.addFontFromFileTTF("src/test/resources/DroidSans.ttf", 13, fontConfig);
+        fontAtlas.addFontFromFileTTF("src/test/resources/DroidSans.ttf", 14, fontConfig);
+        fontAtlas.addFontFromFileTTF("src/test/resources/JetBrainsMono-Regular.ttf", 13, fontConfig);
+        fontAtlas.addFontFromFileTTF("src/test/resources/JetBrainsMono-Regular.ttf", 14, fontConfig);
 
         // Or directly from memory
         fontConfig.setName("Roboto-Regular.ttf, 13px"); // This name will be displayed in Style Editor
@@ -282,7 +282,7 @@ public final class ImGuiGlfwExample {
     // Main application loop
     private void loop() throws Exception {
         // Load Duke image and convert it into OpenGL texture
-        dukeTexture = loadTexture(ImageIO.read(new File("imgui-lwjgl3/src/test/resources/Duke_waving.png")));
+        dukeTexture = loadTexture(ImageIO.read(new File("src/test/resources/Duke_waving.png")));
 
         double time = 0; // to track our frame delta value
 
