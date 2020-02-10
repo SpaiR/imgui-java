@@ -440,4 +440,8 @@ public final class ImGuiStyle {
             env->DeleteLocalRef(jColors);
         }
     */
+
+    public native void scaleAllSizes(float scaleFactor); /*
+        ImGui::GetStyle().ScaleAllSizes(scaleFactor);
+    */
 }

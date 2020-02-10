@@ -17,13 +17,15 @@ public final class ImGui {
     private static final String LIB_NAME_DEFAULT = System.getProperty("os.arch").contains("64") ? "imgui-java64" : "imgui-java";
     private static final String LIB_TMP_DIR_PREFIX = "imgui-java-bin_" + System.getProperty("user.name", "user");
 
-    private static final ImDrawData DRAW_DATA = new ImDrawData(100_000, 100_000, 1000);
-    private static final ImGuiIO IMGUI_IO = new ImGuiIO();
-    private static final ImGuiStyle IMGUI_STYLE = new ImGuiStyle();
+    private static final ImDrawData DRAW_DATA;
+    private static final ImGuiIO IMGUI_IO;
+    private static final ImGuiStyle IMGUI_STYLE;
 
     private static final ImDrawList IM_DRAW_LIST_WINDOW = new ImDrawList(ImDrawList.TYPE_WINDOW);
     private static final ImDrawList IM_DRAW_LIST_BACKGROUND = new ImDrawList(ImDrawList.TYPE_BACKGROUND);
     private static final ImDrawList IM_DRAW_LIST_FOREGROUND = new ImDrawList(ImDrawList.TYPE_FOREGROUND);
+
+    private static ImFont font;
 
     static {
         final String libPath = System.getProperty(LIB_PATH_PROP);
@@ -40,9 +42,17 @@ public final class ImGui {
             System.loadLibrary(libName);
         }
 
+        DRAW_DATA = new ImDrawData(100_000, 100_000, 1000);
+        IMGUI_IO = new ImGuiIO();
+        IMGUI_STYLE = new ImGuiStyle();
+
         nInitJni();
         ImDrawList.nInit();
         ImDrawData.nInit();
+        ImFontAtlas.nInit();
+        ImFontConfig.nInit();
+        ImFontGlyph.nInit();
+        ImFont.nInit();
         nInitInputTextData();
     }
 
@@ -81,6 +91,14 @@ public final class ImGui {
         }
     }
 
+    /**
+     * For internal usage.
+     * Method is used to initiate static instantiation (loading of the native libraries etc.).
+     * Otherwise native libraries will be loaded on demand and natively mapped objects won't work.
+     */
+    static void touch() {
+    }
+
     private ImGui() {
     }
 
@@ -107,7 +125,13 @@ public final class ImGui {
         ImGui::CreateContext();
     */
 
-    // public static void CreateContext(ImFontAtlas sharedFontAtlas) TODO create context with fonts
+    public static void createContext(ImFontAtlas sharedFontAtlas) {
+        nCreateContext(sharedFontAtlas.ptr);
+    }
+
+    private static native void nCreateContext(long sharedFontAtlasPtr); /*
+        ImGui::CreateContext((ImFontAtlas*)sharedFontAtlasPtr);
+    */
 
     public static native void destroyContext(); /*
         ImGui::DestroyContext();
@@ -769,7 +793,13 @@ public final class ImGui {
 
     // Parameters stacks (shared)
 
-    // TODO void PushFont(ImFont* font);
+    public static void pushFont(ImFont font) {
+        nPushFont(font.ptr);
+    }
+
+    private static native void nPushFont(long fontPtr); /*
+        ImGui::PushFont((ImFont*)fontPtr);
+    */
 
     public static native void popFont(); /*
         ImGui::PopFont();
@@ -815,7 +845,19 @@ public final class ImGui {
         Jni::ImVec4Cpy(env, ImGui::GetStyleColorVec4(imGuiStyleVar), dstImVec4);
     */
 
-    // TODO ImFont* GetFont();
+    /**
+     * Get current font.
+     */
+    public static ImFont getFont() {
+        if (font == null) {
+            font = new ImFont(nGetFont());
+        }
+        return font;
+    }
+
+    private static native long nGetFont(); /*
+        return (long)ImGui::GetFont();
+    */
 
     /**
      * Get current font size (= height in pixels) of current font with current scale applied
@@ -854,6 +896,7 @@ public final class ImGui {
 
     /**
      * Retrieve given color with style alpha applied
+     * <p>
      * BINDING NOTICE: Since {@link #getColorU32(int)} has the same signature, this specific method has an 'i' suffix.
      */
     public static native int getColorU32i(int col); /*
@@ -1196,6 +1239,7 @@ public final class ImGui {
 
     /**
      * Formatted text
+     * <p>
      * BINDING NOTICE: Since all text formatting could be done on Java side, this call is equal to {@link ImGui#textUnformatted(String)}.
      */
     public static native void text(String text); /*
@@ -3349,7 +3393,6 @@ public final class ImGui {
     */
 
     // Widgets: List Boxes
-    // - FIXME: To be consistent with all the newer API, ListBoxHeader/ListBoxFooter should in reality be called BeginListBox/EndListBox. Will rename them.
 
     public static void listBox(String label, ImInt currentItem, String[] items, int itemsCount) {
         nListBox(label, currentItem.data, items, itemsCount, -1);
