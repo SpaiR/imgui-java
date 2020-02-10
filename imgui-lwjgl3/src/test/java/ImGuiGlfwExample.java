@@ -341,8 +341,8 @@ public final class ImGuiGlfwExample {
         // Example of how to draw an image in the bottom-right corner of the window
         ImGui.getWindowSize(windowSize);
         ImGui.getWindowPos(windowPos);
-        float xPoint = windowPos.x + windowSize.x - 100;
-        float yPoint = windowPos.y + windowSize.y;
+        final float xPoint = windowPos.x + windowSize.x - 100;
+        final float yPoint = windowPos.y + windowSize.y;
         ImGui.getWindowDrawList().addImage(dukeTexture, xPoint, yPoint - 180, xPoint + 100, yPoint);
 
         // Simple checkbox to show demo window
@@ -449,14 +449,14 @@ public final class ImGuiGlfwExample {
         }
     }
 
-    private int loadTexture(BufferedImage image) {
-        int[] pixels = new int[image.getWidth() * image.getHeight()];
+    private int loadTexture(final BufferedImage image) {
+        final int[] pixels = new int[image.getWidth() * image.getHeight()];
         image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
 
-        ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * 4); // 4 for RGBA, 3 for RGB
+        final ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * 4); // 4 for RGBA, 3 for RGB
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
-                int pixel = pixels[y * image.getWidth() + x];
+                final int pixel = pixels[y * image.getWidth() + x];
                 buffer.put((byte) ((pixel >> 16) & 0xFF));
                 buffer.put((byte) ((pixel >> 8) & 0xFF));
                 buffer.put((byte) (pixel & 0xFF));
@@ -465,7 +465,7 @@ public final class ImGuiGlfwExample {
         }
         buffer.flip();
 
-        int textureID = glGenTextures();
+        final int textureID = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, textureID);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);

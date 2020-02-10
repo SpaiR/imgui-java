@@ -196,15 +196,15 @@ public final class ImDrawList {
         IM_DRAW_LIST->AddCircleFilled(ImVec2(centreX, centreY), radius, col, numSegments);
     */
 
-    public native void AddNgon(float centreX, float centreY, float radius, int col, int numSegments); /*
+    public native void addNgon(float centreX, float centreY, float radius, int col, int numSegments); /*
         IM_DRAW_LIST->AddNgon(ImVec2(centreX, centreY), radius, col, numSegments);
     */
 
-    public native void AddNgon(float centreX, float centreY, float radius, int col, int numSegments, float thickness); /*
+    public native void addNgon(float centreX, float centreY, float radius, int col, int numSegments, float thickness); /*
         IM_DRAW_LIST->AddNgon(ImVec2(centreX, centreY), radius, col, numSegments, thickness);
     */
 
-    public native void AddNgonFilled(float centreX, float centreY, float radius, int col, int numSegments); /*
+    public native void addNgonFilled(float centreX, float centreY, float radius, int col, int numSegments); /*
         IM_DRAW_LIST->AddNgonFilled(ImVec2(centreX, centreY), radius, col, numSegments);
     */
 
@@ -216,7 +216,7 @@ public final class ImDrawList {
         IM_DRAW_LIST->AddText(ImVec2(posX, posY), col, textBegin, textEnd);
     */
 
-    public void addText(ImFont imFont, float fontSize, float posX, float posY, int col, String textBegin) {
+    public void addText(final ImFont imFont, final float fontSize, final float posX, final float posY, final int col, final String textBegin) {
         nAddText(imFont.ptr, fontSize, posX, posY, col, textBegin);
     }
 
@@ -224,7 +224,7 @@ public final class ImDrawList {
         IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, textBegin);
     */
 
-    public void addText(ImFont imFont, float fontSize, float posX, float posY, int col, String textBegin, String textEnd) {
+    public void addText(final ImFont imFont, final float fontSize, final float posX, final float posY, final int col, final String textBegin, final String textEnd) {
         nAddText(imFont.ptr, fontSize, posX, posY, col, textBegin, textEnd);
     }
 
@@ -232,7 +232,7 @@ public final class ImDrawList {
         IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, textBegin, textEnd);
     */
 
-    public void addText(ImFont imFont, float fontSize, float posX, float posY, int col, String textBegin, String textEnd, float wrapWidth) {
+    public void addText(final ImFont imFont, final float fontSize, final float posX, final float posY, final int col, final String textBegin, final String textEnd, final float wrapWidth) {
         nAddText(imFont.ptr, fontSize, posX, posY, col, textBegin, textEnd, wrapWidth);
     }
 
@@ -240,7 +240,7 @@ public final class ImDrawList {
         IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, textBegin, textEnd, wrapWidth);
     */
 
-    public void addText(ImFont imFont, float fontSize, float posX, float posY, int col, String textBegin, String textEnd, float wrapWidth, float cpuFineClipRectX, float cpuFineClipRectY, float cpuFineClipRectZ, float cpuFineClipRectV) {
+    public void addText(final ImFont imFont, final float fontSize, final float posX, final float posY, final int col, final String textBegin, final String textEnd, final float wrapWidth, final float cpuFineClipRectX, final float cpuFineClipRectY, final float cpuFineClipRectZ, final float cpuFineClipRectV) {
         nAddText(imFont.ptr, fontSize, posX, posY, col, textBegin, textEnd, wrapWidth, cpuFineClipRectX, cpuFineClipRectY, cpuFineClipRectZ, cpuFineClipRectV);
     }
 
