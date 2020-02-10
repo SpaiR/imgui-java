@@ -319,7 +319,7 @@ public final class ImGuiIO {
     */
 
     // Optional: Access OS clipboard
-    // (default to use native Win32 clipboard on Windows, otherwise uses a private clipboard. Override to access OS clipboard on other architectures)
+    // (default to use native Win32 clipIsMouseDraggingboard on Windows, otherwise uses a private clipboard. Override to access OS clipboard on other architectures)
 
     /*JNI
         jobject _setClipboardTextCallback = NULL;

@@ -406,6 +406,22 @@ public final class ImGuiStyle {
         ImGui::GetStyle().CurveTessellationTol = curveTessellationTol;
     */
 
+    /**
+     * Maximum error (in pixels) allowed when using AddCircle()/AddCircleFilled() or drawing rounded corner rectangles with no explicit segment count specified.
+     * Decrease for higher quality but more geometry.
+     */
+    public native float getCircleSegmentMaxError(); /*
+        return ImGui::GetStyle().CircleSegmentMaxError;
+    */
+
+    /**
+     * Maximum error (in pixels) allowed when using AddCircle()/AddCircleFilled() or drawing rounded corner rectangles with no explicit segment count specified.
+     * Decrease for higher quality but more geometry.
+     */
+    public native void setCircleSegmentMaxError(float circleSegmentMaxError); /*
+        ImGui::GetStyle().CircleSegmentMaxError = circleSegmentMaxError;
+    */
+
     // Colors
     // BINDING NOTICE: buff is a 2d array with sizes: [ImGuiCol_COUNT][4]
     //

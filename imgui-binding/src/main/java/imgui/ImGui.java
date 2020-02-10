@@ -529,7 +529,7 @@ public final class ImGui {
     */
 
     /**
-     * Set next window background color alpha. helper to easily modify ImGuiCol_WindowBg/ChildBg/PopupBg.
+     * Set next window background color alpha. helper to easily override the Alpha component of ImGuiCol_WindowBg/ChildBg/PopupBg.
      * You may also use ImGuiWindowFlags_NoBackground.
      */
     public static native void setNextWindowBgAlpha(float alpha); /*
@@ -1495,6 +1495,7 @@ public final class ImGui {
     // - Adjust format string to decorate the value with a prefix, a suffix, or adapt the editing and display precision e.g. "%.3f" -> 1.234; "%5.2f secs" -> 01.23 secs; "Biscuit: %.0f" -> Biscuit: 1; etc.
     // - Speed are per-pixel of mouse movement (vSpeed=0.2f: mouse needs to move by 5 pixels to increase value by 1). For gamepad/keyboard navigation, minimum speed is Max(vSpeed, minimum_step_at_given_precision).
     // - Use vMin < vMax to clamp edits to given limits. Note that CTRL+Click manual input can override those limits.
+    // - Use v_max = FLT_MAX / INT_MAX etc to avoid clamping to a maximum, same with v_min = -FLT_MAX / INT_MIN to avoid clamping to a minimum.
     // - Use vMin > vMax to lock edits.
 
     public static native boolean dragFloat(String label, float[] v); /*
@@ -2520,7 +2521,7 @@ public final class ImGui {
     */
 
     // Widgets: Input with Keyboard
-    // - If you want to use InputText() with a dynamic string type such as std::string or your own, see misc/cpp/imgui_stdlib.h
+    // - If you want to use InputText() with std::string or any custom dynamic string type, see misc/cpp/imgui_stdlib.h and comments in imgui_demo.cpp.
     // - Most of the ImGuiInputTextFlags flags are only useful for InputText() and not for InputFloatX, InputIntX, InputDouble etc.
 
     /*JNI
@@ -3655,6 +3656,7 @@ public final class ImGui {
     // - Unless modal, they can be closed by clicking anywhere outside them, or by pressing ESCAPE.
     // - Their visibility state (~bool) is held internally by imgui instead of being held by the programmer as we are used to with regular Begin() calls.
     //   User can manipulate the visibility state by calling OpenPopup().
+    // - We default to use the right mouse (ImGuiMouseButton_Right=1) for the Popup Context functions.
     // (*) You can use IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup) to bypass it and detect hovering even when normally blocked by a popup.
     // Those three properties are connected. The library needs to hold their visibility state because it can close popups at any time.
 
@@ -3839,7 +3841,8 @@ public final class ImGui {
     // Columns
     // - You can also use SameLine(posX) to mimic simplified columns.
     // - The columns API is work-in-progress and rather lacking (columns are arguably the worst part of dear imgui at the moment!)
-    // - By end of the 2019 we will expose a new 'Table' api which will replace columns.
+    // - There is a maximum of 64 columns.
+    // - Currently working on new 'Tables' api which will replace columns (see GitHub #2957)
 
     public static native void columns(); /*
         ImGui::Columns();
@@ -4451,7 +4454,9 @@ public final class ImGui {
         ImGui::ColorConvertHSVtoRGB(hsv[0], hsv[1], hsv[2], rgb[0], rgb[1], rgb[2]);
     */
 
-    // Inputs Utilities
+    // Inputs Utilities: Keyboard
+    // - For 'int user_key_index' you can use your own indices/enums according to how your backend/engine stored them in io.KeysDown[].
+    // - We don't know the meaning of those value. You can use GetKeyIndex() to map a ImGuiKey_ value into the user index.
 
     /**
      * Map ImGuiKey_* values into user's key index. == io.KeyMap[key]
@@ -4461,22 +4466,21 @@ public final class ImGui {
     */
 
     /**
-     * Is key being held. == io.KeysDown[userKeyIndex]. note that imgui doesn't know the semantic of each entry of io.KeysDown[].
-     * Use your own indices/enums according to how your backend/engine stored them into io.KeysDown[]!
+     * Is key being held. == io.KeysDown[user_key_index].
      */
     public static native boolean isKeyDown(int userKeyIndex); /*
         return ImGui::IsKeyDown(userKeyIndex);
     */
 
     /**
-     * Was key pressed (went from !Down to Down). if repeat=true, uses io.KeyRepeatDelay / KeyRepeatRate
+     * Was key pressed (went from !Down to Down)? if repeat=true, uses io.KeyRepeatDelay / KeyRepeatRate
      */
     public static native boolean isKeyPressed(int userKeyIndex); /*
         return ImGui::IsKeyPressed(userKeyIndex);
     */
 
     /**
-     * Was key pressed (went from !Down to Down). if repeat=true, uses io.KeyRepeatDelay / KeyRepeatRate
+     * Was key pressed (went from !Down to Down)? if repeat=true, uses io.KeyRepeatDelay / KeyRepeatRate
      */
     public static native boolean isKeyPressed(int userKeyIndex, boolean repeat); /*
         return ImGui::IsKeyPressed(userKeyIndex, repeat);
@@ -4496,6 +4500,29 @@ public final class ImGui {
     public static native boolean getKeyPressedAmount(int keyIndex, float repeatDelay, float rate); /*
         return ImGui::GetKeyPressedAmount(keyIndex, repeatDelay, rate);
     */
+
+    /**
+     * Attention: misleading name! manually override io.WantCaptureKeyboard flag next frame (said flag is entirely left for your application to handle).
+     * e.g. force capture keyboard when your widget is being hovered.
+     * This is equivalent to setting "io.WantCaptureKeyboard = wantCaptureKeyboardValue"; after the next NewFrame() call.
+     */
+    public static native void captureKeyboardFromApp(); /*
+        ImGui::CaptureKeyboardFromApp();
+    */
+
+    /**
+     * Attention: misleading name! manually override io.WantCaptureKeyboard flag next frame (said flag is entirely left for your application to handle).
+     * e.g. force capture keyboard when your widget is being hovered.
+     * This is equivalent to setting "io.WantCaptureKeyboard = wantCaptureKeyboardValue"; after the next NewFrame() call.
+     */
+    public static native void captureKeyboardFromApp(boolean wantCaptureKeyboardValue); /*
+        ImGui::CaptureKeyboardFromApp(wantCaptureKeyboardValue);
+    */
+
+    // Inputs Utilities: Mouse
+    // - To refer to a mouse button, you may use named enums in your code e.g. ImGuiMouseButton_Left, ImGuiMouseButton_Right.
+    // - You can also use regular integer: it is forever guaranteed that 0=Left, 1=Right, 2=Middle.
+    // - Dragging operations are only reported after mouse has moved a certain distance away from the initial clicking position (see 'lock_threshold' and 'io.MouseDraggingThreshold')
 
     /**
      * Is mouse button held (0=left, 1=right, 2=middle)
@@ -4534,13 +4561,6 @@ public final class ImGui {
      */
     public static native boolean isMouseReleased(int button); /*
         return ImGui::IsMouseReleased(button);
-    */
-
-    /**
-     * Is mouse dragging. if lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold
-     */
-    public static native boolean isMouseDragging(); /*
-        return ImGui::IsMouseDragging();
     */
 
     /**
@@ -4645,24 +4665,6 @@ public final class ImGui {
      */
     public static native void setMouseCursor(int type); /*
         ImGui::SetMouseCursor(type);
-    */
-
-    /**
-     * Attention: misleading name! manually override io.WantCaptureKeyboard flag next frame (said flag is entirely left for your application to handle).
-     * e.g. force capture keyboard when your widget is being hovered.
-     * This is equivalent to setting "io.WantCaptureKeyboard = wantCaptureKeyboardValue"; after the next NewFrame() call.
-     */
-    public static native void captureKeyboardFromApp(); /*
-        ImGui::CaptureKeyboardFromApp();
-    */
-
-    /**
-     * Attention: misleading name! manually override io.WantCaptureKeyboard flag next frame (said flag is entirely left for your application to handle).
-     * e.g. force capture keyboard when your widget is being hovered.
-     * This is equivalent to setting "io.WantCaptureKeyboard = wantCaptureKeyboardValue"; after the next NewFrame() call.
-     */
-    public static native void captureKeyboardFromApp(boolean wantCaptureKeyboardValue); /*
-        ImGui::CaptureKeyboardFromApp(wantCaptureKeyboardValue);
     */
 
     /**

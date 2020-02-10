@@ -105,6 +105,9 @@ public final class ImDrawList {
 
     // Primitives
     // - For rectangular primitives, "pMin" and "pMax" represent the upper-left and lower-right corners.
+    // - For circle primitives, use "num_segments == 0" to automatically calculate tessellation (preferred).
+    //   In future versions we will use textures to provide cheaper and higher-quality circles.
+    //   Use AddNgon() and AddNgonFilled() functions if you need to guaranteed a specific number of sides.
 
     public native void addLine(float p1X, float p1Y, float p2X, float p2Y, int col); /*
         getDrawList(env->GetIntField(object, drawListTypeID))->AddLine(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), col);
@@ -190,6 +193,18 @@ public final class ImDrawList {
         getDrawList(env->GetIntField(object, drawListTypeID))->AddCircleFilled(ImVec2(centreX, centreY), radius, col, numSegments);
     */
 
+    public native void AddNgon(float centreX, float centreY, float radius, int col, int numSegments); /*
+        getDrawList(env->GetIntField(object, drawListTypeID))->AddNgon(ImVec2(centreX, centreY), radius, col, numSegments);
+    */
+
+    public native void AddNgon(float centreX, float centreY, float radius, int col, int numSegments, float thickness); /*
+        getDrawList(env->GetIntField(object, drawListTypeID))->AddNgon(ImVec2(centreX, centreY), radius, col, numSegments, thickness);
+    */
+
+    public native void AddNgonFilled(float centreX, float centreY, float radius, int col, int numSegments); /*
+        getDrawList(env->GetIntField(object, drawListTypeID))->AddNgonFilled(ImVec2(centreX, centreY), radius, col, numSegments);
+    */
+
     public native void addText(float posX, float posY, int col, String textBegin); /*
         getDrawList(env->GetIntField(object, drawListTypeID))->AddText(ImVec2(posX, posY), col, textBegin);
     */
@@ -225,12 +240,12 @@ public final class ImDrawList {
         getDrawList(env->GetIntField(object, drawListTypeID))->AddConvexPolyFilled(_points, numPoints, col);
     */
 
-    public native void addBezierCurve(float pos0X, float pos0Y, float cp0X, float cp0Y, float cp1X, float cp1Y, float pos1X, float pos1Y, int col, float thickness); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddBezierCurve(ImVec2(pos0X, pos0Y), ImVec2(cp0X, cp0Y), ImVec2(cp1X, cp1Y), ImVec2(pos1X, pos1Y), col, thickness);
+    public native void addBezierCurve(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col, float thickness); /*
+        getDrawList(env->GetIntField(object, drawListTypeID))->AddBezierCurve(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness);
     */
 
-    public native void addBezierCurve(float pos0X, float pos0Y, float cp0X, float cp0Y, float cp1X, float cp1Y, float pos1X, float pos1Y, int col, float thickness, int numSegments); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->AddBezierCurve(ImVec2(pos0X, pos0Y), ImVec2(cp0X, cp0Y), ImVec2(cp1X, cp1Y), ImVec2(pos1X, pos1Y), col, thickness, numSegments);
+    public native void addBezierCurve(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col, float thickness, int numSegments); /*
+        getDrawList(env->GetIntField(object, drawListTypeID))->AddBezierCurve(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness, numSegments);
     */
 
     // Image primitives
@@ -338,8 +353,8 @@ public final class ImDrawList {
         getDrawList(env->GetIntField(object, drawListTypeID))->PathArcToFast(ImVec2(centerX, centerY), radius, aMinOf12, aMaxOf12);
     */
 
-    public native void pathBezierCurveTo(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, int numSegments); /*
-        getDrawList(env->GetIntField(object, drawListTypeID))->PathBezierCurveTo(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), numSegments);
+    public native void pathBezierCurveTo(float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int numSegments); /*
+        getDrawList(env->GetIntField(object, drawListTypeID))->PathBezierCurveTo(ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), numSegments);
     */
 
     public native void pathRect(float rectMinX, float rectMinY, float rectMaxX, float rectMaxY); /*
@@ -355,8 +370,10 @@ public final class ImDrawList {
     */
 
     // Advanced: Channels
-    // - Use to split render into layers. By switching channels to can render out-of-order (e.g. submit foreground primitives before background primitives)
-    // - Use to minimize draw calls (e.g. if going back-and-forth between multiple non-overlapping clipping rectangles, prefer to append into separate channels then merge at the end)
+    // - Use to split render into layers. By switching channels to can render out-of-order (e.g. submit FG primitives before BG primitives)
+    // - Use to minimize draw calls (e.g. if going back-and-forth between multiple clipping rectangles, prefer to append into separate channels then merge at the end)
+    //   Prefer using your own persistent copy of ImDrawListSplitter as you can stack them.
+    //   Using the ImDrawList::ChannelsXXXX you cannot stack a split over another.
 
     public native void channelsSplit(int count); /*
         ImDrawList* drawList = getDrawList(env->GetIntField(object, drawListTypeID));

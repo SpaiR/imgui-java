@@ -17,5 +17,6 @@ public final class ImGuiMouseCursor {
     public static final int ResizeNESW = 5;  // When hovering over the bottom-left corner of a window
     public static final int ResizeNWSE = 6;  // When hovering over the bottom-right corner of a window
     public static final int Hand = 7;        // (Unused by Dear ImGui functions. Use for e.g. hyperlinks)
-    public static final int COUNT = 8;
+    public static final int NotAllowed = 8;  // When hovering something with disallowed interaction. Usually a crossed circle.
+    public static final int COUNT = 9;
 }

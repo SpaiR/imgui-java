@@ -135,6 +135,14 @@ public final class ImFont implements ImDestroyable {
         IM_FONT->EllipsisChar = (ImWchar)ellipsisChar;
     */
 
+    public native boolean getDirtyLookupTables(); /*
+        return IM_FONT->DirtyLookupTables;
+    */
+
+    public native void setDirtyLookupTables(boolean dirtyLookupTables); /*
+        IM_FONT->DirtyLookupTables = dirtyLookupTables;
+    */
+
     /**
      * Base font scale, multiplied by the per-window font scale which you can adjust with SetWindowFontScale()
      */
@@ -189,14 +197,6 @@ public final class ImFont implements ImDestroyable {
      */
     public native void setMetricsTotalSurface(int metricsTotalSurface); /*
         IM_FONT->MetricsTotalSurface = metricsTotalSurface;
-    */
-
-    public native boolean getDirtyLookupTables(); /*
-        return IM_FONT->DirtyLookupTables;
-    */
-
-    public native void setDirtyLookupTables(boolean dirtyLookupTables); /*
-        IM_FONT->DirtyLookupTables = dirtyLookupTables;
     */
 
     // TODO methods
