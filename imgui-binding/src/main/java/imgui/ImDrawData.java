@@ -157,7 +157,7 @@ public final class ImDrawData {
 
                 float textureID = (float)(intptr_t)pcmd->TextureId;
                 float tempArray [6] = {
-                    pcmd->ElemCount,
+                    (float)pcmd->ElemCount,
                     pcmd->ClipRect.x, pcmd->ClipRect.y,
                     pcmd->ClipRect.z, pcmd->ClipRect.w,
                     textureID

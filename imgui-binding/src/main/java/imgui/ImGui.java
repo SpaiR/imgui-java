@@ -629,7 +629,7 @@ public final class ImGui {
      * Set named window collapsed state
      */
     public static native void setWindowCollapsed(String name, boolean collapsed); /*
-        ImGui::SetWindowCollapsed(name, collapsed);
+        ImGui::SetWindowCollapsed(name, collapsed, 0);
     */
 
     /**
@@ -1250,14 +1250,14 @@ public final class ImGui {
      * Shortcut for PushStyleColor(ImGuiCol_Text, col); Text(fmt, ...); PopStyleColor();
      */
     public static native void textColored(float r, float g, float b, float a, String text); /*
-        ImGui::TextColored(ImVec4(r, g, b, a), text);
+        ImGui::TextColored(ImVec4(r, g, b, a), text, NULL);
     */
 
     /**
      * Shortcut for PushStyleColor(ImGuiCol_Text, style.Colors[ImGuiCol_TextDisabled]); Text(fmt, ...); PopStyleColor();
      */
     public static native void textDisabled(String text); /*
-        ImGui::TextDisabled(text);
+        ImGui::TextDisabled(text, NULL);
     */
 
     /**
@@ -1266,21 +1266,21 @@ public final class ImGui {
      * yoy may need to set a size using SetNextWindowSize().
      */
     public static native void textWrapped(String text); /*
-        ImGui::TextWrapped(text);
+        ImGui::TextWrapped(text, NULL);
     */
 
     /**
      * Display text+label aligned the same way as value+label widgets
      */
     public static native void labelText(String label, String text); /*
-        ImGui::LabelText(label, text);
+        ImGui::LabelText(label, text, NULL);
     */
 
     /**
      * Shortcut for Bullet()+Text()
      */
     public static native void bulletText(String text); /*
-        ImGui::BulletText(text);
+        ImGui::BulletText(text, NULL);
     */
 
     // Widgets: Main
@@ -1323,65 +1323,65 @@ public final class ImGui {
     */
 
     public static native void image(int textureID, float sizeX, float sizeY); /*
-        ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY));
+        ImGui::Image((ImTextureID)(intptr_t)textureID, ImVec2(sizeX, sizeY));
     */
 
     public static native void image(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y); /*
-        ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y));
+        ImGui::Image((ImTextureID)(intptr_t)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y));
     */
 
     public static native void image(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*
-        ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y));
+        ImGui::Image((ImTextureID)(intptr_t)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y));
     */
 
     public static native void image(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColorR, float tintColorG, float tintColorB, float tintColorA); /*
-        ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), ImVec4(tintColorR, tintColorG, tintColorB, tintColorA));
+        ImGui::Image((ImTextureID)(intptr_t)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), ImVec4(tintColorR, tintColorG, tintColorB, tintColorA));
     */
 
     public static native void image(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColorR, float tintColorG, float tintColorB, float tintColorA, float borderR, float borderG, float borderB, float borderA); /*
-        ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), ImVec4(tintColorR, tintColorG, tintColorB, tintColorA), ImVec4(borderR, borderG, borderB, borderA));
+        ImGui::Image((ImTextureID)(intptr_t)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), ImVec4(tintColorR, tintColorG, tintColorB, tintColorA), ImVec4(borderR, borderG, borderB, borderA));
     */
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
     public static native boolean imageButton(int textureID, float sizeX, float sizeY); /*
-        return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY));
+        return ImGui::ImageButton((ImTextureID)(intptr_t)textureID, ImVec2(sizeX, sizeY));
     */
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
     public static native boolean imageButton(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y); /*
-        return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y));
+        return ImGui::ImageButton((ImTextureID)(intptr_t)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y));
     */
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
     public static native boolean imageButton(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*
-        return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y));
+        return ImGui::ImageButton((ImTextureID)(intptr_t)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y));
     */
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
     public static native boolean imageButton(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding); /*
-        return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), framePadding);
+        return ImGui::ImageButton((ImTextureID)(intptr_t)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), framePadding);
     */
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
     public static native boolean imageButton(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding, float bgColorR, float bgColorG, float bgColorB, float bgColorA); /*
-        return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), framePadding, ImVec4(bgColorR, bgColorG, bgColorB, bgColorA));
+        return ImGui::ImageButton((ImTextureID)(intptr_t)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), framePadding, ImVec4(bgColorR, bgColorG, bgColorB, bgColorA));
     */
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
     public static native boolean imageButton(int textureID, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding, float bgColorR, float bgColorG, float bgColorB, float bgColorA, float tintR, float tintG, float tintB, float tintA); /*
-        return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), framePadding, ImVec4(bgColorR, bgColorG, bgColorB, bgColorA), ImVec4(tintR, tintG, tintB, tintA));
+        return ImGui::ImageButton((ImTextureID)(intptr_t)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), framePadding, ImVec4(bgColorR, bgColorG, bgColorB, bgColorA), ImVec4(tintR, tintG, tintB, tintA));
     */
 
     public static boolean checkbox(String label, ImBool active) {
@@ -3247,7 +3247,7 @@ public final class ImGui {
     // - TreeNode functions return true when the node is open, in which case you need to also call TreePop() when you are finished displaying the tree node contents.
 
     public static native boolean treeNode(String label); /*
-        return ImGui::TreeNode(label);
+        return ImGui::TreeNode(label, NULL);
     */
 
     /**
@@ -3255,11 +3255,11 @@ public final class ImGui {
      * Read the FAQ about why and how to use ID. to align arbitrary text at the same level as a TreeNode() you can use Bullet().
      */
     public static native boolean treeNode(String strId, String label); /*
-        return ImGui::TreeNode(strId, label);
+        return ImGui::TreeNode(strId, label, NULL);
     */
 
     public static native boolean treeNode(long ptrId, String label); /*
-        return ImGui::TreeNode((void*)ptrId, label);
+        return ImGui::TreeNode((void*)ptrId, label, NULL);
     */
 
     public static native boolean treeNodeEx(String label); /*
@@ -3271,11 +3271,11 @@ public final class ImGui {
     */
 
     public static native boolean treeNodeEx(String strId, int imGuiTreeNodeFlags, String label); /*
-        return ImGui::TreeNodeEx(strId, imGuiTreeNodeFlags, label);
+        return ImGui::TreeNodeEx(strId, imGuiTreeNodeFlags, label, NULL);
     */
 
     public static native boolean treeNodeEx(int ptrId, int imGuiTreeNodeFlags, String label); /*
-        return ImGui::TreeNodeEx((void*)(intptr_t)ptrId, imGuiTreeNodeFlags, label);
+        return ImGui::TreeNodeEx((void*)(intptr_t)ptrId, imGuiTreeNodeFlags, label, NULL);
     */
 
     /**
@@ -3647,7 +3647,7 @@ public final class ImGui {
      * Set a text-only tooltip, typically use with ImGui::IsItemHovered(). override any previous call to SetTooltip().
      */
     public static native void setTooltip(String text); /*
-        ImGui::SetTooltip(text);
+        ImGui::SetTooltip(text, NULL);
     */
 
     // Popups, Modals
@@ -4065,7 +4065,7 @@ public final class ImGui {
      * Pass text data straight to log (without being displayed)
      */
     public static native void logText(String text); /*
-        ImGui::LogText(text);
+        ImGui::LogText(text, NULL);
     */
 
     // Drag and Drop

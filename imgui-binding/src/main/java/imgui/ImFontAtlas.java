@@ -44,6 +44,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     /*JNI
+        #include <stdint.h>
         #include <imgui.h>
 
         jfieldID imFontAtlasPtrID;
@@ -357,8 +358,8 @@ public final class ImFontAtlas implements ImDestroyable {
         return IM_FONT_ATLAS->IsBuilt();
     */
 
-    public native void setTexID(int imTextureId); /*
-        IM_FONT_ATLAS->SetTexID((ImTextureID)imTextureId);
+    public native void setTexID(int textureID); /*
+        IM_FONT_ATLAS->SetTexID((ImTextureID)(intptr_t)textureID);
     */
 
     //-------------------------------------------
