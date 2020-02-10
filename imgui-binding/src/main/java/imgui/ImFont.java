@@ -28,6 +28,7 @@ public final class ImFont implements ImDestroyable {
     }
 
     /*JNI
+        #include <stdint.h>
         #include <imgui.h>
         #include "jni_common.h"
 
@@ -43,7 +44,7 @@ public final class ImFont implements ImDestroyable {
 
     private native long nCreate(); /*
         ImFont* imFont = new ImFont();
-        return (long)imFont;
+        return (long)(intptr_t)imFont;
     */
 
     private native void nDestroy(long ptr); /*
@@ -86,7 +87,7 @@ public final class ImFont implements ImDestroyable {
     }
 
     private native long nGetFallbackGlyphPtr(); /*
-        return (long)IM_FONT->FallbackGlyph;
+        return (long)(intptr_t)IM_FONT->FallbackGlyph;
     */
 
     /**

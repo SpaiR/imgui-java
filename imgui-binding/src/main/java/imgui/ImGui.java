@@ -856,7 +856,7 @@ public final class ImGui {
     }
 
     private static native long nGetFont(); /*
-        return (long)ImGui::GetFont();
+        return (long)(intptr_t)ImGui::GetFont();
     */
 
     /**

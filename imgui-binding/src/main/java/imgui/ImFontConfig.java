@@ -26,6 +26,7 @@ public final class ImFontConfig implements ImDestroyable {
     }
 
     /*JNI
+        #include <stdint.h>
         #include <imgui.h>
         #include "jni_common.h"
 
@@ -41,7 +42,7 @@ public final class ImFontConfig implements ImDestroyable {
 
     private native long nCreate(); /*
         ImFontConfig* imFontConfig = new ImFontConfig();
-        return (long)imFontConfig;
+        return (long)(intptr_t)imFontConfig;
     */
 
     private native void nDestroy(long ptr); /*

@@ -14,6 +14,7 @@ public final class ImGuiIO {
     }
 
     /*JNI
+        #include <stdint.h>
         #include <imgui.h>
         #include "jni_common.h"
         #include "jni_callbacks.h"
@@ -167,7 +168,7 @@ public final class ImGuiIO {
     }
 
     private native long nGetFontsPtr(); /*
-        return (long)ImGui::GetIO().Fonts;
+        return (long)(intptr_t)ImGui::GetIO().Fonts;
     */
 
     /**
