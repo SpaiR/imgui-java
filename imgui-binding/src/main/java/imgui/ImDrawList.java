@@ -215,7 +215,38 @@ public final class ImDrawList {
         IM_DRAW_LIST->AddText(ImVec2(posX, posY), col, textBegin, textEnd);
     */
 
-    // TODO add text with font support
+    public void addText(ImFont imFont, float fontSize, float posX, float posY, int col, String textBegin) {
+        nAddText(imFont.ptr, fontSize, posX, posY, col, textBegin);
+    }
+
+    private native void nAddText(long imFontPtr, float fontSize, float posX, float posY, int col, String textBegin); /*
+        IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, textBegin);
+    */
+
+    public void addText(ImFont imFont, float fontSize, float posX, float posY, int col, String textBegin, String textEnd) {
+        nAddText(imFont.ptr, fontSize, posX, posY, col, textBegin, textEnd);
+    }
+
+    private native void nAddText(long imFontPtr, float fontSize, float posX, float posY, int col, String textBegin, String textEnd); /*
+        IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, textBegin, textEnd);
+    */
+
+    public void addText(ImFont imFont, float fontSize, float posX, float posY, int col, String textBegin, String textEnd, float wrapWidth) {
+        nAddText(imFont.ptr, fontSize, posX, posY, col, textBegin, textEnd, wrapWidth);
+    }
+
+    private native void nAddText(long imFontPtr, float fontSize, float posX, float posY, int col, String textBegin, String textEnd, float wrapWidth); /*
+        IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, textBegin, textEnd, wrapWidth);
+    */
+
+    public void addText(ImFont imFont, float fontSize, float posX, float posY, int col, String textBegin, String textEnd, float wrapWidth, float cpuFineClipRectX, float cpuFineClipRectY, float cpuFineClipRectZ, float cpuFineClipRectV) {
+        nAddText(imFont.ptr, fontSize, posX, posY, col, textBegin, textEnd, wrapWidth, cpuFineClipRectX, cpuFineClipRectY, cpuFineClipRectZ, cpuFineClipRectV);
+    }
+
+    private native void nAddText(long imFontPtr, float fontSize, float posX, float posY, int col, String textBegin, String textEnd, float wrapWidth, float cpuFineClipRectX, float cpuFineClipRectY, float cpuFineClipRectZ, float cpuFineClipRectV); /*
+        ImVec4 cpuFineClipRect = ImVec4(cpuFineClipRectX, cpuFineClipRectY, cpuFineClipRectZ, cpuFineClipRectV);
+        IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, textBegin, textEnd, wrapWidth, &cpuFineClipRect);
+    */
 
     public native void addPolyline(ImVec2[] points, int numPoints, int col, boolean closed, float thickness); /*
         int points_num = env->GetArrayLength(points);
