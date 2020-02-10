@@ -13,20 +13,60 @@ public final class ImGuiNavInput {
     private ImGuiNavInput() {
     }
 
-    public static final int Activate = 0; // activate / open / toggle / tweak value       // e.g. Cross  (PS4), A (Xbox), A (Switch), Space (Keyboard)
-    public static final int Cancel = 1;   // cancel / close / exit                        // e.g. Circle (PS4), B (Xbox), B (Switch), Escape (Keyboard)
-    public static final int Input = 2;    // text input / on-screen keyboard              // e.g. Triang.(PS4), Y (Xbox), X (Switch), Return (Keyboard)
-    public static final int Menu = 3;     // tap: toggle menu / hold: focus, move, resize // e.g. Square (PS4), X (Xbox), Y (Switch), Alt (Keyboard)
-    public static final int DpadLeft = 4; // move / tweak / resize window (w/ PadMenu)    // e.g. D-pad Left/Right/Up/Down (Gamepads), Arrow keys (Keyboard)
+    /**
+     * activate / open / toggle / tweak value
+     * e.g. Cross  (PS4), A (Xbox), A (Switch), Space (Keyboard)
+     */
+    public static final int Activate = 0;
+    /**
+     * cancel / close / exit
+     * e.g. Circle (PS4), B (Xbox), B (Switch), Escape (Keyboard)
+     */
+    public static final int Cancel = 1;
+    /**
+     * text input / on-screen keyboard
+     * e.g. Triang.(PS4), Y (Xbox), X (Switch), Return (Keyboard)
+     */
+    public static final int Input = 2;
+    /**
+     * tap: toggle menu / hold: focus, move, resize
+     * e.g. Square (PS4), X (Xbox), Y (Switch), Alt (Keyboard)
+     */
+    public static final int Menu = 3;
+    /**
+     * move / tweak / resize window (w/ PadMenu)
+     * e.g. D-pad Left/Right/Up/Down (Gamepads), Arrow keys (Keyboard)
+     */
+    public static final int DpadLeft = 4;
     public static final int DpadRight = 5;
     public static final int DpadUp = 6;
     public static final int DpadDown = 7;
-    public static final int LStickLeft = 8;  // scroll / move window (w/ PadMenu)            // e.g. Left Analog Stick Left/Right/Up/Down
-    public static final int LStickRight = 9; //
-    public static final int LStickUp = 10;   //
-    public static final int LStickDown = 11; //
-    public static final int FocusPrev = 12;  // next window (w/ PadMenu)                     // e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)
-    public static final int FocusNext = 13;  // prev window (w/ PadMenu)                     // e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)
-    public static final int TweakSlow = 14;  // slower tweaks                                // e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)
-    public static final int TweakFast = 15;  // faster tweaks                                // e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)
+    /**
+     * scroll / move window (w/ PadMenu)
+     * e.g. Left Analog Stick Left/Right/Up/Down
+     */
+    public static final int LStickLeft = 8;
+    public static final int LStickRight = 9;
+    public static final int LStickUp = 10;
+    public static final int LStickDown = 11;
+    /**
+     * next window (w/ PadMenu)
+     * e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)
+     */
+    public static final int FocusPrev = 12;
+    /**
+     * prev window (w/ PadMenu)
+     * e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)
+     */
+    public static final int FocusNext = 13;
+    /**
+     * slower tweaks
+     * e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)
+     */
+    public static final int TweakSlow = 14;
+    /**
+     * faster tweaks
+     * e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)
+     */
+    public static final int TweakFast = 15;
 }

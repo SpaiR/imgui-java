@@ -23,11 +23,29 @@ public final class ImGuiKey {
     public static final int Enter = 13;
     public static final int Escape = 14;
     public static final int KeyPadEnter = 15;
-    public static final int A = 16;  // for text edit CTRL+A: select all
-    public static final int C = 17;  // for text edit CTRL+C: copy
-    public static final int V = 18;  // for text edit CTRL+V: paste
-    public static final int X = 19;  // for text edit CTRL+X: cut
-    public static final int Y = 20;  // for text edit CTRL+Y: redo
-    public static final int Z = 21;  // for text edit CTRL+Z: undo
+    /**
+     * for text edit CTRL+A: select all
+     */
+    public static final int A = 16;
+    /**
+     * for text edit CTRL+C: copy
+     */
+    public static final int C = 17;
+    /**
+     * for text edit CTRL+V: paste
+     */
+    public static final int V = 18;
+    /**
+     * for text edit CTRL+X: cut
+     */
+    public static final int X = 19;
+    /**
+     * for text edit CTRL+Y: redo
+     */
+    public static final int Y = 20;
+    /**
+     * for text edit CTRL+Z: undo
+     */
+    public static final int Z = 21;
     public static final int COUNT = 22;
 }
