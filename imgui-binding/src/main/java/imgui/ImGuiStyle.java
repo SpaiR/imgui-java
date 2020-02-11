@@ -422,9 +422,9 @@ public final class ImGuiStyle {
         ImGui::GetStyle().CircleSegmentMaxError = circleSegmentMaxError;
     */
 
-    // Colors
-    // BINDING NOTICE: buff is a 2d array with sizes: [ImGuiCol_COUNT][4]
-    //
+    /**
+     * BINDING NOTICE: colors is a 2d array with sizes: [ImGuiCol_COUNT][4]
+     */
     public native void getColors(float[][] buff); /*
         for (int i = 0; i < ImGuiCol_COUNT; i++) {
             jfloatArray jColors = (jfloatArray)env->GetObjectArrayElement(buff, i);
@@ -440,8 +440,9 @@ public final class ImGuiStyle {
         }
     */
 
-    // BINDING NOTICE: colors is a 2d array with sizes: [ImGuiCol_COUNT][4]
-    //
+    /**
+     * BINDING NOTICE: colors is a 2d array with sizes: [ImGuiCol_COUNT][4]
+     */
     public native void setColors(float[][] colors); /*
         for (int i = 0; i < ImGuiCol_COUNT; i++) {
             jfloatArray jColors = (jfloatArray)env->GetObjectArrayElement(colors, i);
@@ -459,5 +460,13 @@ public final class ImGuiStyle {
 
     public native void scaleAllSizes(float scaleFactor); /*
         ImGui::GetStyle().ScaleAllSizes(scaleFactor);
+    */
+
+    public native void getColor(int imGuiCol, ImVec4 dstImVec4); /*
+        Jni::ImVec4Cpy(env, ImGui::GetStyle().Colors[imGuiCol], dstImVec4);
+    */
+
+    public native void setColor(int imGuiCol, float r, float g, float b, float a); /*
+        ImGui::GetStyle().Colors[imGuiCol] = ImVec4(r, g, b, a);
     */
 }
