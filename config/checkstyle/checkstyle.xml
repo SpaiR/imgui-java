@@ -131,7 +131,7 @@
 
         <!-- Checks for Size Violations.                    -->
         <!-- See https://checkstyle.org/config_sizes.html -->
-        <module name="MethodLength"/>
+        <!-- <module name="MethodLength"/> -->
         <module name="ParameterNumber"/>
 
         <!-- Checks for whitespace                               -->

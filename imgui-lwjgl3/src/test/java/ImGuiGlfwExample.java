@@ -40,9 +40,6 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 @SuppressWarnings("MagicNumber")
 public final class ImGuiGlfwExample {
-    private static final int DEFAULT_WIDTH = 1280;
-    private static final int DEFAULT_HEIGHT = 768;
-
     private long window; // current GLFW window pointer
 
     // Those are used to track window size properties
@@ -99,7 +96,7 @@ public final class ImGuiGlfwExample {
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE); // the window will be maximized
 
         // Create the window
-        window = glfwCreateWindow(DEFAULT_WIDTH, DEFAULT_HEIGHT, "Dear ImGui + GLFW + LWJGL Example", NULL, NULL);
+        window = glfwCreateWindow(1280, 768, "Dear ImGui + GLFW + LWJGL Example", NULL, NULL);
 
         if (window == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
@@ -149,8 +146,8 @@ public final class ImGuiGlfwExample {
         io.setIniFilename(null); // We don't want to save .ini file
         io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard); // Navigation with keyboard
         io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors); // Mouse cursors to display while resizing windows etc.
-        io.setBackendPlatformName("imgui_java_impl_glfw"); // For debug purpose
-        io.setBackendRendererName("imgui_java_impl_lwjgl"); // For debug purpose
+        io.setBackendPlatformName("imgui_java_impl_glfw"); // For clarity reasons
+        io.setBackendRendererName("imgui_java_impl_lwjgl"); // For clarity reasons
 
         // Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array.
         final int[] keyMap = new int[ImGuiKey.COUNT];
@@ -249,20 +246,34 @@ public final class ImGuiGlfwExample {
         // ------------------------------------------------------------
         // Fonts configuration
 
+        // -------------------
+        // Fonts merge example
+
         final ImFontAtlas fontAtlas = io.getFonts();
 
-        // Dear ImGui uses 'ProggyClean.ttf, 13px' by default
+        // First of all we add a default font, which is 'ProggyClean.ttf, 13px'
         fontAtlas.addFontDefault();
 
         final ImFontConfig fontConfig = new ImFontConfig(); // Keep in mind that creation of the ImFontConfig will allocate native memory
+        fontConfig.setMergeMode(true); // All fonts added while this mode is turned on will be merged with the previously added font
+        fontConfig.setPixelSnapH(true);
+        fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesCyrillic()); // Additional glyphs could be added like this or in addFontFrom*() methods
+
+        // We merge font loaded from resources with the default one. Thus we will get an absent cyrillic glyphs
+        fontAtlas.addFontFromMemoryTTF(loadFromResources("basis33.ttf"), 16, fontConfig);
+
+        // Disable merged mode and add all other fonts normally
+        fontConfig.setMergeMode(false);
+        fontConfig.setPixelSnapH(false);
+
+        // ------------------------------
+        // Fonts from file/memory example
+
         fontConfig.setRasterizerMultiply(1.2f); // This will make fonts a bit more readable
-        fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesCyrillic()); // Additional glyphs could be added like here or in addFontFrom*() methods
 
         // We can add new fonts directly from file
         fontAtlas.addFontFromFileTTF("src/test/resources/DroidSans.ttf", 13, fontConfig);
         fontAtlas.addFontFromFileTTF("src/test/resources/DroidSans.ttf", 14, fontConfig);
-        fontAtlas.addFontFromFileTTF("src/test/resources/JetBrainsMono-Regular.ttf", 13, fontConfig);
-        fontAtlas.addFontFromFileTTF("src/test/resources/JetBrainsMono-Regular.ttf", 14, fontConfig);
 
         // Or directly from memory
         fontConfig.setName("Roboto-Regular.ttf, 13px"); // This name will be displayed in Style Editor
@@ -270,8 +281,7 @@ public final class ImGuiGlfwExample {
         fontConfig.setName("Roboto-Regular.ttf, 14px"); // We can apply a new config value every time we add a new font
         fontAtlas.addFontFromMemoryTTF(loadFromResources("Roboto-Regular.ttf"), 14, fontConfig);
 
-        // After fonts were added and since we won't use fontConfig again - we should clean it
-        fontConfig.destroy();
+        fontConfig.destroy(); // After all fonts were added we don't need this config more
 
         // IMPORTANT!!!
         // Method initializes renderer itself.
