@@ -39,7 +39,7 @@ method to try different ImGui widgets in action.
 ## How to use
 
 <details>
-    <summary><b>Usage ready build.gradle<b></summary>
+    <summary><b>Usage ready build.gradle</b></summary>
 
     repositories {
         jcenter()
