@@ -56,7 +56,7 @@ public final class ImGuiGlfwExample {
     private final double[] mousePosY = new double[1];
 
     // Mouse cursors provided by GLFW
-    private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT - 1]; // Minus 1, because GLFW 3.4 doesn't provide GLFW_NOT_ALLOWED_CURSOR
+    private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
 
     // LWJGL3 rendered itself (SHOULD be initialized)
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
@@ -187,6 +187,7 @@ public final class ImGuiGlfwExample {
         mouseCursors[ImGuiMouseCursor.ResizeNESW] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
         mouseCursors[ImGuiMouseCursor.ResizeNWSE] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
         mouseCursors[ImGuiMouseCursor.Hand] = glfwCreateStandardCursor(GLFW_HAND_CURSOR);
+        mouseCursors[ImGuiMouseCursor.NotAllowed] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
 
         // ------------------------------------------------------------
         // Here goes GLFW callbacks to update user input in Dear ImGui
