@@ -3247,7 +3247,7 @@ public final class ImGui {
     // - TreeNode functions return true when the node is open, in which case you need to also call TreePop() when you are finished displaying the tree node contents.
 
     public static native boolean treeNode(String label); /*
-        return ImGui::TreeNode(label, NULL);
+        return ImGui::TreeNode(label);
     */
 
     /**
@@ -3274,8 +3274,8 @@ public final class ImGui {
         return ImGui::TreeNodeEx(strId, imGuiTreeNodeFlags, label, NULL);
     */
 
-    public static native boolean treeNodeEx(int ptrId, int imGuiTreeNodeFlags, String label); /*
-        return ImGui::TreeNodeEx((void*)(intptr_t)ptrId, imGuiTreeNodeFlags, label, NULL);
+    public static native boolean treeNodeEx(long ptrId, int imGuiTreeNodeFlags, String label); /*
+        return ImGui::TreeNodeEx((void*)ptrId, imGuiTreeNodeFlags, label, NULL);
     */
 
     /**
@@ -3290,7 +3290,7 @@ public final class ImGui {
     */
 
     public static native void treePush(long ptrId); /*
-        ImGui::TreePush((void*)(intptr_t)ptrId);
+        ImGui::TreePush((void*)ptrId);
     */
 
     /**
