@@ -19,13 +19,13 @@ public final class ImGui {
 
     private static final ImDrawData DRAW_DATA;
     private static final ImGuiIO IMGUI_IO;
-    private static final ImGuiStyle IMGUI_STYLE;
 
     private static final ImDrawList IM_DRAW_LIST_WINDOW = new ImDrawList(ImDrawList.TYPE_WINDOW);
     private static final ImDrawList IM_DRAW_LIST_BACKGROUND = new ImDrawList(ImDrawList.TYPE_BACKGROUND);
     private static final ImDrawList IM_DRAW_LIST_FOREGROUND = new ImDrawList(ImDrawList.TYPE_FOREGROUND);
 
     private static ImFont font;
+    private static ImGuiStyle style;
 
     static {
         final String libPath = System.getProperty(LIB_PATH_PROP);
@@ -44,7 +44,6 @@ public final class ImGui {
 
         DRAW_DATA = new ImDrawData(100_000, 100_000, 1000);
         IMGUI_IO = new ImGuiIO();
-        IMGUI_STYLE = new ImGuiStyle();
 
         nInitJni();
         ImDrawList.nInit();
@@ -53,6 +52,7 @@ public final class ImGui {
         ImFontConfig.nInit();
         ImFontGlyph.nInit();
         ImFont.nInit();
+        ImGuiStyle.nInit();
         nInitInputTextData();
     }
 
@@ -150,8 +150,15 @@ public final class ImGui {
      * Access the Style structure (colors, sizes). Always use PushStyleCol(), PushStyleVar() to modify style mid-frame.
      */
     public static ImGuiStyle getStyle() {
-        return IMGUI_STYLE;
+        if (style == null) {
+            style = new ImGuiStyle(nGetStyle());
+        }
+        return style;
     }
+
+    private static native long nGetStyle(); /*
+        return (long)(intptr_t)&ImGui::GetStyle();
+    */
 
     /**
      * Start a new Dear ImGui frame, you can submit any command from this point until Render()/EndFrame().
@@ -248,6 +255,14 @@ public final class ImGui {
         ImGui::ShowStyleEditor();
     */
 
+    public static void showStyleEditor(ImGuiStyle ref) {
+        nShowStyleEditor(ref.ptr);
+    }
+
+    private static native void nShowStyleEditor(long ref); /*
+        ImGui::ShowStyleEditor((ImGuiStyle*)ref);
+    */
+
     /**
      * Add style selector block (not a window), essentially a combo listing the default styles.
      */
@@ -285,6 +300,14 @@ public final class ImGui {
         ImGui::StyleColorsDark();
     */
 
+    public static void styleColorsDark(ImGuiStyle ref) {
+        nStyleColorsDark(ref.ptr);
+    }
+
+    private static native void nStyleColorsDark(long ref); /*
+        ImGui::StyleColorsDark((ImGuiStyle*)ref);
+    */
+
     /**
      * Classic imgui style
      */
@@ -292,11 +315,27 @@ public final class ImGui {
         ImGui::StyleColorsClassic();
     */
 
+    public static void styleColorsClassic(ImGuiStyle ref) {
+        nStyleColorsClassic(ref.ptr);
+    }
+
+    private static native void nStyleColorsClassic(long ref); /*
+        ImGui::StyleColorsClassic((ImGuiStyle*)ref);
+    */
+
     /**
      * Best used with borders and a custom, thicker font
      */
     public static native void styleColorsLight(); /*
         ImGui::StyleColorsLight();
+    */
+
+    public static void styleColorsLight(ImGuiStyle ref) {
+        nStyleColorsLight(ref.ptr);
+    }
+
+    private static native void nStyleColorsLight(long ref); /*
+        ImGui::StyleColorsLight((ImGuiStyle*)ref);
     */
 
     // Windows
