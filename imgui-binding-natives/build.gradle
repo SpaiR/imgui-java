@@ -49,7 +49,6 @@ bintray {
     user = System.getenv('BINTRAY_USER')
     key = System.getenv('BINTRAY_API_KEY')
     publications = ['MyPublication']
-    override = true
     pkg {
         repo = 'io.imgui.java'
         name = packageName

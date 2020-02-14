@@ -12,7 +12,7 @@ Please read **Binding notice** to get more info about specific of the binding AP
 See official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki) to get more info about how to do things in ImGui. 
 
 Binding doesn't force you to use backend renderer which is introduced here. Feel free to use your own render engine if you need so.
-See how things are done in [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.75-0.6/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java).
+See how things are done in [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.75-0.7/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java).
 
 Binding has the next version naming: `imguiVersion-bindingVersion`.<br>
 For example `1.74-0.1` means that binding uses `1.74` version of **ImGui** and binding itself has version `0.1`.
@@ -25,13 +25,13 @@ _Make sure you have installed Java 8 or higher._
 You can try this binding by yourself in a three simple steps:
 
 ```
-git clone --branch v1.75-0.6 https://github.com/SpaiR/imgui-java.git
+git clone --branch v1.75-0.7 https://github.com/SpaiR/imgui-java.git
 cd imgui-java
 gradlew :imgui-lwjgl3:startExample
 ```
 
-That's it! This will start an example app [ImGuiGlfwExample](https://github.com/SpaiR/imgui-java/blob/v1.75-0.6/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java)
-which relies on GLFW and LWJGL3. Feel free to modify [ImGuiGlfwExample#showUi](https://github.com/SpaiR/imgui-java/blob/v1.75-0.6/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java#L346)
+That's it! This will start an example app [ImGuiGlfwExample](https://github.com/SpaiR/imgui-java/blob/v1.75-0.7/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java)
+which relies on GLFW and LWJGL3. Feel free to modify [ImGuiGlfwExample#showUi](https://github.com/SpaiR/imgui-java/blob/v1.75-0.7/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java#L346)
 method to try different ImGui widgets in action.
 
 **GIF with example:** https://imgur.com/a/E2rfuCR
@@ -57,7 +57,7 @@ method to try different ImGui widgets in action.
 
     ext {
         lwjglVersion = '3.2.3'
-        imguiVersion = '1.75-0.6'
+        imguiVersion = '1.75-0.7'
     }
 
     dependencies {
@@ -85,13 +85,13 @@ repositories {
 ### Step 2
 Add binding dependency:
 ```
-implementation 'io.imgui.java:binding:1.75-0.6'
+implementation 'io.imgui.java:binding:1.75-0.7'
 ```
 
 ### Step 3
 If you want to use LWJGL3 renderer:
 ```
-implementation 'io.imgui.java:lwjgl3:1.75-0.6'
+implementation 'io.imgui.java:lwjgl3:1.75-0.7'
 ```
 **Disclaimer!**<br>
 LWJGL3 renderer is based on the `3.2.3` version of the [LWJGL](https://www.lwjgl.org/). 
@@ -101,7 +101,7 @@ You can find how to do that [here](https://www.lwjgl.org/customize).
 ### Step 4
 Add binary lib dependency:
 ```
-runtimeOnly "io.imgui.java:$imguiNatives:1.75-0.6"
+runtimeOnly "io.imgui.java:$imguiNatives:1.75-0.7"
 ```
 Where `imguiNatives` could be:
  - `natives-linux`
