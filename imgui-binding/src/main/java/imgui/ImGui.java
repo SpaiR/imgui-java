@@ -2610,7 +2610,7 @@ public final class ImGui {
     */
 
     public static boolean inputText(String label, ImString text) {
-        return preInputText(false, label, text, 0, 0, 0);
+        return preInputText(false, label, text, 0, 0, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputText(String label, ImString text, int imGuiInputTextFlags) {
@@ -2618,11 +2618,11 @@ public final class ImGui {
     }
 
     public static boolean inputTextMultiline(String label, ImString text) {
-        return preInputText(true, label, text, 0, 0, 0);
+        return preInputText(true, label, text, 0, 0, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputTextMultiline(String label, ImString text, float width, float height) {
-        return preInputText(true, label, text, width, height, 0);
+        return preInputText(true, label, text, width, height, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputTextMultiline(String label, ImString text, int imGuiInputTextFlags) {
@@ -2686,19 +2686,19 @@ public final class ImGui {
     */
 
     public static boolean inputFloat(String label, ImFloat v) {
-        return nInputFloat(label, v.data, 0, 0, "%.3f", 0);
+        return nInputFloat(label, v.data, 0, 0, "%.3f", ImGuiInputTextFlags.None);
     }
 
     public static boolean inputFloat(String label, ImFloat v, float step) {
-        return nInputFloat(label, v.data, step, 0, "%.3f", 0);
+        return nInputFloat(label, v.data, step, 0, "%.3f", ImGuiInputTextFlags.None);
     }
 
     public static boolean inputFloat(String label, ImFloat v, float step, float stepFast) {
-        return nInputFloat(label, v.data, step, stepFast, "%.3f", 0);
+        return nInputFloat(label, v.data, step, stepFast, "%.3f", ImGuiInputTextFlags.None);
     }
 
     public static boolean inputFloat(String label, ImFloat v, float step, float stepFast, String format) {
-        return nInputFloat(label, v.data, step, stepFast, format, 0);
+        return nInputFloat(label, v.data, step, stepFast, format, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputFloat(String label, ImFloat v, float step, float stepFast, String format, int imGuiInputTextFlags) {
@@ -2710,11 +2710,11 @@ public final class ImGui {
     */
 
     public static native boolean inputFloat2(String label, float[] v); /*
-        return ImGui::InputFloat2(label, v, "%.3f", 0);
+        return ImGui::InputFloat2(label, v);
     */
 
     public static native boolean inputFloat2(String label, float[] v, String format); /*
-        return ImGui::InputFloat2(label, v, format, 0);
+        return ImGui::InputFloat2(label, v, format);
     */
 
     public static native boolean inputFloat2(String label, float[] v, String format, int imGuiInputTextFlags); /*
@@ -2722,39 +2722,39 @@ public final class ImGui {
     */
 
     public static native boolean inputFloat3(String label, float[] v); /*
-        return ImGui::InputFloat2(label, v, "%.3f", 0);
+        return ImGui::InputFloat3(label, v);
     */
 
     public static native boolean inputFloat3(String label, float[] v, String format); /*
-        return ImGui::InputFloat2(label, v, format, 0);
+        return ImGui::InputFloat3(label, v, format);
     */
 
     public static native boolean inputFloat3(String label, float[] v, String format, int imGuiInputTextFlags); /*
-        return ImGui::InputFloat2(label, v, format, imGuiInputTextFlags);
+        return ImGui::InputFloat3(label, v, format, imGuiInputTextFlags);
     */
 
     public static native boolean inputFloat4(String label, float[] v); /*
-        return ImGui::InputFloat2(label, v, "%.3f", 0);
+        return ImGui::InputFloat4(label, v);
     */
 
     public static native boolean inputFloat4(String label, float[] v, String format); /*
-        return ImGui::InputFloat2(label, v, format, 0);
+        return ImGui::InputFloat4(label, v, format);
     */
 
     public static native boolean inputFloat4(String label, float[] v, String format, int imGuiInputTextFlags); /*
-        return ImGui::InputFloat2(label, v, format, imGuiInputTextFlags);
+        return ImGui::InputFloat4(label, v, format, imGuiInputTextFlags);
     */
 
     public static boolean inputInt(String label, ImInt v) {
-        return nInputInt(label, v.data, 1, 100, 0);
+        return nInputInt(label, v.data, 1, 100, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputInt(String label, ImInt v, int step) {
-        return nInputInt(label, v.data, step, 100, 0);
+        return nInputInt(label, v.data, step, 100, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputInt(String label, ImInt v, int step, int stepFast) {
-        return nInputInt(label, v.data, step, stepFast, 0);
+        return nInputInt(label, v.data, step, stepFast, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputInt(String label, ImInt v, int step, int stepFast, int imGuiInputTextFlags) {
@@ -2766,7 +2766,7 @@ public final class ImGui {
     */
 
     public static native boolean inputInt2(String label, int[] v); /*
-        return ImGui::InputInt2(label, v, 0);
+        return ImGui::InputInt2(label, v);
     */
 
     public static native boolean inputInt2(String label, int[] v, int imGuiInputTextFlags); /*
@@ -2774,35 +2774,35 @@ public final class ImGui {
     */
 
     public static native boolean inputInt3(String label, int[] v); /*
-        return ImGui::InputInt2(label, v, 0);
+        return ImGui::InputInt3(label, v);
     */
 
     public static native boolean inputInt3(String label, int[] v, int imGuiInputTextFlags); /*
-        return ImGui::InputInt2(label, v, imGuiInputTextFlags);
+        return ImGui::InputInt3(label, v, imGuiInputTextFlags);
     */
 
     public static native boolean inputInt4(String label, int[] v); /*
-        return ImGui::InputInt2(label, v, 0);
+        return ImGui::InputInt4(label, v);
     */
 
     public static native boolean inputInt4(String label, int[] v, int imGuiInputTextFlags); /*
-        return ImGui::InputInt2(label, v, imGuiInputTextFlags);
+        return ImGui::InputInt4(label, v, imGuiInputTextFlags);
     */
 
     public static boolean inputDouble(String label, ImDouble v) {
-        return nInputDouble(label, v.data, 0, 0, "%.6f", 0);
+        return nInputDouble(label, v.data, 0, 0, "%.6f", ImGuiInputTextFlags.None);
     }
 
     public static boolean inputDouble(String label, ImDouble v, double step) {
-        return nInputDouble(label, v.data, step, 0, "%.6f", 0);
+        return nInputDouble(label, v.data, step, 0, "%.6f", ImGuiInputTextFlags.None);
     }
 
     public static boolean inputDouble(String label, ImDouble v, double step, double stepFast) {
-        return nInputDouble(label, v.data, step, stepFast, "%.6f", 0);
+        return nInputDouble(label, v.data, step, stepFast, "%.6f", ImGuiInputTextFlags.None);
     }
 
     public static boolean inputDouble(String label, ImDouble v, double step, double stepFast, String format) {
-        return nInputDouble(label, v.data, step, stepFast, format, 0);
+        return nInputDouble(label, v.data, step, stepFast, format, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputDouble(String label, ImDouble v, double step, double stepFast, String format, int imGuiInputTextFlags) {
