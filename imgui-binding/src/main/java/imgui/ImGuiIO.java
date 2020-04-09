@@ -313,7 +313,7 @@ public final class ImGuiIO {
 
     /**
      * Enable resizing of windows from their edges and from the lower-left corner.
-     * This requires (io.BackendFlags & ImGuiBackendFlags_HasMouseCursors) because it needs mouse cursor feedback.
+     * This requires (io.BackendFlags {@code &} ImGuiBackendFlags_HasMouseCursors) because it needs mouse cursor feedback.
      * (This used to be a per-window ImGuiWindowFlags_ResizeFromAnySide flag)
      */
     public native boolean getConfigWindowsResizeFromEdges(); /*
@@ -322,7 +322,7 @@ public final class ImGuiIO {
 
     /**
      * Enable resizing of windows from their edges and from the lower-left corner.
-     * This requires (io.BackendFlags & ImGuiBackendFlags_HasMouseCursors) because it needs mouse cursor feedback.
+     * This requires (io.BackendFlags {@code &} ImGuiBackendFlags_HasMouseCursors) because it needs mouse cursor feedback.
      * (This used to be a per-window ImGuiWindowFlags_ResizeFromAnySide flag)
      */
     public native void setConfigWindowsResizeFromEdges(boolean configWindowsResizeFromEdges); /*

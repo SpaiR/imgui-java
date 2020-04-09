@@ -54,14 +54,14 @@ public final class ImFont implements ImDestroyable {
     // TODO IndexAdvanceX
 
     /**
-     * = FallbackGlyph->AdvanceX
+     * = FallbackGlyph.AdvanceX
      */
     public native float getFallbackAdvanceX(); /*
         return IM_FONT->FallbackAdvanceX;
     */
 
     /**
-     * = FallbackGlyph->AdvanceX
+     * = FallbackGlyph.AdvanceX
      */
     public native void setFallbackAdvanceX(float fallbackAdvanceX); /*
         IM_FONT->FallbackAdvanceX = fallbackAdvanceX;

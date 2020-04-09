@@ -312,14 +312,14 @@ public final class ImGuiStyle implements ImDestroyable {
     */
 
     /**
-     * Minimum horizontal spacing between two columns. Preferably > (FramePadding.x + 1).
+     * Minimum horizontal spacing between two columns. Preferably {@code >} (FramePadding.x + 1).
      */
     public native float getColumnsMinSpacing(); /*
         return IMGUI_STYLE->ColumnsMinSpacing;
     */
 
     /**
-     * Minimum horizontal spacing between two columns. Preferably > (FramePadding.x + 1).
+     * Minimum horizontal spacing between two columns. Preferably {@code >} (FramePadding.x + 1).
      */
     public native void setColumnsMinSpacing(float columnsMinSpacing); /*
         IMGUI_STYLE->ColumnsMinSpacing = columnsMinSpacing;

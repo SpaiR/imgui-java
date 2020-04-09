@@ -18,7 +18,7 @@ import java.nio.ByteOrder;
  * - If you pass a 'glyph_ranges' array to AddFont*** functions, you need to make sure that your array persist up until the
  *   atlas is build (when calling GetTexData*** or Build()). We only copy the pointer, not the data.
  * - Important: By default, AddFontFromMemoryTTF() takes ownership of the data. Even though we are not writing to it, we will free the pointer on destruction.
- *   You can set font_cfg->FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed,
+ *   You can set font_cfg.FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed,
  * - Even though many functions are suffixed with "TTF", OTF data is supported just as well.
  * - This is an old API and it is currently awkward for those and and various other reasons! We will address them in the future!
  */
@@ -124,7 +124,7 @@ public final class ImFontAtlas implements ImDestroyable {
 
     /**
      * Note: Transfer ownership of 'ttf_data' to ImFontAtlas! Will be deleted after destruction of the atlas.
-     * Set font_cfg->FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
+     * Set font_cfg.FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
      */
     public ImFont addFontFromMemoryTTF(final byte[] fontData, final float sizePixels) {
         return new ImFont(nAddFontFromMemoryTTF(fontData, fontData.length, sizePixels));
@@ -137,7 +137,7 @@ public final class ImFontAtlas implements ImDestroyable {
 
     /**
      * Note: Transfer ownership of 'ttf_data' to ImFontAtlas! Will be deleted after destruction of the atlas.
-     * Set font_cfg->FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
+     * Set font_cfg.FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
      */
     public ImFont addFontFromMemoryTTF(final byte[] fontData, final float sizePixels, final ImFontConfig imFontConfig) {
         return new ImFont(nAddFontFromMemoryTTF(fontData, fontData.length, sizePixels, imFontConfig.ptr));
@@ -149,7 +149,7 @@ public final class ImFontAtlas implements ImDestroyable {
 
     /**
      * Note: Transfer ownership of 'ttf_data' to ImFontAtlas! Will be deleted after destruction of the atlas.
-     * Set font_cfg->FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
+     * Set font_cfg.FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
      */
     public ImFont addFontFromMemoryTTF(final byte[] fontData, final float sizePixels, final short[] glyphRanges) {
         return new ImFont(nAddFontFromMemoryTTF(fontData, fontData.length, sizePixels, glyphRanges));
@@ -161,7 +161,7 @@ public final class ImFontAtlas implements ImDestroyable {
 
     /**
      * Note: Transfer ownership of 'ttf_data' to ImFontAtlas! Will be deleted after destruction of the atlas.
-     * Set font_cfg->FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
+     * Set font_cfg.FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
      */
     public ImFont addFontFromMemoryTTF(final byte[] fontData, final float sizePixels, final ImFontConfig imFontConfig, final short[] glyphRanges) {
         return new ImFont(nAddFontFromMemoryTTF(fontData, fontData.length, sizePixels, imFontConfig.ptr, glyphRanges));
@@ -445,14 +445,14 @@ public final class ImFontAtlas implements ImDestroyable {
     // Read docs/FONTS.txt for more details about using colorful icons.
 
     /**
-     * Id needs to be >= 0x110000. Id >= 0x80000000 are reserved for ImGui and ImDrawList
+     * Id needs to be {@code >=} 0x110000. Id {@code >=} 0x80000000 are reserved for ImGui and ImDrawList
      */
     public native int addCustomRectRegular(int id, int width, int height); /*
         return IM_FONT_ATLAS->AddCustomRectRegular((unsigned int)id, width, height);
     */
 
     /**
-     * Id needs to be < 0x110000 to register a rectangle to map into a specific font.
+     * Id needs to be {@code <} 0x110000 to register a rectangle to map into a specific font.
      */
     public int addCustomRectFontGlyph(final ImFont imFont, final short id, final int width, final int height, final float advanceX) {
         return nAddCustomRectFontGlyph(imFont.ptr, id, width, height, advanceX);
@@ -463,7 +463,7 @@ public final class ImFontAtlas implements ImDestroyable {
     */
 
     /**
-     * Id needs to be < 0x110000 to register a rectangle to map into a specific font.
+     * Id needs to be {@code <} 0x110000 to register a rectangle to map into a specific font.
      */
     public int addCustomRectFontGlyph(final ImFont imFont, final short id, final int width, final int height, final float advanceX, final float offsetX, final float offsetY) {
         return nAddCustomRectFontGlyph(imFont.ptr, id, width, height, advanceX, offsetX, offsetY);

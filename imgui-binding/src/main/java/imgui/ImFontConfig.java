@@ -284,14 +284,14 @@ public final class ImFontConfig implements ImDestroyable {
     */
 
     /**
-     * Brighten (>1.0f) or darken (<1.0f) font output. Brightening small fonts may be a good workaround to make them more readable.
+     * Brighten ({@code >}1.0f) or darken ({@code <}1.0f) font output. Brightening small fonts may be a good workaround to make them more readable.
      */
     public native float getRasterizerMultiply(); /*
         return IM_FONT_CONFIG->RasterizerMultiply;
     */
 
     /**
-     * Brighten (>1.0f) or darken (<1.0f) font output. Brightening small fonts may be a good workaround to make them more readable.
+     * Brighten ({@code >}1.0f) or darken ({@code <}1.0f) font output. Brightening small fonts may be a good workaround to make them more readable.
      */
     public native void setRasterizerMultiply(float rasterizerMultiply); /*
         IM_FONT_CONFIG->RasterizerMultiply = rasterizerMultiply;

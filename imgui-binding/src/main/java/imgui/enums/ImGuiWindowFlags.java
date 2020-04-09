@@ -62,11 +62,11 @@ public final class ImGuiWindowFlags {
      */
     public static final int NoBringToFrontOnFocus = 1 << 13;
     /**
-     * Always show vertical scrollbar (even if ContentSize.y < Size.y)
+     * Always show vertical scrollbar (even if ContentSize.y {@code <} Size.y)
      */
     public static final int AlwaysVerticalScrollbar = 1 << 14;
     /**
-     * Always show horizontal scrollbar (even if ContentSize.x < Size.x)
+     * Always show horizontal scrollbar (even if ContentSize.x {@code <} Size.x)
      */
     public static final int AlwaysHorizontalScrollbar = 1 << 15;
     /**

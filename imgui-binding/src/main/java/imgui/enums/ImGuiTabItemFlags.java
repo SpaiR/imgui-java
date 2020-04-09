@@ -19,11 +19,11 @@ public final class ImGuiTabItemFlags {
     public static final int SetSelected = 1 << 1;
     /**
      * Disable behavior of closing tabs (that are submitted with p_open != NULL) with middle mouse button.
-     * You can still repro this behavior on user's side with if (IsItemHovered() && IsMouseClicked(2)) *p_open = false.
+     * You can still repro this behavior on user's side with if (IsItemHovered() {@code &&} IsMouseClicked(2)) *p_open = false.
      */
     public static final int NoCloseWithMiddleMouseButton = 1 << 2;
     /**
-     * Don't call PushID(tab->ID)/PopID() on BeginTabItem()/EndTabItem()
+     * Don't call PushID(tab.ID)/PopID() on BeginTabItem()/EndTabItem()
      */
     public static final int NoPushId = 1 << 3;
 }
