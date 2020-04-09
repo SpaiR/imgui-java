@@ -38,7 +38,7 @@ public final class ImFontGlyph implements ImDestroyable {
 
     private native long nCreate(); /*
         ImFontConfig* imFontConfig = new ImFontConfig();
-        return (long)(intptr_t)imFontConfig;
+        return (intptr_t)imFontConfig;
     */
 
     private native void nDestroy(long ptr); /*

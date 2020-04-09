@@ -44,7 +44,7 @@ public final class ImFont implements ImDestroyable {
 
     private native long nCreate(); /*
         ImFont* imFont = new ImFont();
-        return (long)(intptr_t)imFont;
+        return (intptr_t)imFont;
     */
 
     private native void nDestroy(long ptr); /*
@@ -87,7 +87,7 @@ public final class ImFont implements ImDestroyable {
     }
 
     private native long nGetFallbackGlyphPtr(); /*
-        return (long)(intptr_t)IM_FONT->FallbackGlyph;
+        return (intptr_t)IM_FONT->FallbackGlyph;
     */
 
     /**

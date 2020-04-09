@@ -59,7 +59,7 @@ public final class ImFontAtlas implements ImDestroyable {
 
     private native long nCreate(); /*
         ImFontAtlas* imFontAtlas = new ImFontAtlas();
-        return (long)(intptr_t)imFontAtlas;
+        return (intptr_t)imFontAtlas;
     */
 
     private native void nDestroy(long ptr); /*
@@ -71,7 +71,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFont(long imFontConfigPtr); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFont((ImFontConfig*)imFontConfigPtr);
+        return (intptr_t)IM_FONT_ATLAS->AddFont((ImFontConfig*)imFontConfigPtr);
     */
 
     public ImFont addFontDefault() {
@@ -79,7 +79,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontDefault(); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontDefault();
+        return (intptr_t)IM_FONT_ATLAS->AddFontDefault();
     */
 
     public ImFont addFontDefault(final ImFontConfig imFontConfig) {
@@ -87,7 +87,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontDefault(long imFontConfigPtr); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontDefault((ImFontConfig*)imFontConfigPtr);
+        return (intptr_t)IM_FONT_ATLAS->AddFontDefault((ImFontConfig*)imFontConfigPtr);
     */
 
     public ImFont addFontFromFileTTF(final String filename, final float sizePixels) {
@@ -95,7 +95,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromFileTTF(String filename, float sizePixels); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromFileTTF(filename, sizePixels);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromFileTTF(filename, sizePixels);
     */
 
     public ImFont addFontFromFileTTF(final String filename, final float sizePixels, final ImFontConfig imFontConfig) {
@@ -103,7 +103,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromFileTTF(String filename, float sizePixels, long imFontConfigPtr); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromFileTTF(filename, sizePixels, (ImFontConfig*)imFontConfigPtr);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromFileTTF(filename, sizePixels, (ImFontConfig*)imFontConfigPtr);
     */
 
     public ImFont addFontFromFileTTF(final String filename, final float sizePixels, final short[] glyphRanges) {
@@ -111,7 +111,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromFileTTF(String filename, float sizePixels, short[] glyphRanges); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromFileTTF(filename, sizePixels, NULL, (ImWchar*)&glyphRanges[0]);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromFileTTF(filename, sizePixels, NULL, (ImWchar*)&glyphRanges[0]);
     */
 
     public ImFont addFontFromFileTTF(final String filename, final float sizePixels, final ImFontConfig imFontConfig, final short[] glyphRanges) {
@@ -119,7 +119,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromFileTTF(String filename, float sizePixels, long imFontConfigPtr, short[] glyphRanges); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromFileTTF(filename, sizePixels, (ImFontConfig*)imFontConfigPtr, (ImWchar*)&glyphRanges[0]);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromFileTTF(filename, sizePixels, (ImFontConfig*)imFontConfigPtr, (ImWchar*)&glyphRanges[0]);
     */
 
     /**
@@ -131,7 +131,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromMemoryTTF(byte[] fontData, int fontSize, float sizePixels); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromMemoryTTF(&fontData[0], fontSize, sizePixels);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromMemoryTTF(&fontData[0], fontSize, sizePixels);
     */
 
 
@@ -144,7 +144,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromMemoryTTF(byte[] fontData, int fontSize, float sizePixels, long imFontConfigPtr); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromMemoryTTF(&fontData[0], fontSize, sizePixels, (ImFontConfig*)imFontConfigPtr);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromMemoryTTF(&fontData[0], fontSize, sizePixels, (ImFontConfig*)imFontConfigPtr);
     */
 
     /**
@@ -156,7 +156,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromMemoryTTF(byte[] fontData, int fontSize, float sizePixels, short[] glyphRanges); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromMemoryTTF(&fontData[0], fontSize, sizePixels, NULL, (ImWchar*)&glyphRanges[0]);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromMemoryTTF(&fontData[0], fontSize, sizePixels, NULL, (ImWchar*)&glyphRanges[0]);
     */
 
     /**
@@ -168,7 +168,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromMemoryTTF(byte[] fontData, int fontSize, float sizePixels, long imFontConfigPtr, short[] glyphRanges); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromMemoryTTF(&fontData[0], fontSize, sizePixels, (ImFontConfig*)imFontConfigPtr, (ImWchar*)&glyphRanges[0]);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromMemoryTTF(&fontData[0], fontSize, sizePixels, (ImFontConfig*)imFontConfigPtr, (ImWchar*)&glyphRanges[0]);
     */
 
     /**
@@ -179,7 +179,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromMemoryCompressedTTF(byte[] compressedFontData, int fontSize, float sizePixels); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedTTF(&compressedFontData[0], fontSize, sizePixels);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedTTF(&compressedFontData[0], fontSize, sizePixels);
     */
 
     /**
@@ -190,7 +190,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromMemoryCompressedTTF(byte[] compressedFontData, int fontSize, float sizePixels, long imFontConfigPtr); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedTTF(&compressedFontData[0], fontSize, sizePixels, (ImFontConfig*)imFontConfigPtr);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedTTF(&compressedFontData[0], fontSize, sizePixels, (ImFontConfig*)imFontConfigPtr);
     */
 
     /**
@@ -201,7 +201,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromMemoryCompressedTTF(byte[] compressedFontData, int fontSize, float sizePixels, short[] glyphRanges); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedTTF(&compressedFontData[0], fontSize, sizePixels, NULL, (ImWchar*)&glyphRanges[0]);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedTTF(&compressedFontData[0], fontSize, sizePixels, NULL, (ImWchar*)&glyphRanges[0]);
     */
 
     /**
@@ -212,7 +212,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromMemoryCompressedTTF(byte[] compressedFontData, int fontSize, float sizePixels, long imFontConfigPtr, short[] glyphRanges); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedTTF(&compressedFontData[0], fontSize, sizePixels, (ImFontConfig*)imFontConfigPtr, (ImWchar*)&glyphRanges[0]);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedTTF(&compressedFontData[0], fontSize, sizePixels, (ImFontConfig*)imFontConfigPtr, (ImWchar*)&glyphRanges[0]);
     */
 
     /**
@@ -223,7 +223,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromMemoryCompressedBase85TTF(String compressedFontDataBase85, float sizePixels); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels);
     */
 
     /**
@@ -234,7 +234,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromMemoryCompressedBase85TTF(String compressedFontDataBase85, float sizePixels, long imFontConfigPtr); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels, (ImFontConfig*)imFontConfigPtr);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels, (ImFontConfig*)imFontConfigPtr);
     */
 
     /**
@@ -245,7 +245,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromMemoryCompressedBase85TTF(String compressedFontDataBase85, float sizePixels, short[] glyphRanges); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels, NULL, (ImWchar*)&glyphRanges[0]);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels, NULL, (ImWchar*)&glyphRanges[0]);
     */
 
     /**
@@ -256,7 +256,7 @@ public final class ImFontAtlas implements ImDestroyable {
     }
 
     private native long nAddFontFromMemoryCompressedBase85TTF(String compressedFontDataBase85, float sizePixels, long imFontConfigPtr, short[] glyphRanges); /*
-        return (long)(intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels, (ImFontConfig*)imFontConfigPtr, (ImWchar*)&glyphRanges[0]);
+        return (intptr_t)IM_FONT_ATLAS->AddFontFromMemoryCompressedBase85TTF(compressedFontDataBase85, sizePixels, (ImFontConfig*)imFontConfigPtr, (ImWchar*)&glyphRanges[0]);
     */
 
     /**
@@ -512,7 +512,7 @@ public final class ImFontAtlas implements ImDestroyable {
      * It is passed back to you during rendering via the ImDrawCmd structure.
      */
     public native int getTexID(); /*
-        return (int)(long)(intptr_t)(void*)IM_FONT_ATLAS->TexID;
+        return (int)(intptr_t)(void*)IM_FONT_ATLAS->TexID;
     */
 
     /**

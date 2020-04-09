@@ -43,7 +43,7 @@ public final class ImGuiStyle implements ImDestroyable {
 
     private native long nCreate(); /*
         ImGuiStyle* imGuiStyle = new ImGuiStyle();
-        return (long)(intptr_t)imGuiStyle;
+        return (intptr_t)imGuiStyle;
     */
 
     private native void nDestroy(long ptr); /*

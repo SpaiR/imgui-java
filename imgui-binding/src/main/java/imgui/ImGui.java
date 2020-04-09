@@ -157,7 +157,7 @@ public final class ImGui {
     }
 
     private static native long nGetStyle(); /*
-        return (long)(intptr_t)&ImGui::GetStyle();
+        return (intptr_t)&ImGui::GetStyle();
     */
 
     /**
@@ -895,7 +895,7 @@ public final class ImGui {
     }
 
     private static native long nGetFont(); /*
-        return (long)(intptr_t)ImGui::GetFont();
+        return (intptr_t)ImGui::GetFont();
     */
 
     /**

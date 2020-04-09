@@ -208,7 +208,7 @@ public final class ImGuiIO {
     }
 
     private native long nGetFontsPtr(); /*
-        return (long)(intptr_t)ImGui::GetIO().Fonts;
+        return (intptr_t)ImGui::GetIO().Fonts;
     */
 
     /**
