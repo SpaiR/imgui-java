@@ -18,7 +18,7 @@ public final class ImGuiFocusedFlags {
     public static final int RootWindow = 1 << 1;
     /**
      * IsWindowFocused(): Return true if any window is focused.
-     * Important: If you are trying to tell how to dispatch your low-level inputs, do NOT use this. Use ImGui::GetIO().WantCaptureMouse instead.
+     * Important: If you are trying to tell how to dispatch your low-level inputs, do NOT use this. Use 'io.WantCaptureMouse' instead! Please read the FAQ!
      */
     public static final int AnyWindow = 1 << 2;
     public static final int RootAndChildWindows = RootWindow | ChildWindows;

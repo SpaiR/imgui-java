@@ -59,7 +59,7 @@ public final class ImGuiGlfwExample {
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
 
     // Local variables for application goes here
-    private final String imguiDemoLink = "https://raw.githubusercontent.com/ocornut/imgui/v1.75/imgui_demo.cpp"; // Link to put into clipboard
+    private final String imguiDemoLink = "https://raw.githubusercontent.com/ocornut/imgui/v1.76/imgui_demo.cpp"; // Link to put into clipboard
     private final byte[] testPayload = "Test Payload".getBytes(); // Test data for payload. Should be represented as raw byt array.
     private String dropTargetText = "Drop Here";
     private float[] backgroundColor = new float[]{0.5f, 0, 0}; // To modify background color dynamically

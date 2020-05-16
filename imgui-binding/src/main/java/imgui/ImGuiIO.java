@@ -649,11 +649,14 @@ public final class ImGuiIO {
     */
 
     //------------------------------------------------------------------
-    // Output - Retrieve after calling NewFrame()
+    // Output - Updated by NewFrame() or EndFrame()/Render()
+    // (when reading from the io.WantCaptureMouse, io.WantCaptureKeyboard flags to dispatch your inputs, it is
+    //  generally easier and more correct to use their state BEFORE calling NewFrame(). See FAQ for details!)
     //------------------------------------------------------------------
 
     /**
-     * When io.WantCaptureMouse is true, imgui will use the mouse inputs, do not dispatch them to your main game/application (in both cases, always pass on mouse inputs to imgui).
+     * Set when Dear ImGui will use mouse inputs, in this case do not dispatch them to your main game/application
+     * (either way, always pass on mouse inputs to imgui).
      * (e.g. unclicked mouse is hovering over an imgui window, widget is active, mouse was clicked over an imgui window, etc.).
      */
     public native boolean getWantCaptureMouse(); /*
@@ -661,7 +664,8 @@ public final class ImGuiIO {
     */
 
     /**
-     * When io.WantCaptureMouse is true, imgui will use the mouse inputs, do not dispatch them to your main game/application (in both cases, always pass on mouse inputs to imgui).
+     * Set when Dear ImGui will use mouse inputs, in this case do not dispatch them to your main game/application
+     * (either way, always pass on mouse inputs to imgui).
      * (e.g. unclicked mouse is hovering over an imgui window, widget is active, mouse was clicked over an imgui window, etc.).
      */
     public native void setWantCaptureMouse(boolean wantCaptureMouse); /*
@@ -669,46 +673,46 @@ public final class ImGuiIO {
     */
 
     /**
-     * When io.WantCaptureKeyboard is true, imgui will use the keyboard inputs, do not dispatch them to your main game/application (in both cases, always pass keyboard inputs to imgui).
-     * (e.g. InputText active, or an imgui window is focused and navigation is enabled, etc.).
+     * Set when Dear ImGui will use keyboard inputs, in this case do not dispatch them to your main game/application
+     * (either way, always pass keyboard inputs to imgui). (e.g. InputText active, or an imgui window is focused and navigation is enabled, etc.).
      */
     public native boolean getWantCaptureKeyboard(); /*
         return ImGui::GetIO().WantCaptureKeyboard;
     */
 
     /**
-     * When io.WantCaptureKeyboard is true, imgui will use the keyboard inputs, do not dispatch them to your main game/application (in both cases, always pass keyboard inputs to imgui).
-     * (e.g. InputText active, or an imgui window is focused and navigation is enabled, etc.).
+     * Set when Dear ImGui will use keyboard inputs, in this case do not dispatch them to your main game/application
+     * (either way, always pass keyboard inputs to imgui). (e.g. InputText active, or an imgui window is focused and navigation is enabled, etc.).
      */
     public native void setWantCaptureKeyboard(boolean wantCaptureKeyboard); /*
         ImGui::GetIO().WantCaptureKeyboard = wantCaptureKeyboard;
     */
 
     /**
-     * Mobile/console: when io.WantTextInput is true, you may display an on-screen keyboard.
-     * This is set by ImGui when it wants textual keyboard input to happen (e.g. when a InputText widget is active).
+     * Mobile/console: when set, you may display an on-screen keyboard.
+     * This is set by Dear ImGui when it wants textual keyboard input to happen (e.g. when a InputText widget is active).
      */
     public native boolean getWantTextInput(); /*
         return ImGui::GetIO().WantTextInput;
     */
 
     /**
-     * Mobile/console: when io.WantTextInput is true, you may display an on-screen keyboard.
-     * This is set by ImGui when it wants textual keyboard input to happen (e.g. when a InputText widget is active).
+     * Mobile/console: when set, you may display an on-screen keyboard.
+     * This is set by Dear ImGui when it wants textual keyboard input to happen (e.g. when a InputText widget is active).
      */
     public native void setWantTextInput(boolean wantTextInput); /*
         ImGui::GetIO().WantTextInput = wantTextInput;
     */
 
     /**
-     * MousePos has been altered, back-end should reposition mouse on next frame. Set only when ImGuiConfigFlags_NavEnableSetMousePos flag is enabled.
+     * MousePos has been altered, back-end should reposition mouse on next frame. Rarely used! Set only when ImGuiConfigFlags_NavEnableSetMousePos flag is enabled.
      */
     public native boolean getWantSetMousePos(); /*
         return ImGui::GetIO().WantSetMousePos;
     */
 
     /**
-     * MousePos has been altered, back-end should reposition mouse on next frame. Set only when ImGuiConfigFlags_NavEnableSetMousePos flag is enabled.
+     * MousePos has been altered, back-end should reposition mouse on next frame. Rarely used! Set only when ImGuiConfigFlags_NavEnableSetMousePos flag is enabled.
      */
     public native void setWantSetMousePos(boolean wantSetMousePos); /*
         ImGui::GetIO().WantSetMousePos = wantSetMousePos;
@@ -717,7 +721,7 @@ public final class ImGuiIO {
     /**
      * When manual .ini load/save is active (io.IniFilename == NULL),
      * this will be set to notify your application that you can call SaveIniSettingsToMemory() and save yourself.
-     * IMPORTANT: You need to clear io.WantSaveIniSettings yourself.
+     * Important: clear io.WantSaveIniSettings yourself after saving!
      */
     public native boolean getWantSaveIniSettings(); /*
         return ImGui::GetIO().WantSaveIniSettings;
@@ -726,49 +730,53 @@ public final class ImGuiIO {
     /**
      * When manual .ini load/save is active (io.IniFilename == NULL),
      * this will be set to notify your application that you can call SaveIniSettingsToMemory() and save yourself.
-     * IMPORTANT: You need to clear io.WantSaveIniSettings yourself.
+     * Important: clear io.WantSaveIniSettings yourself after saving!
      */
     public native void setWantSaveIniSettings(boolean wantSaveIniSettings); /*
         ImGui::GetIO().WantSaveIniSettings = wantSaveIniSettings;
     */
 
     /**
-     * Directional navigation is currently allowed (will handle ImGuiKey_NavXXX events) = a window is focused and it doesn't use the ImGuiWindowFlags_NoNavInputs flag.
+     * Keyboard/Gamepad navigation is currently allowed (will handle ImGuiKey_NavXXX events) = a window is focused
+     * and it doesn't use the ImGuiWindowFlags_NoNavInputs flag.
      */
     public native boolean getNavActive(); /*
         return ImGui::GetIO().NavActive;
     */
 
     /**
-     * Directional navigation is currently allowed (will handle ImGuiKey_NavXXX events) = a window is focused and it doesn't use the ImGuiWindowFlags_NoNavInputs flag.
+     * Keyboard/Gamepad navigation is currently allowed (will handle ImGuiKey_NavXXX events) = a window is focused
+     * and it doesn't use the ImGuiWindowFlags_NoNavInputs flag.
      */
     public native void setNavActive(boolean navActive); /*
         ImGui::GetIO().NavActive = navActive;
     */
 
     /**
-     * Directional navigation is visible and allowed (will handle ImGuiKey_NavXXX events).
+     * Keyboard/Gamepad navigation is visible and allowed (will handle ImGuiKey_NavXXX events).
      */
     public native boolean getNavVisible(); /*
         return ImGui::GetIO().NavVisible;
     */
 
     /**
-     * Directional navigation is visible and allowed (will handle ImGuiKey_NavXXX events).
+     * Keyboard/Gamepad navigation is visible and allowed (will handle ImGuiKey_NavXXX events).
      */
     public native void setNavVisible(boolean navVisible); /*
         ImGui::GetIO().NavVisible = navVisible;
     */
 
     /**
-     * Application framerate estimation, in frame per second. Solely for convenience. Rolling average estimation based on IO.DeltaTime over 120 frames
+     * Application framerate estimate, in frame per second. Solely for convenience. Rolling average estimation based on io.DeltaTime over 120 frames.
+     * Solely for convenience. Rolling average estimation based on IO.DeltaTime over 120 frames
      */
     public native float getFramerate(); /*
         return ImGui::GetIO().Framerate;
     */
 
     /**
-     * Application framerate estimation, in frame per second. Solely for convenience. Rolling average estimation based on IO.DeltaTime over 120 frames
+     * Application framerate estimate, in frame per second. Solely for convenience. Rolling average estimation based on io.DeltaTime over 120 frames.
+     * Solely for convenience. Rolling average estimation based on IO.DeltaTime over 120 frames
      */
     public native void setFramerate(float framerate); /*
         ImGui::GetIO().Framerate = framerate;
@@ -866,6 +874,13 @@ public final class ImGuiIO {
      */
     public native void addInputCharacter(int c); /*
         ImGui::GetIO().AddInputCharacter((unsigned int)c);
+    */
+
+    /**
+     * Queue new character input from an UTF-16 character, it can be a surrogate
+     */
+    public native void addInputCharacterUTF16(short c); /*
+        ImGui::GetIO().AddInputCharacterUTF16((ImWchar16)c);
     */
 
     /**

@@ -147,7 +147,7 @@ public final class ImGui {
     }
 
     /**
-     * Access the Style structure (colors, sizes). Always use PushStyleCol(), PushStyleVar() to modify style mid-frame.
+     * Access the Style structure (colors, sizes). Always use PushStyleCol(), PushStyleVar() to modify style mid-frame!
      */
     public static ImGuiStyle getStyle() {
         if (style == null) {
@@ -168,9 +168,8 @@ public final class ImGui {
     */
 
     /**
-     * Ends the Dear ImGui frame. automatically called by Render(), you likely don't need to call that yourself directly.
-     * If you don't need to render data (skipping rendering) you may call EndFrame() but you'll have wasted CPU already!
-     * If you don't need to render, better to not create any imgui windows and not call NewFrame() at all!
+     * Ends the Dear ImGui frame. automatically called by Render(). If you don't need to render data (skipping rendering) you may call EndFrame() without
+     * Render()... but you'll have wasted CPU already! If you don't need to render, better to not create any windows and not call NewFrame() at all!
      */
     public static native void endFrame(); /*
         ImGui::EndFrame();
@@ -178,7 +177,8 @@ public final class ImGui {
 
     /**
      * Ends the Dear ImGui frame, finalize the draw data.
-     * You can get call GetDrawData() to obtain it and run your rendering function.
+     * You can get call GetDrawData() to obtain it and run your rendering function (up to v1.60, this used to call io.RenderDrawListsFn().
+     * Nowadays, we allow and prefer calling your render function yourself.)
      */
     public static native void render(); /*
         ImGui::Render();
@@ -232,13 +232,17 @@ public final class ImGui {
     */
 
     /**
-     * Create Metrics/Debug window.
+     * Create Debug/Metrics window.
      * Display Dear ImGui internals: draw commands (with individual draw calls and vertices), window list, basic internal state, etc.
      */
     public static native void showMetricsWindow(); /*
         ImGui::ShowMetricsWindow();
     */
 
+    /**
+     * Create Debug/Metrics window.
+     * Display Dear ImGui internals: draw commands (with individual draw calls and vertices), window list, basic internal state, etc.
+     */
     public static void showMetricsWindow(ImBool pOpen) {
         nShowMetricsWindow(pOpen.data);
     }
@@ -945,7 +949,7 @@ public final class ImGui {
     // Parameters stacks (current window)
 
     /**
-     * Set width of items for common large "item+label" widgets. {@code > 0.0f}: width in pixels,
+     * Push width of items for common large "item+label" widgets. {@code > 0.0f}: width in pixels,
      * {@code <0.0f} align xx pixels to the right of window (so -1.0f always align width to the right side). 0.0f = default to ~2/3 of windows width,
      */
     public static native void pushItemWidth(float itemWidth); /*
@@ -972,16 +976,16 @@ public final class ImGui {
     */
 
     /**
-     * Word-wrapping for Text*() commands. {@code < 0.0f}: no wrapping; 0.0f: wrap to end of window (or column); {@code > 0.0f}: wrap at 'wrap_posX'
-     * position in window local space
+     * Push Word-wrapping positions for Text*() commands. {@code < 0.0f}: no wrapping; 0.0f: wrap to end of window (or column); {@code > 0.0f}: wrap at
+     * 'wrap_posX' position in window local space
      */
     public static native void pushTextWrapPos(); /*
         ImGui::PushTextWrapPos();
     */
 
     /**
-     * Word-wrapping for Text*() commands. {@code < 0.0f}: no wrapping; 0.0f: wrap to end of window (or column); {@code > 0.0f}: wrap at 'wrap_posX'
-     * position in window local space
+     * Push Word-wrapping positions for Text*() commands. {@code < 0.0f}: no wrapping; 0.0f: wrap to end of window (or column); {@code > 0.0f}: wrap at
+     * 'wrap_posX' position in window local space
      */
     public static native void pushTextWrapPos(float wrapLocalPosX); /*
         ImGui::PushTextWrapPos(wrapLocalPosX);
@@ -1018,6 +1022,9 @@ public final class ImGui {
     // - By "cursor" we mean the current output position.
     // - The typical widget behavior is to output themselves at the current cursor position, then move the cursor one line down.
     // - You can call SameLine() between widgets to undo the last carriage return and output at the right of the preceeding widget.
+    // - Attention! We currently have inconsistencies between window-local and absolute positions we will aim to fix with future API:
+    //    Window-local coordinates:   SameLine(), GetCursorPos(), SetCursorPos(), GetCursorStartPos(), GetContentRegionMax(), GetWindowContentRegion*(), PushTextWrapPos()
+    //    Absolute coordinate:        GetCursorScreenPos(), SetCursorScreenPos(), all ImDrawList:: functions.
 
     /**
      * Separator, generally horizontal. inside a menu bar or in horizontal layout mode, this becomes a vertical separator.
@@ -3568,7 +3575,8 @@ public final class ImGui {
 
     // Widgets: Menus
     // - Use BeginMenuBar() on a window ImGuiWindowFlags_MenuBar to append to its menu bar.
-    // - Use BeginMainMenuBar() to create a menu bar at the top of the screen.
+    // - Use BeginMainMenuBar() to create a menu bar at the top of the screen and append to it.
+    // - Use BeginMenu() to create a menu. You can call BeginMenu() multiple time with the same identifier to append more items to it.
 
     /**
      * Append to menu-bar of current window (requires ImGuiWindowFlags_MenuBar flag set on parent window).
@@ -3881,7 +3889,7 @@ public final class ImGui {
     // - You can also use SameLine(posX) to mimic simplified columns.
     // - The columns API is work-in-progress and rather lacking (columns are arguably the worst part of dear imgui at the moment!)
     // - There is a maximum of 64 columns.
-    // - Currently working on new 'Tables' api which will replace columns (see GitHub #2957)
+    // - Currently working on new 'Tables' api which will replace columns around Q2 2020 (see GitHub #2957).
 
     public static native void columns(); /*
         ImGui::Columns();
@@ -4108,7 +4116,7 @@ public final class ImGui {
     */
 
     // Drag and Drop
-    // [BETA API] API may evolve!
+    // - [BETA API] API may evolve!
 
     /**
      * Call when the current item is active. If this return true, you can call SetDragDropPayload() + EndDragDropSource()
@@ -4427,26 +4435,6 @@ public final class ImGui {
 
     // TODO SetStateStorage, GetStateStorage
 
-    public static native void calcTextSize(ImVec2 dstImVec2, String text); /*
-        ImVec2 src = ImGui::CalcTextSize(text);
-        Jni::ImVec2Cpy(env, src, dstImVec2);
-    */
-
-    public static native void calcTextSize(ImVec2 dstImVec2, String text, String textEnd); /*
-        ImVec2 src = ImGui::CalcTextSize(text, textEnd);
-        Jni::ImVec2Cpy(env, src, dstImVec2);
-    */
-
-    public static native void calcTextSize(ImVec2 dstImVec2, String text, String textEnd, boolean hideTextAfterDoubleHas); /*
-        ImVec2 src = ImGui::CalcTextSize(text, textEnd, hideTextAfterDoubleHas);
-        Jni::ImVec2Cpy(env, src, dstImVec2);
-    */
-
-    public static native void calcTextSize(ImVec2 dstImVec2, String text, String textEnd, boolean hideTextAfterDoubleHas, float wrapWidth); /*
-        ImVec2 src = ImGui::CalcTextSize(text, textEnd, hideTextAfterDoubleHas, wrapWidth);
-        Jni::ImVec2Cpy(env, src, dstImVec2);
-    */
-
     /**
      * Calculate coarse clipping for large list of evenly sized items. Prefer using the ImGuiListClipper higher-level helper if you can.
      */
@@ -4473,6 +4461,28 @@ public final class ImGui {
      */
     public static native void endChildFrame(); /*
         ImGui::EndChildFrame();
+    */
+
+    // Text Utilities
+
+    public static native void calcTextSize(ImVec2 dstImVec2, String text); /*
+        ImVec2 src = ImGui::CalcTextSize(text);
+        Jni::ImVec2Cpy(env, src, dstImVec2);
+    */
+
+    public static native void calcTextSize(ImVec2 dstImVec2, String text, String textEnd); /*
+        ImVec2 src = ImGui::CalcTextSize(text, textEnd);
+        Jni::ImVec2Cpy(env, src, dstImVec2);
+    */
+
+    public static native void calcTextSize(ImVec2 dstImVec2, String text, String textEnd, boolean hideTextAfterDoubleHas); /*
+        ImVec2 src = ImGui::CalcTextSize(text, textEnd, hideTextAfterDoubleHas);
+        Jni::ImVec2Cpy(env, src, dstImVec2);
+    */
+
+    public static native void calcTextSize(ImVec2 dstImVec2, String text, String textEnd, boolean hideTextAfterDoubleHas, float wrapWidth); /*
+        ImVec2 src = ImGui::CalcTextSize(text, textEnd, hideTextAfterDoubleHas, wrapWidth);
+        Jni::ImVec2Cpy(env, src, dstImVec2);
     */
 
     // Color Utilities
@@ -4722,7 +4732,8 @@ public final class ImGui {
         ImGui::CaptureMouseFromApp(wantCaptureMouseValue);
     */
 
-    // Clipboard Utilities (also see the LogToClipboard() function to capture or output text data to the clipboard)
+    // Clipboard Utilities
+    // - Also see the LogToClipboard() function to capture GUI into clipboard, or easily output text data to the clipboard.
 
     public static native String getClipboardText(); /*
         return env->NewStringUTF(ImGui::GetClipboardText());

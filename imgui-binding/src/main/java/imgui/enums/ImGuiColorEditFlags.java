@@ -44,6 +44,10 @@ public final class ImGuiColorEditFlags {
      * ColorEdit: disable drag and drop target. ColorButton: disable drag and drop source.
      */
     public static final int NoDragDrop = 1 << 9;
+    /**
+     * ColorButton: disable border (which is enforced by default)
+     */
+    public static final int NoBorder = 1 << 10;
 
     // User Options (right-click on widget to change some of them).
 

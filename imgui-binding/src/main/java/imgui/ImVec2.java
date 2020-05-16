@@ -2,6 +2,9 @@ package imgui;
 
 import java.util.Objects;
 
+/**
+ * 2D vector (often used to store positions or sizes)
+ */
 public final class ImVec2 {
     public float x;
     public float y;

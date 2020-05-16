@@ -439,14 +439,16 @@ public final class ImGuiStyle implements ImDestroyable {
     */
 
     /**
-     * Alignment of selectable text when selectable is larger than text. Defaults to (0.0f, 0.0f) (top-left aligned).
+     * Alignment of selectable text. Defaults to (0.0f, 0.0f) (top-left aligned).
+     * It's generally important to keep this left-aligned if you want to lay multiple items on a same line.
      */
     public native void getSelectableTextAlign(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IMGUI_STYLE->SelectableTextAlign, dstImVec2);
     */
 
     /**
-     * Alignment of selectable text when selectable is larger than text. Defaults to (0.0f, 0.0f) (top-left aligned).
+     * Alignment of selectable text. Defaults to (0.0f, 0.0f) (top-left aligned).
+     * It's generally important to keep this left-aligned if you want to lay multiple items on a same line.
      */
     public native void setSelectableTextAlign(float x, float y); /*
         IMGUI_STYLE->SelectableTextAlign.x = x;

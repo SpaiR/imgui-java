@@ -2,6 +2,9 @@ package imgui;
 
 import java.util.Objects;
 
+/**
+ * 4D vector (often used to store floating-point colors)
+ */
 public final class ImVec4 {
     public float x;
     public float y;

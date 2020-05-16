@@ -1,5 +1,9 @@
 package imgui;
 
+/**
+ * Hold rendering data for one glyph.
+ * (Note: some language parsers may fail to convert the 31+1 bitfield members, in this case maybe drop store a single u32 or we can rework this)
+ */
 public final class ImFontGlyph implements ImDestroyable {
     final long ptr;
 
@@ -48,15 +52,29 @@ public final class ImFontGlyph implements ImDestroyable {
     /**
      * 0x0000..0xFFFF
      */
-    public native short getCodepoint(); /*
-        return (short)IM_FONT_GLYPH->Codepoint;
+    public native int getCodepoint(); /*
+        return (unsigned int)IM_FONT_GLYPH->Codepoint;
     */
 
     /**
      * 0x0000..0xFFFF
      */
-    public native void setCodepoint(short codepoint); /*
-        IM_FONT_GLYPH->Codepoint = (ImWchar)codepoint;
+    public native void setCodepoint(int codepoint); /*
+        IM_FONT_GLYPH->Codepoint = (unsigned int)codepoint;
+    */
+
+    /**
+     * Flag to allow early out when rendering
+     */
+    public native int getVisible(); /*
+        return (unsigned int)IM_FONT_GLYPH->Visible;
+    */
+
+    /**
+     * Flag to allow early out when rendering
+     */
+    public native void setVisible(int visible); /*
+        IM_FONT_GLYPH->Visible = (unsigned int)visible;
     */
 
     /**
