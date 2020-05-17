@@ -15,12 +15,12 @@ public final class ImDrawData implements ImDestroyable {
     public static final int SIZEOF_IM_DRAW_IDX = 2;
     public static final int SIZEOF_IM_DRAW_VERT = (4 + 1) * 4;
 
-    private static final int COUNT_FACTOR = 5_000;
+    private static final int FACTOR = 5_000;
 
     final long ptr;
 
-    private ByteBuffer idxBuffer = ByteBuffer.allocateDirect(SIZEOF_IM_DRAW_IDX * COUNT_FACTOR).order(ByteOrder.nativeOrder());
-    private ByteBuffer vtxBuffer = ByteBuffer.allocateDirect(SIZEOF_IM_DRAW_VERT * COUNT_FACTOR).order(ByteOrder.nativeOrder());
+    private ByteBuffer idxBuffer = ByteBuffer.allocateDirect(SIZEOF_IM_DRAW_IDX * FACTOR).order(ByteOrder.nativeOrder());
+    private ByteBuffer vtxBuffer = ByteBuffer.allocateDirect(SIZEOF_IM_DRAW_VERT * FACTOR).order(ByteOrder.nativeOrder());
 
     /**
      * This class will create a native structure.
@@ -121,7 +121,7 @@ public final class ImDrawData implements ImDestroyable {
     public ByteBuffer getCmdListIdxBufferData(final int cmdListIdx) {
         final int idxBufferCapacity = getCmdListIdxBufferSize(cmdListIdx) * SIZEOF_IM_DRAW_IDX;
         if (idxBuffer.capacity() < idxBufferCapacity) {
-            idxBuffer = ByteBuffer.allocateDirect(idxBufferCapacity + COUNT_FACTOR).order(ByteOrder.nativeOrder());
+            idxBuffer = ByteBuffer.allocateDirect(idxBufferCapacity + FACTOR).order(ByteOrder.nativeOrder());
         }
 
         nGetCmdListIdxBufferData(cmdListIdx, idxBuffer, idxBufferCapacity);
@@ -146,7 +146,7 @@ public final class ImDrawData implements ImDestroyable {
     public ByteBuffer getCmdListVtxBufferData(final int cmdListIdx) {
         final int vtxBufferCapacity = getCmdListVtxBufferSize(cmdListIdx) * SIZEOF_IM_DRAW_VERT;
         if (vtxBuffer.capacity() < vtxBufferCapacity) {
-            vtxBuffer = ByteBuffer.allocateDirect(vtxBufferCapacity + COUNT_FACTOR).order(ByteOrder.nativeOrder());
+            vtxBuffer = ByteBuffer.allocateDirect(vtxBufferCapacity + FACTOR).order(ByteOrder.nativeOrder());
         }
 
         nGetCmdListVtxBufferData(cmdListIdx, vtxBuffer, vtxBufferCapacity);
