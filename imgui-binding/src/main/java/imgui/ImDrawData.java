@@ -22,15 +22,6 @@ public final class ImDrawData implements ImDestroyable {
     private ByteBuffer idxBuffer = ByteBuffer.allocateDirect(SIZEOF_IM_DRAW_IDX * FACTOR).order(ByteOrder.nativeOrder());
     private ByteBuffer vtxBuffer = ByteBuffer.allocateDirect(SIZEOF_IM_DRAW_VERT * FACTOR).order(ByteOrder.nativeOrder());
 
-    /**
-     * This class will create a native structure.
-     * Call {@link #destroy()} method to manually free used memory.
-     */
-    public ImDrawData() {
-        ImGui.touch();
-        ptr = nCreate();
-    }
-
     ImDrawData(final long ptr) {
         this.ptr = ptr;
     }
@@ -53,11 +44,6 @@ public final class ImDrawData implements ImDestroyable {
     static native void nInit(); /*
         jclass jImDrawDataClass = env->FindClass("imgui/ImDrawData");
         imDrawDataPtrID = env->GetFieldID(jImDrawDataClass, "ptr", "J");
-    */
-
-    private native long nCreate(); /*
-        ImDrawData* imDrawData = new ImDrawData();
-        return (intptr_t)imDrawData;
     */
 
     private native void nDestroy(long ptr); /*
