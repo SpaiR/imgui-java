@@ -1,34 +1,23 @@
-import imgui.ImBool;
 import imgui.ImFontAtlas;
 import imgui.ImFontConfig;
 import imgui.ImGui;
 import imgui.ImGuiIO;
-import imgui.ImString;
-import imgui.ImVec2;
 import imgui.callbacks.ImStrConsumer;
 import imgui.callbacks.ImStrSupplier;
 import imgui.enums.ImGuiBackendFlags;
-import imgui.enums.ImGuiColorEditFlags;
-import imgui.enums.ImGuiCond;
 import imgui.enums.ImGuiConfigFlags;
-import imgui.enums.ImGuiInputTextFlags;
 import imgui.enums.ImGuiKey;
 import imgui.enums.ImGuiMouseCursor;
 import imgui.gl3.ImGuiImplGl3;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
-import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.Objects;
 
@@ -40,9 +29,9 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 @SuppressWarnings("MagicNumber")
 public final class ImGuiGlfwExample {
-    private long window; // current GLFW window pointer
+    private long windowPtr; // current GLFW window pointer
 
-    // Those are used to track window size properties
+    // To get window properties
     private final int[] winWidth = new int[1];
     private final int[] winHeight = new int[1];
     private final int[] fbWidth = new int[1];
@@ -55,30 +44,24 @@ public final class ImGuiGlfwExample {
     // Mouse cursors provided by GLFW
     private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
 
-    // LWJGL3 rendered itself (SHOULD be initialized)
+    // LWJGL3 renderer (SHOULD be initialized)
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+    private String glslVersion = null; // We can initialize our renderer with different versions of the GLSL
 
-    // Local variables for application goes here
-    private final String imguiDemoLink = "https://raw.githubusercontent.com/ocornut/imgui/v1.76/imgui_demo.cpp"; // Link to put into clipboard
-    private final byte[] testPayload = "Test Payload".getBytes(); // Test data for payload. Should be represented as raw byt array.
-    private String dropTargetText = "Drop Here";
-    private float[] backgroundColor = new float[]{0.5f, 0, 0}; // To modify background color dynamically
-    private int clickCount = 0;
-    private final ImString resizableStr = new ImString(5);
-    private final ImBool showDemoWindow = new ImBool();
-    private int dukeTexture;
-    private ImVec2 windowSize = new ImVec2(); // Vector to store "Custom Window" size
-    private ImVec2 windowPos = new ImVec2(); // Vector to store "Custom Window" position
+    // Ui to render
+    private final ExampleUi exampleUi = new ExampleUi();
 
     public void run() throws Exception {
         initGlfw();
         initImGui();
+        exampleUi.init();
         loop();
         destroyImGui();
         destroyGlfw();
     }
 
-    // Method initializes GLFW window. All code is mostly a copy-paste from the official LWJGL3 "Get Started": https://www.lwjgl.org/guide
+    // Initialize GLFW + create OpenGL context.
+    // All code is mostly a copy-paste from the official LWJGL3 "Get Started": https://www.lwjgl.org/guide
     private void initGlfw() {
         // Setup an error callback. The default implementation
         // will print the error message in System.err.
@@ -92,13 +75,13 @@ public final class ImGuiGlfwExample {
         // Configure GLFW
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
-        glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE); // the window will be maximized
+
+        decideGlGlslVersions();
 
         // Create the window
-        window = glfwCreateWindow(1280, 768, "Dear ImGui + GLFW + LWJGL Example", NULL, NULL);
+        windowPtr = glfwCreateWindow(1280, 768, "Dear ImGui + GLFW + LWJGL Example", NULL, NULL);
 
-        if (window == NULL) {
+        if (windowPtr == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
         }
 
@@ -108,18 +91,18 @@ public final class ImGuiGlfwExample {
             final IntBuffer pHeight = stack.mallocInt(1); // int*
 
             // Get the window size passed to glfwCreateWindow
-            glfwGetWindowSize(window, pWidth, pHeight);
+            glfwGetWindowSize(windowPtr, pWidth, pHeight);
 
             // Get the resolution of the primary monitor
             final GLFWVidMode vidmode = Objects.requireNonNull(glfwGetVideoMode(glfwGetPrimaryMonitor()));
 
             // Center the window
-            glfwSetWindowPos(window, (vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2);
+            glfwSetWindowPos(windowPtr, (vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2);
         } // the stack frame is popped automatically
 
-        glfwMakeContextCurrent(window); // Make the OpenGL context current
+        glfwMakeContextCurrent(windowPtr); // Make the OpenGL context current
         glfwSwapInterval(GLFW_TRUE); // Enable v-sync
-        glfwShowWindow(window); // Make the window visible
+        glfwShowWindow(windowPtr); // Make the window visible
 
         // IMPORTANT!!
         // This line is critical for LWJGL's interoperation with GLFW's
@@ -130,15 +113,26 @@ public final class ImGuiGlfwExample {
         GL.createCapabilities();
     }
 
-    // Here we will initialize ImGui stuff.
+    private void decideGlGlslVersions() {
+        final boolean isMac = System.getProperty("os.name").toLowerCase().contains("mac");
+        if (isMac) {
+            glslVersion = "#version 150";
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
+            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // Required on Mac
+        } else {
+            glslVersion = "#version 130";
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+        }
+    }
+
+    // Initialize Dear ImGui.
     private void initImGui() {
         // IMPORTANT!!
         // This line is critical for Dear ImGui to work.
         ImGui.createContext();
-
-        // ImGui provides 3 different color schemas for styling. We will use the classic one here.
-        // Try others with ImGui.styleColors*() methods.
-        ImGui.styleColorsClassic();
 
         // Initialize ImGuiIO config
         final ImGuiIO io = ImGui.getIO();
@@ -146,8 +140,7 @@ public final class ImGuiGlfwExample {
         io.setIniFilename(null); // We don't want to save .ini file
         io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard); // Navigation with keyboard
         io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors); // Mouse cursors to display while resizing windows etc.
-        io.setBackendPlatformName("imgui_java_impl_glfw"); // For clarity reasons
-        io.setBackendRendererName("imgui_java_impl_lwjgl"); // For clarity reasons
+        io.setBackendPlatformName("imgui_java_impl_glfw");
 
         // Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array.
         final int[] keyMap = new int[ImGuiKey.COUNT];
@@ -189,7 +182,7 @@ public final class ImGuiGlfwExample {
         // ------------------------------------------------------------
         // Here goes GLFW callbacks to update user input in Dear ImGui
 
-        glfwSetKeyCallback(window, (w, key, scancode, action, mods) -> {
+        glfwSetKeyCallback(windowPtr, (w, key, scancode, action, mods) -> {
             if (action == GLFW_PRESS) {
                 io.setKeysDown(key, true);
             } else if (action == GLFW_RELEASE) {
@@ -202,13 +195,13 @@ public final class ImGuiGlfwExample {
             io.setKeySuper(io.getKeysDown(GLFW_KEY_LEFT_SUPER) || io.getKeysDown(GLFW_KEY_RIGHT_SUPER));
         });
 
-        glfwSetCharCallback(window, (w, c) -> {
+        glfwSetCharCallback(windowPtr, (w, c) -> {
             if (c != GLFW_KEY_DELETE) {
                 io.addInputCharacter(c);
             }
         });
 
-        glfwSetMouseButtonCallback(window, (w, button, action, mods) -> {
+        glfwSetMouseButtonCallback(windowPtr, (w, button, action, mods) -> {
             final boolean[] mouseDown = new boolean[5];
 
             mouseDown[0] = button == GLFW_MOUSE_BUTTON_1 && action != GLFW_RELEASE;
@@ -224,7 +217,7 @@ public final class ImGuiGlfwExample {
             }
         });
 
-        glfwSetScrollCallback(window, (w, xOffset, yOffset) -> {
+        glfwSetScrollCallback(windowPtr, (w, xOffset, yOffset) -> {
             io.setMouseWheelH(io.getMouseWheelH() + (float) xOffset);
             io.setMouseWheel(io.getMouseWheel() + (float) yOffset);
         });
@@ -232,14 +225,14 @@ public final class ImGuiGlfwExample {
         io.setSetClipboardTextFn(new ImStrConsumer() {
             @Override
             public void accept(final String s) {
-                glfwSetClipboardString(window, s);
+                glfwSetClipboardString(windowPtr, s);
             }
         });
 
         io.setGetClipboardTextFn(new ImStrSupplier() {
             @Override
             public String get() {
-                return glfwGetClipboardString(window);
+                return glfwGetClipboardString(windowPtr);
             }
         });
 
@@ -254,15 +247,15 @@ public final class ImGuiGlfwExample {
         // First of all we add a default font, which is 'ProggyClean.ttf, 13px'
         fontAtlas.addFontDefault();
 
-        final ImFontConfig fontConfig = new ImFontConfig(); // Keep in mind that creation of the ImFontConfig will allocate native memory
+        final ImFontConfig fontConfig = new ImFontConfig(); // Keep in mind that creation of the ImFontConfig will allocate the native memory
         fontConfig.setMergeMode(true); // All fonts added while this mode is turned on will be merged with the previously added font
         fontConfig.setPixelSnapH(true);
-        fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesCyrillic()); // Additional glyphs could be added like this or in addFontFrom*() methods
+        fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesCyrillic()); // Additional glyphs could be added like this or in "addFontFrom*()" methods
 
         // We merge font loaded from resources with the default one. Thus we will get an absent cyrillic glyphs
         fontAtlas.addFontFromMemoryTTF(loadFromResources("basis33.ttf"), 16, fontConfig);
 
-        // Disable merged mode and add all other fonts normally
+        // Disable merge mode and add all other fonts normally
         fontConfig.setMergeMode(false);
         fontConfig.setPixelSnapH(false);
 
@@ -283,147 +276,66 @@ public final class ImGuiGlfwExample {
 
         fontConfig.destroy(); // After all fonts were added we don't need this config more
 
-        // IMPORTANT!!!
-        // Method initializes renderer itself.
+        // Method initializes LWJGL3 renderer.
         // This method SHOULD be called after you've initialized your ImGui configuration (fonts and so on).
         // ImGui context should be created as well.
-        imGuiGl3.init();
+        imGuiGl3.init(glslVersion);
     }
 
     // Main application loop
     private void loop() throws Exception {
-        // Load Duke image and convert it into OpenGL texture
-        dukeTexture = loadTexture(ImageIO.read(new File("src/test/resources/Duke_waving.png")));
-
         double time = 0; // to track our frame delta value
 
         // Run the rendering loop until the user has attempted to close the window
-        while (!glfwWindowShouldClose(window)) {
+        while (!glfwWindowShouldClose(windowPtr)) {
             // Count frame delta value
             final double currentTime = glfwGetTime();
             final double deltaTime = (time > 0) ? (currentTime - time) : 1f / 60f;
             time = currentTime;
 
-            // Set the clear color and do clear itself
-            glClearColor(backgroundColor[0], backgroundColor[1], backgroundColor[2], 0.0f);
-            glClear(GL_COLOR_BUFFER_BIT);
+            startFrame((float) deltaTime);
 
-            // Get window size properties and mouse position
-            glfwGetWindowSize(window, winWidth, winHeight);
-            glfwGetFramebufferSize(window, fbWidth, fbHeight);
-            glfwGetCursorPos(window, mousePosX, mousePosY);
-
-            // IMPORTANT!!
-            // We SHOULD call those methods to update ImGui state for current frame
-            final ImGuiIO io = ImGui.getIO();
-            io.setDisplaySize(winWidth[0], winHeight[0]);
-            io.setDisplayFramebufferScale((float) fbWidth[0] / winWidth[0], (float) fbHeight[0] / winHeight[0]);
-            io.setMousePos((float) mousePosX[0], (float) mousePosY[0]);
-            io.setDeltaTime((float) deltaTime);
-
-            // Update mouse cursor
-            final int imguiCursor = ImGui.getMouseCursor();
-            glfwSetCursor(window, mouseCursors[imguiCursor]);
-            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-
-            // IMPORTANT!!
             // Any Dear ImGui code SHOULD go between NewFrame()/Render() methods
             ImGui.newFrame();
-            showUi();
+            exampleUi.render();
             ImGui.render();
 
-            // After ImGui#render call we provide draw data into LWJGL3 renderer.
-            // At that moment ImGui will be rendered to the current OpenGL context.
-            imGuiGl3.render(ImGui.getDrawData());
-
-            glfwSwapBuffers(window); // swap the color buffers
-
-            // Poll for window events. The key callback above will only be invoked during this call.
-            glfwPollEvents();
+            endFrame();
         }
     }
 
-    private void showUi() {
-        ImGui.setNextWindowSize(600, 300, ImGuiCond.Once);
-        ImGui.setNextWindowPos(10, 10, ImGuiCond.Once);
+    private void startFrame(final float deltaTime) {
+        // Set the clear color and clear the window
+        glClearColor(exampleUi.backgroundColor[0], exampleUi.backgroundColor[1], exampleUi.backgroundColor[2], 0.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
 
-        ImGui.begin("Custom window");  // Start Custom window
+        // Get window size properties and mouse position
+        glfwGetWindowSize(windowPtr, winWidth, winHeight);
+        glfwGetFramebufferSize(windowPtr, fbWidth, fbHeight);
+        glfwGetCursorPos(windowPtr, mousePosX, mousePosY);
 
-        // Example of how to draw an image in the bottom-right corner of the window
-        ImGui.getWindowSize(windowSize);
-        ImGui.getWindowPos(windowPos);
-        final float xPoint = windowPos.x + windowSize.x - 100;
-        final float yPoint = windowPos.y + windowSize.y;
-        ImGui.getWindowDrawList().addImage(dukeTexture, xPoint, yPoint - 180, xPoint + 100, yPoint);
+        // We SHOULD call those methods to update ImGui state for current frame
+        final ImGuiIO io = ImGui.getIO();
+        io.setDisplaySize(winWidth[0], winHeight[0]);
+        io.setDisplayFramebufferScale((float) fbWidth[0] / winWidth[0], (float) fbHeight[0] / winHeight[0]);
+        io.setMousePos((float) mousePosX[0], (float) mousePosY[0]);
+        io.setDeltaTime(deltaTime);
 
-        // Simple checkbox to show demo window
-        ImGui.checkbox("Show demo window", showDemoWindow);
+        // Update mouse cursor
+        final int imguiCursor = ImGui.getMouseCursor();
+        glfwSetCursor(windowPtr, mouseCursors[imguiCursor]);
+        glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
 
-        ImGui.separator();
+    private void endFrame() {
+        // After Dear ImGui prepared a draw data, we use it in LWJGL3 renderer.
+        // At that moment ImGui will be rendered to the current OpenGL context.
+        imGuiGl3.render(ImGui.getDrawData());
 
-        // Drag'n'Drop functionality
-        ImGui.button("Drag me");
-        if (ImGui.beginDragDropSource()) {
-            ImGui.setDragDropPayload("payload_type", testPayload, testPayload.length);
-            ImGui.text("Drag started");
-            ImGui.endDragDropSource();
-        }
-        ImGui.sameLine();
-        ImGui.text(dropTargetText);
-        if (ImGui.beginDragDropTarget()) {
-            final byte[] payload = ImGui.acceptDragDropPayload("payload_type");
-            if (payload != null) {
-                dropTargetText = new String(payload);
-            }
-            ImGui.endDragDropTarget();
-        }
+        glfwSwapBuffers(windowPtr); // swap the color buffers
 
-        // Color picker
-        ImGui.alignTextToFramePadding();
-        ImGui.text("Background color:");
-        ImGui.sameLine();
-        ImGui.colorEdit3("##click_counter_col", backgroundColor, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.NoDragDrop);
-
-        // Simple click counter
-        if (ImGui.button("Click")) {
-            clickCount++;
-        }
-        if (ImGui.isItemHovered()) {
-            ImGui.setMouseCursor(ImGuiMouseCursor.Hand);
-        }
-        ImGui.sameLine();
-        ImGui.text("Count: " + clickCount);
-
-        ImGui.separator();
-
-        // Input field with auto-resize ability
-        ImGui.text("You can use text inputs with auto-resizable strings!");
-        ImGui.inputText("Resizable input", resizableStr, ImGuiInputTextFlags.CallbackResize);
-        ImGui.text("text len:");
-        ImGui.sameLine();
-        ImGui.textColored(.12f, .6f, 1, 1, Integer.toString(resizableStr.getLength()));
-        ImGui.sameLine();
-        ImGui.text("| buffer size:");
-        ImGui.sameLine();
-        ImGui.textColored(1, .6f, 0, 1, Integer.toString(resizableStr.getBufferSize()));
-
-        ImGui.separator();
-        ImGui.newLine();
-
-        // Link to the original demo file
-        ImGui.text("Consider to look the original ImGui demo: ");
-        ImGui.setNextItemWidth(500);
-        ImGui.textColored(0, .8f, 0, 1, imguiDemoLink);
-        ImGui.sameLine();
-        if (ImGui.button("Copy")) {
-            ImGui.setClipboardText(imguiDemoLink);
-        }
-
-        ImGui.end();  // End Custom window
-
-        if (showDemoWindow.get()) {
-            ImGui.showDemoWindow(showDemoWindow);
-        }
+        // Poll for window events. The key callback above will only be invoked during this call.
+        glfwPollEvents();
     }
 
     // If you want to clean a room after yourself - do it by yourself
@@ -437,8 +349,8 @@ public final class ImGuiGlfwExample {
             glfwDestroyCursor(mouseCursor);
         }
 
-        glfwFreeCallbacks(window);
-        glfwDestroyWindow(window);
+        glfwFreeCallbacks(windowPtr);
+        glfwDestroyWindow(windowPtr);
         glfwTerminate();
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
     }
@@ -458,36 +370,6 @@ public final class ImGuiGlfwExample {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
-    }
-
-    private int loadTexture(final BufferedImage image) {
-        final int[] pixels = new int[image.getWidth() * image.getHeight()];
-        image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
-
-        final ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * 4); // 4 for RGBA, 3 for RGB
-        for (int y = 0; y < image.getHeight(); y++) {
-            for (int x = 0; x < image.getWidth(); x++) {
-                final int pixel = pixels[y * image.getWidth() + x];
-                buffer.put((byte) ((pixel >> 16) & 0xFF));
-                buffer.put((byte) ((pixel >> 8) & 0xFF));
-                buffer.put((byte) (pixel & 0xFF));
-                buffer.put((byte) ((pixel >> 24) & 0xFF));
-            }
-        }
-        buffer.flip();
-
-        final int textureID = glGenTextures();
-        glBindTexture(GL_TEXTURE_2D, textureID);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-
-        return textureID;
     }
 
     public static void main(final String[] args) throws Exception {
