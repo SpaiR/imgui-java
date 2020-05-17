@@ -11,16 +11,16 @@ package imgui;
  * but you are totally free to apply whatever transformation matrix to want to the data (if you apply such transformation you'll want to apply it to ClipRect as well)
  * Important: Primitives are always added to the list and not culled (culling is done at higher-level by ImGui:: functions), if you use this API a lot consider coarse culling your drawn objects.
  */
-public final class ImDrawList {
-    public static final int TYPE_WINDOW = 0;
-    public static final int TYPE_BACKGROUND = 1;
-    public static final int TYPE_FOREGROUND = 2;
+public final class ImDrawList implements ImDestroyable {
+    final long ptr;
 
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    private final int drawListType;
+    ImDrawList(final long ptr) {
+        this.ptr = ptr;
+    }
 
-    ImDrawList(final int drawListType) {
-        this.drawListType = drawListType;
+    @Override
+    public void destroy() {
+        nDestroy(ptr);
     }
 
     /*JNI
@@ -28,31 +28,18 @@ public final class ImDrawList {
         #include <imgui.h>
         #include "jni_common.h"
 
-        const static int DRAWLIST_TYPE_WINDOW     = 0;
-        const static int DRAWLIST_TYPE_BACKGROUND = 1;
-        const static int DRAWLIST_TYPE_FOREGROUND = 2;
+        jfieldID imDrawListPtrID;
 
-        ImDrawList* getDrawList(int drawListType) {
-            switch (drawListType) {
-                case DRAWLIST_TYPE_WINDOW:
-                    return ImGui::GetWindowDrawList();
-                case DRAWLIST_TYPE_BACKGROUND:
-                    return ImGui::GetBackgroundDrawList();
-                case DRAWLIST_TYPE_FOREGROUND:
-                    return ImGui::GetForegroundDrawList();
-                default:
-                    return NULL;
-            }
-        }
-
-        jfieldID drawListTypeID;
-
-        #define IM_DRAW_LIST getDrawList(env->GetIntField(object, drawListTypeID))
+        #define IM_DRAW_LIST ((ImDrawList*)env->GetLongField(object, imDrawListPtrID))
      */
 
     static native void nInit(); /*
         jclass jImDrawListClass = env->FindClass("imgui/ImDrawList");
-        drawListTypeID = env->GetFieldID(jImDrawListClass, "drawListType", "I");
+        imDrawListPtrID = env->GetFieldID(jImDrawListClass, "ptr", "J");
+    */
+
+    private native void nDestroy(long ptr); /*
+        delete (ImDrawList*)ptr;
     */
 
     /**

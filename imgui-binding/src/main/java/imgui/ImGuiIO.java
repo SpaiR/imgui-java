@@ -199,15 +199,13 @@ public final class ImGuiIO {
      * Font atlas: load, rasterize and pack one or more fonts into a single texture.
      */
     public ImFontAtlas getFonts() {
-        // on demand instantiation
-        // will throw native exception if Dear ImGui context isn't created (like in the original library)
         if (imFontAtlas == null) {
-            imFontAtlas = new ImFontAtlas(nGetFontsPtr());
+            imFontAtlas = new ImFontAtlas(nGetFonts());
         }
         return imFontAtlas;
     }
 
-    private native long nGetFontsPtr(); /*
+    private native long nGetFonts(); /*
         return (intptr_t)ImGui::GetIO().Fonts;
     */
 

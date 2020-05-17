@@ -18,13 +18,12 @@ public final class ImGui {
 
     private static final ImGuiIO IMGUI_IO;
 
-    private static final ImDrawList IM_DRAW_LIST_WINDOW = new ImDrawList(ImDrawList.TYPE_WINDOW);
-    private static final ImDrawList IM_DRAW_LIST_BACKGROUND = new ImDrawList(ImDrawList.TYPE_BACKGROUND);
-    private static final ImDrawList IM_DRAW_LIST_FOREGROUND = new ImDrawList(ImDrawList.TYPE_FOREGROUND);
-
     private static ImDrawData drawData;
     private static ImFont font;
     private static ImGuiStyle style;
+    private static ImDrawList windowDrawList;
+    private static ImDrawList backgroundDrawList;
+    private static ImDrawList foregroundDrawList;
 
     static {
         final String libPath = System.getProperty(LIB_PATH_PROP);
@@ -465,8 +464,15 @@ public final class ImGui {
      * Get draw list associated to the current window, to append your own drawing primitives
      */
     public static ImDrawList getWindowDrawList() {
-        return IM_DRAW_LIST_WINDOW;
+        if (windowDrawList == null) {
+            windowDrawList = new ImDrawList(nGetWindowDrawList());
+        }
+        return windowDrawList;
     }
+
+    private static native long nGetWindowDrawList(); /*
+        return (intptr_t)ImGui::GetWindowDrawList();
+    */
 
     /**
      * Get current window position in screen space (useful if you want to do your own drawing via the DrawList API)
@@ -4412,15 +4418,29 @@ public final class ImGui {
      * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
      */
     public static ImDrawList getBackgroundDrawList() {
-        return IM_DRAW_LIST_BACKGROUND;
+        if (backgroundDrawList == null) {
+            backgroundDrawList = new ImDrawList(nGetBackgroundDrawList());
+        }
+        return backgroundDrawList;
     }
+
+    private static native long nGetBackgroundDrawList(); /*
+        return (intptr_t)ImGui::GetBackgroundDrawList();
+    */
 
     /**
      * This draw list will be the last rendered one. Useful to quickly draw shapes/text over dear imgui contents.
      */
     public static ImDrawList getForegroundDrawList() {
-        return IM_DRAW_LIST_FOREGROUND;
+        if (foregroundDrawList == null) {
+            foregroundDrawList = new ImDrawList(nGetForegroundDrawList());
+        }
+        return foregroundDrawList;
     }
+
+    private static native long nGetForegroundDrawList(); /*
+        return (intptr_t)ImGui::GetForegroundDrawList();
+    */
 
     // TODO GetDrawListSharedData
 
