@@ -121,7 +121,7 @@
         <!-- Checks for imports                              -->
         <!-- See https://checkstyle.org/config_import.html -->
         <module name="AvoidStarImport">
-            <property name="excludes" value="org.lwjgl.opengl.GL30,org.lwjgl.glfw.GLFW"/>
+            <property name="excludes" value="org.lwjgl.opengl.GL32,org.lwjgl.glfw.GLFW"/>
         </module>
         <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
         <module name="RedundantImport"/>

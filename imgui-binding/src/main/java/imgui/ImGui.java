@@ -5,7 +5,6 @@ import imgui.enums.ImGuiInputTextFlags;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
-import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,13 +16,13 @@ public final class ImGui {
     private static final String LIB_NAME_DEFAULT = System.getProperty("os.arch").contains("64") ? "imgui-java64" : "imgui-java";
     private static final String LIB_TMP_DIR_PREFIX = "imgui-java-bin_" + System.getProperty("user.name", "user");
 
-    private static final ImDrawData DRAW_DATA;
     private static final ImGuiIO IMGUI_IO;
 
     private static final ImDrawList IM_DRAW_LIST_WINDOW = new ImDrawList(ImDrawList.TYPE_WINDOW);
     private static final ImDrawList IM_DRAW_LIST_BACKGROUND = new ImDrawList(ImDrawList.TYPE_BACKGROUND);
     private static final ImDrawList IM_DRAW_LIST_FOREGROUND = new ImDrawList(ImDrawList.TYPE_FOREGROUND);
 
+    private static ImDrawData drawData;
     private static ImFont font;
     private static ImGuiStyle style;
 
@@ -42,7 +41,6 @@ public final class ImGui {
             System.loadLibrary(libName);
         }
 
-        DRAW_DATA = new ImDrawData(100_000, 100_000, 1000);
         IMGUI_IO = new ImGuiIO();
 
         nInitJni();
@@ -188,15 +186,15 @@ public final class ImGui {
      * Valid after Render() and until the next call to NewFrame(). this is what you have to render.
      */
     public static ImDrawData getDrawData() {
-        final ByteBuffer cmdByteBuffer = DRAW_DATA.cmdByteBuffer;
-        final ByteBuffer vByteBuffer = DRAW_DATA.vByteBuffer;
-        final ByteBuffer iByteBuffer = DRAW_DATA.iByteBuffer;
-        vByteBuffer.position(0);
-        iByteBuffer.position(0);
-        cmdByteBuffer.position(0);
-        DRAW_DATA.nFillDrawData(iByteBuffer, vByteBuffer, cmdByteBuffer);
-        return DRAW_DATA;
+        if (drawData == null) {
+            drawData = new ImDrawData(nGetDrawData());
+        }
+        return drawData;
     }
+
+    private static native long nGetDrawData(); /*
+        return (intptr_t)ImGui::GetDrawData();
+    */
 
     // Demo, Debug, Information
 

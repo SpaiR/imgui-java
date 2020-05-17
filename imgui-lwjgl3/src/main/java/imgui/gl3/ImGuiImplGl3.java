@@ -4,6 +4,8 @@ import imgui.ImDrawData;
 import imgui.ImFontAtlas;
 import imgui.ImGui;
 import imgui.ImInt;
+import imgui.ImVec2;
+import imgui.ImVec4;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +15,7 @@ import java.io.UncheckedIOException;
 import java.nio.ByteBuffer;
 import java.util.Objects;
 
-import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.opengl.GL32.*;
 
 /**
  * This class mostly a straightforward port of the
@@ -27,10 +29,14 @@ import static org.lwjgl.opengl.GL30.*;
  */
 @SuppressWarnings("MagicNumber")
 public final class ImGuiImplGl3 {
-    private int vBufferHandle = 0;
-    private int iBufferHandle = 0;
+    private int vboHandle = 0;
+    private int elementsHandle = 0;
 
-    private boolean isFontInitialized = false;
+    // Used to store tmp renderer data
+    private final ImVec2 displaySize = new ImVec2();
+    private final ImVec2 framebufferScale = new ImVec2();
+    private final ImVec2 displayPos = new ImVec2();
+    private final ImVec4 clipRect = new ImVec4();
 
     // Shader stuff
     private int programId = 0;
@@ -67,6 +73,8 @@ public final class ImGuiImplGl3 {
     public void init() {
         prepareShader();
         prepareFont();
+        vboHandle = glGenBuffers();
+        elementsHandle = glGenBuffers();
     }
 
     /**
@@ -75,86 +83,52 @@ public final class ImGuiImplGl3 {
      * @param drawData data used to draw ImGui interface to your current OpenGL context
      */
     public void render(final ImDrawData drawData) {
-        if (drawData.cmdListsCount <= 0) {
+        if (drawData.getCmdListsCount() <= 0) {
             return;
         }
 
+        drawData.getDisplaySize(displaySize);
+        drawData.getFramebufferScale(framebufferScale);
+
         // Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer coordinates)
-        final int fbWidth = (int) (drawData.displaySizeX * drawData.framebufferScaleX);
-        final int fbHeight = (int) (drawData.displaySizeY * drawData.framebufferScaleY);
+        final int fbWidth = (int) (displaySize.x * framebufferScale.x);
+        final int fbHeight = (int) (displaySize.y * framebufferScale.y);
 
         if (fbWidth <= 0 || fbHeight <= 0) {
             return;
         }
 
-        if (!isFontInitialized) {
-            isFontInitialized = true;
-            vBufferHandle = glGenBuffers();
-            iBufferHandle = glGenBuffers();
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iBufferHandle);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, drawData.iByteBuffer.capacity(), GL_STATIC_DRAW);
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        }
+        drawData.getDisplayPos(displayPos);
 
         backupGlState();
-        bind(drawData);
+        bind();
 
-        int verticesOffset = 0;
-        int indexOffset = 0;
+        // Render command lists
+        for (int cmdListIdx = 0; cmdListIdx < drawData.getCmdListsCount(); cmdListIdx++) {
+            // Upload vertex/index buffers
+            glBufferData(GL_ARRAY_BUFFER, drawData.getCmdListVtxBufferData(cmdListIdx), GL_STREAM_DRAW);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, drawData.getCmdListIdxBufferData(cmdListIdx), GL_STREAM_DRAW);
 
-        for (int i = 0; i < drawData.cmdListsCount; i++) {
-            drawData.vByteBuffer.limit(verticesOffset + 4);
-            final int verticesSize = (int) drawData.vByteBuffer.getFloat(verticesOffset);
+            for (int cmdBufferIdx = 0; cmdBufferIdx < drawData.getCmdListCmdBufferSize(cmdListIdx); cmdBufferIdx++) {
+                drawData.getCmdListCmdBufferClipRect(cmdListIdx, cmdBufferIdx, clipRect);
 
-            drawData.iByteBuffer.limit(indexOffset + 2);
-            final short indexSize = drawData.iByteBuffer.getShort(indexOffset);
-            final int cmdSize = (int) drawData.cmdByteBuffer.getFloat();
-
-            final int verticesStartOffset = verticesOffset + 4;
-            final int indexStartOffset = indexOffset + 2;
-
-            drawData.vByteBuffer.position(verticesStartOffset);
-            drawData.iByteBuffer.position(indexStartOffset);
-
-            final int newVlimit = verticesStartOffset + verticesSize * ImDrawData.V_BUFFER_SIZE;
-            final int newIlimit = indexStartOffset + indexSize * ImDrawData.I_BUFFER_SIZE;
-
-            drawData.vByteBuffer.limit(newVlimit);
-            drawData.iByteBuffer.limit(newIlimit);
-
-            glBufferData(GL_ARRAY_BUFFER, drawData.vByteBuffer, GL_STATIC_DRAW);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, drawData.iByteBuffer, GL_STATIC_DRAW);
-
-            verticesOffset += ((verticesSize) * ImDrawData.V_BUFFER_SIZE) + 4;
-            indexOffset += ((indexSize) * ImDrawData.I_BUFFER_SIZE) + 2;
-
-            final float clipOffX = drawData.displayPosX; // (0,0) unless using multi-viewports
-            final float clipOffY = drawData.displayPosY;
-            final float clipScaleX = drawData.framebufferScaleX; // (1,1) unless using retina display which are often (2,2)
-            final float clipScaleY = drawData.framebufferScaleY;
-
-            int idxBufferOffset = 0;
-
-            for (int j = 0; j < cmdSize; j++) {
-                final int elemCount = (int) drawData.cmdByteBuffer.getFloat();
-                float clipRectX = drawData.cmdByteBuffer.getFloat();
-                float clipRectY = drawData.cmdByteBuffer.getFloat();
-                float clipRectZ = drawData.cmdByteBuffer.getFloat();
-                float clipRectW = drawData.cmdByteBuffer.getFloat();
-                final int textureID = (int) drawData.cmdByteBuffer.getFloat();
-
-                clipRectX = (clipRectX - clipOffX) * clipScaleX;
-                clipRectY = (clipRectY - clipOffY) * clipScaleY;
-                clipRectZ = (clipRectZ - clipOffX) * clipScaleX;
-                clipRectW = (clipRectW - clipOffY) * clipScaleY;
+                final float clipRectX = (clipRect.x - displayPos.x) * framebufferScale.x;
+                final float clipRectY = (clipRect.y - displayPos.y) * framebufferScale.y;
+                final float clipRectZ = (clipRect.z - displayPos.x) * framebufferScale.x;
+                final float clipRectW = (clipRect.w - displayPos.y) * framebufferScale.y;
 
                 if (clipRectX < fbWidth && clipRectY < fbHeight && clipRectZ >= 0.0f && clipRectW >= 0.0f) {
+                    // Apply scissor/clipping rectangle
                     glScissor((int) clipRectX, (int) (fbHeight - clipRectW), (int) (clipRectZ - clipRectX), (int) (clipRectW - clipRectY));
-                    glBindTexture(GL_TEXTURE_2D, textureID);
-                    glDrawElements(GL_TRIANGLES, elemCount, GL_UNSIGNED_SHORT, idxBufferOffset);
-                }
 
-                idxBufferOffset += elemCount * 2;
+                    // Bind texture, Draw
+                    final int textureId = drawData.getCmdListCmdBufferTextureId(cmdListIdx, cmdBufferIdx);
+                    final int elemCount = drawData.getCmdListCmdBufferElemCount(cmdListIdx, cmdBufferIdx);
+                    final int idxBufferOffset = drawData.getCmdListCmdBufferIdxOffset(cmdListIdx, cmdBufferIdx);
+
+                    glBindTexture(GL_TEXTURE_2D, textureId);
+                    glDrawElements(GL_TRIANGLES, elemCount, GL_UNSIGNED_SHORT, idxBufferOffset * ImDrawData.SIZEOF_IM_DRAW_IDX);
+                }
             }
         }
 
@@ -168,8 +142,8 @@ public final class ImGuiImplGl3 {
     public void dispose() {
         glDeleteTextures(gFontTexture);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        glDeleteBuffers(iBufferHandle);
-        glDeleteBuffers(vBufferHandle);
+        glDeleteBuffers(elementsHandle);
+        glDeleteBuffers(vboHandle);
         glDetachShader(programId, vertexShaderId);
         glDetachShader(programId, fragmentShaderId);
         glDeleteProgram(programId);
@@ -214,10 +188,7 @@ public final class ImGuiImplGl3 {
         glGetIntegerv(GL_ACTIVE_TEXTURE, lastActiveTexture);
         glGetIntegerv(GL_CURRENT_PROGRAM, lastProgram);
         glGetIntegerv(GL_TEXTURE_BINDING_2D, lastTexture);
-        // int[] last_sampler; glGetIntegerv(GL_SAMPLER_BINDING, &last_sampler); // do it by yourself if needed
         glGetIntegerv(GL_ARRAY_BUFFER_BINDING, lastArrayBuffer);
-        // int[] last_vertex_array_object; glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &last_vertex_array_object); // do it by yourself if needed
-        // int[] last_polygon_mode; glGetIntegerv(GL_POLYGON_MODE, last_polygon_mode); // do it by yourself if needed
         glGetIntegerv(GL_VIEWPORT, lastViewport);
         glGetIntegerv(GL_SCISSOR_BOX, lastScissorBox);
         glGetIntegerv(GL_BLEND_SRC_RGB, lastBlendSrcRgb);
@@ -249,8 +220,8 @@ public final class ImGuiImplGl3 {
         glScissor(lastScissorBox[0], lastScissorBox[1], lastScissorBox[2], lastScissorBox[3]);
     }
 
-    private void bind(final ImDrawData drawData) {
-        glViewport(0, 0, (int) drawData.displaySizeX, (int) drawData.displaySizeY);
+    private void bind() {
+        glViewport(0, 0, (int) displaySize.x, (int) displaySize.y);
         glActiveTexture(GL_TEXTURE0);
         glEnable(GL_BLEND);
         glBlendEquation(GL_FUNC_ADD);
@@ -259,10 +230,10 @@ public final class ImGuiImplGl3 {
         glDisable(GL_DEPTH_TEST);
         glEnable(GL_SCISSOR_TEST);
 
-        final float left = drawData.displayPosX;
-        final float right = drawData.displayPosX + drawData.displaySizeX;
-        final float top = drawData.displayPosY;
-        final float bottom = drawData.displayPosY + drawData.displaySizeY;
+        final float left = displayPos.x;
+        final float right = displayPos.x + displaySize.x;
+        final float top = displayPos.y;
+        final float bottom = displayPos.y + displaySize.y;
 
         // Orthographic matrix projection
         projMatrix[0] = 2.0f / (right - left);
@@ -272,28 +243,26 @@ public final class ImGuiImplGl3 {
         projMatrix[13] = (top + bottom) / (bottom - top);
         projMatrix[15] = 1.0f;
 
-        // Bind vertices
-        glBindBuffer(GL_ARRAY_BUFFER, vBufferHandle);
+        // Bind shader
+        glUseProgram(programId);
+        glUniform1i(glGetUniformLocation(programId, "Texture"), 0);
+        glUniformMatrix4fv(glGetUniformLocation(programId, "ProjMtx"), false, projMatrix);
+
+        // Bind vertex/index buffers and setup attributes for ImDrawVert
+        glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementsHandle);
 
         int location = glGetAttribLocation(programId, "Position");
         glEnableVertexAttribArray(location);
-        glVertexAttribPointer(location, 2, GL_FLOAT, false, 20, 0);
+        glVertexAttribPointer(location, 2, GL_FLOAT, false, ImDrawData.SIZEOF_IM_DRAW_VERT, 0);
 
         location = glGetAttribLocation(programId, "UV");
         glEnableVertexAttribArray(location);
-        glVertexAttribPointer(location, 2, GL_FLOAT, false, 20, 8);
+        glVertexAttribPointer(location, 2, GL_FLOAT, false, ImDrawData.SIZEOF_IM_DRAW_VERT, 8);
 
         location = glGetAttribLocation(programId, "Color");
         glEnableVertexAttribArray(location);
-        glVertexAttribPointer(location, 4, GL_UNSIGNED_BYTE, true, 20, 16);
-
-        //Bind index
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iBufferHandle);
-
-        // Bind shader
-        glUseProgram(programId);
-        glUniformMatrix4fv(glGetUniformLocation(programId, "ProjMtx"), false, projMatrix);
-        glUniform1i(glGetUniformLocation(programId, "Texture"), 0);
+        glVertexAttribPointer(location, 4, GL_UNSIGNED_BYTE, true, ImDrawData.SIZEOF_IM_DRAW_VERT, 16);
     }
 
     private void unbind() {

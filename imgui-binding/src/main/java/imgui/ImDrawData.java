@@ -1,173 +1,234 @@
 package imgui;
 
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 /**
- * All draw data to render a Dear ImGui frame.
+ * All draw data to render Dear ImGui frame
+ * (NB: the style and the naming convention here is a little inconsistent, we currently preserve them for backward compatibility purpose,
+ * as this is one of the oldest structure exposed by the library! Basically, ImDrawList == CmdList)
  * <p>
- * BINDING NOTICE: DO NOT TRY TO MODIFY FIELDS OF THIS CLASS MANUALLY! You should only access their values after {@link ImGui#render()} call.
+ * BINDING NOTICE: Since it's impossible to do a 1:1 mapping with JNI, current class provides "getCmdList*()" methods.
+ * Those are used to get the data needed to do a rendering.
  */
-public final class ImDrawData {
-    public static final int V_BUFFER_SIZE = (4 + 1) * 4;
-    public static final int I_BUFFER_SIZE = 2;
-    public static final int CMD_BUFFER_SIZE = (1 + 4 + 1) * 4;
+public final class ImDrawData implements ImDestroyable {
+    public static final int SIZEOF_IM_DRAW_IDX = 2;
+    public static final int SIZEOF_IM_DRAW_VERT = (4 + 1) * 4;
 
-    public ByteBuffer vByteBuffer;
-    public ByteBuffer iByteBuffer;
-    public ByteBuffer cmdByteBuffer;
+    private static final int COUNT_FACTOR = 5_000;
 
-    public int totalIdxCount; // For convenience, sum of all ImDrawList's IdxBuffer.Size
-    public int totalVtxCount; // For convenience, sum of all ImDrawList's VtxBuffer.Size
-    public int cmdListsCount; // Number of ImDrawList* to render
+    final long ptr;
 
-    // Upper-left position of the viewport to render (== upper-left of the orthogonal projection matrix to use)
-    //
-    public float displayPosX;
-    public float displayPosY;
+    private ByteBuffer idxBuffer = ByteBuffer.allocateDirect(SIZEOF_IM_DRAW_IDX * COUNT_FACTOR).order(ByteOrder.nativeOrder());
+    private ByteBuffer vtxBuffer = ByteBuffer.allocateDirect(SIZEOF_IM_DRAW_VERT * COUNT_FACTOR).order(ByteOrder.nativeOrder());
 
-    // Size of the viewport to render (== io.DisplaySize for the main viewport)
-    // (DisplayPos+DisplaySize == lower-right of the orthogonal projection matrix to use)
-    //
-    public float displaySizeX;
-    public float displaySizeY;
+    /**
+     * This class will create a native structure.
+     * Call {@link #destroy()} method to manually free used memory.
+     */
+    public ImDrawData() {
+        ImGui.touch();
+        ptr = nCreate();
+    }
 
-    // Amount of pixels for each unit of DisplaySize. Based on io.DisplayFramebufferScale. Generally (1,1) on normal display, (2,2) on OSX with Retina display.
-    //
-    public float framebufferScaleX;
-    public float framebufferScaleY;
+    ImDrawData(final long ptr) {
+        this.ptr = ptr;
+    }
 
-    ImDrawData(final int maxVertices, final int maxIndices, final int maxCmd) {
-        vByteBuffer = ByteBuffer.allocateDirect(maxVertices * V_BUFFER_SIZE).order(ByteOrder.nativeOrder());
-        iByteBuffer = ByteBuffer.allocateDirect(maxIndices * I_BUFFER_SIZE).order(ByteOrder.nativeOrder());
-        cmdByteBuffer = ByteBuffer.allocateDirect(maxCmd * CMD_BUFFER_SIZE).order(ByteOrder.nativeOrder());
+    @Override
+    public void destroy() {
+        nDestroy(ptr);
     }
 
     /*JNI
         #include <stdint.h>
         #include <imgui.h>
+        #include "jni_common.h"
 
-        jfieldID totalVtxCountID;
-        jfieldID totalIdxCountID;
-        jfieldID CmdListsCountID;
-        jfieldID displayPosXID;
-        jfieldID displayPosYID;
-        jfieldID displaySizeXID;
-        jfieldID displaySizeYID;
-        jfieldID framebufferScaleXID;
-        jfieldID framebufferScaleYID;
+        jfieldID imDrawDataPtrID;
+
+        #define IM_DRAW_DATA ((ImDrawData*)env->GetLongField(object, imDrawDataPtrID))
      */
 
     static native void nInit(); /*
-        jclass jDrawDataClass = env->FindClass("imgui/ImDrawData");
-
-        totalVtxCountID = env->GetFieldID(jDrawDataClass, "totalVtxCount", "I");
-        totalIdxCountID = env->GetFieldID(jDrawDataClass, "totalIdxCount", "I");
-        CmdListsCountID = env->GetFieldID(jDrawDataClass, "cmdListsCount", "I");
-        displayPosXID = env->GetFieldID(jDrawDataClass, "displayPosX", "F");
-        displayPosYID = env->GetFieldID(jDrawDataClass, "displayPosY", "F");
-        displaySizeXID = env->GetFieldID(jDrawDataClass, "displaySizeX", "F");
-        displaySizeYID = env->GetFieldID(jDrawDataClass, "displaySizeY", "F");
-        framebufferScaleXID = env->GetFieldID(jDrawDataClass, "framebufferScaleX", "F");
-        framebufferScaleYID = env->GetFieldID(jDrawDataClass, "framebufferScaleY", "F");
+        jclass jImDrawDataClass = env->FindClass("imgui/ImDrawData");
+        imDrawDataPtrID = env->GetFieldID(jImDrawDataClass, "ptr", "J");
     */
 
-    native void nFillDrawData(Buffer indexBuffer, Buffer vertexBuffer, Buffer cmdBuffer); /*
-        ImDrawData* drawData = ImGui::GetDrawData();
+    private native long nCreate(); /*
+        ImDrawData* imDrawData = new ImDrawData();
+        return (intptr_t)imDrawData;
+    */
 
-        if (drawData == NULL) {
-            return;
+    private native void nDestroy(long ptr); /*
+        delete (ImDrawData*)ptr;
+    */
+
+    ///////// Start of Render Methods | Binding
+
+    /**
+     * Draw commands. Typically 1 command = 1 GPU draw call, unless the command is a callback.
+     */
+    public native int getCmdListCmdBufferSize(int cmdListIdx); /*
+        return IM_DRAW_DATA->CmdLists[cmdListIdx]->CmdBuffer.Size;
+    */
+
+    /**
+     * Number of indices (multiple of 3) to be rendered as triangles.
+     * Vertices are stored in the callee ImDrawList's vtx_buffer[] array, indices in idx_buffer[].
+     */
+    public native int getCmdListCmdBufferElemCount(int cmdListIdx, int cmdBufferIdx); /*
+        return IM_DRAW_DATA->CmdLists[cmdListIdx]->CmdBuffer[cmdBufferIdx].ElemCount;
+    */
+
+    /**
+     * Clipping rectangle (x1, y1, x2, y2). Subtract ImDrawData->DisplayPos to get clipping rectangle in "viewport" coordinates
+     */
+    public native void getCmdListCmdBufferClipRect(int cmdListIdx, int cmdBufferIdx, ImVec4 dstImVec4); /*
+        Jni::ImVec4Cpy(env, &IM_DRAW_DATA->CmdLists[cmdListIdx]->CmdBuffer[cmdBufferIdx].ClipRect, dstImVec4);
+    */
+
+    /**
+     * User-provided texture ID. Set by user in ImfontAtlas::SetTexID() for fonts or passed to Image*() functions.
+     * Ignore if never using images or multiple fonts atlas.
+     */
+    public native int getCmdListCmdBufferTextureId(int cmdListIdx, int cmdBufferIdx); /*
+        return (intptr_t)IM_DRAW_DATA->CmdLists[cmdListIdx]->CmdBuffer[cmdBufferIdx].TextureId;
+    */
+
+    /**
+     * Start offset in vertex buffer. Pre-1.71 or without ImGuiBackendFlags_RendererHasVtxOffset: always 0.
+     * With ImGuiBackendFlags_RendererHasVtxOffset: may be >0 to support meshes larger than 64K vertices with 16-bit indices.
+     */
+    public native int getCmdListCmdBufferVtxOffset(int cmdListIdx, int cmdBufferIdx); /*
+        return IM_DRAW_DATA->CmdLists[cmdListIdx]->CmdBuffer[cmdBufferIdx].VtxOffset;
+    */
+
+    /**
+     * Start offset in index buffer. Always equal to sum of ElemCount drawn so far.
+     */
+    public native int getCmdListCmdBufferIdxOffset(int cmdListIdx, int cmdBufferIdx); /*
+        return IM_DRAW_DATA->CmdLists[cmdListIdx]->CmdBuffer[cmdBufferIdx].IdxOffset;
+    */
+
+    /**
+     * Index buffer. Each command consume ImDrawCmd::ElemCount of those
+     */
+    public native int getCmdListIdxBufferSize(int cmdListIdx); /*
+        return IM_DRAW_DATA->CmdLists[cmdListIdx]->IdxBuffer.Size;
+    */
+
+    public ByteBuffer getCmdListIdxBufferData(final int cmdListIdx) {
+        final int idxBufferCapacity = getCmdListIdxBufferSize(cmdListIdx) * SIZEOF_IM_DRAW_IDX;
+        if (idxBuffer.capacity() < idxBufferCapacity) {
+            idxBuffer = ByteBuffer.allocateDirect(idxBufferCapacity + COUNT_FACTOR).order(ByteOrder.nativeOrder());
         }
 
-        int cmdListsCount = drawData->CmdListsCount;
+        nGetCmdListIdxBufferData(cmdListIdx, idxBuffer, idxBufferCapacity);
 
-        // Set values
-        env->SetIntField(object, totalVtxCountID, drawData->TotalVtxCount);
-        env->SetIntField(object, totalIdxCountID, drawData->TotalIdxCount);
-        env->SetIntField(object, CmdListsCountID, cmdListsCount);
+        idxBuffer.position(0);
+        idxBuffer.limit(idxBufferCapacity);
 
-        env->SetFloatField(object, displayPosXID, drawData->DisplayPos.x);
-        env->SetFloatField(object, displayPosYID, drawData->DisplayPos.y);
+        return idxBuffer;
+    }
 
-        env->SetFloatField(object, displaySizeXID, drawData->DisplaySize.x);
-        env->SetFloatField(object, displaySizeYID, drawData->DisplaySize.y);
+    private native void nGetCmdListIdxBufferData(int cmdListIdx, ByteBuffer idxBuffer, int idxBufferCapacity); /*
+        memcpy(idxBuffer, IM_DRAW_DATA->CmdLists[cmdListIdx]->IdxBuffer.Data, idxBufferCapacity);
+    */
 
-        env->SetFloatField(object, framebufferScaleXID, drawData->FramebufferScale.x);
-        env->SetFloatField(object, framebufferScaleYID, drawData->FramebufferScale.y);
+    /**
+     * Vertex buffer.
+     */
+    public native int getCmdListVtxBufferSize(int cmdListIdx); /*
+        return IM_DRAW_DATA->CmdLists[cmdListIdx]->VtxBuffer.Size;
+    */
 
-        ImDrawList** drawLists = drawData->CmdLists;
-
-        int verticesOffset = 0;
-        int indicesOffset = 0;
-        int cmdOffset = 0;
-
-        for(int i = 0; i < cmdListsCount; i++) {
-            ImDrawList& drawList = *drawLists[i];
-            ImVector<ImDrawCmd>& imDrawCmdList = drawList.CmdBuffer;
-            ImVector<ImDrawIdx>& idxBuffer = drawList.IdxBuffer;
-            ImVector<ImDrawVert>& vtxBuffer = drawList.VtxBuffer;
-
-            float* vertexArrayDest = (float*)vertexBuffer;
-            short* indexArrayDest = (short*)indexBuffer;
-
-            int colorSize = 1;
-            int verticesItemSize = (4 + colorSize);
-
-            vertexArrayDest[verticesOffset++] = vtxBuffer.Size;
-
-            // copy vertices to Destination buffer
-            for(int j = 0; j < vtxBuffer.Size; j++) {
-                ImDrawVert v = vtxBuffer[j];
-                float posX = v.pos.x;
-                float posY = v.pos.y;
-                float uvX = v.uv.x;
-                float uvY = v.uv.y;
-
-                int byteIndex = (j * verticesItemSize) + verticesOffset;
-
-                float color = 0;
-                memcpy(&color, &v.col, 4); // move unsigned int color to float
-
-                vertexArrayDest[byteIndex + 0] = posX;
-                vertexArrayDest[byteIndex + 1] = posY;
-                vertexArrayDest[byteIndex + 2] = uvX;
-                vertexArrayDest[byteIndex + 3] = uvY;
-                vertexArrayDest[byteIndex + 4] = color;
-            }
-            verticesOffset += vtxBuffer.Size * verticesItemSize;
-
-            // copy index to destination buffer
-            indexArrayDest[indicesOffset++] = idxBuffer.Size;
-
-            for(int j = 0; j < idxBuffer.Size; j++) {
-                indexArrayDest[j + indicesOffset] = idxBuffer[j];
-            }
-
-            indicesOffset += idxBuffer.Size;
-
-            float* cmdArrayDest = (float*)cmdBuffer;
-
-            cmdArrayDest[cmdOffset++] = imDrawCmdList.Size;
-            int bytesOffset = 0;
-            int imDrawCmdSize = 1 + 4 + 1;
-
-            for (int cmd_i = 0; cmd_i < imDrawCmdList.Size; cmd_i++) {
-                const ImDrawCmd* pcmd = &imDrawCmdList[cmd_i];
-
-                float textureID = (float)(intptr_t)pcmd->TextureId;
-                float tempArray [6] = {
-                    (float)pcmd->ElemCount,
-                    pcmd->ClipRect.x, pcmd->ClipRect.y,
-                    pcmd->ClipRect.z, pcmd->ClipRect.w,
-                    textureID
-                };
-
-                memcpy((cmdArrayDest + (cmd_i * imDrawCmdSize) + cmdOffset), tempArray, imDrawCmdSize * 4);
-                bytesOffset = bytesOffset + imDrawCmdSize;
-            }
-
-            cmdOffset += imDrawCmdList.Size * imDrawCmdSize;
+    public ByteBuffer getCmdListVtxBufferData(final int cmdListIdx) {
+        final int vtxBufferCapacity = getCmdListVtxBufferSize(cmdListIdx) * SIZEOF_IM_DRAW_VERT;
+        if (vtxBuffer.capacity() < vtxBufferCapacity) {
+            vtxBuffer = ByteBuffer.allocateDirect(vtxBufferCapacity + COUNT_FACTOR).order(ByteOrder.nativeOrder());
         }
+
+        nGetCmdListVtxBufferData(cmdListIdx, vtxBuffer, vtxBufferCapacity);
+
+        vtxBuffer.position(0);
+        vtxBuffer.limit(vtxBufferCapacity);
+
+        return vtxBuffer;
+    }
+
+    private native void nGetCmdListVtxBufferData(int cmdListIdx, ByteBuffer vtxBuffer, int vtxBufferCapacity); /*
+        memcpy(vtxBuffer, IM_DRAW_DATA->CmdLists[cmdListIdx]->VtxBuffer.Data, vtxBufferCapacity);
+    */
+
+    ///////// End of Render Methods
+
+    /**
+     * Only valid after Render() is called and before the next NewFrame() is called.
+     */
+    public native boolean getValid(); /*
+        return IM_DRAW_DATA->Valid;
+    */
+
+    /**
+     * Number of ImDrawList* to render
+     */
+    public native int getCmdListsCount(); /*
+        return IM_DRAW_DATA->CmdListsCount;
+    */
+
+    /**
+     * For convenience, sum of all ImDrawList's IdxBuffer.Size
+     */
+    public native int getTotalIdxCount(); /*
+        return IM_DRAW_DATA->TotalIdxCount;
+    */
+
+    /**
+     * For convenience, sum of all ImDrawList's VtxBuffer.Size
+     */
+    public native int getTotalVtxCount(); /*
+        return IM_DRAW_DATA->TotalVtxCount;
+    */
+
+    /**
+     * Upper-left position of the viewport to render (== upper-left of the orthogonal projection matrix to use)
+     */
+    public native void getDisplayPos(ImVec2 dstImVec2); /*
+        Jni::ImVec2Cpy(env, &IM_DRAW_DATA->DisplayPos, dstImVec2);
+    */
+
+    /**
+     * Size of the viewport to render (== io.DisplaySize for the main viewport)
+     * (DisplayPos + DisplaySize == lower-right of the orthogonal projection matrix to use)
+     */
+    public native void getDisplaySize(ImVec2 dstImVec2); /*
+        Jni::ImVec2Cpy(env, &IM_DRAW_DATA->DisplaySize, dstImVec2);
+    */
+
+    /**
+     * Amount of pixels for each unit of DisplaySize. Based on io.DisplayFramebufferScale. Generally (1,1) on normal display, (2,2) on OSX with Retina display.
+     */
+    public native void getFramebufferScale(ImVec2 dstImVec2); /*
+        Jni::ImVec2Cpy(env, &IM_DRAW_DATA->FramebufferScale, dstImVec2);
+    */
+
+    // Functions
+
+    /**
+     * Helper to convert all buffers from indexed to non-indexed, in case you cannot render indexed. Note: this is slow and most likely a waste of resources.
+     * Always prefer indexed rendering!
+     */
+    public native void deIndexAllBuffers(); /*
+        IM_DRAW_DATA->DeIndexAllBuffers();
+    */
+
+    /**
+     * Helper to scale the ClipRect field of each ImDrawCmd. Use if your final output buffer is at a different scale than Dear ImGui expects,
+     * or if there is a difference between your window resolution and framebuffer resolution.
+     */
+    public native void scaleClipRects(float fbScaleX, float fbScaleY); /*
+        const ImVec2 fbScale = ImVec2(fbScaleX, fbScaleY);
+        IM_DRAW_DATA->ScaleClipRects(fbScale);
     */
 }

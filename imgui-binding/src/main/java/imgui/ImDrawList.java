@@ -55,11 +55,16 @@ public final class ImDrawList {
         drawListTypeID = env->GetFieldID(jImDrawListClass, "drawListType", "I");
     */
 
-    // Flags, you may poke into these to adjust anti-aliasing settings per-primitive.
+    /**
+     * Flags, you may poke into these to adjust anti-aliasing settings per-primitive.
+     */
     public native int getImDrawListFlags(); /*
         return IM_DRAW_LIST->Flags;
     */
 
+    /**
+     * Flags, you may poke into these to adjust anti-aliasing settings per-primitive.
+     */
     public native void setImDrawListFlags(int imDrawListFlags); /*
         IM_DRAW_LIST->Flags = imDrawListFlags;
     */
