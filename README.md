@@ -68,7 +68,10 @@ Alternatively you can download imgui-java binaries manually from the [release pa
 
 **You are ready to use imgui-java binding!**
 
-### Binding Notice:
+## Using FreeType
+Dear ImGui by default uses an stb_strutype library to render a fonts atlas. It's possible to use FreeType instead to get better fonts quality. See an example in [ImGuiGlfwExample](https://github.com/spair/imgui-java/blob/v1.76-0.8/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java#L279). [Read more](https://github.com/ocornut/imgui/blob/v1.76/misc/freetype/README.md)
+
+## Binding Notice
 * All Dear ImGui methods are available in `camelCase`, not in `PascalCase`.
 * To **pass** `ImVec2`/`ImVec4` - provide two/four float numbers.
   To **get** `ImVec2`/`ImVec4` - provide a destination object.
