@@ -24,6 +24,7 @@ class GenerateLibs extends DefaultTask {
         // Copy ImGui h/cpp files
         project.copy { CopySpec spec ->
             spec.from(project.rootProject.file('imgui')) { CopySpec it -> it.include('*.h', '*.cpp') }
+            spec.from(project.rootProject.file('imgui/misc/freetype')) { CopySpec it -> it.include('*.h', '*.cpp') }
             spec.from(project.rootProject.file('imgui-binding/src/main/native'))
             spec.into(jniDir)
         }
@@ -36,6 +37,17 @@ class GenerateLibs extends DefaultTask {
 
         def linux32 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, false)
         def linux64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, true)
+
+        // Freetype Deps Config
+        win32.cppFlags += " -fstack-protector -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include"
+        win32.libraries += "-lfreetype -lbz2 -lssp"
+        win64.cppFlags += " -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include"
+        win64.libraries += "-lfreetype -lbz2 -lssp"
+        linux32.cppFlags += " -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include"
+        linux32.linkerFlags += " -lfreetype"
+        linux64.cppFlags += " -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include"
+        linux64.linkerFlags += " -lfreetype"
+        // End
 
         new AntScriptGenerator().generate(buildConfig, win32, win64, linux32, linux64)
 

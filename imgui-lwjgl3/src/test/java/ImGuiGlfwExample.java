@@ -1,6 +1,7 @@
 import imgui.ImFontAtlas;
 import imgui.ImFontConfig;
 import imgui.ImGui;
+import imgui.ImGuiFreeType;
 import imgui.ImGuiIO;
 import imgui.callbacks.ImStrConsumer;
 import imgui.callbacks.ImStrSupplier;
@@ -262,7 +263,7 @@ public final class ImGuiGlfwExample {
         // ------------------------------
         // Fonts from file/memory example
 
-        fontConfig.setRasterizerMultiply(1.2f); // This will make fonts a bit more readable
+//        fontConfig.setRasterizerMultiply(1.2f); // This will make fonts a bit more readable
 
         // We can add new fonts directly from file
         fontAtlas.addFontFromFileTTF("src/test/resources/DroidSans.ttf", 13, fontConfig);
@@ -275,6 +276,8 @@ public final class ImGuiGlfwExample {
         fontAtlas.addFontFromMemoryTTF(loadFromResources("Roboto-Regular.ttf"), 14, fontConfig);
 
         fontConfig.destroy(); // After all fonts were added we don't need this config more
+
+        ImGuiFreeType.buildFontAtlas(fontAtlas, ImGuiFreeType.RasterizerFlags.LightHinting);
 
         // Method initializes LWJGL3 renderer.
         // This method SHOULD be called after you've initialized your ImGui configuration (fonts and so on).
