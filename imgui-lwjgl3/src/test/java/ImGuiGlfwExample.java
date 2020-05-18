@@ -246,6 +246,9 @@ public final class ImGuiGlfwExample {
         final ImFontAtlas fontAtlas = io.getFonts();
         final ImFontConfig fontConfig = new ImFontConfig(); // Natively allocated object, should be explicitly destroyed
 
+        // Glyphs could be added per-font as well as per config used globally like here
+        fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesCyrillic());
+
         // Add a default font, which is 'ProggyClean.ttf, 13px'
         fontAtlas.addFontDefault();
 
@@ -253,19 +256,19 @@ public final class ImGuiGlfwExample {
         fontConfig.setMergeMode(true); // When enabled, all fonts added with this config would be merged with the previously added font
         fontConfig.setPixelSnapH(true);
 
-        fontAtlas.addFontFromMemoryTTF(loadFromResources("basis33.ttf"), 16, fontConfig, fontAtlas.getGlyphRangesCyrillic());
+        fontAtlas.addFontFromMemoryTTF(loadFromResources("basis33.ttf"), 16, fontConfig);
 
         fontConfig.setMergeMode(false);
         fontConfig.setPixelSnapH(false);
 
         // Fonts from file/memory example
         // We can add new fonts from the file system
-        fontAtlas.addFontFromFileTTF("src/test/resources/Rubik-Regular.ttf", 13, fontConfig);
-        fontAtlas.addFontFromFileTTF("src/test/resources/Rubik-Regular.ttf", 16, fontConfig);
+        fontAtlas.addFontFromFileTTF("src/test/resources/Righteous-Regular.ttf", 14, fontConfig);
+        fontAtlas.addFontFromFileTTF("src/test/resources/Righteous-Regular.ttf", 16, fontConfig);
 
         // Or directly from the memory
-        fontConfig.setName("Roboto-Regular.ttf, 13px"); // This name will be displayed in Style Editor
-        fontAtlas.addFontFromMemoryTTF(loadFromResources("Roboto-Regular.ttf"), 13, fontConfig);
+        fontConfig.setName("Roboto-Regular.ttf, 14px"); // This name will be displayed in Style Editor
+        fontAtlas.addFontFromMemoryTTF(loadFromResources("Roboto-Regular.ttf"), 14, fontConfig);
         fontConfig.setName("Roboto-Regular.ttf, 16px"); // We can apply a new config value every time we add a new font
         fontAtlas.addFontFromMemoryTTF(loadFromResources("Roboto-Regular.ttf"), 16, fontConfig);
 
