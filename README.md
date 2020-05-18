@@ -1,28 +1,22 @@
-# imgui-java
+# imgui-java 
+[![Build Status](https://travis-ci.org/SpaiR/imgui-java.svg?branch=master)](https://travis-ci.org/SpaiR/imgui-java) [![javadoc](https://javadoc.io/badge2/io.imgui.java/binding/javadoc.svg)](https://javadoc.io/doc/io.imgui.java/binding) [![JCenter](https://img.shields.io/bintray/v/spair/io.imgui.java/binding.svg?label=binding)](https://bintray.com/spair/io.imgui.java/binding/_latestVersion) [![JCenter](https://img.shields.io/bintray/v/spair/io.imgui.java/lwjgl3.svg?label=lwjgl3)](https://bintray.com/spair/io.imgui.java/lwjgl3/_latestVersion)
 
-[![Build Status](https://travis-ci.org/SpaiR/imgui-java.svg?branch=master)](https://travis-ci.org/SpaiR/imgui-java)
-[![JCenter](https://img.shields.io/bintray/v/spair/io.imgui.java/binding.svg?label=binding)](https://bintray.com/spair/io.imgui.java/binding/_latestVersion)
-[![JCenter](https://img.shields.io/bintray/v/spair/io.imgui.java/lwjgl3.svg?label=lwjgl3)](https://bintray.com/spair/io.imgui.java/lwjgl3/_latestVersion)
-[![javadoc](https://javadoc.io/badge2/io.imgui.java/binding/javadoc.svg)](https://javadoc.io/doc/io.imgui.java/binding)
+JNI based binding for [Dear ImGui](https://github.com/ocornut/imgui) with no dependencies, ready to use pre-compiled binaries and a renderer for [LWJGL3](https://www.lwjgl.org/).
 
-A handcrafted Java binding for [Dear ImGui](https://github.com/ocornut/imgui) with no dependencies and ready to use pre-compiled binaries.
+Please read **Binding Notice** to get more info about java-specific things of the API.<br>
+See official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki) to get more info about how to do things in Dear ImGui. 
 
-It's a straightforward binding, which uses JNI to do a direct calls to Dear ImGui API.<br>
-Please read **Binding notice** to get more info about specific of the binding API.<br>
-See official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki) to get more info about how to do things in ImGui. 
+imgui-java provides all the data you need to render Dear ImGui. If, for some reason, you want to use your own backend renderer, see how things are done in [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.76-0.8/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java).
 
-Binding doesn't force you to use backend renderer which is introduced here. Feel free to use your own render engine if you need so.
-See how things are done in [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.76-0.8/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java).
-
-Binding has the next version naming: `imguiVersion-bindingVersion`.<br>
-For example `1.74-0.1` means that binding uses `1.74` version of **ImGui** and binding itself has version `0.1`.
+Binding has the next versioning semantic: `imguiVersion-bindingVersion`.<br>
+For example `1.74-0.1` means that imgui-java uses `1.74` version of Dear ImGui and binding itself has the version `0.1`.
 
 *Some of the very specific features are still in a wip state.*
 
-## How to try
+## How to Try
 _Make sure you have installed Java 8 or higher._
 
-You can try this binding by yourself in a three simple steps:
+You can try Dear ImGui with Java by yourself in a three simple steps:
 
 ```
 git clone --branch v1.76-0.8 https://github.com/SpaiR/imgui-java.git
@@ -30,106 +24,63 @@ cd imgui-java
 gradlew :imgui-lwjgl3:startExample
 ```
 
-That's it! This will start an example app [ImGuiGlfwExample](https://github.com/SpaiR/imgui-java/blob/v1.76-0.8/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java)
-which relies on GLFW and LWJGL3. Feel free to modify [ImGuiGlfwExample#showUi](https://github.com/SpaiR/imgui-java/blob/v1.76-0.8/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java#L346)
-method to try different ImGui widgets in action.
+That's all! You will start an example app [ImGuiGlfwExample](https://github.com/SpaiR/imgui-java/blob/v1.76-0.8/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java). Feel free to modify [ExampleUi](https://github.com/SpaiR/imgui-java/blob/v1.76-0.8/imgui-lwjgl3/src/test/java/ExampleUi.java) class to try different Dear ImGui widgets in action.
 
-**GIF with example:** https://imgur.com/a/E2rfuCR
+![imgui-java demo](https://i.imgur.com/ljAhD7a.gif)
 
-## How to use
+## How to Use
 
-<details>
-    <summary><b>Usage ready build.gradle</b></summary>
-
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-
-    switch (OperatingSystem.current()) {
-        case OperatingSystem.LINUX:
-            project.ext.nativesType = "natives-linux"
-            break
-        case OperatingSystem.WINDOWS:
-            project.ext.nativesType = "natives-windows"
-            break
-    }
-
-    ext {
-        lwjglVersion = '3.2.3'
-        imguiVersion = '1.76-0.8'
-    }
-
-    dependencies {
-        implementation "io.imgui.java:binding:$imguiVersion"
-        implementation "io.imgui.java:lwjgl3:$imguiVersion"
-        runtimeOnly "io.imgui.java:$nativesType:$imguiVersion"
-
-        implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
-
-        ['', '-opengl', '-glfw'].each {
-            implementation "org.lwjgl:lwjgl$it:$lwjglVersion"
-            runtimeOnly "org.lwjgl:lwjgl$it::$nativesType"
-        }
-    }
-</details>
-
-### Step 1
-Add jcenter repository:
 ```
 repositories {
     jcenter()
+    mavenCentral()
+}
+
+ext {
+    lwjglVersion = '3.2.3'
+    imguiVersion = '1.76-0.8'
+}
+
+dependencies {
+    implementation "io.imgui.java:binding:$imguiVersion"
+    implementation "io.imgui.java:lwjgl3:$imguiVersion"
+
+    // Include all available natives, but it's likely that you want something specific
+    runtimeOnly "io.imgui.java:natives-windows:$imguiVersion"
+    runtimeOnly "io.imgui.java:natives-windows-x86:$imguiVersion"
+    runtimeOnly "io.imgui.java:natives-linux:$imguiVersion"
+    runtimeOnly "io.imgui.java:natives-linux-x86:$imguiVersion"
+
+    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+
+    ['', '-opengl', '-glfw'].each {
+        implementation "org.lwjgl:lwjgl$it:$lwjglVersion"
+
+        // Include all available natives, but it's likely that you want something specific
+        runtimeOnly "org.lwjgl:lwjgl$it::natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl$it::natives-windows-x86"
+        runtimeOnly "org.lwjgl:lwjgl$it::natives-linux"
+    }
 }
 ```
 
-### Step 2
-Add binding dependency:
-```
-implementation 'io.imgui.java:binding:1.76-0.8'
-```
-
-### Step 3
-If you want to use LWJGL3 renderer:
-```
-implementation 'io.imgui.java:lwjgl3:1.76-0.8'
-```
-**Disclaimer!**<br>
-LWJGL3 renderer is based on the `3.2.3` version of the [LWJGL](https://www.lwjgl.org/). 
-You'll need to add additional dependencies to it. Specifically `lwjgl` itself, `glfw` and `opengl` modules.
-You can find how to do that [here](https://www.lwjgl.org/customize).
-
-### Step 4
-Add binary lib dependency:
-```
-runtimeOnly "io.imgui.java:$imguiNatives:1.76-0.8"
-```
-Where `imguiNatives` could be:
- - `natives-linux`
- - `natives-linux-x86`
- - `natives-windows`
- - `natives-windows-x86`
-
-_(`x86` suffix is to get 32bit library)_
-
-Or alternatively you can download binaries manually:<br>
-Go to the `/bin` folder and pick a native library for your OS. Then you'll need to provide `imgui.library.path` or `java.library.path` 
-VM option with path to a folder where you've placed downloaded file.
+Alternatively you can download imgui-java binaries manually from the [release page](https://github.com/SpaiR/imgui-java/releases/latest). You'll need to provide a VM option: `imgui.library.path` or `java.library.path`. It should point to the folder where you've placed downloaded binaries.
 
 **You are ready to use imgui-java binding!**
 
-#### Binding notice:
-* All ImGui methods are available in `camelCase`, not in `PascalCase`.
-* In places where you need to **pass** `ImVec2` or `ImVec4` you'll need to pass two or four float parameters respectively.
-  If you need to **get** `ImVec2` or `ImVec4`, you'll need to pass a destination object as method parameter.
-* When you need to get an input/output to/from Dear ImGui - use primitive wrappers: `ImBool`, `ImInt` etc.
-* Due to the Java and JNI restrictions we can't provide a fully fledged callbacks to the ImGui::InputText*() methods.
-  Partly you could replace some of the features (like setting of the allowed chars to input) by using the ImGuiInputTextData class. 
-  Read [javadoc](https://javadoc.io/doc/io.imgui.java/binding) to get more info.
+### Binding Notice:
+* All Dear ImGui methods are available in `camelCase`, not in `PascalCase`.
+* To **pass** `ImVec2`/`ImVec4` - provide two/four float numbers.
+  To **get** `ImVec2`/`ImVec4` - provide a destination object.
+* To get an input/output to/from Dear ImGui - use primitive wrappers: `ImBool`, `ImInt` etc.
+* Due to the Java and JNI restrictions we can't provide a fully fledged callbacks to the ImGui::InputText* methods.
+  To replace some of the features use an ImGuiInputTextData class.
+* Read [javadoc](https://javadoc.io/doc/io.imgui.java/binding) and sources comments to get more info.
 
-## How to build
+## How to Build
 To build native libraries you should install `mingw-w64` and `ant`. Modify [GenerateLibs](https://github.com/SpaiR/imgui-java/blob/master/buildSrc/src/main/groovy/imgui/generate/GenerateLibs.groovy)
 to build specific binaries you need. After everything is configured, run `gradlew :imgui-binding:generateLibs`.
-This will build native libraries and place them in `~/imgui-binding/build/libsNative` folder.
+That will build native libraries and place them in `imgui-binding/build/libsNative` folder.
 
 ## Credits
 This binding is partly based on the work of [xpenatan](https://github.com/xpenatan) and his version [jDear-imgui](https://github.com/xpenatan/jDear-imgui).
