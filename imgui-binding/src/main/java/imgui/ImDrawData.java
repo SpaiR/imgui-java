@@ -68,7 +68,7 @@ public final class ImDrawData implements ImDestroyable {
     */
 
     /**
-     * Clipping rectangle (x1, y1, x2, y2). Subtract ImDrawData->DisplayPos to get clipping rectangle in "viewport" coordinates
+     * Clipping rectangle (x1, y1, x2, y2). Subtract ImDrawData.DisplayPos to get clipping rectangle in "viewport" coordinates
      */
     public native void getCmdListCmdBufferClipRect(int cmdListIdx, int cmdBufferIdx, ImVec4 dstImVec4); /*
         Jni::ImVec4Cpy(env, &IM_DRAW_DATA->CmdLists[cmdListIdx]->CmdBuffer[cmdBufferIdx].ClipRect, dstImVec4);
@@ -84,7 +84,7 @@ public final class ImDrawData implements ImDestroyable {
 
     /**
      * Start offset in vertex buffer. Pre-1.71 or without ImGuiBackendFlags_RendererHasVtxOffset: always 0.
-     * With ImGuiBackendFlags_RendererHasVtxOffset: may be >0 to support meshes larger than 64K vertices with 16-bit indices.
+     * With ImGuiBackendFlags_RendererHasVtxOffset: may be {@code >}0 to support meshes larger than 64K vertices with 16-bit indices.
      */
     public native int getCmdListCmdBufferVtxOffset(int cmdListIdx, int cmdBufferIdx); /*
         return IM_DRAW_DATA->CmdLists[cmdListIdx]->CmdBuffer[cmdBufferIdx].VtxOffset;
