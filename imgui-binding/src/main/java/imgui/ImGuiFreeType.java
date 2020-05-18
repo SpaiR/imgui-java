@@ -16,7 +16,7 @@ public final class ImGuiFreeType {
         nBuildFontAtlas(atlas.ptr, 0);
     }
 
-    public static void buildFontAtlas(final ImFontAtlas atlas, int extraFlags) {
+    public static void buildFontAtlas(final ImFontAtlas atlas, final int extraFlags) {
         nBuildFontAtlas(atlas.ptr, extraFlags);
     }
 

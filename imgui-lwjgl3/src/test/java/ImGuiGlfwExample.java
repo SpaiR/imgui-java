@@ -30,9 +30,9 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 @SuppressWarnings("MagicNumber")
 public final class ImGuiGlfwExample {
-    private long windowPtr; // current GLFW window pointer
+    private long windowPtr; // pointer to the current GLFW window
 
-    // To get window properties
+    // For application window properties
     private final int[] winWidth = new int[1];
     private final int[] winHeight = new int[1];
     private final int[] fbWidth = new int[1];
@@ -49,7 +49,7 @@ public final class ImGuiGlfwExample {
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
     private String glslVersion = null; // We can initialize our renderer with different versions of the GLSL
 
-    // Ui to render
+    // User UI to render
     private final ExampleUi exampleUi = new ExampleUi();
 
     public void run() throws Exception {
@@ -61,7 +61,7 @@ public final class ImGuiGlfwExample {
         destroyGlfw();
     }
 
-    // Initialize GLFW + create OpenGL context.
+    // Initialize GLFW + create an OpenGL context.
     // All code is mostly a copy-paste from the official LWJGL3 "Get Started": https://www.lwjgl.org/guide
     private void initGlfw() {
         // Setup an error callback. The default implementation
@@ -79,7 +79,6 @@ public final class ImGuiGlfwExample {
 
         decideGlGlslVersions();
 
-        // Create the window
         windowPtr = glfwCreateWindow(1280, 768, "Dear ImGui + GLFW + LWJGL Example", NULL, NULL);
 
         if (windowPtr == NULL) {
@@ -135,6 +134,7 @@ public final class ImGuiGlfwExample {
         // This line is critical for Dear ImGui to work.
         ImGui.createContext();
 
+        // ------------------------------------------------------------
         // Initialize ImGuiIO config
         final ImGuiIO io = ImGui.getIO();
 
@@ -143,6 +143,7 @@ public final class ImGuiGlfwExample {
         io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors); // Mouse cursors to display while resizing windows etc.
         io.setBackendPlatformName("imgui_java_impl_glfw");
 
+        // ------------------------------------------------------------
         // Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array.
         final int[] keyMap = new int[ImGuiKey.COUNT];
         keyMap[ImGuiKey.Tab] = GLFW_KEY_TAB;
@@ -169,6 +170,7 @@ public final class ImGuiGlfwExample {
         keyMap[ImGuiKey.Z] = GLFW_KEY_Z;
         io.setKeyMap(keyMap);
 
+        // ------------------------------------------------------------
         // Mouse cursors mapping
         mouseCursors[ImGuiMouseCursor.Arrow] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
         mouseCursors[ImGuiMouseCursor.TextInput] = glfwCreateStandardCursor(GLFW_IBEAM_CURSOR);
@@ -181,7 +183,7 @@ public final class ImGuiGlfwExample {
         mouseCursors[ImGuiMouseCursor.NotAllowed] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
 
         // ------------------------------------------------------------
-        // Here goes GLFW callbacks to update user input in Dear ImGui
+        // GLFW callbacks to handle user input
 
         glfwSetKeyCallback(windowPtr, (w, key, scancode, action, mods) -> {
             if (action == GLFW_PRESS) {
@@ -239,44 +241,38 @@ public final class ImGuiGlfwExample {
 
         // ------------------------------------------------------------
         // Fonts configuration
-
-        // -------------------
-        // Fonts merge example
+        // Read: https://raw.githubusercontent.com/ocornut/imgui/master/docs/FONTS.txt
 
         final ImFontAtlas fontAtlas = io.getFonts();
+        final ImFontConfig fontConfig = new ImFontConfig(); // Natively allocated object, should be explicitly destroyed
 
-        // First of all we add a default font, which is 'ProggyClean.ttf, 13px'
+        // Add a default font, which is 'ProggyClean.ttf, 13px'
         fontAtlas.addFontDefault();
 
-        final ImFontConfig fontConfig = new ImFontConfig(); // Keep in mind that creation of the ImFontConfig will allocate the native memory
-        fontConfig.setMergeMode(true); // All fonts added while this mode is turned on will be merged with the previously added font
+        // Fonts merge example
+        fontConfig.setMergeMode(true); // When enabled, all fonts added with this config would be merged with the previously added font
         fontConfig.setPixelSnapH(true);
-        fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesCyrillic()); // Additional glyphs could be added like this or in "addFontFrom*()" methods
 
-        // We merge font loaded from resources with the default one. Thus we will get an absent cyrillic glyphs
-        fontAtlas.addFontFromMemoryTTF(loadFromResources("basis33.ttf"), 16, fontConfig);
+        fontAtlas.addFontFromMemoryTTF(loadFromResources("basis33.ttf"), 16, fontConfig, fontAtlas.getGlyphRangesCyrillic());
 
-        // Disable merge mode and add all other fonts normally
         fontConfig.setMergeMode(false);
         fontConfig.setPixelSnapH(false);
 
-        // ------------------------------
         // Fonts from file/memory example
+        // We can add new fonts from the file system
+        fontAtlas.addFontFromFileTTF("src/test/resources/Rubik-Regular.ttf", 13, fontConfig);
+        fontAtlas.addFontFromFileTTF("src/test/resources/Rubik-Regular.ttf", 16, fontConfig);
 
-//        fontConfig.setRasterizerMultiply(1.2f); // This will make fonts a bit more readable
-
-        // We can add new fonts directly from file
-        fontAtlas.addFontFromFileTTF("src/test/resources/DroidSans.ttf", 13, fontConfig);
-        fontAtlas.addFontFromFileTTF("src/test/resources/DroidSans.ttf", 14, fontConfig);
-
-        // Or directly from memory
+        // Or directly from the memory
         fontConfig.setName("Roboto-Regular.ttf, 13px"); // This name will be displayed in Style Editor
         fontAtlas.addFontFromMemoryTTF(loadFromResources("Roboto-Regular.ttf"), 13, fontConfig);
-        fontConfig.setName("Roboto-Regular.ttf, 14px"); // We can apply a new config value every time we add a new font
-        fontAtlas.addFontFromMemoryTTF(loadFromResources("Roboto-Regular.ttf"), 14, fontConfig);
+        fontConfig.setName("Roboto-Regular.ttf, 16px"); // We can apply a new config value every time we add a new font
+        fontAtlas.addFontFromMemoryTTF(loadFromResources("Roboto-Regular.ttf"), 16, fontConfig);
 
         fontConfig.destroy(); // After all fonts were added we don't need this config more
 
+        // ------------------------------------------------------------
+        // Use freetype instead of stb_truetype to build a fonts texture
         ImGuiFreeType.buildFontAtlas(fontAtlas, ImGuiFreeType.RasterizerFlags.LightHinting);
 
         // Method initializes LWJGL3 renderer.
@@ -286,7 +282,7 @@ public final class ImGuiGlfwExample {
     }
 
     // Main application loop
-    private void loop() throws Exception {
+    private void loop() {
         double time = 0; // to track our frame delta value
 
         // Run the rendering loop until the user has attempted to close the window
@@ -298,7 +294,7 @@ public final class ImGuiGlfwExample {
 
             startFrame((float) deltaTime);
 
-            // Any Dear ImGui code SHOULD go between NewFrame()/Render() methods
+            // Any Dear ImGui code SHOULD go between ImGui.newFrame()/ImGui.render() methods
             ImGui.newFrame();
             exampleUi.render();
             ImGui.render();
@@ -312,32 +308,30 @@ public final class ImGuiGlfwExample {
         glClearColor(exampleUi.backgroundColor[0], exampleUi.backgroundColor[1], exampleUi.backgroundColor[2], 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // Get window size properties and mouse position
+        // Get window properties and mouse position
         glfwGetWindowSize(windowPtr, winWidth, winHeight);
         glfwGetFramebufferSize(windowPtr, fbWidth, fbHeight);
         glfwGetCursorPos(windowPtr, mousePosX, mousePosY);
 
-        // We SHOULD call those methods to update ImGui state for current frame
+        // We SHOULD call those methods to update Dear ImGui state for the current frame
         final ImGuiIO io = ImGui.getIO();
         io.setDisplaySize(winWidth[0], winHeight[0]);
         io.setDisplayFramebufferScale((float) fbWidth[0] / winWidth[0], (float) fbHeight[0] / winHeight[0]);
         io.setMousePos((float) mousePosX[0], (float) mousePosY[0]);
         io.setDeltaTime(deltaTime);
 
-        // Update mouse cursor
+        // Update the mouse cursor
         final int imguiCursor = ImGui.getMouseCursor();
         glfwSetCursor(windowPtr, mouseCursors[imguiCursor]);
         glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 
     private void endFrame() {
-        // After Dear ImGui prepared a draw data, we use it in LWJGL3 renderer.
+        // After Dear ImGui prepared a draw data, we use it in the LWJGL3 renderer.
         // At that moment ImGui will be rendered to the current OpenGL context.
         imGuiGl3.render(ImGui.getDrawData());
 
-        glfwSwapBuffers(windowPtr); // swap the color buffers
-
-        // Poll for window events. The key callback above will only be invoked during this call.
+        glfwSwapBuffers(windowPtr);
         glfwPollEvents();
     }
 
