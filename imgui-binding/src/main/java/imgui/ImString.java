@@ -107,6 +107,11 @@ public final class ImString {
         data = newBuffer;
     }
 
+    byte[] resizeInternal(final int newSize) {
+        resize(newSize + inputData.resizeFactor);
+        return data;
+    }
+
     /**
      * Get the length of the text inside of the data buffer.
      * @return length of the text inside of the data buffer

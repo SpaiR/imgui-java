@@ -2575,16 +2575,19 @@ public final class ImGui {
     // - Most of the ImGuiInputTextFlags flags are only useful for InputText() and not for InputFloatX, InputIntX, InputDouble etc.
 
     /*JNI
+        jmethodID jImStringResizeInternalMID;
+
         jfieldID imTextInputDataSizeID;
         jfieldID imTextInputDataIsDirtyID;
         jfieldID imTextInputDataIsResizedID;
 
-        int resizeValue;
-
         struct InputTextCallbackUserData {
             JNIEnv* env;
+            jobject* imString;
+            int maxSize;
+            jbyteArray jResizedBuf;
+            char* resizedBuf;
             jobject* textInputData;
-            char* buf;
             char* allowedChars;
         };
 
@@ -2603,6 +2606,19 @@ public final class ImGui {
                     }
                     return found ? 0 : 1;
                 }
+            } else if (data->EventFlag == ImGuiInputTextFlags_CallbackResize) {
+                int newSize = data->BufTextLen;
+                if (newSize >= userData->maxSize) {
+                    JNIEnv* env = userData->env;
+
+                    jbyteArray newBufArr = (jbyteArray)env->CallObjectMethod(*userData->imString, jImStringResizeInternalMID, newSize);
+                    char* newBuf = (char*)env->GetPrimitiveArrayCritical(newBufArr, 0);
+
+                    data->Buf = newBuf;
+
+                    userData->jResizedBuf = newBufArr;
+                    userData->resizedBuf = newBuf;
+                }
             }
 
             return 0;
@@ -2614,10 +2630,9 @@ public final class ImGui {
         imTextInputDataSizeID = env->GetFieldID(jImInputTextDataClass, "size", "I");
         imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
         imTextInputDataIsResizedID = env->GetFieldID(jImInputTextDataClass, "isResized", "Z");
-    */
 
-    private static native int nGetResizeValue(); /*
-        return resizeValue;
+        jclass jImString = env->FindClass("imgui/ImString");
+        jImStringResizeInternalMID = env->GetMethodID(jImString, "resizeInternal", "(I)[B");
     */
 
     public static boolean inputText(String label, ImString text) {
@@ -2651,27 +2666,22 @@ public final class ImGui {
             flags |= ImGuiInputTextFlags.CallbackResize;
         }
 
-        final boolean hasInput = nInputText(multiline, label, text.data, text.data.length, width, height, flags, inputData, inputData.allowedChars);
-
-        if (inputData.isResized) {
-            inputData.isResized = false;
-            final int resizeValue = nGetResizeValue();
-            text.resize(resizeValue + inputData.resizeFactor);
-            inputData.size = resizeValue;
+        if (!inputData.allowedChars.isEmpty()) {
+            flags |= ImGuiInputTextFlags.CallbackCharFilter;
         }
 
-        return hasInput;
+        return nInputText(multiline, label, text, text.data, text.data.length, width, height, flags, inputData, inputData.allowedChars);
     }
 
-    private static native boolean nInputText(boolean multiline, String label, byte[] buf, int maxSize, float width, float height, int flags, ImGuiInputTextData textInputData, String allowedChars); /*
+    private static native boolean nInputText(boolean multiline, String label, ImString imString, byte[] buf, int maxSize, float width, float height, int flags, ImGuiInputTextData textInputData, String allowedChars); /*
         InputTextCallbackUserData userData;
+        userData.imString = &imString;
+        userData.maxSize = maxSize;
+        userData.jResizedBuf = NULL;
+        userData.resizedBuf = NULL;
         userData.textInputData = &textInputData;
         userData.env = env;
-        userData.buf = buf;
         userData.allowedChars = allowedChars;
-
-        if (strlen(allowedChars) > 0)
-            flags |= ImGuiInputTextFlags_CallbackCharFilter;
 
         bool valueChanged;
 
@@ -2681,14 +2691,16 @@ public final class ImGui {
             valueChanged = ImGui::InputText(label, buf, maxSize, flags, &TextEditCallbackStub, &userData);
         }
 
-        int size = strlen(buf);
-
-        if ((flags & ImGuiInputTextFlags_CallbackResize) && ((size + 1) > maxSize)) {
-            env->SetBooleanField(textInputData, imTextInputDataIsResizedID, true);
-            resizeValue = size;
-        }
-
         if (valueChanged) {
+            int size;
+
+            if (userData.jResizedBuf != NULL) {
+                size = strlen(userData.resizedBuf);
+                env->ReleasePrimitiveArrayCritical(userData.jResizedBuf, userData.resizedBuf, 0);
+            } else {
+                size = strlen(buf);
+            }
+
             env->SetIntField(textInputData, imTextInputDataSizeID, size);
             env->SetBooleanField(textInputData, imTextInputDataIsDirtyID, true);
         }
