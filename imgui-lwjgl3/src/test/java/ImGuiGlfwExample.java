@@ -235,7 +235,12 @@ public final class ImGuiGlfwExample {
         io.setGetClipboardTextFn(new ImStrSupplier() {
             @Override
             public String get() {
-                return glfwGetClipboardString(windowPtr);
+                final String clipboardString = glfwGetClipboardString(windowPtr);
+                if (clipboardString != null) {
+                    return clipboardString;
+                } else {
+                    return "";
+                }
             }
         });
 
