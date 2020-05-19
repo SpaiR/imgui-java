@@ -1,5 +1,6 @@
 package imgui;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -61,7 +62,7 @@ public final class ImString {
     public String get() {
         if (inputData.isDirty) {
             inputData.isDirty = false;
-            text = new String(data, 0, inputData.size);
+            text = new String(data, 0, inputData.size, StandardCharsets.UTF_8);
         }
         return text;
     }
@@ -79,7 +80,7 @@ public final class ImString {
         final int currentLen = data == null ? 0 : data.length;
         byte[] newBuff = null;
 
-        // If provided value require bigger buffer and we can resize it
+        // If provided value require a bigger buffer and we can resize it
         if (resize && (currentLen - CARET_LEN) < valueBuff.length) {
             newBuff = new byte[valueBuff.length + resizeValue + CARET_LEN];
             inputData.size = valueBuff.length;
