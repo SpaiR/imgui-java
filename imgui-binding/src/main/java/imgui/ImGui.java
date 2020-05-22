@@ -1434,6 +1434,11 @@ public final class ImGui {
         return ImGui::ImageButton((ImTextureID)(intptr_t)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), framePadding, ImVec4(bgColorR, bgColorG, bgColorB, bgColorA), ImVec4(tintR, tintG, tintB, tintA));
     */
 
+    public static native boolean checkbox(String label, boolean active); /*
+        bool flag = (bool)active;
+        return ImGui::Checkbox(label, &flag);
+    */
+
     public static boolean checkbox(String label, ImBool active) {
         return nCheckbox(label, active.data);
     }
