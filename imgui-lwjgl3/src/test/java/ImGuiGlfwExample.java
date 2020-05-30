@@ -205,17 +205,13 @@ public final class ImGuiGlfwExample {
         });
 
         glfwSetMouseButtonCallback(windowPtr, (w, button, action, mods) -> {
-            final boolean[] mouseDown = new boolean[5];
+            io.setMouseDown(0, button == GLFW_MOUSE_BUTTON_1 && action != GLFW_RELEASE);
+            io.setMouseDown(1, button == GLFW_MOUSE_BUTTON_2 && action != GLFW_RELEASE);
+            io.setMouseDown(2, button == GLFW_MOUSE_BUTTON_3 && action != GLFW_RELEASE);
+            io.setMouseDown(3, button == GLFW_MOUSE_BUTTON_4 && action != GLFW_RELEASE);
+            io.setMouseDown(4, button == GLFW_MOUSE_BUTTON_5 && action != GLFW_RELEASE);
 
-            mouseDown[0] = button == GLFW_MOUSE_BUTTON_1 && action != GLFW_RELEASE;
-            mouseDown[1] = button == GLFW_MOUSE_BUTTON_2 && action != GLFW_RELEASE;
-            mouseDown[2] = button == GLFW_MOUSE_BUTTON_3 && action != GLFW_RELEASE;
-            mouseDown[3] = button == GLFW_MOUSE_BUTTON_4 && action != GLFW_RELEASE;
-            mouseDown[4] = button == GLFW_MOUSE_BUTTON_5 && action != GLFW_RELEASE;
-
-            io.setMouseDown(mouseDown);
-
-            if (!io.getWantCaptureMouse() && mouseDown[1]) {
+            if (!io.getWantCaptureMouse() && io.getMouseDown(1)) {
                 ImGui.setWindowFocus(null);
             }
         });
