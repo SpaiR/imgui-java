@@ -6,12 +6,14 @@ JNI based binding for [Dear ImGui](https://github.com/ocornut/imgui) with no dep
 Please read **Binding Notice** to get more info about java-specific things of the API.<br>
 See official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki) to get more info about how to do things in Dear ImGui. 
 
-Binding provides all the data you need to render Dear ImGui. If, for some reason, you want to use your own backend renderer, see how things are done in [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.76-0.9/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java).
+Binding provides all the data you need to render Dear ImGui. If, for some reason, you want to use your own backend renderer, see how [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.76-0.9/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java) is works.
 
-Next versioning semantic is used: `imguiVersion-bindingVersion`.<br>
+**[Docking API](https://user-images.githubusercontent.com/8225057/46304087-00035580-c5ae-11e8-8904-f27a9434574a.gif)** is available! Read "Using Docking" to get more info.
+
+Versioning semantic of the binding: `imguiVersion-bindingVersion`.<br>
 For example `1.74-0.1` means that imgui-java uses `1.74` version of Dear ImGui and binding itself has the version `0.1`.
 
-*Some of the very specific features are still in a wip state.*
+*Some very specific features are still in a wip state.*
 
 ## How to Try
 _Make sure you have installed Java 8 or higher._
@@ -68,8 +70,15 @@ Alternatively you can download imgui-java binaries manually from the [release pa
 
 **You are ready to use imgui-java binding!**
 
+## Using Docking
+Binding based on the Dear ImGui [docking](https://github.com/ocornut/imgui/tree/docking) branch, commit: [b8e2b2bd6b0d21fcb1b17c0133c0b134ac26f6ac](https://github.com/ocornut/imgui/commit/b8e2b2bd6b0d21fcb1b17c0133c0b134ac26f6ac).
+That branch contains two important features: [multi-viewports](https://github.com/ocornut/imgui/issues/1542) and [docking](https://github.com/ocornut/imgui/issues/2109).
+
+Even if the viewport feature is still in a very experimental state, yet the docking API seems pretty stable. Thus, imgui-java exposes it and hides everything about viewports.<br>
+See an official documentation about how to work with [docking](https://github.com/ocornut/imgui/issues/2109).
+
 ## Using FreeType
-Dear ImGui by default uses an stb_strutype library to render a fonts atlas. It's possible to use FreeType instead to get better fonts quality. See an example in [ImGuiGlfwExample](https://github.com/spair/imgui-java/blob/v1.76-0.9/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java). [Read more](https://github.com/ocornut/imgui/blob/v1.76/misc/freetype/README.md)
+Dear ImGui by default uses a stb_strutype library to render a fonts atlas. It's possible to use FreeType instead to get better fonts quality. See an example in [ImGuiGlfwExample](https://github.com/spair/imgui-java/blob/v1.76-0.9/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java). [Read more](https://github.com/ocornut/imgui/blob/v1.76/misc/freetype/README.md)
 
 ## Binding Notice
 * All Dear ImGui methods are available in `camelCase`, not in `PascalCase`.
@@ -77,16 +86,16 @@ Dear ImGui by default uses an stb_strutype library to render a fonts atlas. It's
   To **get** `ImVec2`/`ImVec4` - provide a destination object.
 * To get an input/output to/from Dear ImGui - use primitive wrappers: `ImBool`, `ImInt` etc.
 * Due to the Java and JNI restrictions we can't provide a fully fledged callbacks to the `ImGui::InputText` methods.
-  To replace some of the features use an ImGuiInputTextData class.
+  To replace some features use an ImGuiInputTextData class.
 * Read [javadoc](https://javadoc.io/doc/io.imgui.java/binding) and sources comments to get more info.
 
 ## How to Build
 To build native libraries you should install `mingw-w64` and `ant`. Modify [GenerateLibs](https://github.com/SpaiR/imgui-java/blob/master/buildSrc/src/main/groovy/imgui/generate/GenerateLibs.groovy)
-to build specific binaries you need. After everything is configured, run `gradlew :imgui-binding:generateLibs`.
+to build specific binaries you need. After you've configured everything, run `gradlew :imgui-binding:generateLibs`.
 That will build native libraries and place them in `imgui-binding/build/libsNative` folder.
 
 ## Credits
-Binding is partly based on the work of [xpenatan](https://github.com/xpenatan) and his version [jDear-imgui](https://github.com/xpenatan/jDear-imgui).
+Binding partly based on the work of [xpenatan](https://github.com/xpenatan) and his version [jDear-imgui](https://github.com/xpenatan/jDear-imgui).
 
 ## License
 See the LICENSE file for license rights and limitations (Apache-2.0).
