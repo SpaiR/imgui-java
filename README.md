@@ -194,7 +194,17 @@ dependencies {
 ```
 </details>
 
-You can download imgui-java manually from the [release page](https://github.com/SpaiR/imgui-java/releases/latest). For the natives to work you'll need to provide a VM option: `imgui.library.path` or `java.library.path`. It should point to the folder where you've placed downloaded binaries.
+<details>
+        <summary><b>With Raw Jars</b></summary>
+
+ - Go to the [release page](https://github.com/SpaiR/imgui-java/releases/latest)
+ - Download `binding-${version}.jar`, `lwjgl3-${version}.jar` and `imgui-java-natives.jar`
+     - The last one contains native libs for all OSs.
+ - Add them to your classpath and you are ready to go!
+</details>
+
+Important!<br>
+If you're using native libs in a direct way (without adding to classpath), you'll need to provide a VM option: `imgui.library.path` or `java.library.path`. It should point to the folder where you've placed downloaded binaries.
 
 **You are ready to use imgui-java binding!**
 
