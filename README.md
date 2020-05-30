@@ -8,10 +8,12 @@ See official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](
 
 Binding provides all the data you need to render Dear ImGui. If, for some reason, you want to use your own backend renderer, see how [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.76-0.10/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java) is works.
 
-**[Docking API](https://user-images.githubusercontent.com/8225057/46304087-00035580-c5ae-11e8-8904-f27a9434574a.gif)** is available! Read "Using Docking" to get more info.
-
 Versioning semantic of the binding: `imguiVersion-bindingVersion`.<br>
 For example `1.74-0.1` means that imgui-java uses `1.74` version of Dear ImGui and binding itself has the version `0.1`.
+
+Additional avaialble features:
+ - [Docking API](#using-docking)
+ - [FreeType font renderer](#using-freetype)
 
 *Some very specific features are still in a wip state.*
 
@@ -71,7 +73,7 @@ Alternatively you can download imgui-java binaries manually from the [release pa
 **You are ready to use imgui-java binding!**
 
 ## Using Docking
-Binding based on the Dear ImGui [docking](https://github.com/ocornut/imgui/tree/docking) branch, commit: [b8e2b2bd6b0d21fcb1b17c0133c0b134ac26f6ac](https://github.com/ocornut/imgui/commit/b8e2b2bd6b0d21fcb1b17c0133c0b134ac26f6ac).
+Binding based on the Dear ImGui [docking](https://github.com/ocornut/imgui/tree/docking) branch, commit: [b8e2b2bd6b0d21fcb1b17c0133c0b134ac26f6ac](https://github.com/ocornut/imgui/tree/b8e2b2bd6b0d21fcb1b17c0133c0b134ac26f6ac).
 That branch contains two important features: [multi-viewports](https://github.com/ocornut/imgui/issues/1542) and [docking](https://github.com/ocornut/imgui/issues/2109).
 
 Even if the viewport feature is still in a very experimental state, yet the docking API seems pretty stable. Thus, imgui-java exposes it and hides everything about viewports.<br>
