@@ -15,8 +15,6 @@ Additional available features:
  - [Docking API](#using-docking)
  - [FreeType font renderer](#using-freetype)
 
-*Some very specific features are still in a wip state.*
-
 ## How to Try
 _Make sure you have installed Java 8 or higher._
 
