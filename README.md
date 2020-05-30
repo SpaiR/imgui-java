@@ -32,6 +32,9 @@ That's all! You will start an example app [ImGuiGlfwExample](https://github.com/
 
 ## How to Use
 
+<details>
+        <summary><b>With Gradle</b></summary>
+
 ```
 repositories {
     jcenter()
@@ -65,8 +68,133 @@ dependencies {
     }
 }
 ```
+</details>
 
-Alternatively you can download imgui-java binaries manually from the [release page](https://github.com/SpaiR/imgui-java/releases/latest). You'll need to provide a VM option: `imgui.library.path` or `java.library.path`. It should point to the folder where you've placed downloaded binaries.
+<details>
+        <summary><b>With Maven</b></summary>
+
+```
+<!-- To properly import imgui-java -->
+<repositories>
+    <repository>
+        <id>jcenter</id>
+        <url>https://jcenter.bintray.com/</url>
+    </repository>
+</repositories>
+
+<properties>
+    <lwjgl.version>3.2.3</lwjgl.version>
+    <imgui.java.version>1.76-0.10</imgui.java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+</properties>
+
+<!-- Resolves the OS version to use for our natives -->
+<profiles>
+    <profile>
+        <id>lwjgl-natives-linux-amd64</id>
+        <activation>
+            <os>
+                <family>unix</family>
+                <arch>amd64</arch>
+            </os>
+        </activation>
+        <properties>
+            <natives>natives-linux</natives>
+        </properties>
+    </profile>
+    <profile>
+        <id>lwjgl-natives-windows-amd64</id>
+        <activation>
+            <os>
+                <family>windows</family>
+                <arch>amd64</arch>
+            </os>
+        </activation>
+        <properties>
+            <natives>natives-windows</natives>
+        </properties>
+    </profile>
+    <profile>
+        <id>lwjgl-natives-windows-x86</id>
+        <activation>
+            <os>
+                <family>windows</family>
+                <arch>x86</arch>
+            </os>
+        </activation>
+        <properties>
+            <natives>natives-windows-x86</natives>
+        </properties>
+    </profile>
+</profiles>
+
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-bom</artifactId>
+            <version>${lwjgl.version}</version>
+            <scope>import</scope>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
+<dependencies>
+    <!-- imgui-java -->
+    <dependency>
+        <groupId>io.imgui.java</groupId>
+        <artifactId>binding</artifactId>
+        <version>${imgui.java.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>io.imgui.java</groupId>
+        <artifactId>lwjgl3</artifactId>
+        <version>${imgui.java.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>io.imgui.java</groupId>
+        <artifactId>${natives}</artifactId>
+        <version>${imgui.java.version}</version>
+    </dependency>
+
+    <!-- LWJGL -->
+    <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-glfw</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-opengl</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl</artifactId>
+        <classifier>${natives}</classifier>
+    </dependency>
+    <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-glfw</artifactId>
+        <classifier>${natives}</classifier>
+    </dependency>
+    <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-opengl</artifactId>
+        <classifier>${natives}</classifier>
+    </dependency>
+</dependencies>
+```
+</details>
+
+You can download imgui-java manually from the [release page](https://github.com/SpaiR/imgui-java/releases/latest). For the natives to work you'll need to provide a VM option: `imgui.library.path` or `java.library.path`. It should point to the folder where you've placed downloaded binaries.
 
 **You are ready to use imgui-java binding!**
 
