@@ -85,6 +85,10 @@ public final class ImGuiWindowFlags {
      * Append '*' to title without affecting the ID, as a convenience to avoid using the ### operator. When used in a tab/docking context, tab is selected on closure and closure is deferred by one frame to allow code to cancel the closure (with a confirmation popup, etc.) without flicker.
      */
     public static final int UnsavedDocument = 1 << 20;
+    /**
+     * Disable docking of this window
+     */
+    public static final int NoDocking = 1 << 21;
     public static final int NoNav = NoNavInputs | NoNavFocus;
     public static final int NoDecoration = NoTitleBar | NoResize | NoScrollbar | NoCollapse;
     public static final int NoInputs = NoMouseInputs | NoNavInputs | NoNavFocus;

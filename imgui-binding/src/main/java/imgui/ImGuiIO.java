@@ -465,6 +465,68 @@ public final class ImGuiIO {
         ImGui::GetIO().DisplayFramebufferScale.y = y;
     */
 
+    // Docking options (when ImGuiConfigFlags_DockingEnable is set)
+
+    /**
+     * Simplified docking mode: disable window splitting, so docking is limited to merging multiple windows together into tab-bars.
+     */
+    public native boolean getConfigDockingNoSplit(); /*
+        return ImGui::GetIO().ConfigDockingNoSplit;
+    */
+
+    /**
+     * Simplified docking mode: disable window splitting, so docking is limited to merging multiple windows together into tab-bars.
+     */
+    public native void setConfigDockingNoSplit(boolean value); /*
+        ImGui::GetIO().ConfigDockingNoSplit = value;
+    */
+
+    /**
+     * Enable docking with holding Shift key (reduce visual noise, allows dropping in wider space)
+     */
+    public native boolean getConfigDockingWithShift(); /*
+        return ImGui::GetIO().ConfigDockingWithShift;
+    */
+
+    /**
+     * Enable docking with holding Shift key (reduce visual noise, allows dropping in wider space)
+     */
+    public native void setConfigDockingWithShift(boolean value); /*
+        ImGui::GetIO().ConfigDockingWithShift = value;
+    */
+
+    /**
+     * [BETA] [FIXME: This currently creates regression with auto-sizing and general overhead]
+     * Make every single floating window display within a docking node.
+     */
+    public native boolean getConfigDockingAlwaysTabBar(); /*
+        return ImGui::GetIO().ConfigDockingAlwaysTabBar;
+    */
+
+    /**
+     * [BETA] [FIXME: This currently creates regression with auto-sizing and general overhead]
+     * Make every single floating window display within a docking node.
+     */
+    public native void setConfigDockingAlwaysTabBar(boolean value); /*
+        ImGui::GetIO().ConfigDockingAlwaysTabBar = value;
+    */
+
+    /**
+     * [BETA] Make window or viewport transparent when docking and only display docking boxes on the target viewport.
+     * Useful if rendering of multiple viewport cannot be synced. Best used with ConfigViewportsNoAutoMerge.
+     */
+    public native boolean getConfigDockingTransparentPayload(); /*
+        return ImGui::GetIO().ConfigDockingTransparentPayload;
+    */
+
+    /**
+     * [BETA] Make window or viewport transparent when docking and only display docking boxes on the target viewport.
+     * Useful if rendering of multiple viewport cannot be synced. Best used with ConfigViewportsNoAutoMerge.
+     */
+    public native void setConfigDockingTransparentPayload(boolean value); /*
+        ImGui::GetIO().ConfigDockingTransparentPayload = value;
+    */
+
     /**
      * Time elapsed since last frame, in seconds.
      * <p>

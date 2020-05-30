@@ -28,7 +28,6 @@ public final class ImFontGlyph implements ImDestroyable {
     /*JNI
         #include <stdint.h>
         #include <imgui.h>
-        #include "jni_common.h"
 
         jfieldID imFontGlyphPtrID;
 

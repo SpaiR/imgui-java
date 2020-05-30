@@ -12,7 +12,7 @@ public final class ImGuiCol {
     /**
      * Background of normal windows
      */
-    public static final int WindowBg = 2; //
+    public static final int WindowBg = 2;
     /**
      * Background of child windows
      */
@@ -60,28 +60,35 @@ public final class ImGuiCol {
     public static final int TabActive = 35;
     public static final int TabUnfocused = 36;
     public static final int TabUnfocusedActive = 37;
-    public static final int PlotLines = 38;
-    public static final int PlotLinesHovered = 39;
-    public static final int PlotHistogram = 40;
-    public static final int PlotHistogramHovered = 41;
-    public static final int TextSelectedBg = 42;
-    public static final int DragDropTarget = 43;
+    /**
+     * Preview overlay color when about to docking something
+     */
+    public static final int DockingPreview = 38;
+    /**
+     * Background color for empty node (e.g. CentralNode with no window docked into it)
+     */
+    public static final int DockingEmptyBg = 39;
+    public static final int PlotLines = 40;
+    public static final int PlotLinesHovered = 41;
+    public static final int PlotHistogram = 42;
+    public static final int PlotHistogramHovered = 43;
+    public static final int TextSelectedBg = 44;
+    public static final int DragDropTarget = 45;
     /**
      * Gamepad/keyboard: current highlighted item
      */
-    public static final int NavHighlight = 44;
+    public static final int NavHighlight = 46;
     /**
      * Highlight window when using CTRL+TAB
      */
-    public static final int NavWindowingHighlight = 45;
+    public static final int NavWindowingHighlight = 47;
     /**
      * Darken/colorize entire screen behind the CTRL+TAB window list, when active
      */
-    public static final int NavWindowingDimBg = 46;
+    public static final int NavWindowingDimBg = 48;
     /**
      * Darken/colorize entire screen behind a modal window, when one is active
      */
-    public static final int ModalWindowDimBg = 47;
-    public static final int COUNT = 48;
-
+    public static final int ModalWindowDimBg = 49;
+    public static final int COUNT = 49;
 }

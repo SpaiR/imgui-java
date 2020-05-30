@@ -37,6 +37,12 @@ public final class ImGuiConfigFlags {
      */
     public static final int NoMouseCursorChange = 1 << 5;
 
+    /**
+     * [BETA] Docking
+     * Docking enable flags.
+     */
+    public static final int DockingEnable = 1 << 6;
+
     // User storage (to allow your back-end/engine to communicate to code that may be shared between multiple projects. Those flags are not used by core Dear ImGui)
 
     /**

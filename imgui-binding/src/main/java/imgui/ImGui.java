@@ -50,6 +50,7 @@ public final class ImGui {
         ImFontGlyph.nInit();
         ImFont.nInit();
         ImGuiStyle.nInit();
+        ImGuiWindowClass.nInit();
         nInitInputTextData();
     }
 
@@ -472,6 +473,13 @@ public final class ImGui {
 
     private static native long nGetWindowDrawList(); /*
         return (intptr_t)ImGui::GetWindowDrawList();
+    */
+
+    /**
+     * Get DPI scale currently associated to the current window's viewport.
+     */
+    public static native float getWindowDpiScale(); /*
+        return ImGui::GetWindowDpiScale();
     */
 
     /**
@@ -3989,6 +3997,7 @@ public final class ImGui {
     */
 
     // Tab Bars, Tabs
+    // Note: Tabs are automatically created by the docking system. Use this to create tab bars/tabs yourself without docking being involved.
 
     /**
      * Create and append into a TabBar
@@ -4060,6 +4069,73 @@ public final class ImGui {
      */
     public static native void setTabItemClosed(String tabOrDockedWindowLabel); /*
         ImGui::SetTabItemClosed(tabOrDockedWindowLabel);
+    */
+
+    // Docking
+    // [BETA API] Enable with io.ConfigFlags |= ImGuiConfigFlags_DockingEnable.
+    // Note: You can use most Docking facilities without calling any API. You DO NOT need to call DockSpace() to use Docking!
+    // - To dock windows: if io.ConfigDockingWithShift == false (default) drag window from their title bar.
+    // - To dock windows: if io.ConfigDockingWithShift == true: hold SHIFT anywhere while moving windows.
+    // About DockSpace:
+    // - Use DockSpace() to create an explicit dock node _within_ an existing window. See Docking demo for details.
+    // - DockSpace() needs to be submitted _before_ any window they can host. If you use a dockspace, submit it early in your app.
+
+    public static void dockSpace(int imGuiID) {
+        nDockSpace(imGuiID, 0, 0, 0, 0);
+    }
+
+    public static void dockSpace(int imGuiID, float sizeX, float sizeY) {
+        nDockSpace(imGuiID, sizeX, sizeY, 0, 0);
+    }
+
+    public static void dockSpace(int imGuiID, float sizeX, float sizeY, int imGuiDockNodeFlags) {
+        nDockSpace(imGuiID, sizeX, sizeY, imGuiDockNodeFlags, 0);
+    }
+
+    public static void dockSpace(int imGuiID, float sizeX, float sizeY, int imGuiDockNodeFlags, ImGuiWindowClass imGuiWindowClass) {
+        nDockSpace(imGuiID, sizeX, sizeY, imGuiDockNodeFlags, imGuiWindowClass.ptr);
+    }
+
+    private static native void nDockSpace(int imGuiID, float sizeX, float sizeY, int imGuiDockNodeFlags, long windowClassPtr); /*
+        ImGui::DockSpace(imGuiID, ImVec2(sizeX, sizeY), imGuiDockNodeFlags, windowClassPtr != 0 ? (ImGuiWindowClass*)windowClassPtr : NULL);
+    */
+
+    // TODO: DockSpaceOverViewport
+
+    /**
+     * Set next window dock id
+     */
+    public static native void setNextWindowDockID(int dockId); /*
+        ImGui::SetNextWindowDockID(dockId);
+    */
+
+    /**
+     * Set next window dock id
+     */
+    public static native void setNextWindowDockID(int dockId, int imGuiCond); /*
+        ImGui::SetNextWindowDockID(dockId, imGuiCond);
+    */
+
+    /**
+     * set next window class (rare/advanced uses: provide hints to the platform back-end via altered viewport flags and parent/child info)
+     */
+    public static void setNextWindowClass(ImGuiWindowClass windowClass) {
+        nSetNextWindowClass(windowClass.ptr);
+    }
+
+    private static native void nSetNextWindowClass(long windowClassPtr); /*
+        ImGui::SetNextWindowClass((ImGuiWindowClass*)windowClassPtr);
+    */
+
+    public static native int getWindowDockID(); /*
+        return ImGui::GetWindowDockID();
+    */
+
+    /**
+     * Is current window docked into another window?
+     */
+    public static native boolean isWindowDocked(); /*
+        return ImGui::IsWindowDocked();
     */
 
     // Logging/Capture
@@ -4432,6 +4508,7 @@ public final class ImGui {
     */
 
     /**
+     * Get background draw list for the viewport associated to the current window.
      * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
      */
     public static ImDrawList getBackgroundDrawList() {
@@ -4446,7 +4523,8 @@ public final class ImGui {
     */
 
     /**
-     * This draw list will be the last rendered one. Useful to quickly draw shapes/text over dear imgui contents.
+     * Get foreground draw list for the viewport associated to the current window.
+     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
      */
     public static ImDrawList getForegroundDrawList() {
         if (foregroundDrawList == null) {
