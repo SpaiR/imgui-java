@@ -68,7 +68,7 @@ public final class ImGuiWindowClass implements ImDestroyable {
     */
 
     /**
-     * Hint for the platform back-end. If non-zero, the platform back-end can create a parent<>child relationship between the platform windows.
+     * Hint for the platform back-end. If non-zero, the platform back-end can create a parent{@code <>}child relationship between the platform windows.
      * Not conforming back-ends are free to e.g. parent every viewport to the main viewport or not.
      */
     public native int getParentViewportId(); /*
@@ -76,7 +76,7 @@ public final class ImGuiWindowClass implements ImDestroyable {
     */
 
     /**
-     * Hint for the platform back-end. If non-zero, the platform back-end can create a parent<>child relationship between the platform windows.
+     * Hint for the platform back-end. If non-zero, the platform back-end can create a parent{@code <>}child relationship between the platform windows.
      * Not conforming back-ends are free to e.g. parent every viewport to the main viewport or not.
      */
     public native void setParentViewportId(int parentViewportId); /*
