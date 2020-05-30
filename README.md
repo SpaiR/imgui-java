@@ -11,7 +11,7 @@ Binding provides all the data you need to render Dear ImGui. If, for some reason
 Versioning semantic of the binding: `imguiVersion-bindingVersion`.<br>
 For example `1.74-0.1` means that imgui-java uses `1.74` version of Dear ImGui and binding itself has the version `0.1`.
 
-Additional avaialble features:
+Additional available features:
  - [Docking API](#using-docking)
  - [FreeType font renderer](#using-freetype)
 
