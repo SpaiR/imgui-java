@@ -32,32 +32,42 @@ class GenerateLibs extends DefaultTask {
         // Generate platform dependant ant configs and header files
         def buildConfig = new BuildConfig('imgui-java', tmpFolder, libsFolder, jniDir)
 
-        def win32 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, false)
-        def win64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, true)
+//        def win32 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, false)
+//        def win64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, true)
+//
+//        def linux32 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, false)
+//        def linux64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, true)
 
-        def linux32 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, false)
-        def linux64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, true)
+        def mac = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true)
+
 
         // Freetype Deps Config
-        win32.cppFlags += " -fstack-protector -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include"
-        win32.libraries += "-lfreetype -lbz2 -lssp"
-        win64.cppFlags += " -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include"
-        win64.libraries += "-lfreetype -lbz2 -lssp"
-        linux32.cppFlags += " -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include"
-        linux32.linkerFlags += " -lfreetype"
-        linux64.cppFlags += " -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include"
-        linux64.linkerFlags += " -lfreetype"
+//        win32.cppFlags += " -fstack-protector -I/usr/X11/include/freetype2 -I/usr/X11/include/libpng16 -I/usr/X11/include/harfbuzz -I/usr/X11/include/glib-2.0 -I/usr/X11/lib/glib-2.0/include"
+//        win32.libraries += "-lfreetype -lbz2 -lssp"
+//        win64.cppFlags += " -I/usr/X11/include/freetype2 -I/usr/X11/include/libpng16 -I/usr/X11/include/harfbuzz -I/usr/X11/include/glib-2.0 -I/usr/X11/lib/glib-2.0/include"
+//        win64.libraries += "-lfreetype -lbz2 -lssp"
+//        linux32.cppFlags += " -I/usr/X11/include/freetype2 -I/usr/X11/include/libpng16 -I/usr/X11/include/harfbuzz -I/usr/X11/include/glib-2.0 -I/usr/X11/lib/glib-2.0/include"
+//        linux32.linkerFlags += " -lfreetype"
+//        mac.compilerPrefix += "-sstdlib=libc++"
+        mac.cppFlags += " -stdlib=libc++"
+        mac.cppFlags += " -I/usr/local/include/freetype2 -I/usr/local/include/libpng16 -I/usr/local/include/harfbuzz -I/usr/local/include/glib-2.0 -I/usr/local/lib/glib-2.0/include"
+        mac.linkerFlags += " -lfreetype"
+        mac.cppFlags = mac.cppFlags.replaceAll("10.5", "10.10")
+        mac.linkerFlags = mac.linkerFlags.replaceAll("10.5", "10.10")
         // End
 
-        new AntScriptGenerator().generate(buildConfig, win32, win64, linux32, linux64)
+//        new AntScriptGenerator().generate(buildConfig, win32, win64, linux32, linux64)
+        new AntScriptGenerator().generate(buildConfig, mac)
 
         // Generate native libraries
         // Comment/uncomment lines with OS you need.
+//
+//        BuildExecutor.executeAnt(jniDir + '/build-windows32.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
+//        BuildExecutor.executeAnt(jniDir + '/build-windows64.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
+//        BuildExecutor.executeAnt(jniDir + '/build-linux32.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
+//        BuildExecutor.executeAnt(jniDir + '/build-linux64.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
+        BuildExecutor.executeAnt(jniDir + '/build-macosx64.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
+//        BuildExecutor.executeAnt(jniDir + '/build.xml', '-v', 'pack-natives')
 
-        BuildExecutor.executeAnt(jniDir + '/build-windows32.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
-        BuildExecutor.executeAnt(jniDir + '/build-windows64.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
-        BuildExecutor.executeAnt(jniDir + '/build-linux32.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
-        BuildExecutor.executeAnt(jniDir + '/build-linux64.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
-        BuildExecutor.executeAnt(jniDir + '/build.xml', '-v', 'pack-natives')
     }
 }

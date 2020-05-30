@@ -56,13 +56,17 @@ public final class ImGui {
 
     private static String resolveFullLibName() {
         final boolean isWin = System.getProperty("os.name").toLowerCase().contains("win");
+        final boolean isMac = System.getProperty("os.name").toLowerCase().contains("mac");
         final String libPrefix;
         final String libSuffix;
 
         if (isWin) {
             libPrefix = "";
             libSuffix = ".dll";
-        } else { // Only linux as an alternative OS
+        } else if(isMac){
+            libPrefix = "";
+            libSuffix = ".dylib";
+        }else{
             libPrefix = "lib";
             libSuffix = ".so";
         }

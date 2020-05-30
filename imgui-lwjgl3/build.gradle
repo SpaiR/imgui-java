@@ -7,16 +7,21 @@ plugins {
     id 'maven-publish'
 }
 
+project.ext.lwjglNatives = "natives-linux"
+
 sourceCompatibility = 1.8
 
-switch (OperatingSystem.current()) {
-    case OperatingSystem.LINUX:
-        project.ext.lwjglNatives = 'natives-linux'
-        break
-    case OperatingSystem.WINDOWS:
-        project.ext.lwjglNatives = 'natives-windows'
-        break
-}
+//switch (OperatingSystem.current()) {
+//    case OperatingSystem.LINUX:
+//        project.ext.lwjglNatives = 'natives-linux'
+//        break
+//    case OperatingSystem.MAC:
+//        project.ext.lwjglNatives = 'natives-linux'
+//        break
+//    case OperatingSystem.WINDOWS:
+//        project.ext.lwjglNatives = 'natives-windows'
+//        break
+//}
 
 dependencies {
     implementation platform("org.lwjgl:lwjgl-bom:3.2.3")
