@@ -74,7 +74,7 @@ dependencies {
         <summary><b>With Maven</b></summary>
 
 ```
-<!-- To properly import imgui-java -->
+<!-- Used to import imgui-java -->
 <repositories>
     <repository>
         <id>jcenter</id>
@@ -85,14 +85,10 @@ dependencies {
 <properties>
     <lwjgl.version>3.2.3</lwjgl.version>
     <imgui.java.version>1.76-0.10</imgui.java.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>1.8</java.version>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.compiler.source>1.8</maven.compiler.source>
 </properties>
 
-<!-- Resolves the OS version to use for our natives -->
+<!-- Resolve OS version for native libraries -->
+<!-- imgui-java uses the same naming convention as LWJGL3 -->
 <profiles>
     <profile>
         <id>lwjgl-natives-linux-amd64</id>
@@ -200,7 +196,7 @@ dependencies {
  - Go to the [release page](https://github.com/SpaiR/imgui-java/releases/latest)
  - Download `binding-${version}.jar`, `lwjgl3-${version}.jar` and `imgui-java-natives.jar`
      - The last one contains native libs for all OSs.
- - Add them to your classpath and you are ready to go!
+ - Add them to your classpath and use imgui-java.
 </details>
 
 Important!<br>
