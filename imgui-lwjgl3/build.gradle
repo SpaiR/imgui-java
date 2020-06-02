@@ -16,6 +16,9 @@ switch (OperatingSystem.current()) {
     case OperatingSystem.WINDOWS:
         project.ext.lwjglNatives = 'natives-windows'
         break
+    case OperatingSystem.MAC_OS:
+        project.ext.lwjglNatives = 'natives-macos'
+        break
 }
 
 dependencies {
@@ -36,6 +39,10 @@ task startExample(type: JavaExec, dependsOn: build) {
     main = 'ImGuiGlfwExample'
     classpath = sourceSets.test.runtimeClasspath
     jvmArgs = ['-Djava.library.path=../bin']
+
+    if (OperatingSystem.current().isMacOsX()) {
+        jvmArgs += ['-XstartOnFirstThread', '-Djava.awt.headless=true']
+    }
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {

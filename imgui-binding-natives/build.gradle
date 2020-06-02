@@ -24,6 +24,9 @@ if (System.getProperty('deployWin32')) {
 } else if (System.getProperty('deployLinux64')) {
     packageName = 'natives-linux'
     libName = 'libimgui-java64.so'
+} else if (System.getProperty('deployMacOs64')) {
+    packageName = 'natives-macos'
+    libName = 'libimgui-java64.dylib'
 }
 
 jar {

@@ -38,6 +38,11 @@ class GenerateLibs extends DefaultTask {
         def linux32 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, false)
         def linux64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, true)
 
+        def mac64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true)
+        mac64.cppFlags += " -stdlib=libc++"
+        mac64.cppFlags = mac64.cppFlags.replaceAll("10.5", "10.9")
+        mac64.linkerFlags = mac64.linkerFlags.replaceAll("10.5", "10.9")
+
         // Freetype Deps Config
         win32.cppFlags += " -fstack-protector -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include"
         win32.libraries += "-lfreetype -lbz2 -lssp"
@@ -47,6 +52,8 @@ class GenerateLibs extends DefaultTask {
         linux32.linkerFlags += " -lfreetype"
         linux64.cppFlags += " -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include"
         linux64.linkerFlags += " -lfreetype"
+        mac64.cppFlags += " -I/usr/local/include/freetype2 -I/usr/local/include/libpng16 -I/usr/local/include/harfbuzz -I/usr/local/include/glib-2.0 -I/usr/local/lib/glib-2.0/include"
+        mac64.linkerFlags += " -lfreetype"
         // End
 
         new AntScriptGenerator().generate(buildConfig, win32, win64, linux32, linux64)
@@ -58,6 +65,7 @@ class GenerateLibs extends DefaultTask {
         BuildExecutor.executeAnt(jniDir + '/build-windows64.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
         BuildExecutor.executeAnt(jniDir + '/build-linux32.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
         BuildExecutor.executeAnt(jniDir + '/build-linux64.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
+        BuildExecutor.executeAnt(jniDir + '/build-macosx64.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
         BuildExecutor.executeAnt(jniDir + '/build.xml', '-v', 'pack-natives')
     }
 }
