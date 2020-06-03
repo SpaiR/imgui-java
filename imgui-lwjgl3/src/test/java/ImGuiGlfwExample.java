@@ -317,11 +317,14 @@ public final class ImGuiGlfwExample {
         glfwGetFramebufferSize(windowPtr, fbWidth, fbHeight);
         glfwGetCursorPos(windowPtr, mousePosX, mousePosY);
 
+        final float scaleX = (float) fbWidth[0] / winWidth[0];
+        final float scaleY = (float) fbHeight[0] / winHeight[0];
+
         // We SHOULD call those methods to update Dear ImGui state for the current frame
         final ImGuiIO io = ImGui.getIO();
-        io.setDisplaySize(winWidth[0], winHeight[0]);
-        io.setDisplayFramebufferScale((float) fbWidth[0] / winWidth[0], (float) fbHeight[0] / winHeight[0]);
-        io.setMousePos((float) mousePosX[0], (float) mousePosY[0]);
+        io.setDisplaySize(fbWidth[0], fbHeight[0]);
+        io.setDisplayFramebufferScale(scaleX, scaleY);
+        io.setMousePos((float) mousePosX[0] * scaleX, (float) mousePosY[0] * scaleY);
         io.setDeltaTime(deltaTime);
 
         // Update the mouse cursor
@@ -357,7 +360,7 @@ public final class ImGuiGlfwExample {
     }
 
     private byte[] loadFromResources(final String fileName) {
-        try (InputStream is = Objects.requireNonNull(ImGuiGlfwExample.class.getClassLoader().getResourceAsStream(fileName));
+        try (InputStream is = Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(fileName));
              ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
 
             final byte[] data = new byte[16384];
