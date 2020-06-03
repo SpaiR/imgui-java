@@ -209,7 +209,7 @@ dependencies {
         <summary><b>With Raw Jars</b></summary>
 
  - Go to the [release page](https://github.com/SpaiR/imgui-java/releases/latest)
- - Download `binding-${version}.jar`, `lwjgl3-${version}.jar` and binary libraries for your OS
+ - Download `imgui-binding-${version}.jar`, `imgui-lwjgl3-${version}.jar` and binary libraries for your OS
    - imgui-java.dll - Windows 32bit
    - imgui-java64.dll - Windows 64bit
    - libimgui-java.so - Linux 32bit
