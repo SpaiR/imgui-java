@@ -46,9 +46,12 @@ ext {
     imguiVersion = '1.76-0.10'
 }
 
-switch (org.gradle.internal.os.OperatingSystem.current()) {
+switch (OperatingSystem.current()) {
 	case OperatingSystem.LINUX:
 		project.ext.natives = "natives-linux"
+		break
+	case OperatingSystem.MAC_OS:
+		project.ext.natives = "natives-macos"
 		break
 	case OperatingSystem.WINDOWS:
 		project.ext.natives = System.getProperty("os.arch").contains("64") ? "natives-windows" : "natives-windows-x86"
@@ -100,6 +103,18 @@ dependencies {
         </activation>
         <properties>
             <natives>natives-linux</natives>
+        </properties>
+    </profile>
+    <profile>
+        <id>lwjgl-natives-macos-amd64</id>
+        <activation>
+            <os>
+                <family>mac</family>
+                <arch>amd64</arch>
+            </os>
+        </activation>
+        <properties>
+            <lwjgl.natives>natives-macos</lwjgl.natives>
         </properties>
     </profile>
     <profile>
@@ -194,13 +209,19 @@ dependencies {
         <summary><b>With Raw Jars</b></summary>
 
  - Go to the [release page](https://github.com/SpaiR/imgui-java/releases/latest)
- - Download `binding-${version}.jar`, `lwjgl3-${version}.jar` and `imgui-java-natives.jar`
-     - The last one contains native libs for all OSs.
- - Add them to your classpath and use imgui-java.
+ - Download `binding-${version}.jar`, `lwjgl3-${version}.jar` and binary libraries for your OS
+   - imgui-java.dll - Windows 32bit
+   - imgui-java64.dll - Windows 64bit
+   - libimgui-java.so - Linux 32bit
+   - libimgui-java64.so - Linux 64bit
+   - libimgui-java64.dylib - MacOsX 64bit
+ - Add jars to your classpath.
+ - To use binary libraries you'll need to provide a VM option: `imgui.library.path` or `java.library.path`.
+   It should point to the folder where you've placed downloaded binaries.
 </details>
 
 Important!<br>
-If you're using native libs in a direct way (without adding to classpath), you'll need to provide a VM option: `imgui.library.path` or `java.library.path`. It should point to the folder where you've placed downloaded binaries.
+If you're using native libs directly, you'll need to provide a VM option: `imgui.library.path` or `java.library.path`. It should point to the folder where you've placed downloaded binaries.
 
 **You are ready to use imgui-java binding!**
 
