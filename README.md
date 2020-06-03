@@ -114,7 +114,7 @@ dependencies {
             </os>
         </activation>
         <properties>
-            <lwjgl.natives>natives-macos</lwjgl.natives>
+            <natives>natives-macos</lwjgl.natives>
         </properties>
     </profile>
     <profile>
@@ -216,8 +216,7 @@ dependencies {
    - libimgui-java64.so - Linux 64bit
    - libimgui-java64.dylib - MacOsX 64bit
  - Add jars to your classpath.
- - To use binary libraries you'll need to provide a VM option: `imgui.library.path` or `java.library.path`.
-   It should point to the folder where you've placed downloaded binaries.
+ - Provide a VM option: `imgui.library.path` or `java.library.path`. It should point to the folder where you've placed downloaded native libraries.
 </details>
 
 Important!<br>
