@@ -1284,15 +1284,21 @@ public final class ImGui {
     /**
      * Calculate unique ID (hash of whole ID stack + given parameter). e.g. if you want to query into ImGuiStorage yourself
      */
-    public static native long getID(String strId); /*
+    public static native int getID(String strId); /*
         return ImGui::GetID(strId);
     */
 
-    public static native long getID(String strIdBegin, String strIdEnd); /*
+    /**
+     * Calculate unique ID (hash of whole ID stack + given parameter). e.g. if you want to query into ImGuiStorage yourself
+     */
+    public static native int getID(String strIdBegin, String strIdEnd); /*
         return ImGui::GetID(strIdBegin, strIdEnd);
     */
 
-    public static native long getID(long ptrId); /*
+    /**
+     * Calculate unique ID (hash of whole ID stack + given parameter). e.g. if you want to query into ImGuiStorage yourself
+     */
+    public static native int getID(long ptrId); /*
         return ImGui::GetID((void*)ptrId);
     */
 
@@ -4657,7 +4663,7 @@ public final class ImGui {
 
     // Color Utilities
 
-    public static native void colorConvertU32ToFloat4(long in, ImVec4 dstImVec4); /*
+    public static native void colorConvertU32ToFloat4(int in, ImVec4 dstImVec4); /*
         Jni::ImVec4Cpy(env, ImGui::ColorConvertU32ToFloat4(in), dstImVec4);
     */
 
