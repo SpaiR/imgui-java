@@ -2,10 +2,14 @@ package imgui;
 
 import java.util.Objects;
 
-public final class ImLong {
+public final class ImLong implements Cloneable {
     final long[] data = new long[]{0};
 
     public ImLong() {
+    }
+
+    public ImLong(final ImLong imLong) {
+        this.data[0] = imLong.data[0];
     }
 
     public ImLong(final long value) {
@@ -40,5 +44,10 @@ public final class ImLong {
     @Override
     public int hashCode() {
         return Objects.hashCode(data[0]);
+    }
+
+    @Override
+    public ImLong clone() {
+        return new ImLong(this);
     }
 }

@@ -2,10 +2,14 @@ package imgui;
 
 import java.util.Objects;
 
-public final class ImFloat {
+public final class ImFloat implements Cloneable {
     final float[] data = new float[]{0};
 
     public ImFloat() {
+    }
+
+    public ImFloat(final ImFloat imFloat) {
+        this.data[0] = imFloat.data[0];
     }
 
     public ImFloat(final float value) {
@@ -40,5 +44,10 @@ public final class ImFloat {
     @Override
     public int hashCode() {
         return Objects.hash(data[0]);
+    }
+
+    @Override
+    public ImFloat clone() {
+        return new ImFloat(this);
     }
 }

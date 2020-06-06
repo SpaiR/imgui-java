@@ -5,13 +5,20 @@ import java.util.Objects;
 /**
  * 4D vector (often used to store floating-point colors)
  */
-public final class ImVec4 {
+public final class ImVec4 implements Cloneable {
     public float x;
     public float y;
     public float z;
     public float w;
 
     public ImVec4() {
+    }
+
+    public ImVec4(final ImVec4 imVec4) {
+        this.x = imVec4.x;
+        this.y = imVec4.y;
+        this.z = imVec4.z;
+        this.w = imVec4.w;
     }
 
     public ImVec4(final float x, final float y, final float z, final float w) {
@@ -46,5 +53,10 @@ public final class ImVec4 {
     @Override
     public int hashCode() {
         return Objects.hash(x, y, z, w);
+    }
+
+    @Override
+    public ImVec4 clone() {
+        return new ImVec4(this);
     }
 }

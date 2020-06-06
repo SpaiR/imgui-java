@@ -5,11 +5,16 @@ import java.util.Objects;
 /**
  * 2D vector (often used to store positions or sizes)
  */
-public final class ImVec2 {
+public final class ImVec2 implements Cloneable {
     public float x;
     public float y;
 
     public ImVec2() {
+    }
+
+    public ImVec2(final ImVec2 imVec2) {
+        this.x = imVec2.x;
+        this.y = imVec2.y;
     }
 
     public ImVec2(final float x, final float y) {
@@ -40,5 +45,10 @@ public final class ImVec2 {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
+    }
+
+    @Override
+    public ImVec2 clone() {
+        return new ImVec2(this);
     }
 }

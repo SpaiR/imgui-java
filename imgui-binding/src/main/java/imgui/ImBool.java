@@ -2,10 +2,14 @@ package imgui;
 
 import java.util.Objects;
 
-public final class ImBool {
+public final class ImBool implements Cloneable {
     final boolean[] data = new boolean[]{false};
 
     public ImBool() {
+    }
+
+    public ImBool(final ImBool imBool) {
+        this.data[0] = imBool.data[0];
     }
 
     public ImBool(final boolean value) {
@@ -40,5 +44,10 @@ public final class ImBool {
     @Override
     public int hashCode() {
         return Objects.hash(data[0]);
+    }
+
+    @Override
+    public ImBool clone() {
+        return new ImBool(this);
     }
 }

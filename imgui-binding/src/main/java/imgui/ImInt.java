@@ -2,10 +2,14 @@ package imgui;
 
 import java.util.Objects;
 
-public final class ImInt {
+public final class ImInt implements Cloneable {
     final int[] data = new int[]{0};
 
     public ImInt() {
+    }
+
+    public ImInt(final ImInt imInt) {
+        this.data[0] = imInt.data[0];
     }
 
     public ImInt(final int value) {
@@ -40,5 +44,10 @@ public final class ImInt {
     @Override
     public int hashCode() {
         return Objects.hashCode(data[0]);
+    }
+
+    @Override
+    public ImInt clone() {
+        return new ImInt(this);
     }
 }

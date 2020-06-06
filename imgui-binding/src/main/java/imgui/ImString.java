@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * Wrapper for {@link String} to use inside of th Dear ImGui input widgets.
  */
-public final class ImString {
+public final class ImString implements Cloneable {
     /**
      * Default size of the inner buffer, if {@link ImString} created with a constructor without args.
      */
@@ -30,6 +30,16 @@ public final class ImString {
      */
     public ImString() {
         this(DEFAULT_LENGTH);
+    }
+
+    public ImString(final ImString imString) {
+        this(imString.text, imString.data.length);
+        this.inputData.allowedChars = imString.inputData.allowedChars;
+        this.inputData.isResizable = imString.inputData.isResizable;
+        this.inputData.resizeFactor = imString.inputData.resizeFactor;
+        this.inputData.size = imString.inputData.size;
+        this.inputData.isDirty = imString.inputData.isDirty;
+        this.inputData.isResized = imString.inputData.isResized;
     }
 
     /**
@@ -149,5 +159,10 @@ public final class ImString {
     @Override
     public int hashCode() {
         return text.hashCode();
+    }
+
+    @Override
+    public ImString clone() {
+        return new ImString(this);
     }
 }
