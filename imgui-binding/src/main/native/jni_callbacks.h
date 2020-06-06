@@ -5,10 +5,13 @@
 
 namespace Jni
 {
-void InitCallbacks(JNIEnv* env);
+    void InitCallbacks(JNIEnv* env);
 
-void CallImStrConsumer(JNIEnv* env, jobject consumer, const char* str);
-jstring CallImStrSupplier(JNIEnv* env, jobject supplier);
+    void CallImListClipperCallback(JNIEnv* env, jobject consumer, int index);
+
+    void CallImStrConsumer(JNIEnv* env, jobject consumer, const char* str);
+
+    jstring CallImStrSupplier(JNIEnv* env, jobject supplier);
 }
 
 #endif
