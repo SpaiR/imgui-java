@@ -56,7 +56,7 @@ class GenerateLibs extends DefaultTask {
         mac64.linkerFlags += " -lfreetype"
         // End
 
-        new AntScriptGenerator().generate(buildConfig, win32, win64, linux32, linux64)
+        new AntScriptGenerator().generate(buildConfig, win32, win64, linux32, linux64, mac64)
 
         // Generate native libraries
         // Comment/uncomment lines with OS you need.
