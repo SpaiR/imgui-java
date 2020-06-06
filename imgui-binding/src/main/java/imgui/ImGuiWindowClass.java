@@ -9,7 +9,7 @@ package imgui;
  * - To the platform back-end for OS level parent/child relationships of viewport.
  * - To the docking system for various options and filtering.
  */
-public final class ImGuiWindowClass implements ImDestroyable {
+public final class ImGuiWindowClass implements ImGuiDestroyableStruct {
     final long ptr;
 
     /**

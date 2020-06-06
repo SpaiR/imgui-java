@@ -11,7 +11,7 @@ import java.nio.ByteOrder;
  * BINDING NOTICE: Since it's impossible to do a 1:1 mapping with JNI, current class provides "getCmdList*()" methods.
  * Those are used to get the data needed to do a rendering.
  */
-public final class ImDrawData implements ImDestroyable {
+public final class ImDrawData implements ImGuiDestroyableStruct {
     public static final int SIZEOF_IM_DRAW_IDX = 2;
     public static final int SIZEOF_IM_DRAW_VERT = (4 + 1) * 4;
 

@@ -4,7 +4,7 @@ package imgui;
  * Font runtime data and rendering
  * ImFontAtlas automatically loads a default embedded font for you when you call GetTexDataAsAlpha8() or GetTexDataAsRGBA32().
  */
-public final class ImFont implements ImDestroyable {
+public final class ImFont implements ImGuiDestroyableStruct {
     final long ptr;
 
     private ImFontGlyph fallbackGlyph = null;

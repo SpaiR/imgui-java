@@ -1,6 +1,6 @@
 package imgui;
 
-public final class ImFontConfig implements ImDestroyable {
+public final class ImFontConfig implements ImGuiDestroyableStruct {
     final long ptr;
 
     private short[] glyphRanges;

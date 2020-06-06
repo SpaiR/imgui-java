@@ -11,16 +11,13 @@ package imgui;
  * but you are totally free to apply whatever transformation matrix to want to the data (if you apply such transformation you'll want to apply it to ClipRect as well)
  * Important: Primitives are always added to the list and not culled (culling is done at higher-level by ImGui:: functions), if you use this API a lot consider coarse culling your drawn objects.
  */
-public final class ImDrawList implements ImDestroyable {
-    final long ptr;
+public final class ImDrawList {
+    // BINDING NOTICE:
+    // For proper usage in getWindowDrawList(), getBackgroundDrawList(), getForegroundDrawList() we should be able to change object pointer.
+    long ptr;
 
     ImDrawList(final long ptr) {
         this.ptr = ptr;
-    }
-
-    @Override
-    public void destroy() {
-        nDestroy(ptr);
     }
 
     /*JNI
@@ -36,10 +33,6 @@ public final class ImDrawList implements ImDestroyable {
     static native void nInit(); /*
         jclass jImDrawListClass = env->FindClass("imgui/ImDrawList");
         imDrawListPtrID = env->GetFieldID(jImDrawListClass, "ptr", "J");
-    */
-
-    private native void nDestroy(long ptr); /*
-        delete (ImDrawList*)ptr;
     */
 
     /**

@@ -5,7 +5,7 @@ package imgui;
  * During the frame, use ImGui::PushStyleVar(ImGuiStyleVar_XXXX)/PopStyleVar() to alter the main style values,
  * and ImGui::PushStyleColor(ImGuiCol_XXX)/PopStyleColor() for colors.
  */
-public final class ImGuiStyle implements ImDestroyable {
+public final class ImGuiStyle implements ImGuiDestroyableStruct {
     final long ptr;
 
     /**

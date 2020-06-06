@@ -17,13 +17,13 @@ public final class ImGui {
     private static final String LIB_TMP_DIR_PREFIX = "imgui-java-bin_" + System.getProperty("user.name", "user");
 
     private static final ImGuiIO IMGUI_IO;
+    private static final ImDrawList WINDOW_DRAW_LIST;
+    private static final ImDrawList BACKGROUND_DRAW_LIST;
+    private static final ImDrawList FOREGROUND_DRAW_LIST;
 
     private static ImDrawData drawData;
     private static ImFont font;
     private static ImGuiStyle style;
-    private static ImDrawList windowDrawList;
-    private static ImDrawList backgroundDrawList;
-    private static ImDrawList foregroundDrawList;
 
     static {
         final String libPath = System.getProperty(LIB_PATH_PROP);
@@ -41,6 +41,9 @@ public final class ImGui {
         }
 
         IMGUI_IO = new ImGuiIO();
+        WINDOW_DRAW_LIST = new ImDrawList(0);
+        BACKGROUND_DRAW_LIST = new ImDrawList(0);
+        FOREGROUND_DRAW_LIST = new ImDrawList(0);
 
         nInitJni();
         ImDrawList.nInit();
@@ -467,12 +470,22 @@ public final class ImGui {
 
     /**
      * Get draw list associated to the current window, to append your own drawing primitives
+     * <p>
+     * BINDING NOTICE: to minimize overhead, method ALWAYS returns the same object, but changes its underlying pointer.
+     * If you need to get an object with constant pointer (which will point to the same window all the time) use {@link #getWindowDrawListNew()}.
      */
     public static ImDrawList getWindowDrawList() {
-        if (windowDrawList == null) {
-            windowDrawList = new ImDrawList(nGetWindowDrawList());
-        }
-        return windowDrawList;
+        WINDOW_DRAW_LIST.ptr = nGetWindowDrawList();
+        return WINDOW_DRAW_LIST;
+    }
+
+    /**
+     * Get draw list associated to the current window, to append your own drawing primitives
+     * <p>
+     * BINDING NOTICE: returns {@link ImDrawList} for current window with constant pointer to it. Prefer to use {@link #getWindowDrawList()}.
+     */
+    public static ImDrawList getWindowDrawListNew() {
+        return new ImDrawList(nGetWindowDrawList());
     }
 
     private static native long nGetWindowDrawList(); /*
@@ -4514,12 +4527,23 @@ public final class ImGui {
     /**
      * Get background draw list for the viewport associated to the current window.
      * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
+     * <p>
+     * BINDING NOTICE: to minimize overhead, method ALWAYS returns the same object, but changes its underlying pointer.
+     * If you need to get an object with constant pointer (which will point to the same background all the time) use {@link #getBackgroundDrawListNew()}.
      */
     public static ImDrawList getBackgroundDrawList() {
-        if (backgroundDrawList == null) {
-            backgroundDrawList = new ImDrawList(nGetBackgroundDrawList());
-        }
-        return backgroundDrawList;
+        BACKGROUND_DRAW_LIST.ptr = nGetBackgroundDrawList();
+        return BACKGROUND_DRAW_LIST;
+    }
+
+    /**
+     * Get background draw list for the viewport associated to the current window.
+     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
+     * <p>
+     * BINDING NOTICE: returns {@link ImDrawList} for current background with constant pointer to it. Prefer to use {@link #getBackgroundDrawList()}.
+     */
+    public static ImDrawList getBackgroundDrawListNew() {
+        return new ImDrawList(nGetBackgroundDrawList());
     }
 
     private static native long nGetBackgroundDrawList(); /*
@@ -4529,12 +4553,23 @@ public final class ImGui {
     /**
      * Get foreground draw list for the viewport associated to the current window.
      * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
+     * <p>
+     * BINDING NOTICE: to minimize overhead, method ALWAYS returns the same object, but changes its underlying pointer.
+     * If you need to get an object with constant pointer (which will point to the same foreground all the time) use {@link #getForegroundDrawListNew()}.
      */
     public static ImDrawList getForegroundDrawList() {
-        if (foregroundDrawList == null) {
-            foregroundDrawList = new ImDrawList(nGetForegroundDrawList());
-        }
-        return foregroundDrawList;
+        FOREGROUND_DRAW_LIST.ptr = nGetForegroundDrawList();
+        return FOREGROUND_DRAW_LIST;
+    }
+
+    /**
+     * Get foreground draw list for the viewport associated to the current window.
+     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
+     * <p>
+     * BINDING NOTICE: returns {@link ImDrawList} for current foreground with constant pointer to it. Prefer to use {@link #getForegroundDrawList()}.
+     */
+    public static ImDrawList getForegroundDrawListNew() {
+        return new ImDrawList(nGetForegroundDrawList());
     }
 
     private static native long nGetForegroundDrawList(); /*

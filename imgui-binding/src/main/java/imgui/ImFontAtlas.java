@@ -22,7 +22,7 @@ import java.nio.ByteOrder;
  * - Even though many functions are suffixed with "TTF", OTF data is supported just as well.
  * - This is an old API and it is currently awkward for those and and various other reasons! We will address them in the future!
  */
-public final class ImFontAtlas implements ImDestroyable {
+public final class ImFontAtlas implements ImGuiDestroyableStruct {
     final long ptr;
 
     /**
