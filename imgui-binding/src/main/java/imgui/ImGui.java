@@ -877,12 +877,16 @@ public final class ImGui {
         ImGui::PopFont();
     */
 
-    public static native void pushStyleColor(int imGuiCol, int col); /*
-        ImGui::PushStyleColor(imGuiCol, col);
+    public static native void pushStyleColor(int imGuiCol, float r, float g, float b, float a); /*
+        ImGui::PushStyleColor(imGuiCol, (ImU32)ImColor(r, g, b, a));
     */
 
-    public static native void pushStyleColor(int imGuiCol, float r, float g, float b, float a); /*
-        ImGui::PushStyleColor(imGuiCol, ImVec4(r, g, b, a));
+    public static native void pushStyleColor(int imGuiCol, int r, int g, int b, int a); /*
+        ImGui::PushStyleColor(imGuiCol, (ImU32)ImColor(r, g, b, a));
+    */
+
+    public static native void pushStyleColor(int imGuiCol, int col); /*
+        ImGui::PushStyleColor(imGuiCol, col);
     */
 
     public static native void popStyleColor(); /*
@@ -1325,7 +1329,21 @@ public final class ImGui {
      * Shortcut for PushStyleColor(ImGuiCol_Text, col); Text(fmt, ...); PopStyleColor();
      */
     public static native void textColored(float r, float g, float b, float a, String text); /*
-        ImGui::TextColored(ImVec4(r, g, b, a), text, NULL);
+        ImGui::TextColored(ImColor(r, g, b, a), text, NULL);
+    */
+
+    /**
+     * Shortcut for PushStyleColor(ImGuiCol_Text, col); Text(fmt, ...); PopStyleColor();
+     */
+    public static native void textColored(int r, int g, int b, int a, String text); /*
+        ImGui::TextColored(ImColor(r, g, b, a), text, NULL);
+    */
+
+    /**
+     * Shortcut for PushStyleColor(ImGuiCol_Text, col); Text(fmt, ...); PopStyleColor();
+     */
+    public static native void textColored(int col, String text); /*
+        ImGui::TextColored(ImColor(col), text, NULL);
     */
 
     /**
