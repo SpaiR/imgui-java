@@ -79,7 +79,7 @@ public final class ImGuiGlfwExample {
 
         decideGlGlslVersions();
 
-        windowPtr = glfwCreateWindow(1280, 768, "Dear ImGui + GLFW + LWJGL Example", NULL, NULL);
+        windowPtr = glfwCreateWindow(1280, 768, "Dear ImGui+LWJGL Example", NULL, NULL);
 
         if (windowPtr == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
