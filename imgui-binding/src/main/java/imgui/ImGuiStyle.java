@@ -602,11 +602,11 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
     */
 
     public native void setColor(int imGuiCol, float r, float g, float b, float a); /*
-        IMGUI_STYLE->Colors[imGuiCol] = ImColor(r, g, b, a);
+        IMGUI_STYLE->Colors[imGuiCol] = ImColor((float)r, (float)g, (float)b, (float)a);
     */
 
     public native void setColor(int imGuiCol, int r, int g, int b, int a); /*
-        IMGUI_STYLE->Colors[imGuiCol] = ImColor(r, g, b, a);
+        IMGUI_STYLE->Colors[imGuiCol] = ImColor((int)r, (int)g, (int)b, (int)a);
     */
 
     public native void setColor(int imGuiCol, int col); /*
