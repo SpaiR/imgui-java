@@ -6,7 +6,7 @@ JNI based binding for [Dear ImGui](https://github.com/ocornut/imgui) with no dep
 Please read **Binding Notice** to get more info about java-specific things of the API.<br>
 See official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki) to get more info about how to do things in Dear ImGui. 
 
-Binding provides all the data you need to render Dear ImGui. If, for some reason, you want to use your own backend renderer, see how [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.76-0.12/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java) is works.
+Binding provides all the data you need to render Dear ImGui. If, for some reason, you want to use your own backend renderer, see how [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.76-0.12/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java) for reference.
 
 Versioning semantic of the binding: `imguiVersion-bindingVersion`.<br>
 For example `1.74-0.1` means that imgui-java uses `1.74` version of Dear ImGui and binding itself has the version `0.1`.
