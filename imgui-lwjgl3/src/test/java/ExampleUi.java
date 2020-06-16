@@ -19,9 +19,9 @@ import static org.lwjgl.opengl.GL32.*;
 final class ExampleUi {
     private static final String IMGUI_DEMO_LINK = "https://raw.githubusercontent.com/ocornut/imgui/v1.76/imgui_demo.cpp";
 
-    private static final int DODGERBLUE_COLOR = ImColor.get32RGBHex("#1E90FF");
-    private static final int CORAL_COLOR = ImColor.get32RGBHex("#FF7F50");
-    private static final int LIMEGREEN_COLOR = ImColor.get32RGBHex("#32CD32");
+    private static final int DODGERBLUE_COLOR = ImColor.rgbToColor("#1E90FF");
+    private static final int CORAL_COLOR = ImColor.rgbToColor("#FF7F50");
+    private static final int LIMEGREEN_COLOR = ImColor.rgbToColor("#32CD32");
 
     // Test data for payload
     private final byte[] testPayload = "Test Payload".getBytes();
