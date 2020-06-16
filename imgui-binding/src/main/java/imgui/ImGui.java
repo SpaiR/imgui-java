@@ -1,7 +1,7 @@
 package imgui;
 
 import imgui.flag.ImGuiInputTextFlags;
-import imgui.type.ImBool;
+import imgui.type.ImBoolean;
 import imgui.type.ImDouble;
 import imgui.type.ImFloat;
 import imgui.type.ImInt;
@@ -220,7 +220,7 @@ public final class ImGui {
         ImGui::ShowDemoWindow();
     */
 
-    public static void showDemoWindow(ImBool pOpen) {
+    public static void showDemoWindow(ImBoolean pOpen) {
         nShowDemoWindow(pOpen.getData());
     }
 
@@ -235,7 +235,7 @@ public final class ImGui {
         ImGui::ShowAboutWindow();
     */
 
-    public static void showAboutWindow(ImBool pOpen) {
+    public static void showAboutWindow(ImBoolean pOpen) {
         nShowAboutWindow(pOpen.getData());
     }
 
@@ -255,7 +255,7 @@ public final class ImGui {
      * Create Debug/Metrics window.
      * Display Dear ImGui internals: draw commands (with individual draw calls and vertices), window list, basic internal state, etc.
      */
-    public static void showMetricsWindow(ImBool pOpen) {
+    public static void showMetricsWindow(ImBoolean pOpen) {
         nShowMetricsWindow(pOpen.getData());
     }
 
@@ -370,7 +370,7 @@ public final class ImGui {
         return ImGui::Begin(title);
     */
 
-    public static boolean begin(String title, ImBool pOpen) {
+    public static boolean begin(String title, ImBoolean pOpen) {
         return nBegin(title, pOpen.getData(), 0);
     }
 
@@ -378,7 +378,7 @@ public final class ImGui {
         return nBegin(title, imGuiWindowFlags);
     }
 
-    public static boolean begin(String title, ImBool pOpen, int imGuiWindowFlags) {
+    public static boolean begin(String title, ImBoolean pOpen, int imGuiWindowFlags) {
         return nBegin(title, pOpen.getData(), imGuiWindowFlags);
     }
 
@@ -1495,7 +1495,7 @@ public final class ImGui {
         return ImGui::Checkbox(label, &flag);
     */
 
-    public static boolean checkbox(String label, ImBool active) {
+    public static boolean checkbox(String label, ImBoolean active) {
         return nCheckbox(label, active.getData());
     }
 
@@ -3451,14 +3451,14 @@ public final class ImGui {
     /**
      * When 'pOpen' isn't NULL, display an additional small close button on upper right of the header
      */
-    public static boolean collapsingHeader(String label, ImBool pOpen) {
+    public static boolean collapsingHeader(String label, ImBoolean pOpen) {
         return nCollapsingHeader(label, pOpen.getData(), 0);
     }
 
     /**
      * When 'pOpen' isn't NULL, display an additional small close button on upper right of the header
      */
-    public static boolean collapsingHeader(String label, ImBool pOpen, int imGuiTreeNodeFlags) {
+    public static boolean collapsingHeader(String label, ImBoolean pOpen, int imGuiTreeNodeFlags) {
         return nCollapsingHeader(label, pOpen.getData(), imGuiTreeNodeFlags);
     }
 
@@ -3500,15 +3500,15 @@ public final class ImGui {
         return ImGui::Selectable(label, selected, imGuiSelectableFlags, ImVec2(sizeX, sizeY));
     */
 
-    public static boolean selectable(String label, ImBool selected) {
+    public static boolean selectable(String label, ImBoolean selected) {
         return nSelectable(label, selected.getData(), 0, 0, 0);
     }
 
-    public static boolean selectable(String label, ImBool selected, int imGuiSelectableFlags) {
+    public static boolean selectable(String label, ImBoolean selected, int imGuiSelectableFlags) {
         return nSelectable(label, selected.getData(), imGuiSelectableFlags, 0, 0);
     }
 
-    public static boolean selectable(String label, ImBool selected, int imGuiSelectableFlags, float sizeX, float sizeY) {
+    public static boolean selectable(String label, ImBoolean selected, int imGuiSelectableFlags, float sizeX, float sizeY) {
         return nSelectable(label, selected.getData(), imGuiSelectableFlags, sizeX, sizeY);
     }
 
@@ -3735,14 +3735,14 @@ public final class ImGui {
     /**
      * Return true when activated + toggle (*pSelected) if pSelected != NULL
      */
-    public static boolean menuItem(String label, String shortcut, ImBool pSelected) {
+    public static boolean menuItem(String label, String shortcut, ImBoolean pSelected) {
         return nMenuItem(label, shortcut, pSelected.getData(), true);
     }
 
     /**
      * Return true when activated + toggle (*pSelected) if pSelected != NULL
      */
-    public static boolean menuItem(String label, String shortcut, ImBool pSelected, boolean enabled) {
+    public static boolean menuItem(String label, String shortcut, ImBoolean pSelected, boolean enabled) {
         return nMenuItem(label, shortcut, pSelected.getData(), enabled);
     }
 
@@ -3891,7 +3891,7 @@ public final class ImGui {
     /**
      * Modal dialog (regular window with title bar, block interactions behind the modal window, can't close the modal window by clicking outside)
      */
-    public static boolean beginPopupModal(String name, ImBool pOpen) {
+    public static boolean beginPopupModal(String name, ImBoolean pOpen) {
         return nBeginPopupModal(name, pOpen.getData(), 0);
     }
 
@@ -3905,7 +3905,7 @@ public final class ImGui {
     /**
      * Modal dialog (regular window with title bar, block interactions behind the modal window, can't close the modal window by clicking outside)
      */
-    public static boolean beginPopupModal(String name, ImBool pOpen, int imGuiWindowFlags) {
+    public static boolean beginPopupModal(String name, ImBoolean pOpen, int imGuiWindowFlags) {
         return nBeginPopupModal(name, pOpen.getData(), imGuiWindowFlags);
     }
 
@@ -4078,7 +4078,7 @@ public final class ImGui {
     /**
      * Create a Tab. Returns true if the Tab is selected.
      */
-    public static boolean beginTabItem(String label, ImBool pOpen) {
+    public static boolean beginTabItem(String label, ImBoolean pOpen) {
         return nBeginTabItem(label, pOpen.getData(), 0);
     }
 
@@ -4092,7 +4092,7 @@ public final class ImGui {
     /**
      * Create a Tab. Returns true if the Tab is selected.
      */
-    public static boolean beginTabItem(String label, ImBool pOpen, int imGuiTabBarFlags) {
+    public static boolean beginTabItem(String label, ImBoolean pOpen, int imGuiTabBarFlags) {
         return nBeginTabItem(label, pOpen.getData(), imGuiTabBarFlags);
     }
 

@@ -2,17 +2,17 @@ package imgui.type;
 
 import java.util.Objects;
 
-public final class ImBool implements Cloneable {
+public final class ImBoolean implements Cloneable {
     private final boolean[] data = new boolean[]{false};
 
-    public ImBool() {
+    public ImBoolean() {
     }
 
-    public ImBool(final ImBool imBool) {
-        this.data[0] = imBool.data[0];
+    public ImBoolean(final ImBoolean imBoolean) {
+        this.data[0] = imBoolean.data[0];
     }
 
-    public ImBool(final boolean value) {
+    public ImBoolean(final boolean value) {
         data[0] = value;
     }
 
@@ -41,8 +41,8 @@ public final class ImBool implements Cloneable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        final ImBool imBool = (ImBool) o;
-        return data[0] == imBool.data[0];
+        final ImBoolean imBoolean = (ImBoolean) o;
+        return data[0] == imBoolean.data[0];
     }
 
     @Override
@@ -51,7 +51,7 @@ public final class ImBool implements Cloneable {
     }
 
     @Override
-    public ImBool clone() {
-        return new ImBool(this);
+    public ImBoolean clone() {
+        return new ImBoolean(this);
     }
 }

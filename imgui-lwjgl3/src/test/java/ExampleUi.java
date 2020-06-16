@@ -1,4 +1,4 @@
-import imgui.type.ImBool;
+import imgui.type.ImBoolean;
 import imgui.ImColor;
 import imgui.ImGui;
 import imgui.type.ImString;
@@ -32,7 +32,7 @@ final class ExampleUi {
 
     // Resizable input example
     private final ImString resizableStr = new ImString(5);
-    private final ImBool showDemoWindow = new ImBool();
+    private final ImBoolean showDemoWindow = new ImBoolean();
 
     // Attach image example
     private int dukeTexture;
