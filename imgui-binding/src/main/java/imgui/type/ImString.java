@@ -20,7 +20,7 @@ public final class ImString implements Cloneable {
      * Configuration class to setup some specific behaviour for current string.
      * This is useful when string used inside of ImGui#InputText*() methods.
      */
-    public final ImGuiInputTextData inputData = new ImGuiInputTextData();
+    public final InputData inputData = new InputData();
 
     private byte[] data;
     private String text = "";
@@ -168,5 +168,38 @@ public final class ImString implements Cloneable {
     @Override
     public ImString clone() {
         return new ImString(this);
+    }
+
+    /**
+     * Use this class to customize your ImGui input.
+     */
+    public static final class InputData {
+        private static final short DEFAULT_RESIZE_FACTOR = 10;
+
+        /**
+         * If not empty, then other chars which are different from provided will be filtered during the {@link imgui.ImGui#inputText}
+         * and {@link imgui.ImGui#inputTextMultiline} methods.
+         */
+        public String allowedChars = "";
+
+        /**
+         * If true, then string will be resized during the the {@link imgui.ImGui#inputText} and {@link imgui.ImGui#inputTextMultiline} methods.
+         * Alternatively you can provide {@link imgui.flag.ImGuiInputTextFlags#CallbackResize} flag to the input text widgets to enable string resizing.
+         * Resize factor of the string could be modified by changing {@link #resizeFactor} field.
+         */
+        public boolean isResizable;
+
+        /**
+         * String will be resized to the value equal to a new size plus this resize factor.
+         * Default value is 10.
+         */
+        public int resizeFactor = DEFAULT_RESIZE_FACTOR;
+
+        int size;
+        boolean isDirty;
+        boolean isResized = false;
+
+        private InputData() {
+        }
     }
 }

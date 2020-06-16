@@ -4,7 +4,6 @@ import imgui.flag.ImGuiInputTextFlags;
 import imgui.type.ImBool;
 import imgui.type.ImDouble;
 import imgui.type.ImFloat;
-import imgui.type.ImGuiInputTextData;
 import imgui.type.ImInt;
 import imgui.type.ImLong;
 import imgui.type.ImShort;
@@ -2639,9 +2638,9 @@ public final class ImGui {
     /*JNI
         jmethodID jImStringResizeInternalMID;
 
-        jfieldID imTextInputDataSizeID;
-        jfieldID imTextInputDataIsDirtyID;
-        jfieldID imTextInputDataIsResizedID;
+        jfieldID inputDataSizeID;
+        jfieldID inputDataIsDirtyID;
+        jfieldID inputDataIsResizedID;
 
         struct InputTextCallbackUserData {
             JNIEnv* env;
@@ -2688,12 +2687,12 @@ public final class ImGui {
     */
 
     private static native void nInitInputTextData(); /*
-        jclass jImInputTextDataClass = env->FindClass("imgui/ImGuiInputTextData");
-        imTextInputDataSizeID = env->GetFieldID(jImInputTextDataClass, "size", "I");
-        imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
-        imTextInputDataIsResizedID = env->GetFieldID(jImInputTextDataClass, "isResized", "Z");
+        jclass jInputDataClass = env->FindClass("imgui/type/ImString$InputData");
+        inputDataSizeID = env->GetFieldID(jInputDataClass, "size", "I");
+        inputDataIsDirtyID = env->GetFieldID(jInputDataClass, "isDirty", "Z");
+        inputDataIsResizedID = env->GetFieldID(jInputDataClass, "isResized", "Z");
 
-        jclass jImString = env->FindClass("imgui/ImString");
+        jclass jImString = env->FindClass("imgui/type/ImString");
         jImStringResizeInternalMID = env->GetMethodID(jImString, "resizeInternal", "(I)[B");
     */
 
@@ -2722,7 +2721,7 @@ public final class ImGui {
     }
 
     private static boolean preInputText(boolean multiline, String label, ImString text, float width, float height, int flags) {
-        final ImGuiInputTextData inputData = text.inputData;
+        final ImString.InputData inputData = text.inputData;
 
         if (inputData.isResizable) {
             flags |= ImGuiInputTextFlags.CallbackResize;
@@ -2735,7 +2734,7 @@ public final class ImGui {
         return nInputText(multiline, label, text, text.getData(), text.getData().length, width, height, flags, inputData, inputData.allowedChars);
     }
 
-    private static native boolean nInputText(boolean multiline, String label, ImString imString, byte[] buf, int maxSize, float width, float height, int flags, ImGuiInputTextData textInputData, String allowedChars); /*
+    private static native boolean nInputText(boolean multiline, String label, ImString imString, byte[] buf, int maxSize, float width, float height, int flags, ImString.InputData textInputData, String allowedChars); /*
         InputTextCallbackUserData userData;
         userData.imString = &imString;
         userData.maxSize = maxSize;
@@ -2763,8 +2762,8 @@ public final class ImGui {
                 size = strlen(buf);
             }
 
-            env->SetIntField(textInputData, imTextInputDataSizeID, size);
-            env->SetBooleanField(textInputData, imTextInputDataIsDirtyID, true);
+            env->SetIntField(textInputData, inputDataSizeID, size);
+            env->SetBooleanField(textInputData, inputDataIsDirtyID, true);
         }
 
         return valueChanged;
