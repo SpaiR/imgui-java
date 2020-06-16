@@ -1,7 +1,7 @@
-import imgui.ImBool;
+import imgui.type.ImBool;
 import imgui.ImColor;
 import imgui.ImGui;
-import imgui.ImString;
+import imgui.type.ImString;
 import imgui.ImVec2;
 import imgui.flag.ImGuiColorEditFlags;
 import imgui.flag.ImGuiCond;

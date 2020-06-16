@@ -1,5 +1,7 @@
 package imgui;
 
+import imgui.type.ImInt;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -311,7 +313,7 @@ public final class ImFontAtlas implements ImGuiDestroyableStruct {
      * 1 byte-per-pixel
      */
     public ByteBuffer getTexDataAsAlpha8(final ImInt outWidth, final ImInt outHeight, final ImInt outBytesPerPixel) {
-        final byte[] tmpBuff = getTexDataAsAlpha8(outWidth.data, outHeight.data, outBytesPerPixel.data);
+        final byte[] tmpBuff = getTexDataAsAlpha8(outWidth.getData(), outHeight.getData(), outBytesPerPixel.getData());
         final ByteBuffer buffer = ByteBuffer.allocateDirect(tmpBuff.length).order(ByteOrder.nativeOrder());
         buffer.put(tmpBuff);
         buffer.flip();
@@ -338,7 +340,7 @@ public final class ImFontAtlas implements ImGuiDestroyableStruct {
      * 4 bytes-per-pixel
      */
     public ByteBuffer getTexDataAsRGBA32(final ImInt outWidth, final ImInt outHeight, final ImInt outBytesPerPixel) {
-        final byte[] tmpBuff = nGetTexDataAsRGBA32(outWidth.data, outHeight.data, outBytesPerPixel.data);
+        final byte[] tmpBuff = nGetTexDataAsRGBA32(outWidth.getData(), outHeight.getData(), outBytesPerPixel.getData());
         final ByteBuffer buffer = ByteBuffer.allocateDirect(tmpBuff.length).order(ByteOrder.nativeOrder());
         buffer.put(tmpBuff);
         buffer.flip();

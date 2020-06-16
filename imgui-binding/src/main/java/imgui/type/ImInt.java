@@ -1,26 +1,30 @@
-package imgui;
+package imgui.type;
 
 import java.util.Objects;
 
-public final class ImLong implements Cloneable {
-    final long[] data = new long[]{0};
+public final class ImInt implements Cloneable {
+    private final int[] data = new int[]{0};
 
-    public ImLong() {
+    public ImInt() {
     }
 
-    public ImLong(final ImLong imLong) {
-        this.data[0] = imLong.data[0];
+    public ImInt(final ImInt imInt) {
+        this.data[0] = imInt.data[0];
     }
 
-    public ImLong(final long value) {
+    public ImInt(final int value) {
         set(value);
     }
 
-    public long get() {
+    public int get() {
         return this.data[0];
     }
 
-    public void set(final long value) {
+    public int[] getData() {
+        return data;
+    }
+
+    public void set(final int value) {
         this.data[0] = value;
     }
 
@@ -37,8 +41,8 @@ public final class ImLong implements Cloneable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        final ImLong imLong = (ImLong) o;
-        return data[0] == imLong.data[0];
+        final ImInt imInt = (ImInt) o;
+        return data[0] == imInt.data[0];
     }
 
     @Override
@@ -47,7 +51,7 @@ public final class ImLong implements Cloneable {
     }
 
     @Override
-    public ImLong clone() {
-        return new ImLong(this);
+    public ImInt clone() {
+        return new ImInt(this);
     }
 }

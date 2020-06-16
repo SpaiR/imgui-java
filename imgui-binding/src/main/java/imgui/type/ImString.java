@@ -1,4 +1,4 @@
-package imgui;
+package imgui.type;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -22,7 +22,7 @@ public final class ImString implements Cloneable {
      */
     public final ImGuiInputTextData inputData = new ImGuiInputTextData();
 
-    byte[] data;
+    private byte[] data;
     private String text = "";
 
     /**
@@ -75,6 +75,10 @@ public final class ImString implements Cloneable {
             text = new String(data, 0, inputData.size, StandardCharsets.UTF_8);
         }
         return text;
+    }
+
+    public byte[] getData() {
+        return data;
     }
 
     public void set(final String value) {

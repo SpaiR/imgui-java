@@ -1,9 +1,9 @@
-package imgui;
+package imgui.type;
 
 import java.util.Objects;
 
 public final class ImShort implements Cloneable {
-    final short[] data = new short[]{0};
+    private final short[] data = new short[]{0};
 
     public ImShort() {
     }
@@ -18,6 +18,10 @@ public final class ImShort implements Cloneable {
 
     public short get() {
         return this.data[0];
+    }
+
+    public short[] getData() {
+        return data;
     }
 
     public void set(final short value) {

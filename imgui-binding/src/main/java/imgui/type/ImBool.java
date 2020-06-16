@@ -1,9 +1,9 @@
-package imgui;
+package imgui.type;
 
 import java.util.Objects;
 
 public final class ImBool implements Cloneable {
-    final boolean[] data = new boolean[]{false};
+    private final boolean[] data = new boolean[]{false};
 
     public ImBool() {
     }
@@ -18,6 +18,10 @@ public final class ImBool implements Cloneable {
 
     public boolean get() {
         return data[0];
+    }
+
+    public boolean[] getData() {
+        return data;
     }
 
     public void set(final boolean value) {

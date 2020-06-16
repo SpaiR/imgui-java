@@ -1,26 +1,30 @@
-package imgui;
+package imgui.type;
 
 import java.util.Objects;
 
-public final class ImDouble implements Cloneable {
-    final double[] data = new double[]{0.0d};
+public final class ImFloat implements Cloneable {
+    private final float[] data = new float[]{0};
 
-    public ImDouble() {
+    public ImFloat() {
     }
 
-    public ImDouble(final ImDouble imDouble) {
-        this.data[0] = imDouble.data[0];
+    public ImFloat(final ImFloat imFloat) {
+        this.data[0] = imFloat.data[0];
     }
 
-    public ImDouble(final double value) {
+    public ImFloat(final float value) {
         set(value);
     }
 
-    public double get() {
+    public float get() {
         return this.data[0];
     }
 
-    public void set(final double value) {
+    public float[] getData() {
+        return data;
+    }
+
+    public void set(final float value) {
         this.data[0] = value;
     }
 
@@ -37,8 +41,8 @@ public final class ImDouble implements Cloneable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        final ImDouble imDouble = (ImDouble) o;
-        return data[0] == imDouble.data[0];
+        final ImFloat imFloat = (ImFloat) o;
+        return data[0] == imFloat.data[0];
     }
 
     @Override
@@ -47,7 +51,7 @@ public final class ImDouble implements Cloneable {
     }
 
     @Override
-    public ImDouble clone() {
-        return new ImDouble(this);
+    public ImFloat clone() {
+        return new ImFloat(this);
     }
 }

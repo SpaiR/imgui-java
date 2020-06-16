@@ -1,6 +1,14 @@
 package imgui;
 
 import imgui.flag.ImGuiInputTextFlags;
+import imgui.type.ImBool;
+import imgui.type.ImDouble;
+import imgui.type.ImFloat;
+import imgui.type.ImGuiInputTextData;
+import imgui.type.ImInt;
+import imgui.type.ImLong;
+import imgui.type.ImShort;
+import imgui.type.ImString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -214,7 +222,7 @@ public final class ImGui {
     */
 
     public static void showDemoWindow(ImBool pOpen) {
-        nShowDemoWindow(pOpen.data);
+        nShowDemoWindow(pOpen.getData());
     }
 
     private static native void nShowDemoWindow(boolean[] pOpen); /*
@@ -229,7 +237,7 @@ public final class ImGui {
     */
 
     public static void showAboutWindow(ImBool pOpen) {
-        nShowAboutWindow(pOpen.data);
+        nShowAboutWindow(pOpen.getData());
     }
 
     private static native void nShowAboutWindow(boolean[] pOpen); /*
@@ -249,7 +257,7 @@ public final class ImGui {
      * Display Dear ImGui internals: draw commands (with individual draw calls and vertices), window list, basic internal state, etc.
      */
     public static void showMetricsWindow(ImBool pOpen) {
-        nShowMetricsWindow(pOpen.data);
+        nShowMetricsWindow(pOpen.getData());
     }
 
     private static native void nShowMetricsWindow(boolean[] pOpen); /*
@@ -364,7 +372,7 @@ public final class ImGui {
     */
 
     public static boolean begin(String title, ImBool pOpen) {
-        return nBegin(title, pOpen.data, 0);
+        return nBegin(title, pOpen.getData(), 0);
     }
 
     public static boolean begin(String title, int imGuiWindowFlags) {
@@ -372,7 +380,7 @@ public final class ImGui {
     }
 
     public static boolean begin(String title, ImBool pOpen, int imGuiWindowFlags) {
-        return nBegin(title, pOpen.data, imGuiWindowFlags);
+        return nBegin(title, pOpen.getData(), imGuiWindowFlags);
     }
 
     private static native boolean nBegin(String title, int imGuiWindowFlags); /*
@@ -1489,7 +1497,7 @@ public final class ImGui {
     */
 
     public static boolean checkbox(String label, ImBool active) {
-        return nCheckbox(label, active.data);
+        return nCheckbox(label, active.getData());
     }
 
     private static native boolean nCheckbox(String label, boolean[] data); /*
@@ -1497,7 +1505,7 @@ public final class ImGui {
     */
 
     public static boolean checkboxFlags(String label, ImInt v, int flagsValue) {
-        return nCheckboxFlags(label, v.data, flagsValue);
+        return nCheckboxFlags(label, v.getData(), flagsValue);
     }
 
     private static native boolean nCheckboxFlags(String label, int[] data, int flagsValue); /*
@@ -1515,7 +1523,7 @@ public final class ImGui {
      * Shortcut to handle the above pattern when value is an integer
      */
     public static boolean radioButton(String label, ImInt v, int vButton) {
-        return nRadioButton(label, v.data, vButton);
+        return nRadioButton(label, v.getData(), vButton);
     }
 
     private static native boolean nRadioButton(String label, int[] data, int vButton); /*
@@ -1561,11 +1569,11 @@ public final class ImGui {
     */
 
     public static boolean combo(String label, ImInt currentItem, String[] items, int itemsCount) {
-        return nCombo(label, currentItem.data, items, itemsCount, -1);
+        return nCombo(label, currentItem.getData(), items, itemsCount, -1);
     }
 
     public static boolean combo(String label, ImInt currentItem, String[] items, int itemsCount, int popupMaxHeightInItems) {
-        return nCombo(label, currentItem.data, items, itemsCount, popupMaxHeightInItems);
+        return nCombo(label, currentItem.getData(), items, itemsCount, popupMaxHeightInItems);
     }
 
     private static native boolean nCombo(String label, int[] currentItem, String[] items, int itemsCount, int popupMaxHeightInItems); /*
@@ -1582,11 +1590,11 @@ public final class ImGui {
      * Separate items with \0 within a string, end item-list with \0\0. e.g. "One\0Two\0Three\0"
      */
     public static boolean combo(String label, ImInt currentItem, String itemsSeparatedByZeros) {
-        return nCombo(label, currentItem.data, itemsSeparatedByZeros, -1);
+        return nCombo(label, currentItem.getData(), itemsSeparatedByZeros, -1);
     }
 
     public static boolean combo(String label, ImInt currentItem, String itemsSeparatedByZeros, int popupMaxHeightInItems) {
-        return nCombo(label, currentItem.data, itemsSeparatedByZeros, popupMaxHeightInItems);
+        return nCombo(label, currentItem.getData(), itemsSeparatedByZeros, popupMaxHeightInItems);
     }
 
     private static native boolean nCombo(String label, int[] currentItem, String itemsSeparatedByZeros, int popupMaxHeightInItems); /*
@@ -1842,7 +1850,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImInt pData, float vSpeed) {
-        return nDragScalar(label, dataType, pData.data, vSpeed);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed);
     }
 
     private static native boolean nDragScalar(String label, int dataType, int[] pData, float vSpeed); /*
@@ -1850,7 +1858,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImInt pData, float vSpeed, int pMin) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin);
     }
 
     private static native boolean nDragScalar(String label, int dataType, int[] pData, float vSpeed, int pMin); /*
@@ -1858,7 +1866,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImInt pData, float vSpeed, int pMin, int pMax) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax);
     }
 
     private static native boolean nDragScalar(String label, int dataType, int[] pData, float vSpeed, int pMin, int pMax); /*
@@ -1866,11 +1874,11 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImInt pData, float vSpeed, int pMin, int pMax, String format) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 1.0f);
     }
 
     public static boolean dragScalar(String label, int dataType, ImInt pData, float vSpeed, int pMin, int pMax, String format, float power) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax, format, power);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, power);
     }
 
     private static native boolean nDragScalar(String label, int dataType, int[] pData, float vSpeed, int pMin, int pMax, String format, float power); /*
@@ -1878,7 +1886,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImFloat pData, float vSpeed) {
-        return nDragScalar(label, dataType, pData.data, vSpeed);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed);
     }
 
     private static native boolean nDragScalar(String label, int dataType, float[] pData, float vSpeed); /*
@@ -1886,7 +1894,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImFloat pData, float vSpeed, float pMin) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin);
     }
 
     private static native boolean nDragScalar(String label, int dataType, float[] pData, float vSpeed, float pMin); /*
@@ -1894,7 +1902,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImFloat pData, float vSpeed, float pMin, float pMax) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax);
     }
 
     private static native boolean nDragScalar(String label, int dataType, float[] pData, float vSpeed, float pMin, float pMax); /*
@@ -1902,11 +1910,11 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImFloat pData, float vSpeed, float pMin, float pMax, String format) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 1.0f);
     }
 
     public static boolean dragScalar(String label, int dataType, ImFloat pData, float vSpeed, float pMin, float pMax, String format, float power) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax, format, power);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, power);
     }
 
     private static native boolean nDragScalar(String label, int dataType, float[] pData, float vSpeed, float pMin, float pMax, String format, float power); /*
@@ -1914,7 +1922,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImDouble pData, float vSpeed) {
-        return nDragScalar(label, dataType, pData.data, vSpeed);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed);
     }
 
     private static native boolean nDragScalar(String label, int dataType, double[] pData, float vSpeed); /*
@@ -1922,7 +1930,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImDouble pData, float vSpeed, double pMin) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin);
     }
 
     private static native boolean nDragScalar(String label, int dataType, double[] pData, float vSpeed, double pMin); /*
@@ -1930,7 +1938,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImDouble pData, float vSpeed, double pMin, double pMax) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax);
     }
 
     private static native boolean nDragScalar(String label, int dataType, double[] pData, float vSpeed, double pMin, double pMax); /*
@@ -1938,11 +1946,11 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImDouble pData, float vSpeed, double pMin, double pMax, String format) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 1.0f);
     }
 
     public static boolean dragScalar(String label, int dataType, ImDouble pData, float vSpeed, double pMin, double pMax, String format, float power) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax, format, power);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, power);
     }
 
     private static native boolean nDragScalar(String label, int dataType, double[] pData, float vSpeed, double pMin, double pMax, String format, float power); /*
@@ -1950,7 +1958,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImLong pData, float vSpeed) {
-        return nDragScalar(label, dataType, pData.data, vSpeed);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed);
     }
 
     private static native boolean nDragScalar(String label, int dataType, long[] pData, float vSpeed); /*
@@ -1958,7 +1966,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImLong pData, float vSpeed, long pMin) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin);
     }
 
     private static native boolean nDragScalar(String label, int dataType, long[] pData, float vSpeed, long pMin); /*
@@ -1966,7 +1974,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImLong pData, float vSpeed, long pMin, long pMax) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax);
     }
 
     private static native boolean nDragScalar(String label, int dataType, long[] pData, float vSpeed, long pMin, long pMax); /*
@@ -1974,11 +1982,11 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImLong pData, float vSpeed, long pMin, long pMax, String format) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 1.0f);
     }
 
     public static boolean dragScalar(String label, int dataType, ImLong pData, float vSpeed, long pMin, long pMax, String format, float power) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax, format, power);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, power);
     }
 
     private static native boolean nDragScalar(String label, int dataType, long[] pData, float vSpeed, long pMin, long pMax, String format, float power); /*
@@ -1986,7 +1994,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImShort pData, float vSpeed) {
-        return nDragScalar(label, dataType, pData.data, vSpeed);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed);
     }
 
     private static native boolean nDragScalar(String label, int dataType, short[] pData, float vSpeed); /*
@@ -1994,7 +2002,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImShort pData, float vSpeed, short pMin) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin);
     }
 
     private static native boolean nDragScalar(String label, int dataType, short[] pData, float vSpeed, short pMin); /*
@@ -2002,7 +2010,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImShort pData, float vSpeed, short pMin, short pMax) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax);
     }
 
     private static native boolean nDragScalar(String label, int dataType, short[] pData, float vSpeed, short pMin, short pMax); /*
@@ -2010,11 +2018,11 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImShort pData, float vSpeed, short pMin, short pMax, String format) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 1.0f);
     }
 
     public static boolean dragScalar(String label, int dataType, ImShort pData, float vSpeed, short pMin, short pMax, String format, float power) {
-        return nDragScalar(label, dataType, pData.data, vSpeed, pMin, pMax, format, power);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, power);
     }
 
     private static native boolean nDragScalar(String label, int dataType, short[] pData, float vSpeed, short pMin, short pMax, String format, float power); /*
@@ -2022,7 +2030,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImInt pData, int components, float vSpeed) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, int[] pData, int components, float vSpeed); /*
@@ -2030,7 +2038,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImInt pData, int components, float vSpeed, int pMin) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, int[] pData, int components, float vSpeed, int pMin); /*
@@ -2038,7 +2046,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImInt pData, int components, float vSpeed, int pMin, int pMax) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, int[] pData, int components, float vSpeed, int pMin, int pMax); /*
@@ -2046,11 +2054,11 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImInt pData, int components, float vSpeed, int pMin, int pMax, String format) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 1.0f);
     }
 
     public static boolean dragScalarN(String label, int dataType, ImInt pData, int components, float vSpeed, int pMin, int pMax, String format, float power) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax, format, power);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, power);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, int[] pData, int components, float vSpeed, int pMin, int pMax, String format, float power); /*
@@ -2058,7 +2066,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImFloat pData, int components, float vSpeed) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, float[] pData, int components, float vSpeed); /*
@@ -2066,7 +2074,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImFloat pData, int components, float vSpeed, float pMin) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, float[] pData, int components, float vSpeed, float pMin); /*
@@ -2074,7 +2082,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImFloat pData, int components, float vSpeed, float pMin, float pMax) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, float[] pData, int components, float vSpeed, float pMin, float pMax); /*
@@ -2082,11 +2090,11 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImFloat pData, int components, float vSpeed, float pMin, float pMax, String format) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 1.0f);
     }
 
     public static boolean dragScalarN(String label, int dataType, ImFloat pData, int components, float vSpeed, float pMin, float pMax, String format, float power) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax, format, power);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, power);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, float[] pData, int components, float vSpeed, float pMin, float pMax, String format, float power); /*
@@ -2094,7 +2102,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImDouble pData, int components, float vSpeed) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, double[] pData, int components, float vSpeed); /*
@@ -2102,7 +2110,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImDouble pData, int components, float vSpeed, double pMin) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, double[] pData, int components, float vSpeed, double pMin); /*
@@ -2110,7 +2118,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImDouble pData, int components, float vSpeed, double pMin, double pMax) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, double[] pData, int components, float vSpeed, double pMin, double pMax); /*
@@ -2118,11 +2126,11 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImDouble pData, int components, float vSpeed, double pMin, double pMax, String format) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 1.0f);
     }
 
     public static boolean dragScalarN(String label, int dataType, ImDouble pData, int components, float vSpeed, double pMin, double pMax, String format, float power) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax, format, power);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, power);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, double[] pData, int components, float vSpeed, double pMin, double pMax, String format, float power); /*
@@ -2130,7 +2138,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImLong pData, int components, float vSpeed) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, long[] pData, int components, float vSpeed); /*
@@ -2138,7 +2146,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImLong pData, int components, float vSpeed, long pMin) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, long[] pData, int components, float vSpeed, long pMin); /*
@@ -2146,7 +2154,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImLong pData, int components, float vSpeed, long pMin, long pMax) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, long[] pData, int components, float vSpeed, long pMin, long pMax); /*
@@ -2154,11 +2162,11 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImLong pData, int components, float vSpeed, long pMin, long pMax, String format) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 1.0f);
     }
 
     public static boolean dragScalarN(String label, int dataType, ImLong pData, int components, float vSpeed, long pMin, long pMax, String format, float power) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax, format, power);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, power);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, long[] pData, int components, float vSpeed, long pMin, long pMax, String format, float power); /*
@@ -2166,7 +2174,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImShort pData, int components, float vSpeed) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, short[] pData, int components, float vSpeed); /*
@@ -2174,7 +2182,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImShort pData, int components, float vSpeed, short pMin) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, short[] pData, int components, float vSpeed, short pMin); /*
@@ -2182,7 +2190,7 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImShort pData, int components, float vSpeed, short pMin, short pMax) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, short[] pData, int components, float vSpeed, short pMin, short pMax); /*
@@ -2190,11 +2198,11 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImShort pData, int components, float vSpeed, short pMin, short pMax, String format) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 1.0f);
     }
 
     public static boolean dragScalarN(String label, int dataType, ImShort pData, int components, float vSpeed, short pMin, short pMax, String format, float power) {
-        return nDragScalarN(label, dataType, pData.data, components, vSpeed, pMin, pMax, format, power);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, power);
     }
 
     private static native boolean nDragScalarN(String label, int dataType, short[] pData, int components, float vSpeed, short pMin, short pMax, String format, float power); /*
@@ -2305,7 +2313,7 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImInt v, int vMin, int vMax) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax);
     }
 
     private static native boolean nSliderScalar(String label, int dataType, int[] v, int vMin, int vMax); /*
@@ -2313,11 +2321,11 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImInt v, int vMin, int vMax, String format) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax, format, 1.0f);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean sliderScalar(String label, int dataType, ImInt v, int vMin, int vMax, String format, float power) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax, format, power);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nSliderScalar(String label, int dataType, int[] v, int vMin, int vMax, String format, float power); /*
@@ -2325,7 +2333,7 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImFloat v, float vMin, float vMax) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax);
     }
 
     private static native boolean nSliderScalar(String label, int dataType, float[] v, float vMin, float vMax); /*
@@ -2333,11 +2341,11 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImFloat v, float vMin, float vMax, String format) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax, format, 1.0f);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean sliderScalar(String label, int dataType, ImFloat v, float vMin, float vMax, String format, float power) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax, format, power);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nSliderScalar(String label, int dataType, float[] v, float vMin, float vMax, String format, float power); /*
@@ -2345,7 +2353,7 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImLong v, long vMin, long vMax) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax);
     }
 
     private static native boolean nSliderScalar(String label, int dataType, long[] v, long vMin, long vMax); /*
@@ -2353,11 +2361,11 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImLong v, long vMin, long vMax, String format) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax, format, 1.0f);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean sliderScalar(String label, int dataType, ImLong v, long vMin, long vMax, String format, float power) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax, format, power);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nSliderScalar(String label, int dataType, long[] v, long vMin, long vMax, String format, float power); /*
@@ -2365,7 +2373,7 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImDouble v, double vMin, double vMax) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax);
     }
 
     private static native boolean nSliderScalar(String label, int dataType, double[] v, double vMin, double vMax); /*
@@ -2373,11 +2381,11 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImDouble v, double vMin, double vMax, String format) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax, format, 1.0f);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean sliderScalar(String label, int dataType, ImDouble v, double vMin, double vMax, String format, float power) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax, format, power);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nSliderScalar(String label, int dataType, double[] v, double vMin, double vMax, String format, float power); /*
@@ -2385,7 +2393,7 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImShort v, short vMin, short vMax) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax);
     }
 
     private static native boolean nSliderScalar(String label, int dataType, short[] v, short vMin, short vMax); /*
@@ -2393,11 +2401,11 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImShort v, short vMin, short vMax, String format) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax, format, 1.0f);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean sliderScalar(String label, int dataType, ImShort v, short vMin, short vMax, String format, float power) {
-        return nSliderScalar(label, dataType, v.data, vMin, vMax, format, power);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nSliderScalar(String label, int dataType, short[] v, short vMin, short vMax, String format, float power); /*
@@ -2405,7 +2413,7 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImInt v, int vMin, int vMax) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax);
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, int[] v, int vMin, int vMax); /*
@@ -2413,11 +2421,11 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImInt v, int vMin, int vMax, String format) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax, format, 1.0f);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImInt v, int vMin, int vMax, String format, float power) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax, format, power);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, int[] v, int vMin, int vMax, String format, float power); /*
@@ -2425,7 +2433,7 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImFloat v, float vMin, float vMax) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax);
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, float[] v, float vMin, float vMax); /*
@@ -2433,11 +2441,11 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImFloat v, float vMin, float vMax, String format) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax, format, 1.0f);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImFloat v, float vMin, float vMax, String format, float power) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax, format, power);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, float[] v, float vMin, float vMax, String format, float power); /*
@@ -2445,7 +2453,7 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImLong v, long vMin, long vMax) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax);
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, long[] v, long vMin, long vMax); /*
@@ -2453,11 +2461,11 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImLong v, long vMin, long vMax, String format) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax, format, 1.0f);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImLong v, long vMin, long vMax, String format, float power) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax, format, power);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, long[] v, long vMin, long vMax, String format, float power); /*
@@ -2465,7 +2473,7 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImDouble v, double vMin, double vMax) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax);
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, double[] v, double vMin, double vMax); /*
@@ -2473,11 +2481,11 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImDouble v, double vMin, double vMax, String format) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax, format, 1.0f);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImDouble v, double vMin, double vMax, String format, float power) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax, format, power);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, double[] v, double vMin, double vMax, String format, float power); /*
@@ -2485,7 +2493,7 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImShort v, short vMin, short vMax) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax);
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, short[] v, short vMin, short vMax); /*
@@ -2493,11 +2501,11 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImShort v, short vMin, short vMax, String format) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax, format, 1.0f);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImShort v, short vMin, short vMax, String format, float power) {
-        return nSliderScalarN(label, dataType, components, v.data, vMin, vMax, format, power);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, short[] v, short vMin, short vMax, String format, float power); /*
@@ -2525,7 +2533,7 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImInt v, int vMin, int vMax) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax);
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, int[] v, int vMin, int vMax); /*
@@ -2533,11 +2541,11 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImInt v, int vMin, int vMax, String format) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax, format, 1.0f);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImInt v, int vMin, int vMax, String format, float power) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax, format, power);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, int[] v, int vMin, int vMax, String format, float power); /*
@@ -2545,7 +2553,7 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImFloat v, float vMin, float vMax) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax);
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, float[] v, float vMin, float vMax); /*
@@ -2553,11 +2561,11 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImFloat v, float vMin, float vMax, String format) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax, format, 1.0f);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImFloat v, float vMin, float vMax, String format, float power) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax, format, power);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, float[] v, float vMin, float vMax, String format, float power); /*
@@ -2565,7 +2573,7 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImLong v, long vMin, long vMax) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax);
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, long[] v, long vMin, long vMax); /*
@@ -2573,11 +2581,11 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImLong v, long vMin, long vMax, String format) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax, format, 1.0f);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImLong v, long vMin, long vMax, String format, float power) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax, format, power);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, long[] v, long vMin, long vMax, String format, float power); /*
@@ -2585,7 +2593,7 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImDouble v, double vMin, double vMax) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax);
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, double[] v, double vMin, double vMax); /*
@@ -2593,11 +2601,11 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImDouble v, double vMin, double vMax, String format) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax, format, 1.0f);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImDouble v, double vMin, double vMax, String format, float power) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax, format, power);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, double[] v, double vMin, double vMax, String format, float power); /*
@@ -2605,7 +2613,7 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImShort v, short vMin, short vMax) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax);
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, short[] v, short vMin, short vMax); /*
@@ -2613,11 +2621,11 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImShort v, short vMin, short vMax, String format) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax, format, 1.0f);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 1.0f);
     }
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImShort v, short vMin, short vMax, String format, float power) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.data, vMin, vMax, format, power);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, power);
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, short[] v, short vMin, short vMax, String format, float power); /*
@@ -2724,7 +2732,7 @@ public final class ImGui {
             flags |= ImGuiInputTextFlags.CallbackCharFilter;
         }
 
-        return nInputText(multiline, label, text, text.data, text.data.length, width, height, flags, inputData, inputData.allowedChars);
+        return nInputText(multiline, label, text, text.getData(), text.getData().length, width, height, flags, inputData, inputData.allowedChars);
     }
 
     private static native boolean nInputText(boolean multiline, String label, ImString imString, byte[] buf, int maxSize, float width, float height, int flags, ImGuiInputTextData textInputData, String allowedChars); /*
@@ -2763,23 +2771,23 @@ public final class ImGui {
     */
 
     public static boolean inputFloat(String label, ImFloat v) {
-        return nInputFloat(label, v.data, 0, 0, "%.3f", ImGuiInputTextFlags.None);
+        return nInputFloat(label, v.getData(), 0, 0, "%.3f", ImGuiInputTextFlags.None);
     }
 
     public static boolean inputFloat(String label, ImFloat v, float step) {
-        return nInputFloat(label, v.data, step, 0, "%.3f", ImGuiInputTextFlags.None);
+        return nInputFloat(label, v.getData(), step, 0, "%.3f", ImGuiInputTextFlags.None);
     }
 
     public static boolean inputFloat(String label, ImFloat v, float step, float stepFast) {
-        return nInputFloat(label, v.data, step, stepFast, "%.3f", ImGuiInputTextFlags.None);
+        return nInputFloat(label, v.getData(), step, stepFast, "%.3f", ImGuiInputTextFlags.None);
     }
 
     public static boolean inputFloat(String label, ImFloat v, float step, float stepFast, String format) {
-        return nInputFloat(label, v.data, step, stepFast, format, ImGuiInputTextFlags.None);
+        return nInputFloat(label, v.getData(), step, stepFast, format, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputFloat(String label, ImFloat v, float step, float stepFast, String format, int imGuiInputTextFlags) {
-        return nInputFloat(label, v.data, step, stepFast, format, imGuiInputTextFlags);
+        return nInputFloat(label, v.getData(), step, stepFast, format, imGuiInputTextFlags);
     }
 
     private static native boolean nInputFloat(String label, float[] v, float step, float stepFast, String format, int imGuiInputTextFlags); /*
@@ -2823,19 +2831,19 @@ public final class ImGui {
     */
 
     public static boolean inputInt(String label, ImInt v) {
-        return nInputInt(label, v.data, 1, 100, ImGuiInputTextFlags.None);
+        return nInputInt(label, v.getData(), 1, 100, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputInt(String label, ImInt v, int step) {
-        return nInputInt(label, v.data, step, 100, ImGuiInputTextFlags.None);
+        return nInputInt(label, v.getData(), step, 100, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputInt(String label, ImInt v, int step, int stepFast) {
-        return nInputInt(label, v.data, step, stepFast, ImGuiInputTextFlags.None);
+        return nInputInt(label, v.getData(), step, stepFast, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputInt(String label, ImInt v, int step, int stepFast, int imGuiInputTextFlags) {
-        return nInputInt(label, v.data, step, stepFast, imGuiInputTextFlags);
+        return nInputInt(label, v.getData(), step, stepFast, imGuiInputTextFlags);
     }
 
     private static native boolean nInputInt(String label, int[] v, int step, int stepFast, int imGuiInputTextFlags); /*
@@ -2867,23 +2875,23 @@ public final class ImGui {
     */
 
     public static boolean inputDouble(String label, ImDouble v) {
-        return nInputDouble(label, v.data, 0, 0, "%.6f", ImGuiInputTextFlags.None);
+        return nInputDouble(label, v.getData(), 0, 0, "%.6f", ImGuiInputTextFlags.None);
     }
 
     public static boolean inputDouble(String label, ImDouble v, double step) {
-        return nInputDouble(label, v.data, step, 0, "%.6f", ImGuiInputTextFlags.None);
+        return nInputDouble(label, v.getData(), step, 0, "%.6f", ImGuiInputTextFlags.None);
     }
 
     public static boolean inputDouble(String label, ImDouble v, double step, double stepFast) {
-        return nInputDouble(label, v.data, step, stepFast, "%.6f", ImGuiInputTextFlags.None);
+        return nInputDouble(label, v.getData(), step, stepFast, "%.6f", ImGuiInputTextFlags.None);
     }
 
     public static boolean inputDouble(String label, ImDouble v, double step, double stepFast, String format) {
-        return nInputDouble(label, v.data, step, stepFast, format, ImGuiInputTextFlags.None);
+        return nInputDouble(label, v.getData(), step, stepFast, format, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputDouble(String label, ImDouble v, double step, double stepFast, String format, int imGuiInputTextFlags) {
-        return nInputDouble(label, v.data, step, stepFast, format, imGuiInputTextFlags);
+        return nInputDouble(label, v.getData(), step, stepFast, format, imGuiInputTextFlags);
     }
 
     private static native boolean nInputDouble(String label, double[] v, double step, double stepFast, String format, int imGuiInputTextFlags); /*
@@ -2891,7 +2899,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImInt pData) {
-        return nInputScalar(label, dataType, pData.data);
+        return nInputScalar(label, dataType, pData.getData());
     }
 
     private static native boolean nInputScalar(String label, int dataType, int[] pData); /*
@@ -2899,7 +2907,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImInt pData, int pStep) {
-        return nInputScalar(label, dataType, pData.data, pStep);
+        return nInputScalar(label, dataType, pData.getData(), pStep);
     }
 
     private static native boolean nInputScalar(String label, int dataType, int[] pData, int pStep); /*
@@ -2907,7 +2915,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImInt pData, int pStep, int pStepFast) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast);
     }
 
     private static native boolean nInputScalar(String label, int dataType, int[] pData, int pStep, int pStepFast); /*
@@ -2915,7 +2923,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImInt pData, int pStep, int pStepFast, String format) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast, format);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast, format);
     }
 
     private static native boolean nInputScalar(String label, int dataType, int[] pData, int pStep, int pStepFast, String format); /*
@@ -2923,7 +2931,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImInt pData, int pStep, int pStepFast, String format, int imGuiInputTextFlags) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast, format, imGuiInputTextFlags);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast, format, imGuiInputTextFlags);
     }
 
     private static native boolean nInputScalar(String label, int dataType, int[] pData, int pStep, int pStepFast, String format, int imGuiInputTextFlags); /*
@@ -2931,7 +2939,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImFloat pData) {
-        return nInputScalar(label, dataType, pData.data);
+        return nInputScalar(label, dataType, pData.getData());
     }
 
     private static native boolean nInputScalar(String label, int dataType, float[] pData); /*
@@ -2939,7 +2947,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImFloat pData, float pStep) {
-        return nInputScalar(label, dataType, pData.data, pStep);
+        return nInputScalar(label, dataType, pData.getData(), pStep);
     }
 
     private static native boolean nInputScalar(String label, int dataType, float[] pData, float pStep); /*
@@ -2947,7 +2955,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImFloat pData, float pStep, float pStepFast) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast);
     }
 
     private static native boolean nInputScalar(String label, int dataType, float[] pData, float pStep, float pStepFast); /*
@@ -2955,7 +2963,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImFloat pData, float pStep, float pStepFast, String format) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast, format);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast, format);
     }
 
     private static native boolean nInputScalar(String label, int dataType, float[] pData, float pStep, float pStepFast, String format); /*
@@ -2963,7 +2971,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImFloat pData, float pStep, float pStepFast, String format, int imGuiInputTextFlags) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast, format, imGuiInputTextFlags);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast, format, imGuiInputTextFlags);
     }
 
     private static native boolean nInputScalar(String label, int dataType, float[] pData, float pStep, float pStepFast, String format, int imGuiInputTextFlags); /*
@@ -2971,7 +2979,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImLong pData) {
-        return nInputScalar(label, dataType, pData.data);
+        return nInputScalar(label, dataType, pData.getData());
     }
 
     private static native boolean nInputScalar(String label, int dataType, long[] pData); /*
@@ -2979,7 +2987,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImLong pData, long pStep) {
-        return nInputScalar(label, dataType, pData.data, pStep);
+        return nInputScalar(label, dataType, pData.getData(), pStep);
     }
 
     private static native boolean nInputScalar(String label, int dataType, long[] pData, long pStep); /*
@@ -2987,7 +2995,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImLong pData, long pStep, long pStepFast) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast);
     }
 
     private static native boolean nInputScalar(String label, int dataType, long[] pData, long pStep, long pStepFast); /*
@@ -2995,7 +3003,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImLong pData, long pStep, long pStepFast, String format) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast, format);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast, format);
     }
 
     private static native boolean nInputScalar(String label, int dataType, long[] pData, long pStep, long pStepFast, String format); /*
@@ -3003,7 +3011,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImLong pData, long pStep, long pStepFast, String format, int imGuiInputTextFlags) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast, format, imGuiInputTextFlags);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast, format, imGuiInputTextFlags);
     }
 
     private static native boolean nInputScalar(String label, int dataType, long[] pData, long pStep, long pStepFast, String format, int imGuiInputTextFlags); /*
@@ -3011,7 +3019,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImDouble pData) {
-        return nInputScalar(label, dataType, pData.data);
+        return nInputScalar(label, dataType, pData.getData());
     }
 
     private static native boolean nInputScalar(String label, int dataType, double[] pData); /*
@@ -3019,7 +3027,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImDouble pData, double pStep) {
-        return nInputScalar(label, dataType, pData.data, pStep);
+        return nInputScalar(label, dataType, pData.getData(), pStep);
     }
 
     private static native boolean nInputScalar(String label, int dataType, double[] pData, double pStep); /*
@@ -3027,7 +3035,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImDouble pData, double pStep, double pStepFast) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast);
     }
 
     private static native boolean nInputScalar(String label, int dataType, double[] pData, double pStep, double pStepFast); /*
@@ -3035,7 +3043,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImDouble pData, double pStep, double pStepFast, String format) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast, format);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast, format);
     }
 
     private static native boolean nInputScalar(String label, int dataType, double[] pData, double pStep, double pStepFast, String format); /*
@@ -3043,7 +3051,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImDouble pData, double pStep, double pStepFast, String format, int imGuiInputTextFlags) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast, format, imGuiInputTextFlags);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast, format, imGuiInputTextFlags);
     }
 
     private static native boolean nInputScalar(String label, int dataType, double[] pData, double pStep, double pStepFast, String format, int imGuiInputTextFlags); /*
@@ -3051,7 +3059,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImShort pData) {
-        return nInputScalar(label, dataType, pData.data);
+        return nInputScalar(label, dataType, pData.getData());
     }
 
     private static native boolean nInputScalar(String label, int dataType, short[] pData); /*
@@ -3059,7 +3067,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImShort pData, short pStep) {
-        return nInputScalar(label, dataType, pData.data, pStep);
+        return nInputScalar(label, dataType, pData.getData(), pStep);
     }
 
     private static native boolean nInputScalar(String label, int dataType, short[] pData, short pStep); /*
@@ -3067,7 +3075,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImShort pData, short pStep, short pStepFast) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast);
     }
 
     private static native boolean nInputScalar(String label, int dataType, short[] pData, short pStep, short pStepFast); /*
@@ -3075,7 +3083,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImShort pData, short pStep, short pStepFast, String format) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast, format);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast, format);
     }
 
     private static native boolean nInputScalar(String label, int dataType, short[] pData, short pStep, short pStepFast, String format); /*
@@ -3083,7 +3091,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalar(String label, int dataType, ImShort pData, short pStep, short pStepFast, String format, int imGuiInputTextFlags) {
-        return nInputScalar(label, dataType, pData.data, pStep, pStepFast, format, imGuiInputTextFlags);
+        return nInputScalar(label, dataType, pData.getData(), pStep, pStepFast, format, imGuiInputTextFlags);
     }
 
     private static native boolean nInputScalar(String label, int dataType, short[] pData, short pStep, short pStepFast, String format, int imGuiInputTextFlags); /*
@@ -3091,7 +3099,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImInt pData, int components) {
-        return nInputScalarN(label, dataType, pData.data, components);
+        return nInputScalarN(label, dataType, pData.getData(), components);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, int[] pData, int components); /*
@@ -3099,7 +3107,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImInt pData, int components, int pStep) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, int[] pData, int components, int pStep); /*
@@ -3107,7 +3115,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImInt pData, int components, int pStep, int pStepFast) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, int[] pData, int components, int pStep, int pStepFast); /*
@@ -3115,7 +3123,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImInt pData, int components, int pStep, int pStepFast, String format) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast, format);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast, format);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, int[] pData, int components, int pStep, int pStepFast, String format); /*
@@ -3123,7 +3131,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImInt pData, int components, int pStep, int pStepFast, String format, int imGuiInputTextFlags) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast, format, imGuiInputTextFlags);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast, format, imGuiInputTextFlags);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, int[] pData, int components, int pStep, int pStepFast, String format, int imGuiInputTextFlags); /*
@@ -3131,7 +3139,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImFloat pData, int components) {
-        return nInputScalarN(label, dataType, pData.data, components);
+        return nInputScalarN(label, dataType, pData.getData(), components);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, float[] pData, int components); /*
@@ -3139,7 +3147,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImFloat pData, int components, float pStep) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, float[] pData, int components, float pStep); /*
@@ -3147,7 +3155,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImFloat pData, int components, float pStep, float pStepFast) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, float[] pData, int components, float pStep, float pStepFast); /*
@@ -3155,7 +3163,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImFloat pData, int components, float pStep, float pStepFast, String format) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast, format);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast, format);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, float[] pData, int components, float pStep, float pStepFast, String format); /*
@@ -3163,7 +3171,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImFloat pData, int components, float pStep, float pStepFast, String format, int imGuiInputTextFlags) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast, format, imGuiInputTextFlags);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast, format, imGuiInputTextFlags);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, float[] pData, int components, float pStep, float pStepFast, String format, int imGuiInputTextFlags); /*
@@ -3171,7 +3179,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImLong pData, int components) {
-        return nInputScalarN(label, dataType, pData.data, components);
+        return nInputScalarN(label, dataType, pData.getData(), components);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, long[] pData, int components); /*
@@ -3179,7 +3187,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImLong pData, int components, long pStep) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, long[] pData, int components, long pStep); /*
@@ -3187,7 +3195,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImLong pData, int components, long pStep, long pStepFast) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, long[] pData, int components, long pStep, long pStepFast); /*
@@ -3195,7 +3203,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImLong pData, int components, long pStep, long pStepFast, String format) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast, format);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast, format);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, long[] pData, int components, long pStep, long pStepFast, String format); /*
@@ -3203,7 +3211,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImLong pData, int components, long pStep, long pStepFast, String format, int imGuiInputTextFlags) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast, format, imGuiInputTextFlags);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast, format, imGuiInputTextFlags);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, long[] pData, int components, long pStep, long pStepFast, String format, int imGuiInputTextFlags); /*
@@ -3211,7 +3219,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImDouble pData, int components) {
-        return nInputScalarN(label, dataType, pData.data, components);
+        return nInputScalarN(label, dataType, pData.getData(), components);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, double[] pData, int components); /*
@@ -3219,7 +3227,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImDouble pData, int components, double pStep) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, double[] pData, int components, double pStep); /*
@@ -3227,7 +3235,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImDouble pData, int components, double pStep, double pStepFast) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, double[] pData, int components, double pStep, double pStepFast); /*
@@ -3235,7 +3243,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImDouble pData, int components, double pStep, double pStepFast, String format) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast, format);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast, format);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, double[] pData, int components, double pStep, double pStepFast, String format); /*
@@ -3243,7 +3251,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImDouble pData, int components, double pStep, double pStepFast, String format, int imGuiInputTextFlags) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast, format, imGuiInputTextFlags);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast, format, imGuiInputTextFlags);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, double[] pData, int components, double pStep, double pStepFast, String format, int imGuiInputTextFlags); /*
@@ -3251,7 +3259,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImShort pData, int components) {
-        return nInputScalarN(label, dataType, pData.data, components);
+        return nInputScalarN(label, dataType, pData.getData(), components);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, short[] pData, int components); /*
@@ -3259,7 +3267,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImShort pData, int components, short pStep) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, short[] pData, int components, short pStep); /*
@@ -3267,7 +3275,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImShort pData, int components, short pStep, short pStepFast) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, short[] pData, int components, short pStep, short pStepFast); /*
@@ -3275,7 +3283,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImShort pData, int components, short pStep, short pStepFast, String format) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast, format);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast, format);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, short[] pData, int components, short pStep, short pStepFast, String format); /*
@@ -3283,7 +3291,7 @@ public final class ImGui {
     */
 
     public static boolean inputScalarN(String label, int dataType, ImShort pData, int components, short pStep, short pStepFast, String format, int imGuiInputTextFlags) {
-        return nInputScalarN(label, dataType, pData.data, components, pStep, pStepFast, format, imGuiInputTextFlags);
+        return nInputScalarN(label, dataType, pData.getData(), components, pStep, pStepFast, format, imGuiInputTextFlags);
     }
 
     private static native boolean nInputScalarN(String label, int dataType, short[] pData, int components, short pStep, short pStepFast, String format, int imGuiInputTextFlags); /*
@@ -3445,14 +3453,14 @@ public final class ImGui {
      * When 'pOpen' isn't NULL, display an additional small close button on upper right of the header
      */
     public static boolean collapsingHeader(String label, ImBool pOpen) {
-        return nCollapsingHeader(label, pOpen.data, 0);
+        return nCollapsingHeader(label, pOpen.getData(), 0);
     }
 
     /**
      * When 'pOpen' isn't NULL, display an additional small close button on upper right of the header
      */
     public static boolean collapsingHeader(String label, ImBool pOpen, int imGuiTreeNodeFlags) {
-        return nCollapsingHeader(label, pOpen.data, imGuiTreeNodeFlags);
+        return nCollapsingHeader(label, pOpen.getData(), imGuiTreeNodeFlags);
     }
 
     private static native boolean nCollapsingHeader(String label, boolean[] pOpen, int imGuiTreeNodeFlags); /*
@@ -3494,15 +3502,15 @@ public final class ImGui {
     */
 
     public static boolean selectable(String label, ImBool selected) {
-        return nSelectable(label, selected.data, 0, 0, 0);
+        return nSelectable(label, selected.getData(), 0, 0, 0);
     }
 
     public static boolean selectable(String label, ImBool selected, int imGuiSelectableFlags) {
-        return nSelectable(label, selected.data, imGuiSelectableFlags, 0, 0);
+        return nSelectable(label, selected.getData(), imGuiSelectableFlags, 0, 0);
     }
 
     public static boolean selectable(String label, ImBool selected, int imGuiSelectableFlags, float sizeX, float sizeY) {
-        return nSelectable(label, selected.data, imGuiSelectableFlags, sizeX, sizeY);
+        return nSelectable(label, selected.getData(), imGuiSelectableFlags, sizeX, sizeY);
     }
 
     private static native boolean nSelectable(String label, boolean[] selected, int imGuiSelectableFlags, float sizeX, float sizeY); /*
@@ -3512,11 +3520,11 @@ public final class ImGui {
     // Widgets: List Boxes
 
     public static void listBox(String label, ImInt currentItem, String[] items, int itemsCount) {
-        nListBox(label, currentItem.data, items, itemsCount, -1);
+        nListBox(label, currentItem.getData(), items, itemsCount, -1);
     }
 
     public static void listBox(String label, ImInt currentItem, String[] items, int itemsCount, int heightInItems) {
-        nListBox(label, currentItem.data, items, itemsCount, heightInItems);
+        nListBox(label, currentItem.getData(), items, itemsCount, heightInItems);
     }
 
     private static native boolean nListBox(String label, int[] currentItem, String[] items, int itemsCount, int heightInItems); /*
@@ -3729,14 +3737,14 @@ public final class ImGui {
      * Return true when activated + toggle (*pSelected) if pSelected != NULL
      */
     public static boolean menuItem(String label, String shortcut, ImBool pSelected) {
-        return nMenuItem(label, shortcut, pSelected.data, true);
+        return nMenuItem(label, shortcut, pSelected.getData(), true);
     }
 
     /**
      * Return true when activated + toggle (*pSelected) if pSelected != NULL
      */
     public static boolean menuItem(String label, String shortcut, ImBool pSelected, boolean enabled) {
-        return nMenuItem(label, shortcut, pSelected.data, enabled);
+        return nMenuItem(label, shortcut, pSelected.getData(), enabled);
     }
 
     /**
@@ -3885,7 +3893,7 @@ public final class ImGui {
      * Modal dialog (regular window with title bar, block interactions behind the modal window, can't close the modal window by clicking outside)
      */
     public static boolean beginPopupModal(String name, ImBool pOpen) {
-        return nBeginPopupModal(name, pOpen.data, 0);
+        return nBeginPopupModal(name, pOpen.getData(), 0);
     }
 
     /**
@@ -3899,7 +3907,7 @@ public final class ImGui {
      * Modal dialog (regular window with title bar, block interactions behind the modal window, can't close the modal window by clicking outside)
      */
     public static boolean beginPopupModal(String name, ImBool pOpen, int imGuiWindowFlags) {
-        return nBeginPopupModal(name, pOpen.data, imGuiWindowFlags);
+        return nBeginPopupModal(name, pOpen.getData(), imGuiWindowFlags);
     }
 
     private static native boolean nBeginPopupModal(String name, int imGuiWindowFlags); /*
@@ -4072,7 +4080,7 @@ public final class ImGui {
      * Create a Tab. Returns true if the Tab is selected.
      */
     public static boolean beginTabItem(String label, ImBool pOpen) {
-        return nBeginTabItem(label, pOpen.data, 0);
+        return nBeginTabItem(label, pOpen.getData(), 0);
     }
 
     /**
@@ -4086,7 +4094,7 @@ public final class ImGui {
      * Create a Tab. Returns true if the Tab is selected.
      */
     public static boolean beginTabItem(String label, ImBool pOpen, int imGuiTabBarFlags) {
-        return nBeginTabItem(label, pOpen.data, imGuiTabBarFlags);
+        return nBeginTabItem(label, pOpen.getData(), imGuiTabBarFlags);
     }
 
     private static native boolean nBeginTabItem(String label, int imGuiTabBarFlags); /*
