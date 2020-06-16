@@ -1,4 +1,4 @@
-package imgui.enums;
+package imgui.flag;
 
 /**
  * Gamepad/Keyboard directional navigation

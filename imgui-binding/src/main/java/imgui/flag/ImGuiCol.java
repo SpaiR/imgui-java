@@ -1,4 +1,4 @@
-package imgui.enums;
+package imgui.flag;
 
 /**
  * Enumeration for PushStyleColor() / PopStyleColor()

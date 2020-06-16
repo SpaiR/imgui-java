@@ -1,4 +1,4 @@
-package imgui.enums;
+package imgui.flag;
 
 /**
  * Flags for ColorEdit3() / ColorEdit4() / ColorPicker3() / ColorPicker4() / ColorButton()

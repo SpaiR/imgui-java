@@ -1,4 +1,4 @@
-package imgui.enums;
+package imgui.flag;
 
 public final class ImDrawCornerFlags {
     private ImDrawCornerFlags() {

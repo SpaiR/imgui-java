@@ -1,4 +1,4 @@
-package imgui.enums;
+package imgui.flag;
 
 /**
  * A cardinal direction

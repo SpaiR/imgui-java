@@ -1,4 +1,4 @@
-package imgui.enums;
+package imgui.flag;
 
 /**
  * Flags for ImGui::BeginTabBar()

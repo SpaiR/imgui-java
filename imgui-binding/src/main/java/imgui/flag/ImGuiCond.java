@@ -1,4 +1,4 @@
-package imgui.enums;
+package imgui.flag;
 
 /**
  * Enumeration for ImGui::SetWindow***(), SetNextWindow***(), SetNextItem***() functions

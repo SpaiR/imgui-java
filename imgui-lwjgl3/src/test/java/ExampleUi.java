@@ -3,9 +3,9 @@ import imgui.ImColor;
 import imgui.ImGui;
 import imgui.ImString;
 import imgui.ImVec2;
-import imgui.enums.ImGuiColorEditFlags;
-import imgui.enums.ImGuiCond;
-import imgui.enums.ImGuiInputTextFlags;
+import imgui.flag.ImGuiColorEditFlags;
+import imgui.flag.ImGuiCond;
+import imgui.flag.ImGuiInputTextFlags;
 import org.lwjgl.BufferUtils;
 
 import javax.imageio.ImageIO;

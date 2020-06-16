@@ -1,4 +1,4 @@
-package imgui.enums;
+package imgui.flag;
 
 public final class ImFontAtlasFlags {
     private ImFontAtlasFlags() {

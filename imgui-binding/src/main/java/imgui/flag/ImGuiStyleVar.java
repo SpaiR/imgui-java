@@ -1,4 +1,4 @@
-package imgui.enums;
+package imgui.flag;
 
 /**
  * Enumeration for PushStyleVar() / PopStyleVar() to temporarily modify the ImGuiStyle structure.

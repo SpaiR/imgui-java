@@ -1,4 +1,4 @@
-package imgui.enums;
+package imgui.flag;
 
 /**
  * Configuration flags stored in io.ConfigFlags. Set by user/application.

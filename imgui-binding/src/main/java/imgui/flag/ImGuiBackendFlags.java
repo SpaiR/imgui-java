@@ -1,4 +1,4 @@
-package imgui.enums;
+package imgui.flag;
 
 /**
  * Back-end capabilities flags stored in io.BackendFlags. Set by imgui_impl_xxx or custom back-end.

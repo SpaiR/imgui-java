@@ -1,6 +1,6 @@
 package imgui;
 
-import imgui.enums.ImGuiInputTextFlags;
+import imgui.flag.ImGuiInputTextFlags;
 
 import java.io.IOException;
 import java.io.InputStream;
