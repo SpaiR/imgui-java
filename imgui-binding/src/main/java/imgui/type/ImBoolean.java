@@ -1,7 +1,5 @@
 package imgui.type;
 
-import java.util.Objects;
-
 public final class ImBoolean implements Cloneable {
     private final boolean[] data = new boolean[]{false};
 
@@ -47,7 +45,7 @@ public final class ImBoolean implements Cloneable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(data[0]);
+        return Boolean.hashCode(data[0]);
     }
 
     @Override

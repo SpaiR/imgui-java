@@ -1,7 +1,5 @@
 package imgui.type;
 
-import java.util.Objects;
-
 public final class ImInt implements Cloneable {
     private final int[] data = new int[]{0};
 
@@ -47,7 +45,7 @@ public final class ImInt implements Cloneable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(data[0]);
+        return Integer.hashCode(data[0]);
     }
 
     @Override
