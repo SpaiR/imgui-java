@@ -1,4 +1,4 @@
-package imgui.callbacks;
+package imgui.callback;
 
 /**
  * Callback for {@link imgui.ImGuiListClipper} class.

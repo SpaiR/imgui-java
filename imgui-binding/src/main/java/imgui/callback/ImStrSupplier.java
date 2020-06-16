@@ -1,4 +1,4 @@
-package imgui.callbacks;
+package imgui.callback;
 
 /**
  * Callback to get Java string from native code.

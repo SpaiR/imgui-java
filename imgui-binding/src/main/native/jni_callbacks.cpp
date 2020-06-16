@@ -8,13 +8,13 @@ jmethodID jImStrSupplierGetMID;
 namespace Jni
 {
     void InitCallbacks(JNIEnv* env) {
-        jclass jImListClipperCallback = env->FindClass("imgui/callbacks/ImListClipperCallback");
+        jclass jImListClipperCallback = env->FindClass("imgui/callback/ImListClipperCallback");
         jImListClipperCallbackAcceptMID = env->GetMethodID(jImListClipperCallback, "accept", "(I)V");
 
-        jclass jImStrConsumer = env->FindClass("imgui/callbacks/ImStrConsumer");
+        jclass jImStrConsumer = env->FindClass("imgui/callback/ImStrConsumer");
         jImStrConsumerAcceptMID = env->GetMethodID(jImStrConsumer, "accept", "(Ljava/lang/String;)V");
 
-        jclass jImStrSupplier = env->FindClass("imgui/callbacks/ImStrSupplier");
+        jclass jImStrSupplier = env->FindClass("imgui/callback/ImStrSupplier");
         jImStrSupplierGetMID = env->GetMethodID(jImStrSupplier, "get", "()Ljava/lang/String;");
     }
 

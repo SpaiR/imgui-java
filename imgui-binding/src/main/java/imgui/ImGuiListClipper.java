@@ -1,6 +1,6 @@
 package imgui;
 
-import imgui.callbacks.ImListClipperCallback;
+import imgui.callback.ImListClipperCallback;
 
 /**
  * Helper: Manually clip large list of items.

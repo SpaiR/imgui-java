@@ -1,7 +1,7 @@
 package imgui;
 
-import imgui.callbacks.ImStrConsumer;
-import imgui.callbacks.ImStrSupplier;
+import imgui.callback.ImStrConsumer;
+import imgui.callback.ImStrSupplier;
 
 /**
  * Communicate most settings and inputs/outputs to Dear ImGui using this structure.
