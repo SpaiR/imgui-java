@@ -12,8 +12,6 @@ package imgui;
  * Important: Primitives are always added to the list and not culled (culling is done at higher-level by ImGui:: functions), if you use this API a lot consider coarse culling your drawn objects.
  */
 public final class ImDrawList {
-    // BINDING NOTICE:
-    // For proper usage in getWindowDrawList(), getBackgroundDrawList(), getForegroundDrawList() we should be able to change object pointer.
     long ptr;
 
     ImDrawList(final long ptr) {

@@ -27,6 +27,7 @@ public final class ImGui {
     private static final ImDrawList WINDOW_DRAW_LIST;
     private static final ImDrawList BACKGROUND_DRAW_LIST;
     private static final ImDrawList FOREGROUND_DRAW_LIST;
+    private static final ImGuiStorage IMGUI_STORAGE;
 
     private static ImDrawData drawData;
     private static ImFont font;
@@ -51,6 +52,7 @@ public final class ImGui {
         WINDOW_DRAW_LIST = new ImDrawList(0);
         BACKGROUND_DRAW_LIST = new ImDrawList(0);
         FOREGROUND_DRAW_LIST = new ImDrawList(0);
+        IMGUI_STORAGE = new ImGuiStorage(0);
 
         nInitJni();
         ImDrawList.nInit();
@@ -61,6 +63,7 @@ public final class ImGui {
         ImFont.nInit();
         ImGuiStyle.nInit();
         ImGuiWindowClass.nInit();
+        ImGuiStorage.nInit();
         nInitInputTextData();
     }
 
@@ -4616,7 +4619,36 @@ public final class ImGui {
         return env->NewStringUTF(ImGui::GetStyleColorName(imGuiCol));
     */
 
-    // TODO SetStateStorage, GetStateStorage
+    /**
+     * Replace current window storage with our own (if you want to manipulate it yourself, typically clear subsection of it).
+     */
+    public static void setStateStorage(final ImGuiStorage storage) {
+        nSetStateStorage(storage.ptr);
+    }
+
+    private static native void nSetStateStorage(long imGuiStoragePtr); /*
+        ImGui::SetStateStorage((ImGuiStorage*)imGuiStoragePtr);
+    */
+
+    /**
+     * BINDING NOTICE: to minimize overhead, method ALWAYS returns the same object, but changes its underlying pointer.
+     * If you need to get an object with constant pointer (which will point to the same window all the time) use {@link #getStateStorageNew()}.
+     */
+    public static ImGuiStorage getStateStorage() {
+        IMGUI_STORAGE.ptr = nGetStateStorage();
+        return IMGUI_STORAGE;
+    }
+
+    /**
+     * BINDING NOTICE: returns {@link ImGuiStorage} for current window with constant pointer to it. Prefer to use {@link #getStateStorage()}.
+     */
+    public static ImGuiStorage getStateStorageNew() {
+        return new ImGuiStorage(nGetStateStorage());
+    }
+
+    private static native long nGetStateStorage(); /*
+        return (intptr_t)ImGui::GetStateStorage();
+    */
 
     /**
      * Calculate coarse clipping for large list of evenly sized items. Prefer using the ImGuiListClipper higher-level helper if you can.
