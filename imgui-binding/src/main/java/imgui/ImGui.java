@@ -12,6 +12,7 @@ import imgui.type.ImString;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
+import java.lang.ref.WeakReference;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -4266,6 +4267,9 @@ public final class ImGui {
     // Drag and Drop
     // - [BETA API] API may evolve!
 
+    private static WeakReference<Object> objectPayloadRef = null;
+    private static final byte[] OBJECT_PAYLOAD_PLACEHOLDER_DATA = new byte[1];
+
     /**
      * Call when the current item is active. If this return true, you can call SetDragDropPayload() + EndDragDropSource()
      */
@@ -4282,17 +4286,46 @@ public final class ImGui {
 
     /**
      * Type is a user defined string of maximum 32 characters. Strings starting with '_' are reserved for dear imgui internal types.
-     * Data is copied and held by imgui.
+     * <p>
+     * BINDING NOTICE: Alternative for {@link #setDragDropPayload(String, byte[])}.
+     * Using this method any Java object can be used for payload.
+     * Binding layer stores a reference to the object in a form of {@link WeakReference}.
      */
-    public static native boolean setDragDropPayload(String type, byte[] data, int sz); /*
-        return ImGui::SetDragDropPayload(type, &data[0], sz);
-    */
+    public static boolean setDragDropPayloadObject(String type, Object payload) {
+        return setDragDropPayloadObject(type, payload, 0);
+    }
+
+    /**
+     * Type is a user defined string of maximum 32 characters. Strings starting with '_' are reserved for dear imgui internal types.
+     * <p>
+     * BINDING NOTICE: Alternative for {@link #setDragDropPayload(String, byte[], int)}.
+     * Using this method any Java object can be used for payload.
+     * Binding layer stores a reference to the object in a form of {@link WeakReference}.
+     */
+    public static boolean setDragDropPayloadObject(String type, Object payload, int imGuiCond) {
+        if (objectPayloadRef == null || objectPayloadRef.get() != payload) {
+            objectPayloadRef = new WeakReference<>(payload);
+        }
+        return setDragDropPayload(type, OBJECT_PAYLOAD_PLACEHOLDER_DATA, imGuiCond);
+    }
 
     /**
      * Type is a user defined string of maximum 32 characters. Strings starting with '_' are reserved for dear imgui internal types.
      * Data is copied and held by imgui.
      */
-    public static native boolean setDragDropPayload(String type, byte[] data, int sz, int imGuiCond); /*
+    public static boolean setDragDropPayload(String type, byte[] data) {
+        return nSetDragDropPayload(type, data, data.length, 0);
+    }
+
+    /**
+     * Type is a user defined string of maximum 32 characters. Strings starting with '_' are reserved for dear imgui internal types.
+     * Data is copied and held by imgui.
+     */
+    public static boolean setDragDropPayload(String type, byte[] data, int imGuiCond) {
+        return nSetDragDropPayload(type, data, data.length, imGuiCond);
+    }
+
+    private static native boolean nSetDragDropPayload(String type, byte[] data, int sz, int imGuiCond); /*
         return ImGui::SetDragDropPayload(type, &data[0], sz, imGuiCond);
     */
 
@@ -4308,6 +4341,30 @@ public final class ImGui {
      */
     public static native boolean beginDragDropTarget(); /*
         return ImGui::BeginDragDropTarget();
+    */
+
+    /**
+     * Accept contents of a given type. If ImGuiDragDropFlags_AcceptBeforeDelivery is set you can peek into the payload before the mouse button is released.
+     * <p>
+     * BINDING NOTICE: Alternative for {@link #acceptDragDropPayload(String)}.
+     * Use in combination with {@link #setDragDropPayloadObject(String, Object)}.
+     */
+    public static Object acceptDragDropPayloadObject(String type) {
+        return acceptDragDropPayloadObject(type, 0);
+    }
+
+    /**
+     * Accept contents of a given type. If ImGuiDragDropFlags_AcceptBeforeDelivery is set you can peek into the payload before the mouse button is released.
+     * <p>
+     * BINDING NOTICE: Alternative for {@link #acceptDragDropPayload(String, int)}.
+     * Use in combination with {@link #setDragDropPayloadObject(String, Object)}.
+     */
+    public static Object acceptDragDropPayloadObject(String type, int imGuiDragDropFlags) {
+        return nAcceptDragDropPayloadObject(type, imGuiDragDropFlags) ? objectPayloadRef.get() : null;
+    }
+
+    private static native boolean nAcceptDragDropPayloadObject(String type, int imGuiDragDropFlags); /*
+        return ImGui::AcceptDragDropPayload(type, imGuiDragDropFlags) != NULL;
     */
 
     /**
@@ -4342,7 +4399,20 @@ public final class ImGui {
 
     /**
      * Peek directly into the current payload from anywhere. May return NULL. use ImGuiPayload::IsDataType() to test for the payload type.
-     * TODO implement ImGuiPayload class
+     * <p>
+     * BINDING NOTICE: Binding alternative for {@link #getDragDropPayload()}.
+     * Use in combination with {@link #setDragDropPayloadObject(String, Object)}.
+     */
+    public static Object getDragDropPayloadObject() {
+        return nGetDragDropPayloadObjectObject() ? objectPayloadRef.get() : null;
+    }
+
+    private static native boolean nGetDragDropPayloadObjectObject(); /*
+        return ImGui::GetDragDropPayload() != NULL;
+    */
+
+    /**
+     * Peek directly into the current payload from anywhere. May return NULL. use ImGuiPayload::IsDataType() to test for the payload type.
      */
     public static native byte[] getDragDropPayload(); /*
         if (const ImGuiPayload* payload = ImGui::GetDragDropPayload()) {

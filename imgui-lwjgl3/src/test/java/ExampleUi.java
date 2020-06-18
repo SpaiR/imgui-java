@@ -24,7 +24,6 @@ final class ExampleUi {
     private static final int LIMEGREEN_COLOR = ImColor.rgbToColor("#32CD32");
 
     // Test data for payload
-    private final byte[] testPayload = "Test Payload".getBytes();
     private String dropTargetText = "Drop Here";
 
     // To modify background color dynamically
@@ -64,16 +63,16 @@ final class ExampleUi {
         // Drag'n'Drop functionality
         ImGui.button("Drag me");
         if (ImGui.beginDragDropSource()) {
-            ImGui.setDragDropPayload("payload_type", testPayload, testPayload.length);
+            ImGui.setDragDropPayloadObject("payload_type", "Test Payload");
             ImGui.text("Drag started");
             ImGui.endDragDropSource();
         }
         ImGui.sameLine();
         ImGui.text(dropTargetText);
         if (ImGui.beginDragDropTarget()) {
-            final byte[] payload = ImGui.acceptDragDropPayload("payload_type");
+            final Object payload = ImGui.acceptDragDropPayloadObject("payload_type");
             if (payload != null) {
-                dropTargetText = new String(payload);
+                dropTargetText = (String) payload;
             }
             ImGui.endDragDropTarget();
         }
