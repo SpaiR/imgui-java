@@ -19,9 +19,9 @@ import static org.lwjgl.opengl.GL32.*;
 final class ExampleUi {
     private static final String IMGUI_DEMO_LINK = "https://raw.githubusercontent.com/ocornut/imgui/v1.76/imgui_demo.cpp";
 
-    private static final int DODGERBLUE_COLOR = ImColor.rgbToColor("#1E90FF");
-    private static final int CORAL_COLOR = ImColor.rgbToColor("#FF7F50");
-    private static final int LIMEGREEN_COLOR = ImColor.rgbToColor("#32CD32");
+    private static final int COLOR_DODGERBLUE = ImColor.rgbToColor("#1E90FF");
+    private static final int COLOR_CORAL = ImColor.rgbToColor("#FF7F50");
+    private static final int COLOR_LIMEGREEN = ImColor.rgbToColor("#32CD32");
 
     // Test data for payload
     private String dropTargetText = "Drop Here";
@@ -90,11 +90,11 @@ final class ExampleUi {
         ImGui.inputText("Resizable input", resizableStr, ImGuiInputTextFlags.CallbackResize);
         ImGui.text("text len:");
         ImGui.sameLine();
-        ImGui.textColored(DODGERBLUE_COLOR, Integer.toString(resizableStr.getLength()));
+        ImGui.textColored(COLOR_DODGERBLUE, Integer.toString(resizableStr.getLength()));
         ImGui.sameLine();
         ImGui.text("| buffer size:");
         ImGui.sameLine();
-        ImGui.textColored(CORAL_COLOR, Integer.toString(resizableStr.getBufferSize()));
+        ImGui.textColored(COLOR_CORAL, Integer.toString(resizableStr.getBufferSize()));
 
         ImGui.separator();
         ImGui.newLine();
@@ -102,7 +102,7 @@ final class ExampleUi {
         // Link to the original demo file
         ImGui.text("Consider to look the original ImGui demo: ");
         ImGui.setNextItemWidth(500);
-        ImGui.textColored(LIMEGREEN_COLOR, IMGUI_DEMO_LINK);
+        ImGui.textColored(COLOR_LIMEGREEN, IMGUI_DEMO_LINK);
         ImGui.sameLine();
         if (ImGui.button("Copy")) {
             ImGui.setClipboardText(IMGUI_DEMO_LINK);
