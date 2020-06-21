@@ -201,18 +201,18 @@ public final class ImGuiImplGl3 {
      */
     public void updateFontsTexture() {
         glDeleteTextures(gFontTexture);
-        gFontTexture = glGenTextures();
 
         final ImFontAtlas fontAtlas = ImGui.getIO().getFonts();
         final ImInt width = new ImInt();
         final ImInt height = new ImInt();
         final ByteBuffer buffer = fontAtlas.getTexDataAsRGBA32(width, height);
 
+        gFontTexture = glGenTextures();
+
         glBindTexture(GL_TEXTURE_2D, gFontTexture);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width.get(), height.get(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 
         fontAtlas.setTexID(gFontTexture);

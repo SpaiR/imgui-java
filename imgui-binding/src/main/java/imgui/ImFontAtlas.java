@@ -27,6 +27,9 @@ import java.nio.ByteOrder;
 public final class ImFontAtlas implements ImGuiDestroyableStruct {
     final long ptr;
 
+    private ByteBuffer alpha8pixels = null;
+    private ByteBuffer rgba32pixels = null;
+
     /**
      * This class will create a native structure.
      * Call {@link #destroy()} method to manually free used memory.
@@ -52,11 +55,17 @@ public final class ImFontAtlas implements ImGuiDestroyableStruct {
         jfieldID imFontAtlasPtrID;
 
         #define IM_FONT_ATLAS ((ImFontAtlas*)env->GetLongField(object, imFontAtlasPtrID))
+
+        jmethodID jImFontAtlasCreateAlpha8PixelsMID;
+        jmethodID jImFontAtlasCreateRgba32PixelsMID;
      */
 
     static native void nInit(); /*
         jclass jImFontAtlasClass = env->FindClass("imgui/ImFontAtlas");
         imFontAtlasPtrID = env->GetFieldID(jImFontAtlasClass, "ptr", "J");
+
+        jImFontAtlasCreateAlpha8PixelsMID = env->GetMethodID(jImFontAtlasClass, "createAlpha8Pixels", "(I)Ljava/nio/ByteBuffer;");
+        jImFontAtlasCreateRgba32PixelsMID = env->GetMethodID(jImFontAtlasClass, "createRgba32Pixels", "(I)Ljava/nio/ByteBuffer;");
     */
 
     private native long nCreate(); /*
@@ -313,20 +322,30 @@ public final class ImFontAtlas implements ImGuiDestroyableStruct {
      * 1 byte-per-pixel
      */
     public ByteBuffer getTexDataAsAlpha8(final ImInt outWidth, final ImInt outHeight, final ImInt outBytesPerPixel) {
-        final byte[] tmpBuff = getTexDataAsAlpha8(outWidth.getData(), outHeight.getData(), outBytesPerPixel.getData());
-        final ByteBuffer buffer = ByteBuffer.allocateDirect(tmpBuff.length).order(ByteOrder.nativeOrder());
-        buffer.put(tmpBuff);
-        buffer.flip();
-        return buffer;
+        getTexDataAsAlpha8(outWidth.getData(), outHeight.getData(), outBytesPerPixel.getData());
+        return alpha8pixels;
     }
 
-    private native byte[] getTexDataAsAlpha8(int[] outWidth, int[] outHeight, int[] outBytesPerPixel); /*
+    private ByteBuffer createAlpha8Pixels(final int size) {
+        if (alpha8pixels == null || alpha8pixels.limit() != size) {
+            alpha8pixels = ByteBuffer.allocateDirect(size).order(ByteOrder.nativeOrder());
+        } else {
+            alpha8pixels.clear();
+        }
+
+        return alpha8pixels;
+    }
+
+    private native void getTexDataAsAlpha8(int[] outWidth, int[] outHeight, int[] outBytesPerPixel); /*
         unsigned char* pixels;
         IM_FONT_ATLAS->GetTexDataAsAlpha8(&pixels, &outWidth[0], &outHeight[0], &outBytesPerPixel[0]);
+
         int size = outWidth[0] * outHeight[0] * outBytesPerPixel[0];
-        jbyteArray jBytes = env->NewByteArray(size);
-        env->SetByteArrayRegion(jBytes, 0, size, (jbyte*)pixels);
-        return jBytes;
+
+        jobject jBuffer = env->CallObjectMethod(object, jImFontAtlasCreateAlpha8PixelsMID, size);
+        char* buffer = (char*)env->GetDirectBufferAddress(jBuffer);
+
+        memcpy(buffer, pixels, size);
     */
 
     /**
@@ -340,20 +359,30 @@ public final class ImFontAtlas implements ImGuiDestroyableStruct {
      * 4 bytes-per-pixel
      */
     public ByteBuffer getTexDataAsRGBA32(final ImInt outWidth, final ImInt outHeight, final ImInt outBytesPerPixel) {
-        final byte[] tmpBuff = nGetTexDataAsRGBA32(outWidth.getData(), outHeight.getData(), outBytesPerPixel.getData());
-        final ByteBuffer buffer = ByteBuffer.allocateDirect(tmpBuff.length).order(ByteOrder.nativeOrder());
-        buffer.put(tmpBuff);
-        buffer.flip();
-        return buffer;
+        nGetTexDataAsRGBA32(outWidth.getData(), outHeight.getData(), outBytesPerPixel.getData());
+        return rgba32pixels;
     }
 
-    private native byte[] nGetTexDataAsRGBA32(int[] outWidth, int[] outHeight, int[] outBytesPerPixel); /*
+    private ByteBuffer createRgba32Pixels(final int size) {
+        if (rgba32pixels == null || rgba32pixels.limit() != size) {
+            rgba32pixels = ByteBuffer.allocateDirect(size).order(ByteOrder.nativeOrder());
+        } else {
+            rgba32pixels.clear();
+        }
+
+        return rgba32pixels;
+    }
+
+    private native void nGetTexDataAsRGBA32(int[] outWidth, int[] outHeight, int[] outBytesPerPixel); /*
         unsigned char* pixels;
         IM_FONT_ATLAS->GetTexDataAsRGBA32(&pixels, &outWidth[0], &outHeight[0], &outBytesPerPixel[0]);
+
         int size = outWidth[0] * outHeight[0] * outBytesPerPixel[0];
-        jbyteArray jBytes = env->NewByteArray(size);
-        env->SetByteArrayRegion(jBytes, 0, size, (jbyte*)pixels);
-        return jBytes;
+
+        jobject jBuffer = env->CallObjectMethod(object, jImFontAtlasCreateRgba32PixelsMID, size);
+        char* buffer = (char*)env->GetDirectBufferAddress(jBuffer);
+
+        memcpy(buffer, pixels, size);
     */
 
     public native boolean isBuilt(); /*
