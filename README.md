@@ -6,7 +6,7 @@ JNI based binding for [Dear ImGui](https://github.com/ocornut/imgui) with no dep
 Please read **Binding Notice** to get more info about java-specific things of the API.<br>
 See official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki) to get more info about how to do things in Dear ImGui. 
 
-Binding provides all the data you need to render Dear ImGui. If, for some reason, you want to use your own backend renderer, see how [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.76-0.12/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java) for reference.
+Binding provides all the data you need to render Dear ImGui. If, for some reason, you want to use your own backend renderer, see how [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.76-0.13/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java) for reference.
 
 Versioning semantic of the binding: `imguiVersion-bindingVersion`.<br>
 For example `1.74-0.1` means that imgui-java uses `1.74` version of Dear ImGui and binding itself has the version `0.1`.
@@ -21,12 +21,12 @@ _Make sure you have installed Java 8 or higher._
 You can try Dear ImGui with Java by yourself in a three simple steps:
 
 ```
-git clone --branch v1.76-0.12 https://github.com/SpaiR/imgui-java.git
+git clone --branch v1.76-0.13 https://github.com/SpaiR/imgui-java.git
 cd imgui-java
 gradlew :imgui-lwjgl3:startExample
 ```
 
-That's all! You will start an example app [ImGuiGlfwExample](https://github.com/SpaiR/imgui-java/blob/v1.76-0.12/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java). Feel free to modify [ExampleUi](https://github.com/SpaiR/imgui-java/blob/v1.76-0.12/imgui-lwjgl3/src/test/java/ExampleUi.java) class to try different Dear ImGui widgets in action.
+That's all! You will start an example app [ImGuiGlfwExample](https://github.com/SpaiR/imgui-java/blob/v1.76-0.13/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java). Feel free to modify [ExampleUi](https://github.com/SpaiR/imgui-java/blob/v1.76-0.13/imgui-lwjgl3/src/test/java/ExampleUi.java) class to try different Dear ImGui widgets in action.
 
 ![imgui-java demo](https://i.imgur.com/ljAhD7a.gif)
 
@@ -43,7 +43,7 @@ repositories {
 
 ext {
     lwjglVersion = '3.2.3'
-    imguiVersion = '1.76-0.12'
+    imguiVersion = '1.76-0.13'
 }
 
 switch (OperatingSystem.current()) {
@@ -87,7 +87,7 @@ dependencies {
 
 <properties>
     <lwjgl.version>3.2.3</lwjgl.version>
-    <imgui.java.version>1.76-0.12</imgui.java.version>
+    <imgui.java.version>1.76-0.13</imgui.java.version>
 </properties>
 
 <!-- Resolve OS version for native libraries -->
@@ -232,7 +232,7 @@ Even if the viewport feature is still in a very experimental state, yet the dock
 See an official documentation about how to work with [docking](https://github.com/ocornut/imgui/issues/2109).
 
 ## Using FreeType
-Dear ImGui by default uses a stb_strutype library to render a fonts atlas. It's possible to use FreeType instead to get better fonts quality. See an example in [ImGuiGlfwExample](https://github.com/spair/imgui-java/blob/v1.76-0.12/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java). [Read more](https://github.com/ocornut/imgui/blob/v1.76/misc/freetype/README.md)
+Dear ImGui by default uses a stb_strutype library to render a fonts atlas. It's possible to use FreeType instead to get better fonts quality. See an example in [ImGuiGlfwExample](https://github.com/spair/imgui-java/blob/v1.76-0.13/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java). [Read more](https://github.com/ocornut/imgui/blob/v1.76/misc/freetype/README.md)
 
 ## Binding Notice
 * All Dear ImGui methods are available in `camelCase`, not in `PascalCase`.
