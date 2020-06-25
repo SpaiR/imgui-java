@@ -43,7 +43,7 @@ repositories {
 
 ext {
     lwjglVersion = '3.2.3'
-    imguiVersion = '1.76-0.13'
+    imguiVersion = '1.76-0.14'
 }
 
 switch (OperatingSystem.current()) {
@@ -87,7 +87,7 @@ dependencies {
 
 <properties>
     <lwjgl.version>3.2.3</lwjgl.version>
-    <imgui.java.version>1.76-0.13</imgui.java.version>
+    <imgui.java.version>1.76-0.14</imgui.java.version>
 </properties>
 
 <!-- Resolve OS version for native libraries -->
