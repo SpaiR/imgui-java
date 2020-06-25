@@ -52,5 +52,8 @@ class ImStringTest {
         assertEquals("0123456789", str.get());
         assertEquals(10, str.getLength());
         assertEquals(10 + str.inputData.resizeFactor + 1, str.getBufferSize());
+
+        str.set(null);
+        assertEquals("null", str.get());
     }
 }

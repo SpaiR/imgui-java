@@ -90,7 +90,7 @@ public final class ImString implements Cloneable {
     }
 
     public void set(final String value, final boolean resize, final int resizeValue) {
-        final byte[] valueBuff = value.getBytes();
+        final byte[] valueBuff = (value == null ? "null" : value).getBytes();
         final int currentLen = data == null ? 0 : data.length;
         byte[] newBuff = null;
 
