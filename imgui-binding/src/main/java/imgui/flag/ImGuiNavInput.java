@@ -69,4 +69,30 @@ public final class ImGuiNavInput {
      * e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)
      */
     public static final int TweakFast = 15;
+
+    // [Internal] Don't use directly! This is used internally to differentiate keyboard from gamepad inputs for behaviors that require to differentiate them.
+    // Keyboard behavior that have no corresponding gamepad mapping (e.g. CTRL+TAB) will be directly reading from io.KeysDown[] instead of io.NavInputs[].
+
+    /**
+     * Toggle menu.
+     */
+    public static final int KeyMenu = 16;
+    /**
+     * Move left.
+     */
+    public static final int KeyLeft = 17;
+    /**
+     * Move right.
+     */
+    public static final int KeyRight = 18;
+    /**
+     * Move up.
+     */
+    public static final int KeyUp = 19;
+    /**
+     * Move down.
+     */
+    public static final int KeyDown = 20;
+
+    public static final int COUNT = 21;
 }

@@ -708,6 +708,36 @@ public final class ImGuiIO {
             ImGui::GetIO().KeysDown[i] = keysDown[i];
     */
 
+    /**
+     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
+     */
+    public native void getNavInputs(float[] buff); /*
+        for (int i = 0; i < ImGuiNavInput_COUNT; i++)
+            buff[i] = ImGui::GetIO().NavInputs[i];
+    */
+
+    /**
+     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
+     */
+    public native float getNavInputs(int idx); /*
+        return ImGui::GetIO().NavInputs[idx];
+    */
+
+    /**
+     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
+     */
+    public native void setNavInputs(int idx, float input); /*
+        ImGui::GetIO().NavInputs[idx] = input;
+    */
+
+    /**
+     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
+     */
+    public native void setNavInputs(float[] navInputs); /*
+        for (int i = 0; i < ImGuiNavInput_COUNT; i++)
+            ImGui::GetIO().NavInputs[i] = navInputs[i];
+    */
+
     //------------------------------------------------------------------
     // Output - Updated by NewFrame() or EndFrame()/Render()
     // (when reading from the io.WantCaptureMouse, io.WantCaptureKeyboard flags to dispatch your inputs, it is
