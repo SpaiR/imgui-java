@@ -1,3 +1,32 @@
+import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MAJOR;
+import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MINOR;
+import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
+import static org.lwjgl.glfw.GLFW.GLFW_OPENGL_CORE_PROFILE;
+import static org.lwjgl.glfw.GLFW.GLFW_OPENGL_FORWARD_COMPAT;
+import static org.lwjgl.glfw.GLFW.GLFW_OPENGL_PROFILE;
+import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
+import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
+import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
+import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
+import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
+import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
+import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
+import static org.lwjgl.glfw.GLFW.glfwInit;
+import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
+import static org.lwjgl.glfw.GLFW.glfwPollEvents;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowPos;
+import static org.lwjgl.glfw.GLFW.glfwShowWindow;
+import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
+import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
+import static org.lwjgl.glfw.GLFW.glfwWindowHint;
+import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
+import static org.lwjgl.opengl.GL32.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL32.GL_TRUE;
+import static org.lwjgl.opengl.GL32.glClear;
+import static org.lwjgl.opengl.GL32.glClearColor;
+import static org.lwjgl.system.MemoryStack.stackPush;
+import static org.lwjgl.system.MemoryUtil.NULL;
+
 import imgui.ImFontAtlas;
 import imgui.ImFontConfig;
 import imgui.ImGui;
@@ -8,25 +37,20 @@ import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiMouseCursor;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
-import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.opengl.GL;
-import org.lwjgl.system.MemoryStack;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.nio.IntBuffer;
 import java.util.Objects;
-
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL32.*;
-import static org.lwjgl.system.MemoryStack.stackPush;
-import static org.lwjgl.system.MemoryUtil.NULL;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.system.MemoryStack;
 
 @SuppressWarnings("MagicNumber")
 public final class ImGuiGlfwExample {
+
     private long windowPtr; // pointer to the current GLFW window
 
     // For application window properties
@@ -198,16 +222,9 @@ public final class ImGuiGlfwExample {
 
     // Main application loop
     private void loop() {
-        double time = 0; // to track our frame delta value
-
         // Run the rendering loop until the user has attempted to close the window
         while (!glfwWindowShouldClose(windowPtr)) {
-            // Count frame delta value
-            final double currentTime = glfwGetTime();
-            final double deltaTime = (time > 0) ? (currentTime - time) : 1f / 60f;
-            time = currentTime;
-
-            startFrame((float) deltaTime);
+            startFrame();
 
             // Any Dear ImGui code SHOULD go between ImGui.newFrame()/ImGui.render() methods
             imGuiGlfw.newFrame();
@@ -220,30 +237,10 @@ public final class ImGuiGlfwExample {
         }
     }
 
-    private void startFrame(final float deltaTime) {
+    private void startFrame() {
         // Set the clear color and clear the window
         glClearColor(exampleUi.backgroundColor[0], exampleUi.backgroundColor[1], exampleUi.backgroundColor[2], 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        // Get window properties and mouse position
-        glfwGetWindowSize(windowPtr, winWidth, winHeight);
-        glfwGetFramebufferSize(windowPtr, fbWidth, fbHeight);
-        glfwGetCursorPos(windowPtr, mousePosX, mousePosY);
-
-        final float scaleX = (float) fbWidth[0] / winWidth[0];
-        final float scaleY = (float) fbHeight[0] / winHeight[0];
-
-        // We SHOULD call those methods to update Dear ImGui state for the current frame
-        final ImGuiIO io = ImGui.getIO();
-        io.setDisplaySize(fbWidth[0], fbHeight[0]);
-        io.setDisplayFramebufferScale(scaleX, scaleY);
-        io.setMousePos((float) mousePosX[0] * scaleX, (float) mousePosY[0] * scaleY);
-        io.setDeltaTime(deltaTime);
-
-        // Update the mouse cursor
-        final int imguiCursor = ImGui.getMouseCursor();
-        glfwSetCursor(windowPtr, mouseCursors[imguiCursor]);
-        glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 
     private void endFrame() {
@@ -257,7 +254,7 @@ public final class ImGuiGlfwExample {
 
     private byte[] loadFromResources(final String fileName) {
         try (InputStream is = Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(fileName));
-             ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
 
             final byte[] data = new byte[16384];
 

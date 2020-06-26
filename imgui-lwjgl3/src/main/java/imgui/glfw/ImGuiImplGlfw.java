@@ -108,14 +108,6 @@ public class ImGuiImplGlfw {
     private boolean callbacksInstalled;
     private double time = 0.0;
 
-    public static String getClipboardText(final long windowId) {
-        return glfwGetClipboardString(windowId);
-    }
-
-    public static void setClipboardString(final long windowId, final String text) {
-        glfwSetClipboardString(windowId, text);
-    }
-
     /**
      * Method to set the {@link GLFWMouseButtonCallback}.
      */
@@ -125,7 +117,6 @@ public class ImGuiImplGlfw {
         }
 
         if (action == GLFW_PRESS && button >= 0 && button < mouseJustPressed.length) {
-            System.err.println("Mouse pressed");
             mouseJustPressed[button] = true;
         }
     }
@@ -221,7 +212,7 @@ public class ImGuiImplGlfw {
         io.setGetClipboardTextFn(new ImStrSupplier() {
             @Override
             public String get() {
-                final String clipboardString = getClipboardText(windowId);
+                final String clipboardString = glfwGetClipboardString(windowId);
                 return clipboardString != null ? clipboardString : "";
             }
         });
@@ -229,7 +220,7 @@ public class ImGuiImplGlfw {
         io.setSetClipboardTextFn(new ImStrConsumer() {
             @Override
             public void accept(final String str) {
-                setClipboardString(windowId, str);
+                glfwSetClipboardString(windowId, str);
             }
         });
 
@@ -246,10 +237,6 @@ public class ImGuiImplGlfw {
         mouseCursors[ImGuiMouseCursor.NotAllowed] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
         glfwSetErrorCallback(prevErrorCallback);
 
-        previousMouseButtonCallback = null;
-        previousScrollCallback = null;
-        previousKeyCallback = null;
-        previousCharCallback = null;
         if (installCallbacks) {
             callbacksInstalled = true;
             previousMouseButtonCallback = glfwSetMouseButtonCallback(windowId, this::mouseButtonCallback);
@@ -275,7 +262,6 @@ public class ImGuiImplGlfw {
 
         for (int i = 0; i < ImGuiMouseCursor.COUNT; i++) {
             glfwDestroyCursor(mouseCursors[i]);
-            mouseCursors[i] = 0;
         }
     }
 
@@ -326,6 +312,11 @@ public class ImGuiImplGlfw {
 
     private void updateGamepads() {
         final ImGuiIO io = ImGui.getIO();
+
+        for (int i = 0; i < ImGuiNavInput.COUNT; i++) {
+            io.setNavInputs(i, 0);
+        }
+
         if ((io.getConfigFlags() & ImGuiConfigFlags.NavEnableGamepad) == 0) {
             return;
         }
