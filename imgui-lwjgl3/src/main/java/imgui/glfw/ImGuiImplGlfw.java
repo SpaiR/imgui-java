@@ -64,7 +64,6 @@ import static org.lwjgl.glfw.GLFW.glfwSetInputMode;
 import static org.lwjgl.glfw.GLFW.glfwSetKeyCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetMouseButtonCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
-import static org.lwjgl.system.MemoryStack.stackPush;
 
 import imgui.ImGui;
 import imgui.ImGuiIO;
@@ -78,15 +77,12 @@ import imgui.flag.ImGuiMouseButton;
 import imgui.flag.ImGuiMouseCursor;
 import imgui.flag.ImGuiNavInput;
 import java.nio.ByteBuffer;
-import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import org.lwjgl.glfw.GLFWCharCallback;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWScrollCallback;
-import org.lwjgl.system.MemoryStack;
 
 /**
  * This class is a straightforward port of the
@@ -281,12 +277,10 @@ public class ImGuiImplGlfw {
             if (io.getWantSetMousePos()) {
                 glfwSetCursorPos(windowId, mousePosBackup.x, mousePosBackup.y);
             } else {
-                try (MemoryStack stack = stackPush()) {
-                    final DoubleBuffer xPos = stack.mallocDouble(1);
-                    final DoubleBuffer yPos = stack.mallocDouble(1);
-                    glfwGetCursorPos(windowId, xPos, yPos);
-                    io.setMousePos((float) xPos.get(), (float) yPos.get());
-                }
+                final double[] cursorPosX = new double[1];
+                final double[] cursorPosY = new double[1];
+                glfwGetCursorPos(windowId, cursorPosX, cursorPosY);
+                io.setMousePos((float) cursorPosX[0], (float) cursorPosY[0]);
             }
         }
     }
@@ -313,9 +307,8 @@ public class ImGuiImplGlfw {
     private void updateGamepads() {
         final ImGuiIO io = ImGui.getIO();
 
-        for (int i = 0; i < ImGuiNavInput.COUNT; i++) {
-            io.setNavInputs(i, 0);
-        }
+        final float[] navInputs = new float[ImGuiNavInput.COUNT];
+        io.setNavInputs(navInputs);
 
         if ((io.getConfigFlags() & ImGuiConfigFlags.NavEnableGamepad) == 0) {
             return;
@@ -386,26 +379,20 @@ public class ImGuiImplGlfw {
                 "Font atlas not built! It is generally built by the renderer back-end. Missing call to renderer init() method? e.g. ImGuiImplGl3.init().");
         }
 
-        try (MemoryStack stack = stackPush()) {
-            final IntBuffer w = stack.mallocInt(1);
-            final IntBuffer h = stack.mallocInt(1);
-            glfwGetWindowSize(windowId, w, h);
-            final float width = (float) w.get();
-            final float height = (float) h.get();
+        final int[] width = new int[1];
+        final int[] height = new int[1];
+        glfwGetWindowSize(windowId, width, height);
 
-            final IntBuffer displayW = stack.mallocInt(1);
-            final IntBuffer displayH = stack.mallocInt(1);
-            glfwGetFramebufferSize(windowId, displayW, displayH);
-            final float displayWidth = displayW.get();
-            final float displayHeight = displayH.get();
+        final int[] displayWidth = new int[1];
+        final int[] displayHeight = new int[1];
+        glfwGetFramebufferSize(windowId, displayWidth, displayHeight);
 
-            io.setDisplaySize(width, height);
-            if (width > 0 && height > 0) {
-                io.setDisplayFramebufferScale(
-                    displayWidth / width,
-                    displayHeight / height
-                );
-            }
+        io.setDisplaySize((float) width[0], (float) height[0]);
+        if ((float) width[0] > 0 && (float) height[0] > 0) {
+            io.setDisplayFramebufferScale(
+                (float) displayWidth[0] / (float) width[0],
+                (float) displayHeight[0] / (float) height[0]
+            );
         }
 
         final double currentTime = glfwGetTime();
