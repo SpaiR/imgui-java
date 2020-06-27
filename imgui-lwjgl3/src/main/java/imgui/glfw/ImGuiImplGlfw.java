@@ -88,19 +88,35 @@ import org.lwjgl.glfw.GLFWScrollCallback;
  * This class is a straightforward port of the
  * <a href="https://raw.githubusercontent.com/ocornut/imgui/v1.76/examples/imgui_impl_glfw.cpp">imgui_impl_glfw.cpp</a>.
  * <p>
- * It supports clipboard, gamepad, mouse and keyboard in the same way the original Dear ImGui code does.
- * You can copy-paste this class in your codebase and modify the rendering routine in the way you'd like.
+ * It supports clipboard, gamepad, mouse and keyboard in the same way the original Dear ImGui code does. You can copy-paste this class in your codebase and
+ * modify the rendering routine in the way you'd like.
  * <p>
  */
 public class ImGuiImplGlfw {
 
-    private static final boolean[] mouseJustPressed = new boolean[ImGuiMouseButton.COUNT];
+    // Id of the current GLFW window
+    private long windowId;
+
+    // For application window properties
+    private final int[] winWidth = new int[1];
+    private final int[] winHeight = new int[1];
+    private final int[] fbWidth = new int[1];
+    private final int[] fbHeight = new int[1];
+
+    // Mouse cursors provided by GLFW
     private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
+
+    // For mouse tracking
+    private final boolean[] mouseJustPressed = new boolean[ImGuiMouseButton.COUNT];
+    private final double[] cursorPosX = new double[1];
+    private final double[] cursorPosY = new double[1];
+
+    // GLFW callbacks
     private GLFWMouseButtonCallback previousMouseButtonCallback = null;
     private GLFWScrollCallback previousScrollCallback = null;
     private GLFWKeyCallback previousKeyCallback = null;
     private GLFWCharCallback previousCharCallback = null;
-    private long windowId;
+
     private boolean callbacksInstalled;
     private double time = 0.0;
 
@@ -261,7 +277,7 @@ public class ImGuiImplGlfw {
         }
     }
 
-    private void updateMousePosAndButtons() {
+    private void updateMousePosAndButtons(final float scaleX, final float scaleY) {
         final ImGuiIO io = ImGui.getIO();
         for (int i = 0; i < ImGuiMouseButton.COUNT; i++) {
             io.setMouseDown(i, mouseJustPressed[i] || glfwGetMouseButton(windowId, i) != 0);
@@ -277,10 +293,8 @@ public class ImGuiImplGlfw {
             if (io.getWantSetMousePos()) {
                 glfwSetCursorPos(windowId, mousePosBackup.x, mousePosBackup.y);
             } else {
-                final double[] cursorPosX = new double[1];
-                final double[] cursorPosY = new double[1];
                 glfwGetCursorPos(windowId, cursorPosX, cursorPosY);
-                io.setMousePos((float) cursorPosX[0], (float) cursorPosY[0]);
+                io.setMousePos((float) cursorPosX[0] * scaleX, (float) cursorPosY[0] * scaleY);
             }
         }
     }
@@ -379,26 +393,21 @@ public class ImGuiImplGlfw {
                 "Font atlas not built! It is generally built by the renderer back-end. Missing call to renderer init() method? e.g. ImGuiImplGl3.init().");
         }
 
-        final int[] width = new int[1];
-        final int[] height = new int[1];
-        glfwGetWindowSize(windowId, width, height);
+        glfwGetWindowSize(windowId, winWidth, winHeight);
+        glfwGetFramebufferSize(windowId, fbWidth, fbHeight);
 
-        final int[] displayWidth = new int[1];
-        final int[] displayHeight = new int[1];
-        glfwGetFramebufferSize(windowId, displayWidth, displayHeight);
+        final float scaleX = (float) fbWidth[0] / winWidth[0];
+        final float scaleY = (float) fbHeight[0] / winHeight[0];
 
-        io.setDisplaySize((float) width[0], (float) height[0]);
-        if ((float) width[0] > 0 && (float) height[0] > 0) {
-            io.setDisplayFramebufferScale(
-                (float) displayWidth[0] / (float) width[0],
-                (float) displayHeight[0] / (float) height[0]
-            );
+        io.setDisplaySize((float) winWidth[0], (float) winHeight[0]);
+        if (winWidth[0] > 0 && winHeight[0] > 0) {
+            io.setDisplayFramebufferScale(scaleX, scaleY);
         }
 
         final double currentTime = glfwGetTime();
         io.setDeltaTime(time > 0.0 ? (float) (currentTime - time) : 1.0f / 60.0f);
 
-        updateMousePosAndButtons();
+        updateMousePosAndButtons(scaleX, scaleY);
         updateMouseCursor();
         updateGamepads();
     }
