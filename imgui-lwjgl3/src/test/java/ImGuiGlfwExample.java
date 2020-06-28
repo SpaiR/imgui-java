@@ -1,3 +1,4 @@
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MAJOR;
 import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MINOR;
 import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
@@ -8,16 +9,19 @@ import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
 import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
 import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
 import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
+import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
 import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
 import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwInit;
 import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
+import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowPos;
 import static org.lwjgl.glfw.GLFW.glfwShowWindow;
 import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
+import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 import static org.lwjgl.opengl.GL32.GL_COLOR_BUFFER_BIT;
@@ -33,7 +37,6 @@ import imgui.ImGui;
 import imgui.ImGuiFreeType;
 import imgui.ImGuiIO;
 import imgui.flag.ImGuiConfigFlags;
-import imgui.flag.ImGuiMouseCursor;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import java.io.ByteArrayOutputStream;
@@ -49,21 +52,7 @@ import org.lwjgl.system.MemoryStack;
 
 @SuppressWarnings("MagicNumber")
 public final class ImGuiGlfwExample {
-
     private long windowPtr; // pointer to the current GLFW window
-
-    // For application window properties
-    private final int[] winWidth = new int[1];
-    private final int[] winHeight = new int[1];
-    private final int[] fbWidth = new int[1];
-    private final int[] fbHeight = new int[1];
-
-    // For mouse tracking
-    private final double[] mousePosX = new double[1];
-    private final double[] mousePosY = new double[1];
-
-    // Mouse cursors provided by GLFW
-    private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
 
     // LWJGJ3 window backend
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
@@ -98,7 +87,10 @@ public final class ImGuiGlfwExample {
         // You should clean up after yourself in reverse order.
         imGuiGl3.dispose();
         imGuiGlfw.dispose();
+
         ImGui.destroyContext();
+
+        disposeWindow();
     }
 
     // Initialize GLFW + create an OpenGL context.
@@ -247,6 +239,13 @@ public final class ImGuiGlfwExample {
 
         glfwSwapBuffers(windowPtr);
         glfwPollEvents();
+    }
+
+    private void disposeWindow() {
+        glfwFreeCallbacks(windowPtr);
+        glfwDestroyWindow(windowPtr);
+        glfwTerminate();
+        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
     }
 
     private byte[] loadFromResources(final String fileName) {
