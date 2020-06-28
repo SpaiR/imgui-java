@@ -1,5 +1,25 @@
 package imgui.glfw;
 
+import imgui.ImGui;
+import imgui.ImGuiIO;
+import imgui.ImVec2;
+import imgui.callback.ImStrConsumer;
+import imgui.callback.ImStrSupplier;
+import imgui.flag.ImGuiBackendFlags;
+import imgui.flag.ImGuiConfigFlags;
+import imgui.flag.ImGuiKey;
+import imgui.flag.ImGuiMouseButton;
+import imgui.flag.ImGuiMouseCursor;
+import imgui.flag.ImGuiNavInput;
+import org.lwjgl.glfw.GLFWCharCallback;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWKeyCallback;
+import org.lwjgl.glfw.GLFWMouseButtonCallback;
+import org.lwjgl.glfw.GLFWScrollCallback;
+
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+
 import static org.lwjgl.glfw.GLFW.GLFW_ARROW_CURSOR;
 import static org.lwjgl.glfw.GLFW.GLFW_CURSOR;
 import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_DISABLED;
@@ -65,37 +85,17 @@ import static org.lwjgl.glfw.GLFW.glfwSetKeyCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetMouseButtonCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
 
-import imgui.ImGui;
-import imgui.ImGuiIO;
-import imgui.ImVec2;
-import imgui.callback.ImStrConsumer;
-import imgui.callback.ImStrSupplier;
-import imgui.flag.ImGuiBackendFlags;
-import imgui.flag.ImGuiConfigFlags;
-import imgui.flag.ImGuiKey;
-import imgui.flag.ImGuiMouseButton;
-import imgui.flag.ImGuiMouseCursor;
-import imgui.flag.ImGuiNavInput;
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
-import org.lwjgl.glfw.GLFWCharCallback;
-import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.glfw.GLFWKeyCallback;
-import org.lwjgl.glfw.GLFWMouseButtonCallback;
-import org.lwjgl.glfw.GLFWScrollCallback;
-
 /**
  * This class is a straightforward port of the
  * <a href="https://raw.githubusercontent.com/ocornut/imgui/v1.76/examples/imgui_impl_glfw.cpp">imgui_impl_glfw.cpp</a>.
  * <p>
  * It supports clipboard, gamepad, mouse and keyboard in the same way the original Dear ImGui code does. You can copy-paste this class in your codebase and
  * modify the rendering routine in the way you'd like.
- * <p>
  */
 public class ImGuiImplGlfw {
 
     // Id of the current GLFW window
-    private long windowId;
+    private long windowPtr;
 
     // For application window properties
     private final int[] winWidth = new int[1];
@@ -106,8 +106,12 @@ public class ImGuiImplGlfw {
     // Mouse cursors provided by GLFW
     private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
 
+    // Empty array to fill ImGuiIO.NavInputs with zeroes
+    private final float[] emptyNavInputs = new float[ImGuiNavInput.COUNT];
+
     // For mouse tracking
     private final boolean[] mouseJustPressed = new boolean[ImGuiMouseButton.COUNT];
+    private final ImVec2 mousePosBackup = new ImVec2();
     private final double[] cursorPosX = new double[1];
     private final double[] cursorPosY = new double[1];
 
@@ -142,8 +146,8 @@ public class ImGuiImplGlfw {
         }
 
         final ImGuiIO io = ImGui.getIO();
-        io.setMouseWheelH((float) xOffset);
-        io.setMouseWheel((float) yOffset);
+        io.setMouseWheelH(io.getMouseWheelH() + (float) xOffset);
+        io.setMouseWheel(io.getMouseWheel() + (float) yOffset);
     }
 
     /**
@@ -155,10 +159,10 @@ public class ImGuiImplGlfw {
         }
 
         final ImGuiIO io = ImGui.getIO();
+
         if (action == GLFW_PRESS) {
             io.setKeysDown(key, true);
-        }
-        if (action == GLFW_RELEASE) {
+        } else if (action == GLFW_RELEASE) {
             io.setKeysDown(key, false);
         }
 
@@ -186,8 +190,7 @@ public class ImGuiImplGlfw {
      * Method takes two arguments, which should be a valid GLFW window pointer and a boolean indicating whether or not to install callbacks.
      */
     public boolean init(final long windowId, final boolean installCallbacks) {
-        this.windowId = windowId;
-        time = 0.0;
+        this.windowPtr = windowId;
 
         final ImGuiIO io = ImGui.getIO();
 
@@ -265,10 +268,10 @@ public class ImGuiImplGlfw {
      */
     public void dispose() {
         if (callbacksInstalled) {
-            glfwSetMouseButtonCallback(windowId, previousMouseButtonCallback);
-            glfwSetScrollCallback(windowId, previousScrollCallback);
-            glfwSetKeyCallback(windowId, previousKeyCallback);
-            glfwSetCharCallback(windowId, previousCharCallback);
+            glfwSetMouseButtonCallback(windowPtr, previousMouseButtonCallback);
+            glfwSetScrollCallback(windowPtr, previousScrollCallback);
+            glfwSetKeyCallback(windowPtr, previousKeyCallback);
+            glfwSetCharCallback(windowPtr, previousCharCallback);
             callbacksInstalled = false;
         }
 
@@ -279,21 +282,22 @@ public class ImGuiImplGlfw {
 
     private void updateMousePosAndButtons(final float scaleX, final float scaleY) {
         final ImGuiIO io = ImGui.getIO();
+
         for (int i = 0; i < ImGuiMouseButton.COUNT; i++) {
-            io.setMouseDown(i, mouseJustPressed[i] || glfwGetMouseButton(windowId, i) != 0);
+            // If a mouse press event came, always pass it as "mouse held this frame", so we don't miss click-release events that are shorter than 1 frame.
+            io.setMouseDown(i, mouseJustPressed[i] || glfwGetMouseButton(windowPtr, i) != 0);
             mouseJustPressed[i] = false;
         }
 
-        final ImVec2 mousePosBackup = new ImVec2();
         io.getMousePos(mousePosBackup);
         io.setMousePos(-Float.MAX_VALUE, -Float.MAX_VALUE);
 
-        final boolean focused = glfwGetWindowAttrib(windowId, GLFW_FOCUSED) != 0;
+        final boolean focused = glfwGetWindowAttrib(windowPtr, GLFW_FOCUSED) != 0;
         if (focused) {
             if (io.getWantSetMousePos()) {
-                glfwSetCursorPos(windowId, mousePosBackup.x, mousePosBackup.y);
+                glfwSetCursorPos(windowPtr, mousePosBackup.x, mousePosBackup.y);
             } else {
-                glfwGetCursorPos(windowId, cursorPosX, cursorPosY);
+                glfwGetCursorPos(windowPtr, cursorPosX, cursorPosY);
                 io.setMousePos((float) cursorPosX[0] * scaleX, (float) cursorPosY[0] * scaleY);
             }
         }
@@ -301,32 +305,32 @@ public class ImGuiImplGlfw {
 
     private void updateMouseCursor() {
         final ImGuiIO io = ImGui.getIO();
-        final boolean noCursorChange = (io.getConfigFlags() & ImGuiConfigFlags.NoMouseCursorChange)
-            == ImGuiConfigFlags.NoMouseCursorChange;
-        final boolean cursorDisabled = glfwGetInputMode(windowId, GLFW_CURSOR) == GLFW_CURSOR_DISABLED;
+
+        final boolean noCursorChange = (io.getConfigFlags() & ImGuiConfigFlags.NoMouseCursorChange) == ImGuiConfigFlags.NoMouseCursorChange;
+        final boolean cursorDisabled = glfwGetInputMode(windowPtr, GLFW_CURSOR) == GLFW_CURSOR_DISABLED;
+
         if (noCursorChange || cursorDisabled) {
             return;
         }
 
         final int cursor = ImGui.getMouseCursor();
+
         if (cursor == ImGuiMouseCursor.None || io.getMouseDrawCursor()) {
-            glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+            glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
         } else {
-            glfwSetCursor(windowId, mouseCursors[cursor] != 0 ? mouseCursors[cursor]
-                : mouseCursors[ImGuiMouseCursor.Arrow]);
-            glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+            glfwSetCursor(windowPtr, mouseCursors[cursor] != 0 ? mouseCursors[cursor] : mouseCursors[ImGuiMouseCursor.Arrow]);
+            glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         }
     }
 
     private void updateGamepads() {
         final ImGuiIO io = ImGui.getIO();
 
-        final float[] navInputs = new float[ImGuiNavInput.COUNT];
-        io.setNavInputs(navInputs);
-
         if ((io.getConfigFlags() & ImGuiConfigFlags.NavEnableGamepad) == 0) {
             return;
         }
+
+        io.setNavInputs(emptyNavInputs);
 
         final ByteBuffer buttons = glfwGetJoystickButtons(GLFW_JOYSTICK_1);
         final int buttonsCount = buttons.limit();
@@ -334,18 +338,18 @@ public class ImGuiImplGlfw {
         final FloatBuffer axis = glfwGetJoystickAxes(GLFW_JOYSTICK_1);
         final int axisCount = axis.limit();
 
-        mapButton(ImGuiNavInput.Activate, 0, buttons, buttonsCount, io);     // Cross / A
+        mapButton(ImGuiNavInput.Activate, 0, buttons, buttonsCount, io);   // Cross / A
         mapButton(ImGuiNavInput.Cancel, 1, buttons, buttonsCount, io);     // Circle / B
-        mapButton(ImGuiNavInput.Menu, 2, buttons, buttonsCount, io);     // Square / X
-        mapButton(ImGuiNavInput.Input, 3, buttons, buttonsCount, io);     // Triangle / Y
-        mapButton(ImGuiNavInput.DpadLeft, 13, buttons, buttonsCount, io);    // D-Pad Left
-        mapButton(ImGuiNavInput.DpadRight, 11, buttons, buttonsCount, io);    // D-Pad Right
+        mapButton(ImGuiNavInput.Menu, 2, buttons, buttonsCount, io);       // Square / X
+        mapButton(ImGuiNavInput.Input, 3, buttons, buttonsCount, io);      // Triangle / Y
+        mapButton(ImGuiNavInput.DpadLeft, 13, buttons, buttonsCount, io);  // D-Pad Left
+        mapButton(ImGuiNavInput.DpadRight, 11, buttons, buttonsCount, io); // D-Pad Right
         mapButton(ImGuiNavInput.DpadUp, 10, buttons, buttonsCount, io);    // D-Pad Up
-        mapButton(ImGuiNavInput.DpadDown, 12, buttons, buttonsCount, io);    // D-Pad Down
-        mapButton(ImGuiNavInput.FocusPrev, 4, buttons, buttonsCount, io);     // L1 / LB
-        mapButton(ImGuiNavInput.FocusNext, 5, buttons, buttonsCount, io);     // R1 / RB
-        mapButton(ImGuiNavInput.TweakSlow, 4, buttons, buttonsCount, io);     // L1 / LB
-        mapButton(ImGuiNavInput.TweakFast, 5, buttons, buttonsCount, io);     // R1 / RB
+        mapButton(ImGuiNavInput.DpadDown, 12, buttons, buttonsCount, io);  // D-Pad Down
+        mapButton(ImGuiNavInput.FocusPrev, 4, buttons, buttonsCount, io);  // L1 / LB
+        mapButton(ImGuiNavInput.FocusNext, 5, buttons, buttonsCount, io);  // R1 / RB
+        mapButton(ImGuiNavInput.TweakSlow, 4, buttons, buttonsCount, io);  // L1 / LB
+        mapButton(ImGuiNavInput.TweakFast, 5, buttons, buttonsCount, io);  // R1 / RB
         mapAnalog(ImGuiNavInput.LStickLeft, 0, -0.3f, -0.9f, axis, axisCount, io);
         mapAnalog(ImGuiNavInput.LStickRight, 0, +0.3f, +0.9f, axis, axisCount, io);
         mapAnalog(ImGuiNavInput.LStickUp, 1, +0.3f, +0.9f, axis, axisCount, io);
@@ -390,11 +394,12 @@ public class ImGuiImplGlfw {
         final ImGuiIO io = ImGui.getIO();
         if (!io.getFonts().isBuilt()) {
             throw new IllegalStateException(
-                "Font atlas not built! It is generally built by the renderer back-end. Missing call to renderer init() method? e.g. ImGuiImplGl3.init().");
+                "Font atlas not built! It is generally built by the renderer back-end. Missing call to renderer init() method? e.g. ImGuiImplGl3.init()"
+            );
         }
 
-        glfwGetWindowSize(windowId, winWidth, winHeight);
-        glfwGetFramebufferSize(windowId, fbWidth, fbHeight);
+        glfwGetWindowSize(windowPtr, winWidth, winHeight);
+        glfwGetFramebufferSize(windowPtr, fbWidth, fbHeight);
 
         final float scaleX = (float) fbWidth[0] / winWidth[0];
         final float scaleY = (float) fbHeight[0] / winHeight[0];
@@ -406,6 +411,7 @@ public class ImGuiImplGlfw {
 
         final double currentTime = glfwGetTime();
         io.setDeltaTime(time > 0.0 ? (float) (currentTime - time) : 1.0f / 60.0f);
+        time = currentTime;
 
         updateMousePosAndButtons(scaleX, scaleY);
         updateMouseCursor();

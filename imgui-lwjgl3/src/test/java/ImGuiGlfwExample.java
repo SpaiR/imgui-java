@@ -32,7 +32,6 @@ import imgui.ImFontConfig;
 import imgui.ImGui;
 import imgui.ImGuiFreeType;
 import imgui.ImGuiIO;
-import imgui.flag.ImGuiBackendFlags;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiMouseCursor;
 import imgui.gl3.ImGuiImplGl3;
@@ -177,8 +176,6 @@ public final class ImGuiGlfwExample {
 
         io.setIniFilename(null); // We don't want to save .ini file
         io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard | ImGuiConfigFlags.DockingEnable); // Navigation with keyboard and enabled docking
-        io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors); // Mouse cursors to display while resizing windows etc.
-        io.setBackendPlatformName("imgui_java_impl_glfw");
 
         // ------------------------------------------------------------
         // Fonts configuration
