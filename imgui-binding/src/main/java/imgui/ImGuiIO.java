@@ -546,14 +546,14 @@ public final class ImGuiIO {
     */
 
     /**
-     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX,-FLT_MAX) if mouse is unavailable (on another screen, etc.)
+     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
      */
     public native void getMousePos(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &ImGui::GetIO().MousePos, dstImVec2);
     */
 
     /**
-     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX,-FLT_MAX) if mouse is unavailable (on another screen, etc.)
+     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
      */
     public native void setMousePos(float x, float y); /*
         ImGui::GetIO().MousePos.x = x;
@@ -561,7 +561,7 @@ public final class ImGuiIO {
     */
 
     /**
-     * Mouse buttons: 0=left, 1=right, 2=middle + extras. ImGui itself mostly only uses left button (BeginPopupContext** are using right button).
+     * Mouse buttons: 0=left, 1=right, 2=middle + extras (ImGuiMouseButton_COUNT == 5). Dear ImGui mostly uses left and right buttons.
      * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
      */
     public native void getMouseDown(boolean[] buff); /*
@@ -570,7 +570,7 @@ public final class ImGuiIO {
     */
 
     /**
-     * Mouse buttons: 0=left, 1=right, 2=middle + extras. ImGui itself mostly only uses left button (BeginPopupContext** are using right button).
+     * Mouse buttons: 0=left, 1=right, 2=middle + extras (ImGuiMouseButton_COUNT == 5). Dear ImGui mostly uses left and right buttons.
      * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
      */
     public native boolean getMouseDown(int idx); /*
@@ -578,7 +578,7 @@ public final class ImGuiIO {
     */
 
     /**
-     * Mouse buttons: 0=left, 1=right, 2=middle + extras. ImGui itself mostly only uses left button (BeginPopupContext** are using right button).
+     * Mouse buttons: 0=left, 1=right, 2=middle + extras (ImGuiMouseButton_COUNT == 5). Dear ImGui mostly uses left and right buttons.
      * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
      */
     public native void setMouseDown(int idx, boolean down); /*
@@ -586,7 +586,7 @@ public final class ImGuiIO {
     */
 
     /**
-     * Mouse buttons: 0=left, 1=right, 2=middle + extras. ImGui itself mostly only uses left button (BeginPopupContext** are using right button).
+     * Mouse buttons: 0=left, 1=right, 2=middle + extras (ImGuiMouseButton_COUNT == 5). Dear ImGui mostly uses left and right buttons.
      * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
      */
     public native void setMouseDown(boolean[] mouseDown); /*

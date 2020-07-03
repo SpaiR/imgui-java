@@ -473,18 +473,13 @@ public final class ImFontAtlas implements ImGuiDestroyableStruct {
     // After calling Build(), you can query the rectangle position and render your pixels.
     // You can also request your rectangles to be mapped as font glyph (given a font + Unicode point),
     // so you can render e.g. custom colorful icons and use them as regular glyphs.
-    // Read docs/FONTS.txt for more details about using colorful icons.
+    // Read docs/FONTS.md for more details about using colorful icons.
+    // Note: this API may be redesigned later in order to support multi-monitor varying DPI settings.
 
-    /**
-     * Id needs to be {@code >=} 0x110000. Id {@code >=} 0x80000000 are reserved for ImGui and ImDrawList
-     */
-    public native int addCustomRectRegular(int id, int width, int height); /*
-        return IM_FONT_ATLAS->AddCustomRectRegular((unsigned int)id, width, height);
+    public native int addCustomRectRegular(int width, int height); /*
+        return IM_FONT_ATLAS->AddCustomRectRegular(width, height);
     */
 
-    /**
-     * Id needs to be {@code <} 0x110000 to register a rectangle to map into a specific font.
-     */
     public int addCustomRectFontGlyph(final ImFont imFont, final short id, final int width, final int height, final float advanceX) {
         return nAddCustomRectFontGlyph(imFont.ptr, id, width, height, advanceX);
     }

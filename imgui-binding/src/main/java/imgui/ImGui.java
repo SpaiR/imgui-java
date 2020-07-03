@@ -363,6 +363,8 @@ public final class ImGui {
     // - You may append multiple times to the same window during the same frame.
     // - Passing 'bool* pOpen != NULL' shows a window-closing widget in the upper-right corner of the window,
     //   which clicking will set the boolean to false when clicked.
+    // - You may append multiple times to the same window during the same frame by calling Begin()/End() pairs multiple times.
+    //   Some information such as 'flags' or 'p_open' will only be considered by the first call to Begin().
     // - Begin() return false to indicate the window is collapsed or fully clipped, so you may early out and omit submitting
     //   anything to the window. Always call a matching End() for each Begin() call, regardless of its return value!
     //   [Important: due to legacy reason, this is inconsistent with most other functions such as BeginMenu/EndMenu,
@@ -1065,7 +1067,7 @@ public final class ImGui {
     // Cursor / Layout
     // - By "cursor" we mean the current output position.
     // - The typical widget behavior is to output themselves at the current cursor position, then move the cursor one line down.
-    // - You can call SameLine() between widgets to undo the last carriage return and output at the right of the preceeding widget.
+    // - You can call SameLine() between widgets to undo the last carriage return and output at the right of the preceding widget.
     // - Attention! We currently have inconsistencies between window-local and absolute positions we will aim to fix with future API:
     //    Window-local coordinates:   SameLine(), GetCursorPos(), SetCursorPos(), GetCursorStartPos(), GetContentRegionMax(), GetWindowContentRegion*(), PushTextWrapPos()
     //    Absolute coordinate:        GetCursorScreenPos(), SetCursorScreenPos(), all ImDrawList:: functions.
@@ -3779,135 +3781,54 @@ public final class ImGui {
     */
 
     // Popups, Modals
-    // The properties of popups windows are:
-    // - They block normal mouse hovering detection outside them. (*)
-    // - Unless modal, they can be closed by clicking anywhere outside them, or by pressing ESCAPE.
-    // - Their visibility state (~bool) is held internally by imgui instead of being held by the programmer as we are used to with regular Begin() calls.
-    //   User can manipulate the visibility state by calling OpenPopup().
-    // - We default to use the right mouse (ImGuiMouseButton_Right=1) for the Popup Context functions.
-    // (*) You can use IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup) to bypass it and detect hovering even when normally blocked by a popup.
-    // Those three properties are connected. The library needs to hold their visibility state because it can close popups at any time.
+    //  - They block normal mouse hovering detection (and therefore most mouse interactions) behind them.
+    //  - If not modal: they can be closed by clicking anywhere outside them, or by pressing ESCAPE.
+    //  - Their visibility state (~bool) is held internally instead of being held by the programmer as we are used to with regular Begin*() calls.
+    //  - The 3 properties above are related: we need to retain popup visibility state in the library because popups may be closed as any time.
+    //  - You can bypass the hovering restriction by using ImGuiHoveredFlags_AllowWhenBlockedByPopup when calling IsItemHovered() or IsWindowHovered().
+    //  - IMPORTANT: Popup identifiers are relative to the current ID stack, so OpenPopup and BeginPopup generally needs to be at the same level of the stack.
+    //    This is sometimes leading to confusing mistakes. May rework this in the future.
+    // Popups: begin/end functions
+    //  - BeginPopup(): query popup state, if open start appending into the window. Call EndPopup() afterwards. ImGuiWindowFlags are forwarded to the window.
+    //  - BeginPopupModal(): block every interactions behind the window, cannot be closed by user, add a dimming background, has a title bar.
 
     /**
-     * Call to mark popup as open (don't call every frame!).
-     * Popups are closed when user click outside, or if CloseCurrentPopup() is called within a BeginPopup()/EndPopup() block.
-     * By default, Selectable()/MenuItem() are calling CloseCurrentPopup().
-     * Popup identifiers are relative to the current ID-stack (so OpenPopup and BeginPopup needs to be at the same level).
-     */
-    public static native void openPopup(String strId); /*
-        ImGui::OpenPopup(strId);
-    */
-
-    /**
-     * Return true if the popup is open, and you can start outputting to it. only call EndPopup() if BeginPopup() returns true!
+     * Return true if the popup is open, and you can start outputting to it.
      */
     public static native boolean beginPopup(String strId); /*
         return ImGui::BeginPopup(strId);
     */
 
     /**
-     * Return true if the popup is open, and you can start outputting to it. only call EndPopup() if BeginPopup() returns true!
+     * Return true if the popup is open, and you can start outputting to it.
      */
     public static native boolean beginPopup(String strId, int imGuiWindowFlags); /*
         return ImGui::BeginPopup(strId, imGuiWindowFlags);
     */
 
     /**
-     * helper to open and begin popup when clicked on last item. if you can pass a NULL strId only if the previous item had an id.
-     * If you want to use that on a non-interactive item such as Text() you need to pass in an explicit ID here. read comments in .cpp!
-     */
-    public static native boolean beginPopupContextItem(); /*
-        return ImGui::BeginPopupContextItem();
-    */
-
-    /**
-     * helper to open and begin popup when clicked on last item. if you can pass a NULL strId only if the previous item had an id.
-     * If you want to use that on a non-interactive item such as Text() you need to pass in an explicit ID here. read comments in .cpp!
-     */
-    public static native boolean beginPopupContextItem(String strId); /*
-        return ImGui::BeginPopupContextItem(strId);
-    */
-
-    /**
-     * helper to open and begin popup when clicked on last item. if you can pass a NULL strId only if the previous item had an id.
-     * If you want to use that on a non-interactive item such as Text() you need to pass in an explicit ID here. read comments in .cpp!
-     */
-    public static native boolean beginPopupContextItem(String strId, int mouseButton); /*
-        return ImGui::BeginPopupContextItem(strId, mouseButton);
-    */
-
-    /**
-     * Helper to open and begin popup when clicked on current window.
-     */
-    public static native boolean beginPopupContextWindow(); /*
-        return ImGui::BeginPopupContextWindow();
-    */
-
-    /**
-     * Helper to open and begin popup when clicked on current window.
-     */
-    public static native boolean beginPopupContextWindow(String strId); /*
-        return ImGui::BeginPopupContextWindow(strId);
-    */
-
-    /**
-     * Helper to open and begin popup when clicked on current window.
-     */
-    public static native boolean beginPopupContextWindow(String strId, int mouseButton); /*
-        return ImGui::BeginPopupContextWindow(strId, mouseButton);
-    */
-
-    /**
-     * Helper to open and begin popup when clicked on current window.
-     */
-    public static native boolean beginPopupContextWindow(String strId, int mouseButton, boolean alsoOverItems); /*
-        return ImGui::BeginPopupContextWindow(strId, mouseButton, alsoOverItems);
-    */
-
-    /**
-     * Helper to open and begin popup when clicked in void (where there are no imgui windows).
-     */
-    public static native boolean beginPopupContextVoid(); /*
-        return ImGui::BeginPopupContextVoid();
-     */
-
-    /**
-     * Helper to open and begin popup when clicked in void (where there are no imgui windows).
-     */
-    public static native boolean beginPopupContextVoid(String strId); /*
-        return ImGui::BeginPopupContextVoid(strId);
-    */
-
-    /**
-     * Helper to open and begin popup when clicked in void (where there are no imgui windows).
-     */
-    public static native boolean beginPopupContextVoid(String strId, int mouseButton); /*
-        return ImGui::BeginPopupContextVoid(strId, mouseButton);
-    */
-
-    /**
-     * Modal dialog (regular window with title bar, block interactions behind the modal window, can't close the modal window by clicking outside)
+     * Return true if the popup is open, and you can start outputting to it.
      */
     public static native boolean beginPopupModal(String name); /*
         return ImGui::BeginPopupModal(name);
     */
 
     /**
-     * Modal dialog (regular window with title bar, block interactions behind the modal window, can't close the modal window by clicking outside)
+     * Return true if the popup is open, and you can start outputting to it.
      */
     public static boolean beginPopupModal(String name, ImBoolean pOpen) {
         return nBeginPopupModal(name, pOpen.getData(), 0);
     }
 
     /**
-     * Modal dialog (regular window with title bar, block interactions behind the modal window, can't close the modal window by clicking outside)
+     * Return true if the popup is open, and you can start outputting to it.
      */
     public static boolean beginPopupModal(String name, int imGuiWindowFlags) {
         return nBeginPopupModal(name, imGuiWindowFlags);
     }
 
     /**
-     * Modal dialog (regular window with title bar, block interactions behind the modal window, can't close the modal window by clicking outside)
+     * Return true if the popup is open, and you can start outputting to it.
      */
     public static boolean beginPopupModal(String name, ImBoolean pOpen, int imGuiWindowFlags) {
         return nBeginPopupModal(name, pOpen.getData(), imGuiWindowFlags);
@@ -3922,15 +3843,74 @@ public final class ImGui {
     */
 
     /**
-     * only call EndPopup() if BeginPopupXXX() returns true!
+     * Only call EndPopup() if BeginPopupXXX() returns true!
      */
     public static native void endPopup(); /*
         ImGui::EndPopup();
     */
 
+    // Popups: open/close functions
+    //  - OpenPopup(): set popup state to open. ImGuiPopupFlags are available for opening options.
+    //  - If not modal: they can be closed by clicking anywhere outside them, or by pressing ESCAPE.
+    //  - CloseCurrentPopup(): use inside the BeginPopup()/EndPopup() scope to close manually.
+    //  - CloseCurrentPopup() is called by default by Selectable()/MenuItem() when activated (FIXME: need some options).
+    //  - Use ImGuiPopupFlags_NoOpenOverExistingPopup to avoid opening a popup if there's already one at the same level. This is equivalent to e.g. testing for !IsAnyPopupOpen() prior to OpenPopup().
+
+    /**
+     * Call to mark popup as open (don't call every frame!).
+     */
+    public static native void openPopup(String strId); /*
+        ImGui::OpenPopup(strId);
+    */
+
+    /**
+     * Call to mark popup as open (don't call every frame!).
+     */
+    public static native void openPopup(String strId, int imGuiPopupFlags); /*
+        ImGui::OpenPopup(strId, imGuiPopupFlags);
+    */
+
+    /**
+     * Helper to open popup when clicked on last item. return true when just opened. (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors)
+     */
+    public static native void openPopupContextItem(); /*
+        ImGui::OpenPopupContextItem();
+    */
+
+    /**
+     * Helper to open popup when clicked on last item. return true when just opened. (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors)
+     */
+    public static native void openPopupContextItem(String strId); /*
+        ImGui::OpenPopupContextItem(strId);
+    */
+
+    /**
+     * Helper to open popup when clicked on last item. return true when just opened. (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors)
+     */
+    public static native void openPopupContextItem(int imGuiPopupFlags); /*
+        ImGui::OpenPopupContextItem(NULL, imGuiPopupFlags);
+    */
+
+    /**
+     * Helper to open popup when clicked on last item. return true when just opened. (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors)
+     */
+    public static native void openPopupContextItem(String strId, int imGuiPopupFlags); /*
+        ImGui::OpenPopupContextItem(strId, imGuiPopupFlags);
+    */
+
+    /**
+     * Manually close the popup we have begin-ed into.
+     */
+    public static native void closeCurrentPopup(); /*
+        ImGui::CloseCurrentPopup();
+    */
+
     /**
      * Helper to open popup when clicked on last item (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors).
      * return true when just opened.
+     *
+     * @deprecated use {@link ImGui#openPopupContextItem()}
+     * @since 1.77
      */
     public static native boolean openPopupOnItemClick(); /*
         return ImGui::OpenPopupOnItemClick();
@@ -3939,6 +3919,9 @@ public final class ImGui {
     /**
      * Helper to open popup when clicked on last item (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors).
      * return true when just opened.
+     *
+     * @deprecated use {@link ImGui#openPopupContextItem(String)}
+     * @since 1.77
      */
     public static native boolean openPopupOnItemClick(String strId); /*
         return ImGui::OpenPopupOnItemClick(strId);
@@ -3947,23 +3930,135 @@ public final class ImGui {
     /**
      * Helper to open popup when clicked on last item (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors).
      * return true when just opened.
+     *
+     * @deprecated use {@link ImGui#openPopupContextItem(String, int)}
+     * @since 1.77
      */
     public static native boolean openPopupOnItemClick(String strId, int mouseButton); /*
         return ImGui::OpenPopupOnItemClick(strId, mouseButton);
     */
 
+    // Popups: open+begin combined functions helpers
+    //  - Helpers to do OpenPopup+BeginPopup where the Open action is triggered by e.g. hovering an item and right-clicking.
+    //  - They are convenient to easily create context menus, hence the name.
+    //  - IMPORTANT: Notice that BeginPopupContextXXX takes ImGuiPopupFlags just like OpenPopup() and unlike BeginPopup(). For full consistency, we may add ImGuiWindowFlags to the BeginPopupContextXXX functions in the future.
+    //  - We exceptionally default their flags to 1 (== ImGuiPopupFlags_MouseButtonRight) for backward compatibility with older API taking 'int mouse_button = 1' parameter. Passing a mouse button to ImGuiPopupFlags is guaranteed to be legal.
+
     /**
-     * Return true if the popup is open at the current begin-ed level of the popup stack.
+     * Open+begin popup when clicked on last item. if you can pass a NULL str_id only if the previous item had an id.
+     * If you want to use that on a non-interactive item such as Text() you need to pass in an explicit ID here. read comments in .cpp!
+     */
+    public static native boolean beginPopupContextItem(); /*
+        return ImGui::BeginPopupContextItem();
+    */
+
+    /**
+     * Open+begin popup when clicked on last item. if you can pass a NULL str_id only if the previous item had an id.
+     * If you want to use that on a non-interactive item such as Text() you need to pass in an explicit ID here. read comments in .cpp!
+     */
+    public static native boolean beginPopupContextItem(String strId); /*
+        return ImGui::BeginPopupContextItem(strId);
+    */
+
+    /**
+     * Open+begin popup when clicked on last item. if you can pass a NULL str_id only if the previous item had an id.
+     * If you want to use that on a non-interactive item such as Text() you need to pass in an explicit ID here. read comments in .cpp!
+     */
+    public static native boolean beginPopupContextItem(int imGuiPopupFlags); /*
+        return ImGui::BeginPopupContextItem(NULL, imGuiPopupFlags);
+    */
+
+    /**
+     * Open+begin popup when clicked on last item. if you can pass a NULL str_id only if the previous item had an id.
+     * If you want to use that on a non-interactive item such as Text() you need to pass in an explicit ID here. read comments in .cpp!
+     */
+    public static native boolean beginPopupContextItem(String strId, int imGuiPopupFlags); /*
+        return ImGui::BeginPopupContextItem(strId, imGuiPopupFlags);
+    */
+
+    /**
+     * Open+begin popup when clicked on current window.
+     */
+    public static native boolean beginPopupContextWindow(); /*
+        return ImGui::BeginPopupContextWindow();
+    */
+
+    /**
+     * Open+begin popup when clicked on current window.
+     */
+    public static native boolean beginPopupContextWindow(String strId); /*
+        return ImGui::BeginPopupContextWindow(strId);
+    */
+
+    /**
+     * Open+begin popup when clicked on current window.
+     */
+    public static native boolean beginPopupContextWindow(int imGuiPopupFlags); /*
+        return ImGui::BeginPopupContextWindow(NULL, imGuiPopupFlags);
+    */
+
+    /**
+     * Open+begin popup when clicked on current window.
+     */
+    public static native boolean beginPopupContextWindow(String strId, int imGuiPopupFlags); /*
+        return ImGui::BeginPopupContextWindow(strId, imGuiPopupFlags);
+    */
+
+    /**
+     * Helper to open and begin popup when clicked on current window.
+     *
+     * @deprecated use {@link ImGui#beginPopupContextWindow(String, int)}
+     * @since 1.77
+     */
+    public static native boolean beginPopupContextWindow(String strId, int mouseButton, boolean alsoOverItems); /*
+        return ImGui::BeginPopupContextWindow(strId, mouseButton, alsoOverItems);
+    */
+
+    /**
+     * Open+begin popup when clicked in void (where there are no windows).
+     */
+    public static native boolean beginPopupContextVoid(); /*
+        return ImGui::BeginPopupContextVoid();
+     */
+
+    /**
+     * Open+begin popup when clicked in void (where there are no windows).
+     */
+    public static native boolean beginPopupContextVoid(String strId); /*
+        return ImGui::BeginPopupContextVoid(strId);
+    */
+
+    /**
+     * Open+begin popup when clicked in void (where there are no windows).
+     */
+    public static native boolean beginPopupContextVoid(int imGuiPopupFlags); /*
+        return ImGui::BeginPopupContextVoid(NULL, imGuiPopupFlags);
+    */
+
+    /**
+     * Open+begin popup when clicked in void (where there are no windows).
+     */
+    public static native boolean beginPopupContextVoid(String strId, int imGuiPopupFlags); /*
+        return ImGui::BeginPopupContextVoid(strId, imGuiPopupFlags);
+    */
+
+    // Popups: test function
+    //  - IsPopupOpen(): return true if the popup is open at the current BeginPopup() level of the popup stack.
+    //  - IsPopupOpen() with ImGuiPopupFlags_AnyPopupId: return true if any popup is open at the current BeginPopup() level of the popup stack.
+    //  - IsPopupOpen() with ImGuiPopupFlags_AnyPopupId + ImGuiPopupFlags_AnyPopupLevel: return true if any popup is open.
+
+    /**
+     * Return true if the popup is open.
      */
     public static native boolean isPopupOpen(String strId); /*
         return ImGui::IsPopupOpen(strId);
     */
 
     /**
-     * Close the popup we have begin-ed into. clicking on a MenuItem or Selectable automatically close the current popup.
+     * Return true if the popup is open.
      */
-    public static native void closeCurrentPopup(); /*
-        ImGui::CloseCurrentPopup();
+    public static native boolean isPopupOpen(String strId, int imGuiPopupFlags); /*
+        return ImGui::IsPopupOpen(strId, imGuiPopupFlags);
     */
 
     // Columns
@@ -4266,6 +4361,7 @@ public final class ImGui {
 
     // Drag and Drop
     // - [BETA API] API may evolve!
+    // - If you stop calling BeginDragDropSource() the payload is preserved however it won't have a preview tooltip (we currently display a fallback "..." tooltip as replacement)
 
     private static WeakReference<Object> objectPayloadRef = null;
     private static final byte[] OBJECT_PAYLOAD_PLACEHOLDER_DATA = new byte[1];

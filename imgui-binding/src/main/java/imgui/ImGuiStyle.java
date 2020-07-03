@@ -81,6 +81,7 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
 
     /**
      * Radius of window corners rounding. Set to 0.0f to have rectangular windows.
+     * Large values tend to lead to variety of artifacts and are not recommended.
      */
     public native float getWindowRounding(); /*
         return IMGUI_STYLE->WindowRounding;
@@ -88,6 +89,7 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
 
     /**
      * Radius of window corners rounding. Set to 0.0f to have rectangular windows.
+     * Large values tend to lead to variety of artifacts and are not recommended.
      */
     public native void setWindowRounding(float windowRounding); /*
         IMGUI_STYLE->WindowRounding = windowRounding;
@@ -407,6 +409,22 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
      */
     public native void setTabBorderSize(float tabBorderSize); /*
         IMGUI_STYLE->TabBorderSize = tabBorderSize;
+    */
+
+    /**
+     * Minimum width for close button to appears on an unselected tab when hovered.
+     * Set to 0.0f to always show when hovering, set to FLT_MAX to never show close button unless selected.
+     */
+    public native float getTabMinWidthForUnselectedCloseButton(); /*
+        return IMGUI_STYLE->TabMinWidthForUnselectedCloseButton;
+    */
+
+    /**
+     * Minimum width for close button to appears on an unselected tab when hovered.
+     * Set to 0.0f to always show when hovering, set to FLT_MAX to never show close button unless selected.
+     */
+    public native void setTabMinWidthForUnselectedCloseButton(float tabMinWidthForUnselectedCloseButton); /*
+        IMGUI_STYLE->TabMinWidthForUnselectedCloseButton = tabMinWidthForUnselectedCloseButton;
     */
 
     /**

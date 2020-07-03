@@ -26,4 +26,8 @@ public final class ImGuiTabItemFlags {
      * Don't call PushID(tab.ID)/PopID() on BeginTabItem()/EndTabItem()
      */
     public static final int NoPushId = 1 << 3;
+    /**
+     * Disable tooltip for the given tab
+     */
+    public static final int NoTooltip = 1 << 4;
 }
