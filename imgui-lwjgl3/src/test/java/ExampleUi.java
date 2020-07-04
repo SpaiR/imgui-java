@@ -17,7 +17,7 @@ import static org.lwjgl.opengl.GL32.*;
 
 @SuppressWarnings({"MagicNumber", "VisibilityModifier"})
 final class ExampleUi {
-    private static final String IMGUI_DEMO_LINK = "https://raw.githubusercontent.com/ocornut/imgui/v1.76/imgui_demo.cpp";
+    private static final String IMGUI_DEMO_LINK = "https://raw.githubusercontent.com/ocornut/imgui/v1.77/imgui_demo.cpp";
 
     private static final int COLOR_DODGERBLUE = ImColor.rgbToColor("#1E90FF");
     private static final int COLOR_CORAL = ImColor.rgbToColor("#FF7F50");
