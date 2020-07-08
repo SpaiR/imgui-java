@@ -74,6 +74,20 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
     /**
      * Padding within a window.
      */
+    public native float getWindowPaddingX(); /*
+        return IMGUI_STYLE->WindowPadding.x;
+    */
+
+    /**
+     * Padding within a window.
+     */
+    public native float getWindowPaddingY(); /*
+        return IMGUI_STYLE->WindowPadding.y;
+    */
+
+    /**
+     * Padding within a window.
+     */
     public native void setWindowPadding(float x, float y); /*
         IMGUI_STYLE->WindowPadding.x = x;
         IMGUI_STYLE->WindowPadding.y = y;
@@ -119,6 +133,20 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
     /**
      * Minimum window size. This is a global setting. If you want to constraint individual windows, use SetNextWindowSizeConstraints().
      */
+    public native float getWindowMinSizeX(); /*
+        return IMGUI_STYLE->WindowMinSize.x;
+    */
+
+    /**
+     * Minimum window size. This is a global setting. If you want to constraint individual windows, use SetNextWindowSizeConstraints().
+     */
+    public native float getWindowMinSizeY(); /*
+        return IMGUI_STYLE->WindowMinSize.y;
+    */
+
+    /**
+     * Minimum window size. This is a global setting. If you want to constraint individual windows, use SetNextWindowSizeConstraints().
+     */
     public native void setWindowMinSize(float x, float y); /*
         IMGUI_STYLE->WindowMinSize.x = x;
         IMGUI_STYLE->WindowMinSize.y = y;
@@ -129,6 +157,20 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
      */
     public native void getWindowTitleAlign(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IMGUI_STYLE->WindowTitleAlign, dstImVec2);
+    */
+
+    /**
+     * Alignment for title bar text. Defaults to (0.0f,0.5f) for left-aligned,vertically centered.
+     */
+    public native float getWindowTitleAlignX(); /*
+        return IMGUI_STYLE->WindowTitleAlign.x;
+    */
+
+    /**
+     * Alignment for title bar text. Defaults to (0.0f,0.5f) for left-aligned,vertically centered.
+     */
+    public native float getWindowTitleAlignY(); /*
+        return IMGUI_STYLE->WindowTitleAlign.y;
     */
 
     /**
@@ -219,6 +261,20 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
     /**
      * Padding within a framed rectangle (used by most widgets).
      */
+    public native float getFramePaddingX(); /*
+        return IMGUI_STYLE->FramePadding.x;
+    */
+
+    /**
+     * Padding within a framed rectangle (used by most widgets).
+     */
+    public native float getFramePaddingY(); /*
+        return IMGUI_STYLE->FramePadding.y;
+    */
+
+    /**
+     * Padding within a framed rectangle (used by most widgets).
+     */
     public native void setFramePadding(float x, float y); /*
         IMGUI_STYLE->FramePadding.x = x;
         IMGUI_STYLE->FramePadding.y = y;
@@ -262,6 +318,20 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
     /**
      * Horizontal and vertical spacing between widgets/lines.
      */
+    public native float getItemSpacingX(); /*
+        return IMGUI_STYLE->ItemSpacing.x;
+    */
+
+    /**
+     * Horizontal and vertical spacing between widgets/lines.
+     */
+    public native float getItemSpacingY(); /*
+        return IMGUI_STYLE->ItemSpacing.y;
+    */
+
+    /**
+     * Horizontal and vertical spacing between widgets/lines.
+     */
     public native void setItemSpacing(float x, float y); /*
         IMGUI_STYLE->ItemSpacing.x = x;
         IMGUI_STYLE->ItemSpacing.y = y;
@@ -272,6 +342,20 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
      */
     public native void getItemInnerSpacing(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IMGUI_STYLE->ItemInnerSpacing, dstImVec2);
+    */
+
+    /**
+     * Horizontal and vertical spacing between within elements of a composed widget (e.g. a slider and its label).
+     */
+    public native float getItemInnerSpacingX(); /*
+        return IMGUI_STYLE->ItemInnerSpacing.x;
+    */
+
+    /**
+     * Horizontal and vertical spacing between within elements of a composed widget (e.g. a slider and its label).
+     */
+    public native float getItemInnerSpacingY(); /*
+        return IMGUI_STYLE->ItemInnerSpacing.y;
     */
 
     /**
@@ -288,6 +372,22 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
      */
     public native void getTouchExtraPadding(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IMGUI_STYLE->TouchExtraPadding, dstImVec2);
+    */
+
+    /**
+     * Expand reactive bounding box for touch-based system where touch position is not accurate enough.
+     * Unfortunately we don't sort widgets so priority on overlap will always be given to the first widget. So don't grow this too much!
+     */
+    public native float getTouchExtraPaddingX(); /*
+        return IMGUI_STYLE->TouchExtraPadding.x;
+    */
+
+    /**
+     * Expand reactive bounding box for touch-based system where touch position is not accurate enough.
+     * Unfortunately we don't sort widgets so priority on overlap will always be given to the first widget. So don't grow this too much!
+     */
+    public native float getTouchExtraPaddingY(); /*
+        return IMGUI_STYLE->TouchExtraPadding.y;
     */
 
     /**
@@ -451,6 +551,20 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
     /**
      * Alignment of button text when button is larger than text. Defaults to (0.5f, 0.5f) (centered).
      */
+    public native float getButtonTextAlignX(); /*
+        return IMGUI_STYLE->ButtonTextAlign.x;
+    */
+
+    /**
+     * Alignment of button text when button is larger than text. Defaults to (0.5f, 0.5f) (centered).
+     */
+    public native float getButtonTextAlignY(); /*
+        return IMGUI_STYLE->ButtonTextAlign.y;
+    */
+
+    /**
+     * Alignment of button text when button is larger than text. Defaults to (0.5f, 0.5f) (centered).
+     */
     public native void setButtonTextAlign(float x, float y); /*
         IMGUI_STYLE->ButtonTextAlign.x = x;
         IMGUI_STYLE->ButtonTextAlign.y = y;
@@ -462,6 +576,22 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
      */
     public native void getSelectableTextAlign(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IMGUI_STYLE->SelectableTextAlign, dstImVec2);
+    */
+
+    /**
+     * Alignment of selectable text. Defaults to (0.0f, 0.0f) (top-left aligned).
+     * It's generally important to keep this left-aligned if you want to lay multiple items on a same line.
+     */
+    public native float getSelectableTextAlignX(); /*
+        return IMGUI_STYLE->SelectableTextAlign.x;
+    */
+
+    /**
+     * Alignment of selectable text. Defaults to (0.0f, 0.0f) (top-left aligned).
+     * It's generally important to keep this left-aligned if you want to lay multiple items on a same line.
+     */
+    public native float getSelectableTextAlignY(); /*
+        return IMGUI_STYLE->SelectableTextAlign.y;
     */
 
     /**
@@ -483,6 +613,20 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
     /**
      * Window position are clamped to be visible within the display area by at least this amount. Only applies to regular windows.
      */
+    public native float getDisplayWindowPaddingX(); /*
+        return IMGUI_STYLE->DisplayWindowPadding.x;
+    */
+
+    /**
+     * Window position are clamped to be visible within the display area by at least this amount. Only applies to regular windows.
+     */
+    public native float getDisplayWindowPaddingY(); /*
+        return IMGUI_STYLE->DisplayWindowPadding.y;
+    */
+
+    /**
+     * Window position are clamped to be visible within the display area by at least this amount. Only applies to regular windows.
+     */
     public native void setDisplayWindowPadding(float x, float y); /*
         IMGUI_STYLE->DisplayWindowPadding.x = x;
         IMGUI_STYLE->DisplayWindowPadding.y = y;
@@ -494,6 +638,22 @@ public final class ImGuiStyle implements ImGuiDestroyableStruct {
      */
     public native void getDisplaySafeAreaPadding(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IMGUI_STYLE->DisplaySafeAreaPadding, dstImVec2);
+    */
+
+    /**
+     * If you cannot see the edges of your screen (e.g. on a TV) increase the safe area padding.
+     * Apply to popups/tooltips as well regular windows. NB: Prefer configuring your TV sets correctly!
+     */
+    public native float getDisplaySafeAreaPaddingX(); /*
+        return IMGUI_STYLE->DisplaySafeAreaPadding.x;
+    */
+
+    /**
+     * If you cannot see the edges of your screen (e.g. on a TV) increase the safe area padding.
+     * Apply to popups/tooltips as well regular windows. NB: Prefer configuring your TV sets correctly!
+     */
+    public native float getDisplaySafeAreaPaddingY(); /*
+        return IMGUI_STYLE->DisplaySafeAreaPadding.y;
     */
 
     /**
