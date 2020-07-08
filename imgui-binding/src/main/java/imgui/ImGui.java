@@ -1327,15 +1327,6 @@ public final class ImGui {
     */
 
     /**
-     * Raw text without formatting. Roughly equivalent to Text("%s", text) but:
-     * A) doesn't require null terminated string if 'textEnd' is specified,
-     * B) it's faster, no memory copy is done, no buffer size limits, recommended for long chunks of text.
-     */
-    public static native void textUnformatted(String text, String textEnd); /*
-        ImGui::TextUnformatted(text, textEnd);
-    */
-
-    /**
      * Formatted text
      * <p>
      * BINDING NOTICE: Since all text formatting could be done on Java side, this call is equal to {@link ImGui#textUnformatted(String)}.
@@ -4851,18 +4842,18 @@ public final class ImGui {
         Jni::ImVec2Cpy(env, src, dstImVec2);
     */
 
-    public static native void calcTextSize(ImVec2 dstImVec2, String text, String textEnd); /*
-        ImVec2 src = ImGui::CalcTextSize(text, textEnd);
+    public static native void calcTextSize(ImVec2 dstImVec2, String text, boolean hideTextAfterDoubleHash); /*
+        ImVec2 src = ImGui::CalcTextSize(text, NULL, hideTextAfterDoubleHash);
         Jni::ImVec2Cpy(env, src, dstImVec2);
     */
 
-    public static native void calcTextSize(ImVec2 dstImVec2, String text, String textEnd, boolean hideTextAfterDoubleHas); /*
-        ImVec2 src = ImGui::CalcTextSize(text, textEnd, hideTextAfterDoubleHas);
+    public static native void calcTextSize(ImVec2 dstImVec2, String text, float wrapWidth); /*
+        ImVec2 src = ImGui::CalcTextSize(text, NULL, false, wrapWidth);
         Jni::ImVec2Cpy(env, src, dstImVec2);
     */
 
-    public static native void calcTextSize(ImVec2 dstImVec2, String text, String textEnd, boolean hideTextAfterDoubleHas, float wrapWidth); /*
-        ImVec2 src = ImGui::CalcTextSize(text, textEnd, hideTextAfterDoubleHas, wrapWidth);
+    public static native void calcTextSize(ImVec2 dstImVec2, String text, boolean hideTextAfterDoubleHash, float wrapWidth); /*
+        ImVec2 src = ImGui::CalcTextSize(text, NULL, hideTextAfterDoubleHash, wrapWidth);
         Jni::ImVec2Cpy(env, src, dstImVec2);
     */
 

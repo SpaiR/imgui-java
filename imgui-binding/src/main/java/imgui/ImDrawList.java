@@ -191,45 +191,33 @@ public final class ImDrawList {
         IM_DRAW_LIST->AddNgonFilled(ImVec2(centreX, centreY), radius, col, numSegments);
     */
 
-    public native void addText(float posX, float posY, int col, String textBegin); /*
-        IM_DRAW_LIST->AddText(ImVec2(posX, posY), col, textBegin);
+    public native void addText(float posX, float posY, int col, String text); /*
+        IM_DRAW_LIST->AddText(ImVec2(posX, posY), col, text);
     */
 
-    public native void addText(float posX, float posY, int col, String textBegin, String textEnd); /*
-        IM_DRAW_LIST->AddText(ImVec2(posX, posY), col, textBegin, textEnd);
-    */
-
-    public void addText(final ImFont imFont, final float fontSize, final float posX, final float posY, final int col, final String textBegin) {
-        nAddText(imFont.ptr, fontSize, posX, posY, col, textBegin);
+    public void addText(final ImFont imFont, final float fontSize, final float posX, final float posY, final int col, final String text) {
+        nAddText(imFont.ptr, fontSize, posX, posY, col, text);
     }
 
-    private native void nAddText(long imFontPtr, float fontSize, float posX, float posY, int col, String textBegin); /*
-        IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, textBegin);
+    private native void nAddText(long imFontPtr, float fontSize, float posX, float posY, int col, String text); /*
+        IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, text);
     */
 
-    public void addText(final ImFont imFont, final float fontSize, final float posX, final float posY, final int col, final String textBegin, final String textEnd) {
-        nAddText(imFont.ptr, fontSize, posX, posY, col, textBegin, textEnd);
+    public void addText(final ImFont imFont, final float fontSize, final float posX, final float posY, final int col, final String text, final float wrapWidth) {
+        nAddText(imFont.ptr, fontSize, posX, posY, col, text, wrapWidth);
     }
 
-    private native void nAddText(long imFontPtr, float fontSize, float posX, float posY, int col, String textBegin, String textEnd); /*
-        IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, textBegin, textEnd);
+    private native void nAddText(long imFontPtr, float fontSize, float posX, float posY, int col, String text, float wrapWidth); /*
+        IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, text, NULL, wrapWidth);
     */
 
-    public void addText(final ImFont imFont, final float fontSize, final float posX, final float posY, final int col, final String textBegin, final String textEnd, final float wrapWidth) {
-        nAddText(imFont.ptr, fontSize, posX, posY, col, textBegin, textEnd, wrapWidth);
+    public void addText(final ImFont imFont, final float fontSize, final float posX, final float posY, final int col, final String text, final float wrapWidth, final float cpuFineClipRectX, final float cpuFineClipRectY, final float cpuFineClipRectZ, final float cpuFineClipRectV) {
+        nAddText(imFont.ptr, fontSize, posX, posY, col, text, wrapWidth, cpuFineClipRectX, cpuFineClipRectY, cpuFineClipRectZ, cpuFineClipRectV);
     }
 
-    private native void nAddText(long imFontPtr, float fontSize, float posX, float posY, int col, String textBegin, String textEnd, float wrapWidth); /*
-        IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, textBegin, textEnd, wrapWidth);
-    */
-
-    public void addText(final ImFont imFont, final float fontSize, final float posX, final float posY, final int col, final String textBegin, final String textEnd, final float wrapWidth, final float cpuFineClipRectX, final float cpuFineClipRectY, final float cpuFineClipRectZ, final float cpuFineClipRectV) {
-        nAddText(imFont.ptr, fontSize, posX, posY, col, textBegin, textEnd, wrapWidth, cpuFineClipRectX, cpuFineClipRectY, cpuFineClipRectZ, cpuFineClipRectV);
-    }
-
-    private native void nAddText(long imFontPtr, float fontSize, float posX, float posY, int col, String textBegin, String textEnd, float wrapWidth, float cpuFineClipRectX, float cpuFineClipRectY, float cpuFineClipRectZ, float cpuFineClipRectV); /*
+    private native void nAddText(long imFontPtr, float fontSize, float posX, float posY, int col, String text, float wrapWidth, float cpuFineClipRectX, float cpuFineClipRectY, float cpuFineClipRectZ, float cpuFineClipRectV); /*
         ImVec4 cpuFineClipRect = ImVec4(cpuFineClipRectX, cpuFineClipRectY, cpuFineClipRectZ, cpuFineClipRectV);
-        IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, textBegin, textEnd, wrapWidth, &cpuFineClipRect);
+        IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, text, NULL, wrapWidth, &cpuFineClipRect);
     */
 
     public native void addPolyline(ImVec2[] points, int numPoints, int col, boolean closed, float thickness); /*
