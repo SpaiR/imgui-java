@@ -85,8 +85,24 @@ public final class ImDrawList {
         Jni::ImVec2Cpy(env, IM_DRAW_LIST->GetClipRectMin(), dstImVec2);
     */
 
+    public native float getClipRectMinX(); /*
+        return IM_DRAW_LIST->GetClipRectMin().x;
+    */
+
+    public native float getClipRectMinY(); /*
+        return IM_DRAW_LIST->GetClipRectMin().y;
+    */
+
     public native void getClipRectMax(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, IM_DRAW_LIST->GetClipRectMax(), dstImVec2);
+    */
+
+    public native float getClipRectMaxX(); /*
+        return IM_DRAW_LIST->GetClipRectMax().x;
+    */
+
+    public native float getClipRectMaxY(); /*
+        return IM_DRAW_LIST->GetClipRectMax().y;
     */
 
     // Primitives
