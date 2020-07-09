@@ -185,6 +185,20 @@ public final class ImDrawData implements ImGuiDestroyableStruct {
     */
 
     /**
+     * Upper-left position of the viewport to render (== upper-left of the orthogonal projection matrix to use)
+     */
+    public native float getDisplayPosX(); /*
+        return IM_DRAW_DATA->DisplayPos.x;
+    */
+
+    /**
+     * Upper-left position of the viewport to render (== upper-left of the orthogonal projection matrix to use)
+     */
+    public native float getDisplayPosY(); /*
+        return IM_DRAW_DATA->DisplayPos.y;
+    */
+
+    /**
      * Size of the viewport to render (== io.DisplaySize for the main viewport)
      * (DisplayPos + DisplaySize == lower-right of the orthogonal projection matrix to use)
      */
@@ -193,10 +207,40 @@ public final class ImDrawData implements ImGuiDestroyableStruct {
     */
 
     /**
+     * Size of the viewport to render (== io.DisplaySize for the main viewport)
+     * (DisplayPos + DisplaySize == lower-right of the orthogonal projection matrix to use)
+     */
+    public native float getDisplaySizeX(); /*
+        return IM_DRAW_DATA->DisplaySize.x;
+    */
+
+    /**
+     * Size of the viewport to render (== io.DisplaySize for the main viewport)
+     * (DisplayPos + DisplaySize == lower-right of the orthogonal projection matrix to use)
+     */
+    public native float getDisplaySizeY(); /*
+        return IM_DRAW_DATA->DisplaySize.y;
+    */
+
+    /**
      * Amount of pixels for each unit of DisplaySize. Based on io.DisplayFramebufferScale. Generally (1,1) on normal display, (2,2) on OSX with Retina display.
      */
     public native void getFramebufferScale(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IM_DRAW_DATA->FramebufferScale, dstImVec2);
+    */
+
+    /**
+     * Amount of pixels for each unit of DisplaySize. Based on io.DisplayFramebufferScale. Generally (1,1) on normal display, (2,2) on OSX with Retina display.
+     */
+    public native float getFramebufferScaleX(); /*
+        return IM_DRAW_DATA->FramebufferScale.x;
+    */
+
+    /**
+     * Amount of pixels for each unit of DisplaySize. Based on io.DisplayFramebufferScale. Generally (1,1) on normal display, (2,2) on OSX with Retina display.
+     */
+    public native float getFramebufferScaleY(); /*
+        return IM_DRAW_DATA->FramebufferScale.y;
     */
 
     // Functions
