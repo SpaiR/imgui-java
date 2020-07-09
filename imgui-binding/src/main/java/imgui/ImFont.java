@@ -100,6 +100,20 @@ public final class ImFont implements ImGuiDestroyableStruct {
     /**
      * Offset font rendering by xx pixels
      */
+    public native float getDisplayOffsetX(); /*
+        return IM_FONT->DisplayOffset.x;
+    */
+
+    /**
+     * Offset font rendering by xx pixels
+     */
+    public native float getDisplayOffsetY(); /*
+        return IM_FONT->DisplayOffset.y;
+    */
+
+    /**
+     * Offset font rendering by xx pixels
+     */
     public native void setDisplayOffset(float x, float y); /*
         IM_FONT->DisplayOffset.x = x;
         IM_FONT->DisplayOffset.y = y;
