@@ -184,6 +184,20 @@ public final class ImFontConfig implements ImGuiDestroyableStruct {
     /**
      * Extra spacing (in pixels) between glyphs. Only X axis is supported for now.
      */
+    public native float getGlyphExtraSpacingX(); /*
+        return IM_FONT_CONFIG->GlyphExtraSpacing.x;
+    */
+
+    /**
+     * Extra spacing (in pixels) between glyphs. Only X axis is supported for now.
+     */
+    public native float getGlyphExtraSpacingY(); /*
+        return IM_FONT_CONFIG->GlyphExtraSpacing.y;
+    */
+
+    /**
+     * Extra spacing (in pixels) between glyphs. Only X axis is supported for now.
+     */
     public native void setGlyphExtraSpacing(float x, float y); /*
         IM_FONT_CONFIG->GlyphExtraSpacing.x = x;
         IM_FONT_CONFIG->GlyphExtraSpacing.y = y;
@@ -194,6 +208,20 @@ public final class ImFontConfig implements ImGuiDestroyableStruct {
      */
     public native void getGlyphOffset(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IM_FONT_CONFIG->GlyphOffset, dstImVec2);
+    */
+
+    /**
+     * Offset all glyphs from this font input.
+     */
+    public native float getGlyphOffsetX(); /*
+        return IM_FONT_CONFIG->GlyphOffset.x;
+    */
+
+    /**
+     * Offset all glyphs from this font input.
+     */
+    public native float getGlyphOffsetY(); /*
+        return IM_FONT_CONFIG->GlyphOffset.y;
     */
 
     /**
