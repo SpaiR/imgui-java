@@ -441,6 +441,24 @@ public final class ImGuiIO {
      * <p>
      * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
      */
+    public native float getDisplaySizeX(); /*
+        return ImGui::GetIO().DisplaySize.x;
+    */
+
+    /**
+     * Main display size, in pixels.
+     * <p>
+     * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
+     */
+    public native float getDisplaySizeY(); /*
+        return ImGui::GetIO().DisplaySize.y;
+    */
+
+    /**
+     * Main display size, in pixels.
+     * <p>
+     * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
+     */
     public native void setDisplaySize(float x, float y); /*
         ImGui::GetIO().DisplaySize.x = x;
         ImGui::GetIO().DisplaySize.y = y;
@@ -453,6 +471,24 @@ public final class ImGuiIO {
      */
     public native void getDisplayFramebufferScale(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &ImGui::GetIO().DisplayFramebufferScale, dstImVec2);
+    */
+
+    /**
+     * For retina display or other situations where window coordinates are different from framebuffer coordinates. This generally ends up in ImDrawData::FramebufferScale.
+     * <p>
+     * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
+     */
+    public native float getDisplayFramebufferScaleX(); /*
+        return ImGui::GetIO().DisplayFramebufferScale.x;
+    */
+
+    /**
+     * For retina display or other situations where window coordinates are different from framebuffer coordinates. This generally ends up in ImDrawData::FramebufferScale.
+     * <p>
+     * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
+     */
+    public native float getDisplayFramebufferScaleY(); /*
+        return ImGui::GetIO().DisplayFramebufferScale.y;
     */
 
     /**
@@ -550,6 +586,20 @@ public final class ImGuiIO {
      */
     public native void getMousePos(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &ImGui::GetIO().MousePos, dstImVec2);
+    */
+
+    /**
+     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
+     */
+    public native float getMousePosX(); /*
+        return ImGui::GetIO().MousePos.x;
+    */
+
+    /**
+     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
+     */
+    public native float getMousePosY(); /*
+        return ImGui::GetIO().MousePos.y;
     */
 
     /**
@@ -947,6 +997,20 @@ public final class ImGuiIO {
      */
     public native void getMouseDelta(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &ImGui::GetIO().MouseDelta, dstImVec2);
+    */
+
+    /**
+     * Mouse delta. Note that this is zero if either current or previous position are invalid (-FLT_MAX,-FLT_MAX), so a disappearing/reappearing mouse won't have a huge delta.
+     */
+    public native float getMouseDeltaX(); /*
+        return ImGui::GetIO().MouseDelta.x;
+    */
+
+    /**
+     * Mouse delta. Note that this is zero if either current or previous position are invalid (-FLT_MAX,-FLT_MAX), so a disappearing/reappearing mouse won't have a huge delta.
+     */
+    public native float getMouseDeltaY(); /*
+        return ImGui::GetIO().MouseDelta.y;
     */
 
     /**
