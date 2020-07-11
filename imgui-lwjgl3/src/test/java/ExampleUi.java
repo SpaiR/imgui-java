@@ -2,7 +2,6 @@ import imgui.type.ImBoolean;
 import imgui.ImColor;
 import imgui.ImGui;
 import imgui.type.ImString;
-import imgui.ImVec2;
 import imgui.flag.ImGuiColorEditFlags;
 import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiInputTextFlags;
@@ -35,8 +34,6 @@ final class ExampleUi {
 
     // Attach image example
     private int dukeTexture;
-    final ImVec2 windowSize = new ImVec2(); // Vector to store "Custom Window" size
-    final ImVec2 windowPos = new ImVec2(); // Vector to store "Custom Window" position
 
     void init() throws Exception {
         dukeTexture = loadTexture(ImageIO.read(new File("src/test/resources/Duke_waving.png")));
@@ -49,10 +46,8 @@ final class ExampleUi {
         ImGui.begin("Custom window");  // Start Custom window
 
         // Draw an image in the bottom-right corner of the window
-        ImGui.getWindowSize(windowSize);
-        ImGui.getWindowPos(windowPos);
-        final float xPoint = windowPos.x + windowSize.x - 100;
-        final float yPoint = windowPos.y + windowSize.y;
+        final float xPoint = ImGui.getWindowPosX() + ImGui.getWindowSizeX() - 100;
+        final float yPoint = ImGui.getWindowPosY() + ImGui.getWindowSizeY();
         ImGui.getWindowDrawList().addImage(dukeTexture, xPoint, yPoint - 180, xPoint + 100, yPoint);
 
         // Checkbox to show demo window
