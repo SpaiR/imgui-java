@@ -193,7 +193,7 @@ public class ImGuiImplGlfw {
 
         final ImGuiIO io = ImGui.getIO();
 
-        io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors | ImGuiBackendFlags.HasSetMousePos);
+        io.addBackendFlags(ImGuiBackendFlags.HasMouseCursors | ImGuiBackendFlags.HasSetMousePos);
         io.setBackendPlatformName("imgui_java_impl_glfw");
 
         // Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array.

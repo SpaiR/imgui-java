@@ -39,6 +39,20 @@ public final class ImGuiIO {
     */
 
     /**
+     * See ImGuiConfigFlags enum. Set by user/application. Gamepad/keyboard navigation options, etc.
+     */
+    public void addConfigFlags(int configFlags) {
+        setConfigFlags(getConfigFlags() | configFlags);
+    }
+
+    /**
+     * See ImGuiConfigFlags enum. Set by user/application. Gamepad/keyboard navigation options, etc.
+     */
+    public void removeConfigFlags(int configFlags) {
+        setConfigFlags(getConfigFlags() & ~(configFlags));
+    }
+
+    /**
      * See ImGuiBackendFlags enum. Set by back-end to communicate features supported by the back-end.
      */
     public native int getBackendFlags(); /*
@@ -52,6 +66,19 @@ public final class ImGuiIO {
         ImGui::GetIO().BackendFlags = backendFlags;
     */
 
+    /**
+     * See ImGuiBackendFlags enum. Set by back-end to communicate features supported by the back-end.
+     */
+    public void addBackendFlags(int backendFlags) {
+        setBackendFlags(getBackendFlags() | backendFlags);
+    }
+
+    /**
+     * See ImGuiBackendFlags enum. Set by back-end to communicate features supported by the back-end.
+     */
+    public void removeBackendFlags(int backendFlags) {
+        setBackendFlags(getBackendFlags() & ~(backendFlags));
+    }
 
     /**
      * Minimum time between saving positions/sizes to .ini file, in seconds.

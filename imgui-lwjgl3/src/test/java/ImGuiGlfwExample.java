@@ -167,7 +167,7 @@ public final class ImGuiGlfwExample {
         final ImGuiIO io = ImGui.getIO();
 
         io.setIniFilename(null); // We don't want to save .ini file
-        io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard | ImGuiConfigFlags.DockingEnable); // Navigation with keyboard and enabled docking
+        io.addConfigFlags(ImGuiConfigFlags.NavEnableKeyboard | ImGuiConfigFlags.DockingEnable); // Navigation with keyboard and enabled docking
 
         // ------------------------------------------------------------
         // Fonts configuration
