@@ -41,14 +41,14 @@ public final class ImGuiIO {
     /**
      * See ImGuiConfigFlags enum. Set by user/application. Gamepad/keyboard navigation options, etc.
      */
-    public void addConfigFlags(int configFlags) {
+    public void addConfigFlags(final int configFlags) {
         setConfigFlags(getConfigFlags() | configFlags);
     }
 
     /**
      * See ImGuiConfigFlags enum. Set by user/application. Gamepad/keyboard navigation options, etc.
      */
-    public void removeConfigFlags(int configFlags) {
+    public void removeConfigFlags(final int configFlags) {
         setConfigFlags(getConfigFlags() & ~(configFlags));
     }
 
@@ -69,14 +69,14 @@ public final class ImGuiIO {
     /**
      * See ImGuiBackendFlags enum. Set by back-end to communicate features supported by the back-end.
      */
-    public void addBackendFlags(int backendFlags) {
+    public void addBackendFlags(final int backendFlags) {
         setBackendFlags(getBackendFlags() | backendFlags);
     }
 
     /**
      * See ImGuiBackendFlags enum. Set by back-end to communicate features supported by the back-end.
      */
-    public void removeBackendFlags(int backendFlags) {
+    public void removeBackendFlags(final int backendFlags) {
         setBackendFlags(getBackendFlags() & ~(backendFlags));
     }
 
