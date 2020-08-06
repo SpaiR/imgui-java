@@ -143,6 +143,20 @@ public final class ImString implements Cloneable {
         return data.length;
     }
 
+    /**
+     * @return true if the length of the text inside of the data buffer is 0
+     */
+    public boolean isEmpty() {
+        return getLength() == 0;
+    }
+
+    /**
+     * @return true if the length of the text inside of the data buffer is not 0
+     */
+    public boolean isNotEmpty() {
+        return !isEmpty();
+    }
+
     @Override
     public String toString() {
         return get();
