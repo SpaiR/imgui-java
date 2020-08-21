@@ -363,7 +363,7 @@ public final class ImGuiImplGl3 {
         // Setup viewport, orthographic projection matrix
         // Our visible imgui space lies from draw_data->DisplayPos (top left) to draw_data->DisplayPos+data_data->DisplaySize (bottom right).
         // DisplayPos is (0,0) for single viewport apps.
-        glViewport(0, 0, (int) displaySize.x, (int) displaySize.y);
+        glViewport(0, 0, (int) (displaySize.x * framebufferScale.x), (int) (displaySize.y * framebufferScale.y));
         final float left = displayPos.x;
         final float right = displayPos.x + displaySize.x;
         final float top = displayPos.y;

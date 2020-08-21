@@ -279,7 +279,7 @@ public class ImGuiImplGlfw {
         }
     }
 
-    private void updateMousePosAndButtons(final float scaleX, final float scaleY) {
+    private void updateMousePosAndButtons() {
         final ImGuiIO io = ImGui.getIO();
 
         for (int i = 0; i < ImGuiMouseButton.COUNT; i++) {
@@ -297,7 +297,7 @@ public class ImGuiImplGlfw {
                 glfwSetCursorPos(windowPtr, mousePosBackup.x, mousePosBackup.y);
             } else {
                 glfwGetCursorPos(windowPtr, cursorPosX, cursorPosY);
-                io.setMousePos((float) cursorPosX[0] * scaleX, (float) cursorPosY[0] * scaleY);
+                io.setMousePos((float) cursorPosX[0], (float) cursorPosY[0]);
             }
         }
     }
@@ -400,11 +400,10 @@ public class ImGuiImplGlfw {
         glfwGetWindowSize(windowPtr, winWidth, winHeight);
         glfwGetFramebufferSize(windowPtr, fbWidth, fbHeight);
 
-        final float scaleX = (float) fbWidth[0] / winWidth[0];
-        final float scaleY = (float) fbHeight[0] / winHeight[0];
-
         io.setDisplaySize((float) winWidth[0], (float) winHeight[0]);
         if (winWidth[0] > 0 && winHeight[0] > 0) {
+            final float scaleX = (float) fbWidth[0] / winWidth[0];
+            final float scaleY = (float) fbHeight[0] / winHeight[0];
             io.setDisplayFramebufferScale(scaleX, scaleY);
         }
 
@@ -412,7 +411,7 @@ public class ImGuiImplGlfw {
         io.setDeltaTime(time > 0.0 ? (float) (currentTime - time) : 1.0f / 60.0f);
         time = currentTime;
 
-        updateMousePosAndButtons(scaleX, scaleY);
+        updateMousePosAndButtons();
         updateMouseCursor();
         updateGamepads();
     }
