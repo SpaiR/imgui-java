@@ -244,9 +244,13 @@ Dear ImGui by default uses a stb_strutype library to render a fonts atlas. It's 
 * Read [javadoc](https://javadoc.io/doc/io.imgui.java/binding) and sources comments to get more info.
 
 ## How to Build
-To build native libraries you should install `mingw-w64` and `ant`. Modify [GenerateLibs](https://github.com/SpaiR/imgui-java/blob/master/buildSrc/src/main/groovy/imgui/generate/GenerateLibs.groovy)
-to build specific binaries you need. After you've configured everything, run `gradlew :imgui-binding:generateLibs`.
-That will build native libraries and place them in `imgui-binding/build/libsNative` folder.
+To build native libraries you need:
+ - Unix-like system (MacOS to build natives for Mac)
+ - Installed dependencies: `mingw-w64`, `ant`, `freetype2`
+
+After you've configured everything, run `gradlew :imgui-binding:generateLibs -Denvs=${envShortcut} -Dlocal`.<br>
+`envShortcut` could be `win32`, `win64`, `linux32`, `linux64` or `mac64`.<br>
+`-Dlocal` is optional and means that natives will be built under the `./imgui-binding/build/` folder. Otherwise `/tmp/imgui` folder will be used.
 
 ## Credits
 Binding partly based on the work of [xpenatan](https://github.com/xpenatan) and his version [jDear-imgui](https://github.com/xpenatan/jDear-imgui).
