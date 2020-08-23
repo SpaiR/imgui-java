@@ -1,5 +1,6 @@
 package imgui;
 
+import imgui.binding.ImGuiStructDestroyable;
 import imgui.type.ImInt;
 
 import java.nio.ByteBuffer;
@@ -24,37 +25,23 @@ import java.nio.ByteOrder;
  * - Even though many functions are suffixed with "TTF", OTF data is supported just as well.
  * - This is an old API and it is currently awkward for those and and various other reasons! We will address them in the future!
  */
-public final class ImFontAtlas implements ImGuiDestroyableStruct {
-    final long ptr;
-
+public final class ImFontAtlas extends ImGuiStructDestroyable {
     private ByteBuffer alpha8pixels = null;
     private ByteBuffer rgba32pixels = null;
 
-    /**
-     * This class will create a native structure.
-     * Call {@link #destroy()} method to manually free used memory.
-     */
     public ImFontAtlas() {
-        ImGui.touch();
-        ptr = nCreate();
     }
 
-    ImFontAtlas(final long ptr) {
-        this.ptr = ptr;
-    }
-
-    @Override
-    public void destroy() {
-        nDestroy(ptr);
+    public ImFontAtlas(final long ptr) {
+        super(ptr);
     }
 
     /*JNI
         #include <stdint.h>
         #include <imgui.h>
+        #include "jni_binding_struct.h"
 
-        jfieldID imFontAtlasPtrID;
-
-        #define IM_FONT_ATLAS ((ImFontAtlas*)env->GetLongField(object, imFontAtlasPtrID))
+        #define IM_FONT_ATLAS ((ImFontAtlas*)STRUCT_PTR)
 
         jmethodID jImFontAtlasCreateAlpha8PixelsMID;
         jmethodID jImFontAtlasCreateRgba32PixelsMID;
@@ -62,19 +49,18 @@ public final class ImFontAtlas implements ImGuiDestroyableStruct {
 
     static native void nInit(); /*
         jclass jImFontAtlasClass = env->FindClass("imgui/ImFontAtlas");
-        imFontAtlasPtrID = env->GetFieldID(jImFontAtlasClass, "ptr", "J");
 
         jImFontAtlasCreateAlpha8PixelsMID = env->GetMethodID(jImFontAtlasClass, "createAlpha8Pixels", "(I)Ljava/nio/ByteBuffer;");
         jImFontAtlasCreateRgba32PixelsMID = env->GetMethodID(jImFontAtlasClass, "createRgba32Pixels", "(I)Ljava/nio/ByteBuffer;");
     */
 
-    private native long nCreate(); /*
-        ImFontAtlas* imFontAtlas = new ImFontAtlas();
-        return (intptr_t)imFontAtlas;
-    */
+    @Override
+    protected long create() {
+        return nCreate();
+    }
 
-    private native void nDestroy(long ptr); /*
-        delete (ImFontAtlas*)ptr;
+    private native long nCreate(); /*
+        return (intptr_t)(new ImFontConfig());
     */
 
     public ImFont addFont(final ImFontConfig imFontConfig) {

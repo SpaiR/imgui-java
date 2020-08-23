@@ -1,5 +1,7 @@
 package imgui;
 
+import imgui.binding.ImGuiStruct;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -11,35 +13,27 @@ import java.nio.ByteOrder;
  * BINDING NOTICE: Since it's impossible to do a 1:1 mapping with JNI, current class provides "getCmdList*()" methods.
  * Those are used to get the data needed to do a rendering.
  */
-public final class ImDrawData {
+public final class ImDrawData extends ImGuiStruct {
     public static final int SIZEOF_IM_DRAW_IDX = 2;
     public static final int SIZEOF_IM_DRAW_VERT = (4 + 1) * 4;
 
     private static final int FACTOR = 5_000;
 
-    final long ptr;
-
     private ByteBuffer idxBuffer = ByteBuffer.allocateDirect(SIZEOF_IM_DRAW_IDX * FACTOR).order(ByteOrder.nativeOrder());
     private ByteBuffer vtxBuffer = ByteBuffer.allocateDirect(SIZEOF_IM_DRAW_VERT * FACTOR).order(ByteOrder.nativeOrder());
 
-    ImDrawData(final long ptr) {
-        this.ptr = ptr;
+    public ImDrawData(final long ptr) {
+        super(ptr);
     }
 
     /*JNI
         #include <stdint.h>
         #include <imgui.h>
         #include "jni_common.h"
+        #include "jni_binding_struct.h"
 
-        jfieldID imDrawDataPtrID;
-
-        #define IM_DRAW_DATA ((ImDrawData*)env->GetLongField(object, imDrawDataPtrID))
+        #define IM_DRAW_DATA ((ImDrawData*)STRUCT_PTR)
      */
-
-    static native void nInit(); /*
-        jclass jImDrawDataClass = env->FindClass("imgui/ImDrawData");
-        imDrawDataPtrID = env->GetFieldID(jImDrawDataClass, "ptr", "J");
-    */
 
     ///////// Start of Render Methods | Binding
 

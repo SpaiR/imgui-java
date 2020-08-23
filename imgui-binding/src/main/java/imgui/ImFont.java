@@ -1,54 +1,37 @@
 package imgui;
 
+import imgui.binding.ImGuiStructDestroyable;
+
 /**
  * Font runtime data and rendering
  * ImFontAtlas automatically loads a default embedded font for you when you call GetTexDataAsAlpha8() or GetTexDataAsRGBA32().
  */
-public final class ImFont implements ImGuiDestroyableStruct {
-    final long ptr;
-
+public final class ImFont extends ImGuiStructDestroyable {
     private ImFontGlyph fallbackGlyph = null;
 
-    /**
-     * This class will create a native structure.
-     * Call {@link #destroy()} method to manually free used memory.
-     */
     public ImFont() {
-        ImGui.touch();
-        ptr = nCreate();
     }
 
-    ImFont(final long ptr) {
-        this.ptr = ptr;
-    }
-
-    @Override
-    public void destroy() {
-        nDestroy(ptr);
+    public ImFont(final long ptr) {
+        super(ptr);
     }
 
     /*JNI
         #include <stdint.h>
         #include <imgui.h>
         #include "jni_common.h"
+        #include "jni_binding_struct.h"
 
-        jfieldID imFontPtrID;
-
-        #define IM_FONT ((ImFont*)env->GetLongField(object, imFontPtrID))
+        #define IM_FONT ((ImFont*)STRUCT_PTR)
      */
 
-    static native void nInit(); /*
-        jclass jImFontClass = env->FindClass("imgui/ImFont");
-        imFontPtrID = env->GetFieldID(jImFontClass, "ptr", "J");
-    */
+    @Override
+    protected long create() {
+        return nCreate();
+    }
 
     private native long nCreate(); /*
-        ImFont* imFont = new ImFont();
-        return (intptr_t)imFont;
-    */
-
-    private native void nDestroy(long ptr); /*
-        delete (ImFont*)ptr;
+        return (intptr_t)(new ImFont());
     */
 
     // TODO IndexAdvanceX

@@ -56,16 +56,7 @@ public final class ImGui {
         IMGUI_STORAGE = new ImGuiStorage(0);
 
         nInitJni();
-        ImDrawList.nInit();
-        ImDrawData.nInit();
         ImFontAtlas.nInit();
-        ImFontConfig.nInit();
-        ImFontGlyph.nInit();
-        ImFont.nInit();
-        ImGuiStyle.nInit();
-        ImGuiWindowClass.nInit();
-        ImGuiStorage.nInit();
-        ImGuiViewport.nInit();
         nInitInputTextData();
     }
 
@@ -113,7 +104,7 @@ public final class ImGui {
      * Method is used to initiate static instantiation (loading of the native libraries etc.).
      * Otherwise native libraries will be loaded on demand and natively mapped objects won't work.
      */
-    static void touch() {
+    public static void touch() {
     }
 
     private ImGui() {
@@ -124,11 +115,13 @@ public final class ImGui {
         #include <imgui.h>
         #include "jni_common.h"
         #include "jni_callbacks.h"
+        #include "jni_binding_struct.h"
      */
 
     private static native void nInitJni(); /*
         Jni::InitCommon(env);
         Jni::InitCallbacks(env);
+        Jni::InitBindingStruct(env);
     */
 
     // Context creation and access

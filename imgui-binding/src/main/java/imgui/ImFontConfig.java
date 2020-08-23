@@ -1,8 +1,8 @@
 package imgui;
 
-public final class ImFontConfig implements ImGuiDestroyableStruct {
-    final long ptr;
+import imgui.binding.ImGuiStructDestroyable;
 
+public final class ImFontConfig extends ImGuiStructDestroyable {
     private short[] glyphRanges;
 
     /**
@@ -10,43 +10,31 @@ public final class ImFontConfig implements ImGuiDestroyableStruct {
      * Call {@link #destroy()} method to manually free used memory.
      */
     public ImFontConfig() {
-        ImGui.touch();
-        ptr = nCreate();
+        super();
         setFontDataOwnedByAtlas(false); // Read method javadoc
     }
 
     ImFontConfig(final long ptr) {
-        this.ptr = ptr;
+        super(ptr);
         setFontDataOwnedByAtlas(false); // Read method javadoc
-    }
-
-    @Override
-    public void destroy() {
-        nDestroy(ptr);
     }
 
     /*JNI
         #include <stdint.h>
         #include <imgui.h>
         #include "jni_common.h"
+        #include "jni_binding_struct.h"
 
-        jfieldID imFontConfigPtrID;
-
-        #define IM_FONT_CONFIG ((ImFontConfig*)env->GetLongField(object, imFontConfigPtrID))
+        #define IM_FONT_CONFIG ((ImFontConfig*)STRUCT_PTR)
      */
 
-    static native void nInit(); /*
-        jclass jImFontConfigClass = env->FindClass("imgui/ImFontConfig");
-        imFontConfigPtrID = env->GetFieldID(jImFontConfigClass, "ptr", "J");
-    */
+    @Override
+    protected long create() {
+        return nCreate();
+    }
 
     private native long nCreate(); /*
-        ImFontConfig* imFontConfig = new ImFontConfig();
-        return (intptr_t)imFontConfig;
-    */
-
-    private native void nDestroy(long ptr); /*
-        delete (ImFontConfig*)ptr;
+        return (intptr_t)(new ImFontConfig());
     */
 
     /**

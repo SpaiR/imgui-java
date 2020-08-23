@@ -1,51 +1,34 @@
 package imgui;
 
+import imgui.binding.ImGuiStructDestroyable;
+
 /**
  * Hold rendering data for one glyph.
  * (Note: some language parsers may fail to convert the 31+1 bitfield members, in this case maybe drop store a single u32 or we can rework this)
  */
-public final class ImFontGlyph implements ImGuiDestroyableStruct {
-    final long ptr;
-
-    /**
-     * This class will create a native structure.
-     * Call {@link #destroy()} method to manually free used memory.
-     */
+public final class ImFontGlyph extends ImGuiStructDestroyable {
     public ImFontGlyph() {
-        ImGui.touch();
-        ptr = nCreate();
     }
 
-    ImFontGlyph(final long ptr) {
-        this.ptr = ptr;
-    }
-
-    @Override
-    public void destroy() {
-        nDestroy(ptr);
+    public ImFontGlyph(final long ptr) {
+        super(ptr);
     }
 
     /*JNI
         #include <stdint.h>
         #include <imgui.h>
+        #include "jni_binding_struct.h"
 
-        jfieldID imFontGlyphPtrID;
-
-        #define IM_FONT_GLYPH ((ImFontGlyph*)env->GetLongField(object, imFontGlyphPtrID))
+        #define IM_FONT_GLYPH ((ImFontGlyph*)STRUCT_PTR)
      */
 
-    static native void nInit(); /*
-        jclass jImFontGlyphClass = env->FindClass("imgui/ImFontGlyph");
-        imFontGlyphPtrID = env->GetFieldID(jImFontGlyphClass, "ptr", "J");
-    */
+    @Override
+    protected long create() {
+        return nCreate();
+    }
 
     private native long nCreate(); /*
-        ImFontConfig* imFontConfig = new ImFontConfig();
-        return (intptr_t)imFontConfig;
-    */
-
-    private native void nDestroy(long ptr); /*
-        delete (ImFontConfig*)ptr;
+        return (intptr_t)(new ImFontGlyph());
     */
 
     /**

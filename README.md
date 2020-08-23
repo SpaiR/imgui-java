@@ -241,6 +241,10 @@ Dear ImGui by default uses a stb_strutype library to render a fonts atlas. It's 
 * To get an input/output to/from Dear ImGui - use primitive wrappers: `ImBool`, `ImInt` etc.
 * Due to the Java and JNI restrictions we can't provide a fully fledged callbacks to the `ImGui::InputText` methods.
   To replace some features use an ImGuiInputTextData class.
+* All classes which are represent Dear ImGui structs have a field with a pointer to those structs.
+  Field is public and could be modified without restrictions. So by changing the pointer it's possible to use the same java class to modify different
+  native structs. Commonly you don't need to mind about that.
+  Just keep in mind that you are able to do advanced stuff with it like: save pointers to the structs to modify them later. 
 * Read [javadoc](https://javadoc.io/doc/io.imgui.java/binding) and sources comments to get more info.
 
 ## How to Build

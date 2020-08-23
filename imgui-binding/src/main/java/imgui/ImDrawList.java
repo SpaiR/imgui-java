@@ -1,5 +1,7 @@
 package imgui;
 
+import imgui.binding.ImGuiStruct;
+
 /**
  * Draw command list
  * This is the low-level list of polygons that ImGui:: functions are filling. At the end of the frame,
@@ -11,27 +13,19 @@ package imgui;
  * but you are totally free to apply whatever transformation matrix to want to the data (if you apply such transformation you'll want to apply it to ClipRect as well)
  * Important: Primitives are always added to the list and not culled (culling is done at higher-level by ImGui:: functions), if you use this API a lot consider coarse culling your drawn objects.
  */
-public final class ImDrawList {
-    long ptr;
-
-    ImDrawList(final long ptr) {
-        this.ptr = ptr;
+public final class ImDrawList extends ImGuiStruct {
+    public ImDrawList(final long ptr) {
+        super(ptr);
     }
 
     /*JNI
         #include <stdint.h>
         #include <imgui.h>
         #include "jni_common.h"
+        #include "jni_binding_struct.h"
 
-        jfieldID imDrawListPtrID;
-
-        #define IM_DRAW_LIST ((ImDrawList*)env->GetLongField(object, imDrawListPtrID))
+        #define IM_DRAW_LIST ((ImDrawList*)STRUCT_PTR)
      */
-
-    static native void nInit(); /*
-        jclass jImDrawListClass = env->FindClass("imgui/ImDrawList");
-        imDrawListPtrID = env->GetFieldID(jImDrawListClass, "ptr", "J");
-    */
 
     /**
      * Flags, you may poke into these to adjust anti-aliasing settings per-primitive.

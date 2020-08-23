@@ -1,53 +1,36 @@
 package imgui;
 
+import imgui.binding.ImGuiStructDestroyable;
+
 /**
  * You may modify the ImGui::GetStyle() main instance during initialization and before NewFrame().
  * During the frame, use ImGui::PushStyleVar(ImGuiStyleVar_XXXX)/PopStyleVar() to alter the main style values,
  * and ImGui::PushStyleColor(ImGuiCol_XXX)/PopStyleColor() for colors.
  */
-public final class ImGuiStyle implements ImGuiDestroyableStruct {
-    final long ptr;
-
-    /**
-     * This class will create a native structure.
-     * Call {@link #destroy()} method to manually free used memory.
-     */
+public final class ImGuiStyle extends ImGuiStructDestroyable {
     public ImGuiStyle() {
-        ImGui.touch();
-        ptr = nCreate();
     }
 
-    ImGuiStyle(final long ptr) {
-        this.ptr = ptr;
-    }
-
-    @Override
-    public void destroy() {
-        nDestroy(ptr);
+    public ImGuiStyle(final long ptr) {
+        super(ptr);
     }
 
     /*JNI
         #include <imgui.h>
         #include <stdint.h>
         #include "jni_common.h"
+        #include "jni_binding_struct.h"
 
-        jfieldID imGuiStylePtrID;
-
-        #define IMGUI_STYLE ((ImGuiStyle*)env->GetLongField(object, imGuiStylePtrID))
+        #define IMGUI_STYLE ((ImGuiStyle*)STRUCT_PTR)
      */
 
-    static native void nInit(); /*
-        jclass jImGuiStyleClass = env->FindClass("imgui/ImGuiStyle");
-        imGuiStylePtrID = env->GetFieldID(jImGuiStyleClass, "ptr", "J");
-    */
+    @Override
+    protected long create() {
+        return nCreate();
+    }
 
     private native long nCreate(); /*
-        ImGuiStyle* imGuiStyle = new ImGuiStyle();
-        return (intptr_t)imGuiStyle;
-    */
-
-    private native void nDestroy(long ptr); /*
-        delete (ImGuiStyle*)ptr;
+        return (intptr_t)(new ImGuiStyle());
     */
 
     /**

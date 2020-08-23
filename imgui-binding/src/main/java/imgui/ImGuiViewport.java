@@ -1,31 +1,25 @@
 package imgui;
 
+import imgui.binding.ImGuiStruct;
+
 /**
  * The viewports created and managed by Dear ImGui. The role of the platform back-end is to create the platform/OS windows corresponding to each viewport.
  * - Main Area = entire viewport.
  * - Work Area = entire viewport minus sections optionally used by menu bars, status bars. Some positioning code will prefer to use this. Window are also trying to stay within this area.
  */
-public final class ImGuiViewport {
-    final long ptr;
-
-    ImGuiViewport(final long ptr) {
-        this.ptr = ptr;
+public final class ImGuiViewport extends ImGuiStruct {
+    public ImGuiViewport(final long ptr) {
+        super(ptr);
     }
 
     /*JNI
         #include <stdint.h>
         #include <imgui.h>
         #include "jni_common.h"
+        #include "jni_binding_struct.h"
 
-        jfieldID imGuiViewportPtrID;
-
-        #define IMGUI_VIEWPORT ((ImGuiViewport*)env->GetLongField(object, imGuiViewportPtrID))
+        #define IMGUI_VIEWPORT ((ImGuiViewport*)STRUCT_PTR)
      */
-
-    static native void nInit(); /*
-        jclass jImGuiViewportClass = env->FindClass("imgui/ImGuiViewport");
-        imGuiViewportPtrID = env->GetFieldID(jImGuiViewportClass, "ptr", "J");
-    */
 
     /**
      * Unique identifier for the viewport.

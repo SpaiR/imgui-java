@@ -1,5 +1,7 @@
 package imgui;
 
+import imgui.binding.ImGuiStructDestroyable;
+
 /**
  * [ALPHA] Rarely used / very advanced uses only. Use with SetNextWindowClass() and DockSpace() functions.
  * Important: the content of this class is still highly WIP and likely to change and be refactored
@@ -9,48 +11,29 @@ package imgui;
  * - To the platform back-end for OS level parent/child relationships of viewport.
  * - To the docking system for various options and filtering.
  */
-public final class ImGuiWindowClass implements ImGuiDestroyableStruct {
-    final long ptr;
-
-    /**
-     * This class will create a native structure.
-     * Call {@link #destroy()} method to manually free used memory.
-     */
+public final class ImGuiWindowClass extends ImGuiStructDestroyable {
     public ImGuiWindowClass() {
-        ImGui.touch();
-        ptr = nCreate();
     }
 
-    ImGuiWindowClass(final long ptr) {
-        this.ptr = ptr;
-    }
-
-    @Override
-    public void destroy() {
-        nDestroy(ptr);
+    public ImGuiWindowClass(final long ptr) {
+        super(ptr);
     }
 
     /*JNI
         #include <stdint.h>
         #include <imgui.h>
+        #include "jni_binding_struct.h"
 
-        jfieldID imGuiWindowClassPtrID;
-
-        #define IMGUI_WINDOW_CLASS ((ImGuiWindowClass*)env->GetLongField(object, imGuiWindowClassPtrID))
+        #define IMGUI_WINDOW_CLASS ((ImGuiWindowClass*)STRUCT_PTR)
      */
 
-    static native void nInit(); /*
-        jclass jImGuiWindowClassClass = env->FindClass("imgui/ImGuiWindowClass");
-        imGuiWindowClassPtrID = env->GetFieldID(jImGuiWindowClassClass, "ptr", "J");
-    */
+    @Override
+    protected long create() {
+        return nCreate();
+    }
 
     private native long nCreate(); /*
-        ImGuiWindowClass* imGuiWindowClass = new ImGuiWindowClass();
-        return (intptr_t)imGuiWindowClass;
-    */
-
-    private native void nDestroy(long ptr); /*
-        delete (ImGuiWindowClass*)ptr;
+        return (intptr_t)(new ImGuiWindowClass());
     */
 
     /**

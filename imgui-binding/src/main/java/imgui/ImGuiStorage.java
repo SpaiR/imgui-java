@@ -1,5 +1,7 @@
 package imgui;
 
+import imgui.binding.ImGuiStructDestroyable;
+
 /**
  * Helper: Key-Value storage
  * Typically you don't have to worry about this since a storage is held within each Window.
@@ -10,48 +12,29 @@ package imgui;
  * - You want to store custom debug data easily without adding or editing structures in your code (probably not efficient, but convenient)
  * Types are NOT stored, so it is up to you to make sure your Key don't collide with different types.
  */
-public final class ImGuiStorage implements ImGuiDestroyableStruct {
-    long ptr;
-
-    /**
-     * This class will create a native structure.
-     * Call {@link #destroy()} method to manually free used memory.
-     */
+public final class ImGuiStorage extends ImGuiStructDestroyable {
     public ImGuiStorage() {
-        ImGui.touch();
-        ptr = nCreate();
     }
 
-    ImGuiStorage(final long ptr) {
-        this.ptr = ptr;
-    }
-
-    @Override
-    public void destroy() {
-        nDestroy(ptr);
+    public ImGuiStorage(final long ptr) {
+        super(ptr);
     }
 
     /*JNI
         #include <stdint.h>
         #include <imgui.h>
+        #include "jni_binding_struct.h"
 
-        jfieldID imGuiStoragePtrID;
-
-        #define IMGUI_STORAGE ((ImGuiStorage*)env->GetLongField(object, imGuiStoragePtrID))
+        #define IMGUI_STORAGE ((ImGuiStorage*)STRUCT_PTR)
      */
 
-    static native void nInit(); /*
-        jclass jImGuiStorageClass = env->FindClass("imgui/ImGuiStorage");
-        imGuiStoragePtrID = env->GetFieldID(jImGuiStorageClass, "ptr", "J");
-    */
+    @Override
+    protected long create() {
+        return nCreate();
+    }
 
     private native long nCreate(); /*
-        ImGuiStorage* imGuiStorage = new ImGuiStorage();
-        return (intptr_t)imGuiStorage;
-    */
-
-    private native void nDestroy(long ptr); /*
-        delete (ImGuiStorage*)ptr;
+        return (intptr_t)(new ImGuiStorage());
     */
 
     // - Get***() functions find pair, never add/allocate. Pairs are sorted so a query is O(log N)
