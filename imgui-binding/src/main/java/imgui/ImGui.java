@@ -477,22 +477,10 @@ public final class ImGui {
 
     /**
      * Get draw list associated to the current window, to append your own drawing primitives
-     * <p>
-     * BINDING NOTICE: to minimize overhead, method ALWAYS returns the same object, but changes its underlying pointer.
-     * If you need to get an object with constant pointer (which will point to the same window all the time) use {@link #getWindowDrawListNew()}.
      */
     public static ImDrawList getWindowDrawList() {
         WINDOW_DRAW_LIST.ptr = nGetWindowDrawList();
         return WINDOW_DRAW_LIST;
-    }
-
-    /**
-     * Get draw list associated to the current window, to append your own drawing primitives
-     * <p>
-     * BINDING NOTICE: returns {@link ImDrawList} for current window with constant pointer to it. Prefer to use {@link #getWindowDrawList()}.
-     */
-    public static ImDrawList getWindowDrawListNew() {
-        return new ImDrawList(nGetWindowDrawList());
     }
 
     private static native long nGetWindowDrawList(); /*
@@ -4907,23 +4895,10 @@ public final class ImGui {
     /**
      * Get background draw list for the viewport associated to the current window.
      * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
-     * <p>
-     * BINDING NOTICE: to minimize overhead, method ALWAYS returns the same object, but changes its underlying pointer.
-     * If you need to get an object with constant pointer (which will point to the same background all the time) use {@link #getBackgroundDrawListNew()}.
      */
     public static ImDrawList getBackgroundDrawList() {
         BACKGROUND_DRAW_LIST.ptr = nGetBackgroundDrawList();
         return BACKGROUND_DRAW_LIST;
-    }
-
-    /**
-     * Get background draw list for the viewport associated to the current window.
-     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
-     * <p>
-     * BINDING NOTICE: returns {@link ImDrawList} for current background with constant pointer to it. Prefer to use {@link #getBackgroundDrawList()}.
-     */
-    public static ImDrawList getBackgroundDrawListNew() {
-        return new ImDrawList(nGetBackgroundDrawList());
     }
 
     private static native long nGetBackgroundDrawList(); /*
@@ -4933,23 +4908,10 @@ public final class ImGui {
     /**
      * Get foreground draw list for the viewport associated to the current window.
      * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
-     * <p>
-     * BINDING NOTICE: to minimize overhead, method ALWAYS returns the same object, but changes its underlying pointer.
-     * If you need to get an object with constant pointer (which will point to the same foreground all the time) use {@link #getForegroundDrawListNew()}.
      */
     public static ImDrawList getForegroundDrawList() {
         FOREGROUND_DRAW_LIST.ptr = nGetForegroundDrawList();
         return FOREGROUND_DRAW_LIST;
-    }
-
-    /**
-     * Get foreground draw list for the viewport associated to the current window.
-     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
-     * <p>
-     * BINDING NOTICE: returns {@link ImDrawList} for current foreground with constant pointer to it. Prefer to use {@link #getForegroundDrawList()}.
-     */
-    public static ImDrawList getForegroundDrawListNew() {
-        return new ImDrawList(nGetForegroundDrawList());
     }
 
     private static native long nGetForegroundDrawList(); /*
@@ -4976,20 +4938,9 @@ public final class ImGui {
         ImGui::SetStateStorage((ImGuiStorage*)imGuiStoragePtr);
     */
 
-    /**
-     * BINDING NOTICE: to minimize overhead, method ALWAYS returns the same object, but changes its underlying pointer.
-     * If you need to get an object with constant pointer (which will point to the same window all the time) use {@link #getStateStorageNew()}.
-     */
     public static ImGuiStorage getStateStorage() {
         IMGUI_STORAGE.ptr = nGetStateStorage();
         return IMGUI_STORAGE;
-    }
-
-    /**
-     * BINDING NOTICE: returns {@link ImGuiStorage} for current window with constant pointer to it. Prefer to use {@link #getStateStorage()}.
-     */
-    public static ImGuiStorage getStateStorageNew() {
-        return new ImGuiStorage(nGetStateStorage());
     }
 
     private static native long nGetStateStorage(); /*
