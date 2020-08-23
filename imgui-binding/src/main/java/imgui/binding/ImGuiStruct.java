@@ -12,7 +12,7 @@ public abstract class ImGuiStruct {
     public long ptr;
 
     public ImGuiStruct(final long ptr) {
-        ImGui.touch();
+        ImGui.init();
         this.ptr = ptr;
     }
 }

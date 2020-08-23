@@ -104,7 +104,7 @@ public final class ImGui {
      * Method is used to initiate static instantiation (loading of the native libraries etc.).
      * Otherwise native libraries will be loaded on demand and natively mapped objects won't work.
      */
-    public static void touch() {
+    public static void init() {
     }
 
     private ImGui() {
