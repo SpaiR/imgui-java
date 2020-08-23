@@ -15,12 +15,11 @@ import java.nio.ByteOrder;
  */
 public final class ImDrawData extends ImGuiStruct {
     public static final int SIZEOF_IM_DRAW_IDX = 2;
-    public static final int SIZEOF_IM_DRAW_VERT = (4 + 1) * 4;
+    public static final int SIZEOF_IM_DRAW_VERT = 20;
 
-    private static final int FACTOR = 5_000;
+    private static final int RESIZE_FACTOR = 5_000;
 
-    private ByteBuffer idxBuffer = ByteBuffer.allocateDirect(SIZEOF_IM_DRAW_IDX * FACTOR).order(ByteOrder.nativeOrder());
-    private ByteBuffer vtxBuffer = ByteBuffer.allocateDirect(SIZEOF_IM_DRAW_VERT * FACTOR).order(ByteOrder.nativeOrder());
+    private static ByteBuffer dataBuffer = ByteBuffer.allocateDirect(25_000).order(ByteOrder.nativeOrder());
 
     public ImDrawData(final long ptr) {
         super(ptr);
@@ -91,16 +90,17 @@ public final class ImDrawData extends ImGuiStruct {
 
     public ByteBuffer getCmdListIdxBufferData(final int cmdListIdx) {
         final int idxBufferCapacity = getCmdListIdxBufferSize(cmdListIdx) * SIZEOF_IM_DRAW_IDX;
-        if (idxBuffer.capacity() < idxBufferCapacity) {
-            idxBuffer = ByteBuffer.allocateDirect(idxBufferCapacity + FACTOR).order(ByteOrder.nativeOrder());
+        if (dataBuffer.capacity() < idxBufferCapacity) {
+            dataBuffer.clear();
+            dataBuffer = ByteBuffer.allocateDirect(idxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
         }
 
-        nGetCmdListIdxBufferData(cmdListIdx, idxBuffer, idxBufferCapacity);
+        nGetCmdListIdxBufferData(cmdListIdx, dataBuffer, idxBufferCapacity);
 
-        idxBuffer.position(0);
-        idxBuffer.limit(idxBufferCapacity);
+        dataBuffer.position(0);
+        dataBuffer.limit(idxBufferCapacity);
 
-        return idxBuffer;
+        return dataBuffer;
     }
 
     private native void nGetCmdListIdxBufferData(int cmdListIdx, ByteBuffer idxBuffer, int idxBufferCapacity); /*
@@ -116,16 +116,17 @@ public final class ImDrawData extends ImGuiStruct {
 
     public ByteBuffer getCmdListVtxBufferData(final int cmdListIdx) {
         final int vtxBufferCapacity = getCmdListVtxBufferSize(cmdListIdx) * SIZEOF_IM_DRAW_VERT;
-        if (vtxBuffer.capacity() < vtxBufferCapacity) {
-            vtxBuffer = ByteBuffer.allocateDirect(vtxBufferCapacity + FACTOR).order(ByteOrder.nativeOrder());
+        if (dataBuffer.capacity() < vtxBufferCapacity) {
+            dataBuffer.clear();
+            dataBuffer = ByteBuffer.allocateDirect(vtxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
         }
 
-        nGetCmdListVtxBufferData(cmdListIdx, vtxBuffer, vtxBufferCapacity);
+        nGetCmdListVtxBufferData(cmdListIdx, dataBuffer, vtxBufferCapacity);
 
-        vtxBuffer.position(0);
-        vtxBuffer.limit(vtxBufferCapacity);
+        dataBuffer.position(0);
+        dataBuffer.limit(vtxBufferCapacity);
 
-        return vtxBuffer;
+        return dataBuffer;
     }
 
     private native void nGetCmdListVtxBufferData(int cmdListIdx, ByteBuffer vtxBuffer, int vtxBufferCapacity); /*
