@@ -83,7 +83,37 @@ public final class ImGuiWindowClass implements ImGuiDestroyableStruct {
         IMGUI_WINDOW_CLASS->ParentViewportId = parentViewportId;
     */
 
-    // TODO: ViewportFlagsOverrideSet, ViewportFlagsOverrideClear
+    /**
+     * Viewport flags to set when a window of this class owns a viewport.
+     * This allows you to enforce OS decoration or task bar icon, override the defaults on a per-window basis.
+     */
+    public native int getViewportFlagsOverrideSet(); /*
+        return IMGUI_WINDOW_CLASS->ViewportFlagsOverrideSet;
+    */
+
+    /**
+     * Viewport flags to set when a window of this class owns a viewport.
+     * This allows you to enforce OS decoration or task bar icon, override the defaults on a per-window basis.
+     */
+    public native void setViewportFlagsOverrideSet(int viewportFlagsOverrideSet); /*
+        IMGUI_WINDOW_CLASS->ViewportFlagsOverrideSet = viewportFlagsOverrideSet;
+    */
+
+    /**
+     * Viewport flags to clear when a window of this class owns a viewport.
+     * This allows you to enforce OS decoration or task bar icon, override the defaults on a per-window basis.
+     */
+    public native int getViewportFlagsOverrideClear(); /*
+        return IMGUI_WINDOW_CLASS->ViewportFlagsOverrideClear;
+    */
+
+    /**
+     * Viewport flags to clear when a window of this class owns a viewport.
+     * This allows you to enforce OS decoration or task bar icon, override the defaults on a per-window basis.
+     */
+    public native void setViewportFlagsOverrideClear(int viewportFlagsOverrideClear); /*
+        IMGUI_WINDOW_CLASS->ViewportFlagsOverrideClear = viewportFlagsOverrideClear;
+    */
 
     /**
      * [EXPERIMENTAL] Dock node flags to set when a window of this class is hosted by a dock node (it doesn't have to be selected!)

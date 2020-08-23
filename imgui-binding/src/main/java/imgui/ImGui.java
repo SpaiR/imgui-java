@@ -65,6 +65,7 @@ public final class ImGui {
         ImGuiStyle.nInit();
         ImGuiWindowClass.nInit();
         ImGuiStorage.nInit();
+        ImGuiViewport.nInit();
         nInitInputTextData();
     }
 
@@ -4373,7 +4374,25 @@ public final class ImGui {
         ImGui::DockSpace(imGuiID, ImVec2(sizeX, sizeY), imGuiDockNodeFlags, windowClassPtr != 0 ? (ImGuiWindowClass*)windowClassPtr : NULL);
     */
 
-    // TODO: DockSpaceOverViewport
+    public static int dockSpaceOverViewport() {
+        return nDockSpaceOverViewport(0, 0, 0);
+    }
+
+    public static int dockSpaceOverViewport(ImGuiViewport viewport) {
+        return nDockSpaceOverViewport(viewport.ptr, 0, 0);
+    }
+
+    public static int dockSpaceOverViewport(ImGuiViewport viewport, int imGuiDockNodeFlags) {
+        return nDockSpaceOverViewport(viewport.ptr, imGuiDockNodeFlags, 0);
+    }
+
+    public static int dockSpaceOverViewport(ImGuiViewport viewport, int imGuiDockNodeFlags, ImGuiWindowClass windowClass) {
+        return nDockSpaceOverViewport(viewport.ptr, imGuiDockNodeFlags, windowClass.ptr);
+    }
+
+    private static native int nDockSpaceOverViewport(long viewportPtr, int imGuiDockNodeFlags, long windowClassPtr); /*
+        return ImGui::DockSpaceOverViewport(viewportPtr != 0 ? (ImGuiViewport*)viewportPtr : NULL, imGuiDockNodeFlags, windowClassPtr != 0 ? (ImGuiWindowClass*)windowClassPtr : NULL);
+    */
 
     /**
      * Set next window dock id
