@@ -8,6 +8,8 @@ import imgui.binding.ImGuiStruct;
  * - Work Area = entire viewport minus sections optionally used by menu bars, status bars. Some positioning code will prefer to use this. Window are also trying to stay within this area.
  */
 public final class ImGuiViewport extends ImGuiStruct {
+    private static final ImDrawData DRAW_DATA = new ImDrawData(0);
+
     public ImGuiViewport(final long ptr) {
         super(ptr);
     }
@@ -179,7 +181,17 @@ public final class ImGuiViewport extends ImGuiStruct {
         IMGUI_VIEWPORT->DpiScale = dpiScale;
     */
 
-    // TODO: DrawData
+    /**
+     * The ImDrawData corresponding to this viewport. Valid after Render() and until the next call to NewFrame().
+     */
+    public ImDrawData getDrawData() {
+        DRAW_DATA.ptr = nGetDrawData();
+        return DRAW_DATA;
+    }
+
+    private native long nGetDrawData(); /*
+        return (intptr_t)IMGUI_VIEWPORT->DrawData;
+    */
 
     /**
      * (Advanced) 0: no parent. Instruct the platform back-end to setup a parent/child relationship between platform windows.

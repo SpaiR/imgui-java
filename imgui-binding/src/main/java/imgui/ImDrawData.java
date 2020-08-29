@@ -21,6 +21,8 @@ public final class ImDrawData extends ImGuiStruct {
 
     private static ByteBuffer dataBuffer = ByteBuffer.allocateDirect(25_000).order(ByteOrder.nativeOrder());
 
+    private static final ImGuiViewport OWNER_VIEWPORT = new ImGuiViewport(0);
+
     public ImDrawData(final long ptr) {
         super(ptr);
     }
@@ -227,6 +229,18 @@ public final class ImDrawData extends ImGuiStruct {
      */
     public native float getFramebufferScaleY(); /*
         return IM_DRAW_DATA->FramebufferScale.y;
+    */
+
+    /**
+     * Viewport carrying the ImDrawData instance, might be of use to the renderer (generally not).
+     */
+    public ImGuiViewport getOwnerViewport() {
+        OWNER_VIEWPORT.ptr = nGetOwnerViewport();
+        return OWNER_VIEWPORT;
+    }
+
+    private native long nGetOwnerViewport(); /*
+        return (intptr_t)IM_DRAW_DATA->OwnerViewport;
     */
 
     // Functions

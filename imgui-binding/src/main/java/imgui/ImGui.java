@@ -29,10 +29,14 @@ public final class ImGui {
     private static final ImDrawList BACKGROUND_DRAW_LIST;
     private static final ImDrawList FOREGROUND_DRAW_LIST;
     private static final ImGuiStorage IMGUI_STORAGE;
+    private static final ImGuiViewport WINDOW_VIEWPORT;
+    private static final ImGuiViewport FIND_VIEWPORT;
 
     private static ImDrawData drawData;
     private static ImFont font;
     private static ImGuiStyle style;
+    private static ImGuiViewport mainViewport;
+    private static ImGuiPlatformIO platformIO;
 
     static {
         final String libPath = System.getProperty(LIB_PATH_PROP);
@@ -54,9 +58,12 @@ public final class ImGui {
         BACKGROUND_DRAW_LIST = new ImDrawList(0);
         FOREGROUND_DRAW_LIST = new ImDrawList(0);
         IMGUI_STORAGE = new ImGuiStorage(0);
+        WINDOW_VIEWPORT = new ImGuiViewport(0);
+        FIND_VIEWPORT = new ImGuiViewport(0);
 
         nInitJni();
         ImFontAtlas.nInit();
+        ImGuiPlatformIO.init();
         nInitInputTextData();
     }
 
@@ -492,6 +499,18 @@ public final class ImGui {
      */
     public static native float getWindowDpiScale(); /*
         return ImGui::GetWindowDpiScale();
+    */
+
+    /**
+     * Get viewport currently associated to the current window.
+     */
+    public static ImGuiViewport getWindowViewport() {
+        WINDOW_VIEWPORT.ptr = nGetWindowViewport();
+        return WINDOW_VIEWPORT;
+    }
+
+    private static native long nGetWindowViewport(); /*
+        return (intptr_t)ImGui::GetWindowViewport();
     */
 
     /**
@@ -4918,6 +4937,32 @@ public final class ImGui {
         return (intptr_t)ImGui::GetForegroundDrawList();
     */
 
+    /**
+     * Get background draw list for the given viewport.
+     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
+     */
+    public static ImDrawList getBackgroundDrawList(ImGuiViewport viewport) {
+        BACKGROUND_DRAW_LIST.ptr = nGetBackgroundDrawList(viewport.ptr);
+        return BACKGROUND_DRAW_LIST;
+    }
+
+    private static native long nGetBackgroundDrawList(long viewportPtr); /*
+        return (intptr_t)ImGui::GetBackgroundDrawList((ImGuiViewport*)viewportPtr);
+    */
+
+    /**
+     * Get foreground draw list for the given viewport.
+     * This draw list will be the last rendered one. Useful to quickly draw shapes/text over dear imgui contents.
+     */
+    public static ImDrawList getForegroundDrawList(ImGuiViewport viewport) {
+        BACKGROUND_DRAW_LIST.ptr = nGetForegroundDrawList(viewport.ptr);
+        return BACKGROUND_DRAW_LIST;
+    }
+
+    private static native long nGetForegroundDrawList(long viewportPtr); /*
+        return (intptr_t)ImGui::GetBackgroundDrawList((ImGuiViewport*)viewportPtr);
+    */
+
     // TODO GetDrawListSharedData
 
     /**
@@ -5377,5 +5422,73 @@ public final class ImGui {
      */
     public static native String saveIniSettingsToMemory(long outIniSize); /*
         return env->NewStringUTF(ImGui::SaveIniSettingsToMemory((size_t*)&outIniSize));
+    */
+
+    // (Optional) Platform/OS interface for multi-viewport support
+    // Read comments around the ImGuiPlatformIO structure for more details.
+    // Note: You may use GetWindowViewport() to get the current viewport of the current window.
+
+    /**
+     * Platform/renderer functions, for back-end to setup + viewports list.
+     */
+    public static ImGuiPlatformIO getPlatformIO() {
+        if (platformIO == null) {
+            platformIO = new ImGuiPlatformIO(nGetPlatformIO());
+        }
+        return platformIO;
+    }
+
+    private static native long nGetPlatformIO(); /*
+        return (intptr_t)ImGui::GetMainViewport();
+    */
+
+    /**
+     * Main viewport. Same as GetPlatformIO().MainViewport == GetPlatformIO().Viewports[0].
+     */
+    public static ImGuiViewport getMainViewport() {
+        if (mainViewport == null) {
+            mainViewport = new ImGuiViewport(nGetMainViewport());
+        }
+        return mainViewport;
+    }
+
+    private static native long nGetMainViewport(); /*
+        return (intptr_t)ImGui::GetMainViewport();
+    */
+
+    /**
+     * Call in main loop. Will call CreateWindow/ResizeWindow/etc. Platform functions for each secondary viewport, and DestroyWindow for each inactive viewport.
+     */
+    public static native void updatePlatformWindows(); /*
+        ImGui::UpdatePlatformWindows();
+    */
+
+    /**
+     *  Call in main loop. will call RenderWindow/SwapBuffers platform functions for each secondary viewport which doesn't have the ImGuiViewportFlags_Minimized flag set.
+     *  May be reimplemented by user for custom rendering needs.
+     */
+    public static native void renderPlatformWindowsDefault(); /*
+        ImGui::RenderPlatformWindowsDefault();
+    */
+
+    /**
+     * Call DestroyWindow platform functions for all viewports.
+     * Call from back-end Shutdown() if you need to close platform windows before imgui shutdown.
+     * Otherwise will be called by DestroyContext().
+     */
+    public static native void destroyPlatformWindows(); /*
+        ImGui::DestroyPlatformWindows();
+    */
+
+    /**
+     * This is a helper for back-ends.
+     */
+    public static ImGuiViewport findViewportByID(int imGuiID) {
+        FIND_VIEWPORT.ptr = nFindViewportByID(imGuiID);
+        return FIND_VIEWPORT;
+    }
+
+    private static native long nFindViewportByID(int imGuiID); /*
+        return (intptr_t)ImGui::FindViewportByID(imGuiID);
     */
 }
