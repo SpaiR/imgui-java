@@ -6,13 +6,13 @@ JNI based binding for [Dear ImGui](https://github.com/ocornut/imgui) with no dep
 Please read **Binding Notice** to get more info about java-specific things of the API.<br>
 See official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki) to get more info about how to do things in Dear ImGui. 
 
-Binding provides all the data you need to render Dear ImGui. If, for some reason, you want to use your own backend renderer, see how [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.77-0.17.2/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java) for reference.
+Binding provides all the data you need to render Dear ImGui. If, for some reason, you want to use your own backend renderer, see [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.77-0.17.2/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java) for reference.
 
 Versioning semantic of the binding: `imguiVersion-bindingVersion`.<br>
 For example `1.74-0.1` means that imgui-java uses `1.74` version of Dear ImGui and binding itself has the version `0.1`.
 
 Additional available features:
- - [Docking API](#using-docking)
+ - [Multi-Viewports/Docking API](#using-multi-viewports-and-docking)
  - [FreeType font renderer](#using-freetype)
 
 ## How to Try
@@ -224,12 +224,14 @@ If you're using native libs directly, you'll need to provide a VM option: `imgui
 
 **You are ready to use imgui-java binding!**
 
-## Using Docking
+## Using Multi-Viewports and Docking
 Binding based on the Dear ImGui [docking](https://github.com/ocornut/imgui/tree/docking) branch, commit: [90ea7e2f2f3c4096a58b8bd14c274d80ae63e1ce](https://github.com/ocornut/imgui/tree/90ea7e2f2f3c4096a58b8bd14c274d80ae63e1ce).
 That branch contains two important features: [multi-viewports](https://github.com/ocornut/imgui/issues/1542) and [docking](https://github.com/ocornut/imgui/issues/2109).
+See an official documentation about how to work with them.
 
-Even if the viewport feature is still in a very experimental state, yet the docking API seems pretty stable. Thus, imgui-java exposes it and hides everything about viewports.<br>
-See an official documentation about how to work with [docking](https://github.com/ocornut/imgui/issues/2109).
+##### Important!
+Take a note that multi-viewports api is **VERY** complex to implement. It's highly recommended to use `imgui.glfw.ImGuiImplGlfw` class as it's done in the example.
+Otherwise, if you're using your own backed implementation, there are no guarantees it will work.
 
 ## Using FreeType
 Dear ImGui by default uses a stb_strutype library to render a fonts atlas. It's possible to use FreeType instead to get better fonts quality. See an example in [ImGuiGlfwExample](https://github.com/spair/imgui-java/blob/v1.77-0.17.2/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java). [Read more](https://github.com/ocornut/imgui/blob/v1.76/misc/freetype/README.md)
