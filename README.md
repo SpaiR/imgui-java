@@ -12,7 +12,7 @@ Versioning semantic of the binding: `imguiVersion-bindingVersion`.<br>
 For example `1.74-0.1` means that imgui-java uses `1.74` version of Dear ImGui and binding itself has the version `0.1`.
 
 Additional available features:
- - [Multi-Viewports/Docking API](#using-multi-viewports-and-docking)
+ - [Multi-Viewports/Docking](#using-multi-viewports-and-docking)
  - [FreeType font renderer](#using-freetype)
 
 ## How to Try
@@ -28,7 +28,7 @@ gradlew :imgui-lwjgl3:startExample
 
 That's all! You will start an example app [ImGuiGlfwExample](https://github.com/SpaiR/imgui-java/blob/v1.78-1.0/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java). Feel free to modify [ExampleUi](https://github.com/SpaiR/imgui-java/blob/v1.78-1.0/imgui-lwjgl3/src/test/java/ExampleUi.java) class to try different Dear ImGui widgets in action.
 
-![imgui-java demo](https://i.imgur.com/ljAhD7a.gif)
+![imgui-java demo](https://i.imgur.com/WbnnhCn.gif)
 
 ## How to Use
 
