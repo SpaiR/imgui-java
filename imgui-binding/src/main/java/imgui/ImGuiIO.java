@@ -390,7 +390,7 @@ public final class ImGuiIO {
      * Optional: Platform back-end name (informational only! will be displayed in About Window) + User data for back-end/wrappers to store their own stuff.
      */
     public native String getBackendPlatformName(); /*
-        return env -> NewStringUTF(ImGui::GetIO().BackendPlatformName);
+        return env->NewStringUTF(ImGui::GetIO().BackendPlatformName);
     */
 
     /**
@@ -404,7 +404,7 @@ public final class ImGuiIO {
      * Optional: Renderer back-end name (informational only! will be displayed in About Window) + User data for back-end/wrappers to store their own stuff.
      */
     public native String getBackendRendererName(); /*
-        return env -> NewStringUTF(ImGui::GetIO().BackendRendererName);
+        return env->NewStringUTF(ImGui::GetIO().BackendRendererName);
     */
 
     /**
@@ -697,6 +697,24 @@ public final class ImGuiIO {
      */
     public native void setMouseWheelH(float mouseDeltaX); /*
         ImGui::GetIO().MouseWheelH = mouseDeltaX;
+    */
+
+    /**
+     * (Optional) When using multiple viewports: viewport the OS mouse cursor is hovering _IGNORING_ viewports with the ImGuiViewportFlags_NoInputs flag,
+     * and _REGARDLESS_ of whether another viewport is focused. Set io.BackendFlags |= ImGuiBackendFlags_HasMouseHoveredViewport if you can provide this info.
+     * If you don't imgui will infer the value using the rectangles and last focused time of the viewports it knows about (ignoring other OS windows).
+     */
+    public native float getMouseHoveredViewport(); /*
+        return ImGui::GetIO().MouseHoveredViewport;
+    */
+
+    /**
+     * (Optional) When using multiple viewports: viewport the OS mouse cursor is hovering _IGNORING_ viewports with the ImGuiViewportFlags_NoInputs flag,
+     * and _REGARDLESS_ of whether another viewport is focused. Set io.BackendFlags |= ImGuiBackendFlags_HasMouseHoveredViewport if you can provide this info.
+     * If you don't imgui will infer the value using the rectangles and last focused time of the viewports it knows about (ignoring other OS windows).
+     */
+    public native void setMouseHoveredViewport(int imGuiId); /*
+        ImGui::GetIO().MouseHoveredViewport = imGuiId;
     */
 
     /**

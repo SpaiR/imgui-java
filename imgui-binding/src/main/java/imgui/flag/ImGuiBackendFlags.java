@@ -24,4 +24,21 @@ public final class ImGuiBackendFlags {
      * Back-end Renderer supports ImDrawCmd::VtxOffset. This enables output of large meshes (64K+ vertices) while still using 16-bit indices.
      */
     public static final int RendererHasVtxOffset = 1 << 3;
+
+    // [BETA] Viewports
+
+    /**
+     * Back-end Platform supports multiple viewports.
+     */
+    public static final int PlatformHasViewports = 1 << 10;
+    /**
+     * Back-end Platform supports setting io.MouseHoveredViewport to the viewport directly under the mouse _IGNORING_ viewports
+     * with the ImGuiViewportFlags_NoInputs flag and _REGARDLESS_ of whether another viewport is focused and may be capturing the mouse.
+     * This information is _NOT EASY_ to provide correctly with most high-level engines! Don't set this without studying how the examples/ back-end handle it!
+     */
+    public static final int HasMouseHoveredViewport = 1 << 11;
+    /**
+     * Back-end Renderer supports multiple viewports.
+     */
+    public static final int RendererHasViewports = 1 << 12;
 }

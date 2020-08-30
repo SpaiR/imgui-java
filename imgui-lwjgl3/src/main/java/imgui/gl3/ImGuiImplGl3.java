@@ -4,9 +4,13 @@ import imgui.ImDrawData;
 import imgui.ImFontAtlas;
 import imgui.ImGui;
 import imgui.ImGuiIO;
-import imgui.type.ImInt;
+import imgui.ImGuiViewport;
 import imgui.ImVec2;
 import imgui.ImVec4;
+import imgui.callback.ImPlatformFuncViewport;
+import imgui.flag.ImGuiConfigFlags;
+import imgui.flag.ImGuiViewportFlags;
+import imgui.type.ImInt;
 import imgui.flag.ImGuiBackendFlags;
 
 import java.nio.ByteBuffer;
@@ -31,17 +35,17 @@ public final class ImGuiImplGl3 {
     // OpenGL Data
     private int glVersion = 0;
     private String glslVersion = "";
-    private int gVboHandle = 0;
-    private int gElementsHandle = 0;
+    private int gFontTexture = 0;
     private int gShaderHandle = 0;
-    private int gFragHandle = 0;
     private int gVertHandle = 0;
+    private int gFragHandle = 0;
     private int gAttribLocationTex = 0;
     private int gAttribLocationProjMtx = 0;
     private int gAttribLocationVtxPos = 0;
     private int gAttribLocationVtxUV = 0;
     private int gAttribLocationVtxColor = 0;
-    private int gFontTexture = 0;
+    private int gVboHandle = 0;
+    private int gElementsHandle = 0;
     private int gVertexArrayObjectHandle = 0;
 
     // Used to store tmp renderer data
@@ -72,7 +76,7 @@ public final class ImGuiImplGl3 {
 
     /**
      * Method to do an initialization of the {@link ImGuiImplGl3} state.
-     * It SHOULD be called before calling of the {@link ImGuiImplGl3#render(ImDrawData)} method.
+     * It SHOULD be called before calling of the {@link ImGuiImplGl3#renderDrawData(ImDrawData)} method.
      * <p>
      * Unlike in the {@link #init(String)} method, here the glslVersion argument is omitted.
      * Thus a "#version 130" string will be used instead.
@@ -83,7 +87,7 @@ public final class ImGuiImplGl3 {
 
     /**
      * Method to do an initialization of the {@link ImGuiImplGl3} state.
-     * It SHOULD be called before calling of the {@link ImGuiImplGl3#render(ImDrawData)} method.
+     * It SHOULD be called before calling of the {@link ImGuiImplGl3#renderDrawData(ImDrawData)} method.
      * <p>
      * Method takes an argument, which should be a valid GLSL string with the version to use.
      * <pre>
@@ -117,12 +121,16 @@ public final class ImGuiImplGl3 {
         }
 
         createDeviceObjects();
+
+        if ((ImGui.getIO().getConfigFlags() & ImGuiConfigFlags.ViewportsEnable) != 0) {
+            initPlatformInterface();
+        }
     }
 
     /**
      * Method to render {@link ImDrawData} into current OpenGL context.
      */
-    public void render(final ImDrawData drawData) {
+    public void renderDrawData(final ImDrawData drawData) {
         if (drawData.getCmdListsCount() <= 0) {
             return;
         }
@@ -142,7 +150,7 @@ public final class ImGuiImplGl3 {
         drawData.getDisplayPos(displayPos);
 
         backupGlState();
-        bind();
+        bind(fbWidth, fbHeight);
 
         // Render command lists
         for (int cmdListIdx = 0; cmdListIdx < drawData.getCmdListsCount(); cmdListIdx++) {
@@ -194,6 +202,7 @@ public final class ImGuiImplGl3 {
         glDetachShader(gShaderHandle, gFragHandle);
         glDeleteProgram(gShaderHandle);
         glDeleteTextures(gFontTexture);
+        shutdownPlatformInterface();
     }
 
     /**
@@ -232,8 +241,11 @@ public final class ImGuiImplGl3 {
 
         // We can honor the ImDrawCmd::VtxOffset field, allowing for large meshes.
         if (glVersion >= 320) {
-            io.setBackendFlags(io.getBackendFlags() | ImGuiBackendFlags.RendererHasVtxOffset);
+            io.addBackendFlags(ImGuiBackendFlags.RendererHasVtxOffset);
         }
+
+        // We can create multi-viewports on the Renderer side (optional)
+        io.addBackendFlags(ImGuiBackendFlags.RendererHasViewports);
     }
 
     private void createDeviceObjects() {
@@ -347,7 +359,7 @@ public final class ImGuiImplGl3 {
     }
 
     // Setup desired GL state
-    private void bind() {
+    private void bind(final int fbWidth, final int fbHeight) {
         // Recreate the VAO every time (this is to easily allow multiple GL contexts to be rendered to. VAO are not shared among GL contexts)
         // The renderer would actually work without any VAO bound, but then our VertexAttrib calls would overwrite the default one currently bound.
         gVertexArrayObjectHandle = glGenVertexArrays();
@@ -363,7 +375,7 @@ public final class ImGuiImplGl3 {
         // Setup viewport, orthographic projection matrix
         // Our visible imgui space lies from draw_data->DisplayPos (top left) to draw_data->DisplayPos+data_data->DisplaySize (bottom right).
         // DisplayPos is (0,0) for single viewport apps.
-        glViewport(0, 0, (int) (displaySize.x * framebufferScale.x), (int) (displaySize.y * framebufferScale.y));
+        glViewport(0, 0, fbWidth, fbHeight);
         final float left = displayPos.x;
         final float right = displayPos.x + displaySize.x;
         final float top = displayPos.y;
@@ -398,6 +410,29 @@ public final class ImGuiImplGl3 {
     private void unbind() {
         // Destroy the temporary VAO
         glDeleteVertexArrays(gVertexArrayObjectHandle);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    // MULTI-VIEWPORT / PLATFORM INTERFACE SUPPORT
+    // This is an _advanced_ and _optional_ feature, allowing the back-end to create and handle multiple viewports simultaneously.
+    // If you are new to dear imgui or creating a new binding for dear imgui, it is recommended that you completely ignore this section first..
+    //--------------------------------------------------------------------------------------------------------
+
+    private void initPlatformInterface() {
+        ImGui.getPlatformIO().setRendererRenderWindow(new ImPlatformFuncViewport() {
+            @Override
+            public void accept(final ImGuiViewport vp) {
+                if ((vp.getFlags() & ImGuiViewportFlags.NoRendererClear) == 0) {
+                    glClearColor(0, 0, 0, 0);
+                    glClear(GL_COLOR_BUFFER_BIT);
+                }
+                renderDrawData(vp.getDrawData());
+            }
+        });
+    }
+
+    private void shutdownPlatformInterface() {
+        ImGui.destroyPlatformWindows();
     }
 
     private int createAndCompileShader(final int type, final CharSequence source) {

@@ -70,6 +70,7 @@ import imgui.callback.ImPlatformFuncViewportSuppImVec2;
  *  Platform functions are typically called before their Renderer counterpart, apart from Destroy which are called the other way.
  */
 public final class ImGuiPlatformIO extends ImGuiStruct {
+    private static final ImGuiViewport MAIN_VIEWPORT = new ImGuiViewport(0);
     private static final ImGuiViewport TMP_VIEWPORT = new ImGuiViewport(0);
     private static final ImVec2 TMP_IM_VEC2 = new ImVec2();
 
@@ -307,7 +308,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
         IMGUI_PLATFORM_IO->Platform_SetWindowTitle = PlatformStubSetWindowTitle;
     */
 
-        /*JNI
+    /*JNI
         jobject platformCallbackSetWindowAlpha = NULL;
         void PlatformStubSetWindowAlpha(ImGuiViewport* vp, float alpha) {
             if (platformCallbackSetWindowAlpha != NULL) {
@@ -484,5 +485,63 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
      */
     public native void setRendererSwapBuffers(ImPlatformFuncViewport func); /*
         IM_RENDERER_FUNC_VIEWPORT_METHOD_TMPL(SwapBuffers)
+    */
+
+    // (Optional) Monitor list
+    // - Updated by: app/back-end. Update every frame to dynamically support changing monitor or DPI configuration.
+    // - Used by: dear imgui to query DPI info, clamp popups/tooltips within same monitor and not have them straddle monitors.
+
+    //------------------------------------------------------------------
+    // Output - List of viewports to render into platform windows
+    //------------------------------------------------------------------
+
+    public native void resizeMonitors(int size); /*
+        IMGUI_PLATFORM_IO->Monitors.resize(0);
+    */
+
+    public native int getMonitorsSize(); /*
+        return IMGUI_PLATFORM_IO->Monitors.Size;
+    */
+
+    public native void pushMonitors(float mainPosX, float mainPosY, float mainSizeX, float mainSizeY, float workPosX, float workPosY, float workSizeX, float workSizeY, float dpiScale); /*
+        ImGuiPlatformMonitor monitor;
+
+        monitor.MainPos = ImVec2(mainPosX, mainPosY);
+        monitor.MainSize = ImVec2(mainSizeX, mainSizeY);
+
+        monitor.WorkPos = ImVec2(workPosX, workPosY);
+        monitor.WorkSize = ImVec2(workSizeX, workSizeY);
+
+        monitor.DpiScale = dpiScale;
+
+        IMGUI_PLATFORM_IO->Monitors.push_back(monitor);
+    */
+
+    // Viewports list (the list is updated by calling ImGui::EndFrame or ImGui::Render)
+    // (in the future we will attempt to organize this feature to remove the need for a "main viewport")
+
+    /**
+     * Guaranteed to be == Viewports[0]
+     */
+    public ImGuiViewport getMainViewport() {
+        MAIN_VIEWPORT.ptr = nGetMainViewport();
+        return MAIN_VIEWPORT;
+    }
+
+    private native long nGetMainViewport(); /*
+        return (intptr_t)IMGUI_PLATFORM_IO->MainViewport;
+    */
+
+    public native int getViewportsSize(); /*
+        return IMGUI_PLATFORM_IO->Viewports.Size;
+    */
+
+    public ImGuiViewport getViewports(final int idx) {
+        TMP_VIEWPORT.ptr = nGetViewports(idx);
+        return TMP_VIEWPORT;
+    }
+
+    private native long nGetViewports(int idx); /*
+        return (intptr_t)IMGUI_PLATFORM_IO->Viewports[idx];
     */
 }

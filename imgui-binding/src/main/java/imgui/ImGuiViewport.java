@@ -212,7 +212,67 @@ public final class ImGuiViewport extends ImGuiStruct {
     // by the same system and you may not need to use all the UserData/Handle fields.
     // The library never uses those fields, they are merely storage to facilitate back-end implementation.
 
-    // TODO: PlatformUserData, PlatformHandle, PlatformHandleRaw
+    /**
+     * void* to hold custom data structure for the renderer (e.g. swap chain, framebuffers etc.). generally set by your Renderer_CreateWindow function.
+     */
+    public native void setRendererUserData(Object data); /*
+        if (IMGUI_VIEWPORT->RendererUserData != NULL) {
+            env->DeleteGlobalRef((jobject)IMGUI_VIEWPORT->RendererUserData);
+        }
+        IMGUI_VIEWPORT->RendererUserData = (data == NULL ? NULL : (void*)env->NewGlobalRef(data));
+    */
+
+    /**
+     * void* to hold custom data structure for the renderer (e.g. swap chain, framebuffers etc.). generally set by your Renderer_CreateWindow function.
+     */
+    public native Object getRendererUserData(); /*
+        return (jobject)IMGUI_VIEWPORT->RendererUserData;
+    */
+
+    /**
+     * void* to hold custom data structure for the OS / platform (e.g. windowing info, render context). generally set by your Platform_CreateWindow function.
+     */
+    public native void setPlatformUserData(Object data); /*
+        if (IMGUI_VIEWPORT->PlatformUserData != NULL) {
+            env->DeleteGlobalRef((jobject)IMGUI_VIEWPORT->PlatformUserData);
+        }
+        IMGUI_VIEWPORT->PlatformUserData = (data == NULL ? NULL : (void*)env->NewGlobalRef(data));
+    */
+
+    /**
+     * void* to hold custom data structure for the OS / platform (e.g. windowing info, render context). generally set by your Platform_CreateWindow function.
+     */
+    public native Object getPlatformUserData(); /*
+        return (jobject)IMGUI_VIEWPORT->PlatformUserData;
+    */
+
+    /**
+     * void* for FindViewportByPlatformHandle(). (e.g. suggested to use natural platform handle such as HWND, GLFWWindow*, SDL_Window*)
+     */
+    public native void setPlatformHandle(long data); /*
+        IMGUI_VIEWPORT->PlatformHandle = (void*)data;
+    */
+
+    /**
+     * void* for FindViewportByPlatformHandle(). (e.g. suggested to use natural platform handle such as HWND, GLFWWindow*, SDL_Window*)
+     */
+    public native long getPlatformHandle(); /*
+        return (intptr_t)IMGUI_VIEWPORT->PlatformHandle;
+    */
+
+    /**
+     * void* to hold lower-level, platform-native window handle (e.g. the HWND) when using an abstraction layer like GLFW or SDL (where PlatformHandle would be a SDL_Window*)
+     */
+    public native void setPlatformHandleRaw(long data); /*
+        IMGUI_VIEWPORT->PlatformHandleRaw = (void*)data;
+    */
+
+    /**
+     * void* to hold lower-level, platform-native window handle (e.g. the HWND) when using an abstraction layer like GLFW or SDL (where PlatformHandle would be a SDL_Window*)
+     */
+    public native long getPlatformHandleRaw(); /*
+        return (intptr_t)IMGUI_VIEWPORT->PlatformHandleRaw;
+    */
 
     /**
      * Platform window requested move (e.g. window was moved by the OS / host window manager, authoritative position will be OS window position).

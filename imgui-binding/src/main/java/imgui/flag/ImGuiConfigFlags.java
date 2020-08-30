@@ -43,6 +43,24 @@ public final class ImGuiConfigFlags {
      */
     public static final int DockingEnable = 1 << 6;
 
+    // [BETA] Viewports
+    // When using viewports it is recommended that your default value for ImGuiCol_WindowBg is opaque (Alpha=1.0) so transition to a viewport won't be noticeable.
+
+    /**
+     * Viewport enable flags (require both ImGuiConfigFlags_PlatformHasViewports + ImGuiConfigFlags_RendererHasViewports set by the respective back-ends)
+     */
+    public static final int ViewportsEnable = 1 << 10;
+    /**
+     * [BETA: Don't use] FIXME-DPI: Reposition and resize imgui windows when the DpiScale of a viewport changed (mostly useful for the main viewport hosting other window).
+     * Note that resizing the main window itself is up to your application.
+     */
+    public static final int DpiEnableScaleViewports = 1 << 14;
+    /**
+     * [BETA: Don't use] FIXME-DPI: Request bitmap-scaled fonts to match DpiScale. This is a very low-quality workaround.
+     * The correct way to handle DPI is _currently_ to replace the atlas and/or fonts in the Platform_OnChangedViewport callback, but this is all early work in progress.
+     */
+    public static final int DpiEnableScaleFonts = 1 << 15;
+
     // User storage (to allow your back-end/engine to communicate to code that may be shared between multiple projects. Those flags are not used by core Dear ImGui)
 
     /**

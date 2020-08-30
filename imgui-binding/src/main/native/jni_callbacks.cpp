@@ -72,7 +72,7 @@ namespace Jni
     }
 
     void CallImPlatformFuncViewportString(JNIEnv* env, jobject func, jobject vp, const char* str) {
-        env->CallVoidMethod(func, jImPlatformFuncViewportStringAcceptMID, env->NewStringUTF(str));
+        env->CallVoidMethod(func, jImPlatformFuncViewportStringAcceptMID, vp, env->NewStringUTF(str));
     }
 
     void CallImPlatformFuncViewportSuppImVec2(JNIEnv* env, jobject func, jobject vp, jobject imVec2) {

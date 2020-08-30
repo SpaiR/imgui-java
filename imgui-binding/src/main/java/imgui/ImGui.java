@@ -5439,7 +5439,7 @@ public final class ImGui {
     }
 
     private static native long nGetPlatformIO(); /*
-        return (intptr_t)ImGui::GetMainViewport();
+        return (intptr_t)&ImGui::GetPlatformIO();
     */
 
     /**
@@ -5490,5 +5490,17 @@ public final class ImGui {
 
     private static native long nFindViewportByID(int imGuiID); /*
         return (intptr_t)ImGui::FindViewportByID(imGuiID);
+    */
+
+    /**
+     * This is a helper for back-ends. The type platform_handle is decided by the back-end (e.g. HWND, MyWindow*, GLFWwindow* etc.)
+     */
+    public static ImGuiViewport findViewportByPlatformHandle(long platformHandle) {
+        FIND_VIEWPORT.ptr = nFindViewportByPlatformHandle(platformHandle);
+        return FIND_VIEWPORT;
+    }
+
+    private static native long nFindViewportByPlatformHandle(long platformHandle); /*
+        return (intptr_t)ImGui::FindViewportByPlatformHandle((void*)platformHandle);
     */
 }
