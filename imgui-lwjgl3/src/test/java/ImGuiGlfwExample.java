@@ -147,6 +147,7 @@ public final class ImGuiGlfwExample {
 
         io.setIniFilename(null); // We don't want to save .ini file
         io.addConfigFlags(ImGuiConfigFlags.NavEnableKeyboard | ImGuiConfigFlags.DockingEnable | ImGuiConfigFlags.ViewportsEnable);
+        io.setConfigViewportsNoTaskBarIcon(true);
 
         // ------------------------------------------------------------
         // Fonts configuration
