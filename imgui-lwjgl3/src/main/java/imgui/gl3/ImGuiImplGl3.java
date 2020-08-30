@@ -21,7 +21,7 @@ import static org.lwjgl.opengl.GL32.*;
 
 /**
  * This class is a straightforward port of the
- * <a href="https://raw.githubusercontent.com/ocornut/imgui/v1.76/examples/imgui_impl_opengl3.cpp">imgui_impl_opengl3.cpp</a>.
+ * <a href="https://raw.githubusercontent.com/ocornut/imgui/05bc204dbd80dfebb3dab1511caf1cb980620c76/examples/imgui_impl_opengl3.cpp">imgui_impl_opengl3.cpp</a>.
  * <p>
  * It do support a backup and restoring of the GL state in the same way the original Dear ImGui code does.
  * Some of the very specific OpenGL variables may be ignored here,

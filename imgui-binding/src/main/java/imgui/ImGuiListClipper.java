@@ -16,7 +16,7 @@ import imgui.callback.ImListClipperCallback;
  * </pre>
  * - Step 0: the clipper let you process the first element, regardless of it being visible or not, so we can measure the element height (step skipped if we passed a known height as second arg to constructor).
  * - Step 1: the clipper infer height from first element, calculate the actual range of elements to display, and position the cursor before the first element.
- * - (Step 2: dummy step only required if an explicit items_height was passed to constructor or Begin() and user call Step(). Does nothing and switch to Step 3.)
+ * - (Step 2: empty step only required if an explicit items_height was passed to constructor or Begin() and user call Step(). Does nothing and switch to Step 3.)
  * - Step 3: the clipper validate that we have reached the expected Y position (corresponding to element DisplayEnd), advance the cursor to the end of the list and then returns 'false' to end the loop.
  * <p>
  * BINDING NOTICE:

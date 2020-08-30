@@ -467,6 +467,20 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     /**
+     * The size in pixels of the dead-zone around zero on logarithmic sliders that cross zero.
+     */
+    public native float getLogSliderDeadzone(); /*
+        return IMGUI_STYLE->LogSliderDeadzone;
+    */
+
+    /**
+     * The size in pixels of the dead-zone around zero on logarithmic sliders that cross zero.
+     */
+    public native void setLogSliderDeadzone(float logSliderDeadzone); /*
+        IMGUI_STYLE->LogSliderDeadzone = logSliderDeadzone;
+    */
+
+    /**
      * Radius of upper corners of a tab. Set to 0.0f to have rectangular tabs.
      */
     public native float getTabRounding(); /*
@@ -663,28 +677,48 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     /**
-     * Enable anti-aliasing on lines/borders. Disable if you are really tight on CPU/GPU.
+     * Enable anti-aliased lines/borders. Disable if you are really tight on CPU/GPU. Latched at the beginning of the frame (copied to ImDrawList).
      */
     public native boolean getAntiAliasedLines(); /*
         return IMGUI_STYLE->AntiAliasedLines;
     */
 
     /**
-     * Enable anti-aliasing on lines/borders. Disable if you are really tight on CPU/GPU.
+     * Enable anti-aliased lines/borders. Disable if you are really tight on CPU/GPU. Latched at the beginning of the frame (copied to ImDrawList).
      */
     public native void setAntiAliasedLines(boolean antiAliasedLines); /*
         IMGUI_STYLE->AntiAliasedLines = antiAliasedLines;
     */
 
     /**
-     * Enable anti-aliasing on filled shapes (rounded rectangles, circles, etc.)
+     * Enable anti-aliased lines/borders using textures where possible.
+     * Require back-end to render with bilinear filtering.
+     * Latched at the beginning of the frame (copied to ImDrawList).
+     */
+    public native boolean getAntiAliasedLinesUseTex(); /*
+        return IMGUI_STYLE->AntiAliasedLinesUseTex;
+    */
+
+    /**
+     * Enable anti-aliased lines/borders using textures where possible.
+     * Require back-end to render with bilinear filtering.
+     * Latched at the beginning of the frame (copied to ImDrawList).
+     */
+    public native void setAntiAliasedLinesUseTex(boolean antiAliasedLinesUseTex); /*
+        IMGUI_STYLE->AntiAliasedLinesUseTex = antiAliasedLinesUseTex;
+    */
+
+    /**
+     * Enable anti-aliased edges around filled shapes (rounded rectangles, circles, etc.).
+     * Disable if you are really tight on CPU/GPU. Latched at the beginning of the frame (copied to ImDrawList).
      */
     public native boolean getAntiAliasedFill(); /*
         return IMGUI_STYLE->AntiAliasedFill;
     */
 
     /**
-     * Enable anti-aliasing on filled shapes (rounded rectangles, circles, etc.)
+     * Enable anti-aliased edges around filled shapes (rounded rectangles, circles, etc.).
+     * Disable if you are really tight on CPU/GPU. Latched at the beginning of the frame (copied to ImDrawList).
      */
     public native void setAntiAliasedFill(boolean antiAliasedFill); /*
         IMGUI_STYLE->AntiAliasedFill = antiAliasedFill;

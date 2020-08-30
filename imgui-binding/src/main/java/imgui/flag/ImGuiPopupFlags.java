@@ -6,6 +6,7 @@ package imgui.flag;
  *   small flags values as a mouse button index, so we encode the mouse button in the first few bits of the flags.
  *   It is therefore guaranteed to be legal to pass a mouse button index in ImGuiPopupFlags.
  * - For the same reason, we exceptionally default the ImGuiPopupFlags argument of BeginPopupContextXXX functions to 1 instead of 0.
+ * - Multiple buttons currently cannot be combined/or-ed in those functions (we could allow it later).
  */
 public final class ImGuiPopupFlags {
     private ImGuiPopupFlags() {

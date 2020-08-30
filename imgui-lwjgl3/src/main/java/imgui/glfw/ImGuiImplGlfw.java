@@ -38,7 +38,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 /**
  * This class is a straightforward port of the
- * <a href="https://raw.githubusercontent.com/ocornut/imgui/v1.77/examples/imgui_impl_glfw.cpp">imgui_impl_glfw.cpp</a>.
+ * <a href="https://raw.githubusercontent.com/ocornut/imgui/05bc204dbd80dfebb3dab1511caf1cb980620c76/examples/imgui_impl_glfw.cpp">imgui_impl_glfw.cpp</a>.
  * <p>
  * It supports clipboard, gamepad, mouse and keyboard in the same way the original Dear ImGui code does. You can copy-paste this class in your codebase and
  * modify the rendering routine in the way you'd like.

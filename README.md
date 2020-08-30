@@ -225,7 +225,7 @@ If you're using native libs directly, you'll need to provide a VM option: `imgui
 **You are ready to use imgui-java binding!**
 
 ## Using Multi-Viewports and Docking
-Binding based on the Dear ImGui [docking](https://github.com/ocornut/imgui/tree/docking) branch, commit: [90ea7e2f2f3c4096a58b8bd14c274d80ae63e1ce](https://github.com/ocornut/imgui/tree/90ea7e2f2f3c4096a58b8bd14c274d80ae63e1ce).
+Binding based on the Dear ImGui [docking](https://github.com/ocornut/imgui/tree/docking) branch, commit: [05bc204dbd80dfebb3dab1511caf1cb980620c76](https://github.com/ocornut/imgui/tree/05bc204dbd80dfebb3dab1511caf1cb980620c76).
 That branch contains two important features: [multi-viewports](https://github.com/ocornut/imgui/issues/1542) and [docking](https://github.com/ocornut/imgui/issues/2109).
 See an official documentation about how to work with them.
 

@@ -868,14 +868,14 @@ public final class ImGui {
     */
 
     /**
-     * Get maximum scrolling amount ~~ ContentSize.X - WindowSize.X
+     * Get maximum scrolling amount ~~ ContentSize.x - WindowSize.x
      */
     public static native float getScrollMaxX(); /*
         return ImGui::GetScrollMaxX();
     */
 
     /**
-     * Get maximum scrolling amount ~~ ContentSize.Y - WindowSize.Y
+     * Get maximum scrolling amount ~~ ContentSize.y - WindowSize.y
      */
     public static native float getScrollMaxY(); /*
         return ImGui::GetScrollMaxY();
@@ -1548,10 +1548,17 @@ public final class ImGui {
     */
 
     /**
-     * Button behavior without the visuals, frequently useful to build custom behaviors using the public api (along with IsItemActive, IsItemHovered, etc.)
+     * Flexible button behavior without the visuals, frequently useful to build custom behaviors using the public api (along with IsItemActive, IsItemHovered, etc.)
      */
     public static native boolean invisibleButton(String strId, float width, float height); /*
         return ImGui::InvisibleButton(strId, ImVec2(width, height));
+    */
+
+    /**
+     * Flexible button behavior without the visuals, frequently useful to build custom behaviors using the public api (along with IsItemActive, IsItemHovered, etc.)
+     */
+    public static native boolean invisibleButton(String strId, float width, float height, int imGuiButtonFlags); /*
+        return ImGui::InvisibleButton(strId, ImVec2(width, height), imGuiButtonFlags);
     */
 
     /**
@@ -1675,7 +1682,7 @@ public final class ImGui {
     */
 
     /**
-     * Draw a small circle and keep the cursor on the same line. advance cursor x position by GetTreeNodeToLabelSpacing(), same distance that TreeNode() uses
+     * Draw a small circle + keep the cursor on the same line. advance cursor x position by GetTreeNodeToLabelSpacing(), same distance that TreeNode() uses
      */
     public static native void bullet(); /*
         ImGui::Bullet();
@@ -1733,14 +1740,18 @@ public final class ImGui {
         return ImGui::Combo(label, &currentItem[0], itemsSeparatedByZeros, popupMaxHeightInItems);
     */
 
-    // Widgets: Drags
+    // Widgets: Drag Sliders
     // - CTRL+Click on any drag box to turn them into an input box. Manually input values aren't clamped and can go off-bounds.
     // - For all the Float2/Float3/Float4/Int2/Int3/Int4 versions of every functions, note that a 'float v[X]' function argument is the same as 'float* v', the array syntax is just a way to document the number of elements that are expected to be accessible. You can pass address of your first element out of a contiguous set, e.g. &myvector.x
     // - Adjust format string to decorate the value with a prefix, a suffix, or adapt the editing and display precision e.g. "%.3f" -> 1.234; "%5.2f secs" -> 01.23 secs; "Biscuit: %.0f" -> Biscuit: 1; etc.
+    // - Format string may also be set to NULL or use the default format ("%f" or "%d").
     // - Speed are per-pixel of mouse movement (vSpeed=0.2f: mouse needs to move by 5 pixels to increase value by 1). For gamepad/keyboard navigation, minimum speed is Max(vSpeed, minimum_step_at_given_precision).
     // - Use vMin < vMax to clamp edits to given limits. Note that CTRL+Click manual input can override those limits.
     // - Use v_max = FLT_MAX / INT_MAX etc to avoid clamping to a maximum, same with v_min = -FLT_MAX / INT_MIN to avoid clamping to a minimum.
     // - Use vMin > vMax to lock edits.
+    // - We use the same sets of flags for DragXXX() and SliderXXX() functions as the features are the same and it makes it easier to swap them.
+    // - Legacy: Pre-1.78 there are DragXXX() function signatures that takes a final `float power=1.0f' argument instead of the `ImGuiSliderFlags flags=0' argument.
+    //   If you get a warning converting a float to ImGuiSliderFlags, read https://github.com/ocornut/imgui/issues/3361
 
     public static native boolean dragFloat(String label, float[] v); /*
         return ImGui::DragFloat(label, &v[0]);
@@ -1767,8 +1778,8 @@ public final class ImGui {
     /**
      * If {@code vMin >= vMax} we have no bound
      */
-    public static native boolean dragFloat(String label, float[] v, float vSpeed, float vMin, float vMax, String format, float power); /*
-        return ImGui::DragFloat(label, &v[0], vSpeed, vMin, vMax, format, power);
+    public static native boolean dragFloat(String label, float[] v, float vSpeed, float vMin, float vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::DragFloat(label, &v[0], vSpeed, vMin, vMax, format, imGuiSliderFlags);
     */
 
     public static native boolean dragFloat2(String label, float[] v); /*
@@ -1791,8 +1802,8 @@ public final class ImGui {
         return ImGui::DragFloat2(label, v, vSpeed, vMin, vMax, format);
     */
 
-    public static native boolean dragFloat2(String label, float[] v, float vSpeed, float vMin, float vMax, String format, float power); /*
-        return ImGui::DragFloat2(label, v, vSpeed, vMin, vMax, format, power);
+    public static native boolean dragFloat2(String label, float[] v, float vSpeed, float vMin, float vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::DragFloat2(label, v, vSpeed, vMin, vMax, format, imGuiSliderFlags);
     */
 
     public static native boolean dragFloat3(String label, float[] v); /*
@@ -1815,8 +1826,8 @@ public final class ImGui {
         return ImGui::DragFloat3(label, v, vSpeed, vMin, vMax, format);
     */
 
-    public static native boolean dragFloat3(String label, float[] v, float vSpeed, float vMin, float vMax, String format, float power); /*
-        return ImGui::DragFloat3(label, v, vSpeed, vMin, vMax, format, power);
+    public static native boolean dragFloat3(String label, float[] v, float vSpeed, float vMin, float vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::DragFloat3(label, v, vSpeed, vMin, vMax, format, imGuiSliderFlags);
     */
 
     public static native boolean dragFloat4(String label, float[] v); /*
@@ -1839,8 +1850,8 @@ public final class ImGui {
         return ImGui::DragFloat4(label, v, vSpeed, vMin, vMax, format);
     */
 
-    public static native boolean dragFloat4(String label, float[] v, float vSpeed, float vMin, float vMax, String format, float power); /*
-        return ImGui::DragFloat4(label, v, vSpeed, vMin, vMax, format, power);
+    public static native boolean dragFloat4(String label, float[] v, float vSpeed, float vMin, float vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::DragFloat4(label, v, vSpeed, vMin, vMax, format, imGuiSliderFlags);
     */
 
     public static native boolean dragFloatRange2(String label, float[] vCurrentMin, float[] vCurrentMax); /*
@@ -1867,8 +1878,8 @@ public final class ImGui {
         return ImGui::DragFloatRange2(label, &vCurrentMin[0], &vCurrentMax[0], vSpeed, vMin, vMax, format, formatMax);
     */
 
-    public static native boolean dragFloatRange2(String label, float[] vCurrentMin, float[] vCurrentMax, float vSpeed, float vMin, float vMax, String format, String formatMax, float power); /*
-        return ImGui::DragFloatRange2(label, &vCurrentMin[0], &vCurrentMax[0], vSpeed, vMin, vMax, format, formatMax, power);
+    public static native boolean dragFloatRange2(String label, float[] vCurrentMin, float[] vCurrentMax, float vSpeed, float vMin, float vMax, String format, String formatMax, int imGuiSliderFlags); /*
+        return ImGui::DragFloatRange2(label, &vCurrentMin[0], &vCurrentMax[0], vSpeed, vMin, vMax, format, formatMax, imGuiSliderFlags);
     */
 
     public static native boolean dragInt(String label, int[] v); /*
@@ -2006,15 +2017,15 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImInt pData, float vSpeed, int pMin, int pMax, String format) {
-        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 0);
     }
 
-    public static boolean dragScalar(String label, int dataType, ImInt pData, float vSpeed, int pMin, int pMax, String format, float power) {
-        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, power);
+    public static boolean dragScalar(String label, int dataType, ImInt pData, float vSpeed, int pMin, int pMax, String format, int imGuiSliderFlags) {
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nDragScalar(String label, int dataType, int[] pData, float vSpeed, int pMin, int pMax, String format, float power); /*
-        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, power);
+    private static native boolean nDragScalar(String label, int dataType, int[] pData, float vSpeed, int pMin, int pMax, String format, int imGuiSliderFlags); /*
+        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
     */
 
     public static boolean dragScalar(String label, int dataType, ImFloat pData, float vSpeed) {
@@ -2042,15 +2053,15 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImFloat pData, float vSpeed, float pMin, float pMax, String format) {
-        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 0);
     }
 
-    public static boolean dragScalar(String label, int dataType, ImFloat pData, float vSpeed, float pMin, float pMax, String format, float power) {
-        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, power);
+    public static boolean dragScalar(String label, int dataType, ImFloat pData, float vSpeed, float pMin, float pMax, String format, int imGuiSliderFlags) {
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nDragScalar(String label, int dataType, float[] pData, float vSpeed, float pMin, float pMax, String format, float power); /*
-        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, power);
+    private static native boolean nDragScalar(String label, int dataType, float[] pData, float vSpeed, float pMin, float pMax, String format, int imGuiSliderFlags); /*
+        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
     */
 
     public static boolean dragScalar(String label, int dataType, ImDouble pData, float vSpeed) {
@@ -2078,15 +2089,15 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImDouble pData, float vSpeed, double pMin, double pMax, String format) {
-        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 0);
     }
 
-    public static boolean dragScalar(String label, int dataType, ImDouble pData, float vSpeed, double pMin, double pMax, String format, float power) {
-        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, power);
+    public static boolean dragScalar(String label, int dataType, ImDouble pData, float vSpeed, double pMin, double pMax, String format, int imGuiSliderFlags) {
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nDragScalar(String label, int dataType, double[] pData, float vSpeed, double pMin, double pMax, String format, float power); /*
-        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, power);
+    private static native boolean nDragScalar(String label, int dataType, double[] pData, float vSpeed, double pMin, double pMax, String format, int imGuiSliderFlags); /*
+        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
     */
 
     public static boolean dragScalar(String label, int dataType, ImLong pData, float vSpeed) {
@@ -2114,15 +2125,15 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImLong pData, float vSpeed, long pMin, long pMax, String format) {
-        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 0);
     }
 
-    public static boolean dragScalar(String label, int dataType, ImLong pData, float vSpeed, long pMin, long pMax, String format, float power) {
-        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, power);
+    public static boolean dragScalar(String label, int dataType, ImLong pData, float vSpeed, long pMin, long pMax, String format, int imGuiSliderFlags) {
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nDragScalar(String label, int dataType, long[] pData, float vSpeed, long pMin, long pMax, String format, float power); /*
-        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, power);
+    private static native boolean nDragScalar(String label, int dataType, long[] pData, float vSpeed, long pMin, long pMax, String format, int imGuiSliderFlags); /*
+        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
     */
 
     public static boolean dragScalar(String label, int dataType, ImShort pData, float vSpeed) {
@@ -2150,15 +2161,15 @@ public final class ImGui {
     */
 
     public static boolean dragScalar(String label, int dataType, ImShort pData, float vSpeed, short pMin, short pMax, String format) {
-        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, 0);
     }
 
-    public static boolean dragScalar(String label, int dataType, ImShort pData, float vSpeed, short pMin, short pMax, String format, float power) {
-        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, power);
+    public static boolean dragScalar(String label, int dataType, ImShort pData, float vSpeed, short pMin, short pMax, String format, int imGuiSliderFlags) {
+        return nDragScalar(label, dataType, pData.getData(), vSpeed, pMin, pMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nDragScalar(String label, int dataType, short[] pData, float vSpeed, short pMin, short pMax, String format, float power); /*
-        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, power);
+    private static native boolean nDragScalar(String label, int dataType, short[] pData, float vSpeed, short pMin, short pMax, String format, int imGuiSliderFlags); /*
+        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
     */
 
     public static boolean dragScalarN(String label, int dataType, ImInt pData, int components, float vSpeed) {
@@ -2186,15 +2197,15 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImInt pData, int components, float vSpeed, int pMin, int pMax, String format) {
-        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 0);
     }
 
-    public static boolean dragScalarN(String label, int dataType, ImInt pData, int components, float vSpeed, int pMin, int pMax, String format, float power) {
-        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, power);
+    public static boolean dragScalarN(String label, int dataType, ImInt pData, int components, float vSpeed, int pMin, int pMax, String format, int imGuiSliderFlags) {
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nDragScalarN(String label, int dataType, int[] pData, int components, float vSpeed, int pMin, int pMax, String format, float power); /*
-        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, power);
+    private static native boolean nDragScalarN(String label, int dataType, int[] pData, int components, float vSpeed, int pMin, int pMax, String format, int imGuiSliderFlags); /*
+        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
     */
 
     public static boolean dragScalarN(String label, int dataType, ImFloat pData, int components, float vSpeed) {
@@ -2222,15 +2233,15 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImFloat pData, int components, float vSpeed, float pMin, float pMax, String format) {
-        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 0);
     }
 
-    public static boolean dragScalarN(String label, int dataType, ImFloat pData, int components, float vSpeed, float pMin, float pMax, String format, float power) {
-        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, power);
+    public static boolean dragScalarN(String label, int dataType, ImFloat pData, int components, float vSpeed, float pMin, float pMax, String format, int imGuiSliderFlags) {
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nDragScalarN(String label, int dataType, float[] pData, int components, float vSpeed, float pMin, float pMax, String format, float power); /*
-        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, power);
+    private static native boolean nDragScalarN(String label, int dataType, float[] pData, int components, float vSpeed, float pMin, float pMax, String format, int imGuiSliderFlags); /*
+        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
     */
 
     public static boolean dragScalarN(String label, int dataType, ImDouble pData, int components, float vSpeed) {
@@ -2258,15 +2269,15 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImDouble pData, int components, float vSpeed, double pMin, double pMax, String format) {
-        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 0);
     }
 
-    public static boolean dragScalarN(String label, int dataType, ImDouble pData, int components, float vSpeed, double pMin, double pMax, String format, float power) {
-        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, power);
+    public static boolean dragScalarN(String label, int dataType, ImDouble pData, int components, float vSpeed, double pMin, double pMax, String format, int imGuiSliderFlags) {
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nDragScalarN(String label, int dataType, double[] pData, int components, float vSpeed, double pMin, double pMax, String format, float power); /*
-        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, power);
+    private static native boolean nDragScalarN(String label, int dataType, double[] pData, int components, float vSpeed, double pMin, double pMax, String format, int imGuiSliderFlags); /*
+        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
     */
 
     public static boolean dragScalarN(String label, int dataType, ImLong pData, int components, float vSpeed) {
@@ -2294,15 +2305,15 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImLong pData, int components, float vSpeed, long pMin, long pMax, String format) {
-        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 0);
     }
 
-    public static boolean dragScalarN(String label, int dataType, ImLong pData, int components, float vSpeed, long pMin, long pMax, String format, float power) {
-        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, power);
+    public static boolean dragScalarN(String label, int dataType, ImLong pData, int components, float vSpeed, long pMin, long pMax, String format, int imGuiSliderFlags) {
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nDragScalarN(String label, int dataType, long[] pData, int components, float vSpeed, long pMin, long pMax, String format, float power); /*
-        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, power);
+    private static native boolean nDragScalarN(String label, int dataType, long[] pData, int components, float vSpeed, long pMin, long pMax, String format, int imGuiSliderFlags); /*
+        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
     */
 
     public static boolean dragScalarN(String label, int dataType, ImShort pData, int components, float vSpeed) {
@@ -2330,23 +2341,26 @@ public final class ImGui {
     */
 
     public static boolean dragScalarN(String label, int dataType, ImShort pData, int components, float vSpeed, short pMin, short pMax, String format) {
-        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 1.0f);
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, 0);
     }
 
-    public static boolean dragScalarN(String label, int dataType, ImShort pData, int components, float vSpeed, short pMin, short pMax, String format, float power) {
-        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, power);
+    public static boolean dragScalarN(String label, int dataType, ImShort pData, int components, float vSpeed, short pMin, short pMax, String format, int imGuiSliderFlags) {
+        return nDragScalarN(label, dataType, pData.getData(), components, vSpeed, pMin, pMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nDragScalarN(String label, int dataType, short[] pData, int components, float vSpeed, short pMin, short pMax, String format, float power); /*
-        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, power);
+    private static native boolean nDragScalarN(String label, int dataType, short[] pData, int components, float vSpeed, short pMin, short pMax, String format, int imGuiSliderFlags); /*
+        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
     */
 
-    // Widgets: Sliders
+    // Widgets: Regular Sliders
     // - CTRL+Click on any slider to turn them into an input box. Manually input values aren't clamped and can go off-bounds.
     // - Adjust format string to decorate the value with a prefix, a suffix, or adapt the editing and display precision e.g. "%.3f" -> 1.234; "%5.2f secs" -> 01.23 secs; "Biscuit: %.0f" -> Biscuit: 1; etc.
+    // - Format string may also be set to NULL or use the default format ("%f" or "%d").
+    // - Legacy: Pre-1.78 there are SliderXXX() function signatures that takes a final `float power=1.0f' argument instead of the `ImGuiSliderFlags flags=0' argument.
+    //   If you get a warning converting a float to ImGuiSliderFlags, read https://github.com/ocornut/imgui/issues/3361
 
     /**
-     * Adjust format to decorate the value with a prefix or a suffix for in-slider labels or unit display. Use power!=1.0 for power curve sliders
+     * Adjust format to decorate the value with a prefix or a suffix for in-slider labels or unit display.
      */
     public static native boolean sliderFloat(String label, float[] v, float vMin, float vMax); /*
         return ImGui::SliderFloat(label, &v[0],vMin, vMax);
@@ -2356,8 +2370,8 @@ public final class ImGui {
         return ImGui::SliderFloat(label, &v[0], vMin, vMax, format);
     */
 
-    public static native boolean sliderFloat(String label, float[] v, float vMin, float vMax, String format, float power); /*
-        return ImGui::SliderFloat(label, &v[0], vMin, vMax, format, power);
+    public static native boolean sliderFloat(String label, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::SliderFloat(label, &v[0], vMin, vMax, format, imGuiSliderFlags);
     */
 
     public static native boolean sliderFloat2(String label, float[] v, float vMin, float vMax); /*
@@ -2368,8 +2382,8 @@ public final class ImGui {
         return ImGui::SliderFloat2(label, v, vMin, vMax, format);
     */
 
-    public static native boolean sliderFloat2(String label, float[] v, float vMin, float vMax, String format, float power); /*
-        return ImGui::SliderFloat2(label, v, vMin, vMax, format, power);
+    public static native boolean sliderFloat2(String label, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::SliderFloat2(label, v, vMin, vMax, format, imGuiSliderFlags);
     */
 
     public static native boolean sliderFloat3(String label, float[] v, float vMin, float vMax); /*
@@ -2380,8 +2394,8 @@ public final class ImGui {
         return ImGui::SliderFloat3(label, v, vMin, vMax, format);
     */
 
-    public static native boolean sliderFloat3(String label, float[] v, float vMin, float vMax, String format, float power); /*
-        return ImGui::SliderFloat3(label, v, vMin, vMax, format, power);
+    public static native boolean sliderFloat3(String label, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::SliderFloat3(label, v, vMin, vMax, format, imGuiSliderFlags);
     */
 
     public static native boolean sliderFloat4(String label, float[] v, float vMin, float vMax); /*
@@ -2392,8 +2406,8 @@ public final class ImGui {
         return ImGui::SliderFloat4(label, v, vMin, vMax, format);
     */
 
-    public static native boolean sliderFloat4(String label, float[] v, float vMin, float vMax, String format, float power); /*
-        return ImGui::SliderFloat4(label, v, vMin, vMax, format, power);
+    public static native boolean sliderFloat4(String label, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::SliderFloat4(label, v, vMin, vMax, format, imGuiSliderFlags);
     */
 
     public static native boolean sliderAngle(String label, float[] vRad); /*
@@ -2453,15 +2467,15 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImInt v, int vMin, int vMax, String format) {
-        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 1.0f);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean sliderScalar(String label, int dataType, ImInt v, int vMin, int vMax, String format, float power) {
-        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, power);
+    public static boolean sliderScalar(String label, int dataType, ImInt v, int vMin, int vMax, String format, int imGuiSliderFlags) {
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nSliderScalar(String label, int dataType, int[] v, int vMin, int vMax, String format, float power); /*
-        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, power);
+    private static native boolean nSliderScalar(String label, int dataType, int[] v, int vMin, int vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     public static boolean sliderScalar(String label, int dataType, ImFloat v, float vMin, float vMax) {
@@ -2473,15 +2487,15 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImFloat v, float vMin, float vMax, String format) {
-        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 1.0f);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean sliderScalar(String label, int dataType, ImFloat v, float vMin, float vMax, String format, float power) {
-        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, power);
+    public static boolean sliderScalar(String label, int dataType, ImFloat v, float vMin, float vMax, String format, int imGuiSliderFlags) {
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nSliderScalar(String label, int dataType, float[] v, float vMin, float vMax, String format, float power); /*
-        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, power);
+    private static native boolean nSliderScalar(String label, int dataType, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     public static boolean sliderScalar(String label, int dataType, ImLong v, long vMin, long vMax) {
@@ -2493,15 +2507,15 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImLong v, long vMin, long vMax, String format) {
-        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 1.0f);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean sliderScalar(String label, int dataType, ImLong v, long vMin, long vMax, String format, float power) {
-        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, power);
+    public static boolean sliderScalar(String label, int dataType, ImLong v, long vMin, long vMax, String format, int imGuiSliderFlags) {
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nSliderScalar(String label, int dataType, long[] v, long vMin, long vMax, String format, float power); /*
-        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, power);
+    private static native boolean nSliderScalar(String label, int dataType, long[] v, long vMin, long vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     public static boolean sliderScalar(String label, int dataType, ImDouble v, double vMin, double vMax) {
@@ -2513,15 +2527,15 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImDouble v, double vMin, double vMax, String format) {
-        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 1.0f);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean sliderScalar(String label, int dataType, ImDouble v, double vMin, double vMax, String format, float power) {
-        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, power);
+    public static boolean sliderScalar(String label, int dataType, ImDouble v, double vMin, double vMax, String format, int imGuiSliderFlags) {
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nSliderScalar(String label, int dataType, double[] v, double vMin, double vMax, String format, float power); /*
-        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, power);
+    private static native boolean nSliderScalar(String label, int dataType, double[] v, double vMin, double vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     public static boolean sliderScalar(String label, int dataType, ImShort v, short vMin, short vMax) {
@@ -2533,15 +2547,15 @@ public final class ImGui {
     */
 
     public static boolean sliderScalar(String label, int dataType, ImShort v, short vMin, short vMax, String format) {
-        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 1.0f);
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean sliderScalar(String label, int dataType, ImShort v, short vMin, short vMax, String format, float power) {
-        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, power);
+    public static boolean sliderScalar(String label, int dataType, ImShort v, short vMin, short vMax, String format, int imGuiSliderFlags) {
+        return nSliderScalar(label, dataType, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nSliderScalar(String label, int dataType, short[] v, short vMin, short vMax, String format, float power); /*
-        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, power);
+    private static native boolean nSliderScalar(String label, int dataType, short[] v, short vMin, short vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImInt v, int vMin, int vMax) {
@@ -2553,15 +2567,15 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImInt v, int vMin, int vMax, String format) {
-        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 1.0f);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean sliderScalarN(String label, int dataType, int components, ImInt v, int vMin, int vMax, String format, float power) {
-        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, power);
+    public static boolean sliderScalarN(String label, int dataType, int components, ImInt v, int vMin, int vMax, String format, int imGuiSliderFlags) {
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nSliderScalarN(String label, int dataType, int components, int[] v, int vMin, int vMax, String format, float power); /*
-        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, power);
+    private static native boolean nSliderScalarN(String label, int dataType, int components, int[] v, int vMin, int vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImFloat v, float vMin, float vMax) {
@@ -2573,15 +2587,15 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImFloat v, float vMin, float vMax, String format) {
-        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 1.0f);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean sliderScalarN(String label, int dataType, int components, ImFloat v, float vMin, float vMax, String format, float power) {
-        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, power);
+    public static boolean sliderScalarN(String label, int dataType, int components, ImFloat v, float vMin, float vMax, String format, int imGuiSliderFlags) {
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nSliderScalarN(String label, int dataType, int components, float[] v, float vMin, float vMax, String format, float power); /*
-        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, power);
+    private static native boolean nSliderScalarN(String label, int dataType, int components, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImLong v, long vMin, long vMax) {
@@ -2593,15 +2607,15 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImLong v, long vMin, long vMax, String format) {
-        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 1.0f);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean sliderScalarN(String label, int dataType, int components, ImLong v, long vMin, long vMax, String format, float power) {
-        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, power);
+    public static boolean sliderScalarN(String label, int dataType, int components, ImLong v, long vMin, long vMax, String format, int imGuiSliderFlags) {
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nSliderScalarN(String label, int dataType, int components, long[] v, long vMin, long vMax, String format, float power); /*
-        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, power);
+    private static native boolean nSliderScalarN(String label, int dataType, int components, long[] v, long vMin, long vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImDouble v, double vMin, double vMax) {
@@ -2613,15 +2627,15 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImDouble v, double vMin, double vMax, String format) {
-        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 1.0f);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean sliderScalarN(String label, int dataType, int components, ImDouble v, double vMin, double vMax, String format, float power) {
-        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, power);
+    public static boolean sliderScalarN(String label, int dataType, int components, ImDouble v, double vMin, double vMax, String format, int imGuiSliderFlags) {
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nSliderScalarN(String label, int dataType, int components, double[] v, double vMin, double vMax, String format, float power); /*
-        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, power);
+    private static native boolean nSliderScalarN(String label, int dataType, int components, double[] v, double vMin, double vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImShort v, short vMin, short vMax) {
@@ -2633,15 +2647,15 @@ public final class ImGui {
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImShort v, short vMin, short vMax, String format) {
-        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 1.0f);
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean sliderScalarN(String label, int dataType, int components, ImShort v, short vMin, short vMax, String format, float power) {
-        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, power);
+    public static boolean sliderScalarN(String label, int dataType, int components, ImShort v, short vMin, short vMax, String format, int imGuiSliderFlags) {
+        return nSliderScalarN(label, dataType, components, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nSliderScalarN(String label, int dataType, int components, short[] v, short vMin, short vMax, String format, float power); /*
-        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, power);
+    private static native boolean nSliderScalarN(String label, int dataType, int components, short[] v, short vMin, short vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     public static native boolean vSliderFloat(String label, float sizeX, float sizeY, float[] v, float vMin, float vMax); /*
@@ -2652,8 +2666,8 @@ public final class ImGui {
         return ImGui::VSliderFloat(label, ImVec2(sizeX, sizeY), &v[0], vMin, vMax);
     */
 
-    public static native boolean vSliderFloat(String label, float sizeX, float sizeY, float[] v, float vMin, float vMax, String format, float power); /*
-        return ImGui::VSliderFloat(label, ImVec2(sizeX, sizeY), &v[0], vMin, vMax, format, power);
+    public static native boolean vSliderFloat(String label, float sizeX, float sizeY, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::VSliderFloat(label, ImVec2(sizeX, sizeY), &v[0], vMin, vMax, format, imGuiSliderFlags);
     */
 
     public static native boolean vSliderInt(String label, float sizeX, float sizeY, int[] v, int vMin, int vMax); /*
@@ -2673,15 +2687,15 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImInt v, int vMin, int vMax, String format) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 1.0f);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImInt v, int vMin, int vMax, String format, float power) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, power);
+    public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImInt v, int vMin, int vMax, String format, int imGuiSliderFlags) {
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, int[] v, int vMin, int vMax, String format, float power); /*
-        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, power);
+    private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, int[] v, int vMin, int vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImFloat v, float vMin, float vMax) {
@@ -2693,15 +2707,15 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImFloat v, float vMin, float vMax, String format) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 1.0f);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImFloat v, float vMin, float vMax, String format, float power) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, power);
+    public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImFloat v, float vMin, float vMax, String format, int imGuiSliderFlags) {
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, float[] v, float vMin, float vMax, String format, float power); /*
-        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, power);
+    private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImLong v, long vMin, long vMax) {
@@ -2713,15 +2727,15 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImLong v, long vMin, long vMax, String format) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 1.0f);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImLong v, long vMin, long vMax, String format, float power) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, power);
+    public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImLong v, long vMin, long vMax, String format, int imGuiSliderFlags) {
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, long[] v, long vMin, long vMax, String format, float power); /*
-        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, power);
+    private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, long[] v, long vMin, long vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImDouble v, double vMin, double vMax) {
@@ -2733,15 +2747,15 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImDouble v, double vMin, double vMax, String format) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 1.0f);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImDouble v, double vMin, double vMax, String format, float power) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, power);
+    public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImDouble v, double vMin, double vMax, String format, int imGuiSliderFlags) {
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, double[] v, double vMin, double vMax, String format, float power); /*
-        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, power);
+    private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, double[] v, double vMin, double vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImShort v, short vMin, short vMax) {
@@ -2753,15 +2767,15 @@ public final class ImGui {
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImShort v, short vMin, short vMax, String format) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 1.0f);
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, 0);
     }
 
-    public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImShort v, short vMin, short vMax, String format, float power) {
-        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, power);
+    public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImShort v, short vMin, short vMax, String format, int imGuiSliderFlags) {
+        return nVSliderScalar(label, sizeX, sizeY, dataType, v.getData(), vMin, vMax, format, imGuiSliderFlags);
     }
 
-    private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, short[] v, short vMin, short vMax, String format, float power); /*
-        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, power);
+    private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, short[] v, short vMin, short vMax, String format, int imGuiSliderFlags); /*
+        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
     */
 
     // Widgets: Input with Keyboard
@@ -5156,7 +5170,7 @@ public final class ImGui {
     */
 
     /**
-     * Did mouse button double-clicked. a double-click returns false in IsMouseClicked(). uses io.MouseDoubleClickTime.
+     * did mouse button double-clicked? (note that a double-click will also report IsMouseClicked() == true).
      */
     public static native boolean isMouseDoubleClicked(int button); /*
         return ImGui::IsMouseDoubleClicked(button);
