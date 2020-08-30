@@ -70,6 +70,7 @@ public class ImGuiImplGlfw {
     private final int[] windowX = new int[1];
     private final int[] windowY = new int[1];
 
+    // Monitor properties
     private final int[] monitorX = new int[1];
     private final int[] monitorY = new int[1];
     private final int[] monitorWorkAreaX = new int[1];
@@ -86,6 +87,7 @@ public class ImGuiImplGlfw {
     private GLFWCharCallback prevUserCallbackChar = null;
     private GLFWMonitorCallback prevUserCallbackMonitor = null;
 
+    // Internal data
     private boolean callbacksInstalled = false;
     private boolean wantUpdateMonitors = true;
     private double time = 0.0;

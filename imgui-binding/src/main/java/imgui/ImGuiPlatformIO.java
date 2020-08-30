@@ -72,6 +72,7 @@ import imgui.callback.ImPlatformFuncViewportSuppImVec2;
 public final class ImGuiPlatformIO extends ImGuiStruct {
     private static final ImGuiViewport MAIN_VIEWPORT = new ImGuiViewport(0);
     private static final ImGuiViewport TMP_VIEWPORT = new ImGuiViewport(0);
+    private static final ImGuiPlatformMonitor TMP_MONITOR = new ImGuiPlatformMonitor(0);
     private static final ImVec2 TMP_IM_VEC2 = new ImVec2();
 
     public ImGuiPlatformIO(final long ptr) {
@@ -515,6 +516,15 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
         monitor.DpiScale = dpiScale;
 
         IMGUI_PLATFORM_IO->Monitors.push_back(monitor);
+    */
+
+    public ImGuiPlatformMonitor getMonitors(final int idx) {
+        TMP_MONITOR.ptr = nGetMonitors(idx);
+        return TMP_MONITOR;
+    }
+
+    private native long nGetMonitors(int idx); /*
+        return (intptr_t)&IMGUI_PLATFORM_IO->Monitors[idx];
     */
 
     // Viewports list (the list is updated by calling ImGui::EndFrame or ImGui::Render)
