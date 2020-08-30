@@ -122,7 +122,7 @@ public final class ImGuiImplGl3 {
 
         createDeviceObjects();
 
-        if ((ImGui.getIO().getConfigFlags() & ImGuiConfigFlags.ViewportsEnable) != 0) {
+        if (ImGui.getIO().hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
             initPlatformInterface();
         }
     }
@@ -422,7 +422,7 @@ public final class ImGuiImplGl3 {
         ImGui.getPlatformIO().setRendererRenderWindow(new ImPlatformFuncViewport() {
             @Override
             public void accept(final ImGuiViewport vp) {
-                if ((vp.getFlags() & ImGuiViewportFlags.NoRendererClear) == 0) {
+                if (!vp.hasFlags(ImGuiViewportFlags.NoRendererClear)) {
                     glClearColor(0, 0, 0, 0);
                     glClear(GL_COLOR_BUFFER_BIT);
                 }

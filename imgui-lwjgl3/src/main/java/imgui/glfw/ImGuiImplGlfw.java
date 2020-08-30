@@ -246,7 +246,7 @@ public class ImGuiImplGlfw {
             mainViewport.setPlatformHandleRaw(GLFWNativeWin32.glfwGetWin32Window(windowId));
         }
 
-        if ((io.getConfigFlags() & ImGuiConfigFlags.ViewportsEnable) != 0) {
+        if (io.hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
             initPlatformInterface();
         }
 
@@ -332,7 +332,7 @@ public class ImGuiImplGlfw {
                 } else {
                     glfwGetCursorPos(windowPtr, mouseX, mouseY);
 
-                    if ((io.getConfigFlags() & ImGuiConfigFlags.ViewportsEnable) != 0) {
+                    if (io.hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
                         // Multi-viewport mode: mouse position in OS absolute coordinates (io.MousePos is (0,0) when the mouse is on the upper-left of the primary monitor)
                         glfwGetWindowPos(windowPtr, windowX, windowY);
                         io.setMousePos((float) mouseX[0] + windowX[0], (float) mouseY[0] + windowY[0]);
@@ -352,7 +352,7 @@ public class ImGuiImplGlfw {
     private void updateMouseCursor() {
         final ImGuiIO io = ImGui.getIO();
 
-        final boolean noCursorChange = (io.getConfigFlags() & ImGuiConfigFlags.NoMouseCursorChange) == ImGuiConfigFlags.NoMouseCursorChange;
+        final boolean noCursorChange = io.hasConfigFlags(ImGuiConfigFlags.NoMouseCursorChange);
         final boolean cursorDisabled = glfwGetInputMode(windowPtr, GLFW_CURSOR) == GLFW_CURSOR_DISABLED;
 
         if (noCursorChange || cursorDisabled) {
@@ -380,7 +380,7 @@ public class ImGuiImplGlfw {
     private void updateGamepads() {
         final ImGuiIO io = ImGui.getIO();
 
-        if ((io.getConfigFlags() & ImGuiConfigFlags.NavEnableGamepad) == 0) {
+        if (!io.hasConfigFlags(ImGuiConfigFlags.NavEnableGamepad)) {
             return;
         }
 
@@ -527,8 +527,8 @@ public class ImGuiImplGlfw {
             glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
             glfwWindowHint(GLFW_FOCUSED, GLFW_FALSE);
             glfwWindowHint(GLFW_FOCUS_ON_SHOW, GLFW_FALSE);
-            glfwWindowHint(GLFW_DECORATED, (vp.getFlags() & ImGuiViewportFlags.NoDecoration) != 0 ? GLFW_FALSE : GLFW_TRUE);
-            glfwWindowHint(GLFW_FLOATING, (vp.getFlags() & ImGuiViewportFlags.TopMost) != 0 ? GLFW_TRUE : GLFW_FALSE);
+            glfwWindowHint(GLFW_DECORATED, vp.hasFlags(ImGuiViewportFlags.NoDecoration) ? GLFW_FALSE : GLFW_TRUE);
+            glfwWindowHint(GLFW_FLOATING, vp.hasFlags(ImGuiViewportFlags.TopMost) ? GLFW_TRUE : GLFW_FALSE);
 
             data.window = glfwCreateWindow((int) vp.getSizeX(), (int) vp.getSizeY(), "No Title Yet", NULL, windowPtr);
             data.windowOwned = true;
@@ -574,7 +574,7 @@ public class ImGuiImplGlfw {
         public void accept(final ImGuiViewport vp) {
             final ImGuiViewportDataGlfw data = (ImGuiViewportDataGlfw) vp.getPlatformUserData();
 
-            if (IS_WINDOWS && (vp.getFlags() & ImGuiViewportFlags.NoTaskBarIcon) != 0) {
+            if (IS_WINDOWS && vp.hasFlags(ImGuiViewportFlags.NoTaskBarIcon)) {
                 ImGuiImplGlfwNative.win32hideFromTaskBar(vp.getPlatformHandleRaw());
             }
 

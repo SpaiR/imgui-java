@@ -53,6 +53,13 @@ public final class ImGuiIO {
     }
 
     /**
+     * See ImGuiConfigFlags enum. Set by user/application. Gamepad/keyboard navigation options, etc.
+     */
+    public boolean hasConfigFlags(final int flags) {
+        return (getConfigFlags() & flags) != 0;
+    }
+
+    /**
      * See ImGuiBackendFlags enum. Set by back-end to communicate features supported by the back-end.
      */
     public native int getBackendFlags(); /*
@@ -78,6 +85,13 @@ public final class ImGuiIO {
      */
     public void removeBackendFlags(final int backendFlags) {
         setBackendFlags(getBackendFlags() & ~(backendFlags));
+    }
+
+    /**
+     * See ImGuiBackendFlags enum. Set by back-end to communicate features supported by the back-end.
+     */
+    public boolean hasBackendFlags(final int flags) {
+        return (getBackendFlags() & flags) != 0;
     }
 
     /**

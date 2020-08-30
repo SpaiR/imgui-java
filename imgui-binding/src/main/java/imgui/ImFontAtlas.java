@@ -506,18 +506,39 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
     */
 
     /**
-     * Build flags (see ImFontAtlasFlags_)
+     * Build flags (see {@link imgui.flag.ImFontAtlasFlags})
      */
     public native int getFlags(); /*
         return IM_FONT_ATLAS->Flags;
     */
 
     /**
-     * Build flags (see ImFontAtlasFlags_)
+     * Build flags (see {@link imgui.flag.ImFontAtlasFlags})
      */
     public native void setFlags(int imFontAtlasFlags); /*
         IM_FONT_ATLAS->Flags = imFontAtlasFlags;
     */
+
+    /**
+     * Build flags (see {@link imgui.flag.ImFontAtlasFlags})
+     */
+    public void addFlags(final int flags) {
+        setFlags(getFlags() | flags);
+    }
+
+    /**
+     * Build flags (see {@link imgui.flag.ImFontAtlasFlags})
+     */
+    public void removeFlags(final int flags) {
+        setFlags(getFlags() & ~(flags));
+    }
+
+    /**
+     * Build flags (see {@link imgui.flag.ImFontAtlasFlags})
+     */
+    public boolean hasFlags(final int flags) {
+        return (getFlags() & flags) != 0;
+    }
 
     /**
      * User data to refer to the texture once it has been uploaded to user's graphic systems.

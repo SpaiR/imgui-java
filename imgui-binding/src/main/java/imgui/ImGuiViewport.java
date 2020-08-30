@@ -52,6 +52,27 @@ public final class ImGuiViewport extends ImGuiStruct {
     */
 
     /**
+     * See {@link imgui.flag.ImGuiViewportFlags}.
+     */
+    public void addFlags(final int flags) {
+        setFlags(getFlags() | flags);
+    }
+
+    /**
+     * See {@link imgui.flag.ImGuiViewportFlags}.
+     */
+    public void removeFlags(final int flags) {
+        setFlags(getFlags() & ~(flags));
+    }
+
+    /**
+     * See {@link imgui.flag.ImGuiViewportFlags}.
+     */
+    public boolean hasFlags(final int flags) {
+        return (getFlags() & flags) != 0;
+    }
+
+    /**
      * Main Area: Position of the viewport (the imgui coordinates are the same as OS desktop/native coordinates).
      */
     public native void getPos(ImVec2 dstImVec2); /*

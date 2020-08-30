@@ -42,6 +42,27 @@ public final class ImDrawList extends ImGuiStruct {
     */
 
     /**
+     * Flags, you may poke into these to adjust anti-aliasing settings per-primitive.
+     */
+    public void addImDrawListFlags(final int flags) {
+        setImDrawListFlags(getImDrawListFlags() | flags);
+    }
+
+    /**
+     * Flags, you may poke into these to adjust anti-aliasing settings per-primitive.
+     */
+    public void removeImDrawListFlags(final int flags) {
+        setImDrawListFlags(getImDrawListFlags() & ~(flags));
+    }
+
+    /**
+     * Flags, you may poke into these to adjust anti-aliasing settings per-primitive.
+     */
+    public boolean hasImDrawListFlags(final int flags) {
+        return (getImDrawListFlags() & flags) != 0;
+    }
+
+    /**
      * Render-level scissoring.
      * This is passed down to your render function but not used for CPU-side coarse clipping.
      * Prefer using higher-level ImGui::PushClipRect() to affect logic (hit-testing and widget culling)

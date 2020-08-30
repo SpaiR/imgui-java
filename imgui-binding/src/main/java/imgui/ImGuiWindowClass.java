@@ -113,6 +113,27 @@ public final class ImGuiWindowClass extends ImGuiStructDestroyable {
     */
 
     /**
+     * [EXPERIMENTAL] Dock node flags to set when a window of this class is hosted by a dock node (it doesn't have to be selected!)
+     */
+    public void addDockNodeFlagsOverrideSet(final int flags) {
+        setDockNodeFlagsOverrideSet(getDockNodeFlagsOverrideSet() | flags);
+    }
+
+    /**
+     * [EXPERIMENTAL] Dock node flags to set when a window of this class is hosted by a dock node (it doesn't have to be selected!)
+     */
+    public void removeDockNodeFlagsOverrideSet(final int flags) {
+        setDockNodeFlagsOverrideSet(getDockNodeFlagsOverrideSet() & ~(flags));
+    }
+
+    /**
+     * [EXPERIMENTAL] Dock node flags to set when a window of this class is hosted by a dock node (it doesn't have to be selected!)
+     */
+    public boolean hasDockNodeFlagsOverrideSet(final int flags) {
+        return (getDockNodeFlagsOverrideSet() & flags) != 0;
+    }
+
+    /**
      * [EXPERIMENTAL]
      */
     public native int getDockNodeFlagsOverrideClear(); /*
@@ -125,6 +146,27 @@ public final class ImGuiWindowClass extends ImGuiStructDestroyable {
     public native void setDockNodeFlagsOverrideClear(int dockNodeFlagsOverrideClear); /*
         IMGUI_WINDOW_CLASS->DockNodeFlagsOverrideClear = dockNodeFlagsOverrideClear;
     */
+
+    /**
+     * [EXPERIMENTAL]
+     */
+    public void addDockNodeFlagsOverrideClear(final int flags) {
+        setDockNodeFlagsOverrideClear(getDockNodeFlagsOverrideClear() | flags);
+    }
+
+    /**
+     * [EXPERIMENTAL]
+     */
+    public void removeDockNodeFlagsOverrideClear(final int flags) {
+        setDockNodeFlagsOverrideClear(getDockNodeFlagsOverrideClear() & ~(flags));
+    }
+
+    /**
+     * [EXPERIMENTAL]
+     */
+    public boolean hasDockNodeFlagsOverrideClear(final int flags) {
+        return (getDockNodeFlagsOverrideClear() & flags) != 0;
+    }
 
     /**
      * Set to true to enforce single floating windows of this class always having their own docking node
