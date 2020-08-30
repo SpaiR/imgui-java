@@ -12,6 +12,8 @@ import imgui.ImFontConfig;
 import imgui.ImGui;
 import imgui.ImGuiFreeType;
 import imgui.ImGuiIO;
+import imgui.ImGuiStyle;
+import imgui.flag.ImGuiCol;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
@@ -143,7 +145,6 @@ public final class ImGuiGlfwExample {
         // Initialize ImGuiIO config
         final ImGuiIO io = ImGui.getIO();
 
-        io.setMouseDrawCursor(true);
         io.setIniFilename(null); // We don't want to save .ini file
         io.addConfigFlags(ImGuiConfigFlags.NavEnableKeyboard | ImGuiConfigFlags.DockingEnable | ImGuiConfigFlags.ViewportsEnable);
 
@@ -185,6 +186,13 @@ public final class ImGuiGlfwExample {
         // ------------------------------------------------------------
         // Use freetype instead of stb_truetype to build a fonts texture
         ImGuiFreeType.buildFontAtlas(fontAtlas, ImGuiFreeType.RasterizerFlags.LightHinting);
+
+        // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+        if ((io.getConfigFlags() & ImGuiConfigFlags.ViewportsEnable) != 0) {
+            final ImGuiStyle style = ImGui.getStyle();
+            style.setWindowRounding(0.0f);
+            style.setColor(ImGuiCol.WindowBg, ImGui.getColorU32(ImGuiCol.WindowBg, 1));
+        }
     }
 
     // Main application loop

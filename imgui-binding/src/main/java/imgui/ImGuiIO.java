@@ -590,6 +590,75 @@ public final class ImGuiIO {
         ImGui::GetIO().ConfigDockingTransparentPayload = value;
     */
 
+    // Viewport options (when ImGuiConfigFlags_ViewportsEnable is set)
+
+    /**
+     * Set to make all floating imgui windows always create their own viewport.
+     * Otherwise, they are merged into the main host viewports when overlapping it. May also set ImGuiViewportFlags_NoAutoMerge on individual viewport.
+     */
+    public native boolean getConfigViewportsNoAutoMerge(); /*
+        return ImGui::GetIO().ConfigViewportsNoAutoMerge;
+    */
+
+    /**
+     * Set to make all floating imgui windows always create their own viewport.
+     * Otherwise, they are merged into the main host viewports when overlapping it. May also set ImGuiViewportFlags_NoAutoMerge on individual viewport.
+     */
+    public native void setConfigViewportsNoAutoMerge(boolean value); /*
+        ImGui::GetIO().ConfigViewportsNoAutoMerge = value;
+    */
+
+    /**
+     * Disable default OS task bar icon flag for secondary viewports. When a viewport doesn't want a task bar icon, ImGuiViewportFlags_NoTaskBarIcon will be set on it.
+     */
+    public native boolean getConfigViewportsNoTaskBarIcon(); /*
+        return ImGui::GetIO().ConfigViewportsNoTaskBarIcon;
+    */
+
+    /**
+     * Disable default OS task bar icon flag for secondary viewports. When a viewport doesn't want a task bar icon, ImGuiViewportFlags_NoTaskBarIcon will be set on it.
+     */
+    public native void setConfigViewportsNoTaskBarIcon(boolean value); /*
+        ImGui::GetIO().ConfigViewportsNoTaskBarIcon = value;
+    */
+
+    /**
+     * [BETA] Disable default OS window decoration flag for secondary viewports. When a viewport doesn't want window decorations,
+     * ImGuiViewportFlags_NoDecoration will be set on it. Enabling decoration can create subsequent issues at OS levels (e.g. minimum window size).
+     */
+    public native boolean getConfigViewportsNoDecoration(); /*
+        return ImGui::GetIO().ConfigViewportsNoDecoration;
+    */
+
+    /**
+     * [BETA] Disable default OS window decoration flag for secondary viewports. When a viewport doesn't want window decorations,
+     * ImGuiViewportFlags_NoDecoration will be set on it. Enabling decoration can create subsequent issues at OS levels (e.g. minimum window size).
+     */
+    public native void setConfigViewportsNoDecoration(boolean value); /*
+        ImGui::GetIO().ConfigViewportsNoDecoration = value;
+    */
+
+    /**
+     * Disable default OS parenting to main viewport for secondary viewports.
+     * By default, viewports are marked with ParentViewportId = <main_viewport>,
+     * expecting the platform back-end to setup a parent/child relationship between the OS windows (some back-end may ignore this).
+     * Set to true if you want the default to be 0, then all viewports will be top-level OS windows.
+     */
+    public native boolean getConfigViewportsNoDefaultParent(); /*
+        return ImGui::GetIO().ConfigViewportsNoDefaultParent;
+    */
+
+    /**
+     * Disable default OS parenting to main viewport for secondary viewports.
+     * By default, viewports are marked with ParentViewportId = <main_viewport>,
+     * expecting the platform back-end to setup a parent/child relationship between the OS windows (some back-end may ignore this).
+     * Set to true if you want the default to be 0, then all viewports will be top-level OS windows.
+     */
+    public native void setConfigViewportsNoDefaultParent(boolean value); /*
+        ImGui::GetIO().ConfigViewportsNoDefaultParent = value;
+    */
+
+
     /**
      * Time elapsed since last frame, in seconds.
      * <p>

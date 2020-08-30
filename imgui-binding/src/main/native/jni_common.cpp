@@ -48,11 +48,6 @@ namespace Jni
         dst->y = env->GetFloatField(src, imVec2YID);
     }
 
-    void ImVec2Cpy(JNIEnv* env, jobject src, ImVec2 dst) {
-        dst.x = env->GetFloatField(src, imVec2XID);
-        dst.y = env->GetFloatField(src, imVec2YID);
-    }
-
     void ImVec4Cpy(JNIEnv* env, ImVec4* src, jobject dst) {
         env->SetFloatField(dst, imVec4XID, src->x);
         env->SetFloatField(dst, imVec4YID, src->y);

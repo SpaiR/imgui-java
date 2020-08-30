@@ -38,14 +38,14 @@ public final class ImGuiViewport extends ImGuiStruct {
     */
 
     /**
-     * See ImGuiViewportFlags_.
+     * See {@link imgui.flag.ImGuiViewportFlags}.
      */
     public native int getFlags(); /*
         return IMGUI_VIEWPORT->Flags;
     */
 
     /**
-     * See ImGuiViewportFlags_.
+     * See {@link imgui.flag.ImGuiViewportFlags}.
      */
     public native void setFlags(int flags); /*
         IMGUI_VIEWPORT->Flags = flags;

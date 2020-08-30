@@ -26,6 +26,7 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWMonitorCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
+import org.lwjgl.glfw.GLFWNativeWin32;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 
@@ -43,6 +44,8 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  * modify the rendering routine in the way you'd like.
  */
 public class ImGuiImplGlfw {
+    protected static final boolean IS_WINDOWS = System.getProperty("os.name", "generic").toLowerCase().contains("win");
+
     // Pointer of the current GLFW window
     private long windowPtr;
 
@@ -238,6 +241,10 @@ public class ImGuiImplGlfw {
         // Our mouse update function expect PlatformHandle to be filled for the main viewport
         final ImGuiViewport mainViewport = ImGui.getMainViewport();
         mainViewport.setPlatformHandle(windowPtr);
+
+        if (IS_WINDOWS) {
+            mainViewport.setPlatformHandleRaw(GLFWNativeWin32.glfwGetWin32Window(windowId));
+        }
 
         if ((io.getConfigFlags() & ImGuiConfigFlags.ViewportsEnable) != 0) {
             initPlatformInterface();
@@ -528,6 +535,10 @@ public class ImGuiImplGlfw {
 
             vp.setPlatformHandle(data.window);
 
+            if (IS_WINDOWS) {
+                vp.setPlatformHandleRaw(GLFWNativeWin32.glfwGetWin32Window(data.window));
+            }
+
             glfwSetWindowPos(data.window, (int) vp.getPosX(), (int) vp.getPosY());
 
             // Install GLFW callbacks for secondary viewports
@@ -562,6 +573,11 @@ public class ImGuiImplGlfw {
         @Override
         public void accept(final ImGuiViewport vp) {
             final ImGuiViewportDataGlfw data = (ImGuiViewportDataGlfw) vp.getPlatformUserData();
+
+            if (IS_WINDOWS && (vp.getFlags() & ImGuiViewportFlags.NoTaskBarIcon) != 0) {
+                ImGuiImplGlfwNative.win32hideFromTaskBar(vp.getPlatformHandleRaw());
+            }
+
             glfwShowWindow(data.window);
         }
     }
@@ -606,7 +622,7 @@ public class ImGuiImplGlfw {
         public void accept(final ImGuiViewport vp, final ImVec2 imVec2) {
             final ImGuiViewportDataGlfw data = (ImGuiViewportDataGlfw) vp.getPlatformUserData();
             data.ignoreWindowSizeEventFrame = ImGui.getFrameCount();
-            glfwSetWindowSize(data.window, (int) imVec2.y, (int) imVec2.y);
+            glfwSetWindowSize(data.window, (int) imVec2.x, (int) imVec2.y);
         }
     }
 

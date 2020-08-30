@@ -1,3 +1,4 @@
+import imgui.ImGuiViewport;
 import imgui.type.ImBoolean;
 import imgui.ImColor;
 import imgui.ImGui;
@@ -40,8 +41,10 @@ final class ExampleUi {
     }
 
     void render() {
+        final ImGuiViewport mainViewport = ImGui.getMainViewport();
+
         ImGui.setNextWindowSize(600, 300, ImGuiCond.Once);
-        ImGui.setNextWindowPos(10, 10, ImGuiCond.Once);
+        ImGui.setNextWindowPos(mainViewport.getWorkPosX() + 10, mainViewport.getWorkPosY() + 10, ImGuiCond.Once);
 
         ImGui.begin("Custom window");  // Start Custom window
 

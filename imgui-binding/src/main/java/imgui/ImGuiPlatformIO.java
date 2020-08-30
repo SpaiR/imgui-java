@@ -191,7 +191,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
                     JNIEnv* env = Jni::GetEnv();\
                     env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (intptr_t)vp);\
                     Jni::CallImPlatformFuncViewportSuppImVec2(env, platformCallback##name, jTmpViewport, jTmpImVec2);\
-                    Jni::ImVec2Cpy(env, jTmpImVec2, dst);\
+                    Jni::ImVec2Cpy(env, jTmpImVec2, &dst);\
                 }\
                 return dst;\
             }
