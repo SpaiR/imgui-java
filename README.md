@@ -6,7 +6,7 @@ JNI based binding for [Dear ImGui](https://github.com/ocornut/imgui) with no dep
 Please read **Binding Notice** to get more info about java-specific things of the API.<br>
 See official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki) to get more info about how to do things in Dear ImGui. 
 
-Binding provides all the data you need to render Dear ImGui. If, for some reason, you want to use your own backend renderer, see [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.77-0.17.2/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java) for reference.
+Binding provides all the data you need to render Dear ImGui. If, for some reason, you want to use your own backend renderer, see [ImGuiImplGl3](https://github.com/SpaiR/imgui-java/blob/v1.78-1.0/imgui-lwjgl3/src/main/java/imgui/gl3/ImGuiImplGl3.java) for reference.
 
 Versioning semantic of the binding: `imguiVersion-bindingVersion`.<br>
 For example `1.74-0.1` means that imgui-java uses `1.74` version of Dear ImGui and binding itself has the version `0.1`.
@@ -21,12 +21,12 @@ _Make sure you have installed Java 8 or higher._
 You can try Dear ImGui with Java by yourself in a three simple steps:
 
 ```
-git clone --branch v1.77-0.17.2 https://github.com/SpaiR/imgui-java.git
+git clone --branch v1.78-1.0 https://github.com/SpaiR/imgui-java.git
 cd imgui-java
 gradlew :imgui-lwjgl3:startExample
 ```
 
-That's all! You will start an example app [ImGuiGlfwExample](https://github.com/SpaiR/imgui-java/blob/v1.77-0.17.2/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java). Feel free to modify [ExampleUi](https://github.com/SpaiR/imgui-java/blob/v1.77-0.17.2/imgui-lwjgl3/src/test/java/ExampleUi.java) class to try different Dear ImGui widgets in action.
+That's all! You will start an example app [ImGuiGlfwExample](https://github.com/SpaiR/imgui-java/blob/v1.78-1.0/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java). Feel free to modify [ExampleUi](https://github.com/SpaiR/imgui-java/blob/v1.78-1.0/imgui-lwjgl3/src/test/java/ExampleUi.java) class to try different Dear ImGui widgets in action.
 
 ![imgui-java demo](https://i.imgur.com/ljAhD7a.gif)
 
@@ -43,31 +43,34 @@ repositories {
 
 ext {
     lwjglVersion = '3.2.3'
-    imguiVersion = '1.77-0.17.2'
+    imguiVersion = '1.78-1.0'
 }
 
 switch (OperatingSystem.current()) {
 	case OperatingSystem.LINUX:
-		project.ext.natives = "natives-linux"
+		project.ext.imguiNatives = "imgui-java-natives-linux"
+		project.ext.lwjglNatives = "natives-linux"
 		break
 	case OperatingSystem.MAC_OS:
-		project.ext.natives = "natives-macos"
+		project.ext.imguiNatives = "imgui-java-natives-macos"
+		project.ext.lwjglNatives = "natives-macos"
 		break
 	case OperatingSystem.WINDOWS:
-		project.ext.natives = System.getProperty("os.arch").contains("64") ? "natives-windows" : "natives-windows-x86"
+		project.ext.imguiNatives = System.getProperty("os.arch").contains("64") ? "imgui-java-natives-windows" : "imgui-java-natives-windows-x86"
+		project.ext.lwjglNatives = System.getProperty("os.arch").contains("64") ? "natives-windows" : "natives-windows-x86"
 		break
 }
 
 dependencies {
-    implementation "io.imgui.java:binding:$imguiVersion"
-    implementation "io.imgui.java:lwjgl3:$imguiVersion"
-    runtimeOnly "io.imgui.java:$natives:$imguiVersion"
+    implementation "io.imgui.java:imgui-java-binding:$imguiVersion"
+    implementation "io.imgui.java:imgui-java-lwjgl3:$imguiVersion"
+    runtimeOnly "io.imgui.java:$imguiNatives:$imguiVersion"
 
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
     ['', '-opengl', '-glfw'].each {
         implementation "org.lwjgl:lwjgl$it:$lwjglVersion"
-        runtimeOnly "org.lwjgl:lwjgl$it::$natives"
+        runtimeOnly "org.lwjgl:lwjgl$it::$lwjglNatives"
     }
 }
 ```
@@ -87,14 +90,14 @@ dependencies {
 
 <properties>
     <lwjgl.version>3.2.3</lwjgl.version>
-    <imgui.java.version>1.77-0.17.2</imgui.java.version>
+    <imgui.java.version>1.78-1.0</imgui.java.version>
 </properties>
 
 <!-- Resolve OS version for native libraries -->
 <!-- imgui-java uses the same naming convention as LWJGL3 -->
 <profiles>
     <profile>
-        <id>lwjgl-natives-linux-amd64</id>
+        <id>natives-linux-amd64</id>
         <activation>
             <os>
                 <family>unix</family>
@@ -102,11 +105,12 @@ dependencies {
             </os>
         </activation>
         <properties>
-            <natives>natives-linux</natives>
+            <imguiNatives>imgui-java-natives-linux</imguiNatives>
+            <lwjglNatives>natives-linux</lwjglNatives>
         </properties>
     </profile>
     <profile>
-        <id>lwjgl-natives-macos-amd64</id>
+        <id>natives-macos-amd64</id>
         <activation>
             <os>
                 <family>mac</family>
@@ -114,11 +118,12 @@ dependencies {
             </os>
         </activation>
         <properties>
-            <natives>natives-macos</lwjgl.natives>
+            <imguiNatives>imgui-java-natives-macos</lwjgl.imguiNatives>
+            <lwjglNatives>natives-macos</lwjgl.lwjglNatives>
         </properties>
     </profile>
     <profile>
-        <id>lwjgl-natives-windows-amd64</id>
+        <id>natives-windows-amd64</id>
         <activation>
             <os>
                 <family>windows</family>
@@ -126,11 +131,12 @@ dependencies {
             </os>
         </activation>
         <properties>
-            <natives>natives-windows</natives>
+            <imguiNatives>imgui-java-natives-windows</imguiNatives>
+            <lwjglNatives>natives-windows</lwjglNatives>
         </properties>
     </profile>
     <profile>
-        <id>lwjgl-natives-windows-x86</id>
+        <id>natives-windows-x86</id>
         <activation>
             <os>
                 <family>windows</family>
@@ -138,7 +144,8 @@ dependencies {
             </os>
         </activation>
         <properties>
-            <natives>natives-windows-x86</natives>
+            <imguiNatives>imgui-java-natives-windows-x86</imguiNatives>
+            <lwjglNatives>natives-windows-x86</lwjglNatives>
         </properties>
     </profile>
 </profiles>
@@ -169,7 +176,7 @@ dependencies {
     </dependency>
     <dependency>
         <groupId>io.imgui.java</groupId>
-        <artifactId>${natives}</artifactId>
+        <artifactId>${imguiNatives}</artifactId>
         <version>${imgui.java.version}</version>
     </dependency>
 
@@ -189,17 +196,17 @@ dependencies {
     <dependency>
         <groupId>org.lwjgl</groupId>
         <artifactId>lwjgl</artifactId>
-        <classifier>${natives}</classifier>
+        <classifier>${lwjglNatives}</classifier>
     </dependency>
     <dependency>
         <groupId>org.lwjgl</groupId>
         <artifactId>lwjgl-glfw</artifactId>
-        <classifier>${natives}</classifier>
+        <classifier>${lwjglNatives}</classifier>
     </dependency>
     <dependency>
         <groupId>org.lwjgl</groupId>
         <artifactId>lwjgl-opengl</artifactId>
-        <classifier>${natives}</classifier>
+        <classifier>${lwjglNatives}</classifier>
     </dependency>
 </dependencies>
 ```
@@ -234,7 +241,7 @@ Take a note that multi-viewports api is **VERY** complex to implement. It's high
 Otherwise, if you're using your own backed implementation, there are no guarantees it will work.
 
 ## Using FreeType
-Dear ImGui by default uses a stb_strutype library to render a fonts atlas. It's possible to use FreeType instead to get better fonts quality. See an example in [ImGuiGlfwExample](https://github.com/spair/imgui-java/blob/v1.77-0.17.2/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java). [Read more](https://github.com/ocornut/imgui/blob/v1.76/misc/freetype/README.md)
+Dear ImGui by default uses a stb_strutype library to render a fonts atlas. It's possible to use FreeType instead to get better fonts quality. See an example in [ImGuiGlfwExample](https://github.com/spair/imgui-java/blob/v1.78-1.0/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java). [Read more](https://github.com/ocornut/imgui/blob/v1.78/misc/freetype/README.md)
 
 ## Binding Notice
 * All Dear ImGui methods are available in `camelCase`, not in `PascalCase`.
