@@ -13,19 +13,19 @@ def packageName = 'natives-linux'
 def libName = 'libimgui-java64.so'
 
 if (System.getProperty('deployWin32')) {
-    packageName = 'natives-windows-x86'
+    packageName = 'imgui-java-natives-windows-x86'
     libName = 'imgui-java.dll'
 } else if (System.getProperty('deployWin64')) {
-    packageName = 'natives-windows'
+    packageName = 'imgui-java-natives-windows'
     libName = 'imgui-java64.dll'
 } else if (System.getProperty('deployLinux32')) {
-    packageName = 'natives-linux-x86'
+    packageName = 'imgui-java-natives-linux-x86'
     libName = 'libimgui-java.so'
 } else if (System.getProperty('deployLinux64')) {
-    packageName = 'natives-linux'
+    packageName = 'imgui-java-natives-linux'
     libName = 'libimgui-java64.so'
 } else if (System.getProperty('deployMacOs64')) {
-    packageName = 'natives-macos'
+    packageName = 'imgui-java-natives-macos'
     libName = 'libimgui-java64.dylib'
 }
 

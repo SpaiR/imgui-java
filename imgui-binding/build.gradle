@@ -36,7 +36,7 @@ publishing {
         MyPublication(MavenPublication) {
             from components.java
             groupId 'io.imgui.java'
-            artifactId 'binding'
+            artifactId 'imgui-java-binding'
             artifact sourcesJar
             artifact javadocJar
             version property('version')
@@ -50,6 +50,6 @@ bintray {
     publications = ['MyPublication']
     pkg {
         repo = 'io.imgui.java'
-        name = 'binding'
+        name = 'imgui-java-binding'
     }
 }

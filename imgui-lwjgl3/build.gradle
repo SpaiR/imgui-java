@@ -55,7 +55,7 @@ publishing {
         MyPublication(MavenPublication) {
             from components.java
             groupId 'io.imgui.java'
-            artifactId 'lwjgl3'
+            artifactId 'imgui-java-lwjgl3'
             artifact sourcesJar
             version property('version')
         }
@@ -68,6 +68,6 @@ bintray {
     publications = ['MyPublication']
     pkg {
         repo = 'io.imgui.java'
-        name = 'lwjgl3'
+        name = 'imgui-java-lwjgl3'
     }
 }
