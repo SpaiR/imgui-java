@@ -1779,7 +1779,7 @@ public final class ImGui {
      * If {@code vMin >= vMax} we have no bound
      */
     public static native boolean dragFloat(String label, float[] v, float vSpeed, float vMin, float vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::DragFloat(label, &v[0], vSpeed, vMin, vMax, format, imGuiSliderFlags);
+        return ImGui::DragFloat(label, &v[0], vSpeed, vMin, vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static native boolean dragFloat2(String label, float[] v); /*
@@ -1803,7 +1803,7 @@ public final class ImGui {
     */
 
     public static native boolean dragFloat2(String label, float[] v, float vSpeed, float vMin, float vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::DragFloat2(label, v, vSpeed, vMin, vMax, format, imGuiSliderFlags);
+        return ImGui::DragFloat2(label, v, vSpeed, vMin, vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static native boolean dragFloat3(String label, float[] v); /*
@@ -1827,7 +1827,7 @@ public final class ImGui {
     */
 
     public static native boolean dragFloat3(String label, float[] v, float vSpeed, float vMin, float vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::DragFloat3(label, v, vSpeed, vMin, vMax, format, imGuiSliderFlags);
+        return ImGui::DragFloat3(label, v, vSpeed, vMin, vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static native boolean dragFloat4(String label, float[] v); /*
@@ -1851,7 +1851,7 @@ public final class ImGui {
     */
 
     public static native boolean dragFloat4(String label, float[] v, float vSpeed, float vMin, float vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::DragFloat4(label, v, vSpeed, vMin, vMax, format, imGuiSliderFlags);
+        return ImGui::DragFloat4(label, v, vSpeed, vMin, vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static native boolean dragFloatRange2(String label, float[] vCurrentMin, float[] vCurrentMax); /*
@@ -1879,7 +1879,7 @@ public final class ImGui {
     */
 
     public static native boolean dragFloatRange2(String label, float[] vCurrentMin, float[] vCurrentMax, float vSpeed, float vMin, float vMax, String format, String formatMax, int imGuiSliderFlags); /*
-        return ImGui::DragFloatRange2(label, &vCurrentMin[0], &vCurrentMax[0], vSpeed, vMin, vMax, format, formatMax, imGuiSliderFlags);
+        return ImGui::DragFloatRange2(label, &vCurrentMin[0], &vCurrentMax[0], vSpeed, vMin, vMax, format, formatMax, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static native boolean dragInt(String label, int[] v); /*
@@ -2025,7 +2025,7 @@ public final class ImGui {
     }
 
     private static native boolean nDragScalar(String label, int dataType, int[] pData, float vSpeed, int pMin, int pMax, String format, int imGuiSliderFlags); /*
-        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
+        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean dragScalar(String label, int dataType, ImFloat pData, float vSpeed) {
@@ -2061,7 +2061,7 @@ public final class ImGui {
     }
 
     private static native boolean nDragScalar(String label, int dataType, float[] pData, float vSpeed, float pMin, float pMax, String format, int imGuiSliderFlags); /*
-        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
+        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean dragScalar(String label, int dataType, ImDouble pData, float vSpeed) {
@@ -2097,7 +2097,7 @@ public final class ImGui {
     }
 
     private static native boolean nDragScalar(String label, int dataType, double[] pData, float vSpeed, double pMin, double pMax, String format, int imGuiSliderFlags); /*
-        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
+        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean dragScalar(String label, int dataType, ImLong pData, float vSpeed) {
@@ -2133,7 +2133,7 @@ public final class ImGui {
     }
 
     private static native boolean nDragScalar(String label, int dataType, long[] pData, float vSpeed, long pMin, long pMax, String format, int imGuiSliderFlags); /*
-        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
+        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean dragScalar(String label, int dataType, ImShort pData, float vSpeed) {
@@ -2169,7 +2169,7 @@ public final class ImGui {
     }
 
     private static native boolean nDragScalar(String label, int dataType, short[] pData, float vSpeed, short pMin, short pMax, String format, int imGuiSliderFlags); /*
-        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
+        return ImGui::DragScalar(label, dataType, &pData[0], vSpeed, &pMin, &pMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean dragScalarN(String label, int dataType, ImInt pData, int components, float vSpeed) {
@@ -2205,7 +2205,7 @@ public final class ImGui {
     }
 
     private static native boolean nDragScalarN(String label, int dataType, int[] pData, int components, float vSpeed, int pMin, int pMax, String format, int imGuiSliderFlags); /*
-        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
+        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean dragScalarN(String label, int dataType, ImFloat pData, int components, float vSpeed) {
@@ -2241,7 +2241,7 @@ public final class ImGui {
     }
 
     private static native boolean nDragScalarN(String label, int dataType, float[] pData, int components, float vSpeed, float pMin, float pMax, String format, int imGuiSliderFlags); /*
-        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
+        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean dragScalarN(String label, int dataType, ImDouble pData, int components, float vSpeed) {
@@ -2277,7 +2277,7 @@ public final class ImGui {
     }
 
     private static native boolean nDragScalarN(String label, int dataType, double[] pData, int components, float vSpeed, double pMin, double pMax, String format, int imGuiSliderFlags); /*
-        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
+        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean dragScalarN(String label, int dataType, ImLong pData, int components, float vSpeed) {
@@ -2313,7 +2313,7 @@ public final class ImGui {
     }
 
     private static native boolean nDragScalarN(String label, int dataType, long[] pData, int components, float vSpeed, long pMin, long pMax, String format, int imGuiSliderFlags); /*
-        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
+        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean dragScalarN(String label, int dataType, ImShort pData, int components, float vSpeed) {
@@ -2349,7 +2349,7 @@ public final class ImGui {
     }
 
     private static native boolean nDragScalarN(String label, int dataType, short[] pData, int components, float vSpeed, short pMin, short pMax, String format, int imGuiSliderFlags); /*
-        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, imGuiSliderFlags);
+        return ImGui::DragScalarN(label, dataType, &pData[0], components, vSpeed, &pMin, &pMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     // Widgets: Regular Sliders
@@ -2371,7 +2371,7 @@ public final class ImGui {
     */
 
     public static native boolean sliderFloat(String label, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::SliderFloat(label, &v[0], vMin, vMax, format, imGuiSliderFlags);
+        return ImGui::SliderFloat(label, &v[0], vMin, vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static native boolean sliderFloat2(String label, float[] v, float vMin, float vMax); /*
@@ -2383,7 +2383,7 @@ public final class ImGui {
     */
 
     public static native boolean sliderFloat2(String label, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::SliderFloat2(label, v, vMin, vMax, format, imGuiSliderFlags);
+        return ImGui::SliderFloat2(label, v, vMin, vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static native boolean sliderFloat3(String label, float[] v, float vMin, float vMax); /*
@@ -2395,7 +2395,7 @@ public final class ImGui {
     */
 
     public static native boolean sliderFloat3(String label, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::SliderFloat3(label, v, vMin, vMax, format, imGuiSliderFlags);
+        return ImGui::SliderFloat3(label, v, vMin, vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static native boolean sliderFloat4(String label, float[] v, float vMin, float vMax); /*
@@ -2407,7 +2407,7 @@ public final class ImGui {
     */
 
     public static native boolean sliderFloat4(String label, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::SliderFloat4(label, v, vMin, vMax, format, imGuiSliderFlags);
+        return ImGui::SliderFloat4(label, v, vMin, vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static native boolean sliderAngle(String label, float[] vRad); /*
@@ -2475,7 +2475,7 @@ public final class ImGui {
     }
 
     private static native boolean nSliderScalar(String label, int dataType, int[] v, int vMin, int vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean sliderScalar(String label, int dataType, ImFloat v, float vMin, float vMax) {
@@ -2495,7 +2495,7 @@ public final class ImGui {
     }
 
     private static native boolean nSliderScalar(String label, int dataType, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean sliderScalar(String label, int dataType, ImLong v, long vMin, long vMax) {
@@ -2515,7 +2515,7 @@ public final class ImGui {
     }
 
     private static native boolean nSliderScalar(String label, int dataType, long[] v, long vMin, long vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean sliderScalar(String label, int dataType, ImDouble v, double vMin, double vMax) {
@@ -2535,7 +2535,7 @@ public final class ImGui {
     }
 
     private static native boolean nSliderScalar(String label, int dataType, double[] v, double vMin, double vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean sliderScalar(String label, int dataType, ImShort v, short vMin, short vMax) {
@@ -2555,7 +2555,7 @@ public final class ImGui {
     }
 
     private static native boolean nSliderScalar(String label, int dataType, short[] v, short vMin, short vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::SliderScalar(label, dataType, &v[0], &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImInt v, int vMin, int vMax) {
@@ -2575,7 +2575,7 @@ public final class ImGui {
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, int[] v, int vMin, int vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImFloat v, float vMin, float vMax) {
@@ -2595,7 +2595,7 @@ public final class ImGui {
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImLong v, long vMin, long vMax) {
@@ -2615,7 +2615,7 @@ public final class ImGui {
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, long[] v, long vMin, long vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImDouble v, double vMin, double vMax) {
@@ -2635,7 +2635,7 @@ public final class ImGui {
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, double[] v, double vMin, double vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean sliderScalarN(String label, int dataType, int components, ImShort v, short vMin, short vMax) {
@@ -2655,7 +2655,7 @@ public final class ImGui {
     }
 
     private static native boolean nSliderScalarN(String label, int dataType, int components, short[] v, short vMin, short vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::SliderScalarN(label, dataType, &v[0], components, &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static native boolean vSliderFloat(String label, float sizeX, float sizeY, float[] v, float vMin, float vMax); /*
@@ -2667,7 +2667,7 @@ public final class ImGui {
     */
 
     public static native boolean vSliderFloat(String label, float sizeX, float sizeY, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::VSliderFloat(label, ImVec2(sizeX, sizeY), &v[0], vMin, vMax, format, imGuiSliderFlags);
+        return ImGui::VSliderFloat(label, ImVec2(sizeX, sizeY), &v[0], vMin, vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static native boolean vSliderInt(String label, float sizeX, float sizeY, int[] v, int vMin, int vMax); /*
@@ -2695,7 +2695,7 @@ public final class ImGui {
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, int[] v, int vMin, int vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImFloat v, float vMin, float vMax) {
@@ -2715,7 +2715,7 @@ public final class ImGui {
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, float[] v, float vMin, float vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImLong v, long vMin, long vMax) {
@@ -2735,7 +2735,7 @@ public final class ImGui {
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, long[] v, long vMin, long vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImDouble v, double vMin, double vMax) {
@@ -2755,7 +2755,7 @@ public final class ImGui {
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, double[] v, double vMin, double vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     public static boolean vSliderScalar(String label, float sizeX, float sizeY, int dataType, ImShort v, short vMin, short vMax) {
@@ -2775,7 +2775,7 @@ public final class ImGui {
     }
 
     private static native boolean nVSliderScalar(String label, float sizeX, float sizeY, int dataType, short[] v, short vMin, short vMax, String format, int imGuiSliderFlags); /*
-        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, imGuiSliderFlags);
+        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), dataType, &v[0], &vMin, &vMax, format, (ImGuiSliderFlags)imGuiSliderFlags);
     */
 
     // Widgets: Input with Keyboard
