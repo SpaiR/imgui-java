@@ -654,7 +654,7 @@ public final class ImGuiIO {
 
     /**
      * Disable default OS parenting to main viewport for secondary viewports.
-     * By default, viewports are marked with ParentViewportId = <main_viewport>,
+     * By default, viewports are marked with ParentViewportId = main_viewport,
      * expecting the platform back-end to setup a parent/child relationship between the OS windows (some back-end may ignore this).
      * Set to true if you want the default to be 0, then all viewports will be top-level OS windows.
      */
@@ -664,7 +664,7 @@ public final class ImGuiIO {
 
     /**
      * Disable default OS parenting to main viewport for secondary viewports.
-     * By default, viewports are marked with ParentViewportId = <main_viewport>,
+     * By default, viewports are marked with ParentViewportId = main_viewport,
      * expecting the platform back-end to setup a parent/child relationship between the OS windows (some back-end may ignore this).
      * Set to true if you want the default to be 0, then all viewports will be top-level OS windows.
      */

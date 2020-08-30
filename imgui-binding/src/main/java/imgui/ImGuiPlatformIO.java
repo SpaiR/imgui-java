@@ -23,7 +23,7 @@ import imgui.callback.ImPlatformFuncViewportSuppImVec2;
  *  About the coordinates system:
  *  - When multi-viewports are enabled, all Dear ImGui coordinates become absolute coordinates (same as OS coordinates!)
  *  - So e.g. ImGui::SetNextWindowPos(ImVec2(0,0)) will position a window relative to your primary monitor!
- *  - If you want to position windows relative to your main application viewport, use ImGui::GetMainViewport()->Pos as a base position.
+ *  - If you want to position windows relative to your main application viewport, use ImGui::GetMainViewport().Pos as a base position.
  *  Steps to use multi-viewports in your application, when using a default back-end from the examples/ folder:
  *  - Application:  Enable feature with 'io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable'.
  *  - Back-end:     The back-end initialization will setup all necessary ImGuiPlatformIO's functions and update monitors info every frame.
@@ -471,7 +471,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
 
     /**
      *  // . . . R .  // (Optional) Clear framebuffer, setup render target,
-     *  then render the viewport->DrawData. 'render_arg' is the value passed to RenderPlatformWindowsDefault().
+     *  then render the viewport.DrawData. 'render_arg' is the value passed to RenderPlatformWindowsDefault().
      */
     public native void setRendererRenderWindow(ImPlatformFuncViewport func); /*
         IM_RENDERER_FUNC_VIEWPORT_METHOD_TMPL(RenderWindow)

@@ -22,7 +22,7 @@ public final class ImDrawListFlags {
      */
     public static final int AntiAliasedFill = 1 << 2;
     /**
-     * Can emit 'VtxOffset > 0' to allow large meshes. Set when 'ImGuiBackendFlags_RendererHasVtxOffset' is enabled.
+     * Can emit 'VtxOffset {@code >} 0' to allow large meshes. Set when 'ImGuiBackendFlags_RendererHasVtxOffset' is enabled.
      */
     public static final int AllowVtxOffset = 1 << 3;
 }
