@@ -143,6 +143,7 @@ public final class ImGuiGlfwExample {
         // Initialize ImGuiIO config
         final ImGuiIO io = ImGui.getIO();
 
+        io.setMouseDrawCursor(true);
         io.setIniFilename(null); // We don't want to save .ini file
         io.addConfigFlags(ImGuiConfigFlags.NavEnableKeyboard | ImGuiConfigFlags.DockingEnable | ImGuiConfigFlags.ViewportsEnable);
 
