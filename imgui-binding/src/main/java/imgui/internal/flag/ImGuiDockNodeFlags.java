@@ -1,5 +1,8 @@
 package imgui.internal.flag;
 
+/**
+ * Extend ImGuiDockNodeFlags
+ */
 public final class ImGuiDockNodeFlags extends imgui.flag.ImGuiDockNodeFlags {
     private ImGuiDockNodeFlags() {
     }

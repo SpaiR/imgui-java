@@ -15,6 +15,7 @@ import org.lwjgl.BufferUtils;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import static org.lwjgl.opengl.GL32.*;
@@ -30,41 +31,78 @@ final class ExampleUi {
     // Test data for payload
     private String dropTargetText = "Drop Here";
 
-    // To modify background color dynamically
-    final float[] backgroundColor = new float[]{0.5f, 0, 0};
-
     // Resizable input example
     private final ImString resizableStr = new ImString(5);
+
+    // Toggles
     private final ImBoolean showBottomDockedWindow = new ImBoolean(true);
     private final ImBoolean showDemoWindow = new ImBoolean();
 
     // Attach image example
-    private int dukeTexture;
+    private int dukeTexture = 0;
 
-    void init() throws Exception {
-        dukeTexture = loadTexture(ImageIO.read(new File("src/test/resources/Duke_waving.png")));
+    private boolean isBottomDockedWindowInit = false;
+
+    // To modify background color dynamically
+    final float[] backgroundColor = new float[]{0.5f, 0, 0};
+
+    void render() throws Exception {
+        final int dockspaceId = ImGui.getID("MyDockSpace");
+        showDockSpace(dockspaceId);
+        setupBottomDockedWindow(dockspaceId);
+        showBottomDockedWindow();
+
+        final ImGuiViewport mainViewport = ImGui.getMainViewport();
+        ImGui.setNextWindowSize(600, 300, ImGuiCond.Once);
+        ImGui.setNextWindowPos(mainViewport.getWorkPosX() + 10, mainViewport.getWorkPosY() + 10, ImGuiCond.Once);
+
+        ImGui.begin("Custom window");  // Start Custom window
+
+        showWindowImage();
+        showToggles();
+
+        ImGui.separator();
+
+        showDragNDrop();
+        showBackgroundPicker();
+
+        ImGui.separator();
+
+        showResizableInput();
+
+        ImGui.separator();
+        ImGui.newLine();
+
+        showDemoLink();
+
+        ImGui.end();  // End Custom window
+
+        if (showDemoWindow.get()) {
+            ImGui.showDemoWindow(showDemoWindow);
+        }
     }
 
-    void render() {
+    private void showDockSpace(final int dockspaceId) {
         final ImGuiViewport mainViewport = ImGui.getMainViewport();
-
-        int windowFlags = 0;
+        final int windowFlags = ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize
+            | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoNavFocus | ImGuiWindowFlags.NoBackground;
 
         ImGui.setNextWindowPos(mainViewport.getWorkPosX(), mainViewport.getWorkPosY());
         ImGui.setNextWindowSize(mainViewport.getWorkSizeX(), mainViewport.getWorkSizeY());
         ImGui.setNextWindowViewport(mainViewport.getID());
         ImGui.pushStyleVar(ImGuiStyleVar.WindowRounding, 0);
         ImGui.pushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
-        windowFlags |= ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoMove;
-        windowFlags |= ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoNavFocus | ImGuiWindowFlags.NoBackground;
 
         ImGui.pushStyleVar(ImGuiStyleVar.WindowPadding, 0, 0);
         ImGui.begin("Dockspace Demo", windowFlags);
         ImGui.popStyleVar(3);
 
-        final int dockspaceId = ImGui.getID("MyDockSpace");
+        ImGui.dockSpace(dockspaceId, 0, 0, ImGuiDockNodeFlags.PassthruCentralNode);
+        ImGui.end();
+    }
 
-        if (ImGui.dockBuilderGetNode(dockspaceId) == null) {
+    private void setupBottomDockedWindow(final int dockspaceId) {
+        if (!isBottomDockedWindowInit) {
             ImGui.dockBuilderRemoveNode(dockspaceId);
             ImGui.dockBuilderAddNode(dockspaceId, ImGuiDockNodeFlags.DockSpace);
 
@@ -73,34 +111,39 @@ final class ExampleUi {
             ImGui.dockBuilderDockWindow("Bottom Docked Window", dockIdBottom);
             ImGui.dockBuilderSetNodeSize(dockIdBottom, 150f, 150f);
             ImGui.dockBuilderFinish(dockspaceId);
+
+            isBottomDockedWindowInit = true;
         }
+    }
 
-        ImGui.dockSpace(dockspaceId, 0, 0, ImGuiDockNodeFlags.PassthruCentralNode);
-        ImGui.end();
-
+    private void showBottomDockedWindow() {
         if (showBottomDockedWindow.get()) {
-            ImGui.begin("Bottom Docked Window", showBottomDockedWindow);
+            ImGui.begin("Bottom Docked Window", showBottomDockedWindow, ImGuiWindowFlags.AlwaysAutoResize);
             ImGui.text("An example of how to create docked windows.");
             ImGui.end();
         }
+    }
 
-        ImGui.setNextWindowSize(600, 300, ImGuiCond.Once);
-        ImGui.setNextWindowPos(mainViewport.getWorkPosX() + 10, mainViewport.getWorkPosY() + 10, ImGuiCond.Once);
-
-        ImGui.begin("Custom window");  // Start Custom window
+    private void showWindowImage() throws IOException {
+        if (dukeTexture == 0) {
+            dukeTexture = loadTexture(ImageIO.read(new File("src/test/resources/Duke_waving.png")));
+        }
 
         // Draw an image in the bottom-right corner of the window
         final float xPoint = ImGui.getWindowPosX() + ImGui.getWindowSizeX() - 100;
         final float yPoint = ImGui.getWindowPosY() + ImGui.getWindowSizeY();
         ImGui.getWindowDrawList().addImage(dukeTexture, xPoint, yPoint - 180, xPoint + 100, yPoint);
+    }
 
-        // Checkbox to show demo window
-        ImGui.checkbox("Show bottom docked window", showBottomDockedWindow);
-        ImGui.checkbox("Show demo window", showDemoWindow);
+    private void showToggles() {
+        ImGui.checkbox("Show Demo Window", showDemoWindow);
+        ImGui.checkbox("Show Bottom Docked Window", showBottomDockedWindow);
+        if (ImGui.button("Reset Bottom Dock Window")) {
+            isBottomDockedWindowInit = false;
+        }
+    }
 
-        ImGui.separator();
-
-        // Drag'n'Drop functionality
+    private void showDragNDrop() {
         ImGui.button("Drag me");
         if (ImGui.beginDragDropSource()) {
             ImGui.setDragDropPayloadObject("payload_type", "Test Payload");
@@ -116,16 +159,16 @@ final class ExampleUi {
             }
             ImGui.endDragDropTarget();
         }
+    }
 
-        // Color picker
+    private void showBackgroundPicker() {
         ImGui.alignTextToFramePadding();
         ImGui.text("Background color:");
         ImGui.sameLine();
         ImGui.colorEdit3("##click_counter_col", backgroundColor, ImGuiColorEditFlags.NoInputs | ImGuiColorEditFlags.NoDragDrop);
+    }
 
-        ImGui.separator();
-
-        // Input field with auto-resize ability
+    private void showResizableInput() {
         ImGui.text("You can use text inputs with auto-resizable strings!");
         ImGui.inputText("Resizable input", resizableStr, ImGuiInputTextFlags.CallbackResize);
         ImGui.text("text len:");
@@ -135,23 +178,15 @@ final class ExampleUi {
         ImGui.text("| buffer size:");
         ImGui.sameLine();
         ImGui.textColored(COLOR_CORAL, Integer.toString(resizableStr.getBufferSize()));
+    }
 
-        ImGui.separator();
-        ImGui.newLine();
-
-        // Link to the original demo file
+    private void showDemoLink() {
         ImGui.text("Consider to look the original ImGui demo: ");
         ImGui.setNextItemWidth(500);
         ImGui.textColored(COLOR_LIMEGREEN, IMGUI_DEMO_LINK);
         ImGui.sameLine();
         if (ImGui.button("Copy")) {
             ImGui.setClipboardText(IMGUI_DEMO_LINK);
-        }
-
-        ImGui.end();  // End Custom window
-
-        if (showDemoWindow.get()) {
-            ImGui.showDemoWindow(showDemoWindow);
         }
     }
 

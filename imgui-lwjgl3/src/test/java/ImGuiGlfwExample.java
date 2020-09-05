@@ -55,8 +55,6 @@ public final class ImGuiGlfwExample {
         // ImGui context should be created as well.
         imGuiGl3.init(glslVersion);
 
-        exampleUi.init();
-
         loop();
 
         // You should clean up after yourself in reverse order.
@@ -199,7 +197,7 @@ public final class ImGuiGlfwExample {
     }
 
     // Main application loop
-    private void loop() {
+    private void loop() throws Exception {
         // Run the rendering loop until the user has attempted to close the window
         while (!glfwWindowShouldClose(windowPtr)) {
             startFrame();
