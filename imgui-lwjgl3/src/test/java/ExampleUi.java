@@ -1,11 +1,15 @@
 import imgui.ImGuiViewport;
-import imgui.type.ImBoolean;
-import imgui.ImColor;
-import imgui.ImGui;
-import imgui.type.ImString;
 import imgui.flag.ImGuiColorEditFlags;
 import imgui.flag.ImGuiCond;
+import imgui.flag.ImGuiDir;
 import imgui.flag.ImGuiInputTextFlags;
+import imgui.flag.ImGuiStyleVar;
+import imgui.flag.ImGuiWindowFlags;
+import imgui.internal.ImGui;
+import imgui.internal.flag.ImGuiDockNodeFlags;
+import imgui.type.ImBoolean;
+import imgui.ImColor;
+import imgui.type.ImString;
 import org.lwjgl.BufferUtils;
 
 import javax.imageio.ImageIO;
@@ -31,6 +35,7 @@ final class ExampleUi {
 
     // Resizable input example
     private final ImString resizableStr = new ImString(5);
+    private final ImBoolean showBottomDockedWindow = new ImBoolean(true);
     private final ImBoolean showDemoWindow = new ImBoolean();
 
     // Attach image example
@@ -43,6 +48,42 @@ final class ExampleUi {
     void render() {
         final ImGuiViewport mainViewport = ImGui.getMainViewport();
 
+        int windowFlags = 0;
+
+        ImGui.setNextWindowPos(mainViewport.getWorkPosX(), mainViewport.getWorkPosY());
+        ImGui.setNextWindowSize(mainViewport.getWorkSizeX(), mainViewport.getWorkSizeY());
+        ImGui.setNextWindowViewport(mainViewport.getID());
+        ImGui.pushStyleVar(ImGuiStyleVar.WindowRounding, 0);
+        ImGui.pushStyleVar(ImGuiStyleVar.WindowBorderSize, 0);
+        windowFlags |= ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoMove;
+        windowFlags |= ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoNavFocus | ImGuiWindowFlags.NoBackground;
+
+        ImGui.pushStyleVar(ImGuiStyleVar.WindowPadding, 0, 0);
+        ImGui.begin("Dockspace Demo", windowFlags);
+        ImGui.popStyleVar(3);
+
+        final int dockspaceId = ImGui.getID("MyDockSpace");
+
+        if (ImGui.dockBuilderGetNode(dockspaceId) == null) {
+            ImGui.dockBuilderRemoveNode(dockspaceId);
+            ImGui.dockBuilderAddNode(dockspaceId, ImGuiDockNodeFlags.DockSpace);
+
+            final int dockIdBottom = ImGui.dockBuilderSplitNode(dockspaceId, ImGuiDir.Down, .25f, null, null);
+
+            ImGui.dockBuilderDockWindow("Bottom Docked Window", dockIdBottom);
+            ImGui.dockBuilderSetNodeSize(dockIdBottom, 150f, 150f);
+            ImGui.dockBuilderFinish(dockspaceId);
+        }
+
+        ImGui.dockSpace(dockspaceId, 0, 0, ImGuiDockNodeFlags.PassthruCentralNode);
+        ImGui.end();
+
+        if (showBottomDockedWindow.get()) {
+            ImGui.begin("Bottom Docked Window", showBottomDockedWindow);
+            ImGui.text("An example of how to create docked windows.");
+            ImGui.end();
+        }
+
         ImGui.setNextWindowSize(600, 300, ImGuiCond.Once);
         ImGui.setNextWindowPos(mainViewport.getWorkPosX() + 10, mainViewport.getWorkPosY() + 10, ImGuiCond.Once);
 
@@ -54,6 +95,7 @@ final class ExampleUi {
         ImGui.getWindowDrawList().addImage(dukeTexture, xPoint, yPoint - 180, xPoint + 100, yPoint);
 
         // Checkbox to show demo window
+        ImGui.checkbox("Show bottom docked window", showBottomDockedWindow);
         ImGui.checkbox("Show demo window", showDemoWindow);
 
         ImGui.separator();

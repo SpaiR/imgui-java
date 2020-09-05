@@ -26,14 +26,14 @@ public final class ImGuiViewport extends ImGuiStruct {
     /**
      * Unique identifier for the viewport.
      */
-    public native int getImGuiId(); /*
+    public native int getID(); /*
         return IMGUI_VIEWPORT->ID;
     */
 
     /**
      * Unique identifier for the viewport.
      */
-    public native void setImGuiId(int imGuiID); /*
+    public native void setID(int imGuiID); /*
         IMGUI_VIEWPORT->ID = imGuiID;
     */
 

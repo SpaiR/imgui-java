@@ -18,7 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-public final class ImGui {
+public class ImGui {
     private static final String LIB_PATH_PROP = "imgui.library.path";
     private static final String LIB_NAME_PROP = "imgui.library.name";
     private static final String LIB_NAME_DEFAULT = System.getProperty("os.arch").contains("64") ? "imgui-java64" : "imgui-java";
@@ -112,9 +112,6 @@ public final class ImGui {
      * Otherwise native libraries will be loaded on demand and natively mapped objects won't work.
      */
     public static void init() {
-    }
-
-    private ImGui() {
     }
 
     /*JNI
@@ -648,6 +645,13 @@ public final class ImGui {
      */
     public static native void setNextWindowBgAlpha(float alpha); /*
         ImGui::SetNextWindowBgAlpha(alpha);
+    */
+
+    /**
+     * Set next window viewport.
+     */
+    public static native void setNextWindowViewport(int viewportId); /*
+        ImGui::SetNextWindowViewport(viewportId);
     */
 
     /**
