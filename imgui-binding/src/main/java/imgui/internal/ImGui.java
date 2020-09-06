@@ -98,32 +98,32 @@ public final class ImGui extends imgui.ImGui {
     /**
      * Create 2 child nodes in this parent node.
      */
-    public static int dockBuilderSplitNode(int nodeId, int splitDir, float sizeRationForNodeAtDir, ImInt outIdAtDir, ImInt outIdAtOppositeDir) {
+    public static int dockBuilderSplitNode(int nodeId, int splitDir, float sizeRatioForNodeAtDir, ImInt outIdAtDir, ImInt outIdAtOppositeDir) {
         if (outIdAtDir == null && outIdAtOppositeDir != null) {
-            return nDockBuilderSplitNode(nodeId, splitDir, sizeRationForNodeAtDir, null, outIdAtOppositeDir.getData());
+            return nDockBuilderSplitNode(nodeId, splitDir, sizeRatioForNodeAtDir, 0, outIdAtOppositeDir.getData());
         } else if (outIdAtDir != null && outIdAtOppositeDir == null) {
-            return nDockBuilderSplitNode(nodeId, splitDir, sizeRationForNodeAtDir, outIdAtDir.getData());
+            return nDockBuilderSplitNode(nodeId, splitDir, sizeRatioForNodeAtDir, outIdAtDir.getData());
         } else if (outIdAtDir != null) {
-            return nDockBuilderSplitNode(nodeId, splitDir, sizeRationForNodeAtDir, outIdAtDir.getData(), outIdAtOppositeDir.getData());
+            return nDockBuilderSplitNode(nodeId, splitDir, sizeRatioForNodeAtDir, outIdAtDir.getData(), outIdAtOppositeDir.getData());
         } else {
-            return nDockBuilderSplitNode(nodeId, splitDir, sizeRationForNodeAtDir);
+            return nDockBuilderSplitNode(nodeId, splitDir, sizeRatioForNodeAtDir);
         }
     }
 
-    private static native int nDockBuilderSplitNode(int nodeId, int splitDir, float sizeRationForNodeAtDir, int[] outIdAtDir, int[] outIdAtOppositeDir); /*
-        return ImGui::DockBuilderSplitNode(nodeId, splitDir, sizeRationForNodeAtDir, (ImGuiID*)&outIdAtDir[0], (ImGuiID*)&outIdAtOppositeDir[0]);
+    private static native int nDockBuilderSplitNode(int nodeId, int splitDir, float sizeRatioForNodeAtDir, int[] outIdAtDir, int[] outIdAtOppositeDir); /*
+        return ImGui::DockBuilderSplitNode(nodeId, splitDir, sizeRatioForNodeAtDir, (ImGuiID*)&outIdAtDir[0], (ImGuiID*)&outIdAtOppositeDir[0]);
     */
 
-    private static native int nDockBuilderSplitNode(int nodeId, int splitDir, float sizeRationForNodeAtDir); /*
-        return ImGui::DockBuilderSplitNode(nodeId, splitDir, sizeRationForNodeAtDir, NULL, NULL);
+    private static native int nDockBuilderSplitNode(int nodeId, int splitDir, float sizeRatioForNodeAtDir); /*
+        return ImGui::DockBuilderSplitNode(nodeId, splitDir, sizeRatioForNodeAtDir, NULL, NULL);
     */
 
-    private static native int nDockBuilderSplitNode(int nodeId, int splitDir, float sizeRationForNodeAtDir, int[] outIdAtDir); /*
-        return ImGui::DockBuilderSplitNode(nodeId, splitDir, sizeRationForNodeAtDir, (ImGuiID*)&outIdAtDir[0], NULL);
+    private static native int nDockBuilderSplitNode(int nodeId, int splitDir, float sizeRatioForNodeAtDir, int[] outIdAtDir); /*
+        return ImGui::DockBuilderSplitNode(nodeId, splitDir, sizeRatioForNodeAtDir, (ImGuiID*)&outIdAtDir[0], NULL);
     */
 
-    private static native int nDockBuilderSplitNode(int nodeId, int splitDir, float sizeRationForNodeAtDir, Object o, int[] outIdAtOppositeDir); /*
-        return ImGui::DockBuilderSplitNode(nodeId, splitDir, sizeRationForNodeAtDir, NULL, (ImGuiID*)&outIdAtOppositeDir[0]);
+    private static native int nDockBuilderSplitNode(int nodeId, int splitDir, float sizeRatioForNodeAtDir, int o, int[] outIdAtOppositeDir); /*
+        return ImGui::DockBuilderSplitNode(nodeId, splitDir, sizeRatioForNodeAtDir, NULL, (ImGuiID*)&outIdAtOppositeDir[0]);
     */
 
     // TODO DockBuilderCopyDockSpace, DockBuilderCopyNode
