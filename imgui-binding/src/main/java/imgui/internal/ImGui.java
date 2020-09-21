@@ -11,6 +11,16 @@ public final class ImGui extends imgui.ImGui {
         #include <imgui_internal.h>
      */
 
+    // Basic Helpers for widget code
+
+    public static native void pushItemFlag(int imGuiItemFlags, boolean enabled); /*
+        ImGui::PushItemFlag(imGuiItemFlags, enabled);
+    */
+
+    public static native void popItemFlag(); /*
+        ImGui::PopItemFlag();
+    */
+
     // Docking - Builder function needs to be generally called before the node is used/submitted.
     // - The DockBuilderXXX functions are designed to _eventually_ become a public API, but it is too early to expose it and guarantee stability.
     // - Do not hold on ImGuiDockNode* pointers! They may be invalidated by any split/merge/remove operation and every frame.
