@@ -166,12 +166,12 @@ dependencies {
     <!-- imgui-java -->
     <dependency>
         <groupId>io.imgui.java</groupId>
-        <artifactId>binding</artifactId>
+        <artifactId>imgui-java-binding</artifactId>
         <version>${imgui.java.version}</version>
     </dependency>
     <dependency>
         <groupId>io.imgui.java</groupId>
-        <artifactId>lwjgl3</artifactId>
+        <artifactId>imgui-java-lwjgl3</artifactId>
         <version>${imgui.java.version}</version>
     </dependency>
     <dependency>
