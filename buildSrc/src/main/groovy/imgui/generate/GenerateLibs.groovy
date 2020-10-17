@@ -18,6 +18,7 @@ class GenerateLibs extends DefaultTask {
     private final boolean forMac64 = buildEnvs?.contains('mac64')
 
     private final boolean isLocal = System.properties.containsKey("local")
+    private final boolean withFreeType = System.properties.containsKey("withFreeType")
 
     private final String sourceDir = project.file('src/main/java')
     private final String classpath = project.file('build/classes/java/main')
@@ -27,13 +28,23 @@ class GenerateLibs extends DefaultTask {
 
     @TaskAction
     void generate() {
+        println 'Generating Native Libraries...'
+        println "Build environments: $buildEnvs"
+        println "Local mode: $isLocal"
+        println "With FreeType: $withFreeType"
+        println '====================================='
+
         // Generate h/cpp files for JNI
         new NativeCodeGenerator().generate(sourceDir, classpath, jniDir)
 
         // Copy ImGui h/cpp files
         project.copy { CopySpec spec ->
             spec.from(project.rootProject.file('imgui')) { CopySpec it -> it.include('*.h', '*.cpp') }
-            spec.from(project.rootProject.file('imgui/misc/freetype')) { CopySpec it -> it.include('*.h', '*.cpp') }
+
+            if (withFreeType) {
+                spec.from(project.rootProject.file('imgui/misc/freetype')) { CopySpec it -> it.include('*.h', '*.cpp') }
+            }
+
             spec.from(project.rootProject.file('imgui-binding/src/main/native'))
             spec.into(jniDir)
         }
@@ -44,27 +55,43 @@ class GenerateLibs extends DefaultTask {
 
         if (forWin32) {
             def win32 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, false)
-            win32.cppFlags += ' -fstack-protector -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include'
-            win32.libraries += '-lfreetype -lbz2 -lssp'
+
+            if (withFreeType) {
+                win32.cppFlags += ' -fstack-protector -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include'
+                win32.libraries += '-lfreetype -lbz2 -lssp'
+            }
+
             buildTargets += win32
         }
         if (forWin64) {
             def win64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, true)
-            win64.cppFlags += ' -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include'
-            win64.libraries += '-lfreetype -lbz2 -lssp'
+
+            if (withFreeType) {
+                win64.cppFlags += ' -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include'
+                win64.libraries += '-lfreetype -lbz2 -lssp'
+            }
+
             buildTargets += win64
         }
 
         if (forLinux32) {
             def linux32 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, false)
-            linux32.cppFlags += ' -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include'
-            linux32.linkerFlags += ' -lfreetype'
+
+            if (withFreeType) {
+                linux32.cppFlags += ' -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include'
+                linux32.linkerFlags += ' -lfreetype'
+            }
+
             buildTargets += linux32
         }
         if (forLinux64) {
             def linux64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, true)
-            linux64.cppFlags += ' -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include'
-            linux64.linkerFlags += ' -lfreetype'
+
+            if (withFreeType) {
+                linux64.cppFlags += ' -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include'
+                linux64.linkerFlags += ' -lfreetype'
+            }
+
             buildTargets += linux64
         }
 
@@ -73,12 +100,22 @@ class GenerateLibs extends DefaultTask {
             mac64.cppFlags += ' -stdlib=libc++'
             mac64.cppFlags = mac64.cppFlags.replaceAll('10.5', '10.9')
             mac64.linkerFlags = mac64.linkerFlags.replaceAll('10.5', '10.9')
-            mac64.cppFlags += ' -I/usr/local/include/freetype2 -I/usr/local/include/libpng16 -I/usr/local/include/harfbuzz -I/usr/local/include/glib-2.0 -I/usr/local/lib/glib-2.0/include'
-            mac64.linkerFlags += ' -lfreetype'
+
+            if (withFreeType) {
+                mac64.cppFlags += ' -I/usr/local/include/freetype2 -I/usr/local/include/libpng16 -I/usr/local/include/harfbuzz -I/usr/local/include/glib-2.0 -I/usr/local/lib/glib-2.0/include'
+                mac64.linkerFlags += ' -lfreetype'
+            }
+
             buildTargets += mac64
         }
 
         new AntScriptGenerator().generate(buildConfig, buildTargets)
+
+        if (!withFreeType) {
+            project.delete {
+                it.delete("$jniDir/imgui.ImGuiFreeType.cpp", "$jniDir/imgui.ImGuiFreeType.h")
+            }
+        }
 
         // Generate native libraries
         // Comment/uncomment lines with OS you need.

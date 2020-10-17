@@ -3,5 +3,5 @@
 BASEDIR=$(dirname "$0")
 cd $BASEDIR/../../imgui-binding || exit
 
-rm -frd /tmp/imgui
-../gradlew clean generateLibs -Denvs=$* -DwithFreeType
+../gradlew clean generateLibs -Denvs=$* -Dlocal
+rm -frd libsNative
