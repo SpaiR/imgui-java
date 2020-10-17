@@ -51,21 +51,21 @@ public final class ImGuiTreeNodeFlags {
     /**
      * Use FramePadding (even for an unframed text node) to vertically align text baseline to regular widget height. Equivalent to calling AlignTextToFramePadding().
      */
-    public static final int FramePadding = 1 << 1;
+    public static final int FramePadding = 1 << 10;
     /**
      * Extend hit box to the right-most edge, even if not framed.
      * This is not the default in order to allow adding other items on the same line.
      * In the future we may refactor the hit system to be front-to-back, allowing natural overlaps and then this can become the default.
      */
-    public static final int SpanAvailWidth = 1 << 1;
+    public static final int SpanAvailWidth = 1 << 11;
     /**
      * Extend hit box to the left-most and right-most edges (bypass the indented area).
      */
-    public static final int SpanFullWidth = 1 << 1;
+    public static final int SpanFullWidth = 1 << 12;
     /**
      * (WIP) Nav: left direction may move to this TreeNode() from any of its child (items submitted between TreeNode and TreePop)
      */
-    public static final int NavLeftJumpsBackHere = 1 << 1;
+    public static final int NavLeftJumpsBackHere = 1 << 13;
     //ImGuiTreeNodeFlags_NoScrollOnOpen     = 1 << 14;     // FIXME: TODO: Disable automatic scroll on TreePop() if node got just open and contents is not visible
     public static final int CollapsingHeader = Framed | NoTreePushOnOpen | NoAutoOpenOnLog;
 }
