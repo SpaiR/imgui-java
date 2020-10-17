@@ -256,14 +256,28 @@ Dear ImGui by default uses a stb_strutype library to render a fonts atlas. It's 
   Just keep in mind that you are able to do advanced stuff with it like: save pointers to the structs to modify them later. 
 * Read [javadoc](https://javadoc.io/doc/io.imgui.java/binding) and sources comments to get more info.
 
-## How to Build
-To build native libraries you need:
- - Unix-like system (MacOS to build natives for Mac)
- - Installed dependencies: `mingw-w64`, `ant`, `freetype2`
+## How to Build Native Libraries
+Using Windows:
+ - Make sure you have installed and **available in PATH**:
+    * Java 8 or higher
+    * Ant
+    * Mingw-w64 (recommended way: use [MSYS2](https://www.msys2.org/) and install [mingw-w64-x86_64-toolchain](https://packages.msys2.org/group/mingw-w64-x86_64-toolchain) group)
+ - Build with command: `gradlew :imgui-binding:generateLibs -Denvs=win64 -Dlocal`
+ - Then run example with built library: `gradlew :imgui-lwjgl3:startExample -DlibPath=../imgui-binding/build/libsNative/windows64`
+ 
+Using Linux:
+ - Install dependencies: `openjdk8`, `mingw-w64-gcc`, `ant`. Packages name could vary from system to system.
+ - Build with command: `./gradlew :imgui-binding:generateLibs -Denvs=linux64 -Dlocal`
+ - Then run example with built library: `./gradlew :imgui-lwjgl3:startExample -DlibPath=../imgui-binding/build/libsNative/linux64`
+ 
+Using MacOS:
+ - Check dependencies from "Using Linux" paragraph and make sure you have them installed.
+ - Build with command: `./gradlew :imgui-binding:generateLibs -Denvs=mac64 -Dlocal`
+ - Then run example with built library: `./gradlew :imgui-lwjgl3:startExample -DlibPath=../imgui-binding/build/libsNative/macosx64`
 
-After you've configured everything, run `gradlew :imgui-binding:generateLibs -Denvs=${envShortcut} -Dlocal`.<br>
-`envShortcut` could be `win32`, `win64`, `linux32`, `linux64` or `mac64`.<br>
+In `envs` parameter next values could be used `win32`, `win64`, `linux32`, `linux64` or `mac64`.<br>
 `-Dlocal` is optional and means that natives will be built under the `./imgui-binding/build/` folder. Otherwise `/tmp/imgui` folder will be used.
+On Windows OS always use local build.
 
 ## Credits
 Binding partly based on the work of [xpenatan](https://github.com/xpenatan) and his version [jDear-imgui](https://github.com/xpenatan/jDear-imgui).
