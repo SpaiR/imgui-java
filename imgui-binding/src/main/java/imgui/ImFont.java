@@ -73,35 +73,6 @@ public final class ImFont extends ImGuiStructDestroyable {
         return (intptr_t)IM_FONT->FallbackGlyph;
     */
 
-    /**
-     * Offset font rendering by xx pixels
-     */
-    public native void getDisplayOffset(ImVec2 dstImVec2); /*
-        Jni::ImVec2Cpy(env, &IM_FONT->DisplayOffset, dstImVec2);
-    */
-
-    /**
-     * Offset font rendering by xx pixels
-     */
-    public native float getDisplayOffsetX(); /*
-        return IM_FONT->DisplayOffset.x;
-    */
-
-    /**
-     * Offset font rendering by xx pixels
-     */
-    public native float getDisplayOffsetY(); /*
-        return IM_FONT->DisplayOffset.y;
-    */
-
-    /**
-     * Offset font rendering by xx pixels
-     */
-    public native void setDisplayOffset(float x, float y); /*
-        IM_FONT->DisplayOffset.x = x;
-        IM_FONT->DisplayOffset.y = y;
-    */
-
     // TODO ContainerAtlas, ConfigData
 
     /**

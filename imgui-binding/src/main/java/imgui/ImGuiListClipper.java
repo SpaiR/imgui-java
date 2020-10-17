@@ -4,20 +4,23 @@ import imgui.callback.ImListClipperCallback;
 
 /**
  * Helper: Manually clip large list of items.
- * If you are submitting lots of evenly spaced items and you have a random access to the list, you can perform coarse clipping based on visibility to save yourself from processing those items at all.
+ * If you are submitting lots of evenly spaced items and you have a random access to the list, you can perform coarse
+ * clipping based on visibility to save yourself from processing those items at all.
  * The clipper calculates the range of visible items and advance the cursor to compensate for the non-visible items we have skipped.
- * ImGui already clip items based on their bounds but it needs to measure text size to do so. Coarse clipping before submission makes this cost and your own data fetching/submission cost null.
- * Usage:
+ * (Dear ImGui already clip items based on their bounds but it needs to measure text size to do so, whereas manual coarse clipping before submission makes this cost and your own data fetching/submission cost almost null)
  * <pre>
- *     ImGuiListClipper clipper(1000);  // we have 1000 elements, evenly spaced.
- *     while (clipper.Step())
- *         for (int i = clipper.DisplayStart; i {@code <} clipper.DisplayEnd; i++)
- *             ImGui::Text("line number %d", i);
+ *   ImGuiListClipper clipper;
+ *   clipper.Begin(1000);         // We have 1000 elements, evenly spaced.
+ *   while (clipper.Step())
+ *       for (int i = clipper.DisplayStart; i {@code <} clipper.DisplayEnd; i++)
+ *           ImGui::Text("line number %d", i);
  * </pre>
- * - Step 0: the clipper let you process the first element, regardless of it being visible or not, so we can measure the element height (step skipped if we passed a known height as second arg to constructor).
- * - Step 1: the clipper infer height from first element, calculate the actual range of elements to display, and position the cursor before the first element.
- * - (Step 2: empty step only required if an explicit items_height was passed to constructor or Begin() and user call Step(). Does nothing and switch to Step 3.)
- * - Step 3: the clipper validate that we have reached the expected Y position (corresponding to element DisplayEnd), advance the cursor to the end of the list and then returns 'false' to end the loop.
+ * Generally what happens is:
+ * - Clipper lets you process the first element (DisplayStart = 0, DisplayEnd = 1) regardless of it being visible or not.
+ * - User code submit one element.
+ * - Clipper can measure the height of the first element
+ * - Clipper calculate the actual range of elements to display based on the current clipping rectangle, position the cursor before the first visible element.
+ * - User code submit visible elements.
  * <p>
  * BINDING NOTICE:
  * It's impossible to implement the same API like in the original. Method {@link #forEach(int, int, ImListClipperCallback)} could be used instead.
@@ -55,7 +58,8 @@ public final class ImGuiListClipper {
      * @param callback action to do in iterations
      */
     public static native void forEach(int itemsCount, int itemsHeight, ImListClipperCallback callback); /*
-        ImGuiListClipper clipper(itemsCount);
+        ImGuiListClipper clipper;
+        clipper.Begin(itemsCount, itemsHeight);
         while (clipper.Step()) {
             for (int i = clipper.DisplayStart; i < clipper.DisplayEnd; i++) {
                 Jni::CallImListClipperCallback(env, callback, i);

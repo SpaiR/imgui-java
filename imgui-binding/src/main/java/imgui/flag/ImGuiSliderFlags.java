@@ -8,7 +8,7 @@ public final class ImGuiSliderFlags {
     /**
      * Clamp value to min/max bounds when input manually with CTRL+Click. By default CTRL+Click allows going out of bounds.
      */
-    public static final int ClampOnInput = 1 << 4;
+    public static final int AlwaysClamp = 1 << 4;
     /**
      * Make the widget logarithmic (linear otherwise).
      * Consider using ImGuiSliderFlags_NoRoundToFormat with this if using a format-string with small amount of digits.

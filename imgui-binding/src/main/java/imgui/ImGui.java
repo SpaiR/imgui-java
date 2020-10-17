@@ -4018,29 +4018,29 @@ public class ImGui {
     /**
      * Helper to open popup when clicked on last item. return true when just opened. (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors)
      */
-    public static native void openPopupContextItem(); /*
-        ImGui::OpenPopupContextItem();
+    public static native void openPopupOnItemClick(); /*
+        ImGui::OpenPopupOnItemClick();
     */
 
     /**
      * Helper to open popup when clicked on last item. return true when just opened. (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors)
      */
-    public static native void openPopupContextItem(String strId); /*
-        ImGui::OpenPopupContextItem(strId);
+    public static native void openPopupOnItemClick(String strId); /*
+        ImGui::OpenPopupOnItemClick(strId);
     */
 
     /**
      * Helper to open popup when clicked on last item. return true when just opened. (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors)
      */
-    public static native void openPopupContextItem(int imGuiPopupFlags); /*
-        ImGui::OpenPopupContextItem(NULL, imGuiPopupFlags);
+    public static native void openPopupOnItemClick(int imGuiPopupFlags); /*
+        ImGui::OpenPopupOnItemClick(NULL, imGuiPopupFlags);
     */
 
     /**
      * Helper to open popup when clicked on last item. return true when just opened. (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors)
      */
-    public static native void openPopupContextItem(String strId, int imGuiPopupFlags); /*
-        ImGui::OpenPopupContextItem(strId, imGuiPopupFlags);
+    public static native void openPopupOnItemClick(String strId, int imGuiPopupFlags); /*
+        ImGui::OpenPopupOnItemClick(strId, imGuiPopupFlags);
     */
 
     /**
@@ -4050,44 +4050,11 @@ public class ImGui {
         ImGui::CloseCurrentPopup();
     */
 
-    /**
-     * Helper to open popup when clicked on last item (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors).
-     * return true when just opened.
-     *
-     * @deprecated use {@link ImGui#openPopupContextItem()}
-     * @since 1.77
-     */
-    public static native boolean openPopupOnItemClick(); /*
-        return ImGui::OpenPopupOnItemClick();
-    */
-
-    /**
-     * Helper to open popup when clicked on last item (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors).
-     * return true when just opened.
-     *
-     * @deprecated use {@link ImGui#openPopupContextItem(String)}
-     * @since 1.77
-     */
-    public static native boolean openPopupOnItemClick(String strId); /*
-        return ImGui::OpenPopupOnItemClick(strId);
-    */
-
-    /**
-     * Helper to open popup when clicked on last item (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors).
-     * return true when just opened.
-     *
-     * @deprecated use {@link ImGui#openPopupContextItem(String, int)}
-     * @since 1.77
-     */
-    public static native boolean openPopupOnItemClick(String strId, int mouseButton); /*
-        return ImGui::OpenPopupOnItemClick(strId, mouseButton);
-    */
-
     // Popups: open+begin combined functions helpers
     //  - Helpers to do OpenPopup+BeginPopup where the Open action is triggered by e.g. hovering an item and right-clicking.
     //  - They are convenient to easily create context menus, hence the name.
     //  - IMPORTANT: Notice that BeginPopupContextXXX takes ImGuiPopupFlags just like OpenPopup() and unlike BeginPopup(). For full consistency, we may add ImGuiWindowFlags to the BeginPopupContextXXX functions in the future.
-    //  - We exceptionally default their flags to 1 (== ImGuiPopupFlags_MouseButtonRight) for backward compatibility with older API taking 'int mouse_button = 1' parameter. Passing a mouse button to ImGuiPopupFlags is guaranteed to be legal.
+    //  - IMPORTANT: we exceptionally default their flags to 1 (== ImGuiPopupFlags_MouseButtonRight) for backward compatibility with older API taking 'int mouse_button = 1' parameter, so if you add other flags remember to re-add the ImGuiPopupFlags_MouseButtonRight.
 
     /**
      * Open+begin popup when clicked on last item. if you can pass a NULL str_id only if the previous item had an id.
@@ -4329,23 +4296,23 @@ public class ImGui {
     /**
      * Create a Tab. Returns true if the Tab is selected.
      */
-    public static boolean beginTabItem(String label, int imGuiTabBarFlags) {
-        return nBeginTabItem(label, imGuiTabBarFlags);
+    public static boolean beginTabItem(String label, int imGuiTabItemFlags) {
+        return nBeginTabItem(label, imGuiTabItemFlags);
     }
 
     /**
      * Create a Tab. Returns true if the Tab is selected.
      */
-    public static boolean beginTabItem(String label, ImBoolean pOpen, int imGuiTabBarFlags) {
-        return nBeginTabItem(label, pOpen.getData(), imGuiTabBarFlags);
+    public static boolean beginTabItem(String label, ImBoolean pOpen, int imGuiTabItemFlags) {
+        return nBeginTabItem(label, pOpen.getData(), imGuiTabItemFlags);
     }
 
-    private static native boolean nBeginTabItem(String label, int imGuiTabBarFlags); /*
-        return ImGui::BeginTabItem(label, NULL, imGuiTabBarFlags);
+    private static native boolean nBeginTabItem(String label, int imGuiTabItemFlags); /*
+        return ImGui::BeginTabItem(label, NULL, imGuiTabItemFlags);
     */
 
-    private static native boolean nBeginTabItem(String label, boolean[] pOpen, int imGuiTabBarFlags); /*
-        return ImGui::BeginTabItem(label, &pOpen[0], imGuiTabBarFlags);
+    private static native boolean nBeginTabItem(String label, boolean[] pOpen, int imGuiTabItemFlags); /*
+        return ImGui::BeginTabItem(label, &pOpen[0], imGuiTabItemFlags);
     */
 
     /**
@@ -4353,6 +4320,20 @@ public class ImGui {
      */
     public static native void endTabItem(); /*
         ImGui::EndTabItem();
+    */
+
+    /**
+     * Create a Tab behaving like a button. return true when clicked. cannot be selected in the tab bar.
+     */
+    public static native boolean tabItemButton(String label); /*
+        return ImGui::TabItemButton(label);
+    */
+
+    /**
+     * Create a Tab behaving like a button. return true when clicked. cannot be selected in the tab bar.
+     */
+    public static native boolean tabItemButton(String label, int imGuiTabItemFlags); /*
+        return ImGui::TabItemButton(label, imGuiTabItemFlags);
     */
 
     /**

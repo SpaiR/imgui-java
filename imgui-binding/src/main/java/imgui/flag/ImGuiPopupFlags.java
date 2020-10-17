@@ -14,15 +14,15 @@ public final class ImGuiPopupFlags {
 
     public static final int None = 0;
     /**
-     * For BeginPopupContext*(): open on Left Mouse release. Guaranted to always be == 0 (same as ImGuiMouseButton_Left)
+     * For BeginPopupContext*(): open on Left Mouse release. Guaranteed to always be == 0 (same as ImGuiMouseButton_Left)
      */
     public static final int MouseButtonLeft = 0;
     /**
-     * For BeginPopupContext*(): open on Right Mouse release. Guaranted to always be == 1 (same as ImGuiMouseButton_Right)
+     * For BeginPopupContext*(): open on Right Mouse release. Guaranteed to always be == 1 (same as ImGuiMouseButton_Right)
      */
     public static final int MouseButtonRight = 1;
     /**
-     * For BeginPopupContext*(): open on Middle Mouse release. Guaranted to always be == 2 (same as ImGuiMouseButton_Middle)
+     * For BeginPopupContext*(): open on Middle Mouse release. Guaranteed to always be == 2 (same as ImGuiMouseButton_Middle)
      */
     public static final int MouseButtonMiddle = 2;
     public static final int MouseButtonMask = 0x1F;

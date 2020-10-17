@@ -8,7 +8,7 @@ import java.util.Objects;
  * Helper: ImRect (2D axis aligned bounding-box)
  * NB: we can't rely on ImVec2 math operators being available here!
  */
-public final class ImRect {
+public final class ImRect implements Cloneable {
     /**
      * Upper-left
      */
@@ -33,6 +33,10 @@ public final class ImRect {
         min.y = y1;
         max.x = x2;
         max.y = y2;
+    }
+
+    public ImRect(final ImRect imRect) {
+        this(imRect.min, imRect.max);
     }
 
     @Override
@@ -60,5 +64,10 @@ public final class ImRect {
     @Override
     public int hashCode() {
         return Objects.hash(min, max);
+    }
+
+    @Override
+    public ImRect clone() {
+        return new ImRect(this);
     }
 }

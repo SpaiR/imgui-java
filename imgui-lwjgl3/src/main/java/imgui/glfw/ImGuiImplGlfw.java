@@ -460,10 +460,19 @@ public class ImGuiImplGlfw {
             final float mainSizeY = vidMode.height();
 
             glfwGetMonitorWorkarea(monitor, monitorWorkAreaX, monitorWorkAreaY, monitorWorkAreaWidth, monitorWorkAreaHeight);
-            final float workPosX = monitorWorkAreaX[0];
-            final float workPosY = monitorWorkAreaY[0];
-            final float workSizeX = monitorWorkAreaWidth[0];
-            final float workSizeY = monitorWorkAreaHeight[0];
+
+            float workPosX = 0;
+            float workPosY = 0;
+            float workSizeX = 0;
+            float workSizeY = 0;
+
+            // Workaround a small GLFW issue reporting zero on monitor changes: https://github.com/glfw/glfw/pull/1761
+            if (monitorWorkAreaWidth[0] > 0 && monitorWorkAreaHeight[0] > 0) {
+                workPosX = monitorWorkAreaX[0];
+                workPosY = monitorWorkAreaY[0];
+                workSizeX = monitorWorkAreaWidth[0];
+                workSizeY = monitorWorkAreaHeight[0];
+            }
 
             // Warning: the validity of monitor DPI information on Windows depends on the application DPI awareness settings,
             // which generally needs to be set in the manifest or at runtime.

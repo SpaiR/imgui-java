@@ -47,7 +47,7 @@ public final class ImGuiConfigFlags {
     // When using viewports it is recommended that your default value for ImGuiCol_WindowBg is opaque (Alpha=1.0) so transition to a viewport won't be noticeable.
 
     /**
-     * Viewport enable flags (require both ImGuiConfigFlags_PlatformHasViewports + ImGuiConfigFlags_RendererHasViewports set by the respective back-ends)
+     * Viewport enable flags (require both ImGuiBackendFlags_PlatformHasViewports + ImGuiBackendFlags_RendererHasViewports set by the respective back-ends)
      */
     public static final int ViewportsEnable = 1 << 10;
     /**

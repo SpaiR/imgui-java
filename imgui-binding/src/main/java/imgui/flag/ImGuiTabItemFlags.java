@@ -30,4 +30,16 @@ public final class ImGuiTabItemFlags {
      * Disable tooltip for the given tab
      */
     public static final int NoTooltip = 1 << 4;
+    /**
+     * Disable reordering this tab or having another tab cross over this tab
+     */
+    public static final int NoReorder = 1 << 5;
+    /**
+     * Enforce the tab position to the left of the tab bar (after the tab list popup button)
+     */
+    public static final int Leading = 1 << 6;
+    /**
+     * Enforce the tab position to the right of the tab bar (before the scrolling buttons)
+     */
+    public static final int Trailing = 1 << 7;
 }

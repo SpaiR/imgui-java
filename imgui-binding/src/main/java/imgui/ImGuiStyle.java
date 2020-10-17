@@ -512,16 +512,16 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
      * Minimum width for close button to appears on an unselected tab when hovered.
      * Set to 0.0f to always show when hovering, set to FLT_MAX to never show close button unless selected.
      */
-    public native float getTabMinWidthForUnselectedCloseButton(); /*
-        return IMGUI_STYLE->TabMinWidthForUnselectedCloseButton;
+    public native float getTabMinWidthForCloseButton(); /*
+        return IMGUI_STYLE->TabMinWidthForCloseButton;
     */
 
     /**
      * Minimum width for close button to appears on an unselected tab when hovered.
      * Set to 0.0f to always show when hovering, set to FLT_MAX to never show close button unless selected.
      */
-    public native void setTabMinWidthForUnselectedCloseButton(float tabMinWidthForUnselectedCloseButton); /*
-        IMGUI_STYLE->TabMinWidthForUnselectedCloseButton = tabMinWidthForUnselectedCloseButton;
+    public native void setTabMinWidthForCloseButton(float tabMinWidthForCloseButton); /*
+        IMGUI_STYLE->TabMinWidthForCloseButton = tabMinWidthForCloseButton;
     */
 
     /**
