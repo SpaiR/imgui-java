@@ -10,7 +10,6 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 import imgui.ImFontAtlas;
 import imgui.ImFontConfig;
 import imgui.ImGui;
-import imgui.ImGuiFreeType;
 import imgui.ImGuiIO;
 import imgui.ImGuiStyle;
 import imgui.flag.ImGuiCol;
@@ -183,10 +182,6 @@ public final class ImGuiGlfwExample {
         fontAtlas.addFontFromMemoryTTF(loadFromResources("Roboto-Regular.ttf"), 16, fontConfig);
 
         fontConfig.destroy(); // After all fonts were added we don't need this config more
-
-        // ------------------------------------------------------------
-        // Use freetype instead of stb_truetype to build a fonts texture
-        ImGuiFreeType.buildFontAtlas(fontAtlas, ImGuiFreeType.RasterizerFlags.LightHinting);
 
         // When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
         if (io.hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {

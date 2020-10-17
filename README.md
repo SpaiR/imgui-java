@@ -241,7 +241,7 @@ Take a note that multi-viewports api is **VERY** complex to implement. It's high
 Otherwise, if you're using your own backed implementation, there are no guarantees it will work.
 
 ## Using FreeType
-Dear ImGui by default uses a stb_strutype library to render a fonts atlas. It's possible to use FreeType instead to get better fonts quality. See an example in [ImGuiGlfwExample](https://github.com/spair/imgui-java/blob/v1.78-1.3.0/imgui-lwjgl3/src/test/java/ImGuiGlfwExample.java). [Read more](https://github.com/ocornut/imgui/blob/v1.78/misc/freetype/README.md)
+Dear ImGui by default uses a stb_strutype library to render a fonts atlas. It's possible to use FreeType instead to get better fonts quality. [Read more](https://github.com/ocornut/imgui/blob/v1.78/misc/freetype/README.md)
 
 ## Binding Notice
 * All Dear ImGui methods are available in `camelCase`, not in `PascalCase`.
