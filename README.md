@@ -262,18 +262,18 @@ Using Windows:
     * Java 8 or higher
     * Ant
     * Mingw-w64 (recommended way: use [MSYS2](https://www.msys2.org/) and install [mingw-w64-x86_64-toolchain](https://packages.msys2.org/group/mingw-w64-x86_64-toolchain) group)
- - Build with command: `gradlew :imgui-binding:generateLibs -Denvs=win64 -Dlocal`
- - Then run example with built library: `gradlew :imgui-lwjgl3:startExample -DlibPath=../imgui-binding/build/libsNative/windows64`
+ - Build with: `gradlew :imgui-binding:generateLibs -Denvs=win64 -Dlocal`
+ - Run with: `gradlew :imgui-lwjgl3:startExample -DlibPath=../imgui-binding/build/libsNative/windows64`
  
 Using Linux:
- - Install dependencies: `openjdk8`, `mingw-w64-gcc`, `ant`. Packages name could vary from system to system.
- - Build with command: `./gradlew :imgui-binding:generateLibs -Denvs=linux64 -Dlocal`
- - Then run example with built library: `./gradlew :imgui-lwjgl3:startExample -DlibPath=../imgui-binding/build/libsNative/linux64`
+ - Install dependencies: `openjdk8`, `mingw-w64-gcc`, `ant`. (Packages name could vary from system to system.)
+ - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=linux64 -Dlocal`
+ - Run with: `./gradlew :imgui-lwjgl3:startExample -DlibPath=../imgui-binding/build/libsNative/linux64`
  
 Using MacOS:
  - Check dependencies from "Using Linux" paragraph and make sure you have them installed.
- - Build with command: `./gradlew :imgui-binding:generateLibs -Denvs=mac64 -Dlocal`
- - Then run example with built library: `./gradlew :imgui-lwjgl3:startExample -DlibPath=../imgui-binding/build/libsNative/macosx64`
+ - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=mac64 -Dlocal`
+ - Run with: `./gradlew :imgui-lwjgl3:startExample -DlibPath=../imgui-binding/build/libsNative/macosx64`
 
 In `envs` parameter next values could be used `win32`, `win64`, `linux32`, `linux64` or `mac64`.<br>
 `-Dlocal` is optional and means that natives will be built under the `./imgui-binding/build/` folder. Otherwise `/tmp/imgui` folder will be used.
