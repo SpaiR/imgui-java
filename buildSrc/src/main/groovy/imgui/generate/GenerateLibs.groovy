@@ -118,7 +118,7 @@ class GenerateLibs extends DefaultTask {
 
         if (!withFreeType) {
             project.delete {
-                it.delete("$jniDir/imgui.ImGuiFreeType.cpp", "$jniDir/imgui.ImGuiFreeType.h")
+                it.delete("$jniDir/imgui_ImGuiFreeType.cpp", "$jniDir/imgui_ImGuiFreeType.h")
             }
         }
 
