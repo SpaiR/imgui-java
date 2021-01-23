@@ -47,8 +47,11 @@ class GenerateLibs extends DefaultTask {
                 spec.from(project.rootProject.file('include/imgui/misc/freetype')) { CopySpec it -> it.include('*.h', '*.cpp') }
             }
 
-            spec.from(project.rootProject.file('imgui-binding/src/main/native'))
             spec.into(jniDir)
+        }
+
+        project.copy {CopySpec spec ->
+            spec.from(project.rootProject.file('imgui-binding/src/main/native')).into(jniDir)
         }
 
         // Generate platform dependant ant configs and header files

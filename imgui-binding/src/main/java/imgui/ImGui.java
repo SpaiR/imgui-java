@@ -3583,10 +3583,6 @@ public class ImGui {
         ImGui::TreePop();
     */
 
-    public static native void treeAdvanceToLabelPos(); /*
-        ImGui::TreeAdvanceToLabelPos();
-    */
-
     /**
      * Horizontal distance preceding label when using TreeNode*() or Bullet() == (g.FontSize + style.FramePadding.x*2) for a regular unframed TreeNode
      */
@@ -4125,16 +4121,6 @@ public class ImGui {
      */
     public static native boolean beginPopupContextWindow(String strId, int imGuiPopupFlags); /*
         return ImGui::BeginPopupContextWindow(strId, imGuiPopupFlags);
-    */
-
-    /**
-     * Helper to open and begin popup when clicked on current window.
-     *
-     * @deprecated use {@link ImGui#beginPopupContextWindow(String, int)}
-     * @since 1.77
-     */
-    public static native boolean beginPopupContextWindow(String strId, int mouseButton, boolean alsoOverItems); /*
-        return ImGui::BeginPopupContextWindow(strId, mouseButton, alsoOverItems);
     */
 
     /**
