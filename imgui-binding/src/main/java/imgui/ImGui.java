@@ -2857,30 +2857,38 @@ public class ImGui {
     */
 
     public static boolean inputText(String label, ImString text) {
-        return preInputText(false, label, text, 0, 0, ImGuiInputTextFlags.None);
+        return preInputText(false, label, null, text, 0, 0, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputText(String label, ImString text, int imGuiInputTextFlags) {
-        return preInputText(false, label, text, 0, 0, imGuiInputTextFlags);
+        return preInputText(false, label, null, text, 0, 0, imGuiInputTextFlags);
     }
 
     public static boolean inputTextMultiline(String label, ImString text) {
-        return preInputText(true, label, text, 0, 0, ImGuiInputTextFlags.None);
+        return preInputText(true, label, null, text, 0, 0, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputTextMultiline(String label, ImString text, float width, float height) {
-        return preInputText(true, label, text, width, height, ImGuiInputTextFlags.None);
+        return preInputText(true, label, null, text, width, height, ImGuiInputTextFlags.None);
     }
 
     public static boolean inputTextMultiline(String label, ImString text, int imGuiInputTextFlags) {
-        return preInputText(true, label, text, 0, 0, imGuiInputTextFlags);
+        return preInputText(true, label, null, text, 0, 0, imGuiInputTextFlags);
     }
 
     public static boolean inputTextMultiline(String label, ImString text, float width, float height, int imGuiInputTextFlags) {
-        return preInputText(true, label, text, width, height, imGuiInputTextFlags);
+        return preInputText(true, label, null, text, width, height, imGuiInputTextFlags);
     }
 
-    private static boolean preInputText(boolean multiline, String label, ImString text, float width, float height, int flags) {
+    public static boolean inputTextWithHint(String label, String hint, ImString text) {
+        return preInputText(false, label, hint, text, 0, 0, ImGuiInputTextFlags.None);
+    }
+
+    public static boolean inputTextWithHint(String label, String hint, ImString text, int imGuiInputTextFlags) {
+        return preInputText(false, label, hint, text, 0, 0, imGuiInputTextFlags);
+    }
+
+    private static boolean preInputText(boolean multiline, String label, String hint, ImString text, float width, float height, int flags) {
         final ImString.InputData inputData = text.inputData;
 
         if (inputData.isResizable) {
@@ -2891,10 +2899,15 @@ public class ImGui {
             flags |= ImGuiInputTextFlags.CallbackCharFilter;
         }
 
-        return nInputText(multiline, label, text, text.getData(), text.getData().length, width, height, flags, inputData, inputData.allowedChars);
+        String hintLabel = hint;
+        if (hintLabel == null) {
+            hintLabel = "";
+        }
+
+        return nInputText(multiline, hint != null, label, hintLabel, text, text.getData(), text.getData().length, width, height, flags, inputData, inputData.allowedChars);
     }
 
-    private static native boolean nInputText(boolean multiline, String label, ImString imString, byte[] buf, int maxSize, float width, float height, int flags, ImString.InputData textInputData, String allowedChars); /*
+    private static native boolean nInputText(boolean multiline, boolean hint, String label, String hintLabel, ImString imString, byte[] buf, int maxSize, float width, float height, int flags, ImString.InputData textInputData, String allowedChars); /*
         InputTextCallbackUserData userData;
         userData.imString = &imString;
         userData.maxSize = maxSize;
@@ -2908,6 +2921,8 @@ public class ImGui {
 
         if (multiline) {
             valueChanged = ImGui::InputTextMultiline(label, buf, maxSize, ImVec2(width, height), flags, &TextEditCallbackStub, &userData);
+        } else if (hint) {
+            valueChanged = ImGui::InputTextWithHint(label, hintLabel, buf, maxSize, flags, &TextEditCallbackStub, &userData);
         } else {
             valueChanged = ImGui::InputText(label, buf, maxSize, flags, &TextEditCallbackStub, &userData);
         }
