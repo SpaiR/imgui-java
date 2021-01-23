@@ -5,10 +5,19 @@ import imgui.flag.ImGuiDir;
 import imgui.flag.ImGuiInputTextFlags;
 import imgui.flag.ImGuiStyleVar;
 import imgui.flag.ImGuiWindowFlags;
+import imgui.imnodes.ImNodes;
+import imgui.imnodes.ImNodesContext;
+import imgui.imnodes.ImNodesPinShape;
+import imgui.nodeditor.ImNodeEditor;
 import imgui.internal.ImGui;
 import imgui.internal.flag.ImGuiDockNodeFlags;
+import imgui.nodeditor.ImNodeEditorConfig;
+import imgui.nodeditor.ImNodeEditorContext;
+import imgui.nodeditor.ImNodeEditorPinKind;
 import imgui.type.ImBoolean;
 import imgui.ImColor;
+import imgui.type.ImInt;
+import imgui.type.ImLong;
 import imgui.type.ImString;
 import org.lwjgl.BufferUtils;
 
@@ -17,8 +26,23 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
+import java.util.Map;
 
-import static org.lwjgl.opengl.GL32.*;
+import static org.lwjgl.opengl.GL32.GL_CLAMP_TO_EDGE;
+import static org.lwjgl.opengl.GL32.GL_LINEAR;
+import static org.lwjgl.opengl.GL32.GL_RGBA;
+import static org.lwjgl.opengl.GL32.GL_RGBA8;
+import static org.lwjgl.opengl.GL32.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL32.GL_TEXTURE_MAG_FILTER;
+import static org.lwjgl.opengl.GL32.GL_TEXTURE_MIN_FILTER;
+import static org.lwjgl.opengl.GL32.GL_TEXTURE_WRAP_S;
+import static org.lwjgl.opengl.GL32.GL_TEXTURE_WRAP_T;
+import static org.lwjgl.opengl.GL32.GL_UNSIGNED_BYTE;
+import static org.lwjgl.opengl.GL32.glBindTexture;
+import static org.lwjgl.opengl.GL32.glGenTextures;
+import static org.lwjgl.opengl.GL32.glTexImage2D;
+import static org.lwjgl.opengl.GL32.glTexParameteri;
 
 @SuppressWarnings({"MagicNumber", "VisibilityModifier"})
 final class ExampleUi {
@@ -37,6 +61,8 @@ final class ExampleUi {
     // Toggles
     private final ImBoolean showBottomDockedWindow = new ImBoolean(true);
     private final ImBoolean showDemoWindow = new ImBoolean();
+    private final ImBoolean showImNodesWindow = new ImBoolean(false);
+    private final ImBoolean showImNodeEditorWindow = new ImBoolean(false);
 
     // Attach image example
     private int dukeTexture = 0;
@@ -46,7 +72,25 @@ final class ExampleUi {
     // To modify background color dynamically
     final float[] backgroundColor = new float[]{0.5f, 0, 0};
 
+    // Context for imnodes example
+    private ImNodesContext imNodesContext;
+
+    // Context for imgui-node-editor example
+    private ImNodeEditorContext imNodeEditorContext;
+
+    // Graph used both for imnodes and imgui-node-editor demo
+    private final Graph graph = new Graph();
+
     void render() throws Exception {
+        if (imNodesContext == null) {
+            imNodesContext = new ImNodesContext();
+        }
+        if (imNodeEditorContext == null) {
+            final ImNodeEditorConfig config = new ImNodeEditorConfig();
+            config.setSettingsFile(null);
+            imNodeEditorContext = new ImNodeEditorContext(config);
+        }
+
         final int dockspaceId = ImGui.getID("MyDockSpace");
         showDockSpace(dockspaceId);
         setupBottomDockedWindow(dockspaceId);
@@ -57,7 +101,6 @@ final class ExampleUi {
         ImGui.setNextWindowPos(mainViewport.getWorkPosX() + 10, mainViewport.getWorkPosY() + 10, ImGuiCond.Once);
 
         ImGui.begin("Custom window");  // Start Custom window
-
         showWindowImage();
         showToggles();
 
@@ -79,6 +122,14 @@ final class ExampleUi {
 
         if (showDemoWindow.get()) {
             ImGui.showDemoWindow(showDemoWindow);
+        }
+
+        if (showImNodesWindow.get()) {
+           showImNodesWindow();
+        }
+
+        if (showImNodeEditorWindow.get()) {
+            showImNodeEditorWindow();
         }
     }
 
@@ -138,6 +189,8 @@ final class ExampleUi {
     private void showToggles() {
         ImGui.checkbox("Show Demo Window", showDemoWindow);
         ImGui.checkbox("Show Bottom Docked Window", showBottomDockedWindow);
+        ImGui.checkbox("Show demo for imnodes", showImNodesWindow);
+        ImGui.checkbox("Show demo for imgui-node-editor", showImNodeEditorWindow);
         if (ImGui.button("Reset Bottom Dock Window")) {
             isBottomDockedWindowInit = false;
         }
@@ -190,6 +243,177 @@ final class ExampleUi {
         }
     }
 
+    private void showImNodesWindow() {
+        ImGui.setNextWindowSize(400F, 400F, ImGuiCond.Appearing);
+        ImGui.begin("Demo imnodes", showImNodesWindow);
+
+        ImGui.text("This a demo graph editor for ImNodes");
+
+        ImNodes.editorContextSet(imNodesContext);
+        ImNodes.beginNodeEditor();
+
+        for (Graph.GraphNode node : graph.nodes.values()) {
+            ImNodes.beginNode(node.nodeId);
+
+            ImNodes.beginNodeTitleBar();
+            ImGui.text(node.getName());
+            ImNodes.endNodeTitleBar();
+
+
+            ImNodes.beginInputAttribute(node.getInputPinId(), ImNodesPinShape.CircleFilled);
+            ImGui.text("In");
+            ImNodes.endInputAttribute();
+
+            ImGui.sameLine();
+
+            ImNodes.beginOutputAttribute(node.getOutputPinId());
+            ImGui.text("Out");
+            ImNodes.endOutputAttribute();
+
+            ImNodes.endNode();
+        }
+
+        int uniqueLinkId = 1;
+        for (Graph.GraphNode node : graph.nodes.values()) {
+            if (graph.nodes.containsKey(node.outputNodeId)) {
+                ImNodes.link(uniqueLinkId++, node.getOutputPinId(), graph.nodes.get(node.outputNodeId).getInputPinId());
+            }
+        }
+
+        final boolean isEditorHovered = ImNodes.isEditorHovered();
+
+        ImNodes.endNodeEditor();
+        final ImInt a = new ImInt();
+        final ImInt b = new ImInt();
+        if (ImNodes.isLinkCreated(a, b)) {
+            final Graph.GraphNode source = graph.findByOutput(a.get());
+            final Graph.GraphNode target = graph.findByInput(b.get());
+            if (source != null && target != null && source.outputNodeId != target.nodeId) {
+               source.outputNodeId = target.nodeId;
+            }
+        }
+
+        if (ImGui.isMouseClicked(1)) {
+            final int hoveredNode = ImNodes.getHoveredNode();
+            if (hoveredNode != -1) {
+                ImGui.openPopup("node-context");
+                ImGui.getStateStorage().setInt(ImGui.getID("delete-node-id"), hoveredNode);
+            } else if (isEditorHovered) {
+                ImGui.openPopup("node-editor-context");
+            }
+        }
+
+        if (ImGui.isPopupOpen("node-context")) {
+            final int targetNode = ImGui.getStateStorage().getInt(ImGui.getID("delete-node-id"));
+            if (ImGui.beginPopup("node-context")) {
+                if (ImGui.button("Delete " + graph.nodes.get(targetNode).getName())) {
+                    graph.nodes.remove(targetNode);
+                    ImGui.closeCurrentPopup();
+                }
+                ImGui.endPopup();
+            }
+        }
+
+        if (ImGui.beginPopup("node-editor-context")) {
+            if (ImGui.button("Create new node")) {
+                final Graph.GraphNode node = graph.createGraphNode();
+                ImNodes.setNodeScreenSpacePos(node.nodeId, ImGui.getMousePosX(), ImGui.getMousePosY());
+                ImGui.closeCurrentPopup();
+            }
+            ImGui.endPopup();
+        }
+
+        ImGui.end();
+    }
+
+    private void showImNodeEditorWindow() {
+        ImGui.setNextWindowSize(400F, 400F, ImGuiCond.Appearing);
+        ImGui.begin("Demo imgui-node-editor", showImNodeEditorWindow);
+
+        ImGui.text("This a demo graph editor for imgui-node-editor");
+
+        if (ImGui.button("Navigate to content")) {
+            ImNodeEditor.navigateToContent(1F);
+        }
+
+        ImNodeEditor.setCurrentEditor(imNodeEditorContext);
+        ImNodeEditor.begin("Node Editor");
+
+        for (Graph.GraphNode node : graph.nodes.values()) {
+            ImNodeEditor.beginNode(node.nodeId);
+
+            ImGui.text(node.getName());
+
+            ImNodeEditor.beginPin(node.getInputPinId(), ImNodeEditorPinKind.Input);
+            ImGui.text("-> In");
+            ImNodeEditor.endPin();
+
+            ImGui.sameLine();
+
+            ImNodeEditor.beginPin(node.getOutputPinId(), ImNodeEditorPinKind.Output);
+            ImGui.text("Out ->");
+            ImNodeEditor.endPin();
+
+            ImNodeEditor.endNode();
+        }
+
+        if (ImNodeEditor.beginCreate()) {
+            final ImLong a = new ImLong();
+            final ImLong b = new ImLong();
+            if (ImNodeEditor.queryNewLink(a, b)) {
+                final Graph.GraphNode source = graph.findByOutput(a.get());
+                final Graph.GraphNode target = graph.findByInput(b.get());
+                if (source != null && target != null && source.outputNodeId != target.nodeId && ImNodeEditor.acceptNewItem()) {
+                    source.outputNodeId = target.nodeId;
+                }
+            }
+        }
+        ImNodeEditor.endCreate();
+
+        int uniqueLinkId = 1;
+        for (Graph.GraphNode node : graph.nodes.values()) {
+            if (graph.nodes.containsKey(node.outputNodeId)) {
+                ImNodeEditor.link(uniqueLinkId++, node.getOutputPinId(), graph.nodes.get(node.outputNodeId).getInputPinId());
+            }
+        }
+
+        ImNodeEditor.suspend();
+        final long nodeWithContextMenu = ImNodeEditor.getNodeWithContextMenu();
+        if (nodeWithContextMenu != -1) {
+            ImGui.openPopup("node-context");
+            ImGui.getStateStorage().setInt(ImGui.getID("delete-node-id"), (int) nodeWithContextMenu);
+        }
+
+        if (ImGui.isPopupOpen("node-context")) {
+            final int targetNode = ImGui.getStateStorage().getInt(ImGui.getID("delete-node-id"));
+            if (ImGui.beginPopup("node-context")) {
+                if (ImGui.button("Delete " + graph.nodes.get(targetNode).getName())) {
+                    graph.nodes.remove(targetNode);
+                    ImGui.closeCurrentPopup();
+                }
+                ImGui.endPopup();
+            }
+        }
+
+        if (ImNodeEditor.showBackgroundContextMenu()) {
+            ImGui.openPopup("node-editor-context");
+        }
+        if (ImGui.beginPopup("node-editor-context")) {
+            if (ImGui.button("Create new node")) {
+                final Graph.GraphNode node = graph.createGraphNode();
+                final float canvasX = ImNodeEditor.toCanvasX(ImGui.getMousePosX());
+                final float canvasY = ImNodeEditor.toCanvasY(ImGui.getMousePosY());
+                ImNodeEditor.setNodePosition(node.nodeId, canvasX, canvasY);
+                ImGui.closeCurrentPopup();
+            }
+            ImGui.endPopup();
+        }
+        ImNodeEditor.resume();
+
+        ImNodeEditor.end();
+        ImGui.end();
+    }
+
     private int loadTexture(final BufferedImage image) {
         final int[] pixels = new int[image.getWidth() * image.getHeight()];
         image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
@@ -218,5 +442,71 @@ final class ExampleUi {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 
         return textureID;
+    }
+
+
+    // Simple graph struct for both of node editors demos
+    private static final class Graph {
+
+        private int nextNodeId = 1;
+        private int nextPinId = 100;
+
+        final Map<Integer, GraphNode> nodes = new HashMap<>();
+
+        private Graph() {
+            final GraphNode first = createGraphNode();
+            final GraphNode second = createGraphNode();
+            first.outputNodeId = second.nodeId;
+        }
+
+        public GraphNode createGraphNode() {
+            final GraphNode node = new GraphNode(nextNodeId++, nextPinId++, nextPinId++);
+            this.nodes.put(node.nodeId, node);
+            return node;
+        }
+
+        public GraphNode findByInput(final long inputPinId) {
+            for (GraphNode node : nodes.values()) {
+                if (node.getInputPinId() == inputPinId) {
+                    return node;
+                }
+            }
+            return null;
+        }
+
+        public GraphNode findByOutput(final long outputPinId) {
+            for (GraphNode node : nodes.values()) {
+                if (node.getOutputPinId() == outputPinId) {
+                    return node;
+                }
+            }
+            return null;
+        }
+
+        private static final class GraphNode {
+            private final int nodeId;
+            private final int inputPinId;
+            private final int outputPinId;
+
+            public int outputNodeId = -1;
+
+            private GraphNode(final int nodeId, final int inputPinId, final int outputPintId) {
+                this.nodeId = nodeId;
+                this.inputPinId = inputPinId;
+                this.outputPinId = outputPintId;
+            }
+
+            public int getInputPinId() {
+                return inputPinId;
+            }
+
+            public int getOutputPinId() {
+                return outputPinId;
+            }
+
+            public String getName() {
+                return "Node " + (char) (64 + nodeId);
+            }
+        }
     }
 }
