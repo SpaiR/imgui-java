@@ -39,12 +39,12 @@ class GenerateLibs extends DefaultTask {
 
         // Copy ImGui h/cpp files
         project.copy { CopySpec spec ->
-            ['imgui', 'imnodes', 'imgui-node-editor'].each {
+            ['include/imgui', 'include/imnodes', 'include/imgui-node-editor'].each {
                 spec.from(project.rootProject.file(it)) { CopySpec s -> s.include('*.h', '*.cpp', '*.inl') }
             }
 
             if (withFreeType) {
-                spec.from(project.rootProject.file('imgui/misc/freetype')) { CopySpec it -> it.include('*.h', '*.cpp') }
+                spec.from(project.rootProject.file('include/imgui/misc/freetype')) { CopySpec it -> it.include('*.h', '*.cpp') }
             }
 
             spec.from(project.rootProject.file('imgui-binding/src/main/native'))

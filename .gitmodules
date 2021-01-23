@@ -1,9 +1,9 @@
-[submodule "imgui"]
-	path = imgui
+[submodule "include/imgui"]
+	path = include/imgui
 	url = https://github.com/ocornut/imgui
-[submodule "imgui-node-editor"]
-	path = imgui-node-editor
-	url = https://github.com/thedmd/imgui-node-editor.git
-[submodule "imnodes"]
-	path = imnodes
-	url = https://github.com/Nelarius/imnodes.git
+[submodule "include/imgui-node-editor"]
+	path = include/imgui-node-editor
+	url = https://github.com/thedmd/imgui-node-editor
+[submodule "include/imnodes"]
+	path = include/imnodes
+	url = https://github.com/Nelarius/imnodes
