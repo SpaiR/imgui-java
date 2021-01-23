@@ -21,22 +21,16 @@ import imgui.type.ImLong;
  * we use longs to reduce boilerplate and garbage production
  */
 public final class ImNodeEditor {
+    private static final ImDrawList HINT_FOREGROUND_DRAW_LIST = new ImDrawList(0);
+    private static final ImDrawList HINT_BACKGROUND_DRAW_LIST = new ImDrawList(0);
+    private static final ImDrawList NODE_BACKGROUND_DRAW_LIST = new ImDrawList(0);
 
-    private static final ImDrawList HINT_FOREGROUND_DRAW_LIST;
-    private static final ImDrawList HINT_BACKGROUND_DRAW_LIST;
-    private static final ImDrawList NODE_BACKGROUND_DRAW_LIST;
+    private static ImNodeEditorStyle style;
 
-    static {
-        HINT_FOREGROUND_DRAW_LIST = new ImDrawList(0);
-        HINT_BACKGROUND_DRAW_LIST = new ImDrawList(0);
-        NODE_BACKGROUND_DRAW_LIST = new ImDrawList(0);
+    private ImNodeEditor() {
     }
 
-    private ImNodeEditor() { }
-
     /*JNI
-        #pragma warning (disable:4244)
-
         #include <imgui.h>
         #include <imgui_node_editor.h>
         #include <imgui_node_editor_internal.h>
@@ -46,12 +40,15 @@ public final class ImNodeEditor {
         namespace ed = ax::NodeEditor;
      */
 
-
     /**
      * This method exists for api consistency and you can just call NodeEditorContext manually
      */
     public static ImNodeEditorContext createEditor() {
         return new ImNodeEditorContext();
+    }
+
+    public static ImNodeEditorContext createEditor(final ImNodeEditorConfig config) {
+        return new ImNodeEditorContext(config);
     }
 
     /**
@@ -130,6 +127,17 @@ public final class ImNodeEditor {
         return ed::CanvasToScreen(ImVec2(0.0f, canvasSpacePosY)).y;
     */
 
+    public static ImNodeEditorStyle getStyle() {
+        if (style == null) {
+            style = new ImNodeEditorStyle(nGetStyle());
+        }
+        return style;
+    }
+
+    private static native long nGetStyle(); /*
+        return (intptr_t)&ed::GetStyle();
+    */
+
     public static native String getStyleColorName(int imNodeEditorStyleColor); /*
         return env->NewStringUTF(ed::GetStyleColorName((ed::StyleColor)imNodeEditorStyleColor));
     */
@@ -157,7 +165,6 @@ public final class ImNodeEditor {
     public static native void popStyleVar(int count); /*
         ed::PopStyleVar(count);
     */
-
 
     public static native float getGroupMinX(); /*
         return ed::GetGroupMin().x;
@@ -192,7 +199,7 @@ public final class ImNodeEditor {
 
     public static ImDrawList getNodeBackgroundDrawList(final long nodeId) {
         final long ptr = nGetNodeBackgroundDrawList(nodeId);
-        if (ptr == 0L) {
+        if (ptr == 0) {
             return null;
         } else {
             NODE_BACKGROUND_DRAW_LIST.ptr = ptr;
@@ -201,27 +208,27 @@ public final class ImNodeEditor {
     }
 
     private static native long nGetHintForegroundDrawList(); /*
-        return (jlong)(intptr_t)ed::GetHintForegroundDrawList();
+        return (intptr_t)(uintptr_t)ed::GetHintForegroundDrawList();
     */
 
     private static native long nGetHintBackgroundDrawList(); /*
-        return (jlong)(intptr_t)ed::GetHintBackgroundDrawList();
+        return (intptr_t)(uintptr_t)ed::GetHintBackgroundDrawList();
     */
 
     private static native long nGetNodeBackgroundDrawList(long nodeId); /*
-        return (jlong)(intptr_t)ed::GetNodeBackgroundDrawList(nodeId);
+        return (intptr_t)(uintptr_t)ed::GetNodeBackgroundDrawList(nodeId);
     */
 
     public static native long getDoubleClickedNode(); /*
-        return (jlong)(uintptr_t)ed::GetDoubleClickedNode();
+        return (intptr_t)(uintptr_t)ed::GetDoubleClickedNode();
     */
 
     public static native long getDoubleClickedPin(); /*
-        return (jlong)(uintptr_t)ed::GetDoubleClickedPin();
+        return (intptr_t)(uintptr_t)ed::GetDoubleClickedPin();
     */
 
     public static native long getDoubleClickedLink(); /*
-        return (jlong)(uintptr_t)ed::GetDoubleClickedLink();
+        return (intptr_t)(uintptr_t)ed::GetDoubleClickedLink();
     */
 
     public static native boolean isBackgroundClicked(); /*
@@ -264,47 +271,47 @@ public final class ImNodeEditor {
         return nShowNodeContextMenu(nodeId.getData());
     }
 
+    private static native boolean nShowNodeContextMenu(long[] nodeId); /*
+        return ed::ShowNodeContextMenu((ed::NodeId*)&nodeId[0]);
+    */
+
     public static boolean showPinContextMenu(final ImLong pinId) {
         return nShowPinContextMenu(pinId.getData());
     }
+
+    private static native boolean nShowPinContextMenu(long[] pinId); /*
+        return ed::ShowPinContextMenu((ed::PinId*)&pinId[0]);
+    */
 
     public static boolean showLinkContextMenu(final ImLong linkId) {
         return nShowLinkContextMenu(linkId.getData());
     }
 
+    private static native boolean nShowLinkContextMenu(long[] linkId); /*
+        return ed::ShowLinkContextMenu((ed::LinkId*)&linkId[0]);
+    */
+
     /**
      * Binding notice: getNodeWithContextMenu(), getPinWithContextMenu() and getLinkWithContextMenu()
      * return id of the object for which context menu should be shown. If there is no such object -1 will be returned.
-     *
+     * <p>
      * These methods implemented as convenient alternative to showNodeContextMenu(ImLong), showPinContextMenu(ImLong) and
      * showLinkContextMenu(ImLong)
      */
 
     public static native long getNodeWithContextMenu(); /*
         ed::NodeId id;
-        return ed::ShowNodeContextMenu(&id) ? (jlong)(uintptr_t)id : -1;
+        return ed::ShowNodeContextMenu(&id) ? (intptr_t)(uintptr_t)id : -1;
     */
 
     public static native long getPinWithContextMenu(); /*
         ed::PinId id;
-        return ed::ShowPinContextMenu(&id) ? (jlong)(uintptr_t)id : -1;
+        return ed::ShowPinContextMenu(&id) ? (intptr_t)(uintptr_t)id : -1;
     */
 
     public static native long getLinkWithContextMenu(); /*
         ed::LinkId id;
-        return ed::ShowLinkContextMenu(&id) ? (jlong)(uintptr_t)id : -1;
-    */
-
-    private static native boolean nShowNodeContextMenu(long[] nodeId); /*
-        return ed::ShowNodeContextMenu((ed::NodeId*)&nodeId[0]);
-    */
-
-    private static native boolean nShowPinContextMenu(long[] pinId); /*
-        return ed::ShowPinContextMenu((ed::PinId*)&pinId[0]);
-    */
-
-    private static native boolean nShowLinkContextMenu(long[] linkId); /*
-        return ed::ShowLinkContextMenu((ed::LinkId*)&linkId[0]);
+        return ed::ShowLinkContextMenu(&id) ? (intptr_t)(uintptr_t)id : -1;
     */
 
     public static native boolean showBackgroundContextMenu(); /*
@@ -336,7 +343,7 @@ public final class ImNodeEditor {
     */
 
     public static void link(final long id, final long startPinId, final long endPinId) {
-        link(id, startPinId, endPinId, 1F, 1F, 1F, 1F, 1F);
+        link(id, startPinId, endPinId, 1, 1, 1, 1, 1);
     }
 
     public static native void link(long id, long startPinId, long endPinId, float r, float g, float b, float a,
@@ -349,7 +356,7 @@ public final class ImNodeEditor {
     */
 
     public static boolean beginCreate() {
-        return beginCreate(1F, 1F, 1F, 1F, 1F);
+        return beginCreate(1, 1, 1, 1, 1);
     }
 
     public static native boolean beginCreate(float r, float g, float b, float a, float thickness); /*
@@ -357,7 +364,7 @@ public final class ImNodeEditor {
     */
 
     public static boolean queryNewLink(final ImLong startId, final ImLong endId) {
-        return nQueryNewLink(startId.getData(), endId.getData(), 1F, 1F, 1F, 1F, 1F);
+        return nQueryNewLink(startId.getData(), endId.getData(), 1, 1, 1, 1, 1);
     }
 
     public static boolean queryNewLink(final ImLong startId, final ImLong endId, final float r, final float g, final float b, final float a, final float thickness) {
@@ -369,7 +376,7 @@ public final class ImNodeEditor {
     */
 
     public static boolean acceptNewItem() {
-        return acceptNewItem(1F, 1F, 1F, 1F, 1F);
+        return acceptNewItem(1, 1, 1, 1, 1);
     }
 
     public static native boolean acceptNewItem(float r, float g, float b, float a, float thickness); /*
@@ -377,7 +384,7 @@ public final class ImNodeEditor {
     */
 
     public static void rejectNewItem() {
-        rejectNewItem(1F, 1F, 1F, 1F, 1F);
+        rejectNewItem(1, 1, 1, 1, 1);
     }
 
     public static native void rejectNewItem(float r, float g, float b, float a, float thickness); /*
@@ -544,5 +551,4 @@ public final class ImNodeEditor {
     public static native void endShortcut(); /*
         ed::EndShortcut();
     */
-
 }

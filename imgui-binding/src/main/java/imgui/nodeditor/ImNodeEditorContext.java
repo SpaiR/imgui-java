@@ -3,24 +3,26 @@ package imgui.nodeditor;
 import imgui.binding.ImGuiStructDestroyable;
 
 public final class ImNodeEditorContext extends ImGuiStructDestroyable {
-
-    /*JNI
-        #include <imgui.h>
-        #include <imgui_node_editor.h>
-        #include "jni_common.h"
-        #include "jni_binding_struct.h"
-        namespace ed = ax::NodeEditor;
-
-         #define IM_NODE_EDITOR_CONTEXT ((ed::EditorContext*)STRUCT_PTR)
-     */
-
     public ImNodeEditorContext() {
-        super();
+    }
+
+    public ImNodeEditorContext(final ImNodeEditorConfig config) {
+        this(nCreate(config.ptr));
     }
 
     public ImNodeEditorContext(final long ptr) {
         super(ptr);
     }
+
+    /*JNI
+        #include <imgui.h>
+        #include <imgui_node_editor.h>
+        #include "jni_binding_struct.h"
+
+        namespace ed = ax::NodeEditor;
+
+        #define IM_NODE_EDITOR_CONTEXT ((ed::EditorContext*)STRUCT_PTR)
+     */
 
     @Override
     protected long create() {
@@ -33,7 +35,11 @@ public final class ImNodeEditorContext extends ImGuiStructDestroyable {
     }
 
     private native long nCreate(); /*
-        return (jlong)ed::CreateEditor();
+        return (intptr_t)ed::CreateEditor();
+    */
+
+    private static native long nCreate(long cfgPtr); /*
+        return (intptr_t)ed::CreateEditor((ed::Config*)cfgPtr);
     */
 
     private native void nDestroyEditorContext(); /*

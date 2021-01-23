@@ -11,6 +11,7 @@ import imgui.imnodes.ImNodesPinShape;
 import imgui.nodeditor.ImNodeEditor;
 import imgui.internal.ImGui;
 import imgui.internal.flag.ImGuiDockNodeFlags;
+import imgui.nodeditor.ImNodeEditorConfig;
 import imgui.nodeditor.ImNodeEditorContext;
 import imgui.nodeditor.ImNodeEditorPinKind;
 import imgui.type.ImBoolean;
@@ -85,7 +86,9 @@ final class ExampleUi {
             imNodesContext = new ImNodesContext();
         }
         if (imNodeEditorContext == null) {
-            imNodeEditorContext = new ImNodeEditorContext();
+            final ImNodeEditorConfig config = new ImNodeEditorConfig();
+            config.setSettingsFile(null);
+            imNodeEditorContext = new ImNodeEditorContext(config);
         }
 
         final int dockspaceId = ImGui.getID("MyDockSpace");

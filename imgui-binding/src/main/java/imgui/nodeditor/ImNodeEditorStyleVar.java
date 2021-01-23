@@ -1,7 +1,6 @@
 package imgui.nodeditor;
 
 public final class ImNodeEditorStyleVar {
-
     private ImNodeEditorStyleVar() {
     }
 
@@ -28,5 +27,4 @@ public final class ImNodeEditorStyleVar {
     public static final int PinArrowWidth = 20;
     public static final int GroupRounding = 21;
     public static final int GroupBorderWidth = 22;
-
 }

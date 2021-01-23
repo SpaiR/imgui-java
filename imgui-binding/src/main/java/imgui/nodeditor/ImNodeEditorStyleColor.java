@@ -1,7 +1,6 @@
 package imgui.nodeditor;
 
 public final class ImNodeEditorStyleColor {
-
     private ImNodeEditorStyleColor() {
     }
 
@@ -23,5 +22,4 @@ public final class ImNodeEditorStyleColor {
     public static final int FlowMarker = 15;
     public static final int GroupBg = 16;
     public static final int GroupBorder = 17;
-
 }
