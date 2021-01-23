@@ -350,6 +350,35 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     /**
+     * Padding within a table cell.
+     */
+    public native void getCellPadding(ImVec2 dstImVec2); /*
+        Jni::ImVec2Cpy(env, &IMGUI_STYLE->CellPadding, dstImVec2);
+    */
+
+    /**
+     * Padding within a table cell.
+     */
+    public native float getCellPaddingX(); /*
+        return IMGUI_STYLE->CellPadding.x;
+    */
+
+    /**
+     * Padding within a table cell.
+     */
+    public native float getCellPaddingY(); /*
+        return IMGUI_STYLE->CellPadding.y;
+    */
+
+    /**
+     * Padding within a table cell.
+     */
+    public native void setCellPadding(float x, float y); /*
+        IMGUI_STYLE->CellPadding.x = x;
+        IMGUI_STYLE->CellPadding.y = y;
+    */
+
+    /**
      * Expand reactive bounding box for touch-based system where touch position is not accurate enough.
      * Unfortunately we don't sort widgets so priority on overlap will always be given to the first widget. So don't grow this too much!
      */
@@ -692,7 +721,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
 
     /**
      * Enable anti-aliased lines/borders using textures where possible.
-     * Require back-end to render with bilinear filtering.
+     * Require backend to render with bilinear filtering.
      * Latched at the beginning of the frame (copied to ImDrawList).
      */
     public native boolean getAntiAliasedLinesUseTex(); /*
@@ -701,7 +730,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
 
     /**
      * Enable anti-aliased lines/borders using textures where possible.
-     * Require back-end to render with bilinear filtering.
+     * Require backend to render with bilinear filtering.
      * Latched at the beginning of the frame (copied to ImDrawList).
      */
     public native void setAntiAliasedLinesUseTex(boolean antiAliasedLinesUseTex); /*

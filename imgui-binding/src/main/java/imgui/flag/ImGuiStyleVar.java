@@ -78,32 +78,36 @@ public final class ImGuiStyleVar {
      */
     public static final int IndentSpacing = 15;
     /**
+     * ImVec2    CellPadding
+     */
+    public static final int CellPadding = 16;
+    /**
      * float     ScrollbarSize
      */
-    public static final int ScrollbarSize = 16;
+    public static final int ScrollbarSize = 17;
     /**
      * float     ScrollbarRounding
      */
-    public static final int ScrollbarRounding = 17;
+    public static final int ScrollbarRounding = 18;
     /**
      * float     GrabMinSize
      */
-    public static final int GrabMinSize = 18;
+    public static final int GrabMinSize = 19;
     /**
      * float     GrabRounding
      */
-    public static final int GrabRounding = 19;
+    public static final int GrabRounding = 20;
     /**
      * float     TabRounding
      */
-    public static final int TabRounding = 20;
+    public static final int TabRounding = 21;
     /**
      * ImVec2    ButtonTextAlign
      */
-    public static final int ButtonTextAlign = 21;
+    public static final int ButtonTextAlign = 22;
     /**
      * ImVec2    SelectableTextAlign
      */
-    public static final int SelectableTextAlign = 22;
-    public static final int COUNT = 23;
+    public static final int SelectableTextAlign = 23;
+    public static final int COUNT = 24;
 }

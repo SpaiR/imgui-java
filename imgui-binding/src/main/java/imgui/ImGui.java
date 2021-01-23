@@ -190,9 +190,7 @@ public class ImGui {
     */
 
     /**
-     * Ends the Dear ImGui frame, finalize the draw data.
-     * You can get call GetDrawData() to obtain it and run your rendering function (up to v1.60, this used to call io.RenderDrawListsFn().
-     * Nowadays, we allow and prefer calling your render function yourself.)
+     * Ends the Dear ImGui frame, finalize the draw data. You can then get call GetDrawData().
      */
     public static native void render(); /*
         ImGui::Render();
@@ -215,8 +213,7 @@ public class ImGui {
     // Demo, Debug, Information
 
     /**
-     * Create Demo window (previously called ShowTestWindow). demonstrate most ImGui features.
-     * Call this to learn about the library!
+     * Create Demo window. Demonstrate most ImGui features. Call this to learn about the library!
      */
     public static native void showDemoWindow(); /*
         ImGui::ShowDemoWindow();
@@ -228,6 +225,24 @@ public class ImGui {
 
     private static native void nShowDemoWindow(boolean[] pOpen); /*
         ImGui::ShowDemoWindow(&pOpen[0]);
+    */
+
+    /**
+     * Create Metrics/Debugger window. display Dear ImGui internals: windows, draw commands, various internal state, etc.
+     */
+    public static void showMetricsWindow(ImBoolean pOpen) {
+        nShowMetricsWindow(pOpen.getData());
+    }
+
+    /**
+     * Create Metrics/Debugger window. display Dear ImGui internals: windows, draw commands, various internal state, etc.
+     */
+    public static native void showMetricsWindow(); /*
+        ImGui::ShowMetricsWindow();
+    */
+
+    private static native void nShowMetricsWindow(boolean[] pOpen); /*
+        ImGui::ShowMetricsWindow(&pOpen[0]);
     */
 
     /**
@@ -243,26 +258,6 @@ public class ImGui {
 
     private static native void nShowAboutWindow(boolean[] pOpen); /*
         ImGui::ShowAboutWindow(&pOpen[0]);
-    */
-
-    /**
-     * Create Debug/Metrics window.
-     * Display Dear ImGui internals: draw commands (with individual draw calls and vertices), window list, basic internal state, etc.
-     */
-    public static native void showMetricsWindow(); /*
-        ImGui::ShowMetricsWindow();
-    */
-
-    /**
-     * Create Debug/Metrics window.
-     * Display Dear ImGui internals: draw commands (with individual draw calls and vertices), window list, basic internal state, etc.
-     */
-    public static void showMetricsWindow(ImBoolean pOpen) {
-        nShowMetricsWindow(pOpen.getData());
-    }
-
-    private static native void nShowMetricsWindow(boolean[] pOpen); /*
-        ImGui::ShowMetricsWindow(&pOpen[0]);
     */
 
     /**
@@ -303,7 +298,7 @@ public class ImGui {
     */
 
     /**
-     * Get the compiled version string e.g. "1.23" (essentially the compiled value for IMGUI_VERSION)
+     * Get the compiled version string e.g. "1.80 WIP" (essentially the value for IMGUI_VERSION from the compiled version of imgui.cpp)
      */
     public static native String getVersion(); /*
         return env->NewStringUTF(ImGui::GetVersion());
@@ -318,27 +313,12 @@ public class ImGui {
         ImGui::StyleColorsDark();
     */
 
-    public static void styleColorsDark(ImGuiStyle ref) {
-        nStyleColorsDark(ref.ptr);
+    public static void styleColorsDark(ImGuiStyle style) {
+        nStyleColorsDark(style.ptr);
     }
 
-    private static native void nStyleColorsDark(long ref); /*
-        ImGui::StyleColorsDark((ImGuiStyle*)ref);
-    */
-
-    /**
-     * Classic imgui style
-     */
-    public static native void styleColorsClassic(); /*
-        ImGui::StyleColorsClassic();
-    */
-
-    public static void styleColorsClassic(ImGuiStyle ref) {
-        nStyleColorsClassic(ref.ptr);
-    }
-
-    private static native void nStyleColorsClassic(long ref); /*
-        ImGui::StyleColorsClassic((ImGuiStyle*)ref);
+    private static native void nStyleColorsDark(long ptr); /*
+        ImGui::StyleColorsDark((ImGuiStyle*)ptr);
     */
 
     /**
@@ -348,12 +328,27 @@ public class ImGui {
         ImGui::StyleColorsLight();
     */
 
-    public static void styleColorsLight(ImGuiStyle ref) {
-        nStyleColorsLight(ref.ptr);
+    public static void styleColorsLight(ImGuiStyle style) {
+        nStyleColorsLight(style.ptr);
     }
 
-    private static native void nStyleColorsLight(long ref); /*
-        ImGui::StyleColorsLight((ImGuiStyle*)ref);
+    private static native void nStyleColorsLight(long ptr); /*
+        ImGui::StyleColorsLight((ImGuiStyle*)ptr);
+    */
+
+    /**
+     * Classic imgui style
+     */
+    public static native void styleColorsClassic(); /*
+        ImGui::StyleColorsClassic();
+    */
+
+    public static void styleColorsClassic(ImGuiStyle style) {
+        nStyleColorsClassic(style.ptr);
+    }
+
+    private static native void nStyleColorsClassic(long ptr); /*
+        ImGui::StyleColorsClassic((ImGuiStyle*)ptr);
     */
 
     // Windows
@@ -402,7 +397,10 @@ public class ImGui {
     // - Use child windows to begin into a self-contained independent scrolling/clipping regions within a host window. Child windows can embed their own child.
     // - For each independent axis of 'size': ==0.0f: use remaining host window size / >0.0f: fixed size / <0.0f: use remaining window size minus abs(size) / Each axis can use a different mode, e.g. ImVec2(0,400).
     // - BeginChild() returns false to indicate the window is collapsed or fully clipped, so you may early out and omit submitting anything to the window.
-    //   Always call a matching EndChild() for each BeginChild() call, regardless of its return value [this is due to legacy reason and is inconsistent with most other functions such as BeginMenu/EndMenu, BeginPopup/EndPopup, etc. where the EndXXX call should only be called if the corresponding BeginXXX function returned true.]
+    //   Always call a matching EndChild() for each BeginChild() call, regardless of its return value.
+    //   [Important: due to legacy reason, this is inconsistent with most other functions such as BeginMenu/EndMenu,
+    //    BeginPopup/EndPopup, etc. where the EndXXX call should only be called if the corresponding BeginXXX function
+    //    returned true. Begin and BeginChild are the only odd ones out. Will be fixed in a future update.]
 
     public static native boolean beginChild(String strId); /*
         return ImGui::BeginChild(strId);
@@ -771,28 +769,8 @@ public class ImGui {
     */
 
     // Content region
-    // - Those functions are bound to be redesigned soon (they are confusing, incomplete and return values in local window coordinates which increases confusion)
-
-    /**
-     * Current content boundaries (typically window boundaries including scrolling, or current column boundaries), in windows coordinates
-     */
-    public static native void getContentRegionMax(ImVec2 dstImVec2); /*
-        Jni::ImVec2Cpy(env, ImGui::GetContentRegionMax(), dstImVec2);
-    */
-
-    /**
-     * Current content boundaries (typically window boundaries including scrolling, or current column boundaries), in windows coordinates
-     */
-    public static native float getContentRegionMaxX(); /*
-        return ImGui::GetContentRegionMax().x;
-    */
-
-    /**
-     * Current content boundaries (typically window boundaries including scrolling, or current column boundaries), in windows coordinates
-     */
-    public static native float getContentRegionMaxY(); /*
-        return ImGui::GetContentRegionMax().y;
-    */
+    // - Retrieve available space from a given point. GetContentRegionAvail() is frequently useful.
+    // - Those functions are bound to be redesigned (they are confusing, incomplete and the Min/Max return values are in local window coordinates which increases confusion)
 
     /**
      * == GetContentRegionMax() - GetCursorPos()
@@ -816,10 +794,24 @@ public class ImGui {
     */
 
     /**
-     * Content boundaries min (roughly (0,0)-Scroll), in window coordinates
+     * Current content boundaries (typically window boundaries including scrolling, or current column boundaries), in windows coordinates
      */
-    public static native float getContentRegionAvailWidth(); /*
-        return ImGui::GetContentRegionAvailWidth();
+    public static native void getContentRegionMax(ImVec2 dstImVec2); /*
+        Jni::ImVec2Cpy(env, ImGui::GetContentRegionMax(), dstImVec2);
+    */
+
+    /**
+     * Current content boundaries (typically window boundaries including scrolling, or current column boundaries), in windows coordinates
+     */
+    public static native float getContentRegionMaxX(); /*
+        return ImGui::GetContentRegionMax().x;
+    */
+
+    /**
+     * Current content boundaries (typically window boundaries including scrolling, or current column boundaries), in windows coordinates
+     */
+    public static native float getContentRegionMaxY(); /*
+        return ImGui::GetContentRegionMax().y;
     */
 
     /**
@@ -858,35 +850,21 @@ public class ImGui {
     // Windows Scrolling
 
     /**
-     * Get scrolling amount [0..GetScrollMaxX()]
+     * Get scrolling amount [0 .. GetScrollMaxX()]
      */
     public static native float getScrollX(); /*
         return ImGui::GetScrollX();
     */
 
     /**
-     * Get scrolling amount [0..GetScrollMaxY()]
+     * Get scrolling amount [0 .. GetScrollMaxY()]
      */
     public static native float getScrollY(); /*
         return ImGui::GetScrollY();
     */
 
     /**
-     * Get maximum scrolling amount ~~ ContentSize.x - WindowSize.x
-     */
-    public static native float getScrollMaxX(); /*
-        return ImGui::GetScrollMaxX();
-    */
-
-    /**
-     * Get maximum scrolling amount ~~ ContentSize.y - WindowSize.y
-     */
-    public static native float getScrollMaxY(); /*
-        return ImGui::GetScrollMaxY();
-    */
-
-    /**
-     * Set scrolling amount [0..GetScrollMaxX()]
+     * Set scrolling amount [0 .. GetScrollMaxX()]
      */
     public static native void setScrollX(float scrollX); /*
         ImGui::SetScrollX(scrollX);
@@ -897,6 +875,20 @@ public class ImGui {
      */
     public static native void setScrollY(float scrollY); /*
         ImGui::SetScrollY(scrollY);
+    */
+
+    /**
+     * Get maximum scrolling amount ~~ ContentSize.x - WindowSize.x - DecorationsSize.x
+     */
+    public static native float getScrollMaxX(); /*
+        return ImGui::GetScrollMaxX();
+    */
+
+    /**
+     * Get maximum scrolling amount ~~ ContentSize.y - WindowSize.y - DecorationsSize.y
+     */
+    public static native float getScrollMaxY(); /*
+        return ImGui::GetScrollMaxY();
     */
 
     /**
@@ -973,14 +965,23 @@ public class ImGui {
         ImGui::PopFont();
     */
 
+    /**
+     * Modify a style color. always use this if you modify the style after NewFrame().
+     */
     public static native void pushStyleColor(int imGuiCol, float r, float g, float b, float a); /*
         ImGui::PushStyleColor(imGuiCol, (ImU32)ImColor((float)r, (float)g, (float)b, (float)a));
     */
 
+    /**
+     * Modify a style color. always use this if you modify the style after NewFrame().
+     */
     public static native void pushStyleColor(int imGuiCol, int r, int g, int b, int a); /*
         ImGui::PushStyleColor(imGuiCol, (ImU32)ImColor((int)r, (int)g, (int)b, (int)a));
     */
 
+    /**
+     * Modify a style color. always use this if you modify the style after NewFrame().
+     */
     public static native void pushStyleColor(int imGuiCol, int col); /*
         ImGui::PushStyleColor(imGuiCol, col);
     */
@@ -993,10 +994,16 @@ public class ImGui {
         ImGui::PopStyleColor(count);
     */
 
+    /**
+     * Modify a style float variable. always use this if you modify the style after NewFrame().
+     */
     public static native void pushStyleVar(int imGuiStyleVar, float val); /*
         ImGui::PushStyleVar(imGuiStyleVar, val);
     */
 
+    /**
+     * Modify a style ImVec2 variable. always use this if you modify the style after NewFrame().
+     */
     public static native void pushStyleVar(int imGuiStyleVar, float valX, float valY); /*
         ImGui::PushStyleVar(imGuiStyleVar, ImVec2(valX, valY));
     */
@@ -1010,12 +1017,78 @@ public class ImGui {
     */
 
     /**
-     * Retrieve style color as stored in ImGuiStyle structure. use to feed back into PushStyleColor(),
-     * otherwise use GetColorU32() to get style color with style alpha baked in.
+     * Allow focusing using TAB/Shift-TAB, enabled by default but you can disable it for certain widgets
      */
-    public static native void getStyleColorVec4(int imGuiStyleVar, ImVec4 dstImVec4); /*
-        Jni::ImVec4Cpy(env, ImGui::GetStyleColorVec4(imGuiStyleVar), dstImVec4);
+    public static native void pushAllowKeyboardFocus(boolean allowKeyboardFocus); /*
+        ImGui::PushAllowKeyboardFocus(allowKeyboardFocus);
     */
+
+    public static native void popAllowKeyboardFocus(); /*
+        ImGui::PopAllowKeyboardFocus();
+    */
+
+    /**
+     * In 'repeat' mode, Button*() functions return repeated true in a typematic manner (using io.KeyRepeatDelay/io.KeyRepeatRate setting).
+     * Note that you can call IsItemActive() after any Button() to tell if the button is held in the current frame.
+     */
+    public static native void pushButtonRepeat(boolean repeat); /*
+        ImGui::PushButtonRepeat(repeat);
+    */
+
+    public static native void popButtonRepeat(); /*
+        ImGui::PopButtonRepeat();
+    */
+
+    // Parameters stacks (current window)
+
+    /**
+     * Push width of items for common large "item+label" widgets. {@code > 0.0f}: width in pixels,
+     * {@code <0.0f} align xx pixels to the right of window (so -1.0f always align width to the right side). 0.0f = default to ~2/3 of windows width,
+     */
+    public static native void pushItemWidth(float itemWidth); /*
+        ImGui::PushItemWidth(itemWidth);
+    */
+
+    public static native void popItemWidth(); /*
+        ImGui::PopItemWidth();
+    */
+
+    /**
+     * Set width of the _next_ common large "item+label" widget. {@code > 0.0f}: width in pixels,
+     * {@code <0.0f} align xx pixels to the right of window (so -1.0f always align width to the right side)
+     */
+    public static native void setNextItemWidth(float itemWidth); /*
+        ImGui::SetNextItemWidth(itemWidth);
+    */
+
+    /**
+     * Width of item given pushed settings and current cursor position. NOT necessarily the width of last item unlike most 'Item' functions.
+     */
+    public static native float calcItemWidth(); /*
+        return ImGui::CalcItemWidth();
+    */
+
+    /**
+     * Push Word-wrapping positions for Text*() commands. {@code < 0.0f}: no wrapping; 0.0f: wrap to end of window (or column); {@code > 0.0f}: wrap at
+     * 'wrap_posX' position in window local space
+     */
+    public static native void pushTextWrapPos(); /*
+        ImGui::PushTextWrapPos();
+    */
+
+    /**
+     * Push Word-wrapping positions for Text*() commands. {@code < 0.0f}: no wrapping; 0.0f: wrap to end of window (or column); {@code > 0.0f}: wrap at
+     * 'wrap_posX' position in window local space
+     */
+    public static native void pushTextWrapPos(float wrapLocalPosX); /*
+        ImGui::PushTextWrapPos(wrapLocalPosX);
+    */
+
+    public static native void popTextWrapPos(); /*
+        ImGui::PopTextWrapPos();
+    */
+
+    // Style read access
 
     /**
      * Get current font.
@@ -1089,76 +1162,12 @@ public class ImGui {
         return ImGui::GetColorU32((ImU32)col);
     */
 
-    // Parameters stacks (current window)
-
     /**
-     * Push width of items for common large "item+label" widgets. {@code > 0.0f}: width in pixels,
-     * {@code <0.0f} align xx pixels to the right of window (so -1.0f always align width to the right side). 0.0f = default to ~2/3 of windows width,
+     * Retrieve style color as stored in ImGuiStyle structure. use to feed back into PushStyleColor(),
+     * otherwise use GetColorU32() to get style color with style alpha baked in.
      */
-    public static native void pushItemWidth(float itemWidth); /*
-        ImGui::PushItemWidth(itemWidth);
-    */
-
-    public static native void popItemWidth(); /*
-        ImGui::PopItemWidth();
-    */
-
-    /**
-     * Set width of the _next_ common large "item+label" widget. {@code > 0.0f}: width in pixels,
-     * {@code <0.0f} align xx pixels to the right of window (so -1.0f always align width to the right side)
-     */
-    public static native void setNextItemWidth(float itemWidth); /*
-        ImGui::SetNextItemWidth(itemWidth);
-    */
-
-    /**
-     * Width of item given pushed settings and current cursor position. NOT necessarily the width of last item unlike most 'Item' functions.
-     */
-    public static native float calcItemWidth(); /*
-        return ImGui::CalcItemWidth();
-    */
-
-    /**
-     * Push Word-wrapping positions for Text*() commands. {@code < 0.0f}: no wrapping; 0.0f: wrap to end of window (or column); {@code > 0.0f}: wrap at
-     * 'wrap_posX' position in window local space
-     */
-    public static native void pushTextWrapPos(); /*
-        ImGui::PushTextWrapPos();
-    */
-
-    /**
-     * Push Word-wrapping positions for Text*() commands. {@code < 0.0f}: no wrapping; 0.0f: wrap to end of window (or column); {@code > 0.0f}: wrap at
-     * 'wrap_posX' position in window local space
-     */
-    public static native void pushTextWrapPos(float wrapLocalPosX); /*
-        ImGui::PushTextWrapPos(wrapLocalPosX);
-    */
-
-    public static native void popTextWrapPos(); /*
-        ImGui::PopTextWrapPos();
-    */
-
-    /**
-     * Allow focusing using TAB/Shift-TAB, enabled by default but you can disable it for certain widgets
-     */
-    public static native void pushAllowKeyboardFocus(boolean allowKeyboardFocus); /*
-        ImGui::PushAllowKeyboardFocus(allowKeyboardFocus);
-    */
-
-    public static native void popAllowKeyboardFocus(); /*
-        ImGui::PopAllowKeyboardFocus();
-    */
-
-    /**
-     * In 'repeat' mode, Button*() functions return repeated true in a typematic manner (using io.KeyRepeatDelay/io.KeyRepeatRate setting).
-     * Note that you can call IsItemActive() after any Button() to tell if the button is held in the current frame.
-     */
-    public static native void pushButtonRepeat(boolean repeat); /*
-        ImGui::PushButtonRepeat(repeat);
-    */
-
-    public static native void popButtonRepeat(); /*
-        ImGui::PopButtonRepeat();
+    public static native void getStyleColorVec4(int imGuiStyleVar, ImVec4 dstImVec4); /*
+        Jni::ImVec4Cpy(env, ImGui::GetStyleColorVec4(imGuiStyleVar), dstImVec4);
     */
 
     // Cursor / Layout
@@ -1219,28 +1228,28 @@ public class ImGui {
     */
 
     /**
-     * Move content position toward the right, by style.IndentSpacing or indent_w if != 0
+     * Move content position toward the right, by indent_w, or style.IndentSpacing if indent_w {@code <= 0}.
      */
     public static native void indent(); /*
         ImGui::Indent();
     */
 
     /**
-     * Move content position toward the right, by style.IndentSpacing or indent_w if != 0
+     * Move content position toward the right, by indent_w, or style.IndentSpacing if indent_w {@code <= 0}.
      */
     public static native void indent(float indentW); /*
         ImGui::Indent(indentW);
     */
 
     /**
-     * Move content position back to the left, by style.IndentSpacing or indent_w if != 0
+     * Move content position back to the left, by indent_w, or style.IndentSpacing if indent_w {@code <= 0}.
      */
     public static native void unindent(); /*
         ImGui::Unindent();
     */
 
     /**
-     * Move content position back to the left, by style.IndentSpacing or indent_w if != 0
+     * Move content position back to the left, by indent_w, or style.IndentSpacing if indent_w {@code <= 0}.
      */
     public static native void unindent(float indentW); /*
         ImGui::Unindent(indentW);
@@ -3448,7 +3457,7 @@ public class ImGui {
         return ImGui::InputScalarN(label, dataType, &pData[0], components, &pStep, &pStepFast, format, imGuiInputTextFlags);
     */
 
-    // Widgets: Color Editor/Picker (tip: the ColorEdit* functions have a little colored preview square that can be left-clicked to open a picker, and right-clicked to open an option menu.)
+    // Widgets: Color Editor/Picker (tip: the ColorEdit* functions have a little color square that can be left-clicked to open a picker, and right-clicked to open an option menu.)
     // - Note that in C++ a 'float v[X]' function argument is the _same_ as 'float* v', the array syntax is just a way to document the number of elements that are expected to be accessible.
     // - You can pass the address of a first float element out of a contiguous structure, e.g. &myvector.x
 
@@ -3600,21 +3609,23 @@ public class ImGui {
     */
 
     /**
-     * When 'pOpen' isn't NULL, display an additional small close button on upper right of the header
+     * When 'pVisible' isn't NULL, display an additional small close button on upper right of the header
+     * which will set the bool to false when clicked, if '*pVisible==false' don't display the header.
      */
-    public static boolean collapsingHeader(String label, ImBoolean pOpen) {
-        return nCollapsingHeader(label, pOpen.getData(), 0);
+    public static boolean collapsingHeader(String label, ImBoolean pVisible) {
+        return nCollapsingHeader(label, pVisible.getData(), 0);
     }
 
     /**
-     * When 'pOpen' isn't NULL, display an additional small close button on upper right of the header
+     * When 'pVisible' isn't NULL, display an additional small close button on upper right of the header
+     * which will set the bool to false when clicked, if '*pVisible==false' don't display the header.
      */
-    public static boolean collapsingHeader(String label, ImBoolean pOpen, int imGuiTreeNodeFlags) {
-        return nCollapsingHeader(label, pOpen.getData(), imGuiTreeNodeFlags);
+    public static boolean collapsingHeader(String label, ImBoolean pVisible, int imGuiTreeNodeFlags) {
+        return nCollapsingHeader(label, pVisible.getData(), imGuiTreeNodeFlags);
     }
 
-    private static native boolean nCollapsingHeader(String label, boolean[] pOpen, int imGuiTreeNodeFlags); /*
-        return ImGui::CollapsingHeader(label, &pOpen[0], imGuiTreeNodeFlags);
+    private static native boolean nCollapsingHeader(String label, boolean[] pVisible, int imGuiTreeNodeFlags); /*
+        return ImGui::CollapsingHeader(label, &pVisible[0], imGuiTreeNodeFlags);
     */
 
     /**
@@ -3905,7 +3916,7 @@ public class ImGui {
     */
 
     // Tooltips
-    // - Tooltip are windows following the mouse which do not take focus away.
+    // - Tooltip are windows following the mouse. They do not take focus away.
 
     /**
      * Begin/append a tooltip window. to create full-featured tooltip (with any kind of items).
@@ -4173,11 +4184,214 @@ public class ImGui {
         return ImGui::IsPopupOpen(strId, imGuiPopupFlags);
     */
 
+    // Tables
+    // [BETA API] API may evolve slightly! If you use this, please update to the next version when it comes out!
+    // - Full-featured replacement for old Columns API.
+    // - See Demo->Tables for demo code.
+    // - See top of imgui_tables.cpp for general commentary.
+    // - See ImGuiTableFlags_ and ImGuiTableColumnFlags_ enums for a description of available flags.
+    // The typical call flow is:
+    // - 1. Call BeginTable().
+    // - 2. Optionally call TableSetupColumn() to submit column name/flags/defaults.
+    // - 3. Optionally call TableSetupScrollFreeze() to request scroll freezing of columns/rows.
+    // - 4. Optionally call TableHeadersRow() to submit a header row. Names are pulled from TableSetupColumn() data.
+    // - 5. Populate contents:
+    //    - In most situations you can use TableNextRow() + TableSetColumnIndex(N) to start appending into a column.
+    //    - If you are using tables as a sort of grid, where every columns is holding the same type of contents,
+    //      you may prefer using TableNextColumn() instead of TableNextRow() + TableSetColumnIndex().
+    //      TableNextColumn() will automatically wrap-around into the next row if needed.
+    //    - IMPORTANT: Comparatively to the old Columns() API, we need to call TableNextColumn() for the first column!
+    //    - Summary of possible call flow:
+    //        --------------------------------------------------------------------------------------------------------
+    //        TableNextRow() -> TableSetColumnIndex(0) -> Text("Hello 0") -> TableSetColumnIndex(1) -> Text("Hello 1")  // OK
+    //        TableNextRow() -> TableNextColumn()      -> Text("Hello 0") -> TableNextColumn()      -> Text("Hello 1")  // OK
+    //                          TableNextColumn()      -> Text("Hello 0") -> TableNextColumn()      -> Text("Hello 1")  // OK: TableNextColumn() automatically gets to next row!
+    //        TableNextRow()                           -> Text("Hello 0")                                               // Not OK! Missing TableSetColumnIndex() or TableNextColumn()! Text will not appear!
+    //        --------------------------------------------------------------------------------------------------------
+    // - 5. Call EndTable()
+
+    public static native boolean beginTable(String id, int column); /*
+        return ImGui::BeginTable(id, column);
+    */
+
+    public static native boolean beginTable(String id, int column, int imGuiTableFlags); /*
+        return ImGui::BeginTable(id, column, imGuiTableFlags);
+    */
+
+    public static native boolean beginTable(String id, int column, int imGuiTableFlags, float outerSizeX, float outerSizeY); /*
+        return ImGui::BeginTable(id, column, imGuiTableFlags, ImVec2(outerSizeX, outerSizeY));
+    */
+
+    public static native boolean beginTable(String id, int column, int imGuiTableFlags, float outerSizeX, float outerSizeY, float innerWidth); /*
+        return ImGui::BeginTable(id, column, imGuiTableFlags, ImVec2(outerSizeX, outerSizeY), innerWidth);
+    */
+
+    /**
+     * Only call EndTable() if BeginTable() returns true!
+     */
+    public static native void endTable(); /*
+        ImGui::EndTable();
+    */
+
+    /**
+     * Append into the first cell of a new row.
+     */
+    public static native void tableNextRow(); /*
+        ImGui::TableNextRow();
+    */
+
+    /**
+     * Append into the first cell of a new row.
+     */
+    public static native void tableNextRow(int imGuiTableRowFlags); /*
+        ImGui::TableNextRow(imGuiTableRowFlags);
+    */
+
+    /**
+     * Append into the first cell of a new row.
+     */
+    public static native void tableNextRow(int imGuiTableRowFlags, float minRowHeight); /*
+        ImGui::TableNextRow(imGuiTableRowFlags, minRowHeight);
+    */
+
+    /**
+     * Append into the next column (or first column of next row if currently in last column). Return true when column is visible.
+     */
+    public static native boolean tableNextColumn(); /*
+        return ImGui::TableNextColumn();
+    */
+
+    /**
+     * Append into the specified column. Return true when column is visible.
+     */
+    public static native boolean tableSetColumnIndex(int columnN); /*
+        return ImGui::TableSetColumnIndex(columnN);
+    */
+
+    // Tables: Headers & Columns declaration
+    // - Use TableSetupColumn() to specify label, resizing policy, default width/weight, id, various other flags etc.
+    // - Use TableHeadersRow() to create a header row and automatically submit a TableHeader() for each column.
+    //   Headers are required to perform: reordering, sorting, and opening the context menu.
+    //   The context menu can also be made available in columns body using ImGuiTableFlags_ContextMenuInBody.
+    // - You may manually submit headers using TableNextRow() + TableHeader() calls, but this is only useful in
+    //   some advanced use cases (e.g. adding custom widgets in header row).
+    // - Use TableSetupScrollFreeze() to lock columns/rows so they stay visible when scrolled.
+
+    public static native void tableSetupColumn(String label); /*
+        ImGui::TableSetupColumn(label);
+    */
+
+    public static native void tableSetupColumn(String label, int imGuiTableColumnFlags); /*
+        ImGui::TableSetupColumn(label, imGuiTableColumnFlags);
+    */
+
+    public static native void tableSetupColumn(String label, int imGuiTableColumnFlags, float initWidthOrWeight); /*
+        ImGui::TableSetupColumn(label, imGuiTableColumnFlags, initWidthOrWeight);
+    */
+
+    public static native void tableSetupColumn(String label, int imGuiTableColumnFlags, float initWidthOrWeight, int userId); /*
+        ImGui::TableSetupColumn(label, imGuiTableColumnFlags, initWidthOrWeight, userId);
+    */
+
+    /**
+     * Lock columns/rows so they stay visible when scrolled.
+     */
+    public static native void tableSetupScrollFreeze(int cols, int rows); /*
+        ImGui::TableSetupScrollFreeze(cols, rows);
+    */
+
+    /**
+     * Submit all headers cells based on data provided to TableSetupColumn() + submit context menu
+     */
+    public static native void tableHeadersRow(); /*
+        ImGui::TableHeadersRow();
+    */
+
+    /**
+     * Submit one header cell manually (rarely used)
+     */
+    public static native void tableHeader(String label); /*
+        ImGui::TableHeader(label);
+    */
+
+    // Tables: Sorting
+    // - Call TableGetSortSpecs() to retrieve latest sort specs for the table. NULL when not sorting.
+    // - When 'SpecsDirty == true' you should sort your data. It will be true when sorting specs have changed
+    //   since last call, or the first time. Make sure to set 'SpecsDirty = false' after sorting, else you may
+    //   wastefully sort your data every frame!
+    // - Lifetime: don't hold on this pointer over multiple frames or past any subsequent call to BeginTable().
+
+    // TODO: TableGetSortSpecs()
+
+    // Tables: Miscellaneous functions
+    // - Functions args 'int column_n' treat the default value of -1 as the same as passing the current column index.
+
+    /**
+     * Return number of columns (value passed to BeginTable).
+     */
+    public static native int tableGetColumnCount(); /*
+        return ImGui::TableGetColumnCount();
+    */
+
+    /**
+     * Return current column index.
+     */
+    public static native int tableGetColumnIndex(); /*
+        return ImGui::TableGetColumnIndex();
+    */
+
+    /**
+     * Return current row index.
+     */
+    public static native int tableGetRowIndex(); /*
+        return ImGui::TableGetRowIndex();
+    */
+
+    /**
+     * Return "" if column didn't have a name declared by TableSetupColumn(). Pass -1 to use current column.
+     */
+    public static native String tableGetColumnName(); /*
+        return env->NewStringUTF(ImGui::TableGetColumnName());
+    */
+
+    /**
+     * Return "" if column didn't have a name declared by TableSetupColumn(). Pass -1 to use current column.
+     */
+    public static native String tableGetColumnName(int columnN); /*
+        return env->NewStringUTF(ImGui::TableGetColumnName(columnN));
+    */
+
+    /**
+     * Return column flags so you can query their Enabled/Visible/Sorted/Hovered status flags. Pass -1 to use current column.
+     */
+    public static native int tableGetColumnFlags(); /*
+        return ImGui::TableGetColumnFlags();
+    */
+
+    /**
+     * Return column flags so you can query their Enabled/Visible/Sorted/Hovered status flags. Pass -1 to use current column.
+     */
+    public static native int tableGetColumnFlags(int columnN); /*
+        return ImGui::TableGetColumnFlags(columnN);
+    */
+
+    /**
+     * Change the color of a cell, row, or column. See ImGuiTableBgTarget_ flags for details.
+     */
+    public static native void tableSetBgColor(int imGuiTableBgTarget, int color); /*
+        ImGui::TableSetBgColor(imGuiTableBgTarget, color);
+    */
+
+    /**
+     * Change the color of a cell, row, or column. See ImGuiTableBgTarget_ flags for details.
+     */
+    public static native void tableSetBgColor(int imGuiTableBgTarget, int color, int columnN); /*
+        ImGui::TableSetBgColor(imGuiTableBgTarget, color, columnN);
+    */
+
+    // Legacy Columns API (2020: prefer using Tables!)
     // Columns
     // - You can also use SameLine(posX) to mimic simplified columns.
-    // - The columns API is work-in-progress and rather lacking (columns are arguably the worst part of dear imgui at the moment!)
-    // - There is a maximum of 64 columns.
-    // - Currently working on new 'Tables' api which will replace columns around Q2 2020 (see GitHub #2957).
 
     public static native void columns(); /*
         ImGui::Columns();
@@ -4408,7 +4622,7 @@ public class ImGui {
     */
 
     /**
-     * set next window class (rare/advanced uses: provide hints to the platform back-end via altered viewport flags and parent/child info)
+     * set next window class (rare/advanced uses: provide hints to the platform backend via altered viewport flags and parent/child info)
      */
     public static void setNextWindowClass(ImGuiWindowClass windowClass) {
         nSetNextWindowClass(windowClass.ptr);
@@ -4504,7 +4718,6 @@ public class ImGui {
     */
 
     // Drag and Drop
-    // - [BETA API] API may evolve!
     // - If you stop calling BeginDragDropSource() the payload is preserved however it won't have a preview tooltip (we currently display a fallback "..." tooltip as replacement)
 
     private static WeakReference<Object> objectPayloadRef = null;
@@ -4664,6 +4877,7 @@ public class ImGui {
     */
 
     // Clipping
+    // - Mouse hovering is affected by ImGui::PushClipRect() calls, unlike direct calls to ImDrawList::PushClipRect() which are render only.
 
     public static native void pushClipRect(float clipRectMinX, float clipRectMinY, float clipRectMaxX, float clipRectMaxY, boolean intersectWithCurrentClipRect); /*
         ImGui::PushClipRect(ImVec2(clipRectMinX, clipRectMinY), ImVec2(clipRectMaxX, clipRectMaxY), intersectWithCurrentClipRect);
@@ -5428,7 +5642,7 @@ public class ImGui {
     // Note: You may use GetWindowViewport() to get the current viewport of the current window.
 
     /**
-     * Platform/renderer functions, for back-end to setup + viewports list.
+     * Platform/renderer functions, for backend to setup + viewports list.
      */
     public static ImGuiPlatformIO getPlatformIO() {
         if (platformIO == null) {
@@ -5472,7 +5686,7 @@ public class ImGui {
 
     /**
      * Call DestroyWindow platform functions for all viewports.
-     * Call from back-end Shutdown() if you need to close platform windows before imgui shutdown.
+     * Call from backend Shutdown() if you need to close platform windows before imgui shutdown.
      * Otherwise will be called by DestroyContext().
      */
     public static native void destroyPlatformWindows(); /*
@@ -5480,7 +5694,7 @@ public class ImGui {
     */
 
     /**
-     * This is a helper for back-ends.
+     * This is a helper for backends.
      */
     public static ImGuiViewport findViewportByID(int imGuiID) {
         FIND_VIEWPORT.ptr = nFindViewportByID(imGuiID);
@@ -5492,7 +5706,7 @@ public class ImGui {
     */
 
     /**
-     * This is a helper for back-ends. The type platform_handle is decided by the back-end (e.g. HWND, MyWindow*, GLFWwindow* etc.)
+     * This is a helper for backends. The type platform_handle is decided by the backend (e.g. HWND, MyWindow*, GLFWwindow* etc.)
      */
     public static ImGuiViewport findViewportByPlatformHandle(long platformHandle) {
         FIND_VIEWPORT.ptr = nFindViewportByPlatformHandle(platformHandle);

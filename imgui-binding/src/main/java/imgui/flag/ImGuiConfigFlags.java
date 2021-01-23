@@ -13,7 +13,7 @@ public final class ImGuiConfigFlags {
      */
     public static final int NavEnableKeyboard = 1;
     /**
-     * Master gamepad navigation enable flag. This is mostly to instruct your imgui back-end to fill io.NavInputs[]. Back-end also needs to set ImGuiBackendFlags_HasGamepad.
+     * Master gamepad navigation enable flag. This is mostly to instruct your imgui backend to fill io.NavInputs[]. Backend also needs to set ImGuiBackendFlags_HasGamepad.
      */
     public static final int NavEnableGamepad = 1 << 1;
     /**
@@ -27,12 +27,12 @@ public final class ImGuiConfigFlags {
      */
     public static final int NavNoCaptureKeyboard = 1 << 3;
     /**
-     * Instruct imgui to clear mouse position/buttons in NewFrame(). This allows ignoring the mouse information set by the back-end.
+     * Instruct imgui to clear mouse position/buttons in NewFrame(). This allows ignoring the mouse information set by the backend.
      */
     public static final int NoMouse = 1 << 4;
     /**
-     * Instruct back-end to not alter mouse cursor shape and visibility.
-     * Use if the back-end cursor changes are interfering with yours and you don't want to use SetMouseCursor() to change mouse cursor.
+     * Instruct backend to not alter mouse cursor shape and visibility.
+     * Use if the backend cursor changes are interfering with yours and you don't want to use SetMouseCursor() to change mouse cursor.
      * You may want to honor requests from imgui by reading GetMouseCursor() yourself instead.
      */
     public static final int NoMouseCursorChange = 1 << 5;
@@ -47,7 +47,7 @@ public final class ImGuiConfigFlags {
     // When using viewports it is recommended that your default value for ImGuiCol_WindowBg is opaque (Alpha=1.0) so transition to a viewport won't be noticeable.
 
     /**
-     * Viewport enable flags (require both ImGuiBackendFlags_PlatformHasViewports + ImGuiBackendFlags_RendererHasViewports set by the respective back-ends)
+     * Viewport enable flags (require both ImGuiBackendFlags_PlatformHasViewports + ImGuiBackendFlags_RendererHasViewports set by the respective backends)
      */
     public static final int ViewportsEnable = 1 << 10;
     /**
@@ -61,7 +61,7 @@ public final class ImGuiConfigFlags {
      */
     public static final int DpiEnableScaleFonts = 1 << 15;
 
-    // User storage (to allow your back-end/engine to communicate to code that may be shared between multiple projects. Those flags are not used by core Dear ImGui)
+    // User storage (to allow your backend/engine to communicate to code that may be shared between multiple projects. Those flags are not used by core Dear ImGui)
 
     /**
      * Application is SRGB-aware.

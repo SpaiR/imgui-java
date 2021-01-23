@@ -11,63 +11,63 @@ import imgui.callback.ImPlatformFuncViewportSuppImVec2;
 
 /**
  * -----------------------------------------------------------------------------
- *  [BETA] Platform interface for multi-viewport support
+ * [BETA] Platform interface for multi-viewport support
  * -----------------------------------------------------------------------------
- *  (Optional) This is completely optional, for advanced users!
- *  If you are new to Dear ImGui and trying to integrate it into your engine, you can probably ignore this for now.
- *  This feature allows you to seamlessly drag Dear ImGui windows outside of your application viewport.
- *  This is achieved by creating new Platform/OS windows on the fly, and rendering into them.
- *  Dear ImGui manages the viewport structures, and the back-end create and maintain one Platform/OS window for each of those viewports.
- *  See Glossary https://github.com/ocornut/imgui/wiki/Glossary for details about some of the terminology.
- *  See Thread https://github.com/ocornut/imgui/issues/1542 for gifs, news and questions about this evolving feature.
- *  About the coordinates system:
- *  - When multi-viewports are enabled, all Dear ImGui coordinates become absolute coordinates (same as OS coordinates!)
- *  - So e.g. ImGui::SetNextWindowPos(ImVec2(0,0)) will position a window relative to your primary monitor!
- *  - If you want to position windows relative to your main application viewport, use ImGui::GetMainViewport().Pos as a base position.
- *  Steps to use multi-viewports in your application, when using a default back-end from the examples/ folder:
- *  - Application:  Enable feature with 'io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable'.
- *  - Back-end:     The back-end initialization will setup all necessary ImGuiPlatformIO's functions and update monitors info every frame.
- *  - Application:  In your main loop, call ImGui::UpdatePlatformWindows(), ImGui::RenderPlatformWindowsDefault() after EndFrame() or Render().
- *  - Application:  Fix absolute coordinates used in ImGui::SetWindowPos() or ImGui::SetNextWindowPos() calls.
- *  Steps to use multi-viewports in your application, when using a custom back-end:
- *  - Important:    THIS IS NOT EASY TO DO and comes with many subtleties not described here!
- *                  It's also an experimental feature, so some of the requirements may evolve.
- *                  Consider using default back-ends if you can. Either way, carefully follow and refer to examples/ back-ends for details.
- *  - Application:  Enable feature with 'io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable'.
- *  - Back-end:     Hook ImGuiPlatformIO's Platform_* and Renderer_* callbacks (see below).
- *                  Set 'io.BackendFlags |= ImGuiBackendFlags_PlatformHasViewports' and 'io.BackendFlags |= ImGuiBackendFlags_PlatformHasViewports'.
- *                  Update ImGuiPlatformIO's Monitors list every frame.
- *                  Update MousePos every frame, in absolute coordinates.
- *  - Application:  In your main loop, call ImGui::UpdatePlatformWindows(), ImGui::RenderPlatformWindowsDefault() after EndFrame() or Render().
- *                  You may skip calling RenderPlatformWindowsDefault() if its API is not convenient for your needs. Read comments below.
- *  - Application:  Fix absolute coordinates used in ImGui::SetWindowPos() or ImGui::SetNextWindowPos() calls.
- *  About ImGui::RenderPlatformWindowsDefault():
- *  - This function is a mostly a _helper_ for the common-most cases, and to facilitate using default back-ends.
- *  - You can check its simple source code to understand what it does.
- *    It basically iterates secondary viewports and call 4 functions that are setup in ImGuiPlatformIO, if available:
- *      Platform_RenderWindow(), Renderer_RenderWindow(), Platform_SwapBuffers(), Renderer_SwapBuffers()
- *    Those functions pointers exists only for the benefit of RenderPlatformWindowsDefault().
- *  - If you have very specific rendering needs (e.g. flipping multiple swap-chain simultaneously, unusual sync/threading issues, etc.),
- *    you may be tempted to ignore RenderPlatformWindowsDefault() and write customized code to perform your renderingg.
- *    You may decide to setup the platform_io's *RenderWindow and *SwapBuffers pointers and call your functions through those pointers,
- *    or you may decide to never setup those pointers and call your code directly. They are a convenience, not an obligatory interface.
+ * (Optional) This is completely optional, for advanced users!
+ * If you are new to Dear ImGui and trying to integrate it into your engine, you can probably ignore this for now.
+ * This feature allows you to seamlessly drag Dear ImGui windows outside of your application viewport.
+ * This is achieved by creating new Platform/OS windows on the fly, and rendering into them.
+ * Dear ImGui manages the viewport structures, and the backend create and maintain one Platform/OS window for each of those viewports.
+ * See Glossary https://github.com/ocornut/imgui/wiki/Glossary for details about some of the terminology.
+ * See Thread https://github.com/ocornut/imgui/issues/1542 for gifs, news and questions about this evolving feature.
+ * About the coordinates system:
+ * - When multi-viewports are enabled, all Dear ImGui coordinates become absolute coordinates (same as OS coordinates!)
+ * - So e.g. ImGui::SetNextWindowPos(ImVec2(0,0)) will position a window relative to your primary monitor!
+ * - If you want to position windows relative to your main application viewport, use ImGui::GetMainViewport().Pos as a base position.
+ * Steps to use multi-viewports in your application, when using a default backend from the examples/ folder:
+ * - Application:  Enable feature with 'io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable'.
+ * - Backend:     The backend initialization will setup all necessary ImGuiPlatformIO's functions and update monitors info every frame.
+ * - Application:  In your main loop, call ImGui::UpdatePlatformWindows(), ImGui::RenderPlatformWindowsDefault() after EndFrame() or Render().
+ * - Application:  Fix absolute coordinates used in ImGui::SetWindowPos() or ImGui::SetNextWindowPos() calls.
+ * Steps to use multi-viewports in your application, when using a custom backend:
+ * - Important:    THIS IS NOT EASY TO DO and comes with many subtleties not described here!
+ * It's also an experimental feature, so some of the requirements may evolve.
+ * Consider using default backends if you can. Either way, carefully follow and refer to examples/ backends for details.
+ * - Application:  Enable feature with 'io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable'.
+ * - Backend:     Hook ImGuiPlatformIO's Platform_* and Renderer_* callbacks (see below).
+ * Set 'io.BackendFlags |= ImGuiBackendFlags_PlatformHasViewports' and 'io.BackendFlags |= ImGuiBackendFlags_PlatformHasViewports'.
+ * Update ImGuiPlatformIO's Monitors list every frame.
+ * Update MousePos every frame, in absolute coordinates.
+ * - Application:  In your main loop, call ImGui::UpdatePlatformWindows(), ImGui::RenderPlatformWindowsDefault() after EndFrame() or Render().
+ * You may skip calling RenderPlatformWindowsDefault() if its API is not convenient for your needs. Read comments below.
+ * - Application:  Fix absolute coordinates used in ImGui::SetWindowPos() or ImGui::SetNextWindowPos() calls.
+ * About ImGui::RenderPlatformWindowsDefault():
+ * - This function is a mostly a _helper_ for the common-most cases, and to facilitate using default backends.
+ * - You can check its simple source code to understand what it does.
+ * It basically iterates secondary viewports and call 4 functions that are setup in ImGuiPlatformIO, if available:
+ * Platform_RenderWindow(), Renderer_RenderWindow(), Platform_SwapBuffers(), Renderer_SwapBuffers()
+ * Those functions pointers exists only for the benefit of RenderPlatformWindowsDefault().
+ * - If you have very specific rendering needs (e.g. flipping multiple swap-chain simultaneously, unusual sync/threading issues, etc.),
+ * you may be tempted to ignore RenderPlatformWindowsDefault() and write customized code to perform your renderingg.
+ * You may decide to setup the platform_io's *RenderWindow and *SwapBuffers pointers and call your functions through those pointers,
+ * or you may decide to never setup those pointers and call your code directly. They are a convenience, not an obligatory interface.
  * -----------------------------------------------------------------------------
- *  (Optional) Access via ImGui::GetPlatformIO()
- *
- *  ------------------------------------------------------------------
- *  Input - Back-end interface/functions + Monitor List
+ * (Optional) Access via ImGui::GetPlatformIO()
+ * <p>
  * ------------------------------------------------------------------
- *  (Optional) Platform functions (e.g. Win32, GLFW, SDL2)
- *  For reference, the second column shows which function are generally calling the Platform Functions:
- *    N = ImGui::NewFrame()                        ~ beginning of the dear imgui frame: read info from platform/OS windows (latest size/position)
- *    F = ImGui::Begin(), ImGui::EndFrame()        ~ during the dear imgui frame
- *    U = ImGui::UpdatePlatformWindows()           ~ after the dear imgui frame: create and update all platform/OS windows
- *    R = ImGui::RenderPlatformWindowsDefault()    ~ render
- *    D = ImGui::DestroyPlatformWindows()          ~ shutdown
- *  The general idea is that NewFrame() we will read the current Platform/OS state, and UpdatePlatformWindows() will write to it.
- *  The functions are designed so we can mix and match 2 imgui_impl_xxxx files, one for the Platform (~window/input handling), one for Renderer.
- *  Custom engine back-ends will often provide both Platform and Renderer interfaces and so may not need to use all functions.
- *  Platform functions are typically called before their Renderer counterpart, apart from Destroy which are called the other way.
+ * Input - Backend interface/functions + Monitor List
+ * ------------------------------------------------------------------
+ * (Optional) Platform functions (e.g. Win32, GLFW, SDL2)
+ * For reference, the second column shows which function are generally calling the Platform Functions:
+ * N = ImGui::NewFrame()                        ~ beginning of the dear imgui frame: read info from platform/OS windows (latest size/position)
+ * F = ImGui::Begin(), ImGui::EndFrame()        ~ during the dear imgui frame
+ * U = ImGui::UpdatePlatformWindows()           ~ after the dear imgui frame: create and update all platform/OS windows
+ * R = ImGui::RenderPlatformWindowsDefault()    ~ render
+ * D = ImGui::DestroyPlatformWindows()          ~ shutdown
+ * The general idea is that NewFrame() we will read the current Platform/OS state, and UpdatePlatformWindows() will write to it.
+ * The functions are designed so we can mix and match 2 imgui_impl_xxxx files, one for the Platform (~window/input handling), one for Renderer.
+ * Custom engine backends will often provide both Platform and Renderer interfaces and so may not need to use all functions.
+ * Platform functions are typically called before their Renderer counterpart, apart from Destroy which are called the other way.
  */
 public final class ImGuiPlatformIO extends ImGuiStruct {
     private static final ImGuiViewport MAIN_VIEWPORT = new ImGuiViewport(0);
@@ -336,7 +336,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
      */
 
     /**
-     *  // . . U . .  // (Optional) Called by UpdatePlatformWindows(). Optional hook to allow the platform back-end from doing general book-keeping every frame.
+     *  // . . U . .  // (Optional) Called by UpdatePlatformWindows(). Optional hook to allow the platform backend from doing general book-keeping every frame.
      */
     public native void setPlatformUpdateWindow(ImPlatformFuncViewport func); /*
         IM_PLATFORM_FUNC_VIEWPORT_METHOD_TMPL(UpdateWindow)
@@ -392,7 +392,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
      */
 
     /**
-     *  // (Optional) [BETA] FIXME-DPI: DPI handling: Called during Begin() every time the viewport we are outputting into changes, so back-end has a chance to swap fonts to adjust style.
+     *  // (Optional) [BETA] FIXME-DPI: DPI handling: Called during Begin() every time the viewport we are outputting into changes, so backend has a chance to swap fonts to adjust style.
      */
     public native void setPlatformOnChangedViewport(ImPlatformFuncViewport func); /*
         IM_PLATFORM_FUNC_VIEWPORT_METHOD_TMPL(OnChangedViewport)
@@ -489,7 +489,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
     */
 
     // (Optional) Monitor list
-    // - Updated by: app/back-end. Update every frame to dynamically support changing monitor or DPI configuration.
+    // - Updated by: app/backend. Update every frame to dynamically support changing monitor or DPI configuration.
     // - Used by: dear imgui to query DPI info, clamp popups/tooltips within same monitor and not have them straddle monitors.
 
     //------------------------------------------------------------------

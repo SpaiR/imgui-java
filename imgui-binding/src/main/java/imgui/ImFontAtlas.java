@@ -410,7 +410,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
     */
 
     /**
-     * Default + Hiragana, Katakana, Half-Width, Selection of 1946 Ideographs
+     * Default + Hiragana, Katakana, Half-Width, Selection of 2999 Ideographs
      */
     public native short[] getGlyphRangesJapanese(); /*
         RETURN_GLYPH_2_SHORT(IM_FONT_ATLAS->GetGlyphRangesJapanese());

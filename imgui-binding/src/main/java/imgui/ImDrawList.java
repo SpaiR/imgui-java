@@ -277,12 +277,32 @@ public final class ImDrawList extends ImGuiStruct {
         IM_DRAW_LIST->AddConvexPolyFilled(_points, numPoints, col);
     */
 
-    public native void addBezierCurve(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col, float thickness); /*
-        IM_DRAW_LIST->AddBezierCurve(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness);
+    /**
+     * Cubic Bezier (4 control points)
+     */
+    public native void addBezierCubic(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col, float thickness); /*
+        IM_DRAW_LIST->AddBezierCubic(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness);
     */
 
-    public native void addBezierCurve(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col, float thickness, int numSegments); /*
-        IM_DRAW_LIST->AddBezierCurve(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness, numSegments);
+    /**
+     * Cubic Bezier (4 control points)
+     */
+    public native void addBezierCubic(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col, float thickness, int numSegments); /*
+        IM_DRAW_LIST->AddBezierCubic(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness, numSegments);
+    */
+
+    /**
+     * Quadratic Bezier (3 control points)
+     */
+    public native void addBezierQuadratic(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, int col, float thickness); /*
+        IM_DRAW_LIST->AddBezierQuadratic(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), col, thickness);
+    */
+
+    /**
+     * Quadratic Bezier (3 control points)
+     */
+    public native void addBezierQuadratic(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, int col, float thickness, int numSegments); /*
+        IM_DRAW_LIST->AddBezierQuadratic(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), col, thickness, numSegments);
     */
 
     // Image primitives
@@ -373,13 +393,39 @@ public final class ImDrawList extends ImGuiStruct {
         IM_DRAW_LIST->PathArcTo(ImVec2(centerX, centerY), radius, aMin, aMax, numSegments);
     */
 
-    // Use precomputed angles for a 12 steps circle
+    /**
+     * Use precomputed angles for a 12 steps circle
+     */
     public native void pathArcToFast(float centerX, float centerY, float radius, int aMinOf12, int aMaxOf12); /*
         IM_DRAW_LIST->PathArcToFast(ImVec2(centerX, centerY), radius, aMinOf12, aMaxOf12);
     */
 
-    public native void pathBezierCurveTo(float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int numSegments); /*
-        IM_DRAW_LIST->PathBezierCurveTo(ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), numSegments);
+    /**
+     * Cubic Bezier (4 control points)
+     */
+    public native void pathBezierCubicCurveTo(float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y); /*
+        IM_DRAW_LIST->PathBezierCubicCurveTo(ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y));
+    */
+
+    /**
+     * Cubic Bezier (4 control points)
+     */
+    public native void pathBezierCubicCurveTo(float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int numSegments); /*
+        IM_DRAW_LIST->PathBezierCubicCurveTo(ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), numSegments);
+    */
+
+    /**
+     * Quadratic Bezier (3 control points)
+     */
+    public native void pathBezierQuadraticCurveTo(float p2X, float p2Y, float p3X, float p3Y); /*
+        IM_DRAW_LIST->PathBezierQuadraticCurveTo(ImVec2(p2X, p2Y), ImVec2(p3X, p3Y));
+    */
+
+    /**
+     * Quadratic Bezier (3 control points)
+     */
+    public native void pathBezierQuadraticCurveTo(float p2X, float p2Y, float p3X, float p3Y, int numSegments); /*
+        IM_DRAW_LIST->PathBezierQuadraticCurveTo(ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), numSegments);
     */
 
     public native void pathRect(float rectMinX, float rectMinY, float rectMaxX, float rectMaxY); /*

@@ -7,8 +7,8 @@ import imgui.binding.ImGuiStructDestroyable;
  * Important: the content of this class is still highly WIP and likely to change and be refactored
  * before we stabilize Docking features. Please be mindful if using this.
  * Provide hints:
- * - To the platform back-end via altered viewport flags (enable/disable OS decoration, OS task bar icons, etc.)
- * - To the platform back-end for OS level parent/child relationships of viewport.
+ * - To the platform backend via altered viewport flags (enable/disable OS decoration, OS task bar icons, etc.)
+ * - To the platform backend for OS level parent/child relationships of viewport.
  * - To the docking system for various options and filtering.
  */
 public final class ImGuiWindowClass extends ImGuiStructDestroyable {
@@ -51,16 +51,16 @@ public final class ImGuiWindowClass extends ImGuiStructDestroyable {
     */
 
     /**
-     * Hint for the platform back-end. If non-zero, the platform back-end can create a parent{@code <>}child relationship between the platform windows.
-     * Not conforming back-ends are free to e.g. parent every viewport to the main viewport or not.
+     * Hint for the platform backend. If non-zero, the platform backend can create a parent{@code <>}child relationship between the platform windows.
+     * Not conforming backends are free to e.g. parent every viewport to the main viewport or not.
      */
     public native int getParentViewportId(); /*
         return IMGUI_WINDOW_CLASS->ParentViewportId;
     */
 
     /**
-     * Hint for the platform back-end. If non-zero, the platform back-end can create a parent{@code <>}child relationship between the platform windows.
-     * Not conforming back-ends are free to e.g. parent every viewport to the main viewport or not.
+     * Hint for the platform backend. If non-zero, the platform backend can create a parent{@code <>}child relationship between the platform windows.
+     * Not conforming backends are free to e.g. parent every viewport to the main viewport or not.
      */
     public native void setParentViewportId(int parentViewportId); /*
         IMGUI_WINDOW_CLASS->ParentViewportId = parentViewportId;
@@ -96,6 +96,22 @@ public final class ImGuiWindowClass extends ImGuiStructDestroyable {
      */
     public native void setViewportFlagsOverrideClear(int viewportFlagsOverrideClear); /*
         IMGUI_WINDOW_CLASS->ViewportFlagsOverrideClear = viewportFlagsOverrideClear;
+    */
+
+    /**
+     * [EXPERIMENTAL] TabItem flags to set when a window of this class gets submitted into a dock node tab bar.
+     * May use with ImGuiTabItemFlags_Leading or ImGuiTabItemFlags_Trailing.
+     */
+    public native int getTabItemFlagsOverrideSet(); /*
+        return IMGUI_WINDOW_CLASS->TabItemFlagsOverrideSet;
+    */
+
+    /**
+     * [EXPERIMENTAL] TabItem flags to set when a window of this class gets submitted into a dock node tab bar.
+     * May use with ImGuiTabItemFlags_Leading or ImGuiTabItemFlags_Trailing.
+     */
+    public native void setTabItemFlagsOverrideSet(int tabItemFlagsOverrideSet); /*
+        IMGUI_WINDOW_CLASS->TabItemFlagsOverrideSet = tabItemFlagsOverrideSet;
     */
 
     /**

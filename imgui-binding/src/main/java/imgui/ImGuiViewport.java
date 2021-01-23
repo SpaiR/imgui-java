@@ -3,7 +3,7 @@ package imgui;
 import imgui.binding.ImGuiStruct;
 
 /**
- * The viewports created and managed by Dear ImGui. The role of the platform back-end is to create the platform/OS windows corresponding to each viewport.
+ * The viewports created and managed by Dear ImGui. The role of the platform backend is to create the platform/OS windows corresponding to each viewport.
  * - Main Area = entire viewport.
  * - Work Area = entire viewport minus sections optionally used by menu bars, status bars. Some positioning code will prefer to use this. Window are also trying to stay within this area.
  */
@@ -215,23 +215,23 @@ public final class ImGuiViewport extends ImGuiStruct {
     */
 
     /**
-     * (Advanced) 0: no parent. Instruct the platform back-end to setup a parent/child relationship between platform windows.
+     * (Advanced) 0: no parent. Instruct the platform backend to setup a parent/child relationship between platform windows.
      */
     public native int getParentViewportId(); /*
         return IMGUI_VIEWPORT->ParentViewportId;
     */
 
     /**
-     * (Advanced) 0: no parent. Instruct the platform back-end to setup a parent/child relationship between platform windows.
+     * (Advanced) 0: no parent. Instruct the platform backend to setup a parent/child relationship between platform windows.
      */
     public native void setParentViewportId(int parentViewportId); /*
         IMGUI_VIEWPORT->ParentViewportId = parentViewportId;
     */
 
-    // Our design separate the Renderer and Platform back-ends to facilitate combining default back-ends with each others.
-    // When our create your own back-end for a custom engine, it is possible that both Renderer and Platform will be handled
+    // Our design separate the Renderer and Platform backends to facilitate combining default backends with each others.
+    // When our create your own backend for a custom engine, it is possible that both Renderer and Platform will be handled
     // by the same system and you may not need to use all the UserData/Handle fields.
-    // The library never uses those fields, they are merely storage to facilitate back-end implementation.
+    // The library never uses those fields, they are merely storage to facilitate backend implementation.
 
     /**
      * void* to hold custom data structure for the renderer (e.g. swap chain, framebuffers etc.). generally set by your Renderer_CreateWindow function.

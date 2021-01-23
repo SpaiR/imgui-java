@@ -72,23 +72,43 @@ public final class ImGuiCol {
     public static final int PlotLinesHovered = 41;
     public static final int PlotHistogram = 42;
     public static final int PlotHistogramHovered = 43;
-    public static final int TextSelectedBg = 44;
-    public static final int DragDropTarget = 45;
+    /**
+     * Table header background
+     */
+    public static final int TableHeaderBg = 44;
+    /**
+     * Table outer and header borders (prefer using Alpha=1.0 here)
+     */
+    public static final int TableBorderStrong = 45;
+    /**
+     * Table inner borders (prefer using Alpha=1.0 here)
+     */
+    public static final int TableBorderLight = 46;
+    /**
+     * Table row background (even rows)
+     */
+    public static final int TableRowBg = 47;
+    /**
+     * Table row background (odd rows)
+     */
+    public static final int TableRowBgAlt = 48;
+    public static final int TextSelectedBg = 49;
+    public static final int DragDropTarget = 50;
     /**
      * Gamepad/keyboard: current highlighted item
      */
-    public static final int NavHighlight = 46;
+    public static final int NavHighlight = 51;
     /**
      * Highlight window when using CTRL+TAB
      */
-    public static final int NavWindowingHighlight = 47;
+    public static final int NavWindowingHighlight = 52;
     /**
      * Darken/colorize entire screen behind the CTRL+TAB window list, when active
      */
-    public static final int NavWindowingDimBg = 48;
+    public static final int NavWindowingDimBg = 53;
     /**
      * Darken/colorize entire screen behind a modal window, when one is active
      */
-    public static final int ModalWindowDimBg = 49;
-    public static final int COUNT = 49;
+    public static final int ModalWindowDimBg = 54;
+    public static final int COUNT = 55;
 }

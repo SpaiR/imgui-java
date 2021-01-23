@@ -60,35 +60,35 @@ public final class ImGuiIO {
     }
 
     /**
-     * See ImGuiBackendFlags enum. Set by back-end to communicate features supported by the back-end.
+     * See ImGuiBackendFlags enum. Set by backend to communicate features supported by the backend.
      */
     public native int getBackendFlags(); /*
         return ImGui::GetIO().BackendFlags;
     */
 
     /**
-     * See ImGuiBackendFlags enum. Set by back-end to communicate features supported by the back-end.
+     * See ImGuiBackendFlags enum. Set by backend to communicate features supported by the backend.
      */
     public native void setBackendFlags(int backendFlags); /*
         ImGui::GetIO().BackendFlags = backendFlags;
     */
 
     /**
-     * See ImGuiBackendFlags enum. Set by back-end to communicate features supported by the back-end.
+     * See ImGuiBackendFlags enum. Set by backend to communicate features supported by the backend.
      */
     public void addBackendFlags(final int backendFlags) {
         setBackendFlags(getBackendFlags() | backendFlags);
     }
 
     /**
-     * See ImGuiBackendFlags enum. Set by back-end to communicate features supported by the back-end.
+     * See ImGuiBackendFlags enum. Set by backend to communicate features supported by the backend.
      */
     public void removeBackendFlags(final int backendFlags) {
         setBackendFlags(getBackendFlags() & ~(backendFlags));
     }
 
     /**
-     * See ImGuiBackendFlags enum. Set by back-end to communicate features supported by the back-end.
+     * See ImGuiBackendFlags enum. Set by backend to communicate features supported by the backend.
      */
     public boolean hasBackendFlags(final int flags) {
         return (getBackendFlags() & flags) != 0;
@@ -304,7 +304,7 @@ public final class ImGuiIO {
 
     /**
      * Request ImGui to draw a mouse cursor for you (if you are on a platform without a mouse cursor).
-     * Cannot be easily renamed to 'io.ConfigXXX' because this is frequently used by back-end implementations.
+     * Cannot be easily renamed to 'io.ConfigXXX' because this is frequently used by backend implementations.
      */
     public native boolean getMouseDrawCursor(); /*
         return ImGui::GetIO().MouseDrawCursor;
@@ -312,7 +312,7 @@ public final class ImGuiIO {
 
     /**
      * Request ImGui to draw a mouse cursor for you (if you are on a platform without a mouse cursor).
-     * Cannot be easily renamed to 'io.ConfigXXX' because this is frequently used by back-end implementations.
+     * Cannot be easily renamed to 'io.ConfigXXX' because this is frequently used by backend implementations.
      */
     public native void setMouseDrawCursor(boolean mouseDrawCursor); /*
         ImGui::GetIO().MouseDrawCursor = mouseDrawCursor;
@@ -321,7 +321,7 @@ public final class ImGuiIO {
     /**
      * OS X style: Text editing cursor movement using Alt instead of Ctrl, Shortcuts using Cmd/Super instead of Ctrl,
      * Line/Text Start and End using Cmd+Arrows instead of Home/End, Double click selects by word instead of selecting whole text,
-     * Multi-selection in lists uses Cmd/Super instead of Ctrl (was called io.OptMacOSXBehaviors prior to 1.63)
+     * Multi-selection in lists uses Cmd/Super instead of Ctrl
      */
     public native boolean getConfigMacOSXBehaviors(); /*
         return ImGui::GetIO().ConfigMacOSXBehaviors;
@@ -330,24 +330,38 @@ public final class ImGuiIO {
     /**
      * OS X style: Text editing cursor movement using Alt instead of Ctrl, Shortcuts using Cmd/Super instead of Ctrl,
      * Line/Text Start and End using Cmd+Arrows instead of Home/End, Double click selects by word instead of selecting whole text,
-     * Multi-selection in lists uses Cmd/Super instead of Ctrl (was called io.OptMacOSXBehaviors prior to 1.63)
+     * Multi-selection in lists uses Cmd/Super instead of Ctrl
      */
     public native void setConfigMacOSXBehaviors(boolean configMacOSXBehaviors); /*
         ImGui::GetIO().ConfigMacOSXBehaviors = configMacOSXBehaviors;
     */
 
     /**
-     * Set to false to disable blinking cursor, for users who consider it distracting. (was called: io.OptCursorBlink prior to 1.63)
+     * Set to false to disable blinking cursor, for users who consider it distracting.
      */
     public native boolean getConfigInputTextCursorBlink(); /*
         return ImGui::GetIO().ConfigInputTextCursorBlink;
     */
 
     /**
-     * Set to false to disable blinking cursor, for users who consider it distracting. (was called: io.OptCursorBlink prior to 1.63)
+     * Set to false to disable blinking cursor, for users who consider it distracting.
      */
     public native void setConfigInputTextCursorBlink(boolean configInputTextCursorBlink); /*
         ImGui::GetIO().ConfigInputTextCursorBlink = configInputTextCursorBlink;
+    */
+
+    /**
+     * [BETA] Enable turning DragXXX widgets into text input with a simple mouse click-release (without moving). Not desirable on devices without a keyboard.
+     */
+    public native boolean getConfigDragClickToInputText(); /*
+        return ImGui::GetIO().ConfigDragClickToInputText;
+    */
+
+    /**
+     * [BETA] Enable turning DragXXX widgets into text input with a simple mouse click-release (without moving). Not desirable on devices without a keyboard.
+     */
+    public native void setConfigDragClickToInputText(boolean configDragClickToInputText); /*
+        ImGui::GetIO().ConfigDragClickToInputText = configDragClickToInputText;
     */
 
     /**
@@ -369,31 +383,31 @@ public final class ImGuiIO {
     */
 
     /**
-     * [BETA] Set to true to only allow moving windows when clicked+dragged from the title bar. Windows without a title bar are not affected.
+     * Enable allowing to move windows only when clicking on their title bar. Does not apply to windows without a title bar.
      */
     public native boolean getConfigWindowsMoveFromTitleBarOnly(); /*
         return ImGui::GetIO().ConfigWindowsMoveFromTitleBarOnly;
     */
 
     /**
-     * [BETA] Set to true to only allow moving windows when clicked+dragged from the title bar. Windows without a title bar are not affected.
+     * Enable allowing to move windows only when clicking on their title bar. Does not apply to windows without a title bar.
      */
     public native void setConfigWindowsMoveFromTitleBarOnly(boolean configWindowsMoveFromTitleBarOnly); /*
         ImGui::GetIO().ConfigWindowsMoveFromTitleBarOnly = configWindowsMoveFromTitleBarOnly;
     */
 
     /**
-     * [BETA] Compact window memory usage when unused. Set to -1.0f to disable.
+     * [Timer (in seconds) to free transient windows/tables memory buffers when unused. Set to -1.0f to disable.
      */
-    public native float getConfigWindowsMemoryCompactTimer(); /*
-        return ImGui::GetIO().ConfigWindowsMemoryCompactTimer;
+    public native float getConfigMemoryCompactTimer(); /*
+        return ImGui::GetIO().ConfigMemoryCompactTimer;
     */
 
     /**
-     * [BETA] Compact window memory usage when unused. Set to -1.0f to disable.
+     * Timer (in seconds) to free transient windows/tables memory buffers when unused. Set to -1.0f to disable.
      */
-    public native void setConfigWindowsMemoryCompactTimer(float configWindowsMemoryCompactTimer); /*
-        ImGui::GetIO().ConfigWindowsMemoryCompactTimer = configWindowsMemoryCompactTimer;
+    public native void setConfigMemoryCompactTimer(float configMemoryCompactTimer); /*
+        ImGui::GetIO().ConfigMemoryCompactTimer = configMemoryCompactTimer;
     */
 
     //------------------------------------------------------------------
@@ -401,28 +415,28 @@ public final class ImGuiIO {
     //------------------------------------------------------------------
 
     /**
-     * Optional: Platform back-end name (informational only! will be displayed in About Window) + User data for back-end/wrappers to store their own stuff.
+     * Optional: Platform backend name (informational only! will be displayed in About Window) + User data for backend/wrappers to store their own stuff.
      */
     public native String getBackendPlatformName(); /*
         return env->NewStringUTF(ImGui::GetIO().BackendPlatformName);
     */
 
     /**
-     * Optional: Platform back-end name (informational only! will be displayed in About Window) + User data for back-end/wrappers to store their own stuff.
+     * Optional: Platform backend name (informational only! will be displayed in About Window) + User data for backend/wrappers to store their own stuff.
      */
     public native void setBackendPlatformName(String backendPlatformName); /*MANUAL
         ImGui::GetIO().BackendPlatformName = obj_backendPlatformName == NULL ? NULL : (char*)env->GetStringUTFChars(obj_backendPlatformName, JNI_FALSE);
     */
 
     /**
-     * Optional: Renderer back-end name (informational only! will be displayed in About Window) + User data for back-end/wrappers to store their own stuff.
+     * Optional: Renderer backend name (informational only! will be displayed in About Window) + User data for backend/wrappers to store their own stuff.
      */
     public native String getBackendRendererName(); /*
         return env->NewStringUTF(ImGui::GetIO().BackendRendererName);
     */
 
     /**
-     * Optional: Renderer back-end name (informational only! will be displayed in About Window) + User data for back-end/wrappers to store their own stuff.
+     * Optional: Renderer backend name (informational only! will be displayed in About Window) + User data for backend/wrappers to store their own stuff.
      */
     public native void setBackendRendererName(String backendRendererName); /*MANUAL
         ImGui::GetIO().BackendRendererName = obj_backendRendererName == NULL ? NULL : (char*)env->GetStringUTFChars(obj_backendRendererName, JNI_FALSE);
@@ -655,7 +669,7 @@ public final class ImGuiIO {
     /**
      * Disable default OS parenting to main viewport for secondary viewports.
      * By default, viewports are marked with ParentViewportId = main_viewport,
-     * expecting the platform back-end to setup a parent/child relationship between the OS windows (some back-end may ignore this).
+     * expecting the platform backend to setup a parent/child relationship between the OS windows (some backend may ignore this).
      * Set to true if you want the default to be 0, then all viewports will be top-level OS windows.
      */
     public native boolean getConfigViewportsNoDefaultParent(); /*
@@ -665,7 +679,7 @@ public final class ImGuiIO {
     /**
      * Disable default OS parenting to main viewport for secondary viewports.
      * By default, viewports are marked with ParentViewportId = main_viewport,
-     * expecting the platform back-end to setup a parent/child relationship between the OS windows (some back-end may ignore this).
+     * expecting the platform backend to setup a parent/child relationship between the OS windows (some backend may ignore this).
      * Set to true if you want the default to be 0, then all viewports will be top-level OS windows.
      */
     public native void setConfigViewportsNoDefaultParent(boolean value); /*
@@ -769,14 +783,14 @@ public final class ImGuiIO {
     */
 
     /**
-     * Mouse wheel Horizontal. Most users don't have a mouse with an horizontal wheel, may not be filled by all back-ends.
+     * Mouse wheel Horizontal. Most users don't have a mouse with an horizontal wheel, may not be filled by all backends.
      */
     public native float getMouseWheelH(); /*
         return ImGui::GetIO().MouseWheelH;
     */
 
     /**
-     * Mouse wheel Horizontal. Most users don't have a mouse with an horizontal wheel, may not be filled by all back-ends.
+     * Mouse wheel Horizontal. Most users don't have a mouse with an horizontal wheel, may not be filled by all backends.
      */
     public native void setMouseWheelH(float mouseDeltaX); /*
         ImGui::GetIO().MouseWheelH = mouseDeltaX;
@@ -973,14 +987,14 @@ public final class ImGuiIO {
     */
 
     /**
-     * MousePos has been altered, back-end should reposition mouse on next frame. Rarely used! Set only when ImGuiConfigFlags_NavEnableSetMousePos flag is enabled.
+     * MousePos has been altered, backend should reposition mouse on next frame. Rarely used! Set only when ImGuiConfigFlags_NavEnableSetMousePos flag is enabled.
      */
     public native boolean getWantSetMousePos(); /*
         return ImGui::GetIO().WantSetMousePos;
     */
 
     /**
-     * MousePos has been altered, back-end should reposition mouse on next frame. Rarely used! Set only when ImGuiConfigFlags_NavEnableSetMousePos flag is enabled.
+     * MousePos has been altered, backend should reposition mouse on next frame. Rarely used! Set only when ImGuiConfigFlags_NavEnableSetMousePos flag is enabled.
      */
     public native void setWantSetMousePos(boolean wantSetMousePos); /*
         ImGui::GetIO().WantSetMousePos = wantSetMousePos;

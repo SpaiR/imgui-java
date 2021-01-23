@@ -14,7 +14,7 @@ public final class ImDrawListFlags {
      */
     public static final int AntiAliasedLines = 1;
     /**
-     * Enable anti-aliased lines/borders using textures when possible. Require back-end to render with bilinear filtering.
+     * Enable anti-aliased lines/borders using textures when possible. Require backend to render with bilinear filtering.
      */
     public static final int AntiAliasedLinesUseTex = 1 << 1;
     /**
