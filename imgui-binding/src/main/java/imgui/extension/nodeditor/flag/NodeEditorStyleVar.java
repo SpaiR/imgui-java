@@ -1,7 +1,7 @@
 package imgui.extension.nodeditor.flag;
 
-public final class ImNodeEditorStyleVar {
-    private ImNodeEditorStyleVar() {
+public final class NodeEditorStyleVar {
+    private NodeEditorStyleVar() {
     }
 
     public static final int NodePadding = 0;

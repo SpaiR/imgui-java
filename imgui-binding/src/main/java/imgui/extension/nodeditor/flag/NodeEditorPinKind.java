@@ -1,7 +1,7 @@
 package imgui.extension.nodeditor.flag;
 
-public final class ImNodeEditorPinKind {
-    private ImNodeEditorPinKind() {
+public final class NodeEditorPinKind {
+    private NodeEditorPinKind() {
     }
 
     public static final int Input = 0;

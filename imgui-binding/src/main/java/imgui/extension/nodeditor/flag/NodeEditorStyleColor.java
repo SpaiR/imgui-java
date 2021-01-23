@@ -1,7 +1,7 @@
 package imgui.extension.nodeditor.flag;
 
-public final class ImNodeEditorStyleColor {
-    private ImNodeEditorStyleColor() {
+public final class NodeEditorStyleColor {
+    private NodeEditorStyleColor() {
     }
 
     public static final int Bg = 0;
