@@ -1,7 +1,6 @@
 package imgui.imnodes;
 
 public final class ImNodesStyleVar {
-
     private ImNodesStyleVar() {
     }
 

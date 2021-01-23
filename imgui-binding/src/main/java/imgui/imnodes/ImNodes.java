@@ -7,19 +7,20 @@ import imgui.type.ImInt;
 /**
  * Bindings for Imnodes (https://github.com/Nelarius/imnodes/)
  * Original library author - Johann Muszynski (https://github.com/Nelarius)
- *
+ * <p>
  * Refer to the library's Github page for examples and support
  */
 public final class ImNodes {
+    private static ImNodesStyle style;
 
-    private ImNodes() { }
+    private ImNodes() {
+    }
 
     /*JNI
         #include <stdint.h>
         #include <imgui.h>
         #include <imnodes.h>
         #include "jni_common.h"
-        #include "jni_binding_struct.h"
      */
 
     // An editor context corresponds to a set of nodes in a single workspace (created with a single
@@ -55,14 +56,30 @@ public final class ImNodes {
         imnodes::Shutdown();
     */
 
+    /**
+     * Returns the global style struct. See the struct declaration for default values.
+     */
+    public static ImNodesStyle getStyle() {
+        if (style == null) {
+            style = new ImNodesStyle(nGetStyle());
+        }
+        return style;
+    }
+
+    private static native long nGetStyle(); /*
+        return (intptr_t)&imnodes::GetStyle();
+    */
+
     // Style presets matching the dear imgui styles of the same name.
 
     public static native void styleColorsDark(); /*
         imnodes::StyleColorsDark();
     */
+
     public static native void styleColorsClassic(); /*
         imnodes::StyleColorsClassic();
     */
+
     public static native void styleColorsLight(); /*
         imnodes::StyleColorsLight();
     */
@@ -137,7 +154,6 @@ public final class ImNodes {
     //
     // Each attribute id must be unique.
 
-
     /**
      * Create a static attribute block. A static attribute has no pin, and therefore can't be linked to
      * anything. However, you can still use IsAttributeActive() and IsAnyAttributeActive() to check for
@@ -196,25 +212,32 @@ public final class ImNodes {
         return imnodes::IsEditorHovered();
     */
 
-    /**
-     * Binding notice: getHoveredNode(), getHoveredLink() and getHoveredPin()
-     * return id of the hovered object. If there is no such object -1 will be returned.
-     * Use these functions after endNodeEditor() has been called.
-     *
-     * These methods implemented instead of the original bool imnodes::IsNodeHovered(int* node_id),
-     * bool imnodes::IsLinkHovered(int* link_id) and bool imnodes::IsPinHovered(int* attribute_id) for convenience.
-     */
+    // Binding notice: getHoveredNode(), getHoveredLink() and getHoveredPin()
+    // return id of the hovered object. If there is no such object -1 will be returned.
+    // Use these functions after endNodeEditor() has been called.
+    //
+    // These methods implemented instead of the original bool imnodes::IsNodeHovered(int* node_id),
+    // bool imnodes::IsLinkHovered(int* link_id) and bool imnodes::IsPinHovered(int* attribute_id) for convenience.
 
+    /**
+     * @return id of the hovered node or -1 if there is no such object
+     */
     public static native int getHoveredNode(); /*
         int i;
         return imnodes::IsNodeHovered(&i) ? i : -1;
     */
 
+    /**
+     * @return id of the hovered link or -1 if there is no such object
+     */
     public static native int getHoveredLink(); /*
         int i;
         return imnodes::IsLinkHovered(&i) ? i : -1;
     */
 
+    /**
+     * @return id of the hovered pin or -1 if there is no such object
+     */
     public static native int getHoveredPin(); /*
         int i;
         return imnodes::IsPinHovered(&i) ? i : -1;
@@ -222,7 +245,7 @@ public final class ImNodes {
 
     /**
      * Binding notice: getActiveAttribute() returns id the active attribute. If there is no active attribute -1 will be returned.
-     *
+     * <p>
      * This method implemented instead of the original bool imnodes::IsAnyAttributeActive(int* attribute_id) for convenience.
      */
     public static native int getActiveAttribute(); /*
@@ -336,7 +359,6 @@ public final class ImNodes {
     public static native void clearLinkSelection(); /*
         imnodes::ClearLinkSelection();
     */
-
 
     /**
      * Enable or disable the ability to click and drag a specific node.
@@ -476,5 +498,4 @@ public final class ImNodes {
     private static native void nLoadEditorStateFromIniFile(long context, String fileName); /*
         imnodes::LoadEditorStateFromIniFile((imnodes::EditorContext*)context, fileName);
     */
-
 }

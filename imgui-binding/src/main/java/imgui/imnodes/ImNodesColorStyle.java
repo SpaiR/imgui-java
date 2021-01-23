@@ -1,7 +1,6 @@
 package imgui.imnodes;
 
 public final class ImNodesColorStyle {
-
     private ImNodesColorStyle() {
     }
 
@@ -21,5 +20,4 @@ public final class ImNodesColorStyle {
     public static final int BoxSelectorOutline = 13;
     public static final int GridBackground = 14;
     public static final int GridLine = 15;
-
 }

@@ -4,6 +4,13 @@ import imgui.binding.ImGuiStructDestroyable;
 
 public final class ImNodesContext extends ImGuiStructDestroyable {
 
+    public ImNodesContext() {
+    }
+
+    public ImNodesContext(final long ptr) {
+        super(ptr);
+    }
+
     /*JNI
         #include <stdint.h>
         #include <imgui.h>
@@ -13,14 +20,6 @@ public final class ImNodesContext extends ImGuiStructDestroyable {
 
         #define IMNODES_CONTEXT ((imnodes::EditorContext*)STRUCT_PTR)
      */
-
-    public ImNodesContext() {
-        super();
-    }
-
-    public ImNodesContext(final long ptr) {
-        super(ptr);
-    }
 
     @Override
     protected long create() {
@@ -33,11 +32,10 @@ public final class ImNodesContext extends ImGuiStructDestroyable {
     }
 
     private native long nCreate(); /*
-        return (jlong)imnodes::EditorContextCreate();
+        return (intptr_t)imnodes::EditorContextCreate();
     */
 
     private native void nDestroy(); /*
         imnodes::EditorContextFree(IMNODES_CONTEXT);
     */
-
 }

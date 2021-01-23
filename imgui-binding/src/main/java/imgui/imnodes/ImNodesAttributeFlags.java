@@ -15,7 +15,7 @@ public final class ImNodesAttributeFlags {
      * NOTE: the user has to actually delete the link for this to work. A deleted link can be
      * detected by calling IsLinkDestroyed() after EndNodeEditor().
      */
-    public static final int EnableLinkDetachWithDragClick = 1 << 0;
+    public static final int EnableLinkDetachWithDragClick = 1;
 
     /**
      * Visual snapping of an in progress link will trigger IsLink Created/Destroyed events. Allows

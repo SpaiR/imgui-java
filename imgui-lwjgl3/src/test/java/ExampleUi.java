@@ -246,7 +246,6 @@ final class ExampleUi {
 
         ImGui.text("This a demo graph editor for ImNodes");
 
-
         ImNodes.editorContextSet(imNodesContext);
         ImNodes.beginNodeEditor();
 
@@ -507,6 +506,4 @@ final class ExampleUi {
             }
         }
     }
-
-
 }
