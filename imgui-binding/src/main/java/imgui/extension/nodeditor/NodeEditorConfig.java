@@ -1,12 +1,12 @@
-package imgui.nodeditor;
+package imgui.extension.nodeditor;
 
 import imgui.binding.ImGuiStructDestroyable;
 
-public final class ImNodeEditorConfig extends ImGuiStructDestroyable {
-    public ImNodeEditorConfig() {
+public final class NodeEditorConfig extends ImGuiStructDestroyable {
+    public NodeEditorConfig() {
     }
 
-    public ImNodeEditorConfig(final long ptr) {
+    public NodeEditorConfig(final long ptr) {
         super(ptr);
     }
 

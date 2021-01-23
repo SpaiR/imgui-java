@@ -1,4 +1,4 @@
-package imgui.imnodes;
+package imgui.extension.imnodes;
 
 public final class ImNodesStyleFlags {
     private ImNodesStyleFlags() {

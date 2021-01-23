@@ -1,11 +1,11 @@
-package imgui.nodeditor;
+package imgui.extension.nodeditor;
 
 import imgui.ImVec2;
 import imgui.ImVec4;
 import imgui.binding.ImGuiStruct;
 
-public final class ImNodeEditorStyle extends ImGuiStruct {
-    public ImNodeEditorStyle(final long ptr) {
+public final class NodeEditorStyle extends ImGuiStruct {
+    public NodeEditorStyle(final long ptr) {
         super(ptr);
     }
 

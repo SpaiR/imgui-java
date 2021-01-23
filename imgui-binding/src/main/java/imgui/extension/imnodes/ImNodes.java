@@ -1,6 +1,7 @@
-package imgui.imnodes;
+package imgui.extension.imnodes;
 
 import imgui.ImVec2;
+import imgui.extension.imnodes.flag.ImNodesPinShape;
 import imgui.type.ImBoolean;
 import imgui.type.ImInt;
 

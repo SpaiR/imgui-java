@@ -1,4 +1,4 @@
-package imgui.nodeditor;
+package imgui.extension.nodeditor.flag;
 
 public final class ImNodeEditorStyleColor {
     private ImNodeEditorStyleColor() {

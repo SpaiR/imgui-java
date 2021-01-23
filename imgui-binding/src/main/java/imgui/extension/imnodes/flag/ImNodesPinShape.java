@@ -1,4 +1,4 @@
-package imgui.imnodes;
+package imgui.extension.imnodes;
 
 /**
  * This enum controls the way attribute pins look.

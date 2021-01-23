@@ -1,4 +1,4 @@
-package imgui.nodeditor;
+package imgui.extension.nodeditor;
 
 import imgui.ImDrawList;
 import imgui.ImVec2;
@@ -20,14 +20,14 @@ import imgui.type.ImLong;
  * Binding notice: instead of special types for ids of nodes, links and pins which used in native library
  * we use longs to reduce boilerplate and garbage production
  */
-public final class ImNodeEditor {
+public final class NodeEditor {
     private static final ImDrawList HINT_FOREGROUND_DRAW_LIST = new ImDrawList(0);
     private static final ImDrawList HINT_BACKGROUND_DRAW_LIST = new ImDrawList(0);
     private static final ImDrawList NODE_BACKGROUND_DRAW_LIST = new ImDrawList(0);
 
-    private static ImNodeEditorStyle style;
+    private static NodeEditorStyle style;
 
-    private ImNodeEditor() {
+    private NodeEditor() {
     }
 
     /*JNI
@@ -43,22 +43,22 @@ public final class ImNodeEditor {
     /**
      * This method exists for api consistency and you can just call NodeEditorContext manually
      */
-    public static ImNodeEditorContext createEditor() {
-        return new ImNodeEditorContext();
+    public static NodeEditorContext createEditor() {
+        return new NodeEditorContext();
     }
 
-    public static ImNodeEditorContext createEditor(final ImNodeEditorConfig config) {
-        return new ImNodeEditorContext(config);
+    public static NodeEditorContext createEditor(final NodeEditorConfig config) {
+        return new NodeEditorContext(config);
     }
 
     /**
      * This method exists for api consistency and you can just call NodeEditorContext.destroy() manually
      */
-    public static void destroyEditor(final ImNodeEditorContext editorContext) {
+    public static void destroyEditor(final NodeEditorContext editorContext) {
         editorContext.destroy();
     }
 
-    public static void setCurrentEditor(final ImNodeEditorContext editorContext) {
+    public static void setCurrentEditor(final NodeEditorContext editorContext) {
         nSetCurrentEditor(editorContext.ptr);
     }
 
@@ -127,9 +127,9 @@ public final class ImNodeEditor {
         return ed::CanvasToScreen(ImVec2(0.0f, canvasSpacePosY)).y;
     */
 
-    public static ImNodeEditorStyle getStyle() {
+    public static NodeEditorStyle getStyle() {
         if (style == null) {
-            style = new ImNodeEditorStyle(nGetStyle());
+            style = new NodeEditorStyle(nGetStyle());
         }
         return style;
     }

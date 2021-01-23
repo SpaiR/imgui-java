@@ -5,15 +5,15 @@ import imgui.flag.ImGuiDir;
 import imgui.flag.ImGuiInputTextFlags;
 import imgui.flag.ImGuiStyleVar;
 import imgui.flag.ImGuiWindowFlags;
-import imgui.imnodes.ImNodes;
-import imgui.imnodes.ImNodesContext;
-import imgui.imnodes.ImNodesPinShape;
-import imgui.nodeditor.ImNodeEditor;
+import imgui.extension.imnodes.ImNodes;
+import imgui.extension.imnodes.ImNodesContext;
+import imgui.extension.imnodes.flag.ImNodesPinShape;
+import imgui.extension.nodeditor.NodeEditor;
 import imgui.internal.ImGui;
 import imgui.internal.flag.ImGuiDockNodeFlags;
-import imgui.nodeditor.ImNodeEditorConfig;
-import imgui.nodeditor.ImNodeEditorContext;
-import imgui.nodeditor.ImNodeEditorPinKind;
+import imgui.extension.nodeditor.NodeEditorConfig;
+import imgui.extension.nodeditor.NodeEditorContext;
+import imgui.extension.nodeditor.flag.NodeEditorPinKind;
 import imgui.type.ImBoolean;
 import imgui.ImColor;
 import imgui.type.ImInt;
@@ -76,7 +76,7 @@ final class ExampleUi {
     private ImNodesContext imNodesContext;
 
     // Context for imgui-node-editor example
-    private ImNodeEditorContext imNodeEditorContext;
+    private NodeEditorContext nodeEditorContext;
 
     // Graph used both for imnodes and imgui-node-editor demo
     private final Graph graph = new Graph();
@@ -85,10 +85,10 @@ final class ExampleUi {
         if (imNodesContext == null) {
             imNodesContext = new ImNodesContext();
         }
-        if (imNodeEditorContext == null) {
-            final ImNodeEditorConfig config = new ImNodeEditorConfig();
+        if (nodeEditorContext == null) {
+            final NodeEditorConfig config = new NodeEditorConfig();
             config.setSettingsFile(null);
-            imNodeEditorContext = new ImNodeEditorContext(config);
+            nodeEditorContext = new NodeEditorContext(config);
         }
 
         final int dockspaceId = ImGui.getID("MyDockSpace");
@@ -333,52 +333,52 @@ final class ExampleUi {
         ImGui.text("This a demo graph editor for imgui-node-editor");
 
         if (ImGui.button("Navigate to content")) {
-            ImNodeEditor.navigateToContent(1F);
+            NodeEditor.navigateToContent(1F);
         }
 
-        ImNodeEditor.setCurrentEditor(imNodeEditorContext);
-        ImNodeEditor.begin("Node Editor");
+        NodeEditor.setCurrentEditor(nodeEditorContext);
+        NodeEditor.begin("Node Editor");
 
         for (Graph.GraphNode node : graph.nodes.values()) {
-            ImNodeEditor.beginNode(node.nodeId);
+            NodeEditor.beginNode(node.nodeId);
 
             ImGui.text(node.getName());
 
-            ImNodeEditor.beginPin(node.getInputPinId(), ImNodeEditorPinKind.Input);
+            NodeEditor.beginPin(node.getInputPinId(), NodeEditorPinKind.Input);
             ImGui.text("-> In");
-            ImNodeEditor.endPin();
+            NodeEditor.endPin();
 
             ImGui.sameLine();
 
-            ImNodeEditor.beginPin(node.getOutputPinId(), ImNodeEditorPinKind.Output);
+            NodeEditor.beginPin(node.getOutputPinId(), NodeEditorPinKind.Output);
             ImGui.text("Out ->");
-            ImNodeEditor.endPin();
+            NodeEditor.endPin();
 
-            ImNodeEditor.endNode();
+            NodeEditor.endNode();
         }
 
-        if (ImNodeEditor.beginCreate()) {
+        if (NodeEditor.beginCreate()) {
             final ImLong a = new ImLong();
             final ImLong b = new ImLong();
-            if (ImNodeEditor.queryNewLink(a, b)) {
+            if (NodeEditor.queryNewLink(a, b)) {
                 final Graph.GraphNode source = graph.findByOutput(a.get());
                 final Graph.GraphNode target = graph.findByInput(b.get());
-                if (source != null && target != null && source.outputNodeId != target.nodeId && ImNodeEditor.acceptNewItem()) {
+                if (source != null && target != null && source.outputNodeId != target.nodeId && NodeEditor.acceptNewItem()) {
                     source.outputNodeId = target.nodeId;
                 }
             }
         }
-        ImNodeEditor.endCreate();
+        NodeEditor.endCreate();
 
         int uniqueLinkId = 1;
         for (Graph.GraphNode node : graph.nodes.values()) {
             if (graph.nodes.containsKey(node.outputNodeId)) {
-                ImNodeEditor.link(uniqueLinkId++, node.getOutputPinId(), graph.nodes.get(node.outputNodeId).getInputPinId());
+                NodeEditor.link(uniqueLinkId++, node.getOutputPinId(), graph.nodes.get(node.outputNodeId).getInputPinId());
             }
         }
 
-        ImNodeEditor.suspend();
-        final long nodeWithContextMenu = ImNodeEditor.getNodeWithContextMenu();
+        NodeEditor.suspend();
+        final long nodeWithContextMenu = NodeEditor.getNodeWithContextMenu();
         if (nodeWithContextMenu != -1) {
             ImGui.openPopup("node-context");
             ImGui.getStateStorage().setInt(ImGui.getID("delete-node-id"), (int) nodeWithContextMenu);
@@ -395,22 +395,22 @@ final class ExampleUi {
             }
         }
 
-        if (ImNodeEditor.showBackgroundContextMenu()) {
+        if (NodeEditor.showBackgroundContextMenu()) {
             ImGui.openPopup("node-editor-context");
         }
         if (ImGui.beginPopup("node-editor-context")) {
             if (ImGui.button("Create new node")) {
                 final Graph.GraphNode node = graph.createGraphNode();
-                final float canvasX = ImNodeEditor.toCanvasX(ImGui.getMousePosX());
-                final float canvasY = ImNodeEditor.toCanvasY(ImGui.getMousePosY());
-                ImNodeEditor.setNodePosition(node.nodeId, canvasX, canvasY);
+                final float canvasX = NodeEditor.toCanvasX(ImGui.getMousePosX());
+                final float canvasY = NodeEditor.toCanvasY(ImGui.getMousePosY());
+                NodeEditor.setNodePosition(node.nodeId, canvasX, canvasY);
                 ImGui.closeCurrentPopup();
             }
             ImGui.endPopup();
         }
-        ImNodeEditor.resume();
+        NodeEditor.resume();
 
-        ImNodeEditor.end();
+        NodeEditor.end();
         ImGui.end();
     }
 

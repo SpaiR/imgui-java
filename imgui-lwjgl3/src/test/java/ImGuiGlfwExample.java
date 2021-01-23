@@ -48,7 +48,7 @@ import java.io.UncheckedIOException;
 import java.nio.IntBuffer;
 import java.util.Objects;
 
-import imgui.imnodes.ImNodes;
+import imgui.extension.imnodes.ImNodes;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
