@@ -101,10 +101,11 @@ class GenerateLibs extends DefaultTask {
         }
 
         if (forMac64) {
+            def minMacOsVersion = '10.15'
             def mac64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true)
-            mac64.cppFlags += ' -stdlib=libc++'
-            mac64.cppFlags = mac64.cppFlags.replaceAll('10.5', '10.9')
-            mac64.linkerFlags = mac64.linkerFlags.replaceAll('10.5', '10.9')
+            mac64.cppFlags += ' -std=c++14 -stdlib=libc++'
+            mac64.cppFlags = mac64.cppFlags.replace('10.5', minMacOsVersion).replace('10.7', minMacOsVersion)
+            mac64.linkerFlags = mac64.linkerFlags.replace('10.5', minMacOsVersion).replace('10.7', minMacOsVersion)
 
             if (withFreeType) {
                 mac64.cppFlags += ' -I/usr/local/include/freetype2 -I/usr/local/include/libpng16 -I/usr/local/include/harfbuzz -I/usr/local/include/glib-2.0 -I/usr/local/lib/glib-2.0/include'
