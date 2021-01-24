@@ -28,12 +28,12 @@ package imgui.app;
  * <p><h3>Example</h3>
  * The simplest application example could be done in the next way:
  *
- * <pre>{@code
+ * <pre>
  * import imgui.ImGui;
  * import imgui.app.Application;
  *
  * public class Main extends Application {
- *     @Override
+ *     {@code @Override}
  *     public void process() {
  *         ImGui.text("Hello, World!");
  *     }
@@ -42,7 +42,7 @@ package imgui.app;
  *         launch(new Main());
  *     }
  * }
- * }</pre>
+ * </pre>
  *
  * <p>As its said, {@link #process()} method is meant to be overridden. All your application logic should go there.
  *
