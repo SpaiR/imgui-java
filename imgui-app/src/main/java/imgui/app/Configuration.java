@@ -6,7 +6,7 @@ import lombok.Data;
  * Data class to provide basic information about the window. Like, the title name etc.
  */
 @Data
-public final class Configuration {
+public class Configuration {
     /**
      * Application title.
      */

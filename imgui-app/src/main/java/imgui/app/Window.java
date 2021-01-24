@@ -13,7 +13,6 @@ import org.lwjgl.opengl.GL32;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
 
-import java.awt.Color;
 import java.nio.IntBuffer;
 import java.util.Objects;
 
@@ -29,13 +28,14 @@ public abstract class Window {
     private String glslVersion = null;
 
     /**
-     * Pointer to native GLFW window.
+     * Pointer to the native GLFW window.
      */
     protected long handle;
+
     /**
      * Background color of the window.
      */
-    protected Color colorBg = Color.GRAY;
+    protected final Color colorBg = new Color(.5f, .5f, .5f, 1);
 
     /**
      * Method to initialize application.
@@ -127,12 +127,26 @@ public abstract class Window {
     }
 
     /**
+     * Method called every frame, before calling {@link #process()} method.
+     */
+    protected void preProcess() {
+    }
+
+    /**
+     * Method called every frame, after calling {@link #process()} method.
+     */
+    protected void postProcess() {
+    }
+
+    /**
      * Main application loop.
      */
     protected final void run() {
         while (!GLFW.glfwWindowShouldClose(handle)) {
             startFrame();
+            preProcess();
             process();
+            postProcess();
             endFrame();
         }
     }
@@ -143,10 +157,7 @@ public abstract class Window {
     public abstract void process();
 
     private void startFrame() {
-        if (colorBg != null) {
-            GL32.glClearColor(colorBg.getRed() / 255f, colorBg.getGreen() / 255f, colorBg.getBlue() / 255f, colorBg.getAlpha() / 255f);
-        }
-
+        GL32.glClearColor(colorBg.getRed(), colorBg.getGreen(), colorBg.getBlue(), colorBg.getAlpha());
         GL32.glClear(GL32.GL_COLOR_BUFFER_BIT | GL32.GL_DEPTH_BUFFER_BIT);
         imGuiGlfw.newFrame();
         ImGui.newFrame();
@@ -182,5 +193,19 @@ public abstract class Window {
         GLFW.glfwDestroyWindow(handle);
         GLFW.glfwTerminate();
         Objects.requireNonNull(GLFW.glfwSetErrorCallback(null)).free();
+    }
+
+    /**
+     * @return pointer to the native GLFW window
+     */
+    public final long getHandle() {
+        return handle;
+    }
+
+    /**
+     * @return {@link Color} instance, which represents background color for the window
+     */
+    public final Color getColorBg() {
+        return colorBg;
     }
 }

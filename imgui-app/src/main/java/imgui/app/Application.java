@@ -12,7 +12,11 @@ package imgui.app;
  *     <li>{@link #configure(Configuration)} It's called before window creation, so only basic application setups are expected.</li>
  *     <li>{@link #initWindow(Configuration)} Method creates application window.</li>
  *     <li>{@link #initImGui(Configuration)} Method initializes Dear ImGui context. Could be used to do Dear ImGui setup as well.</li>
+ *     <li>{@link #preRun()} Method called once, before application loop.</li>
+ *     <li>{@link #preProcess()} Method called every frame, before {@link #process()}.</li>
  *     <li>{@link #process()} Method is meant to be overridden with user application logic.</li>
+ *     <li>{@link #postProcess()} Method called every frame, after {@link #process()}.</li>
+ *     <li>{@link #postRun()} Method called once, after application loop.</li>
  *     <li>{@link #disposeImGui()} Destroys Dear ImGui context.</li>
  *     <li>{@link #disposeWindow()} Destroys application window.</li>
  * </ol>
@@ -27,17 +31,11 @@ package imgui.app;
  * <pre>{@code
  * import imgui.ImGui;
  * import imgui.app.Application;
- * import imgui.app.Configuration;
  *
  * public class Main extends Application {
  *     @Override
- *     protected void configure(final Configuration config) {
- *         config.setTitle("Example Application");
- *     }
- *
- *     @Override
  *     public void process() {
- *         ImGui.text("Hello, World");
+ *         ImGui.text("Hello, World!");
  *     }
  *
  *     public static void main(final String[] args) {
@@ -55,11 +53,23 @@ package imgui.app;
  */
 public abstract class Application extends Window {
     /**
-     * Method is called before window creation. Could be used to provide basic window information, like title name etc.
+     * Method called before window creation. Could be used to provide basic window information, like title name etc.
      *
      * @param config configuration object with basic window information
      */
     protected void configure(final Configuration config) {
+    }
+
+    /**
+     * Method called once, before application run loop.
+     */
+    protected void preRun() {
+    }
+
+    /**
+     * Method called once, after application run loop.
+     */
+    protected void postRun() {
     }
 
     /**
@@ -69,7 +79,9 @@ public abstract class Application extends Window {
      */
     public static void launch(final Application app) {
         initialize(app);
+        app.preRun();
         app.run();
+        app.postRun();
         app.dispose();
     }
 
