@@ -1,0 +1,66 @@
+plugins {
+    id 'java-library'
+    id 'io.freefair.lombok' version '5.3.0'
+    id 'checkstyle'
+    id 'com.jfrog.bintray' version '1.8.4'
+    id 'maven-publish'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api platform('org.lwjgl:lwjgl-bom:3.2.3')
+
+    api 'org.lwjgl:lwjgl'
+    api 'org.lwjgl:lwjgl-glfw'
+    api 'org.lwjgl:lwjgl-opengl'
+
+    ['natives-linux', 'natives-windows', 'natives-macos'].each {
+        runtime "org.lwjgl:lwjgl::$it"
+        runtime "org.lwjgl:lwjgl-glfw::$it"
+        runtime "org.lwjgl:lwjgl-opengl::$it"
+    }
+
+    api project(':imgui-binding')
+    api project(':imgui-lwjgl3')
+}
+
+jar {
+    from('../bin') {
+        include 'imgui-java64.dll'
+        include 'libimgui-java64.so'
+        include 'libimgui-java64.dylib'
+        into 'io/imgui/java/native-bin/'
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            groupId 'io.imgui.java'
+            artifactId 'imgui-java-app'
+            artifact sourcesJar
+            version property('version')
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_API_KEY')
+    publications = ['MyPublication']
+    pkg {
+        repo = 'io.imgui.java'
+        name = 'imgui-java-app'
+    }
+}
