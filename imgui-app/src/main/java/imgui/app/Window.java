@@ -19,7 +19,7 @@ import java.util.Objects;
 /**
  * Low-level abstraction, which creates application window and starts the main loop.
  * It's recommended to use {@link Application}, but this class could be extended directly as well.
- * Take a note, that in this case you need to call all application loop methods ({@link #init(Configuration)}, {@link #run()}, {@link #dispose()}) manually.
+ * When extended, life-cycle methods should be called manually.
  */
 public abstract class Window {
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
@@ -85,9 +85,7 @@ public abstract class Window {
             final IntBuffer pHeight = stack.mallocInt(1); // int*
 
             GLFW.glfwGetWindowSize(handle, pWidth, pHeight);
-
             final GLFWVidMode vidmode = Objects.requireNonNull(GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor()));
-
             GLFW.glfwSetWindowPos(handle, (vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2);
         }
 
@@ -156,14 +154,22 @@ public abstract class Window {
      */
     public abstract void process();
 
-    private void startFrame() {
+    /**
+     * Method called at the beginning of the main cycle.
+     * It clears OpenGL buffer and starts an ImGui frame.
+     */
+    protected void startFrame() {
         GL32.glClearColor(colorBg.getRed(), colorBg.getGreen(), colorBg.getBlue(), colorBg.getAlpha());
         GL32.glClear(GL32.GL_COLOR_BUFFER_BIT | GL32.GL_DEPTH_BUFFER_BIT);
         imGuiGlfw.newFrame();
         ImGui.newFrame();
     }
 
-    private void endFrame() {
+    /**
+     * Method called in the end of the main cycle.
+     * It renders ImGui and swaps GLFW buffers to show an updated frame.
+     */
+    protected void endFrame() {
         ImGui.render();
         imGuiGl3.renderDrawData(ImGui.getDrawData());
 
