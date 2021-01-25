@@ -1,5 +1,7 @@
 package imgui.internal;
 
+import imgui.ImVec2;
+import imgui.type.ImFloat;
 import imgui.type.ImInt;
 
 public final class ImGui extends imgui.ImGui {
@@ -9,9 +11,22 @@ public final class ImGui extends imgui.ImGui {
         #include <stdint.h>
         #include <imgui.h>
         #include <imgui_internal.h>
+        #include "jni_common.h"
      */
 
     // Basic Helpers for widget code
+
+    public static native void calcItemSize(float sizeX, float sizeY, float defaultW, float defaultH, ImVec2 dstImVec2); /*
+        Jni::ImVec2Cpy(env, ImGui::CalcItemSize(ImVec2(sizeX, sizeY), defaultW, defaultH), dstImVec2);
+    */
+
+    public static native float calcItemSizeX(float sizeX, float sizeY, float defaultW, float defaultH); /*
+        return ImGui::CalcItemSize(ImVec2(sizeX, sizeY), defaultW, defaultH).x;
+    */
+
+    public static native float calcItemSizeY(float sizeX, float sizeY, float defaultW, float defaultH); /*
+        return ImGui::CalcItemSize(ImVec2(sizeX, sizeY), defaultW, defaultH).y;
+    */
 
     public static native void pushItemFlag(int imGuiItemFlags, boolean enabled); /*
         ImGui::PushItemFlag(imGuiItemFlags, enabled);
@@ -144,5 +159,23 @@ public final class ImGui extends imgui.ImGui {
 
     public static native void dockBuilderFinish(int nodeId); /*
         ImGui::DockBuilderFinish(nodeId);
+    */
+
+    // Widgets low-level behaviors
+
+    public static boolean splitterBehavior(float bbMinX, float bbMinY, float bbMaxX, float bbMaxY, int id, int imGuiAxis, ImFloat size1, ImFloat size2, float minSize1, float minSize2) {
+        return splitterBehavior(bbMinX, bbMinY, bbMaxX, bbMaxY, id, imGuiAxis, size1, size2, minSize1, minSize2, 0, 0);
+    }
+
+    public static boolean splitterBehavior(float bbMinX, float bbMinY, float bbMaxX, float bbMaxY, int id, int imGuiAxis, ImFloat size1, ImFloat size2, float minSize1, float minSize2, float hoverExtend) {
+        return splitterBehavior(bbMinX, bbMinY, bbMaxX, bbMaxY, id, imGuiAxis, size1, size2, minSize1, minSize2, hoverExtend, 0);
+    }
+
+    public static boolean splitterBehavior(float bbMinX, float bbMinY, float bbMaxX, float bbMaxY, int id, int imGuiAxis, ImFloat size1, ImFloat size2, float minSize1, float minSize2, float hoverExtend, float hoverVisibilityDelay) {
+        return nSplitterBehaviour(bbMinX, bbMinY, bbMaxX, bbMaxY, id, imGuiAxis, size1.getData(), size2.getData(), minSize1, minSize2, hoverExtend, hoverVisibilityDelay);
+    }
+
+    private static native boolean nSplitterBehaviour(float bbMinX, float bbMinY, float bbMaxX, float bbMaxY, int id, int imGuiAxis, float[] size1, float[] size2, float minSize1, float minSize2, float hoverExtend, float hoverVisibilityDelay); /*
+        return ImGui::SplitterBehavior(ImRect(bbMinX, bbMinY, bbMaxX, bbMaxY), id, (ImGuiAxis)imGuiAxis, &size1[0], &size2[0], minSize1, minSize2, hoverExtend, hoverVisibilityDelay);
     */
 }
