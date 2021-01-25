@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'io.freefair.lombok' version '5.3.0'
     id 'checkstyle'
-    id 'com.jfrog.bintray' version '1.8.4'
+    id 'com.jfrog.bintray'
     id 'maven-publish'
 }
 
