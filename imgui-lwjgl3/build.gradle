@@ -28,21 +28,7 @@ dependencies {
     implementation 'org.lwjgl:lwjgl-glfw'
     implementation 'org.lwjgl:lwjgl-opengl'
 
-    testRuntimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
-    testRuntimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
-    testRuntimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
-
     implementation project(':imgui-binding')
-}
-
-task startExample(type: JavaExec, dependsOn: build) {
-    main = 'ImGuiGlfwExample'
-    classpath = sourceSets.test.runtimeClasspath
-    jvmArgs = ["-Djava.library.path=${System.getProperty('libPath', '../bin')}"]
-
-    if (OperatingSystem.current().isMacOsX()) {
-        jvmArgs += ['-XstartOnFirstThread', '-Djava.awt.headless=true']
-    }
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
