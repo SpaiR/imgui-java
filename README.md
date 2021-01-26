@@ -1,7 +1,7 @@
 # imgui-java 
 [![CI Build](https://github.com/SpaiR/imgui-java/workflows/CI%20Build/badge.svg)](https://github.com/SpaiR/imgui-java/actions?query=workflow%3A%22CI+Build%22) 
 [![binding javadoc](https://javadoc.io/badge2/io.imgui.java/imgui-java-binding/binding_javadoc.svg)](https://javadoc.io/doc/io.imgui.java/imgui-java-binding)
-[![app javadoc](https://javadoc.io/badge2/io.imgui.java/imgui-app-binding/app_javadoc.svg)](https://javadoc.io/doc/io.imgui.java/imgui-java-app)
+[![app javadoc](https://javadoc.io/badge2/io.imgui.java/imgui-java-app/app_javadoc.svg)](https://javadoc.io/doc/io.imgui.java/imgui-java-app)
 
 JNI based binding for [Dear ImGui](https://github.com/ocornut/imgui) with no dependencies.<br>
 Read official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki) to see how to work with Dear ImGui.
