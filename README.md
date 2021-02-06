@@ -1,6 +1,6 @@
 # imgui-java 
 [![CI Build](https://github.com/SpaiR/imgui-java/workflows/CI%20Build/badge.svg)](https://github.com/SpaiR/imgui-java/actions?query=workflow%3A%22CI+Build%22)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.spair/imgui-java-binding?logo=apache-maven)](https://search.maven.org/artifact/io.github.spair/imgui-java-binding)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.spair/imgui-java-binding?logo=apache-maven)](https://search.maven.org/search?q=g:io.github.spair%20AND%20a:imgui-java-*)
 [![binding javadoc](https://javadoc.io/badge2/io.github.spair/imgui-java-binding/javadoc_binding.svg)](https://javadoc.io/doc/io.github.spair/imgui-java-binding)
 [![app javadoc](https://javadoc.io/badge2/io.github.spair/imgui-java-app/javadoc_app.svg)](https://javadoc.io/doc/io.github.spair/imgui-java-app)
 
