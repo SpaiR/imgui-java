@@ -1,25 +1,12 @@
-import org.gradle.internal.os.OperatingSystem
-
 plugins {
     id 'java'
     id 'checkstyle'
     id 'com.jfrog.bintray'
     id 'maven-publish'
+    id 'signing'
 }
 
 sourceCompatibility = 1.8
-
-switch (OperatingSystem.current()) {
-    case OperatingSystem.LINUX:
-        project.ext.lwjglNatives = 'natives-linux'
-        break
-    case OperatingSystem.WINDOWS:
-        project.ext.lwjglNatives = 'natives-windows'
-        break
-    case OperatingSystem.MAC_OS:
-        project.ext.lwjglNatives = 'natives-macos'
-        break
-}
 
 dependencies {
     implementation platform("org.lwjgl:lwjgl-bom:3.2.3")
@@ -36,24 +23,10 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
-publishing {
-    publications {
-        MyPublication(MavenPublication) {
-            from components.java
-            groupId 'io.imgui.java'
-            artifactId 'imgui-java-lwjgl3'
-            artifact sourcesJar
-            version property('version')
-        }
-    }
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set('javadoc')
+    from javadoc.destinationDir
 }
 
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_API_KEY')
-    publications = ['MyPublication']
-    pkg {
-        repo = 'io.imgui.java'
-        name = 'imgui-java-lwjgl3'
-    }
-}
+apply from: "$rootDir/publish.gradle"
+configurePublishing('imgui-java-lwjgl3', 'Backend LWJGL3 implementation for imgui-java')

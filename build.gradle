@@ -1,7 +1,3 @@
-plugins {
-    id 'com.jfrog.bintray' apply false
-}
-
 allprojects {
     group 'imgui-java'
     version property('version')

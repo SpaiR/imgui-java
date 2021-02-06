@@ -1,7 +1,8 @@
 # imgui-java 
-[![CI Build](https://github.com/SpaiR/imgui-java/workflows/CI%20Build/badge.svg)](https://github.com/SpaiR/imgui-java/actions?query=workflow%3A%22CI+Build%22) 
-[![binding javadoc](https://javadoc.io/badge2/io.imgui.java/imgui-java-binding/binding_javadoc.svg)](https://javadoc.io/doc/io.imgui.java/imgui-java-binding)
-[![app javadoc](https://javadoc.io/badge2/io.imgui.java/imgui-java-app/app_javadoc.svg)](https://javadoc.io/doc/io.imgui.java/imgui-java-app)
+[![CI Build](https://github.com/SpaiR/imgui-java/workflows/CI%20Build/badge.svg)](https://github.com/SpaiR/imgui-java/actions?query=workflow%3A%22CI+Build%22)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.spair/imgui-java-binding?logo=apache-maven)](https://search.maven.org/artifact/io.github.spair/imgui-java-binding)
+[![binding javadoc](https://javadoc.io/badge2/io.github.spair/imgui-java-binding/javadoc_binding.svg)](https://javadoc.io/doc/io.github.spair/imgui-java-binding)
+[![app javadoc](https://javadoc.io/badge2/io.github.spair/imgui-java-app/javadoc_app.svg)](https://javadoc.io/doc/io.github.spair/imgui-java-app)
 
 JNI based binding for [Dear ImGui](https://github.com/ocornut/imgui) with no dependencies.<br>
 Read official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki) to see how to work with Dear ImGui.
@@ -69,7 +70,7 @@ public class Main extends Application {
     }
 }
 ```
-Read `imgui.app.Application` [javadoc](https://javadoc.io/doc/io.imgui.java/imgui-java-app) to understand how it works under the hood.
+Read `imgui.app.Application` [javadoc](https://javadoc.io/doc/io.github.spair/imgui-java-app) to understand how it works under the hood.
 
 #### Dependencies
 
@@ -78,11 +79,11 @@ Read `imgui.app.Application` [javadoc](https://javadoc.io/doc/io.imgui.java/imgu
 
 ```
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
-    implementation "io.imgui.java:imgui-java-app:1.80-1.5.0"
+    implementation "io.github.spair:imgui-java-app:1.80-1.5.0"
 }
 ```
 </details>
@@ -91,16 +92,9 @@ dependencies {
         <summary><b>Maven</b></summary>
 
 ```
-<repositories>
-    <repository>
-        <id>jcenter</id>
-        <url>https://jcenter.bintray.com/</url>
-    </repository>
-</repositories>
-
 <dependencies>
     <dependency>
-        <groupId>io.imgui.java</groupId>
+        <groupId>io.github.spair</groupId>
         <artifactId>imgui-java-app</artifactId>
         <version>1.80-1.5.0</version>
     </dependency>
@@ -129,7 +123,6 @@ Feel free to add other platforms: `imgui-java-natives-windows-x86`, `imgui-java-
 
 ```
 repositories {
-    jcenter()
     mavenCentral()
 }
 
@@ -146,10 +139,10 @@ dependencies {
         implementation "org.lwjgl:lwjgl$it::natives-windows"
     }
     
-    implementation "io.imgui.java:imgui-java-binding:$imguiVersion"
-    implementation "io.imgui.java:imgui-java-lwjgl3:$imguiVersion"
+    implementation "io.github.spair:imgui-java-binding:$imguiVersion"
+    implementation "io.github.spair:imgui-java-lwjgl3:$imguiVersion"
     
-    implementation "io.imgui.java:imgui-java-natives-windows:$imguiVersion"
+    implementation "io.github.spair:imgui-java-natives-windows:$imguiVersion"
 }
 ```
 </details>
@@ -158,13 +151,6 @@ dependencies {
         <summary><b>Maven</b></summary>
 
 ```
-<repositories>
-    <repository>
-        <id>jcenter</id>
-        <url>https://jcenter.bintray.com/</url>
-    </repository>
-</repositories>
-
 <properties>
     <lwjgl.version>3.2.3</lwjgl.version>
     <imgui.java.version>1.80-1.5.0</imgui.java.version>
@@ -212,17 +198,17 @@ dependencies {
     </dependency>
     
     <dependency>
-        <groupId>io.imgui.java</groupId>
+        <groupId>io.github.spair</groupId>
         <artifactId>imgui-java-binding</artifactId>
         <version>${imgui.java.version}</version>
     </dependency>
     <dependency>
-        <groupId>io.imgui.java</groupId>
+        <groupId>io.github.spair</groupId>
         <artifactId>imgui-java-lwjgl3</artifactId>
         <version>${imgui.java.version}</version>
     </dependency>
     <dependency>
-        <groupId>io.imgui.java</groupId>
+        <groupId>io.github.spair</groupId>
         <artifactId>imgui-java-natives-windows</artifactId>
         <version>${imgui.java.version}</version>
     </dependency>
@@ -258,7 +244,7 @@ One important thing is how natives structs work. All of them have a public field
 By changing the pointer it's possible to use the same Java instance to work with different native structs.<br>
 Most of the time you can ignore this fact and just work with objects in a common way.
 
-Read [javadoc](https://javadoc.io/doc/io.imgui.java/imgui-java-binding) and source comments to get more info about how to do specific stuff.
+Read [javadoc](https://javadoc.io/doc/io.github.spair/imgui-java-binding) and source comments to get more info about how to do specific stuff.
 
 # How to Build Native Libraries
 ### Windows

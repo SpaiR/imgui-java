@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id 'com.jfrog.bintray'
     id 'maven-publish'
+    id 'signing'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -9,23 +9,34 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
-def packageName = 'natives-linux'
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set('javadoc')
+    from javadoc.destinationDir
+}
+
+def packageName = 'imgui-java-natives-linux'
+def packageDesc = 'Native binaries for imgui-java binding for 64bit Linux'
 def libName = 'libimgui-java64.so'
 
 if (System.getProperty('deployWin32')) {
     packageName = 'imgui-java-natives-windows-x86'
+    packageDesc = 'Native binaries for imgui-java binding for 32bit Windows'
     libName = 'imgui-java.dll'
 } else if (System.getProperty('deployWin64')) {
     packageName = 'imgui-java-natives-windows'
+    packageDesc = 'Native binaries for imgui-java binding for 64bit Windows'
     libName = 'imgui-java64.dll'
 } else if (System.getProperty('deployLinux32')) {
     packageName = 'imgui-java-natives-linux-x86'
+    packageDesc = 'Native binaries for imgui-java binding for 32bit Linux'
     libName = 'libimgui-java.so'
 } else if (System.getProperty('deployLinux64')) {
     packageName = 'imgui-java-natives-linux'
+    packageDesc = 'Native binaries for imgui-java binding for 64bit Linux'
     libName = 'libimgui-java64.so'
 } else if (System.getProperty('deployMacOs64')) {
     packageName = 'imgui-java-natives-macos'
+    packageDesc = 'Native binaries for imgui-java binding for 64bit MacOS'
     libName = 'libimgui-java64.dylib'
 }
 
@@ -36,24 +47,5 @@ jar {
     }
 }
 
-publishing {
-    publications {
-        MyPublication(MavenPublication) {
-            from components.java
-            groupId 'io.imgui.java'
-            artifactId packageName
-            artifact sourcesJar
-            version property('version')
-        }
-    }
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_API_KEY')
-    publications = ['MyPublication']
-    pkg {
-        repo = 'io.imgui.java'
-        name = packageName
-    }
-}
+apply from: "$rootDir/publish.gradle"
+configurePublishing(packageName, packageDesc)

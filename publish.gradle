@@ -1,0 +1,54 @@
+ext.configurePublishing = { packageName, packageDesc ->
+    publishing {
+        repositories {
+            maven {
+                name = 'MavenCentral'
+                def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+                def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                credentials {
+                    username = findProperty('nexusUpdId') ?: ''
+                    password = findProperty('nexusUpdPass') ?: ''
+                }
+            }
+        }
+        publications {
+            mavenJava(MavenPublication) {
+                groupId = 'io.github.spair'
+                artifactId = packageName
+                version = property('version')
+
+                from components.java
+                artifact sourcesJar
+                artifact javadocJar
+
+                pom {
+                    name = packageName
+                    description = packageDesc
+                    url = 'https://github.com/SpaiR/imgui-java'
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'SpaiR'
+                            name = 'Ilya Prymshyts'
+                            email = 'klimbetoo@gmail.com'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:https://github.com/SpaiR/imgui-java.git'
+                        developerConnection = 'scm:git:https://github.com/SpaiR/imgui-java.git'
+                        url = 'https://github.com/SpaiR/imgui-java.git'
+                    }
+                }
+            }
+        }
+    }
+    signing {
+        sign publishing.publications.mavenJava
+    }
+}

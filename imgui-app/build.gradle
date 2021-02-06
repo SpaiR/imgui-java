@@ -2,8 +2,8 @@ plugins {
     id 'java-library'
     id 'io.freefair.lombok' version '5.3.0'
     id 'checkstyle'
-    id 'com.jfrog.bintray'
     id 'maven-publish'
+    id 'signing'
 }
 
 sourceCompatibility = 1.8
@@ -48,25 +48,5 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
-publishing {
-    publications {
-        MyPublication(MavenPublication) {
-            from components.java
-            groupId 'io.imgui.java'
-            artifactId 'imgui-java-app'
-            artifact sourcesJar
-            artifact javadocJar
-            version property('version')
-        }
-    }
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_API_KEY')
-    publications = ['MyPublication']
-    pkg {
-        repo = 'io.imgui.java'
-        name = 'imgui-java-app'
-    }
-}
+apply from: "$rootDir/publish.gradle"
+configurePublishing('imgui-java-app', 'Application wrapper for Dear ImGui')

@@ -3,8 +3,8 @@ import imgui.generate.GenerateLibs
 plugins {
     id 'java'
     id 'checkstyle'
-    id 'com.jfrog.bintray'
     id 'maven-publish'
+    id 'signing'
 }
 
 sourceCompatibility = 1.8
@@ -31,25 +31,5 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
-publishing {
-    publications {
-        MyPublication(MavenPublication) {
-            from components.java
-            groupId 'io.imgui.java'
-            artifactId 'imgui-java-binding'
-            artifact sourcesJar
-            artifact javadocJar
-            version property('version')
-        }
-    }
-}
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_API_KEY')
-    publications = ['MyPublication']
-    pkg {
-        repo = 'io.imgui.java'
-        name = 'imgui-java-binding'
-    }
-}
+apply from: "$rootDir/publish.gradle"
+configurePublishing('imgui-java-binding', 'JNI based binding for Dear ImGui')
