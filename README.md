@@ -4,6 +4,16 @@
 [![binding javadoc](https://javadoc.io/badge2/io.github.spair/imgui-java-binding/javadoc_binding.svg)](https://javadoc.io/doc/io.github.spair/imgui-java-binding)
 [![app javadoc](https://javadoc.io/badge2/io.github.spair/imgui-java-app/javadoc_app.svg)](https://javadoc.io/doc/io.github.spair/imgui-java-app)
 
+## Important News!
+_(If you are using raw jars, you can skip this section.)_<br>
+Because of [JCenter shutdown](https://jfrog.com/blog/into-the-sunset-bintray-jcenter-gocenter-and-chartcenter/) library has moved to Maven Central.
+That fact affects nothing, but the groupId parameter in your Gradle and Maven configuration files.
+From version `1.80-1.5.0` use `io.github.spair` instead of `io.imgui.java`. See an updated [How To Use](#how-to-use) section for details.
+
+**<ins>Old versions will not be transferred to Maven Central and will become unavailable after JCenter goes down.</ins>**
+
+---
+
 JNI based binding for [Dear ImGui](https://github.com/ocornut/imgui) with no dependencies.<br>
 Read official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki) to see how to work with Dear ImGui.
 Almost everything from C++ could be done in Java in the same way.
