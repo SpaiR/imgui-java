@@ -54,10 +54,9 @@ public final class ImGui extends imgui.ImGui {
         final long ptr = nDockBuilderGetNode(nodeId);
         if (ptr == 0) {
             return null;
-        } else {
-            DOCK_NODE.ptr = ptr;
-            return DOCK_NODE;
         }
+        DOCK_NODE.ptr = ptr;
+        return DOCK_NODE;
     }
 
     private static native long nDockBuilderGetNode(int nodeId); /*
@@ -68,10 +67,9 @@ public final class ImGui extends imgui.ImGui {
         final long ptr = nDockBuilderGetCentralNode(nodeId);
         if (ptr == 0) {
             return null;
-        } else {
-            DOCK_NODE.ptr = ptr;
-            return DOCK_NODE;
         }
+        DOCK_NODE.ptr = ptr;
+        return DOCK_NODE;
     }
 
     private static native long nDockBuilderGetCentralNode(int nodeId); /*

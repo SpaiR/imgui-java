@@ -325,7 +325,7 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
     /**
      * Explicitly specify unicode codepoint of ellipsis character. When fonts are being merged first specified ellipsis will be used.
      */
-    public native void setEllipsisChar(short ellipsisChar); /*
+    public native void setEllipsisChar(int ellipsisChar); /*
         IM_FONT_CONFIG->EllipsisChar = (ImWchar)ellipsisChar;
     */
 
