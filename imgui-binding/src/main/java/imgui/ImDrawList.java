@@ -457,4 +457,36 @@ public final class ImDrawList extends ImGuiStruct {
     public native void channelsSetCurrent(int n); /*
         IM_DRAW_LIST->ChannelsSetCurrent(n);
     */
+
+    // Advanced: Primitives allocations
+    // - We render triangles (three vertices)
+    // - All primitives needs to be reserved via PrimReserve() beforehand.
+
+    public native void primReserve(int idxCount, int vtxCount); /*
+        IM_DRAW_LIST->PrimReserve(idxCount, vtxCount);
+    */
+
+    public native void primUnreserve(int idxCount, int vtxCount); /*
+        IM_DRAW_LIST->PrimUnreserve(idxCount, vtxCount);
+    */
+
+    public native void primRect(float ax, float ay, float bx, float by, int col); /*
+        IM_DRAW_LIST->PrimRect(ImVec2(ax, ay), ImVec2(bx, by), col);
+    */
+
+    public native void primRectUV(float ax, float ay, float bx, float by, float uvAx, float uvAy, float uvBx, float uvBy, int col); /*
+        IM_DRAW_LIST->PrimRectUV(ImVec2(ax, ay), ImVec2(bx, by), ImVec2(uvAx, uvAy), ImVec2(uvBx, uvBy), col);
+    */
+
+    public native void primQuadUV(float ax, float ay, float bx, float by, float cx, float cy, float dx, float dy, float uvAx, float uvAy, float uvBx, float uvBy, float uvCx, float uvCy, float uvDx, float uvDy, int col); /*
+        IM_DRAW_LIST->PrimQuadUV(ImVec2(ax, ay), ImVec2(bx, by), ImVec2(cx, cy), ImVec2(dx, dy), ImVec2(uvAx, uvAy), ImVec2(uvBx, uvBy), ImVec2(uvCx, uvCy), ImVec2(uvDx, uvDy), col);
+    */
+
+    public native void primWriteVtx(float posX, float posY, float uvX, float uvY, int col); /*
+        IM_DRAW_LIST->PrimWriteVtx(ImVec2(posX, posY), ImVec2(uvX, uvY), col);
+    */
+
+    public native void primVtx(float posX, float posY, float uvX, float uvY, int col); /*
+        IM_DRAW_LIST->PrimVtx(ImVec2(posX, posY), ImVec2(uvX, uvY), col);
+    */
 }
