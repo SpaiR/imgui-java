@@ -33,7 +33,7 @@ It hides all low-level stuff under one class to extend, so you can build your GU
 - **Multi-Viewports/Docking Branch**<br>
   Binding has a full support of [Multi-Viewports](https://github.com/ocornut/imgui/wiki/Multi-Viewports) and [Docking](https://github.com/ocornut/imgui/wiki/Docking). <br>
 - **FreeType Font Renderer**<br>
-  FreeType font renderer is included by default to draw a better quality fonts. Should be [enabled](https://github.com/ocornut/imgui/blob/v1.80/misc/freetype/README.md) though.<br>
+  FreeType font renderer enabled by default to provide a better quality fonts.<br>
 - **Extensions**<br>
   Binding includes several useful [extensions](https://github.com/ocornut/imgui/wiki/Useful-Widgets) for Dear ImGui. [See full list](#extensions).
 
@@ -242,7 +242,7 @@ dependencies {
 </details>
 
 ## Extensions
-- [ImNodes](https://github.com/Nelarius/imnodes/tree/595972941054e9fa453f5a6d5590a51c9e1c98a4) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.80-1.5.0/example/src/main/java/ExampleImNodes.java) <br>
+- [ImNodes](https://github.com/Nelarius/imnodes/tree/868dda60d5829aec9a736cec7ff6be1299d543c0) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.80-1.5.0/example/src/main/java/ExampleImNodes.java) <br>
   A small, dependency-free node editor for dear imgui. (A good choice for simple start.)
 - [imgui-node-editor](https://github.com/thedmd/imgui-node-editor/tree/687a72f940c76cf5064e13fe55fa0408c18fcbe4) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.80-1.5.0/example/src/main/java/ExampleImGuiNodeEditor.java) <br>
   Node Editor using ImGui. (A bit more complex than ImNodes, but has more features.)

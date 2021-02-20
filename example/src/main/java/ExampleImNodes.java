@@ -12,7 +12,7 @@ import java.net.URI;
 
 public class ExampleImNodes {
     private static final ImNodesContext CONTEXT = new ImNodesContext();
-    private static final String URL = "https://github.com/Nelarius/imnodes/tree/5959729410";
+    private static final String URL = "https://github.com/Nelarius/imnodes/tree/868dda6";
 
     private static final ImInt LINK_A = new ImInt();
     private static final ImInt LINK_B = new ImInt();
