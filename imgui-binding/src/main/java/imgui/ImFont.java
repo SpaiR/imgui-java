@@ -171,7 +171,7 @@ public final class ImFont extends ImGuiStructDestroyable {
 
     // Methods
 
-    public ImFontGlyph findGlyph(int c) {
+    public ImFontGlyph findGlyph(final int c) {
         final long ptr = nFindGlyph(c);
         if (ptr == 0) {
             return null;
@@ -184,7 +184,7 @@ public final class ImFont extends ImGuiStructDestroyable {
         return (intptr_t)IM_FONT->FindGlyph((ImWchar)c);
     */
 
-    public ImFontGlyph findGlyphNoFallback(int c) {
+    public ImFontGlyph findGlyphNoFallback(final int c) {
         final long ptr = nFindGlyphNoFallback(c);
         if (ptr == 0) {
             return null;
@@ -237,7 +237,7 @@ public final class ImFont extends ImGuiStructDestroyable {
         return env->NewStringUTF(IM_FONT->CalcWordWrapPositionA(scale, text, textEnd, wrapWidth));
     */
 
-    public void renderChar(ImDrawList drawList, float size, float posX, float posY, int col, int c) {
+    public void renderChar(final ImDrawList drawList, final float size, final float posX, final float posY, final int col, final int c) {
         nRenderChar(drawList.ptr, size, posX, posY, col, c);
     }
 
@@ -245,15 +245,15 @@ public final class ImFont extends ImGuiStructDestroyable {
         IM_FONT->RenderChar((ImDrawList*)drawListPtr, size, ImVec2(posX, posY), col, (ImWchar)c);
     */
 
-    public void renderText(ImDrawList drawList, float size, float posX, float posY, int col, float clipRectX, float clipRectY, float clipRectW, float clipRectZ, String text, String textEnd) {
+    public void renderText(final ImDrawList drawList, final float size, final float posX, final float posY, final int col, final float clipRectX, final float clipRectY, final float clipRectW, final float clipRectZ, final String text, final String textEnd) {
         nRenderText(drawList.ptr, size, posX, posY, col, clipRectX, clipRectY, clipRectW, clipRectZ, text, textEnd, 0, false);
     }
 
-    public void renderText(ImDrawList drawList, float size, float posX, float posY, int col, float clipRectX, float clipRectY, float clipRectW, float clipRectZ, String text, String textEnd, float wrapWidth) {
+    public void renderText(final ImDrawList drawList, final float size, final float posX, final float posY, final int col, final float clipRectX, final float clipRectY, final float clipRectW, final float clipRectZ, final String text, final String textEnd, final float wrapWidth) {
         nRenderText(drawList.ptr, size, posX, posY, col, clipRectX, clipRectY, clipRectW, clipRectZ, text, textEnd, wrapWidth, false);
     }
 
-    public void renderText(ImDrawList drawList, float size, float posX, float posY, int col, float clipRectX, float clipRectY, float clipRectW, float clipRectZ, String text, String textEnd, float wrapWidth, boolean cpuFineClip) {
+    public void renderText(final ImDrawList drawList, final float size, final float posX, final float posY, final int col, final float clipRectX, final float clipRectY, final float clipRectW, final float clipRectZ, final String text, final String textEnd, final float wrapWidth, final boolean cpuFineClip) {
         nRenderText(drawList.ptr, size, posX, posY, col, clipRectX, clipRectY, clipRectW, clipRectZ, text, textEnd, wrapWidth, cpuFineClip);
     }
 
