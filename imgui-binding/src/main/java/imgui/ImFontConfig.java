@@ -116,6 +116,7 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
 
     /**
      * Rasterize at higher quality for sub-pixel positioning.
+     * Note the difference between 2 and 3 is minimal so you can reduce this to 2 to save memory.
      * Read https://github.com/nothings/stb/blob/master/tests/oversample/README.md for details.
      */
     public native int getOversampleH(); /*
@@ -124,6 +125,7 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
 
     /**
      * Rasterize at higher quality for sub-pixel positioning.
+     * Note the difference between 2 and 3 is minimal so you can reduce this to 2 to save memory.
      * Read https://github.com/nothings/stb/blob/master/tests/oversample/README.md for details.
      */
     public native void setOversampleH(int oversampleH); /*
@@ -132,7 +134,7 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
 
     /**
      * Rasterize at higher quality for sub-pixel positioning.
-     * We don't use sub-pixel positions on the Y axis.
+     * This is not really useful as we don't use sub-pixel positions on the Y axis.
      */
     public native int getOversampleV(); /*
         return IM_FONT_CONFIG->OversampleV;
@@ -140,7 +142,7 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
 
     /**
      * Rasterize at higher quality for sub-pixel positioning.
-     * We don't use sub-pixel positions on the Y axis.
+     * This is not really useful as we don't use sub-pixel positions on the Y axis.
      */
     public native void setOversampleV(int oversampleV); /*
         IM_FONT_CONFIG->OversampleV = oversampleV;
@@ -286,17 +288,17 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
     */
 
     /**
-     * Settings for custom font rasterizer (e.g. ImGuiFreeType). Leave as zero if you aren't using one.
+     * Settings for custom font builder. THIS IS BUILDER IMPLEMENTATION DEPENDENT. Leave as zero if unsure.
      */
-    public native int getRasterizerFlags(); /*
-        return IM_FONT_CONFIG->RasterizerFlags;
+    public native int getFontBuilderFlags(); /*
+        return IM_FONT_CONFIG->FontBuilderFlags;
     */
 
     /**
-     * Settings for custom font rasterizer (e.g. ImGuiFreeType). Leave as zero if you aren't using one.
+     * Settings for custom font builder. THIS IS BUILDER IMPLEMENTATION DEPENDENT. Leave as zero if unsure.
      */
-    public native void setRasterizerFlags(int rasterizerFlags); /*
-        IM_FONT_CONFIG->RasterizerFlags = (unsigned int)rasterizerFlags;
+    public native void setFontBuilderFlags(int fontBuilderFlags); /*
+        IM_FONT_CONFIG->FontBuilderFlags = (unsigned int)fontBuilderFlags;
     */
 
     /**

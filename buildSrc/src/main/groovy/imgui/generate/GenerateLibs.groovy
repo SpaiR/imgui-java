@@ -18,7 +18,7 @@ class GenerateLibs extends DefaultTask {
     private final boolean forMac64 = buildEnvs?.contains('mac64')
 
     private final boolean isLocal = System.properties.containsKey("local")
-    private final boolean withFreeType = System.properties.containsKey("withFreeType")
+    private final boolean withFreeType = System.properties.containsKey("freetype")
 
     private final String sourceDir = project.file('src/main/java')
     private final String classpath = project.file('build/classes/java/main')
@@ -42,16 +42,17 @@ class GenerateLibs extends DefaultTask {
             ['include/imgui', 'include/imnodes', 'include/imgui-node-editor'].each {
                 spec.from(project.rootProject.file(it)) { CopySpec s -> s.include('*.h', '*.cpp', '*.inl') }
             }
-
-            if (withFreeType) {
-                spec.from(project.rootProject.file('include/imgui/misc/freetype')) { CopySpec it -> it.include('*.h', '*.cpp') }
-            }
-
+            spec.from(project.rootProject.file('imgui-binding/src/main/native'))
             spec.into(jniDir)
         }
 
-        project.copy {CopySpec spec ->
-            spec.from(project.rootProject.file('imgui-binding/src/main/native')).into(jniDir)
+        if (withFreeType) {
+            project.copy { CopySpec spec ->
+                spec.from(project.rootProject.file('include/imgui/misc/freetype')) { CopySpec it -> it.include('*.h', '*.cpp') }
+                spec.into("$jniDir/misc/freetype")
+            }
+
+            enableDefine('IMGUI_ENABLE_FREETYPE')
         }
 
         // Generate platform dependant ant configs and header files
@@ -104,8 +105,8 @@ class GenerateLibs extends DefaultTask {
             def minMacOsVersion = '10.15'
             def mac64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true)
             mac64.cppFlags += ' -std=c++14 -stdlib=libc++'
-            mac64.cppFlags = mac64.cppFlags.replace('10.5', minMacOsVersion).replace('10.7', minMacOsVersion)
-            mac64.linkerFlags = mac64.linkerFlags.replace('10.5', minMacOsVersion).replace('10.7', minMacOsVersion)
+            mac64.cppFlags = mac64.cppFlags.replace('10.7', minMacOsVersion)
+            mac64.linkerFlags = mac64.linkerFlags.replace('10.7', minMacOsVersion)
 
             if (withFreeType) {
                 mac64.cppFlags += ' -I/usr/local/include/freetype2 -I/usr/local/include/libpng16 -I/usr/local/include/harfbuzz -I/usr/local/include/glib-2.0 -I/usr/local/lib/glib-2.0/include'
@@ -116,12 +117,6 @@ class GenerateLibs extends DefaultTask {
         }
 
         new AntScriptGenerator().generate(buildConfig, buildTargets)
-
-        if (!withFreeType) {
-            project.delete {
-                it.delete("$jniDir/imgui_ImGuiFreeType.cpp", "$jniDir/imgui_ImGuiFreeType.h")
-            }
-        }
 
         // Generate native libraries
         // Comment/uncomment lines with OS you need.
@@ -138,5 +133,9 @@ class GenerateLibs extends DefaultTask {
             BuildExecutor.executeAnt(jniDir + '/build-macosx64.xml', '-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile')
 
         BuildExecutor.executeAnt(jniDir + '/build.xml', '-v', 'pack-natives')
+    }
+
+    void enableDefine(String define) {
+        project.file("$jniDir/imconfig.h").text += "#define $define"
     }
 }

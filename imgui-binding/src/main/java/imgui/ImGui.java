@@ -497,18 +497,6 @@ public class ImGui {
     */
 
     /**
-     * Get viewport currently associated to the current window.
-     */
-    public static ImGuiViewport getWindowViewport() {
-        WINDOW_VIEWPORT.ptr = nGetWindowViewport();
-        return WINDOW_VIEWPORT;
-    }
-
-    private static native long nGetWindowViewport(); /*
-        return (intptr_t)ImGui::GetWindowViewport();
-    */
-
-    /**
      * Get current window position in screen space (useful if you want to do your own drawing via the DrawList API)
      */
     public static native void getWindowPos(ImVec2 dstImVec2); /*
@@ -563,6 +551,18 @@ public class ImGui {
     public static native float getWindowHeight(); /*
         return ImGui::GetWindowHeight();
      */
+
+    /**
+     * Get viewport currently associated to the current window.
+     */
+    public static ImGuiViewport getWindowViewport() {
+        WINDOW_VIEWPORT.ptr = nGetWindowViewport();
+        return WINDOW_VIEWPORT;
+    }
+
+    private static native long nGetWindowViewport(); /*
+        return (intptr_t)ImGui::GetWindowViewport();
+    */
 
     // Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin).
 
@@ -1043,7 +1043,7 @@ public class ImGui {
 
     /**
      * Push width of items for common large "item+label" widgets. {@code > 0.0f}: width in pixels,
-     * {@code <0.0f} align xx pixels to the right of window (so -1.0f always align width to the right side). 0.0f = default to ~2/3 of windows width,
+     * {@code <0.0f} align xx pixels to the right of window (so -1.0f always align width to the right side).
      */
     public static native void pushItemWidth(float itemWidth); /*
         ImGui::PushItemWidth(itemWidth);
@@ -1338,30 +1338,35 @@ public class ImGui {
     */
 
     /**
-     * Cursor position in absolute screen coordinates [0..io.DisplaySize] (useful to work with ImDrawList API)
+     * Cursor position in absolute coordinates (useful to work with ImDrawList API).
+     * Generally top-left == GetMainViewport().Pos == (0,0) in single viewport mode,
+     * and bottom-right == GetMainViewport().Pos+Size == io.DisplaySize in single-viewport mode.
      */
     public static native void getCursorScreenPos(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::GetCursorScreenPos(), dstImVec2);
      */
 
     /**
-     * Cursor position in absolute screen coordinates [0..io.DisplaySize] (useful to work with ImDrawList API)
+     * Cursor position in absolute coordinates (useful to work with ImDrawList API).
+     * Generally top-left == GetMainViewport().Pos == (0,0) in single viewport mode,
+     * and bottom-right == GetMainViewport().Pos+Size == io.DisplaySize in single-viewport mode.
      */
     public static native float getCursorScreenPosX(); /*
         return ImGui::GetCursorScreenPos().x;
     */
 
     /**
-     * Cursor position in absolute screen coordinates [0..io.DisplaySize] (useful to work with ImDrawList API)
+     * Cursor position in absolute coordinates (useful to work with ImDrawList API).
+     * Generally top-left == GetMainViewport().Pos == (0,0) in single viewport mode,
+     * and bottom-right == GetMainViewport().Pos+Size == io.DisplaySize in single-viewport mode.
      */
     public static native float getCursorScreenPosY(); /*
         return ImGui::GetCursorScreenPos().y;
     */
 
     /**
-     * Cursor position in absolute screen coordinates [0..io.DisplaySize]
-     */
-    public static native void setCursorScreenPos(float x, float y); /*
+     * Cursor position in absolute coordinates.
+     */    public static native void setCursorScreenPos(float x, float y); /*
         ImGui::SetCursorScreenPos(ImVec2(x, y));
     */
 
@@ -1720,22 +1725,31 @@ public class ImGui {
         ImGui::EndCombo();
     */
 
-    public static boolean combo(String label, ImInt currentItem, String[] items, int itemsCount) {
-        return nCombo(label, currentItem.getData(), items, itemsCount, -1);
+    public static boolean combo(String label, ImInt currentItem, String[] items) {
+        return nCombo(label, currentItem.getData(), items, items.length, -1);
     }
 
-    public static boolean combo(String label, ImInt currentItem, String[] items, int itemsCount, int popupMaxHeightInItems) {
-        return nCombo(label, currentItem.getData(), items, itemsCount, popupMaxHeightInItems);
+    public static boolean combo(String label, ImInt currentItem, String[] items, int popupMaxHeightInItems) {
+        return nCombo(label, currentItem.getData(), items, items.length, popupMaxHeightInItems);
     }
 
     private static native boolean nCombo(String label, int[] currentItem, String[] items, int itemsCount, int popupMaxHeightInItems); /*
-        const char* listbox_items[itemsCount];
-        for(int i = 0; i < itemsCount; i++) {
+        const char* listboxItems[itemsCount];
+
+        for (int i = 0; i < itemsCount; i++) {
             jstring string = (jstring)env->GetObjectArrayElement(items, i);
-            const char* rawString = env->GetStringUTFChars(string, 0);
-            listbox_items[i] = rawString;
+            const char* rawString = env->GetStringUTFChars(string, JNI_FALSE);
+            listboxItems[i] = rawString;
         }
-        return ImGui::Combo(label, &currentItem[0], listbox_items, itemsCount, popupMaxHeightInItems);
+
+        bool flag = ImGui::Combo(label, &currentItem[0], listboxItems, itemsCount, popupMaxHeightInItems);
+
+        for (int i = 0; i< itemsCount; i++) {
+            jstring string = (jstring)env->GetObjectArrayElement(items, i);
+            env->ReleaseStringUTFChars(string, listboxItems[i]);
+        }
+
+        return flag;
     */
 
     /**
@@ -3690,59 +3704,62 @@ public class ImGui {
     */
 
     // Widgets: List Boxes
+    // - This is essentially a thin wrapper to using BeginChild/EndChild with some stylistic changes.
+    // - The BeginListBox()/EndListBox() api allows you to manage your contents and selection state however you want it, by creating e.g. Selectable() or any items.
+    // - The simplified/old ListBox() api are helpers over BeginListBox()/EndListBox() which are kept available for convenience purpose. This is analoguous to how Combos are created.
+    // - Choose frame width:   size.x > 0.0f: custom  /  size.x < 0.0f or -FLT_MIN: right-align   /  size.x = 0.0f (default): use current ItemWidth
+    // - Choose frame height:  size.y > 0.0f: custom  /  size.y < 0.0f or -FLT_MIN: bottom-align  /  size.y = 0.0f (default): arbitrary default height which can fit ~7 items
 
-    public static void listBox(String label, ImInt currentItem, String[] items, int itemsCount) {
-        nListBox(label, currentItem.getData(), items, itemsCount, -1);
+    /**
+     * Open a framed scrolling region.
+     */
+    public static native boolean beginListBox(String label); /*
+        return ImGui::BeginListBox(label);
+    */
+
+    /**
+     * Open a framed scrolling region.
+     */
+    public static native boolean beginListBox(String label, float sizeX, float sizeY); /*
+        return ImGui::BeginListBox(label, ImVec2(sizeX, sizeY));
+    */
+
+    /**
+     * Only call EndListBox() if BeginListBox() returned true!
+     */
+    public static native void endListBox(); /*
+        ImGui::EndListBox();
+    */
+
+    public static void listBox(String label, ImInt currentItem, String[] items) {
+        nListBox(label, currentItem.getData(), items, items.length, -1);
     }
 
-    public static void listBox(String label, ImInt currentItem, String[] items, int itemsCount, int heightInItems) {
-        nListBox(label, currentItem.getData(), items, itemsCount, heightInItems);
+    public static void listBox(String label, ImInt currentItem, String[] items, int heightInItems) {
+        nListBox(label, currentItem.getData(), items, items.length, heightInItems);
     }
 
     private static native boolean nListBox(String label, int[] currentItem, String[] items, int itemsCount, int heightInItems); /*
-        const char* listbox_items[itemsCount];
+        const char* listboxItems[itemsCount];
 
-        for(int i = 0; i < itemsCount; i++) {
+        for (int i = 0; i < itemsCount; i++) {
             jstring string = (jstring)env->GetObjectArrayElement(items, i);
-            const char *rawString = env->GetStringUTFChars(string, 0);
-            listbox_items[i] = rawString;
+            const char* rawString = env->GetStringUTFChars(string, JNI_FALSE);
+            listboxItems[i] = rawString;
         }
 
-        return ImGui::ListBox(label, &currentItem[0], listbox_items, itemsCount, heightInItems);
-    */
+        bool flag = ImGui::ListBox(label, &currentItem[0], listboxItems, itemsCount, heightInItems);
 
-    /**
-     * Use if you want to reimplement ListBox() will custom data or interactions.
-     * If the function return true, you can output elements then call ListBoxFooter() afterwards.
-     */
-    public static native boolean listBoxHeader(String label); /*
-        return ImGui::ListBoxHeader(label);
-    */
+        for (int i = 0; i< itemsCount; i++) {
+            jstring string = (jstring)env->GetObjectArrayElement(items, i);
+            env->ReleaseStringUTFChars(string, listboxItems[i]);
+        }
 
-    /**
-     * Use if you want to reimplement ListBox() will custom data or interactions.
-     * If the function return true, you can output elements then call ListBoxFooter() afterwards.
-     */
-    public static native boolean listBoxHeader(String label, float sizeX, float sizeY); /*
-        return ImGui::ListBoxHeader(label, ImVec2(sizeX, sizeY));
-    */
-
-    public static native boolean listBoxHeader(String label, int itemsCount); /*
-        return ImGui::ListBoxHeader(label, itemsCount);
-    */
-
-    public static native boolean listBoxHeader(String label, int itemsCount, int heightInItems); /*
-        return ImGui::ListBoxHeader(label, itemsCount, heightInItems);
-    */
-
-    /**
-     * Terminate the scrolling region. Only call ListBoxFooter() if ListBoxHeader() returned true!
-     */
-    public static native void listBoxFooter(); /*
-        ImGui::ListBoxFooter();
+        return flag;
     */
 
     // Widgets: Data Plotting
+    // - Consider using ImPlot (https://github.com/epezent/implot)
 
     public static native void plotLines(String label, float[] values, int valuesCount); /*
         ImGui::PlotLines(label, &values[0], valuesCount);
@@ -5095,6 +5112,25 @@ public class ImGui {
         ImGui::SetItemAllowOverlap();
     */
 
+    // Viewports
+    // - Currently represents the Platform Window created by the application which is hosting our Dear ImGui windows.
+    // - In 'docking' branch with multi-viewport enabled, we extend this concept to have multiple active viewports.
+    // - In the future we will extend this concept further to also represent Platform Monitor and support a "no main platform window" operation mode.
+
+    /**
+     * Return primary/default viewport.
+     */
+    public static ImGuiViewport getMainViewport() {
+        if (mainViewport == null) {
+            mainViewport = new ImGuiViewport(nGetMainViewport());
+        }
+        return mainViewport;
+    }
+
+    private static native long nGetMainViewport(); /*
+        return (intptr_t)ImGui::GetMainViewport();
+    */
+
     // Miscellaneous Utilities
 
     /**
@@ -5654,20 +5690,6 @@ public class ImGui {
 
     private static native long nGetPlatformIO(); /*
         return (intptr_t)&ImGui::GetPlatformIO();
-    */
-
-    /**
-     * Main viewport. Same as GetPlatformIO().MainViewport == GetPlatformIO().Viewports[0].
-     */
-    public static ImGuiViewport getMainViewport() {
-        if (mainViewport == null) {
-            mainViewport = new ImGuiViewport(nGetMainViewport());
-        }
-        return mainViewport;
-    }
-
-    private static native long nGetMainViewport(); /*
-        return (intptr_t)ImGui::GetMainViewport();
     */
 
     /**

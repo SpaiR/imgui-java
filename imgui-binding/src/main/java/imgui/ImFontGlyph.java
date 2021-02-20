@@ -32,6 +32,34 @@ public final class ImFontGlyph extends ImGuiStructDestroyable {
     */
 
     /**
+     *  Flag to indicate glyph is colored and should generally ignore tinting (make it usable with no shift on little-endian as this is used in loops).
+     */
+    public native int getColored(); /*
+        return (unsigned int)IM_FONT_GLYPH->Colored;
+    */
+
+    /**
+     * Flag to indicate glyph is colored and should generally ignore tinting (make it usable with no shift on little-endian as this is used in loops).
+     */
+    public native void setColored(int colored); /*
+        IM_FONT_GLYPH->Colored = (unsigned int)colored;
+    */
+
+    /**
+     * Flag to indicate glyph has no visible pixels (e.g. space). Allow early out when rendering.
+     */
+    public native int getVisible(); /*
+        return (unsigned int)IM_FONT_GLYPH->Visible;
+    */
+
+    /**
+     * Flag to indicate glyph has no visible pixels (e.g. space). Allow early out when rendering.
+     */
+    public native void setVisible(int visible); /*
+        IM_FONT_GLYPH->Visible = (unsigned int)visible;
+    */
+
+    /**
      * 0x0000..0xFFFF
      */
     public native int getCodepoint(); /*
@@ -43,20 +71,6 @@ public final class ImFontGlyph extends ImGuiStructDestroyable {
      */
     public native void setCodepoint(int codepoint); /*
         IM_FONT_GLYPH->Codepoint = (unsigned int)codepoint;
-    */
-
-    /**
-     * Flag to allow early out when rendering
-     */
-    public native int getVisible(); /*
-        return (unsigned int)IM_FONT_GLYPH->Visible;
-    */
-
-    /**
-     * Flag to allow early out when rendering
-     */
-    public native void setVisible(int visible); /*
-        IM_FONT_GLYPH->Visible = (unsigned int)visible;
     */
 
     /**

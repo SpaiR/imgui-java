@@ -70,7 +70,6 @@ import imgui.callback.ImPlatformFuncViewportSuppImVec2;
  * Platform functions are typically called before their Renderer counterpart, apart from Destroy which are called the other way.
  */
 public final class ImGuiPlatformIO extends ImGuiStruct {
-    private static final ImGuiViewport MAIN_VIEWPORT = new ImGuiViewport(0);
     private static final ImGuiViewport TMP_VIEWPORT = new ImGuiViewport(0);
     private static final ImGuiPlatformMonitor TMP_MONITOR = new ImGuiPlatformMonitor(0);
     private static final ImVec2 TMP_IM_VEC2 = new ImVec2();
@@ -529,18 +528,6 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
 
     // Viewports list (the list is updated by calling ImGui::EndFrame or ImGui::Render)
     // (in the future we will attempt to organize this feature to remove the need for a "main viewport")
-
-    /**
-     * Guaranteed to be == Viewports[0]
-     */
-    public ImGuiViewport getMainViewport() {
-        MAIN_VIEWPORT.ptr = nGetMainViewport();
-        return MAIN_VIEWPORT;
-    }
-
-    private native long nGetMainViewport(); /*
-        return (intptr_t)IMGUI_PLATFORM_IO->MainViewport;
-    */
 
     public native int getViewportsSize(); /*
         return IMGUI_PLATFORM_IO->Viewports.Size;
