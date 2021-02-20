@@ -40,6 +40,8 @@ It hides all low-level stuff under one class to extend, so you can build your GU
 # How to Try
 _Make sure you have installed Java 8 or higher._
 
+<p align="center"><img src="https://i.imgur.com/clYSVjG.png"/></p>
+
 ### [Demo](https://i.imgur.com/c0ds1EZ.gif)
 
 You can try binding by yourself in three simple steps:
