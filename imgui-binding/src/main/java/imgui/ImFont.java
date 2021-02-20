@@ -8,6 +8,7 @@ import imgui.binding.ImGuiStructDestroyable;
  */
 public final class ImFont extends ImGuiStructDestroyable {
     private ImFontGlyph fallbackGlyph = null;
+    private ImFontGlyph foundGlyph = new ImFontGlyph(0);
 
     public ImFont() {
     }
@@ -100,7 +101,7 @@ public final class ImFont extends ImGuiStructDestroyable {
     /**
      * Character used for ellipsis rendering.
      */
-    public native void setEllipsisChar(short ellipsisChar); /*
+    public native void setEllipsisChar(int ellipsisChar); /*
         IM_FONT->EllipsisChar = (ImWchar)ellipsisChar;
     */
 
@@ -168,5 +169,95 @@ public final class ImFont extends ImGuiStructDestroyable {
         IM_FONT->MetricsTotalSurface = metricsTotalSurface;
     */
 
-    // TODO methods
+    // Methods
+
+    public ImFontGlyph findGlyph(int c) {
+        final long ptr = nFindGlyph(c);
+        if (ptr == 0) {
+            return null;
+        }
+        foundGlyph.ptr = ptr;
+        return foundGlyph;
+    }
+
+    private native long nFindGlyph(int c); /*
+        return (intptr_t)IM_FONT->FindGlyph((ImWchar)c);
+    */
+
+    public ImFontGlyph findGlyphNoFallback(int c) {
+        final long ptr = nFindGlyphNoFallback(c);
+        if (ptr == 0) {
+            return null;
+        }
+        foundGlyph.ptr = ptr;
+        return foundGlyph;
+    }
+
+    private native long nFindGlyphNoFallback(int c); /*
+        return (intptr_t)IM_FONT->FindGlyphNoFallback((ImWchar)c);
+    */
+
+    public native float getCharAdvance(int c); /*
+        return IM_FONT->GetCharAdvance((ImWchar)c);
+    */
+
+    public native boolean isLoaded(); /*
+        return IM_FONT->IsLoaded();
+    */
+
+    public native String getDebugName(); /*
+        return env->NewStringUTF(IM_FONT->GetDebugName());
+    */
+
+    /**
+     * 'max_width' stops rendering after a certain width (could be turned into a 2d size). FLT_MAX to disable.
+     * 'wrap_width' enable automatic word-wrapping across multiple lines to fit into given width. 0.0f to disable.
+     */
+    public native void calcTextSizeA(ImVec2 dstImVec2, float size, float maxWidth, float wrapWidth, String text); /*
+        Jni::ImVec2Cpy(env, IM_FONT->CalcTextSizeA(size, maxWidth, wrapWidth, text), dstImVec2);
+    */
+
+    /**
+     * 'max_width' stops rendering after a certain width (could be turned into a 2d size). FLT_MAX to disable.
+     * 'wrap_width' enable automatic word-wrapping across multiple lines to fit into given width. 0.0f to disable.
+     */
+    public native float calcTextSizeAX(float size, float maxWidth, float wrapWidth, String text); /*
+        return IM_FONT->CalcTextSizeA(size, maxWidth, wrapWidth, text).x;
+    */
+
+    /**
+     * 'max_width' stops rendering after a certain width (could be turned into a 2d size). FLT_MAX to disable.
+     * 'wrap_width' enable automatic word-wrapping across multiple lines to fit into given width. 0.0f to disable.
+     */
+    public native float calcTextSizeAY(float size, float maxWidth, float wrapWidth, String text); /*
+        return IM_FONT->CalcTextSizeA(size, maxWidth, wrapWidth, text).y;
+    */
+
+    public native String calcWordWrapPositionA(float scale, String text, String textEnd, float wrapWidth); /*
+        return env->NewStringUTF(IM_FONT->CalcWordWrapPositionA(scale, text, textEnd, wrapWidth));
+    */
+
+    public void renderChar(ImDrawList drawList, float size, float posX, float posY, int col, int c) {
+        nRenderChar(drawList.ptr, size, posX, posY, col, c);
+    }
+
+    private native void nRenderChar(long drawListPtr, float size, float posX, float posY, int col, int c); /*
+        IM_FONT->RenderChar((ImDrawList*)drawListPtr, size, ImVec2(posX, posY), col, (ImWchar)c);
+    */
+
+    public void renderText(ImDrawList drawList, float size, float posX, float posY, int col, float clipRectX, float clipRectY, float clipRectW, float clipRectZ, String text, String textEnd) {
+        nRenderText(drawList.ptr, size, posX, posY, col, clipRectX, clipRectY, clipRectW, clipRectZ, text, textEnd, 0, false);
+    }
+
+    public void renderText(ImDrawList drawList, float size, float posX, float posY, int col, float clipRectX, float clipRectY, float clipRectW, float clipRectZ, String text, String textEnd, float wrapWidth) {
+        nRenderText(drawList.ptr, size, posX, posY, col, clipRectX, clipRectY, clipRectW, clipRectZ, text, textEnd, wrapWidth, false);
+    }
+
+    public void renderText(ImDrawList drawList, float size, float posX, float posY, int col, float clipRectX, float clipRectY, float clipRectW, float clipRectZ, String text, String textEnd, float wrapWidth, boolean cpuFineClip) {
+        nRenderText(drawList.ptr, size, posX, posY, col, clipRectX, clipRectY, clipRectW, clipRectZ, text, textEnd, wrapWidth, cpuFineClip);
+    }
+
+    private native void nRenderText(long drawListPtr, float size, float posX, float posY, int col, float clipRectX, float clipRectY, float clipRectW, float clipRectZ, String text, String textEnd, float wrapWidth, boolean cpuFineClip); /*
+        IM_FONT->RenderText((ImDrawList*)drawListPtr, size, ImVec2(posX, posY), col, ImVec4(clipRectX, clipRectY, clipRectW, clipRectZ), text, textEnd, wrapWidth, cpuFineClip);
+    */
 }
