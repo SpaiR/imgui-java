@@ -55,11 +55,17 @@ cd imgui-java
 See [example](https://github.com/SpaiR/imgui-java/blob/v1.81.0/example) module to try other widgets in action.
 
 # How To Use
+**[ImGui in LWJGL YouTube video](https://youtu.be/Xq-eVcNtUbw)** by [GamesWithGabe](https://www.youtube.com/channel/UCQP4qSCj1eHMHisDDR4iPzw).<br>
+You can use this video as a basic step-by-step tutorial. It shows how to integrate binding with the usage of jar files. Gradle and Maven dependecies could be used for this purpose as well.
+
+Take a note, that integration itself is a very flexible process. It could be done in one way or another. If you just need a framework for your GUI - use **Application** module. Otherwise, if you need more control, the best way is not just to repeat steps, but to understand what each step does.
 
 ## Application
-If you don't care about OpenGL or other low-level stuff, then you can use application layer from [imgui-app](https://github.com/SpaiR/imgui-java/blob/v1.81.0/imgui-app) module.<br>
-It is a **one jar solution**, which includes everything you need to build your user interface with Dear ImGui!<br>
-At the same time, every life-cycle method of the application could be overridden, so you can extend class in the way you need.
+If you don't care about OpenGL or other low-level stuff, then you can use application layer from [imgui-app](https://github.com/SpaiR/imgui-java/blob/v1.81.0/imgui-app) module.
+It is a **one jar solution** which includes: GLFW, OpenGL and Dear ImGui itself. So you only need **one dependency** line or **one jar in classpath** to make everything to work. <ins>You don't need to add separate dependencies to LWJGL or native libraries, since they are already included.</ins><br>
+Application module is the best choice if everything you care is the GUI for your app.
+
+At the same time, Application gives an option to override any life-cycle method it has. That means that if you're seeking for a bit more low-level control - you can gain it too.
 
 #### Example
 A very simple application may look like this:
@@ -130,6 +136,8 @@ You can refer to [imgui-app](https://github.com/SpaiR/imgui-java/blob/v1.81.0/im
 #### Dependencies
 For simplicity, example of dependencies for Gradle and Maven only show how to add natives for Windows.<br>
 Feel free to add other platforms: `imgui-java-natives-windows-x86`, `imgui-java-natives-linux`, `imgui-java-natives-linux-x86`, `imgui-java-natives-macos`.
+
+Take a note, that you also need to add dependencies to [LWJGL](https://www.lwjgl.org/). Examples below shows how to do it as well.
 
 <details>
         <summary><b>Gradle</b></summary>
