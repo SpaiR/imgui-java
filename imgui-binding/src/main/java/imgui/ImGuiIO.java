@@ -9,7 +9,7 @@ import imgui.callback.ImStrSupplier;
  * Access via ImGui::GetIO(). Read 'Programmer guide' section in .cpp file for general usage.
  */
 public final class ImGuiIO extends ImGuiStruct {
-    private final ImFontAtlas imFontAtlas = new ImFontAtlas(0);
+    private ImFontAtlas imFontAtlas = new ImFontAtlas(0);
 
     public ImGuiIO(final long ptr) {
         super(ptr);
@@ -259,6 +259,7 @@ public final class ImGuiIO extends ImGuiStruct {
      * BINDING NOTICE: You SHOULD manually destroy previously used ImFontAtlas.
      */
     public void setFonts(final ImFontAtlas imFontAtlas) {
+        this.imFontAtlas = imFontAtlas;
         nSetFonts(imFontAtlas.ptr);
     }
 
