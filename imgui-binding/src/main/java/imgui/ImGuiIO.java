@@ -1,5 +1,6 @@
 package imgui;
 
+import imgui.binding.ImGuiStruct;
 import imgui.callback.ImStrConsumer;
 import imgui.callback.ImStrSupplier;
 
@@ -7,10 +8,11 @@ import imgui.callback.ImStrSupplier;
  * Communicate most settings and inputs/outputs to Dear ImGui using this structure.
  * Access via ImGui::GetIO(). Read 'Programmer guide' section in .cpp file for general usage.
  */
-public final class ImGuiIO {
+public final class ImGuiIO extends ImGuiStruct {
     private final ImFontAtlas imFontAtlas = new ImFontAtlas(0);
 
-    ImGuiIO() {
+    public ImGuiIO(final long ptr) {
+        super(ptr);
     }
 
     /*JNI
@@ -18,6 +20,9 @@ public final class ImGuiIO {
         #include <imgui.h>
         #include "jni_common.h"
         #include "jni_callbacks.h"
+        #include "jni_binding_struct.h"
+
+        #define IO ((ImGuiIO*)STRUCT_PTR)
      */
 
     //------------------------------------------------------------------
@@ -28,14 +33,14 @@ public final class ImGuiIO {
      * See ImGuiConfigFlags enum. Set by user/application. Gamepad/keyboard navigation options, etc.
      */
     public native int getConfigFlags(); /*
-        return ImGui::GetIO().ConfigFlags;
+        return IO->ConfigFlags;
     */
 
     /**
      * See ImGuiConfigFlags enum. Set by user/application. Gamepad/keyboard navigation options, etc.
      */
     public native void setConfigFlags(int configFlags); /*
-        ImGui::GetIO().ConfigFlags = configFlags;
+        IO->ConfigFlags = configFlags;
     */
 
     /**
@@ -63,14 +68,14 @@ public final class ImGuiIO {
      * See ImGuiBackendFlags enum. Set by backend to communicate features supported by the backend.
      */
     public native int getBackendFlags(); /*
-        return ImGui::GetIO().BackendFlags;
+        return IO->BackendFlags;
     */
 
     /**
      * See ImGuiBackendFlags enum. Set by backend to communicate features supported by the backend.
      */
     public native void setBackendFlags(int backendFlags); /*
-        ImGui::GetIO().BackendFlags = backendFlags;
+        IO->BackendFlags = backendFlags;
     */
 
     /**
@@ -98,84 +103,84 @@ public final class ImGuiIO {
      * Minimum time between saving positions/sizes to .ini file, in seconds.
      */
     public native float getIniSavingRate(); /*
-        return ImGui::GetIO().IniSavingRate;
+        return IO->IniSavingRate;
     */
 
     /**
      * Minimum time between saving positions/sizes to .ini file, in seconds.
      */
     public native void setIniSavingRate(float iniSavingRate); /*
-        ImGui::GetIO().IniSavingRate = iniSavingRate;
+        IO->IniSavingRate = iniSavingRate;
     */
 
     /**
      * Path to .ini file. Set NULL to disable automatic .ini loading/saving, if e.g. you want to manually load/save from memory.
      */
     public native String getIniFilename(); /*
-        return env->NewStringUTF(ImGui::GetIO().IniFilename);
+        return env->NewStringUTF(IO->IniFilename);
     */
 
     /**
      * Path to .ini file. Set NULL to disable automatic .ini loading/saving, if e.g. you want to manually load/save from memory.
      */
     public native void setIniFilename(String iniFilename); /*MANUAL
-        ImGui::GetIO().IniFilename = obj_iniFilename == NULL ? NULL : (char*)env->GetStringUTFChars(obj_iniFilename, JNI_FALSE);
+        IO->IniFilename = obj_iniFilename == NULL ? NULL : (char*)env->GetStringUTFChars(obj_iniFilename, JNI_FALSE);
     */
 
     /**
      * Path to .log file (default parameter to ImGui::LogToFile when no file is specified).
      */
     public native String getLogFilename(); /*
-        return env->NewStringUTF(ImGui::GetIO().LogFilename);
+        return env->NewStringUTF(IO->LogFilename);
     */
 
     /**
      * Path to .log file (default parameter to ImGui::LogToFile when no file is specified).
      */
     public native void setLogFilename(String logFilename); /*MANUAL
-        ImGui::GetIO().LogFilename = obj_logFilename == NULL ? NULL : (char*)env->GetStringUTFChars(obj_logFilename, JNI_FALSE);
+        IO->LogFilename = obj_logFilename == NULL ? NULL : (char*)env->GetStringUTFChars(obj_logFilename, JNI_FALSE);
     */
 
     /**
      * Time for a double-click, in seconds.
      */
     public native float getMouseDoubleClickTime(); /*
-        return ImGui::GetIO().MouseDoubleClickTime;
+        return IO->MouseDoubleClickTime;
     */
 
     /**
      * Time for a double-click, in seconds.
      */
     public native void setMouseDoubleClickTime(float mouseDoubleClickTime); /*
-        ImGui::GetIO().MouseDoubleClickTime = mouseDoubleClickTime;
+        IO->MouseDoubleClickTime = mouseDoubleClickTime;
     */
 
     /**
      * Distance threshold to stay in to validate a double-click, in pixels.
      */
     public native float getMouseDoubleClickMaxDist(); /*
-        return ImGui::GetIO().MouseDoubleClickTime;
+        return IO->MouseDoubleClickTime;
     */
 
     /**
      * Distance threshold to stay in to validate a double-click, in pixels.
      */
     public native void setMouseDoubleClickMaxDist(float mouseDoubleClickMaxDist); /*
-        ImGui::GetIO().MouseDoubleClickMaxDist = mouseDoubleClickMaxDist;
+        IO->MouseDoubleClickMaxDist = mouseDoubleClickMaxDist;
     */
 
     /**
      * Distance threshold before considering we are dragging.
      */
     public native float getMouseDragThreshold(); /*
-        return ImGui::GetIO().MouseDoubleClickTime;
+        return IO->MouseDoubleClickTime;
     */
 
     /**
      * Distance threshold before considering we are dragging.
      */
     public native void setMouseDragThreshold(float mouseDragThreshold); /*
-        ImGui::GetIO().MouseDragThreshold = mouseDragThreshold;
+        IO->MouseDragThreshold = mouseDragThreshold;
     */
 
     /**
@@ -183,21 +188,21 @@ public final class ImGuiIO {
      */
     public native void getKeyMap(int[] buff); /*
         for(int i = 0; i < ImGuiKey_COUNT; i++)
-            buff[i] = ImGui::GetIO().KeyMap[i];
+            buff[i] = IO->KeyMap[i];
     */
 
     /**
      * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
      */
     public native int getKeyMap(int idx); /*
-        return ImGui::GetIO().KeyMap[idx];
+        return IO->KeyMap[idx];
     */
 
     /**
      * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
      */
     public native void setKeyMap(int idx, int code); /*
-        ImGui::GetIO().KeyMap[idx] = code;
+        IO->KeyMap[idx] = code;
     */
 
     /**
@@ -205,35 +210,35 @@ public final class ImGuiIO {
      */
     public native void setKeyMap(int[] keyMap); /*
         for (int i = 0; i < ImGuiKey_COUNT; i++)
-            ImGui::GetIO().KeyMap[i] = keyMap[i];
+            IO->KeyMap[i] = keyMap[i];
     */
 
     /**
      * When holding a key/button, time before it starts repeating, in seconds (for buttons in Repeat mode, etc.).
      */
     public native float getKeyRepeatDelay(); /*
-        return ImGui::GetIO().KeyRepeatDelay;
+        return IO->KeyRepeatDelay;
     */
 
     /**
      * When holding a key/button, time before it starts repeating, in seconds (for buttons in Repeat mode, etc.).
      */
     public native void setKeyRepeatDelay(float keyRepeatDelay); /*
-        ImGui::GetIO().KeyRepeatDelay = keyRepeatDelay;
+        IO->KeyRepeatDelay = keyRepeatDelay;
     */
 
     /**
      * When holding a key/button, rate at which it repeats, in seconds.
      */
     public native float getKeyRepeatRate(); /*
-        return ImGui::GetIO().KeyRepeatRate;
+        return IO->KeyRepeatRate;
     */
 
     /**
      * When holding a key/button, rate at which it repeats, in seconds.
      */
     public native void setKeyRepeatRate(float keyRepeatRate); /*
-        ImGui::GetIO().KeyRepeatRate = keyRepeatRate;
+        IO->KeyRepeatRate = keyRepeatRate;
     */
 
     /**
@@ -245,7 +250,7 @@ public final class ImGuiIO {
     }
 
     private native long nGetFonts(); /*
-        return (intptr_t)ImGui::GetIO().Fonts;
+        return (intptr_t)IO->Fonts;
     */
 
     /**
@@ -258,35 +263,35 @@ public final class ImGuiIO {
     }
 
     private native void nSetFonts(long imFontAtlasPtr); /*
-        ImGui::GetIO().Fonts = (ImFontAtlas*)imFontAtlasPtr;
+        IO->Fonts = (ImFontAtlas*)imFontAtlasPtr;
     */
 
     /**
      * Global scale all fonts
      */
     public native float getFontGlobalScale(); /*
-        return ImGui::GetIO().FontGlobalScale;
+        return IO->FontGlobalScale;
     */
 
     /**
      * Global scale all fonts
      */
     public native void setFontGlobalScale(float fontGlobalScale); /*
-        ImGui::GetIO().FontGlobalScale = fontGlobalScale;
+        IO->FontGlobalScale = fontGlobalScale;
     */
 
     /**
      * Allow user scaling text of individual window with CTRL+Wheel.
      */
     public native boolean getFontAllowUserScaling(); /*
-        return ImGui::GetIO().FontAllowUserScaling;
+        return IO->FontAllowUserScaling;
     */
 
     /**
      * Allow user scaling text of individual window with CTRL+Wheel.
      */
     public native void setFontAllowUserScaling(boolean fontAllowUserScaling); /*
-        ImGui::GetIO().FontAllowUserScaling = fontAllowUserScaling;
+        IO->FontAllowUserScaling = fontAllowUserScaling;
     */
 
     public void setFontDefault(final ImFont fontDefault) {
@@ -294,7 +299,7 @@ public final class ImGuiIO {
     }
 
     private native void nSetFontDefault(long fontDefaultPtr); /*
-        ImGui::GetIO().FontDefault = (ImFont*)fontDefaultPtr;
+        IO->FontDefault = (ImFont*)fontDefaultPtr;
     */
 
     // Miscellaneous options
@@ -304,7 +309,7 @@ public final class ImGuiIO {
      * Cannot be easily renamed to 'io.ConfigXXX' because this is frequently used by backend implementations.
      */
     public native boolean getMouseDrawCursor(); /*
-        return ImGui::GetIO().MouseDrawCursor;
+        return IO->MouseDrawCursor;
     */
 
     /**
@@ -312,7 +317,7 @@ public final class ImGuiIO {
      * Cannot be easily renamed to 'io.ConfigXXX' because this is frequently used by backend implementations.
      */
     public native void setMouseDrawCursor(boolean mouseDrawCursor); /*
-        ImGui::GetIO().MouseDrawCursor = mouseDrawCursor;
+        IO->MouseDrawCursor = mouseDrawCursor;
     */
 
     /**
@@ -321,7 +326,7 @@ public final class ImGuiIO {
      * Multi-selection in lists uses Cmd/Super instead of Ctrl
      */
     public native boolean getConfigMacOSXBehaviors(); /*
-        return ImGui::GetIO().ConfigMacOSXBehaviors;
+        return IO->ConfigMacOSXBehaviors;
     */
 
     /**
@@ -330,35 +335,35 @@ public final class ImGuiIO {
      * Multi-selection in lists uses Cmd/Super instead of Ctrl
      */
     public native void setConfigMacOSXBehaviors(boolean configMacOSXBehaviors); /*
-        ImGui::GetIO().ConfigMacOSXBehaviors = configMacOSXBehaviors;
+        IO->ConfigMacOSXBehaviors = configMacOSXBehaviors;
     */
 
     /**
      * Set to false to disable blinking cursor, for users who consider it distracting.
      */
     public native boolean getConfigInputTextCursorBlink(); /*
-        return ImGui::GetIO().ConfigInputTextCursorBlink;
+        return IO->ConfigInputTextCursorBlink;
     */
 
     /**
      * Set to false to disable blinking cursor, for users who consider it distracting.
      */
     public native void setConfigInputTextCursorBlink(boolean configInputTextCursorBlink); /*
-        ImGui::GetIO().ConfigInputTextCursorBlink = configInputTextCursorBlink;
+        IO->ConfigInputTextCursorBlink = configInputTextCursorBlink;
     */
 
     /**
      * [BETA] Enable turning DragXXX widgets into text input with a simple mouse click-release (without moving). Not desirable on devices without a keyboard.
      */
     public native boolean getConfigDragClickToInputText(); /*
-        return ImGui::GetIO().ConfigDragClickToInputText;
+        return IO->ConfigDragClickToInputText;
     */
 
     /**
      * [BETA] Enable turning DragXXX widgets into text input with a simple mouse click-release (without moving). Not desirable on devices without a keyboard.
      */
     public native void setConfigDragClickToInputText(boolean configDragClickToInputText); /*
-        ImGui::GetIO().ConfigDragClickToInputText = configDragClickToInputText;
+        IO->ConfigDragClickToInputText = configDragClickToInputText;
     */
 
     /**
@@ -367,7 +372,7 @@ public final class ImGuiIO {
      * (This used to be a per-window ImGuiWindowFlags_ResizeFromAnySide flag)
      */
     public native boolean getConfigWindowsResizeFromEdges(); /*
-        return ImGui::GetIO().ConfigWindowsResizeFromEdges;
+        return IO->ConfigWindowsResizeFromEdges;
     */
 
     /**
@@ -376,35 +381,35 @@ public final class ImGuiIO {
      * (This used to be a per-window ImGuiWindowFlags_ResizeFromAnySide flag)
      */
     public native void setConfigWindowsResizeFromEdges(boolean configWindowsResizeFromEdges); /*
-        ImGui::GetIO().ConfigWindowsResizeFromEdges = configWindowsResizeFromEdges;
+        IO->ConfigWindowsResizeFromEdges = configWindowsResizeFromEdges;
     */
 
     /**
      * Enable allowing to move windows only when clicking on their title bar. Does not apply to windows without a title bar.
      */
     public native boolean getConfigWindowsMoveFromTitleBarOnly(); /*
-        return ImGui::GetIO().ConfigWindowsMoveFromTitleBarOnly;
+        return IO->ConfigWindowsMoveFromTitleBarOnly;
     */
 
     /**
      * Enable allowing to move windows only when clicking on their title bar. Does not apply to windows without a title bar.
      */
     public native void setConfigWindowsMoveFromTitleBarOnly(boolean configWindowsMoveFromTitleBarOnly); /*
-        ImGui::GetIO().ConfigWindowsMoveFromTitleBarOnly = configWindowsMoveFromTitleBarOnly;
+        IO->ConfigWindowsMoveFromTitleBarOnly = configWindowsMoveFromTitleBarOnly;
     */
 
     /**
      * [Timer (in seconds) to free transient windows/tables memory buffers when unused. Set to -1.0f to disable.
      */
     public native float getConfigMemoryCompactTimer(); /*
-        return ImGui::GetIO().ConfigMemoryCompactTimer;
+        return IO->ConfigMemoryCompactTimer;
     */
 
     /**
      * Timer (in seconds) to free transient windows/tables memory buffers when unused. Set to -1.0f to disable.
      */
     public native void setConfigMemoryCompactTimer(float configMemoryCompactTimer); /*
-        ImGui::GetIO().ConfigMemoryCompactTimer = configMemoryCompactTimer;
+        IO->ConfigMemoryCompactTimer = configMemoryCompactTimer;
     */
 
     //------------------------------------------------------------------
@@ -415,28 +420,28 @@ public final class ImGuiIO {
      * Optional: Platform backend name (informational only! will be displayed in About Window) + User data for backend/wrappers to store their own stuff.
      */
     public native String getBackendPlatformName(); /*
-        return env->NewStringUTF(ImGui::GetIO().BackendPlatformName);
+        return env->NewStringUTF(IO->BackendPlatformName);
     */
 
     /**
      * Optional: Platform backend name (informational only! will be displayed in About Window) + User data for backend/wrappers to store their own stuff.
      */
     public native void setBackendPlatformName(String backendPlatformName); /*MANUAL
-        ImGui::GetIO().BackendPlatformName = obj_backendPlatformName == NULL ? NULL : (char*)env->GetStringUTFChars(obj_backendPlatformName, JNI_FALSE);
+        IO->BackendPlatformName = obj_backendPlatformName == NULL ? NULL : (char*)env->GetStringUTFChars(obj_backendPlatformName, JNI_FALSE);
     */
 
     /**
      * Optional: Renderer backend name (informational only! will be displayed in About Window) + User data for backend/wrappers to store their own stuff.
      */
     public native String getBackendRendererName(); /*
-        return env->NewStringUTF(ImGui::GetIO().BackendRendererName);
+        return env->NewStringUTF(IO->BackendRendererName);
     */
 
     /**
      * Optional: Renderer backend name (informational only! will be displayed in About Window) + User data for backend/wrappers to store their own stuff.
      */
     public native void setBackendRendererName(String backendRendererName); /*MANUAL
-        ImGui::GetIO().BackendRendererName = obj_backendRendererName == NULL ? NULL : (char*)env->GetStringUTFChars(obj_backendRendererName, JNI_FALSE);
+        IO->BackendRendererName = obj_backendRendererName == NULL ? NULL : (char*)env->GetStringUTFChars(obj_backendRendererName, JNI_FALSE);
     */
 
     // Optional: Access OS clipboard
@@ -463,7 +468,7 @@ public final class ImGuiIO {
         }
 
         _setClipboardTextCallback = env->NewGlobalRef(setClipboardTextCallback);
-        ImGui::GetIO().SetClipboardTextFn = setClipboardTextStub;
+        IO->SetClipboardTextFn = setClipboardTextStub;
     */
 
     public native void setGetClipboardTextFn(ImStrSupplier getClipboardTextCallback); /*
@@ -472,7 +477,7 @@ public final class ImGuiIO {
         }
 
         _getClipboardTextCallback = env->NewGlobalRef(getClipboardTextCallback);
-        ImGui::GetIO().GetClipboardTextFn = getClipboardTextStub;
+        IO->GetClipboardTextFn = getClipboardTextStub;
     */
 
     //------------------------------------------------------------------
@@ -485,7 +490,7 @@ public final class ImGuiIO {
      * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
      */
     public native void getDisplaySize(ImVec2 dstImVec2); /*
-        Jni::ImVec2Cpy(env, &ImGui::GetIO().DisplaySize, dstImVec2);
+        Jni::ImVec2Cpy(env, &IO->DisplaySize, dstImVec2);
     */
 
     /**
@@ -494,7 +499,7 @@ public final class ImGuiIO {
      * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
      */
     public native float getDisplaySizeX(); /*
-        return ImGui::GetIO().DisplaySize.x;
+        return IO->DisplaySize.x;
     */
 
     /**
@@ -503,7 +508,7 @@ public final class ImGuiIO {
      * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
      */
     public native float getDisplaySizeY(); /*
-        return ImGui::GetIO().DisplaySize.y;
+        return IO->DisplaySize.y;
     */
 
     /**
@@ -512,8 +517,8 @@ public final class ImGuiIO {
      * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
      */
     public native void setDisplaySize(float x, float y); /*
-        ImGui::GetIO().DisplaySize.x = x;
-        ImGui::GetIO().DisplaySize.y = y;
+        IO->DisplaySize.x = x;
+        IO->DisplaySize.y = y;
     */
 
     /**
@@ -522,7 +527,7 @@ public final class ImGuiIO {
      * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
      */
     public native void getDisplayFramebufferScale(ImVec2 dstImVec2); /*
-        Jni::ImVec2Cpy(env, &ImGui::GetIO().DisplayFramebufferScale, dstImVec2);
+        Jni::ImVec2Cpy(env, &IO->DisplayFramebufferScale, dstImVec2);
     */
 
     /**
@@ -531,7 +536,7 @@ public final class ImGuiIO {
      * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
      */
     public native float getDisplayFramebufferScaleX(); /*
-        return ImGui::GetIO().DisplayFramebufferScale.x;
+        return IO->DisplayFramebufferScale.x;
     */
 
     /**
@@ -540,7 +545,7 @@ public final class ImGuiIO {
      * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
      */
     public native float getDisplayFramebufferScaleY(); /*
-        return ImGui::GetIO().DisplayFramebufferScale.y;
+        return IO->DisplayFramebufferScale.y;
     */
 
     /**
@@ -549,8 +554,8 @@ public final class ImGuiIO {
      * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
      */
     public native void setDisplayFramebufferScale(float x, float y); /*
-        ImGui::GetIO().DisplayFramebufferScale.x = x;
-        ImGui::GetIO().DisplayFramebufferScale.y = y;
+        IO->DisplayFramebufferScale.x = x;
+        IO->DisplayFramebufferScale.y = y;
     */
 
     // Docking options (when ImGuiConfigFlags_DockingEnable is set)
@@ -559,28 +564,28 @@ public final class ImGuiIO {
      * Simplified docking mode: disable window splitting, so docking is limited to merging multiple windows together into tab-bars.
      */
     public native boolean getConfigDockingNoSplit(); /*
-        return ImGui::GetIO().ConfigDockingNoSplit;
+        return IO->ConfigDockingNoSplit;
     */
 
     /**
      * Simplified docking mode: disable window splitting, so docking is limited to merging multiple windows together into tab-bars.
      */
     public native void setConfigDockingNoSplit(boolean value); /*
-        ImGui::GetIO().ConfigDockingNoSplit = value;
+        IO->ConfigDockingNoSplit = value;
     */
 
     /**
      * Enable docking with holding Shift key (reduce visual noise, allows dropping in wider space)
      */
     public native boolean getConfigDockingWithShift(); /*
-        return ImGui::GetIO().ConfigDockingWithShift;
+        return IO->ConfigDockingWithShift;
     */
 
     /**
      * Enable docking with holding Shift key (reduce visual noise, allows dropping in wider space)
      */
     public native void setConfigDockingWithShift(boolean value); /*
-        ImGui::GetIO().ConfigDockingWithShift = value;
+        IO->ConfigDockingWithShift = value;
     */
 
     /**
@@ -588,7 +593,7 @@ public final class ImGuiIO {
      * Make every single floating window display within a docking node.
      */
     public native boolean getConfigDockingAlwaysTabBar(); /*
-        return ImGui::GetIO().ConfigDockingAlwaysTabBar;
+        return IO->ConfigDockingAlwaysTabBar;
     */
 
     /**
@@ -596,7 +601,7 @@ public final class ImGuiIO {
      * Make every single floating window display within a docking node.
      */
     public native void setConfigDockingAlwaysTabBar(boolean value); /*
-        ImGui::GetIO().ConfigDockingAlwaysTabBar = value;
+        IO->ConfigDockingAlwaysTabBar = value;
     */
 
     /**
@@ -604,7 +609,7 @@ public final class ImGuiIO {
      * Useful if rendering of multiple viewport cannot be synced. Best used with ConfigViewportsNoAutoMerge.
      */
     public native boolean getConfigDockingTransparentPayload(); /*
-        return ImGui::GetIO().ConfigDockingTransparentPayload;
+        return IO->ConfigDockingTransparentPayload;
     */
 
     /**
@@ -612,7 +617,7 @@ public final class ImGuiIO {
      * Useful if rendering of multiple viewport cannot be synced. Best used with ConfigViewportsNoAutoMerge.
      */
     public native void setConfigDockingTransparentPayload(boolean value); /*
-        ImGui::GetIO().ConfigDockingTransparentPayload = value;
+        IO->ConfigDockingTransparentPayload = value;
     */
 
     // Viewport options (when ImGuiConfigFlags_ViewportsEnable is set)
@@ -622,7 +627,7 @@ public final class ImGuiIO {
      * Otherwise, they are merged into the main host viewports when overlapping it. May also set ImGuiViewportFlags_NoAutoMerge on individual viewport.
      */
     public native boolean getConfigViewportsNoAutoMerge(); /*
-        return ImGui::GetIO().ConfigViewportsNoAutoMerge;
+        return IO->ConfigViewportsNoAutoMerge;
     */
 
     /**
@@ -630,21 +635,21 @@ public final class ImGuiIO {
      * Otherwise, they are merged into the main host viewports when overlapping it. May also set ImGuiViewportFlags_NoAutoMerge on individual viewport.
      */
     public native void setConfigViewportsNoAutoMerge(boolean value); /*
-        ImGui::GetIO().ConfigViewportsNoAutoMerge = value;
+        IO->ConfigViewportsNoAutoMerge = value;
     */
 
     /**
      * Disable default OS task bar icon flag for secondary viewports. When a viewport doesn't want a task bar icon, ImGuiViewportFlags_NoTaskBarIcon will be set on it.
      */
     public native boolean getConfigViewportsNoTaskBarIcon(); /*
-        return ImGui::GetIO().ConfigViewportsNoTaskBarIcon;
+        return IO->ConfigViewportsNoTaskBarIcon;
     */
 
     /**
      * Disable default OS task bar icon flag for secondary viewports. When a viewport doesn't want a task bar icon, ImGuiViewportFlags_NoTaskBarIcon will be set on it.
      */
     public native void setConfigViewportsNoTaskBarIcon(boolean value); /*
-        ImGui::GetIO().ConfigViewportsNoTaskBarIcon = value;
+        IO->ConfigViewportsNoTaskBarIcon = value;
     */
 
     /**
@@ -652,7 +657,7 @@ public final class ImGuiIO {
      * ImGuiViewportFlags_NoDecoration will be set on it. Enabling decoration can create subsequent issues at OS levels (e.g. minimum window size).
      */
     public native boolean getConfigViewportsNoDecoration(); /*
-        return ImGui::GetIO().ConfigViewportsNoDecoration;
+        return IO->ConfigViewportsNoDecoration;
     */
 
     /**
@@ -660,7 +665,7 @@ public final class ImGuiIO {
      * ImGuiViewportFlags_NoDecoration will be set on it. Enabling decoration can create subsequent issues at OS levels (e.g. minimum window size).
      */
     public native void setConfigViewportsNoDecoration(boolean value); /*
-        ImGui::GetIO().ConfigViewportsNoDecoration = value;
+        IO->ConfigViewportsNoDecoration = value;
     */
 
     /**
@@ -670,7 +675,7 @@ public final class ImGuiIO {
      * Set to true if you want the default to be 0, then all viewports will be top-level OS windows.
      */
     public native boolean getConfigViewportsNoDefaultParent(); /*
-        return ImGui::GetIO().ConfigViewportsNoDefaultParent;
+        return IO->ConfigViewportsNoDefaultParent;
     */
 
     /**
@@ -680,7 +685,7 @@ public final class ImGuiIO {
      * Set to true if you want the default to be 0, then all viewports will be top-level OS windows.
      */
     public native void setConfigViewportsNoDefaultParent(boolean value); /*
-        ImGui::GetIO().ConfigViewportsNoDefaultParent = value;
+        IO->ConfigViewportsNoDefaultParent = value;
     */
 
 
@@ -690,7 +695,7 @@ public final class ImGuiIO {
      * BINDING NOTICE: Same as for DisplaySize. This should be modified every frame.
      */
     public native float getDeltaTime(); /*
-        return ImGui::GetIO().DeltaTime;
+        return IO->DeltaTime;
     */
 
     /**
@@ -699,36 +704,36 @@ public final class ImGuiIO {
      * BINDING NOTICE: Same as for DisplaySize. This should be modified every frame.
      */
     public native void setDeltaTime(float deltaTime); /*
-        ImGui::GetIO().DeltaTime = deltaTime;
+        IO->DeltaTime = deltaTime;
     */
 
     /**
      * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
      */
     public native void getMousePos(ImVec2 dstImVec2); /*
-        Jni::ImVec2Cpy(env, &ImGui::GetIO().MousePos, dstImVec2);
+        Jni::ImVec2Cpy(env, &IO->MousePos, dstImVec2);
     */
 
     /**
      * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
      */
     public native float getMousePosX(); /*
-        return ImGui::GetIO().MousePos.x;
+        return IO->MousePos.x;
     */
 
     /**
      * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
      */
     public native float getMousePosY(); /*
-        return ImGui::GetIO().MousePos.y;
+        return IO->MousePos.y;
     */
 
     /**
      * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
      */
     public native void setMousePos(float x, float y); /*
-        ImGui::GetIO().MousePos.x = x;
-        ImGui::GetIO().MousePos.y = y;
+        IO->MousePos.x = x;
+        IO->MousePos.y = y;
     */
 
     /**
@@ -737,7 +742,7 @@ public final class ImGuiIO {
      */
     public native void getMouseDown(boolean[] buff); /*
         for (int i = 0; i < 5; i++)
-            buff[i] = ImGui::GetIO().MouseDown[i];
+            buff[i] = IO->MouseDown[i];
     */
 
     /**
@@ -745,7 +750,7 @@ public final class ImGuiIO {
      * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
      */
     public native boolean getMouseDown(int idx); /*
-        return ImGui::GetIO().MouseDown[idx];
+        return IO->MouseDown[idx];
     */
 
     /**
@@ -753,7 +758,7 @@ public final class ImGuiIO {
      * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
      */
     public native void setMouseDown(int idx, boolean down); /*
-        ImGui::GetIO().MouseDown[idx] = down;
+        IO->MouseDown[idx] = down;
     */
 
     /**
@@ -762,35 +767,35 @@ public final class ImGuiIO {
      */
     public native void setMouseDown(boolean[] mouseDown); /*
         for (int i = 0; i < 5; i++)
-            ImGui::GetIO().MouseDown[i] = mouseDown[i];
+            IO->MouseDown[i] = mouseDown[i];
     */
 
     /**
      * Mouse wheel Vertical: 1 unit scrolls about 5 lines text.
      */
     public native float getMouseWheel(); /*
-        return ImGui::GetIO().MouseWheel;
+        return IO->MouseWheel;
     */
 
     /**
      * Mouse wheel Vertical: 1 unit scrolls about 5 lines text.
      */
     public native void setMouseWheel(float mouseDeltaY); /*
-        ImGui::GetIO().MouseWheel = mouseDeltaY;
+        IO->MouseWheel = mouseDeltaY;
     */
 
     /**
      * Mouse wheel Horizontal. Most users don't have a mouse with an horizontal wheel, may not be filled by all backends.
      */
     public native float getMouseWheelH(); /*
-        return ImGui::GetIO().MouseWheelH;
+        return IO->MouseWheelH;
     */
 
     /**
      * Mouse wheel Horizontal. Most users don't have a mouse with an horizontal wheel, may not be filled by all backends.
      */
     public native void setMouseWheelH(float mouseDeltaX); /*
-        ImGui::GetIO().MouseWheelH = mouseDeltaX;
+        IO->MouseWheelH = mouseDeltaX;
     */
 
     /**
@@ -799,7 +804,7 @@ public final class ImGuiIO {
      * If you don't imgui will infer the value using the rectangles and last focused time of the viewports it knows about (ignoring other OS windows).
      */
     public native float getMouseHoveredViewport(); /*
-        return ImGui::GetIO().MouseHoveredViewport;
+        return IO->MouseHoveredViewport;
     */
 
     /**
@@ -808,63 +813,63 @@ public final class ImGuiIO {
      * If you don't imgui will infer the value using the rectangles and last focused time of the viewports it knows about (ignoring other OS windows).
      */
     public native void setMouseHoveredViewport(int imGuiId); /*
-        ImGui::GetIO().MouseHoveredViewport = imGuiId;
+        IO->MouseHoveredViewport = imGuiId;
     */
 
     /**
      * Keyboard modifier pressed: Control
      */
     public native boolean getKeyCtrl(); /*
-        return ImGui::GetIO().KeyCtrl;
+        return IO->KeyCtrl;
     */
 
     /**
      * Keyboard modifier pressed: Control
      */
     public native void setKeyCtrl(boolean value); /*
-        ImGui::GetIO().KeyCtrl = value;
+        IO->KeyCtrl = value;
     */
 
     /**
      * Keyboard modifier pressed: Shift
      */
     public native boolean getKeyShift(); /*
-        return ImGui::GetIO().KeyShift;
+        return IO->KeyShift;
     */
 
     /**
      * Keyboard modifier pressed: Shift
      */
     public native void setKeyShift(boolean value); /*
-        ImGui::GetIO().KeyShift = value;
+        IO->KeyShift = value;
     */
 
     /**
      * Keyboard modifier pressed: Alt
      */
     public native boolean getKeyAlt(); /*
-        return ImGui::GetIO().KeyAlt;
+        return IO->KeyAlt;
     */
 
     /**
      * Keyboard modifier pressed: Alt
      */
     public native void setKeyAlt(boolean value); /*
-        ImGui::GetIO().KeyAlt = value;
+        IO->KeyAlt = value;
     */
 
     /**
      * Keyboard modifier pressed: Cmd/Super/Windows
      */
     public native boolean getKeySuper(); /*
-        return ImGui::GetIO().KeySuper;
+        return IO->KeySuper;
     */
 
     /**
      * Keyboard modifier pressed: Cmd/Super/Windows
      */
     public native void setKeySuper(boolean value); /*
-        ImGui::GetIO().KeySuper = value;
+        IO->KeySuper = value;
     */
 
     /**
@@ -872,21 +877,21 @@ public final class ImGuiIO {
      */
     public native void getKeysDown(boolean[] buff); /*
         for (int i = 0; i < 512; i++)
-            buff[i] = ImGui::GetIO().KeysDown[i];
+            buff[i] = IO->KeysDown[i];
     */
 
     /**
      * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
      */
     public native boolean getKeysDown(int idx); /*
-        return ImGui::GetIO().KeysDown[idx];
+        return IO->KeysDown[idx];
     */
 
     /**
      * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
      */
     public native void setKeysDown(int idx, boolean pressed); /*
-        ImGui::GetIO().KeysDown[idx] = pressed;
+        IO->KeysDown[idx] = pressed;
     */
 
     /**
@@ -894,7 +899,7 @@ public final class ImGuiIO {
      */
     public native void setKeysDown(boolean[] keysDown); /*
         for (int i = 0; i < 512; i++)
-            ImGui::GetIO().KeysDown[i] = keysDown[i];
+            IO->KeysDown[i] = keysDown[i];
     */
 
     /**
@@ -902,21 +907,21 @@ public final class ImGuiIO {
      */
     public native void getNavInputs(float[] buff); /*
         for (int i = 0; i < ImGuiNavInput_COUNT; i++)
-            buff[i] = ImGui::GetIO().NavInputs[i];
+            buff[i] = IO->NavInputs[i];
     */
 
     /**
      * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
      */
     public native float getNavInputs(int idx); /*
-        return ImGui::GetIO().NavInputs[idx];
+        return IO->NavInputs[idx];
     */
 
     /**
      * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
      */
     public native void setNavInputs(int idx, float input); /*
-        ImGui::GetIO().NavInputs[idx] = input;
+        IO->NavInputs[idx] = input;
     */
 
     /**
@@ -924,7 +929,7 @@ public final class ImGuiIO {
      */
     public native void setNavInputs(float[] navInputs); /*
         for (int i = 0; i < ImGuiNavInput_COUNT; i++)
-            ImGui::GetIO().NavInputs[i] = navInputs[i];
+            IO->NavInputs[i] = navInputs[i];
     */
 
     //------------------------------------------------------------------
@@ -939,7 +944,7 @@ public final class ImGuiIO {
      * (e.g. unclicked mouse is hovering over an imgui window, widget is active, mouse was clicked over an imgui window, etc.).
      */
     public native boolean getWantCaptureMouse(); /*
-        return ImGui::GetIO().WantCaptureMouse;
+        return IO->WantCaptureMouse;
     */
 
     /**
@@ -948,7 +953,7 @@ public final class ImGuiIO {
      * (e.g. unclicked mouse is hovering over an imgui window, widget is active, mouse was clicked over an imgui window, etc.).
      */
     public native void setWantCaptureMouse(boolean wantCaptureMouse); /*
-        ImGui::GetIO().WantCaptureMouse = wantCaptureMouse;
+        IO->WantCaptureMouse = wantCaptureMouse;
     */
 
     /**
@@ -956,7 +961,7 @@ public final class ImGuiIO {
      * (either way, always pass keyboard inputs to imgui). (e.g. InputText active, or an imgui window is focused and navigation is enabled, etc.).
      */
     public native boolean getWantCaptureKeyboard(); /*
-        return ImGui::GetIO().WantCaptureKeyboard;
+        return IO->WantCaptureKeyboard;
     */
 
     /**
@@ -964,7 +969,7 @@ public final class ImGuiIO {
      * (either way, always pass keyboard inputs to imgui). (e.g. InputText active, or an imgui window is focused and navigation is enabled, etc.).
      */
     public native void setWantCaptureKeyboard(boolean wantCaptureKeyboard); /*
-        ImGui::GetIO().WantCaptureKeyboard = wantCaptureKeyboard;
+        IO->WantCaptureKeyboard = wantCaptureKeyboard;
     */
 
     /**
@@ -972,7 +977,7 @@ public final class ImGuiIO {
      * This is set by Dear ImGui when it wants textual keyboard input to happen (e.g. when a InputText widget is active).
      */
     public native boolean getWantTextInput(); /*
-        return ImGui::GetIO().WantTextInput;
+        return IO->WantTextInput;
     */
 
     /**
@@ -980,21 +985,21 @@ public final class ImGuiIO {
      * This is set by Dear ImGui when it wants textual keyboard input to happen (e.g. when a InputText widget is active).
      */
     public native void setWantTextInput(boolean wantTextInput); /*
-        ImGui::GetIO().WantTextInput = wantTextInput;
+        IO->WantTextInput = wantTextInput;
     */
 
     /**
      * MousePos has been altered, backend should reposition mouse on next frame. Rarely used! Set only when ImGuiConfigFlags_NavEnableSetMousePos flag is enabled.
      */
     public native boolean getWantSetMousePos(); /*
-        return ImGui::GetIO().WantSetMousePos;
+        return IO->WantSetMousePos;
     */
 
     /**
      * MousePos has been altered, backend should reposition mouse on next frame. Rarely used! Set only when ImGuiConfigFlags_NavEnableSetMousePos flag is enabled.
      */
     public native void setWantSetMousePos(boolean wantSetMousePos); /*
-        ImGui::GetIO().WantSetMousePos = wantSetMousePos;
+        IO->WantSetMousePos = wantSetMousePos;
     */
 
     /**
@@ -1003,7 +1008,7 @@ public final class ImGuiIO {
      * Important: clear io.WantSaveIniSettings yourself after saving!
      */
     public native boolean getWantSaveIniSettings(); /*
-        return ImGui::GetIO().WantSaveIniSettings;
+        return IO->WantSaveIniSettings;
     */
 
     /**
@@ -1012,7 +1017,7 @@ public final class ImGuiIO {
      * Important: clear io.WantSaveIniSettings yourself after saving!
      */
     public native void setWantSaveIniSettings(boolean wantSaveIniSettings); /*
-        ImGui::GetIO().WantSaveIniSettings = wantSaveIniSettings;
+        IO->WantSaveIniSettings = wantSaveIniSettings;
     */
 
     /**
@@ -1020,7 +1025,7 @@ public final class ImGuiIO {
      * and it doesn't use the ImGuiWindowFlags_NoNavInputs flag.
      */
     public native boolean getNavActive(); /*
-        return ImGui::GetIO().NavActive;
+        return IO->NavActive;
     */
 
     /**
@@ -1028,21 +1033,21 @@ public final class ImGuiIO {
      * and it doesn't use the ImGuiWindowFlags_NoNavInputs flag.
      */
     public native void setNavActive(boolean navActive); /*
-        ImGui::GetIO().NavActive = navActive;
+        IO->NavActive = navActive;
     */
 
     /**
      * Keyboard/Gamepad navigation is visible and allowed (will handle ImGuiKey_NavXXX events).
      */
     public native boolean getNavVisible(); /*
-        return ImGui::GetIO().NavVisible;
+        return IO->NavVisible;
     */
 
     /**
      * Keyboard/Gamepad navigation is visible and allowed (will handle ImGuiKey_NavXXX events).
      */
     public native void setNavVisible(boolean navVisible); /*
-        ImGui::GetIO().NavVisible = navVisible;
+        IO->NavVisible = navVisible;
     */
 
     /**
@@ -1050,7 +1055,7 @@ public final class ImGuiIO {
      * Solely for convenience. Rolling average estimation based on IO.DeltaTime over 120 frames
      */
     public native float getFramerate(); /*
-        return ImGui::GetIO().Framerate;
+        return IO->Framerate;
     */
 
     /**
@@ -1058,106 +1063,106 @@ public final class ImGuiIO {
      * Solely for convenience. Rolling average estimation based on IO.DeltaTime over 120 frames
      */
     public native void setFramerate(float framerate); /*
-        ImGui::GetIO().Framerate = framerate;
+        IO->Framerate = framerate;
     */
 
     /**
      * Vertices output during last call to Render()
      */
     public native int getMetricsRenderVertices(); /*
-        return ImGui::GetIO().MetricsRenderVertices;
+        return IO->MetricsRenderVertices;
     */
 
     /**
      * Vertices output during last call to Render()
      */
     public native void setMetricsRenderVertices(int metricsRenderVertices); /*
-        ImGui::GetIO().MetricsRenderVertices = metricsRenderVertices;
+        IO->MetricsRenderVertices = metricsRenderVertices;
     */
 
     /**
      * Indices output during last call to Render() = number of triangles * 3
      */
     public native int getMetricsRenderIndices(); /*
-        return ImGui::GetIO().MetricsRenderIndices;
+        return IO->MetricsRenderIndices;
     */
 
     /**
      * Indices output during last call to Render() = number of triangles * 3
      */
     public native void setMetricsRenderIndices(int metricsRenderIndices); /*
-        ImGui::GetIO().MetricsRenderIndices = metricsRenderIndices;
+        IO->MetricsRenderIndices = metricsRenderIndices;
     */
 
     /**
      * Number of visible windows
      */
     public native int getMetricsRenderWindows(); /*
-        return ImGui::GetIO().MetricsRenderWindows;
+        return IO->MetricsRenderWindows;
     */
 
     /**
      * Number of visible windows
      */
     public native void setMetricsRenderWindows(int metricsRenderWindows); /*
-        ImGui::GetIO().MetricsRenderWindows = metricsRenderWindows;
+        IO->MetricsRenderWindows = metricsRenderWindows;
     */
 
     /**
      * Number of active windows
      */
     public native int getMetricsActiveWindows(); /*
-        return ImGui::GetIO().MetricsActiveWindows;
+        return IO->MetricsActiveWindows;
     */
 
     /**
      * Number of active windows
      */
     public native void setMetricsActiveWindows(int metricsActiveWindows); /*
-        ImGui::GetIO().MetricsActiveWindows = metricsActiveWindows;
+        IO->MetricsActiveWindows = metricsActiveWindows;
     */
 
     /**
      * Number of active allocations, updated by MemAlloc/MemFree based on current context. May be off if you have multiple imgui contexts.
      */
     public native int getMetricsActiveAllocations(); /*
-        return ImGui::GetIO().MetricsActiveAllocations;
+        return IO->MetricsActiveAllocations;
     */
 
     /**
      * Number of active allocations, updated by MemAlloc/MemFree based on current context. May be off if you have multiple imgui contexts.
      */
     public native void setMetricsActiveAllocations(int metricsActiveAllocations); /*
-        ImGui::GetIO().MetricsActiveAllocations = metricsActiveAllocations;
+        IO->MetricsActiveAllocations = metricsActiveAllocations;
     */
 
     /**
      * Mouse delta. Note that this is zero if either current or previous position are invalid (-FLT_MAX,-FLT_MAX), so a disappearing/reappearing mouse won't have a huge delta.
      */
     public native void getMouseDelta(ImVec2 dstImVec2); /*
-        Jni::ImVec2Cpy(env, &ImGui::GetIO().MouseDelta, dstImVec2);
+        Jni::ImVec2Cpy(env, &IO->MouseDelta, dstImVec2);
     */
 
     /**
      * Mouse delta. Note that this is zero if either current or previous position are invalid (-FLT_MAX,-FLT_MAX), so a disappearing/reappearing mouse won't have a huge delta.
      */
     public native float getMouseDeltaX(); /*
-        return ImGui::GetIO().MouseDelta.x;
+        return IO->MouseDelta.x;
     */
 
     /**
      * Mouse delta. Note that this is zero if either current or previous position are invalid (-FLT_MAX,-FLT_MAX), so a disappearing/reappearing mouse won't have a huge delta.
      */
     public native float getMouseDeltaY(); /*
-        return ImGui::GetIO().MouseDelta.y;
+        return IO->MouseDelta.y;
     */
 
     /**
      * Mouse delta. Note that this is zero if either current or previous position are invalid (-FLT_MAX,-FLT_MAX), so a disappearing/reappearing mouse won't have a huge delta.
      */
     public native void setMouseDelta(float x, float y); /*
-        ImGui::GetIO().MouseDelta.x = x;
-        ImGui::GetIO().MouseDelta.y = y;
+        IO->MouseDelta.x = x;
+        IO->MouseDelta.y = y;
     */
 
     // Functions
@@ -1166,27 +1171,27 @@ public final class ImGuiIO {
      * Queue new character input.
      */
     public native void addInputCharacter(int c); /*
-        ImGui::GetIO().AddInputCharacter((unsigned int)c);
+        IO->AddInputCharacter((unsigned int)c);
     */
 
     /**
      * Queue new character input from an UTF-16 character, it can be a surrogate
      */
     public native void addInputCharacterUTF16(short c); /*
-        ImGui::GetIO().AddInputCharacterUTF16((ImWchar16)c);
+        IO->AddInputCharacterUTF16((ImWchar16)c);
     */
 
     /**
      * Queue new characters input from an UTF-8 string.
      */
     public native void addInputCharactersUTF8(String str); /*
-        ImGui::GetIO().AddInputCharactersUTF8(str);
+        IO->AddInputCharactersUTF8(str);
     */
 
     /**
      * Clear the text input buffer manually.
      */
     public native void clearInputCharacters(); /*
-        ImGui::GetIO().ClearInputCharacters();
+        IO->ClearInputCharacters();
     */
 }

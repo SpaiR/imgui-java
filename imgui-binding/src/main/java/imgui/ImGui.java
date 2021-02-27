@@ -53,7 +53,7 @@ public class ImGui {
             System.loadLibrary(libName);
         }
 
-        IMGUI_IO = new ImGuiIO();
+        IMGUI_IO = new ImGuiIO(0);
         WINDOW_DRAW_LIST = new ImDrawList(0);
         BACKGROUND_DRAW_LIST = new ImDrawList(0);
         FOREGROUND_DRAW_LIST = new ImDrawList(0);
@@ -163,8 +163,13 @@ public class ImGui {
      * Access the IO structure (mouse/keyboard/gamepad inputs, time, various configuration options/flags).
      */
     public static ImGuiIO getIO() {
+        IMGUI_IO.ptr = nGetIO();
         return IMGUI_IO;
     }
+
+    private static native long nGetIO(); /*
+        return (intptr_t)&ImGui::GetIO();
+    */
 
     /**
      * Access the Style structure (colors, sizes). Always use PushStyleCol(), PushStyleVar() to modify style mid-frame!
