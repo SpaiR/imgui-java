@@ -22,4 +22,5 @@ public final class NodeEditorStyleColor {
     public static final int FlowMarker = 15;
     public static final int GroupBg = 16;
     public static final int GroupBorder = 17;
+    public static final int COUNT = 18;
 }

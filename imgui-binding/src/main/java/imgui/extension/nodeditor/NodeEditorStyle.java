@@ -3,6 +3,7 @@ package imgui.extension.nodeditor;
 import imgui.ImVec2;
 import imgui.ImVec4;
 import imgui.binding.ImGuiStruct;
+import imgui.extension.nodeditor.flag.NodeEditorStyleColor;
 
 public final class NodeEditorStyle extends ImGuiStruct {
     public NodeEditorStyle(final long ptr) {
@@ -290,6 +291,27 @@ public final class NodeEditorStyle extends ImGuiStruct {
 
     public native void setGroupBorderWidth(float groupBorderWidth); /*
        IM_NODE_EDITOR_STYLE->GroupBorderWidth = groupBorderWidth;
+    */
+
+    public float[][] getColors() {
+        final float[][] colors = new float[NodeEditorStyleColor.COUNT][4];
+        getColors(colors);
+        return colors;
+    }
+
+    public native void getColors(float[][] buff); /*
+        for (int i = 0; i < ed::StyleColor_Count; i++) {
+            jfloatArray jColors = (jfloatArray)env->GetObjectArrayElement(buff, i);
+            jfloat* jBuffColor = env->GetFloatArrayElements(jColors, 0);
+
+            jBuffColor[0] = IM_NODE_EDITOR_STYLE->Colors[i].x;
+            jBuffColor[1] = IM_NODE_EDITOR_STYLE->Colors[i].y;
+            jBuffColor[2] = IM_NODE_EDITOR_STYLE->Colors[i].z;
+            jBuffColor[3] = IM_NODE_EDITOR_STYLE->Colors[i].w;
+
+            env->ReleaseFloatArrayElements(jColors, jBuffColor, 0);
+            env->DeleteLocalRef(jColors);
+        }
     */
 
     /**

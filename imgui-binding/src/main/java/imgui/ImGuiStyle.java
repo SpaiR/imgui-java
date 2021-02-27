@@ -1,6 +1,7 @@
 package imgui;
 
 import imgui.binding.ImGuiStructDestroyable;
+import imgui.flag.ImGuiCol;
 
 /**
  * You may modify the ImGui::GetStyle() main instance during initialization and before NewFrame().
@@ -895,6 +896,12 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     public native void setCircleSegmentMaxError(float circleSegmentMaxError); /*
         IMGUI_STYLE->CircleSegmentMaxError = circleSegmentMaxError;
     */
+
+    public float[][] getColors() {
+        final float[][] colors = new float[ImGuiCol.COUNT][4];
+        getColors(colors);
+        return colors;
+    }
 
     /**
      * BINDING NOTICE: colors is a 2d array with sizes: [ImGuiCol_COUNT][4]
