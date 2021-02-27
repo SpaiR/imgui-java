@@ -26,6 +26,10 @@ public final class ImDouble implements Cloneable {
         this.data[0] = value;
     }
 
+    public void set(final ImDouble value) {
+        set(value.get());
+    }
+
     @Override
     public String toString() {
         return String.valueOf(get());

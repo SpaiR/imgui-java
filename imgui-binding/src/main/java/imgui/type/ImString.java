@@ -81,6 +81,10 @@ public final class ImString implements Cloneable {
         return data;
     }
 
+    public void set(final ImString value) {
+        set(value.get());
+    }
+
     public void set(final String value) {
         set(value, inputData.isResizable, inputData.resizeFactor);
     }

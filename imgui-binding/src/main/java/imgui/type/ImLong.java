@@ -26,6 +26,10 @@ public final class ImLong implements Cloneable {
         this.data[0] = value;
     }
 
+    public void set(final ImLong value) {
+        set(value.get());
+    }
+
     @Override
     public String toString() {
         return String.valueOf(get());

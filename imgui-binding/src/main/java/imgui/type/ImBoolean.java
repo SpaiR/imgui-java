@@ -26,6 +26,10 @@ public final class ImBoolean implements Cloneable {
         data[0] = value;
     }
 
+    public void set(final ImBoolean value) {
+        set(value.get());
+    }
+
     @Override
     public String toString() {
         return String.valueOf(data[0]);
