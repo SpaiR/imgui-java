@@ -46,6 +46,7 @@ public class Main extends Application {
         ImGui.sameLine();
         ImGui.text(String.valueOf(count));
         ImGui.inputText("string", str, ImGuiInputTextFlags.CallbackResize);
+        ImGui.text("Result: " + str.get());
         ImGui.sliderFloat("float", flt, 0, 1);
         ImGui.separator();
         ImGui.text("Extra");

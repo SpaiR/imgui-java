@@ -81,8 +81,16 @@ public final class ImString implements Cloneable {
         return data;
     }
 
+    public void set(final Object object) {
+        set(String.valueOf(object));
+    }
+
     public void set(final ImString value) {
-        set(value.get());
+        set(value.get(), true);
+    }
+
+    public void set(final ImString value, final boolean resize) {
+        set(value.get(), resize);
     }
 
     public void set(final String value) {
@@ -94,17 +102,17 @@ public final class ImString implements Cloneable {
     }
 
     public void set(final String value, final boolean resize, final int resizeValue) {
-        final byte[] valueBuff = (value == null ? "null" : value).getBytes();
+        final byte[] valueBuff = (value == null ? "null" : value).getBytes(StandardCharsets.UTF_8);
         final int currentLen = data == null ? 0 : data.length;
         byte[] newBuff = null;
 
-        // If provided value require a bigger buffer and we can resize it
+        // If provided value requires a bigger buffer and we can resize it
         if (resize && (currentLen - CARET_LEN) < valueBuff.length) {
             newBuff = new byte[valueBuff.length + resizeValue + CARET_LEN];
             inputData.size = valueBuff.length;
         }
 
-        // If there were no resize and we still need a new buffer
+        // If there was no resize, so we still need a new buffer
         if (newBuff == null) {
             newBuff = new byte[currentLen];
             inputData.size = Math.max(0, Math.min(valueBuff.length, currentLen - CARET_LEN));
