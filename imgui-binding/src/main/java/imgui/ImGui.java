@@ -4979,7 +4979,7 @@ public class ImGui {
      * Use in combination with {@link #setDragDropPayloadObject(String, Object)}.
      */
     public static Object getDragDropPayloadObject() {
-        return nGetDragDropPayloadObjectObject() ? objectPayloadRef.get() : null;
+        return objectPayloadRef != null && nGetDragDropPayloadObjectObject() ? objectPayloadRef.get() : null;
     }
 
     private static native boolean nGetDragDropPayloadObjectObject(); /*
