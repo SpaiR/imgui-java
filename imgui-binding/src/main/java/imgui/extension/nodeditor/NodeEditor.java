@@ -25,7 +25,7 @@ public final class NodeEditor {
     private static final ImDrawList HINT_BACKGROUND_DRAW_LIST = new ImDrawList(0);
     private static final ImDrawList NODE_BACKGROUND_DRAW_LIST = new ImDrawList(0);
 
-    private static NodeEditorStyle style;
+    private static final NodeEditorStyle STYLE = new NodeEditorStyle(0);
 
     private NodeEditor() {
     }
@@ -128,10 +128,8 @@ public final class NodeEditor {
     */
 
     public static NodeEditorStyle getStyle() {
-        if (style == null) {
-            style = new NodeEditorStyle(nGetStyle());
-        }
-        return style;
+        STYLE.ptr = nGetStyle();
+        return STYLE;
     }
 
     private static native long nGetStyle(); /*
@@ -198,13 +196,8 @@ public final class NodeEditor {
     }
 
     public static ImDrawList getNodeBackgroundDrawList(final long nodeId) {
-        final long ptr = nGetNodeBackgroundDrawList(nodeId);
-        if (ptr == 0) {
-            return null;
-        } else {
-            NODE_BACKGROUND_DRAW_LIST.ptr = ptr;
-            return NODE_BACKGROUND_DRAW_LIST;
-        }
+        NODE_BACKGROUND_DRAW_LIST.ptr = nGetNodeBackgroundDrawList(nodeId);
+        return NODE_BACKGROUND_DRAW_LIST;
     }
 
     private static native long nGetHintForegroundDrawList(); /*

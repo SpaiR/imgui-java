@@ -12,7 +12,7 @@ import imgui.type.ImInt;
  * Refer to the library's Github page for examples and support
  */
 public final class ImNodes {
-    private static ImNodesStyle style;
+    private static final ImNodesStyle STYLE = new ImNodesStyle(0);
 
     private ImNodes() {
     }
@@ -61,10 +61,8 @@ public final class ImNodes {
      * Returns the global style struct. See the struct declaration for default values.
      */
     public static ImNodesStyle getStyle() {
-        if (style == null) {
-            style = new ImNodesStyle(nGetStyle());
-        }
-        return style;
+        STYLE.ptr = nGetStyle();
+        return STYLE;
     }
 
     private static native long nGetStyle(); /*

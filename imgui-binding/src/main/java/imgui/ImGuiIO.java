@@ -8,7 +8,7 @@ import imgui.callback.ImStrSupplier;
  * Access via ImGui::GetIO(). Read 'Programmer guide' section in .cpp file for general usage.
  */
 public final class ImGuiIO {
-    private ImFontAtlas imFontAtlas;
+    private final ImFontAtlas imFontAtlas = new ImFontAtlas(0);
 
     ImGuiIO() {
     }
@@ -240,9 +240,7 @@ public final class ImGuiIO {
      * Font atlas: load, rasterize and pack one or more fonts into a single texture.
      */
     public ImFontAtlas getFonts() {
-        if (imFontAtlas == null) {
-            imFontAtlas = new ImFontAtlas(nGetFonts());
-        }
+        imFontAtlas.ptr = nGetFonts();
         return imFontAtlas;
     }
 
@@ -256,7 +254,6 @@ public final class ImGuiIO {
      * BINDING NOTICE: You SHOULD manually destroy previously used ImFontAtlas.
      */
     public void setFonts(final ImFontAtlas imFontAtlas) {
-        this.imFontAtlas = imFontAtlas;
         nSetFonts(imFontAtlas.ptr);
     }
 

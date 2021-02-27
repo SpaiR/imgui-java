@@ -7,8 +7,8 @@ import imgui.binding.ImGuiStructDestroyable;
  * ImFontAtlas automatically loads a default embedded font for you when you call GetTexDataAsAlpha8() or GetTexDataAsRGBA32().
  */
 public final class ImFont extends ImGuiStructDestroyable {
-    private ImFontGlyph fallbackGlyph = null;
-    private ImFontGlyph foundGlyph = new ImFontGlyph(0);
+    private final ImFontGlyph fallbackGlyph = new ImFontGlyph(0);
+    private final ImFontGlyph foundGlyph = new ImFontGlyph(0);
 
     public ImFont() {
     }
@@ -64,9 +64,7 @@ public final class ImFont extends ImGuiStructDestroyable {
      * = FindGlyph(FontFallbackChar)
      */
     public ImFontGlyph getFallbackGlyph() {
-        if (fallbackGlyph == null) {
-            fallbackGlyph = new ImFontGlyph(nGetFallbackGlyphPtr());
-        }
+        fallbackGlyph.ptr = nGetFallbackGlyphPtr();
         return fallbackGlyph;
     }
 
@@ -172,11 +170,7 @@ public final class ImFont extends ImGuiStructDestroyable {
     // Methods
 
     public ImFontGlyph findGlyph(final int c) {
-        final long ptr = nFindGlyph(c);
-        if (ptr == 0) {
-            return null;
-        }
-        foundGlyph.ptr = ptr;
+        foundGlyph.ptr = nFindGlyph(c);
         return foundGlyph;
     }
 
@@ -185,11 +179,7 @@ public final class ImFont extends ImGuiStructDestroyable {
     */
 
     public ImFontGlyph findGlyphNoFallback(final int c) {
-        final long ptr = nFindGlyphNoFallback(c);
-        if (ptr == 0) {
-            return null;
-        }
-        foundGlyph.ptr = ptr;
+        foundGlyph.ptr = nFindGlyphNoFallback(c);
         return foundGlyph;
     }
 

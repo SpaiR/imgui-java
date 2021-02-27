@@ -3,7 +3,6 @@ package imgui.extension.imnodes;
 import imgui.binding.ImGuiStructDestroyable;
 
 public final class ImNodesContext extends ImGuiStructDestroyable {
-
     public ImNodesContext() {
     }
 

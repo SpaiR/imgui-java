@@ -32,11 +32,11 @@ public class ImGui {
     private static final ImGuiViewport WINDOW_VIEWPORT;
     private static final ImGuiViewport FIND_VIEWPORT;
 
-    private static ImDrawData drawData;
-    private static ImFont font;
-    private static ImGuiStyle style;
-    private static ImGuiViewport mainViewport;
-    private static ImGuiPlatformIO platformIO;
+    private static final ImDrawData DRAW_DATA;
+    private static final ImFont FONT;
+    private static final ImGuiStyle STYLE;
+    private static final ImGuiViewport MAIN_VIEWPORT;
+    private static final ImGuiPlatformIO PLATFORM_IO;
 
     static {
         final String libPath = System.getProperty(LIB_PATH_PROP);
@@ -60,6 +60,12 @@ public class ImGui {
         IMGUI_STORAGE = new ImGuiStorage(0);
         WINDOW_VIEWPORT = new ImGuiViewport(0);
         FIND_VIEWPORT = new ImGuiViewport(0);
+
+        DRAW_DATA = new ImDrawData(0);
+        FONT = new ImFont(0);
+        STYLE = new ImGuiStyle(0);
+        MAIN_VIEWPORT = new ImGuiViewport(0);
+        PLATFORM_IO = new ImGuiPlatformIO(0);
 
         nInitJni();
         ImFontAtlas.nInit();
@@ -164,10 +170,8 @@ public class ImGui {
      * Access the Style structure (colors, sizes). Always use PushStyleCol(), PushStyleVar() to modify style mid-frame!
      */
     public static ImGuiStyle getStyle() {
-        if (style == null) {
-            style = new ImGuiStyle(nGetStyle());
-        }
-        return style;
+        STYLE.ptr = nGetStyle();
+        return STYLE;
     }
 
     private static native long nGetStyle(); /*
@@ -200,10 +204,8 @@ public class ImGui {
      * Valid after Render() and until the next call to NewFrame(). this is what you have to render.
      */
     public static ImDrawData getDrawData() {
-        if (drawData == null) {
-            drawData = new ImDrawData(nGetDrawData());
-        }
-        return drawData;
+        DRAW_DATA.ptr = nGetDrawData();
+        return DRAW_DATA;
     }
 
     private static native long nGetDrawData(); /*
@@ -1094,10 +1096,8 @@ public class ImGui {
      * Get current font.
      */
     public static ImFont getFont() {
-        if (font == null) {
-            font = new ImFont(nGetFont());
-        }
-        return font;
+        FONT.ptr = nGetFont();
+        return FONT;
     }
 
     private static native long nGetFont(); /*
@@ -5121,10 +5121,8 @@ public class ImGui {
      * Return primary/default viewport.
      */
     public static ImGuiViewport getMainViewport() {
-        if (mainViewport == null) {
-            mainViewport = new ImGuiViewport(nGetMainViewport());
-        }
-        return mainViewport;
+        MAIN_VIEWPORT.ptr = nGetMainViewport();
+        return MAIN_VIEWPORT;
     }
 
     private static native long nGetMainViewport(); /*
@@ -5682,10 +5680,8 @@ public class ImGui {
      * Platform/renderer functions, for backend to setup + viewports list.
      */
     public static ImGuiPlatformIO getPlatformIO() {
-        if (platformIO == null) {
-            platformIO = new ImGuiPlatformIO(nGetPlatformIO());
-        }
-        return platformIO;
+        PLATFORM_IO.ptr = nGetPlatformIO();
+        return PLATFORM_IO;
     }
 
     private static native long nGetPlatformIO(); /*
