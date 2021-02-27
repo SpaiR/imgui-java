@@ -161,6 +161,13 @@ public final class ImString implements Cloneable {
         return !isEmpty();
     }
 
+    /**
+     * Clears underlying string by setting empty value.
+     */
+    public void clear() {
+        set("");
+    }
+
     @Override
     public String toString() {
         return get();
