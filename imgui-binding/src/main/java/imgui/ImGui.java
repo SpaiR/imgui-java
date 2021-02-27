@@ -506,6 +506,15 @@ public class ImGui {
     /**
      * Get current window position in screen space (useful if you want to do your own drawing via the DrawList API)
      */
+    public static ImVec2 getWindowPos() {
+        final ImVec2 value = new ImVec2();
+        getWindowPos(value);
+        return value;
+    }
+
+    /**
+     * Get current window position in screen space (useful if you want to do your own drawing via the DrawList API)
+     */
     public static native void getWindowPos(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::GetWindowPos(), dstImVec2);
     */
@@ -523,6 +532,15 @@ public class ImGui {
     public static native float getWindowPosY(); /*
         return ImGui::GetWindowPos().y;
     */
+
+    /**
+     * Get current window size
+     */
+    public static ImVec2 getWindowSize() {
+        final ImVec2 value = new ImVec2();
+        getWindowSize(value);
+        return value;
+    }
 
     /**
      * Get current window size
@@ -782,6 +800,15 @@ public class ImGui {
     /**
      * == GetContentRegionMax() - GetCursorPos()
      */
+    public static ImVec2 getContentRegionAvail() {
+        final ImVec2 value = new ImVec2();
+        getContentRegionAvail(value);
+        return value;
+    }
+
+    /**
+     * == GetContentRegionMax() - GetCursorPos()
+     */
     public static native void getContentRegionAvail(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::GetContentRegionAvail(), dstImVec2);
     */
@@ -799,6 +826,15 @@ public class ImGui {
     public static native float getContentRegionAvailY(); /*
         return ImGui::GetContentRegionAvail().y;
     */
+
+    /**
+     * Current content boundaries (typically window boundaries including scrolling, or current column boundaries), in windows coordinates
+     */
+    public static ImVec2 getContentRegionMax() {
+        final ImVec2 value = new ImVec2();
+        getContentRegionMax(value);
+        return value;
+    }
 
     /**
      * Current content boundaries (typically window boundaries including scrolling, or current column boundaries), in windows coordinates
@@ -824,6 +860,15 @@ public class ImGui {
     /**
      * Content boundaries max (roughly (0,0)+Size-Scroll) where Size can be override with SetNextWindowContentSize(), in window coordinates
      */
+    public static ImVec2 getWindowContentRegionMin() {
+        final ImVec2 value = new ImVec2();
+        getWindowContentRegionMin(value);
+        return value;
+    }
+
+    /**
+     * Content boundaries max (roughly (0,0)+Size-Scroll) where Size can be override with SetNextWindowContentSize(), in window coordinates
+     */
     public static native void getWindowContentRegionMin(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::GetWindowContentRegionMin(), dstImVec2);
     */
@@ -841,6 +886,12 @@ public class ImGui {
     public static native float getWindowContentRegionMinY(); /*
         return ImGui::GetWindowContentRegionMin().y;
     */
+
+    public final ImVec2 getWindowContentRegionMax() {
+        final ImVec2 value = new ImVec2();
+        getWindowContentRegionMax(value);
+        return value;
+    }
 
     public static native void getWindowContentRegionMax(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::GetWindowContentRegionMax(), dstImVec2);
@@ -1119,6 +1170,15 @@ public class ImGui {
     /**
      * Get UV coordinate for a while pixel, useful to draw custom shapes via the ImDrawList API
      */
+    public static ImVec2 getFontTexUvWhitePixel() {
+        final ImVec2 value = new ImVec2();
+        getFontTexUvWhitePixel(value);
+        return value;
+    }
+
+    /**
+     * Get UV coordinate for a while pixel, useful to draw custom shapes via the ImDrawList API
+     */
     public static native void getFontTexUvWhitePixel(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::GetFontTexUvWhitePixel(), dstImVec2);
     */
@@ -1166,6 +1226,16 @@ public class ImGui {
     public static native int getColorU32i(int col); /*
         return ImGui::GetColorU32((ImU32)col);
     */
+
+    /**
+     * Retrieve style color as stored in ImGuiStyle structure. use to feed back into PushStyleColor(),
+     * otherwise use GetColorU32() to get style color with style alpha baked in.
+     */
+    public ImVec4 getStyleColorVec4(final int imGuiStyleVar) {
+        final ImVec4 value = new ImVec4();
+        getStyleColorVec4(imGuiStyleVar, value);
+        return value;
+    }
 
     /**
      * Retrieve style color as stored in ImGuiStyle structure. use to feed back into PushStyleColor(),
@@ -1282,6 +1352,15 @@ public class ImGui {
     /**
      * Cursor position in window coordinates (relative to window position)
      */
+    public static ImVec2 getCursorPos() {
+        final ImVec2 value = new ImVec2();
+        getCursorPos(value);
+        return value;
+    }
+
+    /**
+     * Cursor position in window coordinates (relative to window position)
+     */
     public static native void getCursorPos(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::GetCursorPos(), dstImVec2);
     */
@@ -1324,6 +1403,15 @@ public class ImGui {
     /**
      * Initial cursor position in window coordinates
      */
+    public static ImVec2 getCursorStartPos() {
+        final ImVec2 value = new ImVec2();
+        getCursorStartPos(value);
+        return value;
+    }
+
+    /**
+     * Initial cursor position in window coordinates
+     */
     public static native void getCursorStartPos(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::GetCursorStartPos(), dstImVec2);
     */
@@ -1341,6 +1429,17 @@ public class ImGui {
     public static native float getCursorStartPosY(); /*
         return ImGui::GetCursorStartPos().y;
     */
+
+    /**
+     * Cursor position in absolute coordinates (useful to work with ImDrawList API).
+     * Generally top-left == GetMainViewport().Pos == (0,0) in single viewport mode,
+     * and bottom-right == GetMainViewport().Pos+Size == io.DisplaySize in single-viewport mode.
+     */
+    public static ImVec2 getCursorScreenPos() {
+        final ImVec2 value = new ImVec2();
+        getCursorScreenPos(value);
+        return value;
+    }
 
     /**
      * Cursor position in absolute coordinates (useful to work with ImDrawList API).
@@ -5050,6 +5149,15 @@ public class ImGui {
     /**
      * Get upper-left bounding rectangle of the last item (screen space)
      */
+    public static ImVec2 getItemRectMin() {
+        final ImVec2 value = new ImVec2();
+        getItemRectMin(value);
+        return value;
+    }
+
+    /**
+     * Get upper-left bounding rectangle of the last item (screen space)
+     */
     public static native void getItemRectMin(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::GetItemRectMin(), dstImVec2);
     */
@@ -5071,6 +5179,15 @@ public class ImGui {
     /**
      * Get lower-right bounding rectangle of the last item (screen space)
      */
+    public static ImVec2 getItemRectMax() {
+        final ImVec2 value = new ImVec2();
+        getItemRectMax(value);
+        return value;
+    }
+
+    /**
+     * Get lower-right bounding rectangle of the last item (screen space)
+     */
     public static native void getItemRectMax(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::GetItemRectMax(), dstImVec2);
     */
@@ -5088,6 +5205,15 @@ public class ImGui {
     public static native float getItemRectMaxY(); /*
         return ImGui::GetItemRectMax().y;
     */
+
+    /**
+     * Get size of last item
+     */
+    public static ImVec2 getItemRectSize() {
+        final ImVec2 value = new ImVec2();
+        getItemRectSize(value);
+        return value;
+    }
 
     /**
      * Get size of last item
@@ -5275,6 +5401,24 @@ public class ImGui {
 
     // Text Utilities
 
+    public final ImVec2 calcTextSize(final String text) {
+        final ImVec2 value = new ImVec2();
+        calcTextSize(value, text);
+        return value;
+    }
+
+    public final ImVec2 calcTextSize(final String text, final boolean hideTextAfterDoubleHash) {
+        final ImVec2 value = new ImVec2();
+        calcTextSize(value, text, hideTextAfterDoubleHash);
+        return value;
+    }
+
+    public final ImVec2 calcTextSize(final String text, final boolean hideTextAfterDoubleHash, final float wrapWidth) {
+        final ImVec2 value = new ImVec2();
+        calcTextSize(value, text, hideTextAfterDoubleHash, wrapWidth);
+        return value;
+    }
+
     public static native void calcTextSize(ImVec2 dstImVec2, String text); /*
         ImVec2 src = ImGui::CalcTextSize(text);
         Jni::ImVec2Cpy(env, src, dstImVec2);
@@ -5296,6 +5440,12 @@ public class ImGui {
     */
 
     // Color Utilities
+
+    public final ImVec4 colorConvertU32ToFloat4(final int in) {
+        final ImVec4 value = new ImVec4();
+        colorConvertU32ToFloat4(in, value);
+        return value;
+    }
 
     public static native void colorConvertU32ToFloat4(int in, ImVec4 dstImVec4); /*
         Jni::ImVec4Cpy(env, ImGui::ColorConvertU32ToFloat4(in), dstImVec4);
@@ -5468,6 +5618,15 @@ public class ImGui {
     /**
      * Shortcut to ImGui::GetIO().MousePos provided by user, to be consistent with other calls
      */
+    public static ImVec2 getMousePos() {
+        final ImVec2 value = new ImVec2();
+        getMousePos(value);
+        return value;
+    }
+
+    /**
+     * Shortcut to ImGui::GetIO().MousePos provided by user, to be consistent with other calls
+     */
     public static native void getMousePos(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::GetMousePos(), dstImVec2);
     */
@@ -5489,6 +5648,15 @@ public class ImGui {
     /**
      * Retrieve backup of mouse position at the time of opening popup we have BeginPopup() into
      */
+    public static ImVec2 getMousePosOnOpeningCurrentPopup() {
+        final ImVec2 value = new ImVec2();
+        getMousePosOnOpeningCurrentPopup(value);
+        return value;
+    }
+
+    /**
+     * Retrieve backup of mouse position at the time of opening popup we have BeginPopup() into
+     */
     public static native void getMousePosOnOpeningCurrentPopup(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::GetMousePosOnOpeningCurrentPopup(), dstImVec2);
     */
@@ -5506,6 +5674,16 @@ public class ImGui {
     public static native float getMousePosOnOpeningCurrentPopupY(); /*
         return ImGui::GetMousePosOnOpeningCurrentPopup().y;
     */
+
+    /**
+     * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     */
+    public static ImVec2 getMouseDragDelta() {
+        final ImVec2 value = new ImVec2();
+        getMouseDragDelta(value);
+        return value;
+    }
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
@@ -5535,6 +5713,16 @@ public class ImGui {
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
      * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
      */
+    public static ImVec2 getMouseDragDelta(final int button) {
+        final ImVec2 value = new ImVec2();
+        getMouseDragDelta(value, button);
+        return value;
+    }
+
+    /**
+     * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     */
     public static native void getMouseDragDelta(ImVec2 dstImVec2, int button); /*
         Jni::ImVec2Cpy(env, ImGui::GetMouseDragDelta(button), dstImVec2);
     */
@@ -5554,6 +5742,16 @@ public class ImGui {
     public static native float getMouseDragDeltaY(int button); /*
         return ImGui::GetMouseDragDelta(button).y;
     */
+
+    /**
+     * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     */
+    public static ImVec2 getMouseDragDelta(final int button, final float lockThreshold) {
+        final ImVec2 value = new ImVec2();
+        getMouseDragDelta(value, button, lockThreshold);
+        return value;
+    }
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.

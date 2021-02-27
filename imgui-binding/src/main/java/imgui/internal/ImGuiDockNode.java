@@ -189,6 +189,15 @@ public final class ImGuiDockNode extends ImGuiStruct {
     /**
      * Current position
      */
+    public ImVec2 getPos() {
+        final ImVec2 value = new ImVec2();
+        getPos(value);
+        return value;
+    }
+
+    /**
+     * Current position
+     */
     public native void getPos(ImVec2 dstImVec2); /*
        Jni::ImVec2Cpy(env, &IMGUI_DOCK_NODE->Pos, dstImVec2);
     */
@@ -218,6 +227,15 @@ public final class ImGuiDockNode extends ImGuiStruct {
     /**
      * Current size
      */
+    public ImVec2 getSize() {
+        final ImVec2 value = new ImVec2();
+        getSize(value);
+        return value;
+    }
+
+    /**
+     * Current size
+     */
     public native void getSize(ImVec2 dstImVec2); /*
        Jni::ImVec2Cpy(env, &IMGUI_DOCK_NODE->Size, dstImVec2);
     */
@@ -243,6 +261,15 @@ public final class ImGuiDockNode extends ImGuiStruct {
        IMGUI_DOCK_NODE->Size.x = x;
        IMGUI_DOCK_NODE->Size.y = y;
     */
+
+    /**
+     * [Split node only] Last explicitly written-to size (overridden when using a splitter affecting the node), used to calculate Size.
+     */
+    public ImVec2 getSizeRef() {
+        final ImVec2 value = new ImVec2();
+        getSizeRef(value);
+        return value;
+    }
 
     /**
      * [Split node only] Last explicitly written-to size (overridden when using a splitter affecting the node), used to calculate Size.

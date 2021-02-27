@@ -489,6 +489,17 @@ public final class ImGuiIO extends ImGuiStruct {
      * <p>
      * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
      */
+    public ImVec2 getDisplaySize() {
+        final ImVec2 value = new ImVec2();
+        getDisplaySize(value);
+        return value;
+    }
+
+    /**
+     * Main display size, in pixels.
+     * <p>
+     * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
+     */
     public native void getDisplaySize(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IO->DisplaySize, dstImVec2);
     */
@@ -520,6 +531,17 @@ public final class ImGuiIO extends ImGuiStruct {
         IO->DisplaySize.x = x;
         IO->DisplaySize.y = y;
     */
+
+    /**
+     * For retina display or other situations where window coordinates are different from framebuffer coordinates. This generally ends up in ImDrawData::FramebufferScale.
+     * <p>
+     * BINDING NOTICE: This should be a "Config" part, but since those values may be different for every frame I don't see how it is possible to set them only once.
+     */
+    public ImVec2 getDisplayFramebufferScale() {
+        final ImVec2 value = new ImVec2();
+        getDisplayFramebufferScale(value);
+        return value;
+    }
 
     /**
      * For retina display or other situations where window coordinates are different from framebuffer coordinates. This generally ends up in ImDrawData::FramebufferScale.
@@ -706,6 +728,15 @@ public final class ImGuiIO extends ImGuiStruct {
     public native void setDeltaTime(float deltaTime); /*
         IO->DeltaTime = deltaTime;
     */
+
+    /**
+     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
+     */
+    public ImVec2 getMousePos() {
+        final ImVec2 value = new ImVec2();
+        getMousePos(value);
+        return value;
+    }
 
     /**
      * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
@@ -1135,6 +1166,15 @@ public final class ImGuiIO extends ImGuiStruct {
     public native void setMetricsActiveAllocations(int metricsActiveAllocations); /*
         IO->MetricsActiveAllocations = metricsActiveAllocations;
     */
+
+    /**
+     * Mouse delta. Note that this is zero if either current or previous position are invalid (-FLT_MAX,-FLT_MAX), so a disappearing/reappearing mouse won't have a huge delta.
+     */
+    public ImVec2 getMouseDelta() {
+        final ImVec2 value = new ImVec2();
+        getMouseDelta(value);
+        return value;
+    }
 
     /**
      * Mouse delta. Note that this is zero if either current or previous position are invalid (-FLT_MAX,-FLT_MAX), so a disappearing/reappearing mouse won't have a huge delta.

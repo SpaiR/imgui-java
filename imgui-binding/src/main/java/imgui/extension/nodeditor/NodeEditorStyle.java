@@ -22,6 +22,13 @@ public final class NodeEditorStyle extends ImGuiStruct {
         #define IM_NODE_EDITOR_STYLE ((ed::Style*)STRUCT_PTR)
      */
 
+    public ImVec4 getNodePadding() {
+        final ImVec4 value = new ImVec4();
+        getNodePadding(value);
+        return value;
+    }
+
+
     public native void getNodePadding(ImVec4 dstImVec4); /*
         Jni::ImVec4Cpy(env, IM_NODE_EDITOR_STYLE->NodePadding, dstImVec4);
     */
@@ -89,6 +96,12 @@ public final class NodeEditorStyle extends ImGuiStruct {
        IM_NODE_EDITOR_STYLE->LinkStrength = linkStrength;
     */
 
+    public ImVec2 getSourceDirection() {
+        final ImVec2 value = new ImVec2();
+        getSourceDirection(value);
+        return value;
+    }
+
     public native void getSourceDirection(ImVec2 dstImVec2); /*
        Jni::ImVec2Cpy(env, &IM_NODE_EDITOR_STYLE->SourceDirection, dstImVec2);
     */
@@ -105,6 +118,12 @@ public final class NodeEditorStyle extends ImGuiStruct {
        IM_NODE_EDITOR_STYLE->SourceDirection.x = x;
        IM_NODE_EDITOR_STYLE->SourceDirection.y = y;
     */
+
+    public ImVec2 getTargetDirection() {
+        final ImVec2 value = new ImVec2();
+        getTargetDirection(value);
+        return value;
+    }
 
     public native void getTargetDirection(ImVec2 dstImVec2); /*
        Jni::ImVec2Cpy(env, &IM_NODE_EDITOR_STYLE->TargetDirection, dstImVec2);
@@ -156,6 +175,12 @@ public final class NodeEditorStyle extends ImGuiStruct {
        IM_NODE_EDITOR_STYLE->FlowDuration = flowDuration;
     */
 
+    public ImVec2 getPivotAlignment() {
+        final ImVec2 value = new ImVec2();
+        getPivotAlignment(value);
+        return value;
+    }
+
     public native void getPivotAlignment(ImVec2 dstImVec2); /*
        Jni::ImVec2Cpy(env, &IM_NODE_EDITOR_STYLE->PivotAlignment, dstImVec2);
     */
@@ -173,6 +198,12 @@ public final class NodeEditorStyle extends ImGuiStruct {
        IM_NODE_EDITOR_STYLE->PivotAlignment.y = y;
     */
 
+    public ImVec2 getPivotSize() {
+        final ImVec2 value = new ImVec2();
+        getPivotSize(value);
+        return value;
+    }
+
     public native void getPivotSize(ImVec2 dstImVec2); /*
        Jni::ImVec2Cpy(env, &IM_NODE_EDITOR_STYLE->PivotSize, dstImVec2);
     */
@@ -189,6 +220,12 @@ public final class NodeEditorStyle extends ImGuiStruct {
        IM_NODE_EDITOR_STYLE->PivotSize.x = x;
        IM_NODE_EDITOR_STYLE->PivotSize.y = y;
     */
+
+    public ImVec2 getPivotScale() {
+        final ImVec2 value = new ImVec2();
+        getPivotScale(value);
+        return value;
+    }
 
     public native void getPivotScale(ImVec2 dstImVec2); /*
        Jni::ImVec2Cpy(env, &IM_NODE_EDITOR_STYLE->PivotScale, dstImVec2);
@@ -272,6 +309,12 @@ public final class NodeEditorStyle extends ImGuiStruct {
             env->DeleteLocalRef(jColors);
         }
     */
+
+    public ImVec4 getColor(final int styleColor) {
+        final ImVec4 value = new ImVec4();
+        getColor(styleColor, value);
+        return value;
+    }
 
     public native void getColor(int styleColor, ImVec4 dstImVec4); /*
         Jni::ImVec4Cpy(env, IM_NODE_EDITOR_STYLE->Colors[styleColor], dstImVec4);

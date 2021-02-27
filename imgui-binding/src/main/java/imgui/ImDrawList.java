@@ -96,6 +96,12 @@ public final class ImDrawList extends ImGuiStruct {
         IM_DRAW_LIST->PopTextureID();
     */
 
+    public ImVec2 getClipRectMin() {
+        final ImVec2 value = new ImVec2();
+        getClipRectMin(value);
+        return value;
+    }
+
     public native void getClipRectMin(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, IM_DRAW_LIST->GetClipRectMin(), dstImVec2);
     */
@@ -107,6 +113,12 @@ public final class ImDrawList extends ImGuiStruct {
     public native float getClipRectMinY(); /*
         return IM_DRAW_LIST->GetClipRectMin().y;
     */
+
+    public ImVec2 getClipRectMax() {
+        final ImVec2 value = new ImVec2();
+        getClipRectMax(value);
+        return value;
+    }
 
     public native void getClipRectMax(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, IM_DRAW_LIST->GetClipRectMax(), dstImVec2);

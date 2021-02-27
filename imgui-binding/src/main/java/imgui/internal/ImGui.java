@@ -16,6 +16,12 @@ public final class ImGui extends imgui.ImGui {
 
     // Basic Helpers for widget code
 
+    public static ImVec2 calcItemSize(float sizeX, float sizeY, float defaultW, float defaultH) {
+        final ImVec2 value = new ImVec2();
+        calcItemSize(sizeX, sizeY, defaultW, defaultH, value);
+        return value;
+    }
+
     public static native void calcItemSize(float sizeX, float sizeY, float defaultW, float defaultH, ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, ImGui::CalcItemSize(ImVec2(sizeX, sizeY), defaultW, defaultH), dstImVec2);
     */

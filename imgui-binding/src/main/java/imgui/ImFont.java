@@ -199,6 +199,12 @@ public final class ImFont extends ImGuiStructDestroyable {
         return env->NewStringUTF(IM_FONT->GetDebugName());
     */
 
+    public ImVec2 calcTextSizeA(final float size, final float maxWidth, final float wrapWidth, final String text) {
+        final ImVec2 value = new ImVec2();
+        calcTextSizeA(value, size, maxWidth, wrapWidth, text);
+        return value;
+    }
+
     /**
      * 'max_width' stops rendering after a certain width (could be turned into a 2d size). FLT_MAX to disable.
      * 'wrap_width' enable automatic word-wrapping across multiple lines to fit into given width. 0.0f to disable.

@@ -75,6 +75,15 @@ public final class ImGuiViewport extends ImGuiStruct {
     /**
      * Main Area: Position of the viewport (the imgui coordinates are the same as OS desktop/native coordinates).
      */
+    public ImVec2 getPos() {
+        final ImVec2 value = new ImVec2();
+        getPos(value);
+        return value;
+    }
+
+    /**
+     * Main Area: Position of the viewport (the imgui coordinates are the same as OS desktop/native coordinates).
+     */
     public native void getPos(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IMGUI_VIEWPORT->Pos, dstImVec2);
     */
@@ -99,6 +108,15 @@ public final class ImGuiViewport extends ImGuiStruct {
     public native void setPos(float x, float y); /*
         IMGUI_VIEWPORT->Pos = ImVec2(x, y);
     */
+
+    /**
+     * Main Area: Size of the viewport.
+     */
+    public ImVec2 getSize() {
+        final ImVec2 value = new ImVec2();
+        getSize(value);
+        return value;
+    }
 
     /**
      * Main Area: Size of the viewport.
@@ -131,6 +149,15 @@ public final class ImGuiViewport extends ImGuiStruct {
     /**
      * Work Area: Position of the viewport minus task bars, menus bars, status bars.
      */
+    public ImVec2 getWorkPos() {
+        final ImVec2 value = new ImVec2();
+        getWorkPos(value);
+        return value;
+    }
+
+    /**
+     * Work Area: Position of the viewport minus task bars, menus bars, status bars.
+     */
     public native void getWorkPos(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, IMGUI_VIEWPORT->WorkPos, dstImVec2);
     */
@@ -155,6 +182,15 @@ public final class ImGuiViewport extends ImGuiStruct {
     public native void setWorkPos(float x, float y); /*
         IMGUI_VIEWPORT->WorkPos = ImVec2(x, y);
     */
+
+    /**
+     * Work Area: Size of the viewport minus task bars, menu bars, status bars.
+     */
+    public ImVec2 getWorkSize() {
+        final ImVec2 value = new ImVec2();
+        getWorkSize(value);
+        return value;
+    }
 
     /**
      * Work Area: Size of the viewport minus task bars, menu bars, status bars.
@@ -335,6 +371,12 @@ public final class ImGuiViewport extends ImGuiStruct {
 
     // Helpers
 
+    public ImVec2 getCenter() {
+        final ImVec2 value = new ImVec2();
+        getCenter(value);
+        return value;
+    }
+
     public native void getCenter(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, IMGUI_VIEWPORT->GetCenter(), dstImVec2);
     */
@@ -346,6 +388,12 @@ public final class ImGuiViewport extends ImGuiStruct {
     public native float getCenterY(); /*
         return IMGUI_VIEWPORT->GetCenter().y;
     */
+
+    public ImVec2 getWorkCenter() {
+        final ImVec2 value = new ImVec2();
+        getWorkCenter(value);
+        return value;
+    }
 
     public native void getWorkCenter(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, IMGUI_VIEWPORT->GetWorkCenter(), dstImVec2);

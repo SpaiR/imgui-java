@@ -50,6 +50,15 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     /**
      * Padding within a window.
      */
+    public ImVec2 getWindowPadding() {
+        final ImVec2 value = new ImVec2();
+        getWindowPadding(value);
+        return value;
+    }
+
+    /**
+     * Padding within a window.
+     */
     public native void getWindowPadding(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IMGUI_STYLE->WindowPadding, dstImVec2);
     */
@@ -109,6 +118,15 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     /**
      * Minimum window size. This is a global setting. If you want to constraint individual windows, use SetNextWindowSizeConstraints().
      */
+    public ImVec2 getWindowMinSize() {
+        final ImVec2 value = new ImVec2();
+        getWindowMinSize(value);
+        return value;
+    }
+
+    /**
+     * Minimum window size. This is a global setting. If you want to constraint individual windows, use SetNextWindowSizeConstraints().
+     */
     public native void getWindowMinSize(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IMGUI_STYLE->WindowMinSize, dstImVec2);
     */
@@ -134,6 +152,15 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
         IMGUI_STYLE->WindowMinSize.x = x;
         IMGUI_STYLE->WindowMinSize.y = y;
     */
+
+    /**
+     * Alignment for title bar text. Defaults to (0.0f,0.5f) for left-aligned,vertically centered.
+     */
+    public ImVec2 getWindowTitleAlign() {
+        final ImVec2 value = new ImVec2();
+        getWindowTitleAlign(value);
+        return value;
+    }
 
     /**
      * Alignment for title bar text. Defaults to (0.0f,0.5f) for left-aligned,vertically centered.
@@ -237,6 +264,15 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     /**
      * Padding within a framed rectangle (used by most widgets).
      */
+    public ImVec2 getFramePadding() {
+        final ImVec2 value = new ImVec2();
+        getFramePadding(value);
+        return value;
+    }
+
+    /**
+     * Padding within a framed rectangle (used by most widgets).
+     */
     public native void getFramePadding(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IMGUI_STYLE->FramePadding, dstImVec2);
     */
@@ -294,6 +330,15 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     /**
      * Horizontal and vertical spacing between widgets/lines.
      */
+    public ImVec2 getItemSpacing() {
+        final ImVec2 value = new ImVec2();
+        getItemSpacing(value);
+        return value;
+    }
+
+    /**
+     * Horizontal and vertical spacing between widgets/lines.
+     */
     public native void getItemSpacing(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IMGUI_STYLE->ItemSpacing, dstImVec2);
     */
@@ -319,6 +364,15 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
         IMGUI_STYLE->ItemSpacing.x = x;
         IMGUI_STYLE->ItemSpacing.y = y;
     */
+
+    /**
+     * Horizontal and vertical spacing between within elements of a composed widget (e.g. a slider and its label).
+     */
+    public ImVec2 getItemInnerSpacing() {
+        final ImVec2 value = new ImVec2();
+        getItemInnerSpacing(value);
+        return value;
+    }
 
     /**
      * Horizontal and vertical spacing between within elements of a composed widget (e.g. a slider and its label).
@@ -352,6 +406,15 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     /**
      * Padding within a table cell.
      */
+    public ImVec2 getCellPadding() {
+        final ImVec2 value = new ImVec2();
+        getCellPadding(value);
+        return value;
+    }
+
+    /**
+     * Padding within a table cell.
+     */
     public native void getCellPadding(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IMGUI_STYLE->CellPadding, dstImVec2);
     */
@@ -377,6 +440,16 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
         IMGUI_STYLE->CellPadding.x = x;
         IMGUI_STYLE->CellPadding.y = y;
     */
+
+    /**
+     * Expand reactive bounding box for touch-based system where touch position is not accurate enough.
+     * Unfortunately we don't sort widgets so priority on overlap will always be given to the first widget. So don't grow this too much!
+     */
+    public ImVec2 getTouchExtraPadding() {
+        final ImVec2 value = new ImVec2();
+        getTouchExtraPadding(value);
+        return value;
+    }
 
     /**
      * Expand reactive bounding box for touch-based system where touch position is not accurate enough.
@@ -570,6 +643,15 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     /**
      * Alignment of button text when button is larger than text. Defaults to (0.5f, 0.5f) (centered).
      */
+    public ImVec2 getButtonTextAlign() {
+        final ImVec2 value = new ImVec2();
+        getButtonTextAlign(value);
+        return value;
+    }
+
+    /**
+     * Alignment of button text when button is larger than text. Defaults to (0.5f, 0.5f) (centered).
+     */
     public native void getButtonTextAlign(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IMGUI_STYLE->ButtonTextAlign, dstImVec2);
     */
@@ -595,6 +677,16 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
         IMGUI_STYLE->ButtonTextAlign.x = x;
         IMGUI_STYLE->ButtonTextAlign.y = y;
     */
+
+    /**
+     * Alignment of selectable text. Defaults to (0.0f, 0.0f) (top-left aligned).
+     * It's generally important to keep this left-aligned if you want to lay multiple items on a same line.
+     */
+    public ImVec2 getSelectableTextAlign() {
+        final ImVec2 value = new ImVec2();
+        getSelectableTextAlign(value);
+        return value;
+    }
 
     /**
      * Alignment of selectable text. Defaults to (0.0f, 0.0f) (top-left aligned).
@@ -632,6 +724,15 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     /**
      * Window position are clamped to be visible within the display area by at least this amount. Only applies to regular windows.
      */
+    public ImVec2 getDisplayWindowPadding() {
+        final ImVec2 value = new ImVec2();
+        getDisplayWindowPadding(value);
+        return value;
+    }
+
+    /**
+     * Window position are clamped to be visible within the display area by at least this amount. Only applies to regular windows.
+     */
     public native void getDisplayWindowPadding(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IMGUI_STYLE->DisplayWindowPadding, dstImVec2);
     */
@@ -657,6 +758,16 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
         IMGUI_STYLE->DisplayWindowPadding.x = x;
         IMGUI_STYLE->DisplayWindowPadding.y = y;
     */
+
+    /**
+     * If you cannot see the edges of your screen (e.g. on a TV) increase the safe area padding.
+     * Apply to popups/tooltips as well regular windows. NB: Prefer configuring your TV sets correctly!
+     */
+    public ImVec2 getDisplaySafeAreaPadding() {
+        final ImVec2 value = new ImVec2();
+        getDisplaySafeAreaPadding(value);
+        return value;
+    }
 
     /**
      * If you cannot see the edges of your screen (e.g. on a TV) increase the safe area padding.
@@ -820,6 +931,12 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
             env->DeleteLocalRef(jColors);
         }
     */
+
+    public ImVec4 getColor(final int imGuiCol) {
+        final ImVec4 value = new ImVec4();
+        getColor(imGuiCol, value);
+        return value;
+    }
 
     public native void getColor(int imGuiCol, ImVec4 dstImVec4); /*
         Jni::ImVec4Cpy(env, IMGUI_STYLE->Colors[imGuiCol], dstImVec4);

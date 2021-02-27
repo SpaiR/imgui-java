@@ -45,7 +45,7 @@ public final class ImRect implements Cloneable {
         max.x = value.max.x;
         max.y = value.max.y;
     }
-    
+
     @Override
     public String toString() {
         return "ImRect{"

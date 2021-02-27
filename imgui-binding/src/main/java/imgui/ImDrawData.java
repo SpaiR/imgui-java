@@ -56,6 +56,15 @@ public final class ImDrawData extends ImGuiStruct {
     /**
      * Clipping rectangle (x1, y1, x2, y2). Subtract ImDrawData.DisplayPos to get clipping rectangle in "viewport" coordinates
      */
+    public ImVec4 getCmdListCmdBufferClipRect(final int cmdListIdx, final int cmdBufferIdx) {
+        final ImVec4 value = new ImVec4();
+        getCmdListCmdBufferClipRect(cmdListIdx, cmdBufferIdx, value);
+        return value;
+    }
+
+    /**
+     * Clipping rectangle (x1, y1, x2, y2). Subtract ImDrawData.DisplayPos to get clipping rectangle in "viewport" coordinates
+     */
     public native void getCmdListCmdBufferClipRect(int cmdListIdx, int cmdBufferIdx, ImVec4 dstImVec4); /*
         Jni::ImVec4Cpy(env, &IM_DRAW_DATA->CmdLists[cmdListIdx]->CmdBuffer[cmdBufferIdx].ClipRect, dstImVec4);
     */
@@ -168,6 +177,15 @@ public final class ImDrawData extends ImGuiStruct {
     /**
      * Upper-left position of the viewport to render (== upper-left of the orthogonal projection matrix to use)
      */
+    public ImVec2 getDisplayPos() {
+        final ImVec2 value = new ImVec2();
+        getDisplayPos(value);
+        return value;
+    }
+
+    /**
+     * Upper-left position of the viewport to render (== upper-left of the orthogonal projection matrix to use)
+     */
     public native void getDisplayPos(ImVec2 dstImVec2); /*
         Jni::ImVec2Cpy(env, &IM_DRAW_DATA->DisplayPos, dstImVec2);
     */
@@ -185,6 +203,16 @@ public final class ImDrawData extends ImGuiStruct {
     public native float getDisplayPosY(); /*
         return IM_DRAW_DATA->DisplayPos.y;
     */
+
+    /**
+     * Size of the viewport to render (== io.DisplaySize for the main viewport)
+     * (DisplayPos + DisplaySize == lower-right of the orthogonal projection matrix to use)
+     */
+    public ImVec2 getDisplaySize() {
+        final ImVec2 value = new ImVec2();
+        getDisplaySize(value);
+        return value;
+    }
 
     /**
      * Size of the viewport to render (== io.DisplaySize for the main viewport)
@@ -209,6 +237,15 @@ public final class ImDrawData extends ImGuiStruct {
     public native float getDisplaySizeY(); /*
         return IM_DRAW_DATA->DisplaySize.y;
     */
+
+    /**
+     * Amount of pixels for each unit of DisplaySize. Based on io.DisplayFramebufferScale. Generally (1,1) on normal display, (2,2) on OSX with Retina display.
+     */
+    public ImVec2 getFramebufferScale() {
+        final ImVec2 value = new ImVec2();
+        getFramebufferScale(value);
+        return value;
+    }
 
     /**
      * Amount of pixels for each unit of DisplaySize. Based on io.DisplayFramebufferScale. Generally (1,1) on normal display, (2,2) on OSX with Retina display.
