@@ -28,6 +28,20 @@ public final class ImVec4 implements Cloneable {
         this.w = w;
     }
 
+    public void set(final float x, final float y, final float z, final float w) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.w = w;
+    }
+
+    public void set(final ImVec4 imVec4) {
+        this.x = imVec4.x;
+        this.y = imVec4.y;
+        this.z = imVec4.z;
+        this.w = imVec4.w;
+    }
+
     @Override
     public String toString() {
         return "ImVec4{"
