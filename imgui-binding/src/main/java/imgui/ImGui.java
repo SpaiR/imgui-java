@@ -1,5 +1,6 @@
 package imgui;
 
+import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiDragDropFlags;
 import imgui.flag.ImGuiInputTextFlags;
 import imgui.type.ImBoolean;
@@ -4868,7 +4869,7 @@ public class ImGui {
      * Binding stores a reference to the object in a form of {@link WeakReference}.
      */
     public static boolean setDragDropPayload(final String dataType, final Object payload) {
-        return setDragDropPayload(dataType, payload, ImGuiDragDropFlags.None);
+        return setDragDropPayload(dataType, payload, ImGuiCond.None);
     }
 
     /**
@@ -4886,14 +4887,14 @@ public class ImGui {
     }
 
     /**
-     * Binding alternative for {@link #setDragDropPayload(String, Object)}, but uses payload class as a unique identifier.
+     * Binding alternative for {@link #setDragDropPayload(String, Object)}, which uses payload class as a unique identifier.
      */
     public static boolean setDragDropPayload(final Object payload) {
-        return setDragDropPayload(payload, ImGuiDragDropFlags.None);
+        return setDragDropPayload(payload, ImGuiCond.None);
     }
 
     /**
-     * Binding alternative for {@link #setDragDropPayload(String, Object, int)}, but uses payload class as a unique identifier.
+     * Binding alternative for {@link #setDragDropPayload(String, Object, int)}, which uses payload class as a unique identifier.
      */
     public static boolean setDragDropPayload(final Object payload, final int imGuiCond) {
         return setDragDropPayload(String.valueOf(payload.getClass().hashCode()), payload, imGuiCond);
@@ -4955,14 +4956,14 @@ public class ImGui {
     }
 
     /**
-     * Binding alternative for {@link #acceptDragDropPayload(String)}, but uses payload class as a unique identifier.
+     * Binding alternative for {@link #acceptDragDropPayload(String)}, which uses payload class as a unique identifier.
      */
     public static <T> T acceptDragDropPayload(final Class<T> aClass) {
         return acceptDragDropPayload(String.valueOf(aClass.hashCode()), ImGuiDragDropFlags.None, aClass);
     }
 
     /**
-     * Binding alternative for {@link #acceptDragDropPayload(String, int)}, but uses payload class as a unique identifier.
+     * Binding alternative for {@link #acceptDragDropPayload(String, int)}, which uses payload class as a unique identifier.
      */
     public static <T> T acceptDragDropPayload(final Class<T> aClass, final int imGuiDragDropFlags) {
         return acceptDragDropPayload(String.valueOf(aClass.hashCode()), imGuiDragDropFlags, aClass);
@@ -5008,7 +5009,7 @@ public class ImGui {
     }
 
     /**
-     * Binding alternative for {@link #getDragDropPayload(String)}, but uses payload class as a unique identifier.
+     * Binding alternative for {@link #getDragDropPayload(String)}, which uses payload class as a unique identifier.
      */
     public static <T> T getDragDropPayload(final Class<T> aClass) {
         return getDragDropPayload(String.valueOf(aClass.hashCode()));
