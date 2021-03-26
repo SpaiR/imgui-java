@@ -4024,14 +4024,20 @@ public class ImGui {
     /**
      * Return true when activated. shortcuts are displayed for convenience but not processed by ImGui at the moment
      */
-    public static native boolean menuItem(String label, String shortcut, boolean selected, boolean enabled); /*
-        return ImGui::MenuItem(label, shortcut, selected, enabled);
-    */
+    public static boolean menuItem(String label, String shortcut, boolean selected, boolean enabled) {
+        if (shortcut == null) {
+            return nMenuItem(label, selected, enabled);
+        }
+        return nMenuItem(label, shortcut, selected, enabled);
+    }
 
     /**
      * Return true when activated + toggle (*pSelected) if pSelected != NULL
      */
     public static boolean menuItem(String label, String shortcut, ImBoolean pSelected) {
+        if (shortcut == null) {
+            return nMenuItem(label, pSelected.getData(), true);
+        }
         return nMenuItem(label, shortcut, pSelected.getData(), true);
     }
 
@@ -4039,8 +4045,32 @@ public class ImGui {
      * Return true when activated + toggle (*pSelected) if pSelected != NULL
      */
     public static boolean menuItem(String label, String shortcut, ImBoolean pSelected, boolean enabled) {
+        if (shortcut == null) {
+            return nMenuItem(label, pSelected.getData(), enabled);
+        }
         return nMenuItem(label, shortcut, pSelected.getData(), enabled);
     }
+
+    /**
+     * Return true when activated
+     */
+    private static native boolean nMenuItem(String label, boolean selected, boolean enabled); /*
+        return ImGui::MenuItem(label, NULL, selected, enabled);
+    */
+
+    /**
+     * Return true when activated
+     */
+    private static native boolean nMenuItem(String label, String shortcut, boolean selected, boolean enabled); /*
+        return ImGui::MenuItem(label, shortcut, selected, enabled);
+    */
+
+    /**
+     * Return true when activated + toggle (*pSelected) if pSelected != NULL
+     */
+    private static native boolean nMenuItem(String label, boolean[] pSelected, boolean enabled); /*
+        return ImGui::MenuItem(label, NULL, &pSelected[0], enabled);
+    */
 
     /**
      * Return true when activated + toggle (*pSelected) if pSelected != NULL
