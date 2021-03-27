@@ -49,12 +49,12 @@ public final class ImNodes {
     /**
      * Initialize the node editor system.
      */
-    public static native void initialize(); /*
-        imnodes::Initialize();
+    public static native void createContext(); /*
+        imnodes::CreateContext();
     */
 
-    public static native void shutdown(); /*
-        imnodes::Shutdown();
+    public static native void destroyContext(); /*
+        imnodes::DestroyContext();
     */
 
     /**

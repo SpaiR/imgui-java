@@ -28,12 +28,12 @@ public class Main extends Application {
         io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable);    // Enable Multi-Viewport / Platform Windows
         io.setConfigViewportsNoTaskBarIcon(true);
 
-        ImNodes.initialize();
+        ImNodes.createContext();
     }
 
     @Override
     protected void disposeImGui() {
-        ImNodes.shutdown();
+        ImNodes.destroyContext();
         super.disposeImGui();
     }
 

@@ -155,12 +155,12 @@ public final class ImDrawList extends ImGuiStruct {
         IM_DRAW_LIST->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding);
      */
 
-    public native void addRect(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding, int roundingCornersFlags); /*
-        IM_DRAW_LIST->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, roundingCornersFlags);
+    public native void addRect(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding, int imDrawFlags); /*
+        IM_DRAW_LIST->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, imDrawFlags);
      */
 
-    public native void addRect(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding, int roundingCornersFlags, float thickness); /*
-        IM_DRAW_LIST->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, roundingCornersFlags, thickness);
+    public native void addRect(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding, int imDrawFlags, float thickness); /*
+        IM_DRAW_LIST->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, imDrawFlags, thickness);
      */
 
     public native void addRectFilled(float pMinX, float pMinY, float pMaxX, float pMaxY, int col); /*
@@ -171,8 +171,8 @@ public final class ImDrawList extends ImGuiStruct {
         IM_DRAW_LIST->AddRectFilled(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding);
      */
 
-    public native void addRectFilled(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding, int roundingCornersFlags); /*
-        IM_DRAW_LIST->AddRectFilled(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, roundingCornersFlags);
+    public native void addRectFilled(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding, int imDrawFlags); /*
+        IM_DRAW_LIST->AddRectFilled(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, imDrawFlags);
      */
 
     public native void addRectFilledMultiColor(float pMinX, float pMinY, float pMaxX, float pMaxY, long colUprLeft, long colUprRight, long colBotRight, long colBotLeft); /*
@@ -264,7 +264,7 @@ public final class ImDrawList extends ImGuiStruct {
         IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, text, NULL, wrapWidth, &cpuFineClipRect);
     */
 
-    public native void addPolyline(ImVec2[] points, int numPoints, int col, boolean closed, float thickness); /*
+    public native void addPolyline(ImVec2[] points, int numPoints, int col, int imDrawFlags, float thickness); /*
         int points_num = env->GetArrayLength(points);
         ImVec2 _points[points_num];
         for (int i = 0; i < points_num; i++) {
@@ -273,7 +273,7 @@ public final class ImDrawList extends ImGuiStruct {
             Jni::ImVec2Cpy(env, jImVec2, &dst);
             _points[i] = dst;
         }
-        IM_DRAW_LIST->AddPolyline(_points, numPoints, col, closed, thickness);
+        IM_DRAW_LIST->AddPolyline(_points, numPoints, col, imDrawFlags, thickness);
     */
 
     // Note: Anti-aliased filling requires points to be in clockwise order.
@@ -366,8 +366,8 @@ public final class ImDrawList extends ImGuiStruct {
         IM_DRAW_LIST->AddImageRounded((ImTextureID)(intptr_t)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY), col, rounding);
     */
 
-    public native void addImageRounded(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY, int col, float rounding, int imDrawCornerFlags); /*
-        IM_DRAW_LIST->AddImageRounded((ImTextureID)(intptr_t)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY), col, rounding, imDrawCornerFlags);
+    public native void addImageRounded(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY, int col, float rounding, int imDrawFlags); /*
+        IM_DRAW_LIST->AddImageRounded((ImTextureID)(intptr_t)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY), col, rounding, imDrawFlags);
     */
 
     // Stateful path API, add points then finish with PathFillConvex() or PathStroke()
@@ -389,12 +389,12 @@ public final class ImDrawList extends ImGuiStruct {
         IM_DRAW_LIST->PathFillConvex(col);
     */
 
-    public native void pathStroke(int col, boolean closed); /*
-        IM_DRAW_LIST->PathStroke(col, closed);
+    public native void pathStroke(int col, int imDrawFlags); /*
+        IM_DRAW_LIST->PathStroke(col, imDrawFlags);
     */
 
-    public native void pathStroke(int col, boolean closed, float thickness); /*
-        IM_DRAW_LIST->PathStroke(col, closed, thickness);
+    public native void pathStroke(int col, int imDrawFlags, float thickness); /*
+        IM_DRAW_LIST->PathStroke(col, imDrawFlags, thickness);
     */
 
     public native void pathArcTo(float centerX, float centerY, float radius, float aMin, float aMax); /*
@@ -448,8 +448,8 @@ public final class ImDrawList extends ImGuiStruct {
         IM_DRAW_LIST->PathRect(ImVec2(rectMinX, rectMinY), ImVec2(rectMaxX, rectMaxY), rounding);
     */
 
-    public native void pathRect(float rectMinX, float rectMinY, float rectMaxX, float rectMaxY, float rounding, int imDrawCornerFlags); /*
-        IM_DRAW_LIST->PathRect(ImVec2(rectMinX, rectMinY), ImVec2(rectMaxX, rectMaxY), rounding, imDrawCornerFlags);
+    public native void pathRect(float rectMinX, float rectMinY, float rectMaxX, float rectMaxY, float rounding, int imDrawFlags); /*
+        IM_DRAW_LIST->PathRect(ImVec2(rectMinX, rectMinY), ImVec2(rectMaxX, rectMaxY), rounding, imDrawFlags);
     */
 
     // Advanced: Channels

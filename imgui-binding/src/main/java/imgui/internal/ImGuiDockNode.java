@@ -530,16 +530,6 @@ public final class ImGuiDockNode extends ImGuiStruct {
        IMGUI_DOCK_NODE->HasWindowMenuButton = hasWindowMenuButton;
     */
 
-
-    public native boolean getEnableCloseButton(); /*
-       return IMGUI_DOCK_NODE->EnableCloseButton;
-    */
-
-
-    public native void setEnableCloseButton(boolean enableCloseButton); /*
-       IMGUI_DOCK_NODE->EnableCloseButton = enableCloseButton;
-    */
-
     /**
      * Set when closing all tabs at once.
      */

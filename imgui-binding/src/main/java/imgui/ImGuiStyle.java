@@ -885,16 +885,16 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
      * Maximum error (in pixels) allowed when using AddCircle()/AddCircleFilled() or drawing rounded corner rectangles with no explicit segment count specified.
      * Decrease for higher quality but more geometry.
      */
-    public native float getCircleSegmentMaxError(); /*
-        return IMGUI_STYLE->CircleSegmentMaxError;
+    public native float getCircleTessellationMaxError(); /*
+        return IMGUI_STYLE->CircleTessellationMaxError;
     */
 
     /**
      * Maximum error (in pixels) allowed when using AddCircle()/AddCircleFilled() or drawing rounded corner rectangles with no explicit segment count specified.
      * Decrease for higher quality but more geometry.
      */
-    public native void setCircleSegmentMaxError(float circleSegmentMaxError); /*
-        IMGUI_STYLE->CircleSegmentMaxError = circleSegmentMaxError;
+    public native void setCircleTessellationMaxError(float circleTessellationMaxError); /*
+        IMGUI_STYLE->CircleTessellationMaxError = circleTessellationMaxError;
     */
 
     public float[][] getColors() {

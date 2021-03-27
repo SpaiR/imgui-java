@@ -61,9 +61,9 @@ public final class ImGuiInputTextFlags {
      */
     public static final int NoHorizontalScroll = 1 << 12;
     /**
-     * Insert mode
+     * Overwrite mode
      */
-    public static final int AlwaysInsertMode = 1 << 13;
+    public static final int AlwaysOverwrite = 1 << 13;
     /**
      * Read-only mode
      */
