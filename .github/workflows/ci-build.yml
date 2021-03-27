@@ -7,10 +7,21 @@ jobs:
         os: [ubuntu-latest, macos-latest]
         include:
           - os: ubuntu-latest
-            envs: win32,win64,linux32,linux64
+            type: win32
+            expected: imgui-binding/build/libsNative/windows32/imgui-java.dll
+          - os: ubuntu-latest
+            type: win64
+            expected: imgui-binding/build/libsNative/windows64/imgui-java64.dll
+          - os: ubuntu-latest
+            type: linux32
+            expected: imgui-binding/build/libsNative/linux32/libimgui-java.so
+          - os: ubuntu-latest
+            type: linux64
+            expected: imgui-binding/build/libsNative/linux64/libimgui-java64.so
           - os: macos-latest
-            envs: mac64
-    name: Build [${{ matrix.os }}]
+            type: mac64
+            expected: imgui-binding/build/libsNative/macosx64/libimgui-java64.dylib
+    name: Build [${{ matrix.os }}]-[${{ matrix.type }}]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository and submodules
@@ -21,23 +32,23 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 8
+      - name: Ant Version
+        run: ant -version
       - if: matrix.os == 'ubuntu-latest'
-        name: Install Ant
-        run: sudo apt-get install ant && ant -version
-      - if: matrix.os == 'macos-latest'
-        name: Install Ant
-        run: brew install ant && ant -version
-      - if: matrix.os == 'ubuntu-latest'
-        name: Install MinGW-w64
-        run: sudo apt-get install mingw-w64
+        name: Install MinGW-w64/GCC/G++
+        run: sudo apt-get install mingw-w64 gcc-multilib g++-multilib
       - name: Build Java
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: build
-      - name: Build Natives [${{ matrix.envs }}]
+      - name: Build native [${{ matrix.type }}]
         uses: eskatos/gradle-command-action@v1
         with:
-          arguments: :imgui-binding:generateLibs -Denvs=${{ matrix.envs }} -Dlocal
+          arguments: :imgui-binding:generateLibs -Denvs=${{ matrix.type }} -Dlocal
+      - name: Check native built
+        uses: andstor/file-existence-action@v1
+        with:
+          files: ${{ matrix.expected }}
 
 
 
