@@ -5,6 +5,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
+        type: [win32, win64, linux32, linux64, mac64]
         include:
           - os: ubuntu-latest
             type: win32
@@ -21,6 +22,17 @@ jobs:
           - os: macos-latest
             type: mac64
             expected: imgui-binding/build/libsNative/macosx64/libimgui-java64.dylib
+        exclude:
+          - os: ubuntu-latest
+            type: mac64
+          - os: macos-latest
+            type: win32
+          - os: macos-latest
+            type: win64
+          - os: umacos-latest
+            type: linux32
+          - os: macos-latest
+            type: linux64
     name: Build [${{ matrix.os }}]-[${{ matrix.type }}]
     runs-on: ${{ matrix.os }}
     steps:
