@@ -1,7 +1,24 @@
 name: CI Build
 on: [ push, pull_request ]
 jobs:
-  build-all:
+  build-java:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    name: Build Java [${{ matrix.os }}]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Java 8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+      - name: Build Java
+        uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: build
+  build-natives:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
@@ -29,11 +46,11 @@ jobs:
             type: win32
           - os: macos-latest
             type: win64
-          - os: umacos-latest
+          - os: macos-latest
             type: linux32
           - os: macos-latest
             type: linux64
-    name: Build [${{ matrix.os }}]-[${{ matrix.type }}]
+    name: Build Natives [${{ matrix.os }}]-[${{ matrix.type }}]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository and submodules
