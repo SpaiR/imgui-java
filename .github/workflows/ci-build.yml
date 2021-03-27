@@ -1,9 +1,17 @@
 name: CI Build
 on: [ push, pull_request ]
 jobs:
-  build-linux:
-    name: Build Linux
-    runs-on: ubuntu-latest
+  build-all:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            envs: win32,win64,linux32,linux64
+          - os: macos-latest
+            envs: mac64
+    name: Build [${{ matrix.os }}]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository and submodules
         uses: actions/checkout@v2
@@ -13,15 +21,41 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 8
-      - name: Check Ant version
-        run: ant -version
-      - name: Install MinGW-w64
+      - if: matrix.os == 'ubuntu-latest'
+        name: Install Ant
+        run: sudo apt-get install ant && ant -version
+      - if: matrix.os == 'macos-latest'
+        name: Install Ant
+        run: brew install ant && ant -version
+      - if: matrix.os == 'ubuntu-latest'
+        name: Install MinGW-w64
         run: sudo apt-get install mingw-w64
       - name: Build Java
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: build
-      - name: Build Natives
+      - name: Build Natives [${{ matrix.envs }}]
         uses: eskatos/gradle-command-action@v1
         with:
-          arguments: :imgui-binding:generateLibs -Denvs=win32,win64,linux32,linux64 -Dlocal
+          arguments: :imgui-binding:generateLibs -Denvs=${{ matrix.envs }} -Dlocal
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
