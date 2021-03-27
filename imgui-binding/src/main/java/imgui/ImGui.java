@@ -4045,17 +4045,17 @@ public class ImGui {
     /**
      * Return true when activated
      */
-    private static native boolean nMenuItem(String obj_label, String obj_shortcut, boolean selected, boolean enabled); /*MANUAL
-	    char* label = (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
-	    char* shortcut = NULL;
-        if (obj_shortcut != NULL)
-            shortcut = (char*)env->GetStringUTFChars(obj_shortcut, JNI_FALSE);
+    private static native boolean nMenuItem(String labelObj, String shortcutObj, boolean selected, boolean enabled); /*MANUAL
+        char* label = (char*)env->GetStringUTFChars(labelObj, JNI_FALSE);
+        char* shortcut = NULL;
+        if (shortcutObj != NULL)
+            shortcut = (char*)env->GetStringUTFChars(shortcutObj, JNI_FALSE);
 
-	    jboolean result = ImGui::MenuItem(label, shortcut, selected, enabled);
+        jboolean result = ImGui::MenuItem(label, shortcut, selected, enabled);
 
-        if (obj_shortcut != NULL)
-            env->ReleaseStringUTFChars(obj_shortcut, shortcut);
-        env->ReleaseStringUTFChars(obj_label, label);
+        if (shortcutObj != NULL)
+            env->ReleaseStringUTFChars(shortcutObj, shortcut);
+        env->ReleaseStringUTFChars(labelObj, label);
 
         return result;
     */
@@ -4063,19 +4063,19 @@ public class ImGui {
     /**
      * Return true when activated + toggle (*pSelected) if pSelected != NULL
      */
-    private static native boolean nMenuItem(String obj_label, String obj_shortcut, boolean[] obj_pSelected, boolean enabled); /*MANUAL
-	    char* label = (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
-	    char* shortcut = NULL;
-        if (obj_shortcut != NULL)
-            shortcut = (char*)env->GetStringUTFChars(obj_shortcut, JNI_FALSE);
-	    bool* pSelected = (bool*)env->GetPrimitiveArrayCritical(obj_pSelected, JNI_FALSE);
+    private static native boolean nMenuItem(String labelObj, String shortcutObj, boolean[] pSelectedObj, boolean enabled); /*MANUAL
+        char* label = (char*)env->GetStringUTFChars(labelObj, JNI_FALSE);
+        char* shortcut = NULL;
+        if (shortcutObj != NULL)
+            shortcut = (char*)env->GetStringUTFChars(shortcutObj, JNI_FALSE);
+        bool* pSelected = (bool*)env->GetPrimitiveArrayCritical(pSelectedObj, JNI_FALSE);
 
-	    jboolean result = ImGui::MenuItem(label, shortcut, &pSelected[0], enabled);
+        jboolean result = ImGui::MenuItem(label, shortcut, &pSelected[0], enabled);
 
-	    env->ReleasePrimitiveArrayCritical(obj_pSelected, pSelected, 0);
-        if (obj_shortcut != NULL)
-            env->ReleaseStringUTFChars(obj_shortcut, shortcut);
-        env->ReleaseStringUTFChars(obj_label, label);
+        env->ReleasePrimitiveArrayCritical(pSelectedObj, pSelected, 0);
+        if (shortcutObj != NULL)
+            env->ReleaseStringUTFChars(shortcutObj, shortcut);
+        env->ReleaseStringUTFChars(labelObj, label);
 
         return result;
     */
