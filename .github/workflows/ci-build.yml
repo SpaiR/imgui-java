@@ -1,13 +1,27 @@
 name: CI Build
 on: [ push, pull_request ]
 jobs:
-  gradle:
+  build-linux:
+    name: Build Linux
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Set up Java 8
+        uses: actions/setup-java@v1
         with:
           java-version: 8
-      - uses: eskatos/gradle-command-action@v1
+      - name: Check Ant version
+        run: ant -version
+      - name: Install MinGW-w64
+        run: sudo apt-get install mingw-w64
+      - name: Build Java
+        uses: eskatos/gradle-command-action@v1
         with:
           arguments: build
+      - name: Build Natives
+        uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: :imgui-binding:generateLibs -Denvs=win32,win64,linux32,linux64 -Dlocal
