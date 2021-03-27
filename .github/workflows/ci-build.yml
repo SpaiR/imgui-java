@@ -14,7 +14,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 8
-      - name: Build Java
+      - name: Build
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: build
@@ -66,36 +66,12 @@ jobs:
       - if: matrix.os == 'ubuntu-latest'
         name: Install MinGW-w64/GCC/G++
         run: sudo apt-get install mingw-w64 gcc-multilib g++-multilib
-      - name: Build Java
-        uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: build
-      - name: Build native [${{ matrix.type }}]
+      - name: Build [${{ matrix.type }}]
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: :imgui-binding:generateLibs -Denvs=${{ matrix.type }} -Dlocal
-      - name: Check native built
+      - name: Check [${{ matrix.expected }}]
         uses: andstor/file-existence-action@v1
         with:
           files: ${{ matrix.expected }}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
