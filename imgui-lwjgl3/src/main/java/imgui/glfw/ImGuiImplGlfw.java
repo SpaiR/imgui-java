@@ -1,5 +1,18 @@
 package imgui.glfw;
 
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+
+import org.lwjgl.PointerBuffer;
+import org.lwjgl.glfw.GLFWCharCallback;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWKeyCallback;
+import org.lwjgl.glfw.GLFWMonitorCallback;
+import org.lwjgl.glfw.GLFWMouseButtonCallback;
+import org.lwjgl.glfw.GLFWNativeWin32;
+import org.lwjgl.glfw.GLFWScrollCallback;
+import org.lwjgl.glfw.GLFWVidMode;
+
 import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.ImGuiPlatformIO;
@@ -20,21 +33,10 @@ import imgui.flag.ImGuiMouseButton;
 import imgui.flag.ImGuiMouseCursor;
 import imgui.flag.ImGuiNavInput;
 import imgui.flag.ImGuiViewportFlags;
-import org.lwjgl.PointerBuffer;
-import org.lwjgl.glfw.GLFWCharCallback;
-import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.glfw.GLFWKeyCallback;
-import org.lwjgl.glfw.GLFWMonitorCallback;
-import org.lwjgl.glfw.GLFWMouseButtonCallback;
-import org.lwjgl.glfw.GLFWNativeWin32;
-import org.lwjgl.glfw.GLFWScrollCallback;
-import org.lwjgl.glfw.GLFWVidMode;
 
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
-
+import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.system.MemoryUtil.NULL;
+import static org.lwjgl.system.MemoryUtil.*;
 
 /**
  * This class is a straightforward port of the
@@ -238,7 +240,6 @@ public class ImGuiImplGlfw {
 
         // Update monitors the first time (note: monitor callback are broken in GLFW 3.2 and earlier, see github.com/glfw/glfw/issues/784)
         updateMonitors();
-        glfwSetMonitorCallback(this::monitorCallback);
 
         // Our mouse update function expect PlatformHandle to be filled for the main viewport
         final ImGuiViewport mainViewport = ImGui.getMainViewport();
@@ -295,10 +296,11 @@ public class ImGuiImplGlfw {
         shutdownPlatformInterface();
 
         if (callbacksInstalled) {
-            glfwSetMouseButtonCallback(windowPtr, prevUserCallbackMouseButton);
-            glfwSetScrollCallback(windowPtr, prevUserCallbackScroll);
-            glfwSetKeyCallback(windowPtr, prevUserCallbackKey);
-            glfwSetCharCallback(windowPtr, prevUserCallbackChar);
+            glfwSetMouseButtonCallback(windowPtr, prevUserCallbackMouseButton).free();
+            glfwSetScrollCallback(windowPtr, prevUserCallbackScroll).free();
+            glfwSetKeyCallback(windowPtr, prevUserCallbackKey).free();
+            glfwSetCharCallback(windowPtr, prevUserCallbackChar).free();
+            glfwSetMonitorCallback(prevUserCallbackMonitor).free();
             callbacksInstalled = false;
         }
 
@@ -572,6 +574,7 @@ public class ImGuiImplGlfw {
             final ImGuiViewportDataGlfw data = (ImGuiViewportDataGlfw) vp.getPlatformUserData();
 
             if (data != null && data.windowOwned) {
+            	glfwFreeCallbacks(data.window);
                 glfwDestroyWindow(data.window);
             }
 
