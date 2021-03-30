@@ -72,6 +72,7 @@ public final class ImGuiImplGl3 {
     private boolean lastEnableBlend = false;
     private boolean lastEnableCullFace = false;
     private boolean lastEnableDepthTest = false;
+    private boolean lastEnableStencilTest = false;
     private boolean lastEnableScissorTest = false;
 
     /**
@@ -337,6 +338,7 @@ public final class ImGuiImplGl3 {
         lastEnableBlend = glIsEnabled(GL_BLEND);
         lastEnableCullFace = glIsEnabled(GL_CULL_FACE);
         lastEnableDepthTest = glIsEnabled(GL_DEPTH_TEST);
+        lastEnableStencilTest = glIsEnabled(GL_STENCIL_TEST);
         lastEnableScissorTest = glIsEnabled(GL_SCISSOR_TEST);
     }
 
@@ -352,6 +354,7 @@ public final class ImGuiImplGl3 {
         if (lastEnableBlend) glEnable(GL_BLEND); else glDisable(GL_BLEND);
         if (lastEnableCullFace) glEnable(GL_CULL_FACE); else glDisable(GL_CULL_FACE);
         if (lastEnableDepthTest) glEnable(GL_DEPTH_TEST); else glDisable(GL_DEPTH_TEST);
+        if (lastEnableStencilTest) glEnable(GL_STENCIL_TEST); else glDisable(GL_STENCIL_TEST);
         if (lastEnableScissorTest) glEnable(GL_SCISSOR_TEST); else glDisable(GL_SCISSOR_TEST);
         // @formatter:on CHECKSTYLE:ON
         glViewport(lastViewport[0], lastViewport[1], lastViewport[2], lastViewport[3]);
@@ -367,9 +370,10 @@ public final class ImGuiImplGl3 {
         // Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled, polygon fill
         glEnable(GL_BLEND);
         glBlendEquation(GL_FUNC_ADD);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         glDisable(GL_CULL_FACE);
         glDisable(GL_DEPTH_TEST);
+        glDisable(GL_STENCIL_TEST);
         glEnable(GL_SCISSOR_TEST);
 
         // Setup viewport, orthographic projection matrix
