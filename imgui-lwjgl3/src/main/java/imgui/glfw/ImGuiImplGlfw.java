@@ -38,16 +38,27 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 /**
  * This class is a straightforward port of the
- * <a href="https://raw.githubusercontent.com/ocornut/imgui/05bc204dbd80dfebb3dab1511caf1cb980620c76/examples/imgui_impl_glfw.cpp">imgui_impl_glfw.cpp</a>.
+ * <a href="https://raw.githubusercontent.com/ocornut/imgui/256594575d95d56dda616c544c509740e74906b4/backends/imgui_impl_glfw.cpp">imgui_impl_glfw.cpp</a>.
  * <p>
  * It supports clipboard, gamepad, mouse and keyboard in the same way the original Dear ImGui code does. You can copy-paste this class in your codebase and
  * modify the rendering routine in the way you'd like.
  */
 public class ImGuiImplGlfw {
-    protected static final boolean IS_WINDOWS = System.getProperty("os.name", "generic").toLowerCase().contains("win");
+    private static final String OS = System.getProperty("os.name", "generic").toLowerCase();
+    protected static final boolean IS_WINDOWS = OS.contains("win");
+    protected static final boolean IS_APPLE = OS.contains("mac") || OS.contains("darwin");
 
     // Pointer of the current GLFW window
     private long windowPtr;
+
+    // Some features may be available only from a specific version
+    private boolean glfwHawWindowTopmost;
+    private boolean glfwHasWindowAlpha;
+    private boolean glfwHasPerMonitorDpi;
+    private boolean glfwHasFocusWindow;
+    private boolean glfwHasFocusOnShow;
+    private boolean glfwHasMonitorWorkArea;
+    private boolean glfwHasOsxWindowPosFix;
 
     // For application window properties
     private final int[] winWidth = new int[1];
@@ -166,6 +177,8 @@ public class ImGuiImplGlfw {
      */
     public boolean init(final long windowId, final boolean installCallbacks) {
         this.windowPtr = windowId;
+
+        detectGlfwVersionAndEnabledFeatures();
 
         final ImGuiIO io = ImGui.getIO();
 
@@ -305,6 +318,22 @@ public class ImGuiImplGlfw {
         for (int i = 0; i < ImGuiMouseCursor.COUNT; i++) {
             glfwDestroyCursor(mouseCursors[i]);
         }
+    }
+
+    private void detectGlfwVersionAndEnabledFeatures() {
+        final int[] major = new int[1];
+        final int[] minor = new int[1];
+        final int[] rev = new int[1];
+        glfwGetVersion(major, minor, rev);
+
+        final int version = major[0] * 1000 + minor[0] * 100 + rev[0] * 10;
+
+        glfwHawWindowTopmost = version >= 3200;
+        glfwHasWindowAlpha = version >= 3300;
+        glfwHasPerMonitorDpi = version >= 3300;
+        glfwHasFocusWindow = version >= 3200;
+        glfwHasFocusOnShow = version >= 3300;
+        glfwHasMonitorWorkArea = version >= 3300;
     }
 
     private void updateMousePosAndButtons() {
@@ -459,7 +488,9 @@ public class ImGuiImplGlfw {
             final float mainSizeX = vidMode.width();
             final float mainSizeY = vidMode.height();
 
-            glfwGetMonitorWorkarea(monitor, monitorWorkAreaX, monitorWorkAreaY, monitorWorkAreaWidth, monitorWorkAreaHeight);
+            if (glfwHasMonitorWorkArea) {
+                glfwGetMonitorWorkarea(monitor, monitorWorkAreaX, monitorWorkAreaY, monitorWorkAreaWidth, monitorWorkAreaHeight);
+            }
 
             float workPosX = 0;
             float workPosY = 0;
@@ -467,7 +498,7 @@ public class ImGuiImplGlfw {
             float workSizeY = 0;
 
             // Workaround a small GLFW issue reporting zero on monitor changes: https://github.com/glfw/glfw/pull/1761
-            if (monitorWorkAreaWidth[0] > 0 && monitorWorkAreaHeight[0] > 0) {
+            if (glfwHasMonitorWorkArea && monitorWorkAreaWidth[0] > 0 && monitorWorkAreaHeight[0] > 0) {
                 workPosX = monitorWorkAreaX[0];
                 workPosY = monitorWorkAreaY[0];
                 workSizeX = monitorWorkAreaWidth[0];
@@ -476,7 +507,9 @@ public class ImGuiImplGlfw {
 
             // Warning: the validity of monitor DPI information on Windows depends on the application DPI awareness settings,
             // which generally needs to be set in the manifest or at runtime.
-            glfwGetMonitorContentScale(monitor, monitorContentScaleX, monitorContentScaleY);
+            if (glfwHasPerMonitorDpi) {
+                glfwGetMonitorContentScale(monitor, monitorContentScaleX, monitorContentScaleY);
+            }
             final float dpiScale = monitorContentScaleX[0];
 
             platformIO.pushMonitors(mainPosX, mainPosY, mainSizeX, mainSizeY, workPosX, workPosY, workSizeX, workSizeY, dpiScale);
@@ -537,9 +570,13 @@ public class ImGuiImplGlfw {
             // With GLFW 3.3, the hint GLFW_FOCUS_ON_SHOW fixes this problem
             glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
             glfwWindowHint(GLFW_FOCUSED, GLFW_FALSE);
-            glfwWindowHint(GLFW_FOCUS_ON_SHOW, GLFW_FALSE);
+            if (glfwHasFocusOnShow) {
+                glfwWindowHint(GLFW_FOCUS_ON_SHOW, GLFW_FALSE);
+            }
             glfwWindowHint(GLFW_DECORATED, vp.hasFlags(ImGuiViewportFlags.NoDecoration) ? GLFW_FALSE : GLFW_TRUE);
-            glfwWindowHint(GLFW_FLOATING, vp.hasFlags(ImGuiViewportFlags.TopMost) ? GLFW_TRUE : GLFW_FALSE);
+            if (glfwHawWindowTopmost) {
+                glfwWindowHint(GLFW_FLOATING, vp.hasFlags(ImGuiViewportFlags.TopMost) ? GLFW_TRUE : GLFW_FALSE);
+            }
 
             data.window = glfwCreateWindow((int) vp.getSizeX(), (int) vp.getSizeY(), "No Title Yet", NULL, windowPtr);
             data.windowOwned = true;
@@ -628,10 +665,24 @@ public class ImGuiImplGlfw {
         }
     }
 
-    private static final class SetWindowSizeFunction extends ImPlatformFuncViewportImVec2 {
+    private final class SetWindowSizeFunction extends ImPlatformFuncViewportImVec2 {
+        private final int[] x = new int[1];
+        private final int[] y = new int[1];
+        private final int[] width = new int[1];
+        private final int[] height = new int[1];
+
         @Override
         public void accept(final ImGuiViewport vp, final ImVec2 imVec2) {
             final ImGuiViewportDataGlfw data = (ImGuiViewportDataGlfw) vp.getPlatformUserData();
+            // Native OS windows are positioned from the bottom-left corner on macOS, whereas on other platforms they are
+            // positioned from the upper-left corner. GLFW makes an effort to convert macOS style coordinates, however it
+            // doesn't handle it when changing size. We are manually moving the window in order for changes of size to be based
+            // on the upper-left corner.
+            if (IS_APPLE && !glfwHasOsxWindowPosFix) {
+                glfwGetWindowPos(data.window, x, y);
+                glfwGetWindowSize(data.window, width, height);
+                glfwSetWindowPos(data.window, x[0], y[0] - height[0] + (int) imVec2.y);
+            }
             data.ignoreWindowSizeEventFrame = ImGui.getFrameCount();
             glfwSetWindowSize(data.window, (int) imVec2.x, (int) imVec2.y);
         }
@@ -645,11 +696,13 @@ public class ImGuiImplGlfw {
         }
     }
 
-    private static final class SetWindowFocusFunction extends ImPlatformFuncViewport {
+    private final class SetWindowFocusFunction extends ImPlatformFuncViewport {
         @Override
         public void accept(final ImGuiViewport vp) {
-            final ImGuiViewportDataGlfw data = (ImGuiViewportDataGlfw) vp.getPlatformUserData();
-            glfwFocusWindow(data.window);
+            if (glfwHasFocusWindow) {
+                final ImGuiViewportDataGlfw data = (ImGuiViewportDataGlfw) vp.getPlatformUserData();
+                glfwFocusWindow(data.window);
+            }
         }
     }
 
@@ -669,11 +722,13 @@ public class ImGuiImplGlfw {
         }
     }
 
-    private static final class SetWindowAlphaFunction extends ImPlatformFuncViewportFloat {
+    private final class SetWindowAlphaFunction extends ImPlatformFuncViewportFloat {
         @Override
         public void accept(final ImGuiViewport vp, final float f) {
-            final ImGuiViewportDataGlfw data = (ImGuiViewportDataGlfw) vp.getPlatformUserData();
-            glfwSetWindowOpacity(data.window, f);
+            if (glfwHasWindowAlpha) {
+                final ImGuiViewportDataGlfw data = (ImGuiViewportDataGlfw) vp.getPlatformUserData();
+                glfwSetWindowOpacity(data.window, f);
+            }
         }
     }
 
