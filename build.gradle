@@ -5,4 +5,5 @@ allprojects {
         jcenter()
         mavenCentral()
     }
+
 }

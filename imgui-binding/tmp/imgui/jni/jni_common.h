@@ -1,6 +1,5 @@
 #include <jni.h>
 #include <imgui.h>
-#include <ImGuizmo.h>
 
 #ifndef JNI_COMMON_H
 #define JNI_COMMON_H

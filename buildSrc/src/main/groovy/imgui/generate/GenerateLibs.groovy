@@ -39,7 +39,7 @@ class GenerateLibs extends DefaultTask {
 
         // Copy ImGui h/cpp files
         project.copy { CopySpec spec ->
-            ['include/imgui', 'include/imnodes', 'include/imgui-node-editor'].each {
+            ['include/imgui', 'include/imnodes', 'include/imgui-node-editor', 'include/imguizmo'].each {
                 spec.from(project.rootProject.file(it)) { CopySpec s -> s.include('*.h', '*.cpp', '*.inl') }
             }
             spec.from(project.rootProject.file('imgui-binding/src/main/native'))
@@ -71,7 +71,6 @@ class GenerateLibs extends DefaultTask {
         }
         if (forWin64) {
             def win64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, true)
-
             if (withFreeType) {
                 win64.cppFlags += ' -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include'
                 win64.libraries += '-lfreetype -lbz2 -lssp'

@@ -1,10 +1,12 @@
 import imgui.generate.GenerateLibs
 
+
 plugins {
     id 'java'
     id 'checkstyle'
     id 'maven-publish'
     id 'signing'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
 
 sourceCompatibility = 1.8
