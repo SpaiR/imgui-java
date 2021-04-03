@@ -7,3 +7,6 @@
 [submodule "include/imnodes"]
 	path = include/imnodes
 	url = https://github.com/Nelarius/imnodes
+[submodule "include/imguizmo"]
+	path = include/imguizmo
+	url = https://github.com/CedricGuillemet/ImGuizmo.git
