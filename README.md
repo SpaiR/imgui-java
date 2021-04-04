@@ -33,7 +33,7 @@ It hides all low-level stuff under one class to extend, so you can build your GU
 - **Multi-Viewports/Docking Branch**<br>
   Binding has a full support of [Multi-Viewports](https://github.com/ocornut/imgui/wiki/Multi-Viewports) and [Docking](https://github.com/ocornut/imgui/wiki/Docking). <br>
 - **FreeType Font Renderer**<br>
-  FreeType font renderer enabled by default to provide a better quality fonts.<br>
+  FreeType font renderer provides a much better fonts quality. [See how to use](#freetype).<br>
 - **Extensions**<br>
   Binding includes several useful [extensions](https://github.com/ocornut/imgui/wiki/Useful-Widgets) for Dear ImGui. [See full list](#extensions).
 
@@ -133,9 +133,17 @@ dependencies {
 Using binding without the wrapper requires to "attach" it to your application manually.
 You can refer to [imgui-app](https://github.com/SpaiR/imgui-java/blob/v1.82.0/imgui-app) module and see how things are done there.
 
-#### Dependencies
-For simplicity, example of dependencies for Gradle and Maven only show how to add natives for Windows.<br>
-Feel free to add other platforms: `imgui-java-natives-windows-x86`, `imgui-java-natives-linux`, `imgui-java-natives-linux-x86`, `imgui-java-natives-macos`.
+### Dependencies
+For simplicity, example of dependencies for Gradle/Maven only shows how to add natives for Windows.
+Feel free to add other platforms.
+
+| Native Binaries                | System        |
+| ------------------------------ | ------------- |
+| imgui-java-natives-windows-x86 | Windows 32bit |
+| imgui-java-natives-windows     | Windows 64bit |
+| imgui-java-natives-linux-x86   | Linux 32bit   |
+| imgui-java-natives-linux       | Linux 64bit   |
+| imgui-java-natives-macos       | MacOS         |
 
 Take a note, that you also need to add dependencies to [LWJGL](https://www.lwjgl.org/). Examples below shows how to do it as well.
 
@@ -256,6 +264,60 @@ dependencies {
   A small, dependency-free node editor for dear imgui. (A good choice for simple start.)
 - [imgui-node-editor](https://github.com/thedmd/imgui-node-editor/tree/687a72f940c76cf5064e13fe55fa0408c18fcbe4) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.82.0/example/src/main/java/ExampleImGuiNodeEditor.java) <br>
   Node Editor using ImGui. (A bit more complex than ImNodes, but has more features.)
+
+## Freetype
+By default, Dear ImGui uses stb-truetype to render fonts. Yet there is an option to use FreeType font renderer. Read [imgui_freetype](https://github.com/ocornut/imgui/tree/256594575d95d56dda616c544c509740e74906b4/misc/freetype) to get more info.
+Binding has this option too. There are two types of precompiled binaries: 1. with stb (the default one) 2. with freetype.
+You can decide by yourself, which kind of libraries for any system you want to use.
+
+Take a not, that for Linux and Mac users using of freetype will add additional dependency to the `libfreetype` itself.
+This is not the case for Windows users, since `dll` files are compiled fully statically and already include freetype in themselves.
+
+**For fully portable application** use default libraries. You can still use freetype binaries for Windows builds without worry.
+
+**For better fonts** use freetype libraries. Don't forget to make clear for your Linux/Mac users, that they will need to install freetype on their systems as well.
+
+### How To Use
+- Maven/Gradle:<br>
+  Use the same native libraries as you would, but with `-ft` suffix in the end.
+  
+  | Native Binaries With FreeType     | System        |
+  | --------------------------------- | ------------- |
+  | imgui-java-natives-windows-x86-ft | Windows 32bit |
+  | imgui-java-natives-windows-ft     | Windows 64bit |
+  | imgui-java-natives-linux-x86-ft   | Linux 32bit   |
+  | imgui-java-natives-linux-ft       | Linux 64bit   |
+  | imgui-java-natives-macos-ft       | MacOS         |
+  <details>
+        <summary><b>Modified Gradle Example</b></summary>
+
+    ```
+    repositories {
+        mavenCentral()
+    }
+    
+    ext {
+        lwjglVersion = '3.2.3'
+        imguiVersion = '1.82.1'
+    }
+    
+    dependencies {
+        implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+    
+        ['', '-opengl', '-glfw'].each {
+            implementation "org.lwjgl:lwjgl$it:$lwjglVersion"
+            implementation "org.lwjgl:lwjgl$it::natives-windows"
+        }
+        
+        implementation "io.github.spair:imgui-java-binding:$imguiVersion"
+        implementation "io.github.spair:imgui-java-lwjgl3:$imguiVersion"
+        
+        // This is the main difference
+        implementation "io.github.spair:imgui-java-natives-windows-ft:$imguiVersion"
+    }
+    ```
+    </details>
+- If you're using raw dll/so files, go to the `bin/freetype` folder and take them from there.
 
 # Binding Notice
 Binding was made with java usage in mind. Some places of the original library were adapted for that.<br>
