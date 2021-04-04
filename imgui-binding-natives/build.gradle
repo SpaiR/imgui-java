@@ -40,6 +40,12 @@ if (System.getProperty('deployWin32')) {
     libName = 'libimgui-java64.dylib'
 }
 
+if (System.getProperty('freetype')) {
+    packageName += 'ft'
+    packageDesc += 'with Freetype support'
+    libName = 'freetype/' + libName
+}
+
 jar {
     from('../bin') {
         include "$libName" // it's ok
