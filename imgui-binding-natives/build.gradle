@@ -41,7 +41,7 @@ if (System.getProperty('deployWin32')) {
 }
 
 if (System.getProperty('freetype')) {
-    packageName += 'ft'
+    packageName += '-ft'
     packageDesc += 'with Freetype support'
     libName = 'freetype/' + libName
 }
