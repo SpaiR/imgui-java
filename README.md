@@ -266,16 +266,20 @@ dependencies {
   Node Editor using ImGui. (A bit more complex than ImNodes, but has more features.)
 
 ## Freetype
-By default, Dear ImGui uses stb-truetype to render fonts. Yet there is an option to use FreeType font renderer. Read [imgui_freetype](https://github.com/ocornut/imgui/tree/256594575d95d56dda616c544c509740e74906b4/misc/freetype) to get more info.
-Binding has this option too. There are two types of precompiled binaries: 1. with stb (the default one) 2. with freetype.
+By default, Dear ImGui uses stb-truetype to render fonts. Yet there is an option to use FreeType font renderer. Go th the [imgui_freetype](https://github.com/ocornut/imgui/tree/256594575d95d56dda616c544c509740e74906b4/misc/freetype) to read about the difference.
+Binding has this option too. Freetype especially useful when you use custom font with small (~<16px) size. If you use the default font or a large font, stb will be fine for you.
+
+There are two types of precompiled binaries: 1. with stb (the default one) 2. with freetype.
 You can decide by yourself, which kind of libraries for any system you want to use.
 
-Take a not, that for Linux and Mac users using of freetype will add additional dependency to the `libfreetype` itself.
-This is not the case for Windows users, since `dll` files are compiled fully statically and already include freetype in themselves.
+Take a not, that for Linux and Mac users using of freetype will add an additional dependency to the `libfreetype` itself.
+This is not the case for Windows users, since `dll` binaries are compiled fully statically and already include freetype in themselves.
 
-**For fully portable application** use default libraries. You can still use freetype binaries for Windows builds without worry.
+**For fully portable application** use default binaries.<br>
+You can still use freetype binaries for Windows builds without worry though.
 
-**For better fonts** use freetype libraries. Don't forget to make clear for your Linux/Mac users, that they will need to install freetype on their systems as well.
+**For better fonts** use freetype binaries.<br>
+Don't forget to make clear for your Linux/Mac users, that they will need to install freetype on their systems as well.
 
 ### How To Use
 - Maven/Gradle:<br>
