@@ -266,7 +266,7 @@ dependencies {
   Node Editor using ImGui. (A bit more complex than ImNodes, but has more features.)
 
 ## Freetype
-By default, Dear ImGui uses stb-truetype to render fonts. Yet there is an option to use FreeType font renderer. Go th the [imgui_freetype](https://github.com/ocornut/imgui/tree/256594575d95d56dda616c544c509740e74906b4/misc/freetype) to read about the difference.
+By default, Dear ImGui uses stb-truetype to render fonts. Yet there is an option to use FreeType font renderer. Go to the [imgui_freetype](https://github.com/ocornut/imgui/tree/256594575d95d56dda616c544c509740e74906b4/misc/freetype) to read about the difference.
 Binding has this option too. Freetype especially useful when you use custom font with small (~<16px) size. If you use the default font or a large font, stb will be fine for you.
 
 There are two types of precompiled binaries: 1. with stb (the default one) 2. with freetype.
