@@ -2,7 +2,6 @@ allprojects {
     group 'imgui-java'
     version property('version')
     repositories {
-        jcenter()
         mavenCentral()
     }
 }
