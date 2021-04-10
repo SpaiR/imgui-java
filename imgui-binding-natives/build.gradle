@@ -26,13 +26,13 @@ if (System.getProperty('deployWin32')) {
     libName = 'libimgui-java64.so'
 } else if (System.getProperty('deployMacOs64')) {
     packageName = 'imgui-java-natives-macos'
-    packageDesc = 'Native binaries for imgui-java binding for 64bit MacOS'
+    packageDesc = 'Native binaries for imgui-java binding for MacOS'
     libName = 'libimgui-java64.dylib'
 }
 
 if (System.getProperty('freetype')) {
     packageName += '-ft'
-    packageDesc += 'with Freetype support'
+    packageDesc += ' with Freetype support'
     libName = 'freetype/' + libName
 }
 
