@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'checkstyle'
-    id 'com.jfrog.bintray'
     id 'maven-publish'
     id 'signing'
 }
@@ -16,16 +15,6 @@ dependencies {
     implementation 'org.lwjgl:lwjgl-opengl'
 
     implementation project(':imgui-binding')
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-    archiveClassifier.set('sources')
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    archiveClassifier.set('javadoc')
-    from javadoc.destinationDir
 }
 
 apply from: "$rootDir/publish.gradle"

@@ -1,4 +1,14 @@
 ext.configurePublishing = { packageName, packageDesc ->
+    tasks.register('sourcesJar', Jar) {
+        it.dependsOn classes
+        it.archiveClassifier.set('sources')
+        it.from sourceSets.main.allSource
+    }
+    tasks.register('javadocJar', Jar) {
+        it.dependsOn javadoc
+        it.archiveClassifier.set('javadoc')
+        it.from javadoc.destinationDir
+    }
     publishing {
         repositories {
             maven {
