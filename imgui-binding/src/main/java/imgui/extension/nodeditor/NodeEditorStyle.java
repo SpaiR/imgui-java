@@ -11,12 +11,7 @@ public final class NodeEditorStyle extends ImGuiStruct {
     }
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
-        #include <imgui_node_editor.h>
-        #include <imgui_node_editor_internal.h>
-        #include "jni_common.h"
-        #include "jni_binding_struct.h"
+        #include "_nodeeditor.h"
 
         namespace ed = ax::NodeEditor;
 

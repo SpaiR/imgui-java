@@ -12,10 +12,7 @@ public final class ImGuiPlatformMonitor extends ImGuiStruct {
     }
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
-        #include "jni_common.h"
-        #include "jni_binding_struct.h"
+        #include "_common.h"
 
         #define IMGUI_PLATFORM_MONITOR ((ImGuiPlatformMonitor*)STRUCT_PTR)
      */

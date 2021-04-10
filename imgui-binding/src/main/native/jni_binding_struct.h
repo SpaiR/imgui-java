@@ -1,7 +1,6 @@
-#include <jni.h>
+#pragma once
 
-#ifndef JNI_BINDING_STRUCT_H
-#define JNI_BINDING_STRUCT_H
+#include <jni.h>
 
 #ifndef STRUCT_PTR
 #define STRUCT_PTR env->GetLongField(object, Jni::GetBindingStructPtrID())
@@ -13,5 +12,3 @@ namespace Jni
 
     jfieldID GetBindingStructPtrID();
 }
-
-#endif

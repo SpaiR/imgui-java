@@ -8,11 +8,7 @@ public final class ImNodesStyle extends ImGuiStruct {
     }
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
-        #include <imnodes.h>
-        #include "jni_common.h"
-        #include "jni_binding_struct.h"
+        #include "_imnodes.h"
 
         #define IMNODES_STYLE ((imnodes::Style*)STRUCT_PTR)
      */

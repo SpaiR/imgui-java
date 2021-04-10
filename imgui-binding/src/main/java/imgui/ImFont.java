@@ -18,10 +18,7 @@ public final class ImFont extends ImGuiStructDestroyable {
     }
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
-        #include "jni_common.h"
-        #include "jni_binding_struct.h"
+        #include "_common.h"
 
         #define IM_FONT ((ImFont*)STRUCT_PTR)
      */

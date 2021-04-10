@@ -28,10 +28,7 @@ public final class ImDrawData extends ImGuiStruct {
     }
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
-        #include "jni_common.h"
-        #include "jni_binding_struct.h"
+        #include "_common.h"
 
         #define IM_DRAW_DATA ((ImDrawData*)STRUCT_PTR)
      */

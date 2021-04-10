@@ -123,11 +123,7 @@ public class ImGui {
     }
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
-        #include "jni_common.h"
-        #include "jni_callbacks.h"
-        #include "jni_binding_struct.h"
+        #include "_common.h"
      */
 
     private static native void nInitJni(); /*

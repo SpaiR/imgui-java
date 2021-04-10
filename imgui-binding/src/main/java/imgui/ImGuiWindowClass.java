@@ -20,9 +20,7 @@ public final class ImGuiWindowClass extends ImGuiStructDestroyable {
     }
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
-        #include "jni_binding_struct.h"
+        #include "_common.h"
 
         #define IMGUI_WINDOW_CLASS ((ImGuiWindowClass*)STRUCT_PTR)
      */

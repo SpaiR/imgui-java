@@ -18,11 +18,8 @@ public final class ImGuiDockNode extends ImGuiStruct {
     }
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
+        #include "_common.h"
         #include <imgui_internal.h>
-        #include "jni_common.h"
-        #include "jni_binding_struct.h"
 
         #define IMGUI_DOCK_NODE ((ImGuiDockNode*)STRUCT_PTR)
      */

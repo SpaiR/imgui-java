@@ -17,10 +17,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     }
 
     /*JNI
-        #include <imgui.h>
-        #include <stdint.h>
-        #include "jni_common.h"
-        #include "jni_binding_struct.h"
+        #include "_common.h"
 
         #define IMGUI_STYLE ((ImGuiStyle*)STRUCT_PTR)
      */

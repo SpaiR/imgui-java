@@ -15,9 +15,7 @@ public final class NodeEditorContext extends ImGuiStructDestroyable {
     }
 
     /*JNI
-        #include <imgui.h>
-        #include <imgui_node_editor.h>
-        #include "jni_binding_struct.h"
+        #include "_nodeeditor.h"
 
         namespace ed = ax::NodeEditor;
 

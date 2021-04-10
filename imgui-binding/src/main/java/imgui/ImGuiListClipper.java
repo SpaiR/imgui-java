@@ -37,8 +37,7 @@ public final class ImGuiListClipper {
     }
 
     /*JNI
-        #include <imgui.h>
-        #include "jni_callbacks.h"
+        #include "_common.h"
      */
 
     /**

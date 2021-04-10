@@ -15,9 +15,7 @@ public final class ImFontGlyph extends ImGuiStructDestroyable {
     }
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
-        #include "jni_binding_struct.h"
+        #include "_common.h"
 
         #define IM_FONT_GLYPH ((ImFontGlyph*)STRUCT_PTR)
      */

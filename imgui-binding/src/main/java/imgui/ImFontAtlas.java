@@ -37,9 +37,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
     }
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
-        #include "jni_binding_struct.h"
+        #include "_common.h"
 
         #define IM_FONT_ATLAS ((ImFontAtlas*)STRUCT_PTR)
 

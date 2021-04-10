@@ -21,9 +21,7 @@ public final class ImGuiStorage extends ImGuiStructDestroyable {
     }
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
-        #include "jni_binding_struct.h"
+        #include "_common.h"
 
         #define IMGUI_STORAGE ((ImGuiStorage*)STRUCT_PTR)
      */

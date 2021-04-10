@@ -8,10 +8,8 @@ public final class ImGui extends imgui.ImGui {
     private static final ImGuiDockNode DOCK_NODE = new ImGuiDockNode(0);
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
+        #include "_common.h"
         #include <imgui_internal.h>
-        #include "jni_common.h"
      */
 
     // Basic Helpers for widget code

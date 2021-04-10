@@ -1,7 +1,6 @@
-#include <jni.h>
+#pragma once
 
-#ifndef JNI_CALLBACK_H
-#define JNI_CALLBACK_H
+#include <jni.h>
 
 namespace Jni
 {
@@ -27,5 +26,3 @@ namespace Jni
 
     jfloat CallImPlatformFuncViewportSuppFloat(JNIEnv* env, jobject func, jobject vp);
 }
-
-#endif

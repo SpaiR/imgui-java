@@ -19,9 +19,7 @@ public final class ImGuiTextFilter extends ImGuiStructDestroyable {
     }
 
     /*JNI
-        #include <imgui.h>
-        #include <stdint.h>
-        #include "jni_binding_struct.h"
+        #include "_common.h"
 
         #define IMGUI_TEXT_FILTER ((ImGuiTextFilter*)STRUCT_PTR)
      */

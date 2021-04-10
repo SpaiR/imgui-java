@@ -11,11 +11,7 @@ public final class ImNodesContext extends ImGuiStructDestroyable {
     }
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
-        #include <imnodes.h>
-        #include "jni_common.h"
-        #include "jni_binding_struct.h"
+        #include "_imnodes.h"
 
         #define IMNODES_CONTEXT ((imnodes::EditorContext*)STRUCT_PTR)
      */

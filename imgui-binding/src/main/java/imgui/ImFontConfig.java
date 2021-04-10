@@ -20,10 +20,7 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
     }
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
-        #include "jni_common.h"
-        #include "jni_binding_struct.h"
+        #include "_common.h"
 
         #define IM_FONT_CONFIG ((ImFontConfig*)STRUCT_PTR)
      */

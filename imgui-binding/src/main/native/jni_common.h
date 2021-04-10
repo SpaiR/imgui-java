@@ -1,8 +1,7 @@
+#pragma once
+
 #include <jni.h>
 #include <imgui.h>
-
-#ifndef JNI_COMMON_H
-#define JNI_COMMON_H
 
 namespace Jni
 {
@@ -18,5 +17,3 @@ namespace Jni
     void ImVec4Cpy(JNIEnv* env, ImVec4* src, jobject dst);
     void ImVec4Cpy(JNIEnv* env, ImVec4 src, jobject dst);
 }
-
-#endif

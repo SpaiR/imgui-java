@@ -18,10 +18,7 @@ public final class ImNodes {
     }
 
     /*JNI
-        #include <stdint.h>
-        #include <imgui.h>
-        #include <imnodes.h>
-        #include "jni_common.h"
+        #include "_imnodes.h"
      */
 
     // An editor context corresponds to a set of nodes in a single workspace (created with a single

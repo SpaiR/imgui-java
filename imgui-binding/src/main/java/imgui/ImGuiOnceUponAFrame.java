@@ -13,7 +13,7 @@ public final class ImGuiOnceUponAFrame {
     }
 
     /*JNI
-        #include <imgui.h>
+        #include "_common.h"
      */
 
     public static native boolean get(); /*
