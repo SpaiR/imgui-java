@@ -14,11 +14,7 @@ dependencies {
     implementation project(':imgui-app')
 }
 
-task start(type: JavaExec, dependsOn: build) {
-    main = 'Main'
-    classpath = sourceSets.test.runtimeClasspath
-    jvmArgs = ["-Dimgui.library.path=${System.getProperty('libPath', '../bin')}"]
-
+run {
     if (org.gradle.internal.os.OperatingSystem.current().isMacOsX()) {
         jvmArgs += ['-XstartOnFirstThread', '-Djava.awt.headless=true']
     }
