@@ -6,6 +6,7 @@ plugins {
 
 def packageName = 'imgui-java-natives-linux'
 def packageDesc = 'Native binaries for imgui-java binding for 64bit Linux'
+def fromDir = '../bin'
 def libName = 'libimgui-java64.so'
 
 if (System.getProperty('deployWin32')) {
@@ -33,11 +34,11 @@ if (System.getProperty('deployWin32')) {
 if (System.getProperty('freetype')) {
     packageName += '-ft'
     packageDesc += ' with Freetype support'
-    libName = 'freetype/' + libName
+    fromDir += '/freetype'
 }
 
 jar {
-    from('../bin') {
+    from(fromDir) {
         include "$libName" // this is fine
         into 'io/imgui/java/native-bin/'
     }
