@@ -13,7 +13,6 @@ import java.util.List;
  * Direct reimplementation of native ImFontGlyphRangesBuilder in java
  */
 public final class ImFontGlyphRangesBuilder {
-
     private static final int UNICODE_CODEPOINT_MAX = 0xFFFF;
 
     // have to use type long because values are unsigned integers
@@ -93,6 +92,4 @@ public final class ImFontGlyphRangesBuilder {
         final long mask = 1L << (n & 31L);
         return (usedChars[off] & mask) > 0;
     }
-
-
 }
