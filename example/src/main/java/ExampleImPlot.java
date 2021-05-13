@@ -1,3 +1,4 @@
+import imgui.extension.implot.ImPlot;
 import imgui.flag.ImGuiCond;
 import imgui.internal.ImGui;
 import imgui.type.ImBoolean;
@@ -25,7 +26,7 @@ public class ExampleImPlot {
                 }
             }
 
-
+            ImPlot.showDemoWindow(showImPlotWindow);
         }
 
         ImGui.end();
