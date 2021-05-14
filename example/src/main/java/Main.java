@@ -2,6 +2,7 @@ import imgui.*;
 import imgui.app.Application;
 import imgui.app.Configuration;
 import imgui.extension.imnodes.ImNodes;
+import imgui.extension.implot.ImPlot;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiInputTextFlags;
 import imgui.type.ImString;
@@ -33,6 +34,7 @@ public class Main extends Application {
         io.setConfigViewportsNoTaskBarIcon(true);
 
         ImNodes.createContext();
+        ImPlot.createContext();
 
         // Example of fonts configuration
         // For more information read: https://github.com/ocornut/imgui/blob/33cdbe97b8fd233c6c12ca216e76398c2e89b0d8/docs/FONTS.md
