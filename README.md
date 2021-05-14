@@ -272,7 +272,7 @@ Binding has this option too. Freetype especially useful when you use custom font
 There are two types of precompiled binaries: 1. with stb (the default one) 2. with freetype.
 You can decide by yourself, which kind of libraries for any system you want to use.
 
-Take a not, that for Linux and Mac users using of freetype will add an additional dependency to the `libfreetype` itself.
+Take a note, that for Linux and Mac users using of freetype will add an additional dependency to the `libfreetype` itself.
 This is not the case for Windows users, since `dll` binaries are compiled fully statically and already include freetype in themselves.
 
 **For fully portable application** use default binaries.<br>
