@@ -1,4 +1,4 @@
 package imgui.extension.implot;
 
-public class ImPlotPoint {
+public final class ImPlotPoint {
 }

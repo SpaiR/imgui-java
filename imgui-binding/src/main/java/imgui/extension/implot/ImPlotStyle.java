@@ -1,4 +1,4 @@
 package imgui.extension.implot;
 
-public class ImPlotStyle {
+public final class ImPlotStyle {
 }

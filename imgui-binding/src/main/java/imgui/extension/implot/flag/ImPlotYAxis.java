@@ -1,6 +1,6 @@
 package imgui.extension.implot.flag;
 
-public class ImPlotYAxis {
+public final class ImPlotYAxis {
     private ImPlotYAxis() {
     }
 

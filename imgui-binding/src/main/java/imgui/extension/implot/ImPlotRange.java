@@ -1,4 +1,4 @@
 package imgui.extension.implot;
 
-public class ImPlotRange {
+public final class ImPlotRange {
 }

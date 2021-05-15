@@ -1,6 +1,6 @@
 package imgui.extension.implot.flag;
 
-public class ImPlotOrientation {
+public final class ImPlotOrientation {
     private ImPlotOrientation() {
     }
 

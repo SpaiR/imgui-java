@@ -1,6 +1,6 @@
 package imgui.extension.implot.flag;
 
-public class ImPlotMarker {
+public final class ImPlotMarker {
     private ImPlotMarker() {
     }
 

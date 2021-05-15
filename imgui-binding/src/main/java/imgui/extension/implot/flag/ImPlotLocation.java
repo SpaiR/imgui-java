@@ -1,6 +1,6 @@
 package imgui.extension.implot.flag;
 
-public class ImPlotLocation {
+public final class ImPlotLocation {
     private ImPlotLocation() {
     }
 

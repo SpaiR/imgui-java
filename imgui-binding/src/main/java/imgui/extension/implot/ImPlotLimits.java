@@ -1,4 +1,4 @@
 package imgui.extension.implot;
 
-public class ImPlotLimits {
+public final class ImPlotLimits {
 }

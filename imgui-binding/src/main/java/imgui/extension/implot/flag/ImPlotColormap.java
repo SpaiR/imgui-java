@@ -1,6 +1,6 @@
 package imgui.extension.implot.flag;
 
-public class ImPlotColormap {
+public final class ImPlotColormap {
     private ImPlotColormap() {
     }
 

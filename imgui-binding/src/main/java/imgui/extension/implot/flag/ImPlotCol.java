@@ -1,6 +1,6 @@
 package imgui.extension.implot.flag;
 
-public class ImPlotCol {
+public final class ImPlotCol {
     private ImPlotCol() {
     }
 
