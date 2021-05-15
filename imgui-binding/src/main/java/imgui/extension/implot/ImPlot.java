@@ -17,7 +17,7 @@ public final class ImPlot {
         ImPlot::CreateContext();
     */
 
-    public static void showDemoWindow(ImBoolean pOpen) {
+    public static void showDemoWindow(final ImBoolean pOpen) {
         nShowDemoWindow(pOpen.getData());
     }
 
