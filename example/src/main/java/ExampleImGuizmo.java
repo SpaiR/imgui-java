@@ -4,6 +4,8 @@ import imgui.extension.imguizmo.flag.Mode;
 import imgui.extension.imguizmo.flag.Operation;
 import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiInputTextFlags;
+import imgui.flag.ImGuiWindowFlags;
+import imgui.type.ImBoolean;
 import imgui.type.ImFloat;
 
 import java.awt.Desktop;
@@ -76,23 +78,21 @@ public class ExampleImGuizmo {
     private static final float[] INPUT_MATRIX_SCALE = new float[3];
     private static final float[] INPUT_MATRIX_ROTATION = new float[3];
 
-    private static float[] inputCameraProjection;
-
     private static final ImFloat INPUT_FLOAT = new ImFloat();
+
+    private static final ImBoolean BOUNDING_SIZE = new ImBoolean(false);
+    private static final ImBoolean USE_SNAP = new ImBoolean(false);
 
     private static int currentMode = Mode.LOCAL;
     private static int currentGizmoOperation;
 
-    private static boolean useSnap = false;
-    private static boolean boundSizing = false;
     private static boolean boundSizingSnap = false;
     private static boolean firstFrame = true;
 
-    public static void show() {
+    public static void show(final ImBoolean showImGuizmoWindow) {
         ImGuizmo.beginFrame();
 
-        ImGui.setNextWindowSize(400, 256, ImGuiCond.Once);
-        if (ImGui.begin("ImGuizmo Demo")) {
+        if (ImGui.begin("ImGuizmo Demo", showImGuizmoWindow)) {
             ImGui.text("This a demo for ImGuizmo");
 
             ImGui.alignTextToFramePadding();
@@ -116,7 +116,14 @@ public class ExampleImGuizmo {
                 float[] at = new float[]{0.f, 0.f, 0.f};
                 float[] up = new float[]{0.f, 1.f, 0.f};
                 lookAt(eye, at, up, INPUT_CAMERA_VIEW);
+                firstFrame = false;
             }
+
+            ImGui.text("Keybindings:");
+            ImGui.text("T - Translate");
+            ImGui.text("R - Rotate");
+            ImGui.text("S - Scale");
+            ImGui.separator();
 
             if (ImGuizmo.isUsing()) {
                 ImGui.text("Using gizmo");
@@ -134,12 +141,12 @@ public class ExampleImGuizmo {
                 ImGui.text("Not using gizmo");
             }
 
-            editTransform();
+            editTransform(showImGuizmoWindow);
             ImGui.end();
         }
     }
 
-    private static void editTransform() {
+    private static void editTransform(final ImBoolean showImGuizmoWindow) {
         if (ImGui.isKeyPressed(GLFW_KEY_T)) {
             currentGizmoOperation = Operation.TRANSLATE;
         } else if (ImGui.isKeyPressed(GLFW_KEY_R)) {
@@ -147,7 +154,7 @@ public class ExampleImGuizmo {
         } else if (ImGui.isKeyPressed(GLFW_KEY_S)) {
             currentGizmoOperation = Operation.SCALE;
         } else if (ImGui.isKeyPressed(GLFW_KEY_LEFT_SHIFT)) {
-            useSnap = !useSnap;
+            USE_SNAP.set(!USE_SNAP.get());
         }
 
         if (ImGuizmo.isUsing()) {
@@ -172,9 +179,7 @@ public class ExampleImGuizmo {
             }
         }
 
-        if (ImGui.checkbox("Snap Checkbox", useSnap)) {
-            useSnap = !useSnap;
-        }
+        ImGui.checkbox("Snap Checkbox", USE_SNAP);
 
         INPUT_FLOAT.set(INPUT_SNAP_VALUE[0]);
         switch (currentGizmoOperation) {
@@ -193,29 +198,23 @@ public class ExampleImGuizmo {
                 break;
         }
 
-        if (ImGui.checkbox("Bound Sizing", boundSizing)) {
-            boundSizing = !boundSizing;
-        }
+        ImGui.checkbox("Show Bound Sizing", BOUNDING_SIZE);
 
-        if (boundSizing) {
-            ImGui.pushID(3);
+        if (BOUNDING_SIZE.get()) {
             if (ImGui.checkbox("BoundSizingSnap", boundSizingSnap)) {
                 boundSizingSnap = !boundSizingSnap;
             }
             ImGui.sameLine();
             ImGui.inputFloat3("Snap", INPUT_BOUNDS_SNAP);
-            ImGui.popID();
         }
 
-        ImGui.setNextWindowPos(800, 400);
-        ImGui.setNextWindowSize(800, 400);
-        ImGui.begin("Gizmo");
+        ImGui.setNextWindowPos(ImGui.getMainViewport().getPosX() + 100, ImGui.getMainViewport().getPosY() + 100, ImGuiCond.Once);
+        ImGui.setNextWindowSize(800, 400, ImGuiCond.Once);
+        ImGui.begin("Gizmo", showImGuizmoWindow);
+        ImGui.beginChild("prevent_window_from_moving_by_drag", 0, 0, false, ImGuiWindowFlags.NoMove);
 
-        if (firstFrame) {
-            float aspect = ImGui.getWindowWidth() / ImGui.getWindowHeight();
-            inputCameraProjection = perspective(27, aspect, 0.1f, 100f);
-            firstFrame = false;
-        }
+        float aspect = ImGui.getWindowWidth() / ImGui.getWindowHeight();
+        float[] cameraProjection = perspective(27, aspect, 0.1f, 100f);
 
         ImGuizmo.setOrthographic(false);
         ImGuizmo.setEnabled(true);
@@ -225,28 +224,29 @@ public class ExampleImGuizmo {
         float windowHeight = ImGui.getWindowHeight();
         ImGuizmo.setRect(ImGui.getWindowPosX(), ImGui.getWindowPosY(), windowWidth, windowHeight);
 
-        ImGuizmo.drawGrid(INPUT_CAMERA_VIEW, inputCameraProjection, IDENTITY_MATRIX, 100);
+        ImGuizmo.drawGrid(INPUT_CAMERA_VIEW, cameraProjection, IDENTITY_MATRIX, 100);
         ImGuizmo.setId(0);
-        ImGuizmo.drawCubes(INPUT_CAMERA_VIEW, inputCameraProjection, OBJECT_MATRICES[0]);
+        ImGuizmo.drawCubes(INPUT_CAMERA_VIEW, cameraProjection, OBJECT_MATRICES[0]);
 
-        if (useSnap && boundSizing && boundSizingSnap) {
-            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, inputCameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, INPUT_SNAP_VALUE, INPUT_BOUNDS, INPUT_BOUNDS_SNAP);
-        } else if (useSnap && boundSizing) {
-            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, inputCameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, INPUT_SNAP_VALUE, INPUT_BOUNDS);
-        } else if (boundSizing && boundSizingSnap) {
-            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, inputCameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, EMPTY, INPUT_BOUNDS, INPUT_BOUNDS_SNAP);
-        } else if (boundSizing) {
-            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, inputCameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, EMPTY, INPUT_BOUNDS);
-        } else if (useSnap) {
-            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, inputCameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, INPUT_SNAP_VALUE);
+        if (USE_SNAP.get() && BOUNDING_SIZE.get() && boundSizingSnap) {
+            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, INPUT_SNAP_VALUE, INPUT_BOUNDS, INPUT_BOUNDS_SNAP);
+        } else if (USE_SNAP.get() && BOUNDING_SIZE.get()) {
+            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, INPUT_SNAP_VALUE, INPUT_BOUNDS);
+        } else if (BOUNDING_SIZE.get() && boundSizingSnap) {
+            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, EMPTY, INPUT_BOUNDS, INPUT_BOUNDS_SNAP);
+        } else if (BOUNDING_SIZE.get()) {
+            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, EMPTY, INPUT_BOUNDS);
+        } else if (USE_SNAP.get()) {
+            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, INPUT_SNAP_VALUE);
         } else {
-            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, inputCameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode);
+            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode);
         }
 
         float viewManipulateRight = ImGui.getWindowPosX() + windowWidth;
         float viewManipulateTop = ImGui.getWindowPosY();
         ImGuizmo.viewManipulate(INPUT_CAMERA_VIEW, CAM_DISTANCE, new float[]{viewManipulateRight - 128, viewManipulateTop}, VIEW_MANIPULATE_SIZE, 0x10101010);
 
+        ImGui.endChild();
         ImGui.end();
     }
 

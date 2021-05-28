@@ -32,7 +32,7 @@ public class Extra {
         }
 
         if (SHOW_IMGUIZMO_DEMO.get()) {
-            ExampleImGuizmo.show();
+            ExampleImGuizmo.show(SHOW_IMGUIZMO_DEMO);
         }
 
         if (SHOW_DRAG_N_DROP_WINDOW.get()) {
