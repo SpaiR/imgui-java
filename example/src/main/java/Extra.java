@@ -12,7 +12,7 @@ public class Extra {
     private static final Graph GRAPH = new Graph();
 
     public static void show(final Application app) {
-        ImGui.colorEdit3("Background Color", app.getColorBg().getData());
+        ImGui.colorEdit3("Background Color", app.getColorBg().data);
         ImGui.checkbox("Show Demo Window", SHOW_DEMO_WINDOW);
         ImGui.checkbox("Show ImNodes Demo Window", SHOW_IMNODES_DEMO_WINDOW);
         ImGui.checkbox("Show imgui-node-editor Demo Window", SHOW_IMGUI_NODE_EDITOR_DEMO_WINDOW);

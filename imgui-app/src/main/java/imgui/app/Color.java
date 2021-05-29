@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Object for color data.
  */
 public class Color implements Cloneable {
-    private final float[] data = new float[4];
+    public final float[] data = new float[4];
 
     public Color() {
     }
