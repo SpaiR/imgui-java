@@ -885,7 +885,7 @@ public class ImGui {
         return ImGui::GetWindowContentRegionMin().y;
     */
 
-    public final ImVec2 getWindowContentRegionMax() {
+    public static ImVec2 getWindowContentRegionMax() {
         final ImVec2 value = new ImVec2();
         getWindowContentRegionMax(value);
         return value;
