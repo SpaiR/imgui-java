@@ -340,17 +340,17 @@ Read [javadoc](https://javadoc.io/doc/io.github.spair/imgui-java-binding) and so
     * Ant
     * Mingw-w64 (recommended way: use [MSYS2](https://www.msys2.org/) and install [mingw-w64-x86_64-toolchain](https://packages.msys2.org/group/mingw-w64-x86_64-toolchain) group)
  - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=win64 -Dlocal`
- - Run with: `./gradlew :example:run -DlibPath="../imgui-binding/build/libsNative/windows64"`
+ - Run with: `./gradlew :example:run -PlibPath="../imgui-binding/build/libsNative/windows64"`
  
 ### Linux
  - Install dependencies: `openjdk8`, `mingw-w64-gcc`, `ant`. (Package names could vary from system to system.)
  - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=linux64 -Dlocal`
- - Run with: `./gradlew :example:run -DlibPath=../imgui-binding/build/libsNative/linux64`
+ - Run with: `./gradlew :example:run -PlibPath=../imgui-binding/build/libsNative/linux64`
  
 ### MacOS
  - Check dependencies from "Linux" section and make sure you have them installed.
  - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=mac64 -Dlocal`
- - Run with: `./gradlew :example:run -DlibPath=../imgui-binding/build/libsNative/macosx64`
+ - Run with: `./gradlew :example:run -PlibPath=../imgui-binding/build/libsNative/macosx64`
 
 In `envs` parameter next values could be used `win32`, `win64`, `linux32`, `linux64` or `mac64`.<br>
 `-Dlocal` is optional and means that natives will be built under the `./imgui-binding/build/` folder. Otherwise `/tmp/imgui` folder will be used.
