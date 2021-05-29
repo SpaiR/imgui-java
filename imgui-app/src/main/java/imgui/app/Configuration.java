@@ -1,11 +1,8 @@
 package imgui.app;
 
-import lombok.Data;
-
 /**
  * Data class to provide basic information about the window. Like, the title name etc.
  */
-@Data
 public class Configuration {
     /**
      * Application title.
@@ -23,4 +20,36 @@ public class Configuration {
      * When true, application will be maximized by default.
      */
     private boolean fullScreen = false;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(final int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(final int height) {
+        this.height = height;
+    }
+
+    public boolean isFullScreen() {
+        return fullScreen;
+    }
+
+    public void setFullScreen(final boolean fullScreen) {
+        this.fullScreen = fullScreen;
+    }
 }

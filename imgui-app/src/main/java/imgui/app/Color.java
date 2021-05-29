@@ -1,15 +1,15 @@
 package imgui.app;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.Arrays;
 
 /**
  * Object for color data.
  */
-@Data
-@NoArgsConstructor
 public class Color implements Cloneable {
     private final float[] data = new float[4];
+
+    public Color() {
+    }
 
     public Color(final float[] color) {
         set(color);
@@ -47,6 +47,30 @@ public class Color implements Cloneable {
 
     public final float getAlpha() {
         return data[3];
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Color color = (Color) o;
+        return Arrays.equals(data, color.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(data);
+    }
+
+    @Override
+    public String toString() {
+        return "Color{"
+            + "data=" + Arrays.toString(data)
+            + '}';
     }
 
     /**
