@@ -594,20 +594,6 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-     * Enable docking with holding Shift key (reduce visual noise, allows dropping in wider space)
-     */
-    public native boolean getConfigDockingWithShift(); /*
-        return IO->ConfigDockingWithShift;
-    */
-
-    /**
-     * Enable docking with holding Shift key (reduce visual noise, allows dropping in wider space)
-     */
-    public native void setConfigDockingWithShift(boolean value); /*
-        IO->ConfigDockingWithShift = value;
-    */
-
-    /**
      * [BETA] [FIXME: This currently creates regression with auto-sizing and general overhead]
      * Make every single floating window display within a docking node.
      */

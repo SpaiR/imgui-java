@@ -8,8 +8,12 @@ repositories {
 
 application {
     mainClass = 'Main'
-    if (libPath) {
-        applicationDefaultJvmArgs = ["-Dimgui.library.path=$libPath"]
+    try {
+        if (libPath) {
+            applicationDefaultJvmArgs = ["-Dimgui.library.path=$libPath"]
+        }
+    } catch (ignored) {
+        // ignore
     }
 }
 
