@@ -32,11 +32,14 @@ public class Main extends Application {
         io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable);    // Enable Multi-Viewport / Platform Windows
         io.setConfigViewportsNoTaskBarIcon(true);
 
-        ImNodes.createContext();
+        initFonts(io);
+    }
 
-        // Example of fonts configuration
-        // For more information read: https://github.com/ocornut/imgui/blob/33cdbe97b8fd233c6c12ca216e76398c2e89b0d8/docs/FONTS.md
-
+    /**
+     * Example of fonts configuration
+     * For more information read: https://github.com/ocornut/imgui/blob/33cdbe97b8fd233c6c12ca216e76398c2e89b0d8/docs/FONTS.md
+     */
+    private void initFonts(final ImGuiIO io) {
         io.getFonts().addFontDefault(); // Add default font for latin glyphs
 
         // You can use the ImFontGlyphRangesBuilder helper to create glyph ranges based on text input.
@@ -95,5 +98,6 @@ public class Main extends Application {
 
     public static void main(final String[] args) {
         launch(new Main());
+        System.exit(0);
     }
 }
