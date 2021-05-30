@@ -19,8 +19,8 @@ class GenerateLibs extends DefaultTask {
     private final boolean forLinux = buildEnvs?.contains('linux')
     private final boolean forMac = buildEnvs?.contains('mac')
 
-    private final boolean isLocal = System.properties.containsKey("local")
-    private final boolean withFreeType = System.properties.containsKey("freetype")
+    private final boolean isLocal = System.properties.containsKey('local')
+    private final boolean withFreeType = System.properties.getProperty('freetype', 'false')
 
     private final String sourceDir = project.file('src/main/java')
     private final String classpath = project.file('build/classes/java/main')

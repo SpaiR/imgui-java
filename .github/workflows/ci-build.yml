@@ -2,64 +2,102 @@ name: CI Build
 on: [ push, pull_request ]
 jobs:
   build-java:
+    env:
+      UBUNTU: ubuntu-20.04
+      MACOS: macos-10.15
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [env.UBUNTU, env.MACOS]
     name: Build Java [${{ matrix.os }}]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
       - name: Set up Java 8
         uses: actions/setup-java@v1
         with:
           java-version: 8
+
       - name: Build
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: build
   build-natives:
+    env:
+      UBUNTU: ubuntu-20.04
+      MACOS: macos-10.15
+      FREETYPE_URL: https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.gz
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [env.UBUNTU, env.MACOS]
         type: [win, linux, mac]
+        freetype: [true, false]
         include:
-          - os: ubuntu-latest
+          - os: env.UBUNTU
             type: win
             expected: /tmp/imgui/libsNative/windows64/imgui-java64.dll
-          - os: ubuntu-latest
+          - os: env.UBUNTU
             type: linux
             expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
-          - os: macos-latest
+          - os: env.MACOS
             type: mac
             expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
         exclude:
-          - os: ubuntu-latest
+          - os: env.UBUNTU
             type: mac
-          - os: macos-latest
+          - os: env.MACOS
             type: win
-          - os: macos-latest
+          - os: env.MACOS
             type: linux
-    name: Build Natives [${{ matrix.os }}]-[${{ matrix.type }}]
+    name: Build Natives [OS:${{ matrix.os }}]-[Type:${{ matrix.type }}]-[FreeType:${{ matrix.freetype }}]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository and submodules
         uses: actions/checkout@v2
         with:
           submodules: recursive
+
       - name: Set up Java 8
         uses: actions/setup-java@v1
         with:
           java-version: 8
+
       - name: Ant Version
         run: ant -version
-      - if: matrix.os == 'ubuntu-latest'
+
+      - if: matrix.os == env.UBUNTU
         name: Install MinGW-w64/GCC/G++
-        run: sudo apt-get install mingw-w64 gcc-multilib g++-multilib
-      - name: Build [${{ matrix.type }}]
+        run: sudo apt install mingw-w64 gcc-multilib g++-multilib
+
+      - if: matrix.os == env.UBUNTU && matrix.type == linux && freetype == true
+        name: FreeType - Install
+        run: sud apt install libfreetype6-dev
+
+      - if: matrix.os == env.UBUNTU && matrix.type == win && freetype == true
+        name: FreeType - Download
+        run: |
+          wget -O /freetype.tar.gz ${{ env.FREETYPE_URL }}
+          mkdir /freetype
+          tar -xzf /freetype.tar.gz -C /freetype --strip-components=1
+
+      - if: matrix.os == env.UBUNTU && matrix.type == win && freetype == true
+        name: FreeType - Compile & Install
+        working-directory: /freetype
+        run: |
+          sudo ./configure --with-zlib=no --with-bzip2=no --with-png=no --with-harfbuzz=no --with-brotli=no --host=x86_64-w64-mingw32 --prefix=/usr/x86_64-w64-mingw32
+          sudo make
+          sudo make install
+
+      - if: matrix.os == env.MACOS && freetype == true
+        name: FreeType - Install
+        run: brew install freetype2
+
+      - name: Build
         uses: eskatos/gradle-command-action@v1
         with:
-          arguments: :imgui-binding:generateLibs -Denvs=${{ matrix.type }}
+          arguments: :imgui-binding:generateLibs -Denvs=${{ matrix.type }} -Dfreetype=${{ matrix.freetype}}
+
       - name: Check [${{ matrix.expected }}]
         uses: andstor/file-existence-action@v1
         with:
