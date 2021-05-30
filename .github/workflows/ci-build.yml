@@ -4,63 +4,97 @@ jobs:
   build-java:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
-    name: Build Java [${{ matrix.os }}]
+        os: [ubuntu-20.04, macos-10.15]
+    name: Build Java
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
       - name: Set up Java 8
         uses: actions/setup-java@v1
         with:
           java-version: 8
+
       - name: Build
         uses: eskatos/gradle-command-action@v1
         with:
           arguments: build
   build-natives:
+    env:
+      FREETYPE_URL: https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.gz
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-20.04, macos-10.15]
         type: [win, linux, mac]
+        freetype: [true, false]
         include:
-          - os: ubuntu-latest
-            type: win
+          - type: win
             expected: /tmp/imgui/libsNative/windows64/imgui-java64.dll
-          - os: ubuntu-latest
-            type: linux
+            libName: imgui-java64.dll
+            libNameFt: imgui-java64-ft.dll
+          - type: linux
             expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
-          - os: macos-latest
-            type: mac
+            libName: libimgui-java64.so
+            libNameFt: libimgui-java64-ft.so
+          - type: mac
             expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
+            libName: libimgui-java64.dylib
+            libNameFt: libimgui-java64-ft.dylib
         exclude:
-          - os: ubuntu-latest
+          - os: ubuntu-20.04
             type: mac
-          - os: macos-latest
+          - os: macos-10.15
             type: win
-          - os: macos-latest
+          - os: macos-10.15
             type: linux
-    name: Build Natives [${{ matrix.os }}]-[${{ matrix.type }}]
+    name: Build Native (type=${{ matrix.type }}, freetype=${{ matrix.freetype }})
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository and submodules
         uses: actions/checkout@v2
         with:
           submodules: recursive
+
       - name: Set up Java 8
         uses: actions/setup-java@v1
         with:
           java-version: 8
+
       - name: Ant Version
         run: ant -version
-      - if: matrix.os == 'ubuntu-latest'
+
+      - if: matrix.os == 'ubuntu-20.04'
         name: Install MinGW-w64/GCC/G++
-        run: sudo apt-get install mingw-w64 gcc-multilib g++-multilib
-      - name: Build [${{ matrix.type }}]
+        run: sudo apt install mingw-w64
+
+      - if: matrix.os == 'ubuntu-20.04' && matrix.type == 'linux' && matrix.freetype == true
+        name: FreeType - Install
+        run: sudo apt install libfreetype6-dev
+
+      - if: matrix.os == 'ubuntu-20.04' && matrix.type == 'win' && matrix.freetype == true
+        name: FreeType - Download
+        run: |
+          sudo wget -O /freetype.tar.gz ${{ env.FREETYPE_URL }}
+          sudo mkdir /freetype
+          sudo tar -xzf /freetype.tar.gz -C /freetype --strip-components=1
+
+      - if: matrix.os == 'ubuntu-20.04' && matrix.type == 'win' && matrix.freetype == true
+        name: FreeType - Compile & Install
+        working-directory: /freetype
+        run: |
+          sudo ./configure --with-zlib=no --with-bzip2=no --with-png=no --with-harfbuzz=no --with-brotli=no --host=x86_64-w64-mingw32 --prefix=/usr/x86_64-w64-mingw32
+          sudo make
+          sudo make install
+
+      - name: Build
         uses: eskatos/gradle-command-action@v1
         with:
-          arguments: :imgui-binding:generateLibs -Denvs=${{ matrix.type }}
-      - name: Check [${{ matrix.expected }}]
-        uses: andstor/file-existence-action@v1
+          arguments: :imgui-binding:generateLibs -Denvs=${{ matrix.type }} -Dfreetype=${{ matrix.freetype }}
+
+      - name: Upload Native
+        uses: actions/upload-artifact@v2
         with:
-          files: ${{ matrix.expected }}
+          name: ${{ matrix.freetype && matrix.libNameFt || matrix.libName }}
+          path: ${{ matrix.expected }}
+          if-no-files-found: error
