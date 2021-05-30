@@ -98,3 +98,16 @@ jobs:
           name: ${{ matrix.freetype && matrix.libNameFt || matrix.libName }}
           path: ${{ matrix.expected }}
           if-no-files-found: error
+  update-natives:
+    name: Update Natives
+    runs-on: ubuntu-20.04
+    needs: build-natives
+    steps:
+      - name: Download Natives
+        uses: actions/download-artifact@v2
+        with:
+          path: /tmp/artifacts
+
+      - name: Display Natives
+        run: ls -al
+        working-directory: /tmp/artifacts
