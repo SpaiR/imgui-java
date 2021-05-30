@@ -1,5 +1,13 @@
 name: CI Build
-on: [ push, pull_request ]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      type:
+        description: 'Type'
+        required: true
+        default: 'update'
 jobs:
   build-java:
     strategy:
@@ -8,7 +16,7 @@ jobs:
     name: Build Java
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Set up Java 8
@@ -31,16 +39,10 @@ jobs:
         include:
           - type: win
             expected: /tmp/imgui/libsNative/windows64/imgui-java64.dll
-            libName: imgui-java64.dll
-            libNameFt: imgui-java64-ft.dll
           - type: linux
             expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
-            libName: libimgui-java64.so
-            libNameFt: libimgui-java64-ft.so
           - type: mac
             expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
-            libName: libimgui-java64.dylib
-            libNameFt: libimgui-java64-ft.dylib
         exclude:
           - os: ubuntu-20.04
             type: mac
@@ -51,7 +53,7 @@ jobs:
     name: Build Native (type=${{ matrix.type }}, freetype=${{ matrix.freetype }})
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout repository and submodules
+      - name: Checkout Repository and Submodules
         uses: actions/checkout@v2
         with:
           submodules: recursive
@@ -95,10 +97,11 @@ jobs:
       - name: Upload Native
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ matrix.freetype && matrix.libNameFt || matrix.libName }}
+          name: ${{ matrix.freetype && 'freetype' || 'common' }}
           path: ${{ matrix.expected }}
           if-no-files-found: error
   update-natives:
+    if: github.event.inputs.type == 'update'
     name: Update Natives
     runs-on: ubuntu-20.04
     needs: build-natives
@@ -108,6 +111,17 @@ jobs:
         with:
           path: /tmp/artifacts
 
-      - name: Display Natives
-        run: ls -al
-        working-directory: /tmp/artifacts
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_ACTIONS_REPO }}
+
+      - name: Move Natives
+        run: |
+          mv /tmp/artifacts/common/* bin/
+          mv /tmp/artifacts/freetype/* bin/freetype/
+
+      - uses: EndBug/add-and-commit@v7
+        with:
+          message: '[skip ci] Update native binaries'
+          default_author: github_actions
