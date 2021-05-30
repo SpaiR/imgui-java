@@ -15,11 +15,9 @@ class GenerateLibs extends DefaultTask {
     String description = 'Generate imgui-java native binaries.'
 
     private final String[] buildEnvs = System.getProperty('envs')?.split(',')
-    private final boolean forWin32 = buildEnvs?.contains('win32')
-    private final boolean forWin64 = buildEnvs?.contains('win64')
-    private final boolean forLinux32 = buildEnvs?.contains('linux32')
-    private final boolean forLinux64 = buildEnvs?.contains('linux64')
-    private final boolean forMac64 = buildEnvs?.contains('mac64')
+    private final boolean forWindows = buildEnvs?.contains('win')
+    private final boolean forLinux = buildEnvs?.contains('linux')
+    private final boolean forMac = buildEnvs?.contains('mac')
 
     private final boolean isLocal = System.properties.containsKey("local")
     private final boolean withFreeType = System.properties.containsKey("freetype")
@@ -68,29 +66,19 @@ class GenerateLibs extends DefaultTask {
         def buildConfig = new BuildConfig('imgui-java', tmpFolder, libsFolder, jniDir)
         def buildTargets = [] as BuildTarget[]
 
-        if (forWin32) {
-            def win32 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, false)
-            addFreeTypeIfEnabled(win32)
-            buildTargets += win32
-        }
-        if (forWin64) {
+        if (forWindows) {
             def win64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, true)
             addFreeTypeIfEnabled(win64)
             buildTargets += win64
         }
 
-        if (forLinux32) {
-            def linux32 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, false)
-            addFreeTypeIfEnabled(linux32)
-            buildTargets += linux32
-        }
-        if (forLinux64) {
+        if (forLinux) {
             def linux64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, true)
             addFreeTypeIfEnabled(linux64)
             buildTargets += linux64
         }
 
-        if (forMac64) {
+        if (forMac) {
             def minMacOsVersion = '10.15'
             def mac64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true)
             mac64.cppFlags += ' -std=c++14'
@@ -107,15 +95,11 @@ class GenerateLibs extends DefaultTask {
 
         def commonParams = ['-v', '-Dhas-compiler=true', '-Drelease=true', 'clean', 'postcompile'] as String[]
 
-        if (forWin32)
-            BuildExecutor.executeAnt(jniDir + '/build-windows32.xml', commonParams)
-        if (forWin64)
+        if (forWindows)
             BuildExecutor.executeAnt(jniDir + '/build-windows64.xml', commonParams)
-        if (forLinux32)
-            BuildExecutor.executeAnt(jniDir + '/build-linux32.xml', commonParams)
-        if (forLinux64)
+        if (forLinux)
             BuildExecutor.executeAnt(jniDir + '/build-linux64.xml', commonParams)
-        if (forMac64)
+        if (forMac)
             BuildExecutor.executeAnt(jniDir + '/build-macosx64.xml', commonParams)
 
         BuildExecutor.executeAnt(jniDir + '/build.xml', '-v', 'pack-natives')
@@ -126,19 +110,19 @@ class GenerateLibs extends DefaultTask {
             return
         }
 
-        if (target.os == BuildTarget.TargetOs.Windows) {
-            if (!target.is64Bit) {
-                target.cppFlags += ' -fstack-protector'
-            }
-            target.libraries += '-lbz2 -lssp'
+        switch (target.os) {
+            case BuildTarget.TargetOs.Windows:
+                target.cppFlags += ' -I/usr/x86_64-w64-mingw32/include/freetype2'
+                break
+            case BuildTarget.TargetOs.Linux:
+                target.cppFlags += ' -I/usr/include/freetype2'
+                break
+            case BuildTarget.TargetOs.MacOsX:
+                target.cppFlags += ' -I/usr/local/include/freetype2'
+                break
         }
 
-        target.cppFlags += ' -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include'
         target.libraries += ' -lfreetype'
-
-        if (target.os == BuildTarget.TargetOs.MacOsX) {
-            target.cppFlags.replace('-I/usr/include/', '-I/usr/local/include/')
-        }
     }
 
     void enableDefine(String define) {

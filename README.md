@@ -137,13 +137,11 @@ You can refer to [imgui-app](https://github.com/SpaiR/imgui-java/blob/v1.82.2/im
 For simplicity, example of dependencies for Gradle/Maven only shows how to add natives for Windows.
 Feel free to add other platforms.
 
-| Native Binaries                | System        |
-| ------------------------------ | ------------- |
-| imgui-java-natives-windows-x86 | Windows 32bit |
-| imgui-java-natives-windows     | Windows 64bit |
-| imgui-java-natives-linux-x86   | Linux 32bit   |
-| imgui-java-natives-linux       | Linux 64bit   |
-| imgui-java-natives-macos       | MacOS         |
+| Native Binaries                | System  |
+| ------------------------------ | ------- |
+| imgui-java-natives-windows     | Windows |
+| imgui-java-natives-linux       | Linux   |
+| imgui-java-natives-macos       | MacOS   |
 
 Take a note, that you also need to add dependencies to [LWJGL](https://www.lwjgl.org/). Examples below shows how to do it as well.
 
@@ -250,10 +248,8 @@ dependencies {
 
  1. Go to the [release page](https://github.com/SpaiR/imgui-java/releases/latest);
  2. Download `imgui-binding-${version}.jar`, `imgui-lwjgl3-${version}.jar` and binary libraries for your OS;
-   - imgui-java.dll - Windows 32bit
-   - imgui-java64.dll - Windows 64bit
-   - libimgui-java.so - Linux 32bit
-   - libimgui-java64.so - Linux 64bit
+   - imgui-java64.dll - Windows
+   - libimgui-java64.so - Linux
    - libimgui-java64.dylib - MacOS
  3. Add jars to your classpath;
  4. Provide a VM option: `imgui.library.path` or `java.library.path`. It should point to the folder where you've placed downloaded native libraries.
@@ -285,13 +281,11 @@ Don't forget to make clear for your Linux/Mac users, that they will need to inst
 - Maven/Gradle:<br>
   Use the same native libraries as you would, but with `-ft` suffix in the end.
   
-  | Native Binaries With FreeType     | System        |
-  | --------------------------------- | ------------- |
-  | imgui-java-natives-windows-x86-ft | Windows 32bit |
-  | imgui-java-natives-windows-ft     | Windows 64bit |
-  | imgui-java-natives-linux-x86-ft   | Linux 32bit   |
-  | imgui-java-natives-linux-ft       | Linux 64bit   |
-  | imgui-java-natives-macos-ft       | MacOS         |
+  | Native Binaries With FreeType     |  System  |
+  | --------------------------------- |  ------- |
+  | imgui-java-natives-windows-ft     |  Windows |
+  | imgui-java-natives-linux-ft       |  Linux   |
+  | imgui-java-natives-macos-ft       |  MacOS   |
   <details>
         <summary><b>Modified Gradle Example</b></summary>
 
@@ -339,20 +333,20 @@ Read [javadoc](https://javadoc.io/doc/io.github.spair/imgui-java-binding) and so
     * Java 8 or higher
     * Ant
     * Mingw-w64 (recommended way: use [MSYS2](https://www.msys2.org/) and install [mingw-w64-x86_64-toolchain](https://packages.msys2.org/group/mingw-w64-x86_64-toolchain) group)
- - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=win64 -Dlocal`
+ - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=win -Dlocal`
  - Run with: `./gradlew :example:run -PlibPath="../imgui-binding/build/libsNative/windows64"`
  
 ### Linux
  - Install dependencies: `openjdk8`, `mingw-w64-gcc`, `ant`. (Package names could vary from system to system.)
- - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=linux64 -Dlocal`
+ - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=linux -Dlocal`
  - Run with: `./gradlew :example:run -PlibPath=../imgui-binding/build/libsNative/linux64`
  
 ### MacOS
  - Check dependencies from "Linux" section and make sure you have them installed.
- - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=mac64 -Dlocal`
+ - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=mac -Dlocal`
  - Run with: `./gradlew :example:run -PlibPath=../imgui-binding/build/libsNative/macosx64`
 
-In `envs` parameter next values could be used `win32`, `win64`, `linux32`, `linux64` or `mac64`.<br>
+In `envs` parameter next values could be used `win`, `linux` or `mac`.<br>
 `-Dlocal` is optional and means that natives will be built under the `./imgui-binding/build/` folder. Otherwise `/tmp/imgui` folder will be used.
 On Windows always use local build.
 

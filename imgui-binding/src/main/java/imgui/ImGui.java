@@ -107,6 +107,7 @@ public class ImGui {
 
             final Path libBin = tmpDir.resolve(fullLibName);
             Files.copy(is, libBin, StandardCopyOption.REPLACE_EXISTING);
+            libBin.toFile().deleteOnExit();
 
             return libBin.toFile().getAbsolutePath();
         } catch (IOException e) {

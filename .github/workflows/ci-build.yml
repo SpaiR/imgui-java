@@ -22,34 +22,24 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        type: [win32, win64, linux32, linux64, mac64]
+        type: [win, linux, mac]
         include:
           - os: ubuntu-latest
-            type: win32
-            expected: imgui-binding/build/libsNative/windows32/imgui-java.dll
+            type: win
+            expected: /tmp/imgui/libsNative/windows64/imgui-java64.dll
           - os: ubuntu-latest
-            type: win64
-            expected: imgui-binding/build/libsNative/windows64/imgui-java64.dll
-          - os: ubuntu-latest
-            type: linux32
-            expected: imgui-binding/build/libsNative/linux32/libimgui-java.so
-          - os: ubuntu-latest
-            type: linux64
-            expected: imgui-binding/build/libsNative/linux64/libimgui-java64.so
+            type: linux
+            expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
           - os: macos-latest
-            type: mac64
-            expected: imgui-binding/build/libsNative/macosx64/libimgui-java64.dylib
+            type: mac
+            expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
         exclude:
           - os: ubuntu-latest
-            type: mac64
+            type: mac
           - os: macos-latest
-            type: win32
+            type: win
           - os: macos-latest
-            type: win64
-          - os: macos-latest
-            type: linux32
-          - os: macos-latest
-            type: linux64
+            type: linux
     name: Build Natives [${{ matrix.os }}]-[${{ matrix.type }}]
     runs-on: ${{ matrix.os }}
     steps:
@@ -69,9 +59,8 @@ jobs:
       - name: Build [${{ matrix.type }}]
         uses: eskatos/gradle-command-action@v1
         with:
-          arguments: :imgui-binding:generateLibs -Denvs=${{ matrix.type }} -Dlocal
+          arguments: :imgui-binding:generateLibs -Denvs=${{ matrix.type }}
       - name: Check [${{ matrix.expected }}]
         uses: andstor/file-existence-action@v1
         with:
           files: ${{ matrix.expected }}
-
