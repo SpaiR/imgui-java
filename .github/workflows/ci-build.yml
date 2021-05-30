@@ -1,13 +1,5 @@
 name: CI Build
-on:
-  push:
-  pull_request:
-  workflow_dispatch:
-    inputs:
-      type:
-        description: 'Type'
-        required: true
-        default: 'update'
+on: [push, pull_request, workflow_dispatch]
 jobs:
   build-java:
     strategy:
@@ -101,7 +93,7 @@ jobs:
           path: ${{ matrix.expected }}
           if-no-files-found: error
   update-natives:
-    if: github.event.inputs.type == 'update'
+    if: github.event_name == 'workflow_dispatch'
     name: Update Natives
     runs-on: ubuntu-20.04
     needs: build-natives
@@ -113,8 +105,6 @@ jobs:
 
       - name: Checkout Repository
         uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GH_ACTIONS_REPO }}
 
       - name: Move Natives
         run: |
