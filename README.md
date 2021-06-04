@@ -40,7 +40,7 @@ It hides all low-level stuff under one class to extend, so you can build your GU
 # How to Try
 _Make sure you have installed Java 8 or higher._
 
-<p align="center"><img src="https://i.imgur.com/clYSVjG.png"/></p>
+<p align="center"><img src="https://i.imgur.com/JjhR9in.png"/></p>
 
 ### [Demo](https://i.imgur.com/c0ds1EZ.gif)
 
@@ -260,6 +260,8 @@ dependencies {
   A small, dependency-free node editor for dear imgui. (A good choice for simple start.)
 - [imgui-node-editor](https://github.com/thedmd/imgui-node-editor/tree/687a72f940c76cf5064e13fe55fa0408c18fcbe4) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.82.2/example/src/main/java/ExampleImGuiNodeEditor.java) <br>
   Node Editor using ImGui. (A bit more complex than ImNodes, but has more features.)
+- [ImGuizmo](https://github.com/CedricGuillemet/ImGuizmo/tree/f7bbbe39971d9d45816417a70e9b53a0f698c56e) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.82.2/example/src/main/java/ExampleImGuizmo.java) <br>
+  Immediate mode 3D gizmo for scene editing and other controls based on Dear Imgui.
 
 ## Freetype
 By default, Dear ImGui uses stb-truetype to render fonts. Yet there is an option to use FreeType font renderer. Go to the [imgui_freetype](https://github.com/ocornut/imgui/tree/256594575d95d56dda616c544c509740e74906b4/misc/freetype) to read about the difference.
@@ -277,7 +279,7 @@ You can still use freetype binaries for Windows builds without worry though.
 **For better fonts** use freetype binaries.<br>
 Don't forget to make clear for your Linux/Mac users, that they will need to install freetype on their systems as well.
 
-### How To Use
+### How To Use FreeType
 - Maven/Gradle:<br>
   Use the same native libraries as you would, but with `-ft` suffix in the end.
   
