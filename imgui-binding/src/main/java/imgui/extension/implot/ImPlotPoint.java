@@ -44,7 +44,7 @@ public final class ImPlotPoint extends ImGuiStruct
         return nGetY(this.ptr);
     }
 
-    private native double nGetY(long ptr); /*
+    private static native double nGetY(long ptr); /*
         return ((ImPlotPoint*)ptr)->y;
      */
 
