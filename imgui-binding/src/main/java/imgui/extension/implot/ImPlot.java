@@ -1,6 +1,8 @@
 package imgui.extension.implot;
 
+import imgui.ImDrawList;
 import imgui.ImVec2;
+import imgui.ImVec4;
 import imgui.extension.implot.flag.ImPlotAxisFlags;
 import imgui.extension.implot.flag.ImPlotFlags;
 import imgui.extension.implot.flag.ImPlotYAxis;
@@ -9,11 +11,15 @@ import imgui.type.ImBoolean;
 import imgui.type.ImDouble;
 
 public final class ImPlot {
+    private static final ImDrawList IM_DRAW_LIST;
+
     private static final ImPlotContext IMPLOT_CONTEXT;
     private static final ImPlotPoint IMPLOT_POINT;
     private static final ImPlotLimits IMPLOT_LIMITS;
 
     static {
+        IM_DRAW_LIST = new ImDrawList(0);
+
         IMPLOT_CONTEXT = new ImPlotContext(0);
         IMPLOT_POINT = new ImPlotPoint(0);
         IMPLOT_LIMITS = new ImPlotLimits(0);
@@ -643,9 +649,181 @@ public final class ImPlot {
     */
 
     //-----------------------------------------------------------------------------
+    // Plot Tools
+    //-----------------------------------------------------------------------------
+
+    //TODO plot tools
+
+//    // Shows an annotation callout at a chosen point.
+//    IMPLOT_API void Annotate(double x, double y, const ImVec2& pix_offset, const char* fmt, ...)                                       IM_FMTARGS(4);
+//    IMPLOT_API void Annotate(double x, double y, const ImVec2& pix_offset, const ImVec4& color, const char* fmt, ...)                  IM_FMTARGS(5);
+//    IMPLOT_API void AnnotateV(double x, double y, const ImVec2& pix_offset, const char* fmt, va_list args)                             IM_FMTLIST(4);
+//    IMPLOT_API void AnnotateV(double x, double y, const ImVec2& pix_offset, const ImVec4& color, const char* fmt, va_list args)        IM_FMTLIST(5);
+//
+//    // Same as above, but the annotation will always be clamped to stay inside the plot area.
+//    IMPLOT_API void AnnotateClamped(double x, double y, const ImVec2& pix_offset, const char* fmt, ...)                                IM_FMTARGS(4);
+//    IMPLOT_API void AnnotateClamped(double x, double y, const ImVec2& pix_offset, const ImVec4& color, const char* fmt, ...)           IM_FMTARGS(5);
+//    IMPLOT_API void AnnotateClampedV(double x, double y, const ImVec2& pix_offset, const char* fmt, va_list args)                      IM_FMTLIST(4);
+//    IMPLOT_API void AnnotateClampedV(double x, double y, const ImVec2& pix_offset, const ImVec4& color, const char* fmt, va_list args) IM_FMTLIST(5);
+//
+//    // Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text.
+//    IMPLOT_API bool DragLineX(const char* id, double* x_value, bool show_label = true, const ImVec4& col = IMPLOT_AUTO_COL, float thickness = 1);
+//    // Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text.
+//    IMPLOT_API bool DragLineY(const char* id, double* y_value, bool show_label = true, const ImVec4& col = IMPLOT_AUTO_COL, float thickness = 1);
+//    // Shows a draggable point at x,y. #col defaults to ImGuiCol_Text.
+//    IMPLOT_API bool DragPoint(const char* id, double* x, double* y, bool show_label = true, const ImVec4& col = IMPLOT_AUTO_COL, float radius = 4);
+
+    //-----------------------------------------------------------------------------
+    // Legend Utils and Tools
+    //-----------------------------------------------------------------------------
+
+    //TODO legend utils and tools
+
+//    // Set the location of the current plot's legend (default = North|West).
+//    IMPLOT_API void SetLegendLocation(ImPlotLocation location, ImPlotOrientation orientation = ImPlotOrientation_Vertical, bool outside = false);
+//    // Set the location of the current plot's mouse position text (default = South|East).
+//    IMPLOT_API void SetMousePosLocation(ImPlotLocation location);
+//    // Returns true if a plot item legend entry is hovered.
+//    IMPLOT_API bool IsLegendEntryHovered(const char* label_id);
+//
+//    // Begin a popup for a legend entry.
+//    IMPLOT_API bool BeginLegendPopup(const char* label_id, ImGuiMouseButton mouse_button = 1);
+//    // End a popup for a legend entry.
+//    IMPLOT_API void EndLegendPopup();
+
+    //-----------------------------------------------------------------------------
+    // Drag and Drop Utils
+    //-----------------------------------------------------------------------------
+
+    //TODO drag and drop utils
+
+//    // Turns the current plot's plotting area into a drag and drop target. Don't forget to call EndDragDropTarget!
+//    IMPLOT_API bool BeginDragDropTarget();
+//    // Turns the current plot's X-axis into a drag and drop target. Don't forget to call EndDragDropTarget!
+//    IMPLOT_API bool BeginDragDropTargetX();
+//    // Turns the current plot's Y-Axis into a drag and drop target. Don't forget to call EndDragDropTarget!
+//    IMPLOT_API bool BeginDragDropTargetY(ImPlotYAxis axis = ImPlotYAxis_1);
+//    // Turns the current plot's legend into a drag and drop target. Don't forget to call EndDragDropTarget!
+//    IMPLOT_API bool BeginDragDropTargetLegend();
+//    // Ends a drag and drop target (currently just an alias for ImGui::EndDragDropTarget).
+//    IMPLOT_API void EndDragDropTarget();
+//
+//    // NB: By default, plot and axes drag and drop *sources* require holding the Ctrl modifier to initiate the drag.
+//    // You can change the modifier if desired. If ImGuiKeyModFlags_None is provided, the axes will be locked from panning.
+//
+//    // Turns the current plot's plotting area into a drag and drop source. Don't forget to call EndDragDropSource!
+//    IMPLOT_API bool BeginDragDropSource(ImGuiKeyModFlags key_mods = ImGuiKeyModFlags_Ctrl, ImGuiDragDropFlags flags = 0);
+//    // Turns the current plot's X-axis into a drag and drop source. Don't forget to call EndDragDropSource!
+//    IMPLOT_API bool BeginDragDropSourceX(ImGuiKeyModFlags key_mods = ImGuiKeyModFlags_Ctrl, ImGuiDragDropFlags flags = 0);
+//    // Turns the current plot's Y-axis into a drag and drop source. Don't forget to call EndDragDropSource!
+//    IMPLOT_API bool BeginDragDropSourceY(ImPlotYAxis axis = ImPlotYAxis_1, ImGuiKeyModFlags key_mods = ImGuiKeyModFlags_Ctrl, ImGuiDragDropFlags flags = 0);
+//    // Turns an item in the current plot's legend into drag and drop source. Don't forget to call EndDragDropSource!
+//    IMPLOT_API bool BeginDragDropSourceItem(const char* label_id, ImGuiDragDropFlags flags = 0);
+//    // Ends a drag and drop source (currently just an alias for ImGui::EndDragDropSource).
+//    IMPLOT_API void EndDragDropSource();
+
+    //-----------------------------------------------------------------------------
+    // Plot and Item Styling
+    //-----------------------------------------------------------------------------
+
+    //TODO plot and item styling
+
+    //-----------------------------------------------------------------------------
+    // Colormaps
+    //-----------------------------------------------------------------------------
+
+    //TODO colormaps
+
+    //-----------------------------------------------------------------------------
+    // Miscellaneous
+    //-----------------------------------------------------------------------------
+
+    /**
+     * Render icons similar to those that appear in legends (nifty for data lists).
+     */
+    public static void itemIcon(final ImVec4 col) {
+        nItemIcon(col.w, col.x, col.y, col.z);
+    }
+
+    private static native void nItemIcon(final double a, final double b, final double c, final double d); /*
+        ImPlot::ItemIcon(ImVec4(a, b, c, d));
+    */
+
+    /**
+     * Render icons similar to those that appear in legends (nifty for data lists).
+     */
+    public static native void colormapIcon(int color_map); /*
+        ImPlot::ColormapIcon(color_map);
+    */
+
+    /**
+     * Get the plot draw list for custom rendering to the current plot area. Call between Begin/EndPlot.
+     */
+    public static ImDrawList getPlotDrawList() {
+        IM_DRAW_LIST.ptr = nGetPlotDrawList();
+        return IM_DRAW_LIST;
+    }
+
+    private static native long nGetPlotDrawList(); /*
+        return (intptr_t)ImPlot::GetPlotDrawList();
+    */
+
+    /**
+     * Push clip rect for rendering to current plot area. The rect can be expanded or contracted by #expand pixels. Call between Begin/EndPlot.
+     */
+    public static native void pushPlotClipRect(float expand); /*
+        ImPlot::PushPlotClipRect(expand);
+    */
+
+    /**
+     * Pop plot clip rect. Call between Begin/EndPlot.
+     */
+    public static native void popPlotClipRect(); /*
+        ImPlot::PopPlotClipRect();
+    */
+
+    /**
+     * Shows ImPlot style selector dropdown menu.
+     */
+    public static native boolean showStyleSelector(String label); /*
+        return ImPlot::ShowStyleSelector(label);
+    */
+
+    /**
+     * Shows ImPlot colormap selector dropdown menu.
+     */
+    public static native boolean showColormapSelector(String label); /*
+        return ImPlot::ShowColormapSelector(label);
+    */
+
+    /**
+     * Shows ImPlot style editor block (not a window).
+     */
+    public static native void showStyleEditor(); /*
+        ImPlot::ShowStyleEditor(NULL);
+    */
+
+    /**
+     * Add basic help/info block for end users (not a window).
+     */
+    public static native void showUserGuide(); /*
+        ImPlot::ShowUserGuide();
+    */
+
+    /**
+     * Shows ImPlot metrics/debug information window.
+     */
+    public static native void showMetricsWindow(); /*
+        ImPlot::ShowMetricsWindow(NULL);
+    */
+
+    //-----------------------------------------------------------------------------
     // Demo
     //-----------------------------------------------------------------------------
 
+    /**
+     * Shows the ImPlot demo window.
+     */
     public static void showDemoWindow(final ImBoolean pOpen) {
         nShowDemoWindow(pOpen.getData());
     }
