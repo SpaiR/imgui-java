@@ -10,9 +10,13 @@ import imgui.type.ImDouble;
 
 public final class ImPlot {
     private static final ImPlotContext IMPLOT_CONTEXT;
+    private static final ImPlotPoint IMPLOT_POINT;
+    private static final ImPlotLimits IMPLOT_LIMITS;
 
     static {
         IMPLOT_CONTEXT = new ImPlotContext(0);
+        IMPLOT_POINT = new ImPlotPoint(0);
+        IMPLOT_LIMITS = new ImPlotLimits(0);
     }
 
     private ImPlot() {
@@ -426,70 +430,217 @@ public final class ImPlot {
         ImPlot::SetNextPlotFormatY(fmt);
      */
 
-//    // The following functions MUST be called BETWEEN Begin/EndPlot!
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Select which Y axis will be used for subsequent plot elements. The default is ImPlotYAxis_1, or the first (left) Y axis. Enable 2nd and 3rd axes with ImPlotFlags_YAxisX.
+     */
+    public static native void setPlotYAxis(int y_axis); /*
+        ImPlot::SetPlotYAxis(y_axis);
+    */
+
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Hides the next plot item.
+     */
+    public static void hideNextItem() {
+        hideNextItem(true, ImGuiCond.Once);
+    }
+
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Hides the next plot item. Use ImGuiCond. Always if you need to forcefully set this every frame (default ImGuiCond.Once).
+     */
+    public static native void hideNextItem(boolean hidden, int imgui_cond); /*
+        ImPlot::HideNextItem(hidden, imgui_cond);
+    */
+
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Convert pixels to a position in the current plot's coordinate system. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
+     */
+    public static ImPlotPoint pixelsToPlot(final ImVec2 pix, int y_axis) {
+        IMPLOT_POINT.ptr = nPixelsToPlot(pix.x, pix.y, y_axis);
+        return IMPLOT_POINT;
+    }
+
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Convert pixels to a position in the current plot's coordinate system. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
+     */
+    public static ImPlotPoint pixelsToPlot(float x, float y, int y_axis) {
+        IMPLOT_POINT.ptr = nPixelsToPlot(x, y, y_axis);
+        return IMPLOT_POINT;
+    }
+
+    private static native long nPixelsToPlot(float x, float y, int y_axis); /*
+        ImPlotPoint* p = new ImPlotPoint(ImPlot::PixelsToPlot(x, y, y_axis)); //avoid complaining about taking the address of an rvalue
+        return (intptr_t)p;
+    */
+
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Convert a position in the current plot's coordinate system to pixels. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
+     */
+    public static ImVec2 plotToPixels(ImPlotPoint plt, int y_axis) {
+        return plotToPixels(plt.getX(), plt.getY(), y_axis);
+    }
+
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Convert a position in the current plot's coordinate system to pixels. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
+     */
+    public static ImVec2 plotToPixels(double x, double y, int y_axis) {
+        final ImVec2 value = new ImVec2();
+        nPlotToPixels(x, y, y_axis, value);
+        return value;
+    }
+
+    private static native void nPlotToPixels(double x, double y, int y_axis, ImVec2 vec); /*
+        Jni::ImVec2Cpy(env, ImPlot::PlotToPixels(x, y, y_axis), vec);
+    */
 
 
-//    // Select which Y axis will be used for subsequent plot elements. The default is ImPlotYAxis_1, or the first (left) Y axis. Enable 2nd and 3rd axes with ImPlotFlags_YAxisX.
-//    IMPLOT_API void SetPlotYAxis(ImPlotYAxis y_axis);
 
-//    // Hides or shows the next plot item (i.e. as if it were toggled from the legend). Use ImGuiCond_Always if you need to forcefully set this every frame.
-//    IMPLOT_API void HideNextItem(bool hidden = true, ImGuiCond cond = ImGuiCond_Once);
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Get the current Plot position (top-left) in pixels.
+     */
+    public static ImVec2 getPlotPos() {
+        final ImVec2 value = new ImVec2();
+        getPlotPos(value);
+        return value;
+    }
 
+    public static native void getPlotPos(ImVec2 vec); /*
+        Jni::ImVec2Cpy(env, ImPlot::GetPlotPos(), vec);
+    */
 
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Get the current Plot size in pixels.
+     */
+    public static ImVec2 getPlotSize() {
+        final ImVec2 value = new ImVec2();
+        getPlotSize(value);
+        return value;
+    }
 
-//    // Convert pixels to a position in the current plot's coordinate system. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-//    IMPLOT_API ImPlotPoint PixelsToPlot(const ImVec2& pix, ImPlotYAxis y_axis = IMPLOT_AUTO);
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Get the current Plot size in pixels.
+     */
+    public static native void getPlotSize(ImVec2 vec); /*
+        Jni::ImVec2Cpy(env, ImPlot::GetPlotSize(), vec);
+    */
 
-//    IMPLOT_API ImPlotPoint PixelsToPlot(float x, float y, ImPlotYAxis y_axis = IMPLOT_AUTO);
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Returns true if the plot area in the current plot is hovered.
+     */
+    public static native boolean isPlotHovered(); /*
+        return ImPlot::IsPlotHovered();
+    */
 
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Returns true if the XAxis plot area in the current plot is hovered.
+     */
+    public static native boolean isPlotXAxisHovered(); /*
+        return ImPlot::IsPlotXAxisHovered();
+    */
 
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Returns true if the YAxis[n] plot area in the current plot is hovered.
+     */
+    public static native boolean isPlotYAxisHovered(int y_axis); /*
+        return ImPlot::IsPlotYAxisHovered(y_axis);
+    */
 
-//    // Convert a position in the current plot's coordinate system to pixels. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-//    IMPLOT_API ImVec2 PlotToPixels(const ImPlotPoint& plt, ImPlotYAxis y_axis = IMPLOT_AUTO);
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Returns the mouse position in x,y coordinates of the current plot. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
+     */
+    public static ImPlotPoint getPlotMousePos(int y_axis) {
+        IMPLOT_POINT.ptr = nGetPlotMousePos(y_axis);
+        return IMPLOT_POINT;
+    }
 
-//    IMPLOT_API ImVec2 PlotToPixels(double x, double y, ImPlotYAxis y_axis = IMPLOT_AUTO);
+    private static native long nGetPlotMousePos(int y_axis); /*
+        ImPlotPoint* p = new ImPlotPoint(ImPlot::GetPlotMousePos(y_axis));
+        return (intptr_t)p;
+    */
 
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Returns the current plot axis range. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
+     */
+    public static ImPlotLimits getPlotLimits(int y_axis) {
+        IMPLOT_LIMITS.ptr = nGetPlotLimits(y_axis);
+        return IMPLOT_LIMITS;
+    }
 
+    private static native long nGetPlotLimits(int y_axis); /*
+        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotLimits(y_axis));
+        return (intptr_t)p;
+    */
 
-//    // Get the current Plot position (top-left) in pixels.
-//    IMPLOT_API ImVec2 GetPlotPos();
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Returns true if the current plot is being box selected.
+     */
+    public static native boolean isPlotSelected(); /*
+        return ImPlot::IsPlotSelected();
+    */
 
-//    // Get the curent Plot size in pixels.
-//    IMPLOT_API ImVec2 GetPlotSize();
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Returns the current plot box selection bounds.
+     */
+    public static ImPlotLimits getPlotSelection(int y_axis) {
+        IMPLOT_LIMITS.ptr = nGetPlotSelection(y_axis);
+        return IMPLOT_LIMITS;
+    }
 
-//    // Returns true if the plot area in the current plot is hovered.
-//    IMPLOT_API bool IsPlotHovered();
+    private static native long nGetPlotSelection(int y_axis); /*
+        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotSelection(y_axis));
+        return (intptr_t)p;
+    */
 
-//    // Returns true if the XAxis plot area in the current plot is hovered.
-//    IMPLOT_API bool IsPlotXAxisHovered();
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Returns true if the current plot is being queried or has an active query. Query must be enabled with ImPlotFlags_Query.
+     */
+    public static native boolean isPlotQueried(); /*
+        return ImPlot::IsPlotQueried();
+    */
 
-//    // Returns true if the YAxis[n] plot area in the current plot is hovered.
-//    IMPLOT_API bool IsPlotYAxisHovered(ImPlotYAxis y_axis = 0);
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Returns the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
+     */
+    public static ImPlotLimits getPlotQuery(int y_axis) {
+        IMPLOT_LIMITS.ptr = nGetPlotQuery(y_axis);
+        return IMPLOT_LIMITS;
+    }
 
-//    // Returns the mouse position in x,y coordinates of the current plot. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-//    IMPLOT_API ImPlotPoint GetPlotMousePos(ImPlotYAxis y_axis = IMPLOT_AUTO);
+    private static native long nGetPlotQuery(int y_axis); /*
+        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotQuery(y_axis));
+        return (intptr_t)p;
+    */
 
-//    // Returns the current plot axis range. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-//    IMPLOT_API ImPlotLimits GetPlotLimits(ImPlotYAxis y_axis = IMPLOT_AUTO);
+    /**
+     * This function MUST be called BETWEEN begin/endPlot!
+     * Set the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
+     */
+    public static void setPlotQuery(ImPlotLimits query, int y_axis) {
+        nSetPlotQuery(query.ptr, y_axis);
+    }
 
-
-
-//    // Returns true if the current plot is being box selected.
-//    IMPLOT_API bool IsPlotSelected();
-
-//    // Returns the current plot box selection bounds.
-//    IMPLOT_API ImPlotLimits GetPlotSelection(ImPlotYAxis y_axis = IMPLOT_AUTO);
-
-
-
-//    // Returns true if the current plot is being queried or has an active query. Query must be enabled with ImPlotFlags_Query.
-//    IMPLOT_API bool IsPlotQueried();
-
-//    // Returns the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
-//    IMPLOT_API ImPlotLimits GetPlotQuery(ImPlotYAxis y_axis = IMPLOT_AUTO);
-
-//    // Set the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
-//    IMPLOT_API void SetPlotQuery(const ImPlotLimits& query, ImPlotYAxis y_axis = IMPLOT_AUTO);
+    private static native void nSetPlotQuery(long ptr, int y_axis); /*
+        ImPlotLimits* query = (ImPlotLimits*)ptr;
+        ImPlot::SetPlotQuery(*query, y_axis);
+    */
 
     //-----------------------------------------------------------------------------
     // Demo
