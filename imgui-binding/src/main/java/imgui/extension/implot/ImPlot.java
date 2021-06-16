@@ -724,32 +724,75 @@ public final class ImPlot {
     // Drag and Drop Utils
     //-----------------------------------------------------------------------------
 
-    //TODO drag and drop utils
+    /**
+     * Turns the current plot's plotting area into a drag and drop target. Don't forget to call EndDragDropTarget!
+     */
+    public static native boolean beginDragDropTarget(); /*
+        return ImPlot::BeginDragDropTarget();
+    */
 
-//    // Turns the current plot's plotting area into a drag and drop target. Don't forget to call EndDragDropTarget!
-//    IMPLOT_API bool BeginDragDropTarget();
-//    // Turns the current plot's X-axis into a drag and drop target. Don't forget to call EndDragDropTarget!
-//    IMPLOT_API bool BeginDragDropTargetX();
-//    // Turns the current plot's Y-Axis into a drag and drop target. Don't forget to call EndDragDropTarget!
-//    IMPLOT_API bool BeginDragDropTargetY(ImPlotYAxis axis = ImPlotYAxis_1);
-//    // Turns the current plot's legend into a drag and drop target. Don't forget to call EndDragDropTarget!
-//    IMPLOT_API bool BeginDragDropTargetLegend();
-//    // Ends a drag and drop target (currently just an alias for ImGui::EndDragDropTarget).
-//    IMPLOT_API void EndDragDropTarget();
-//
-//    // NB: By default, plot and axes drag and drop *sources* require holding the Ctrl modifier to initiate the drag.
-//    // You can change the modifier if desired. If ImGuiKeyModFlags_None is provided, the axes will be locked from panning.
-//
-//    // Turns the current plot's plotting area into a drag and drop source. Don't forget to call EndDragDropSource!
-//    IMPLOT_API bool BeginDragDropSource(ImGuiKeyModFlags key_mods = ImGuiKeyModFlags_Ctrl, ImGuiDragDropFlags flags = 0);
-//    // Turns the current plot's X-axis into a drag and drop source. Don't forget to call EndDragDropSource!
-//    IMPLOT_API bool BeginDragDropSourceX(ImGuiKeyModFlags key_mods = ImGuiKeyModFlags_Ctrl, ImGuiDragDropFlags flags = 0);
-//    // Turns the current plot's Y-axis into a drag and drop source. Don't forget to call EndDragDropSource!
-//    IMPLOT_API bool BeginDragDropSourceY(ImPlotYAxis axis = ImPlotYAxis_1, ImGuiKeyModFlags key_mods = ImGuiKeyModFlags_Ctrl, ImGuiDragDropFlags flags = 0);
-//    // Turns an item in the current plot's legend into drag and drop source. Don't forget to call EndDragDropSource!
-//    IMPLOT_API bool BeginDragDropSourceItem(const char* label_id, ImGuiDragDropFlags flags = 0);
-//    // Ends a drag and drop source (currently just an alias for ImGui::EndDragDropSource).
-//    IMPLOT_API void EndDragDropSource();
+    /**
+     * Turns the current plot's X-axis into a drag and drop target. Don't forget to call EndDragDropTarget!
+     */
+    public static native boolean beginDragDropTargetX(); /*
+        return ImPlot::BeginDragDropTarget();
+    */
+
+    /**
+     * Turns the current plot's Y-Axis into a drag and drop target. Don't forget to call EndDragDropTarget!
+     */
+    public static native boolean beginDragDropTargetY(int y_axis); /*
+        return ImPlot::BeginDragDropTargetY(y_axis);
+    */
+
+    /**
+     * Turns the current plot's legend into a drag and drop target. Don't forget to call EndDragDropTarget!
+     */
+    public static native boolean beginDragDropTargetLegend(); /*
+        return ImPlot::BeginDragDropTargetLegend();
+    */
+
+    /**
+     * Ends a drag and drop target.
+     */
+    public static native void endDragDropTarget(); /*
+        ImPlot::EndDragDropTarget();
+    */
+
+    /**
+     * Turns the current plot's plotting area into a drag and drop source. Don't forget to call EndDragDropSource!
+     */
+    public static native boolean beginDragDropSource(int key_mods, int drag_drop_flags); /*
+        return ImPlot::BeginDragDropSource(key_mods, drag_drop_flags);
+    */
+
+    /**
+     * Turns the current plot's X-axis into a drag and drop source. Don't forget to call EndDragDropSource!
+     */
+    public static native boolean beginDragDropSourceX(int key_mods, int drag_drop_flags); /*
+        return ImPlot::BeginDragDropSourceX(key_mods, drag_drop_flags);
+    */
+
+    /**
+     * Turns the current plot's Y-axis into a drag and drop source. Don't forget to call EndDragDropSource!
+     */
+    public static native boolean beginDragDropSourceY(int y_axis, int key_mods, int drag_drop_flags); /*
+        return ImPlot::BeginDragDropSourceY(y_axis, key_mods, drag_drop_flags);
+    */
+
+    /**
+     * Turns an item in the current plot's legend into drag and drop source. Don't forget to call EndDragDropSource!
+     */
+    public static native boolean beginDragDropSourceItem(String label_id, int drag_drop_flags); /*
+        return ImPlot::BeginDragDropSourceItem(label_id, drag_drop_flags);
+    */
+
+    /**
+     * Ends a drag and drop source.
+     */
+    public static native void endDragDropSource(); /*
+        ImPlot::EndDragDropSource();
+    */
 
     //-----------------------------------------------------------------------------
     // Plot and Item Styling
