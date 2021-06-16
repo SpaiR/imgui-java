@@ -7,6 +7,7 @@ import imgui.extension.implot.flag.ImPlotAxisFlags;
 import imgui.extension.implot.flag.ImPlotFlags;
 import imgui.extension.implot.flag.ImPlotYAxis;
 import imgui.flag.ImGuiCond;
+import imgui.flag.ImGuiMouseButton;
 import imgui.type.ImBoolean;
 import imgui.type.ImDouble;
 
@@ -677,19 +678,47 @@ public final class ImPlot {
     // Legend Utils and Tools
     //-----------------------------------------------------------------------------
 
-    //TODO legend utils and tools
+    /**
+     * Set the location of the current plot's legend
+     */
+    public static native void setLegendLocation(int location, int orientation, boolean outside); /*
+        ImPlot::SetLegendLocation(location, orientation, outside);
+    */
 
-//    // Set the location of the current plot's legend (default = North|West).
-//    IMPLOT_API void SetLegendLocation(ImPlotLocation location, ImPlotOrientation orientation = ImPlotOrientation_Vertical, bool outside = false);
-//    // Set the location of the current plot's mouse position text (default = South|East).
-//    IMPLOT_API void SetMousePosLocation(ImPlotLocation location);
-//    // Returns true if a plot item legend entry is hovered.
-//    IMPLOT_API bool IsLegendEntryHovered(const char* label_id);
-//
-//    // Begin a popup for a legend entry.
-//    IMPLOT_API bool BeginLegendPopup(const char* label_id, ImGuiMouseButton mouse_button = 1);
-//    // End a popup for a legend entry.
-//    IMPLOT_API void EndLegendPopup();
+    /**
+     * Set the location of the current plot's mouse position text
+     */
+    public static native void setMousePosLocation(int location); /*
+        ImPlot::SetMousePosLocation(location);
+    */
+
+    /**
+     * Returns true if a plot item legend entry is hovered.
+     */
+    public static native boolean isLegendEntryHovered(String label_id); /*
+        return ImPlot::IsLegendEntryHovered(label_id);
+    */
+
+    /**
+     * Begin a popup for a legend entry.
+     */
+    public static boolean beginLegendPopup(String label_id) {
+        return beginLegendPopup(label_id, ImGuiMouseButton.Right);
+    }
+
+    /**
+     * Begin a popup for a legend entry.
+     */
+    public static native boolean beginLegendPopup(String label_id, int mouse_button); /*
+        return ImPlot::BeginLegendPopup(label_id, mouse_button);
+    */
+
+    /**
+     * End a popup for a legend entry.
+     */
+    public static native void endLegendPopup(); /*
+        ImPlot::EndLegendPopup();
+    */
 
     //-----------------------------------------------------------------------------
     // Drag and Drop Utils
