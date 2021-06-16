@@ -266,6 +266,126 @@ public final class ImPlot {
 
     //TODO Bindings for plot items
 
+//    // The template functions below are explicitly instantiated in implot_items.cpp.
+//    // They are not intended to be used generically with custom types. You will get
+//    // a linker error if you try! All functions support the following scalar types:
+//    //
+//    // float, double, ImS8, ImU8, ImS16, ImU16, ImS32, ImU32, ImS64, ImU64
+//    //
+//    //
+//    // If you need to plot custom or non-homogenous data you have a few options:
+//    //
+//    // 1. If your data is a simple struct/class (e.g. Vector2f), you can use striding.
+//    //    This is the most performant option if applicable.
+//    //
+//    //    struct Vector2f { float X, Y; };
+//    //    ...
+//    //    Vector2f data[42];
+//    //    ImPlot::PlotLine("line", &data[0].x, &data[0].y, 42, 0, sizeof(Vector2f)); // or sizeof(float)*2
+//    //
+//    // 2. Write a custom getter C function or C++ lambda and pass it and optionally your data to
+//    //    an ImPlot function post-fixed with a G (e.g. PlotScatterG). This has a slight performance
+//    //    cost, but probably not enough to worry about unless your data is very large. Examples:
+//    //
+//    //    ImPlotPoint MyDataGetter(void* data, int idx) {
+//    //        MyData* my_data = (MyData*)data;
+//    //        ImPlotPoint p;
+//    //        p.x = my_data->GetTime(idx);
+//    //        p.y = my_data->GetValue(idx);
+//    //        return p
+//    //    }
+//    //    ...
+//    //    auto my_lambda = [](void*, int idx) {
+//    //        double t = idx / 999.0;
+//    //        return ImPlotPoint(t, 0.5+0.5*std::sin(2*PI*10*t));
+//    //    };
+//    //    ...
+//    //    if (ImPlot::BeginPlot("MyPlot")) {
+//    //        MyData my_data;
+//    //        ImPlot::PlotScatterG("scatter", MyDataGetter, &my_data, my_data.Size());
+//    //        ImPlot::PlotLineG("line", my_lambda, nullptr, 1000);
+//    //        ImPlot::EndPlot();
+//    //    }
+//    //
+//    // NB: All types are converted to double before plotting. You may lose information
+//    // if you try plotting extremely large 64-bit integral types. Proceed with caution!
+//
+//    // Plots a standard 2D line plot.
+//    template <typename T> IMPLOT_API void PlotLine(const char* label_id, const T* values, int count, double xscale=1, double x0=0, int offset=0, int stride=sizeof(T));
+//    template <typename T> IMPLOT_API void PlotLine(const char* label_id, const T* xs, const T* ys, int count, int offset=0, int stride=sizeof(T));
+//    IMPLOT_API void PlotLineG(const char* label_id, ImPlotPoint (*getter)(void* data, int idx), void* data, int count, int offset=0);
+//
+//    // Plots a standard 2D scatter plot. Default marker is ImPlotMarker_Circle.
+//    template <typename T> IMPLOT_API  void PlotScatter(const char* label_id, const T* values, int count, double xscale=1, double x0=0, int offset=0, int stride=sizeof(T));
+//    template <typename T> IMPLOT_API  void PlotScatter(const char* label_id, const T* xs, const T* ys, int count, int offset=0, int stride=sizeof(T));
+//    IMPLOT_API  void PlotScatterG(const char* label_id, ImPlotPoint (*getter)(void* data, int idx), void* data, int count, int offset=0);
+//
+//    // Plots a a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
+//    template <typename T> IMPLOT_API void PlotStairs(const char* label_id, const T* values, int count, double xscale=1, double x0=0, int offset=0, int stride=sizeof(T));
+//    template <typename T> IMPLOT_API void PlotStairs(const char* label_id, const T* xs, const T* ys, int count, int offset=0, int stride=sizeof(T));
+//    IMPLOT_API void PlotStairsG(const char* label_id, ImPlotPoint (*getter)(void* data, int idx), void* data, int count, int offset=0);
+//
+//    // Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
+//    template <typename T> IMPLOT_API void PlotShaded(const char* label_id, const T* values, int count, double y_ref=0, double xscale=1, double x0=0, int offset=0, int stride=sizeof(T));
+//    template <typename T> IMPLOT_API void PlotShaded(const char* label_id, const T* xs, const T* ys, int count, double y_ref=0, int offset=0, int stride=sizeof(T));
+//    template <typename T> IMPLOT_API void PlotShaded(const char* label_id, const T* xs, const T* ys1, const T* ys2, int count, int offset=0, int stride=sizeof(T));
+//    IMPLOT_API void PlotShadedG(const char* label_id, ImPlotPoint (*getter1)(void* data, int idx), void* data1, ImPlotPoint (*getter2)(void* data, int idx), void* data2, int count, int offset=0);
+//
+//    // Plots a vertical bar graph. #width and #shift are in X units.
+//    template <typename T> IMPLOT_API void PlotBars(const char* label_id, const T* values, int count, double width=0.67, double shift=0, int offset=0, int stride=sizeof(T));
+//    template <typename T> IMPLOT_API void PlotBars(const char* label_id, const T* xs, const T* ys, int count, double width, int offset=0, int stride=sizeof(T));
+//    IMPLOT_API void PlotBarsG(const char* label_id, ImPlotPoint (*getter)(void* data, int idx), void* data, int count, double width, int offset=0);
+//
+//    // Plots a horizontal bar graph. #height and #shift are in Y units.
+//    template <typename T> IMPLOT_API void PlotBarsH(const char* label_id, const T* values, int count, double height=0.67, double shift=0, int offset=0, int stride=sizeof(T));
+//    template <typename T> IMPLOT_API void PlotBarsH(const char* label_id, const T* xs, const T* ys, int count, double height, int offset=0, int stride=sizeof(T));
+//    IMPLOT_API void PlotBarsHG(const char* label_id, ImPlotPoint (*getter)(void* data, int idx), void* data, int count, double height,  int offset=0);
+//
+//    // Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
+//    template <typename T> IMPLOT_API void PlotErrorBars(const char* label_id, const T* xs, const T* ys, const T* err, int count, int offset=0, int stride=sizeof(T));
+//    template <typename T> IMPLOT_API void PlotErrorBars(const char* label_id, const T* xs, const T* ys, const T* neg, const T* pos, int count, int offset=0, int stride=sizeof(T));
+//
+//    // Plots horizontal error bars. The label_id should be the same as the label_id of the associated line or bar plot.
+//    template <typename T> IMPLOT_API void PlotErrorBarsH(const char* label_id, const T* xs, const T* ys, const T* err, int count, int offset=0, int stride=sizeof(T));
+//    template <typename T> IMPLOT_API void PlotErrorBarsH(const char* label_id, const T* xs, const T* ys, const T* neg, const T* pos, int count, int offset=0, int stride=sizeof(T));
+//
+//    /// Plots vertical stems.
+//    template <typename T> IMPLOT_API void PlotStems(const char* label_id, const T* values, int count, double y_ref=0, double xscale=1, double x0=0, int offset=0, int stride=sizeof(T));
+//    template <typename T> IMPLOT_API void PlotStems(const char* label_id, const T* xs, const T* ys, int count, double y_ref=0, int offset=0, int stride=sizeof(T));
+//
+//    /// Plots infinite vertical or horizontal lines (e.g. for references or asymptotes).
+//    template <typename T> IMPLOT_API void PlotVLines(const char* label_id, const T* xs, int count, int offset=0, int stride=sizeof(T));
+//    template <typename T> IMPLOT_API void PlotHLines(const char* label_id, const T* ys, int count, int offset=0, int stride=sizeof(T));
+//
+//    // Plots a pie chart. If the sum of values > 1 or normalize is true, each value will be normalized. Center and radius are in plot units. #label_fmt can be set to NULL for no labels.
+//    template <typename T> IMPLOT_API void PlotPieChart(const char* const label_ids[], const T* values, int count, double x, double y, double radius, bool normalize=false, const char* label_fmt="%.1f", double angle0=90);
+//
+//    // Plots a 2D heatmap chart. Values are expected to be in row-major order. Leave #scale_min and scale_max both at 0 for automatic color scaling, or set them to a predefined range. #label_fmt can be set to NULL for no labels.
+//    template <typename T> IMPLOT_API void PlotHeatmap(const char* label_id, const T* values, int rows, int cols, double scale_min=0, double scale_max=0, const char* label_fmt="%.1f", const ImPlotPoint& bounds_min=ImPlotPoint(0,0), const ImPlotPoint& bounds_max=ImPlotPoint(1,1));
+//
+//    // Plots a horizontal histogram. #bins can be a positive integer or an ImPlotBin_ method. If #cumulative is true, each bin contains its count plus the counts of all previous bins.
+//    // If #density is true, the PDF is visualized. If both are true, the CDF is visualized. If #range is left unspecified, the min/max of #values will be used as the range.
+//    // If #range is specified, outlier values outside of the range are not binned. However, outliers still count toward normalizing and cumulative counts unless #outliers is false. The largest bin count or density is returned.
+//    template <typename T> IMPLOT_API double PlotHistogram(const char* label_id, const T* values, int count, int bins=ImPlotBin_Sturges, bool cumulative=false, bool density=false, ImPlotRange range=ImPlotRange(), bool outliers=true, double bar_scale=1.0);
+//
+//    // Plots two dimensional, bivariate histogram as a heatmap. #x_bins and #y_bins can be a positive integer or an ImPlotBin. If #density is true, the PDF is visualized.
+//    // If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
+//    // However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
+//    template <typename T> IMPLOT_API double PlotHistogram2D(const char* label_id, const T* xs, const T* ys, int count, int x_bins=ImPlotBin_Sturges, int y_bins=ImPlotBin_Sturges, bool density=false, ImPlotLimits range=ImPlotLimits(), bool outliers=true);
+//
+//    // Plots digital data. Digital plots do not respond to y drag or zoom, and are always referenced to the bottom of the plot.
+//    template <typename T> IMPLOT_API void PlotDigital(const char* label_id, const T* xs, const T* ys, int count, int offset=0, int stride=sizeof(T));
+//    IMPLOT_API void PlotDigitalG(const char* label_id, ImPlotPoint (*getter)(void* data, int idx), void* data, int count, int offset=0);
+//
+//    // Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
+//    IMPLOT_API void PlotImage(const char* label_id, ImTextureID user_texture_id, const ImPlotPoint& bounds_min, const ImPlotPoint& bounds_max, const ImVec2& uv0=ImVec2(0,0), const ImVec2& uv1=ImVec2(1,1), const ImVec4& tint_col=ImVec4(1,1,1,1));
+//
+//    // Plots a centered text label at point x,y with an optional pixel offset. Text color can be changed with ImPlot::PushStyleColor(ImPlotCol_InlayText, ...).
+//    IMPLOT_API void PlotText(const char* text, double x, double y, bool vertical=false, const ImVec2& pix_offset=ImVec2(0,0));
+//
+//    // Plots a dummy item (i.e. adds a legend entry colored by ImPlotCol_Line)
+//    IMPLOT_API void PlotDummy(const char* label_id);
+
     //-----------------------------------------------------------------------------
     // Plot Utils
     //-----------------------------------------------------------------------------
@@ -653,26 +773,115 @@ public final class ImPlot {
     // Plot Tools
     //-----------------------------------------------------------------------------
 
-    //TODO plot tools
+    /**
+     * Shows an annotation callout at a chosen point.
+     * Uses default color
+     */
+    public static void annotate(double x, double y, ImVec2 pix_offset, String... fmt) {
+        annotate(x, y, pix_offset, new ImVec4(0, 0, 0, 0), fmt);
+    }
 
-//    // Shows an annotation callout at a chosen point.
-//    IMPLOT_API void Annotate(double x, double y, const ImVec2& pix_offset, const char* fmt, ...)                                       IM_FMTARGS(4);
-//    IMPLOT_API void Annotate(double x, double y, const ImVec2& pix_offset, const ImVec4& color, const char* fmt, ...)                  IM_FMTARGS(5);
-//    IMPLOT_API void AnnotateV(double x, double y, const ImVec2& pix_offset, const char* fmt, va_list args)                             IM_FMTLIST(4);
-//    IMPLOT_API void AnnotateV(double x, double y, const ImVec2& pix_offset, const ImVec4& color, const char* fmt, va_list args)        IM_FMTLIST(5);
+    /**
+     * Shows an annotation callout at a chosen point.
+     */
+    public static void annotate(double x, double y, ImVec2 pix_offset, ImVec4 color, String... fmt) {
+        nAnnotate(x, y, pix_offset.x, pix_offset.y, color.w, color.x, color.y, color.z,
+                  fmt.length > 0 ? fmt[0] : null,
+                  fmt.length > 1 ? fmt[1] : null,
+                  fmt.length > 2 ? fmt[2] : null,
+                  fmt.length > 3 ? fmt[3] : null,
+                  fmt.length > 4 ? fmt[4] : null);
+    }
+
+    private static native void nAnnotate(double x, double y, float pix_x, float pix_y, float col_a, float col_b, float col_c, float col_d, String a, String b, String c, String d, String e); /*
+        ImVec2 pix_offset(pix_x, pix_y);
+        ImVec4 col(col_a, col_b, col_c, col_d);
+
+        if (b == nullptr)
+            ImPlot::Annotate(x, y, pix_offset, col, a);
+        else if (b == nullptr)
+            ImPlot::Annotate(x, y, pix_offset, col, a, b);
+        else if (b == nullptr)
+            ImPlot::Annotate(x, y, pix_offset, col, a, b, c);
+        else if (b == nullptr)
+            ImPlot::Annotate(x, y, pix_offset, col, a, b, c, d);
+        else
+            ImPlot::Annotate(x, y, pix_offset, col, a, b, c, d, e);
+    */
+
+    /**
+     * Shows an annotation callout at a chosen point, clamped inside the plot area.
+     * Uses default color
+     */
+    public static void annotateClamped(double x, double y, ImVec2 pix_offset, String... fmt) {
+        annotateClamped(x, y, pix_offset, new ImVec4(0, 0, 0, 0), fmt);
+    }
+
+    /**
+     * Shows an annotation callout at a chosen point, clamped inside the plot area.
+     */
+    public static void annotateClamped(double x, double y, ImVec2 pix_offset, ImVec4 color, String... fmt) {
+        nAnnotateClamped(x, y, pix_offset.x, pix_offset.y, color.w, color.x, color.y, color.z,
+                  fmt.length > 0 ? fmt[0] : null,
+                  fmt.length > 1 ? fmt[1] : null,
+                  fmt.length > 2 ? fmt[2] : null,
+                  fmt.length > 3 ? fmt[3] : null,
+                  fmt.length > 4 ? fmt[4] : null);
+    }
+
+    private static native void nAnnotateClamped(double x, double y, float pix_x, float pix_y, float col_a, float col_b, float col_c, float col_d, String a, String b, String c, String d, String e); /*
+        ImVec2 pix_offset(pix_x, pix_y);
+        ImVec4 col(col_a, col_b, col_c, col_d);
+
+        if (b == nullptr)
+            ImPlot::AnnotateClamped(x, y, pix_offset, col, a);
+        else if (b == nullptr)
+            ImPlot::AnnotateClamped(x, y, pix_offset, col, a, b);
+        else if (b == nullptr)
+            ImPlot::AnnotateClamped(x, y, pix_offset, col, a, b, c);
+        else if (b == nullptr)
+            ImPlot::AnnotateClamped(x, y, pix_offset, col, a, b, c, d);
+        else
+            ImPlot::AnnotateClamped(x, y, pix_offset, col, a, b, c, d, e);
+    */
+
 //
-//    // Same as above, but the annotation will always be clamped to stay inside the plot area.
-//    IMPLOT_API void AnnotateClamped(double x, double y, const ImVec2& pix_offset, const char* fmt, ...)                                IM_FMTARGS(4);
-//    IMPLOT_API void AnnotateClamped(double x, double y, const ImVec2& pix_offset, const ImVec4& color, const char* fmt, ...)           IM_FMTARGS(5);
-//    IMPLOT_API void AnnotateClampedV(double x, double y, const ImVec2& pix_offset, const char* fmt, va_list args)                      IM_FMTLIST(4);
-//    IMPLOT_API void AnnotateClampedV(double x, double y, const ImVec2& pix_offset, const ImVec4& color, const char* fmt, va_list args) IM_FMTLIST(5);
-//
-//    // Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text.
+//    //
 //    IMPLOT_API bool DragLineX(const char* id, double* x_value, bool show_label = true, const ImVec4& col = IMPLOT_AUTO_COL, float thickness = 1);
-//    // Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text.
-//    IMPLOT_API bool DragLineY(const char* id, double* y_value, bool show_label = true, const ImVec4& col = IMPLOT_AUTO_COL, float thickness = 1);
-//    // Shows a draggable point at x,y. #col defaults to ImGuiCol_Text.
-//    IMPLOT_API bool DragPoint(const char* id, double* x, double* y, bool show_label = true, const ImVec4& col = IMPLOT_AUTO_COL, float radius = 4);
+
+    /**
+     * Shows a draggable vertical guide line at an x-value.
+     */
+    public static boolean dragLineX(String id, double x_value, boolean show_label, ImVec4 color, float thickness) {
+        return nDragLineX(id, x_value, show_label, color.w, color.x, color.y, color.z, thickness);
+    }
+
+    private static native boolean nDragLineX(String id, double x_value, boolean show_label, float w, float x, float y, float z, float thickness); /*
+        return ImPlot::DragLineX(id, &x_value, show_label, ImVec4(w, x, y, z), thickness);
+    */
+
+    /**
+     * Shows a draggable horizontal guide line at a y-value.
+     */
+    public static boolean dragLineY(String id, double y_value, boolean show_label, ImVec4 color, float thickness) {
+        return nDragLineY(id, y_value, show_label, color.w, color.x, color.y, color.z, thickness);
+    }
+
+    private static native boolean nDragLineY(String id, double y_value, boolean show_label, float w, float x, float y, float z, float thickness); /*
+        return ImPlot::DragLineY(id, &y_value, show_label, ImVec4(w, x, y, z), thickness);
+    */
+
+    /**
+     * Shows a draggable point at x,y.
+     */
+    public static boolean dragPoint(String id, double x, double y, boolean show_label, ImVec4 color, float radius) {
+        return nDragPoint(id, x, y, show_label, color.w, color.x, color.y, color.z, radius);
+    }
+
+    private static native boolean nDragPoint(String id, double x_value, double y_value, boolean show_label, float w, float x, float y, float z, float radius); /*
+        return ImPlot::DragPoint(id, &x_value, &y_value, show_label, ImVec4(w, x, y, z), radius);
+    */
+
 
     //-----------------------------------------------------------------------------
     // Legend Utils and Tools
