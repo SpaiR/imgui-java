@@ -11,6 +11,8 @@ import imgui.flag.ImGuiMouseButton;
 import imgui.type.ImBoolean;
 import imgui.type.ImDouble;
 
+import java.security.InvalidParameterException;
+
 public final class ImPlot {
     private static final ImDrawList IM_DRAW_LIST;
 
@@ -264,105 +266,407 @@ public final class ImPlot {
     // Plot Items
     //-----------------------------------------------------------------------------
 
-    //TODO Bindings for plot items
+    /**
+     * Make sure to initialize xs_out and ys_out with length xs.length, ys.length before passing them, or data may be lost/errors may occur
+     */
+    private static <T> void convertArrays(T[] xs, T[] ys, double[] xs_out, double[] ys_out) {
+        if (xs.length != ys.length)
+            throw new InvalidParameterException();
 
-//    // The template functions below are explicitly instantiated in implot_items.cpp.
-//    // They are not intended to be used generically with custom types. You will get
-//    // a linker error if you try! All functions support the following scalar types:
-//    //
-//    // float, double, ImS8, ImU8, ImS16, ImU16, ImS32, ImU32, ImS64, ImU64
-//    //
-//    //
-//    // If you need to plot custom or non-homogenous data you have a few options:
-//    //
-//    // 1. If your data is a simple struct/class (e.g. Vector2f), you can use striding.
-//    //    This is the most performant option if applicable.
-//    //
-//    //    struct Vector2f { float X, Y; };
-//    //    ...
-//    //    Vector2f data[42];
-//    //    ImPlot::PlotLine("line", &data[0].x, &data[0].y, 42, 0, sizeof(Vector2f)); // or sizeof(float)*2
-//    //
-//    // 2. Write a custom getter C function or C++ lambda and pass it and optionally your data to
-//    //    an ImPlot function post-fixed with a G (e.g. PlotScatterG). This has a slight performance
-//    //    cost, but probably not enough to worry about unless your data is very large. Examples:
-//    //
-//    //    ImPlotPoint MyDataGetter(void* data, int idx) {
-//    //        MyData* my_data = (MyData*)data;
-//    //        ImPlotPoint p;
-//    //        p.x = my_data->GetTime(idx);
-//    //        p.y = my_data->GetValue(idx);
-//    //        return p
-//    //    }
-//    //    ...
-//    //    auto my_lambda = [](void*, int idx) {
-//    //        double t = idx / 999.0;
-//    //        return ImPlotPoint(t, 0.5+0.5*std::sin(2*PI*10*t));
-//    //    };
-//    //    ...
-//    //    if (ImPlot::BeginPlot("MyPlot")) {
-//    //        MyData my_data;
-//    //        ImPlot::PlotScatterG("scatter", MyDataGetter, &my_data, my_data.Size());
-//    //        ImPlot::PlotLineG("line", my_lambda, nullptr, 1000);
-//    //        ImPlot::EndPlot();
-//    //    }
-//    //
-//    // NB: All types are converted to double before plotting. You may lose information
-//    // if you try plotting extremely large 64-bit integral types. Proceed with caution!
-//
-//    // Plots a standard 2D line plot.
-//    template <typename T> IMPLOT_API void PlotLine(const char* label_id, const T* values, int count, double xscale=1, double x0=0, int offset=0, int stride=sizeof(T));
-//    template <typename T> IMPLOT_API void PlotLine(const char* label_id, const T* xs, const T* ys, int count, int offset=0, int stride=sizeof(T));
-//    IMPLOT_API void PlotLineG(const char* label_id, ImPlotPoint (*getter)(void* data, int idx), void* data, int count, int offset=0);
-//
-//    // Plots a standard 2D scatter plot. Default marker is ImPlotMarker_Circle.
-//    template <typename T> IMPLOT_API  void PlotScatter(const char* label_id, const T* values, int count, double xscale=1, double x0=0, int offset=0, int stride=sizeof(T));
-//    template <typename T> IMPLOT_API  void PlotScatter(const char* label_id, const T* xs, const T* ys, int count, int offset=0, int stride=sizeof(T));
-//    IMPLOT_API  void PlotScatterG(const char* label_id, ImPlotPoint (*getter)(void* data, int idx), void* data, int count, int offset=0);
-//
-//    // Plots a a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
-//    template <typename T> IMPLOT_API void PlotStairs(const char* label_id, const T* values, int count, double xscale=1, double x0=0, int offset=0, int stride=sizeof(T));
-//    template <typename T> IMPLOT_API void PlotStairs(const char* label_id, const T* xs, const T* ys, int count, int offset=0, int stride=sizeof(T));
-//    IMPLOT_API void PlotStairsG(const char* label_id, ImPlotPoint (*getter)(void* data, int idx), void* data, int count, int offset=0);
-//
-//    // Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
-//    template <typename T> IMPLOT_API void PlotShaded(const char* label_id, const T* values, int count, double y_ref=0, double xscale=1, double x0=0, int offset=0, int stride=sizeof(T));
-//    template <typename T> IMPLOT_API void PlotShaded(const char* label_id, const T* xs, const T* ys, int count, double y_ref=0, int offset=0, int stride=sizeof(T));
-//    template <typename T> IMPLOT_API void PlotShaded(const char* label_id, const T* xs, const T* ys1, const T* ys2, int count, int offset=0, int stride=sizeof(T));
-//    IMPLOT_API void PlotShadedG(const char* label_id, ImPlotPoint (*getter1)(void* data, int idx), void* data1, ImPlotPoint (*getter2)(void* data, int idx), void* data2, int count, int offset=0);
-//
-//    // Plots a vertical bar graph. #width and #shift are in X units.
-//    template <typename T> IMPLOT_API void PlotBars(const char* label_id, const T* values, int count, double width=0.67, double shift=0, int offset=0, int stride=sizeof(T));
-//    template <typename T> IMPLOT_API void PlotBars(const char* label_id, const T* xs, const T* ys, int count, double width, int offset=0, int stride=sizeof(T));
-//    IMPLOT_API void PlotBarsG(const char* label_id, ImPlotPoint (*getter)(void* data, int idx), void* data, int count, double width, int offset=0);
-//
-//    // Plots a horizontal bar graph. #height and #shift are in Y units.
-//    template <typename T> IMPLOT_API void PlotBarsH(const char* label_id, const T* values, int count, double height=0.67, double shift=0, int offset=0, int stride=sizeof(T));
-//    template <typename T> IMPLOT_API void PlotBarsH(const char* label_id, const T* xs, const T* ys, int count, double height, int offset=0, int stride=sizeof(T));
-//    IMPLOT_API void PlotBarsHG(const char* label_id, ImPlotPoint (*getter)(void* data, int idx), void* data, int count, double height,  int offset=0);
-//
-//    // Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
-//    template <typename T> IMPLOT_API void PlotErrorBars(const char* label_id, const T* xs, const T* ys, const T* err, int count, int offset=0, int stride=sizeof(T));
-//    template <typename T> IMPLOT_API void PlotErrorBars(const char* label_id, const T* xs, const T* ys, const T* neg, const T* pos, int count, int offset=0, int stride=sizeof(T));
-//
-//    // Plots horizontal error bars. The label_id should be the same as the label_id of the associated line or bar plot.
-//    template <typename T> IMPLOT_API void PlotErrorBarsH(const char* label_id, const T* xs, const T* ys, const T* err, int count, int offset=0, int stride=sizeof(T));
-//    template <typename T> IMPLOT_API void PlotErrorBarsH(const char* label_id, const T* xs, const T* ys, const T* neg, const T* pos, int count, int offset=0, int stride=sizeof(T));
-//
-//    /// Plots vertical stems.
-//    template <typename T> IMPLOT_API void PlotStems(const char* label_id, const T* values, int count, double y_ref=0, double xscale=1, double x0=0, int offset=0, int stride=sizeof(T));
-//    template <typename T> IMPLOT_API void PlotStems(const char* label_id, const T* xs, const T* ys, int count, double y_ref=0, int offset=0, int stride=sizeof(T));
-//
-//    /// Plots infinite vertical or horizontal lines (e.g. for references or asymptotes).
-//    template <typename T> IMPLOT_API void PlotVLines(const char* label_id, const T* xs, int count, int offset=0, int stride=sizeof(T));
-//    template <typename T> IMPLOT_API void PlotHLines(const char* label_id, const T* ys, int count, int offset=0, int stride=sizeof(T));
-//
-//    // Plots a pie chart. If the sum of values > 1 or normalize is true, each value will be normalized. Center and radius are in plot units. #label_fmt can be set to NULL for no labels.
-//    template <typename T> IMPLOT_API void PlotPieChart(const char* const label_ids[], const T* values, int count, double x, double y, double radius, bool normalize=false, const char* label_fmt="%.1f", double angle0=90);
-//
-//    // Plots a 2D heatmap chart. Values are expected to be in row-major order. Leave #scale_min and scale_max both at 0 for automatic color scaling, or set them to a predefined range. #label_fmt can be set to NULL for no labels.
-//    template <typename T> IMPLOT_API void PlotHeatmap(const char* label_id, const T* values, int rows, int cols, double scale_min=0, double scale_max=0, const char* label_fmt="%.1f", const ImPlotPoint& bounds_min=ImPlotPoint(0,0), const ImPlotPoint& bounds_max=ImPlotPoint(1,1));
-//
+        for (int i = 0; i < xs.length; i++) {
+            xs_out[i] = (double) xs[i]; //Throws CastClassException if invalid type, which is OK
+            ys_out[i] = (double) ys[i];
+        }
+    }
+
+    /**
+     * Plots a standard 2D line plot.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotLine(String label_id, T[] xs, T[] ys) {
+        plotLine(label_id, xs, ys, 0);
+    }
+
+    /**
+     * Plots a standard 2D line plot.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotLine(String label_id, T[] xs, T[] ys, int offset) {
+        double[] x = new double[xs.length];
+        double[] y = new double [ys.length];
+        convertArrays(xs, ys, x, y);
+
+        nPlotLine(label_id, x, y, x.length, offset);
+    }
+
+    private static native void nPlotLine(String label_id, double[] xs, double[] ys, int size, int offset); /*
+        ImPlot::PlotLine(label_id, xs, ys, size, offset);
+    */
+
+    /**
+     * Plots a standard 2D scatter plot.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotScatter(String label_id, T[] xs, T[] ys) {
+        plotScatter(label_id, xs, ys, 0);
+    }
+
+    /**
+     * Plots a standard 2D scatter plot.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotScatter(String label_id, T[] xs, T[] ys, int offset) {
+        double[] x = new double[xs.length];
+        double[] y = new double [ys.length];
+        convertArrays(xs, ys, x, y);
+
+        nPlotScatter(label_id, x, y, x.length, offset);
+    }
+
+    private static native void nPlotScatter(String label_id, double[] xs, double[] ys, int size, int offset); /*
+        ImPlot::PlotScatter(label_id, xs, ys, size, offset);
+    */
+
+    /**
+     * Plots a a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotStairs(String label_id, T[] xs, T[] ys) {
+        plotStairs(label_id, xs, ys, 0);
+    }
+
+    /**
+     * Plots a a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotStairs(String label_id, T[] xs, T[] ys, int offset) {
+        double[] x = new double[xs.length];
+        double[] y = new double [ys.length];
+        convertArrays(xs, ys, x, y);
+
+        nPlotStairs(label_id, x, y, x.length, offset);
+    }
+
+    private static native void nPlotStairs(String label_id, double[] xs, double[] ys, int size, int offset); /*
+        ImPlot::PlotStairs(label_id, xs, ys, size, offset);
+    */
+
+    /**
+     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref (default 0) to +/-INFINITY for infinite fill extents.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotShaded(String label_id, T[] xs, T[] ys, int y_ref) {
+        plotShaded(label_id, xs, ys, y_ref, 0);
+    }
+
+    /**
+     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref (default 0) to +/-INFINITY for infinite fill extents.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotShaded(String label_id, T[] xs, T[] ys, int y_ref, int offset) {
+        double[] x = new double[xs.length];
+        double[] y = new double [ys.length];
+        convertArrays(xs, ys, x, y);
+
+        nPlotShaded(label_id, x, y, x.length, y_ref, offset);
+    }
+
+    private static native void nPlotShaded(String label_id, double[] xs, double[] ys, int size, int y_ref, int offset); /*
+        ImPlot::PlotShaded(label_id, xs, ys, size, y_ref, offset);
+    */
+
+    /**
+     * Plots a vertical bar graph.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotBars(String label_id, T[] xs, T[] ys) {
+        plotBars(label_id, xs, ys, 0.67f, 0);
+    }
+
+    /**
+     * Plots a vertical bar graph.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     * @param width is in X units
+     */
+    public static <T> void plotBars(String label_id, T[] xs, T[] ys, float width) {
+        plotBars(label_id, xs, ys, width, 0);
+    }
+
+    /**
+     * Plots a vertical bar graph.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     * @param width is in X units
+     */
+    public static <T> void plotBars(String label_id, T[] xs, T[] ys, float width, int offset) {
+        double[] x = new double[xs.length];
+        double[] y = new double [ys.length];
+        convertArrays(xs, ys, x, y);
+
+        nPlotBars(label_id, x, y, x.length, width, offset);
+    }
+
+    private static native void nPlotBars(String label_id, double[] xs, double[] ys, int size, float width, int offset); /*
+        ImPlot::PlotBars(label_id, xs, ys, size, width, offset);
+    */
+
+    /**
+     * Plots a horizontal bar graph.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotBarsH(String label_id, T[] xs, T[] ys) {
+        plotBarsH(label_id, xs, ys, 0.67f, 0);
+    }
+
+    /**
+     * Plots a horizontal bar graph.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     * @param height is in Y units
+     */
+    public static <T> void plotBarsH(String label_id, T[] xs, T[] ys, float height) {
+        plotBarsH(label_id, xs, ys, height, 0);
+    }
+
+    /**
+     * Plots a horizontal bar graph.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     * @param height is in Y units
+     */
+    public static <T> void plotBarsH(String label_id, T[] xs, T[] ys, float height, int offset) {
+        double[] x = new double[xs.length];
+        double[] y = new double [ys.length];
+        convertArrays(xs, ys, x, y);
+
+        nPlotBarsH(label_id, x, y, x.length, height, offset);
+    }
+
+    private static native void nPlotBarsH(String label_id, double[] xs, double[] ys, int size, float height, int offset); /*
+        ImPlot::PlotBarsH(label_id, xs, ys, size, height, offset);
+    */
+
+    /**
+     * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotErrorBars(String label_id, T[] xs, T[] ys, T[] err) {
+        plotErrorBars(label_id, xs, ys, err, 0);
+    }
+
+    /**
+     * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotErrorBars(String label_id, T[] xs, T[] ys, T[] err, int offset) {
+        double[] x = new double[xs.length];
+        double[] y = new double [ys.length];
+        double[] err_out = new double[err.length];
+        convertArrays(xs, ys, x, y);
+        convertArrays(xs, err, x, err_out); //It's easier here to just do the X array twice than process the err array alone
+
+        nPlotErrorBars(label_id, x, y, err_out, x.length, offset);
+    }
+
+    private static native void nPlotErrorBars(String label_id, double[] xs, double[] ys, double[] err, int size, int offset); /*
+        ImPlot::PlotErrorBars(label_id, xs, ys, err, size, offset);
+    */
+
+    /**
+     * Plots horizontal error bar. The label_id should be the same as the label_id of the associated line or bar plot.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotErrorBarsH(String label_id, T[] xs, T[] ys, T[] err) {
+        plotErrorBarsH(label_id, xs, ys, err, 0);
+    }
+
+    /**
+     * Plots horizontal error bar. The label_id should be the same as the label_id of the associated line or bar plot.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotErrorBarsH(String label_id, T[] xs, T[] ys, T[] err, int offset) {
+        double[] x = new double[xs.length];
+        double[] y = new double [ys.length];
+        double[] err_out = new double[err.length];
+        convertArrays(xs, ys, x, y);
+        convertArrays(xs, err, x, err_out); //It's easier here to just do the X array twice than process the err array alone
+
+        nPlotErrorBarsH(label_id, x, y, err_out, x.length, offset);
+    }
+
+    private static native void nPlotErrorBarsH(String label_id, double[] xs, double[] ys, double[] err, int size, int offset); /*
+        ImPlot::PlotErrorBarsH(label_id, xs, ys, err, size, offset);
+    */
+
+    /**
+     * Plots vertical stems.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotStems(String label_id, T[] values, int y_ref) {
+        plotStems(label_id, values, y_ref, 0);
+    }
+
+    /**
+     * Plots vertical stems.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotStems(String label_id, T[] values, int y_ref, int offset) {
+        double[] v = new double[values.length];
+        for (int i = 0; i < values.length; i++)
+            v[i] = (double)values[i];
+
+        nPlotStems(label_id, v, v.length, y_ref, offset);
+    }
+
+    private static native void nPlotStems(String label_id, double[] values, int size, int y_ref, int offset); /*
+        ImPlot::PlotStems(label_id, values, size, y_ref, offset);
+    */
+
+    /**
+     * Plots infinite vertical lines (e.g. for references or asymptotes).
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotVLines(String label_id, T[] values) {
+        plotVLines(label_id, values, 0);
+    }
+
+    /**
+     *Plots infinite vertical lines (e.g. for references or asymptotes).
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotVLines(String label_id, T[] values, int offset) {
+        double[] v = new double[values.length];
+        for (int i = 0; i < values.length; i++)
+            v[i] = (double)values[i];
+
+        nPlotVLines(label_id, v, v.length, offset);
+    }
+
+    private static native void nPlotVLines(String label_id, double[] values, int size, int offset); /*
+        ImPlot::PlotVLines(label_id, values, size, offset);
+    */
+
+    /**
+     * Plots infinite horizontal lines (e.g. for references or asymptotes).
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotHLines(String label_id, T[] values) {
+        plotHLines(label_id, values, 0);
+    }
+
+    /**
+     * Plots infinite horizontal lines (e.g. for references or asymptotes).
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotHLines(String label_id, T[] values, int offset) {
+        double[] v = new double[values.length];
+        for (int i = 0; i < values.length; i++)
+            v[i] = (double)values[i];
+
+        nPlotHLines(label_id, v, v.length, offset);
+    }
+
+    private static native void nPlotHLines(String label_id, double[] values, int size, int offset); /*
+        ImPlot::PlotHLines(label_id, values, size, offset);
+    */
+
+    /**
+     * Plots a pie chart. If the sum of values > 1, each value will be normalized. Center and radius are in plot units. #label_fmt can be set to NULL for no labels.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> void plotPieChart(String[] label_ids, T[] values, double x, double y, double radius) {
+        double[] v = new double[values.length];
+        for (int i = 0; i < values.length; i++)
+            v[i] = (double)values[i];
+
+        String label_ids_ss = "";
+        boolean first = true;
+        int max_size = 0;
+        for (String s : label_ids) {
+            if (first) {
+                first = false;
+                continue;
+            } else {
+                label_ids_ss += "\n";
+            }
+            if (s.length() > max_size)
+                max_size = s.length();
+
+            label_ids_ss += s.replace("\n", "");
+        }
+
+        nPlotPieChart(label_ids_ss, max_size, v, v.length, x, y, radius);
+    }
+
+    //JNI function splits up passed string label_ids_ss to array for use in C++, as String[] is not converted by JNI
+    private static native void nPlotPieChart(String label_ids_ss, int str_length, double[] values, int size, double x, double y, double radius); /*
+        char** label_ids = new char*[size];
+
+        for (int pos = 0; pos < size; pos++) {
+            char* str = new char[str_length + 1];
+            char* str_i = str;
+
+            while (*label_ids_ss != '\n' && *label_ids_ss != '\0') {
+                *str = *label_ids_ss;
+                label_ids_ss++;
+                str++;
+            }
+            label_ids_ss++; //move past \n
+
+            label_ids[pos] = str_i;
+        }
+
+        ImPlot::PlotPieChart(label_ids, values, size, x, y, radius);
+
+        for (int i = 0; i < size; i++) {
+            delete label_ids[i];
+        }
+        delete[] label_ids;
+    */
+
+    /**
+     * Plots a 2D heatmap chart.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     * @param values must have fixed dimensions (all arrays are same length)
+     */
+    public static <T> void plotHeatmap(String label_id, T[][] values, int offset) {
+        double[] v = new double[values.length * values[0].length];
+        int pos = 0;
+        for (T[] a : values) {
+            for (T p : a)
+                v[pos++] = (double)p;
+        }
+
+        nPlotHeatmap(label_id, v, values[0].length, values.length);
+    }
+
+    private static native void nPlotHeatmap(String label_id, double[] values, int rows, int cols); /*
+        ImPlot::PlotHeatmap(label_id, values, rows, cols);
+    */
+
 //    // Plots a horizontal histogram. #bins can be a positive integer or an ImPlotBin_ method. If #cumulative is true, each bin contains its count plus the counts of all previous bins.
 //    // If #density is true, the PDF is visualized. If both are true, the CDF is visualized. If #range is left unspecified, the min/max of #values will be used as the range.
 //    // If #range is specified, outlier values outside of the range are not binned. However, outliers still count toward normalizing and cumulative counts unless #outliers is false. The largest bin count or density is returned.
