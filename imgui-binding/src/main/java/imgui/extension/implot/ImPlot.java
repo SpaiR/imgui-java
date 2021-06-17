@@ -19,6 +19,7 @@ public final class ImPlot {
     private static final ImPlotContext IMPLOT_CONTEXT;
     private static final ImPlotPoint IMPLOT_POINT;
     private static final ImPlotLimits IMPLOT_LIMITS;
+    private static final ImPlotStyle IMPLOT_STYLE;
 
     static {
         IM_DRAW_LIST = new ImDrawList(0);
@@ -26,6 +27,7 @@ public final class ImPlot {
         IMPLOT_CONTEXT = new ImPlotContext(0);
         IMPLOT_POINT = new ImPlotPoint(0);
         IMPLOT_LIMITS = new ImPlotLimits(0);
+        IMPLOT_STYLE = new ImPlotStyle(0);
     }
 
     private ImPlot() {
@@ -1385,7 +1387,142 @@ public final class ImPlot {
     // Plot and Item Styling
     //-----------------------------------------------------------------------------
 
-    //TODO plot and item styling
+    /**
+     * Provides access to plot style structure for permanant modifications to colors, sizes, etc.
+     */
+    public static ImPlotStyle getStyle() {
+        IMPLOT_STYLE.ptr = nGetStyle();
+        return IMPLOT_STYLE;
+    }
+
+    private static native long nGetStyle(); /*
+        return (intptr_t)&ImPlot::GetStyle();
+    */
+
+    /**
+     * Style plot colors for current ImGui style (default).
+     */
+    public static native void styleColorsAuto(); /*
+        ImPlot::StyleColorsAuto();
+    */
+
+    /**
+     * Style plot colors for ImGui "Classic".
+     */
+    public static native void styleColorsClassic(); /*
+        ImPlot::StyleColorsClassic();
+    */
+
+    /**
+     * Style plot colors for ImGui "Dark".
+     */
+    public static native void styleColorsDark(); /*
+        ImPlot::StyleColorsDark();
+    */
+
+    /**
+     * Style plot colors for ImGui "Light".
+     */
+    public static native void styleColorsLight(); /*
+        ImPlot::StyleColorsLight();
+    */
+
+    /**
+     * Temporarily modify a style color. Don't forget to call PopStyleColor!
+     */
+    public static native void pushStyleColor(int idx, long col); /*
+        ImPlot::PushStyleColor(idx, col);
+    */
+
+    /**
+     * Temporarily modify a style color. Don't forget to call PopStyleColor!
+     */
+    public static void pushStyleColor(final int idx, final ImVec4 col) {
+        nPushStyleColor(idx, col.w, col.x, col.y, col.z);
+    }
+
+    private static native void nPushStyleColor(int idx, float w, float x, float y, float z); /*
+        ImPlot::PushStyleColor(idx, ImVec4(w, x, y, z));
+    */
+
+    public static void popStyleColor() {
+        popStyleColor(1);
+    }
+
+    public static native void popStyleColor(int count); /*
+        ImPlot::PopStyleColor(count);
+    */
+
+    /**
+     * Temporarily modify a style variable of float type. Don't forget to call PopStyleVar!
+     */
+    public static native void pushStyleVar(int idx, float val); /*
+        ImPlot::PushStyleVar(idx, val);
+    */
+
+    /**
+     * Temporarily modify a style variable of int type. Don't forget to call PopStyleVar!
+     */
+    public static native void pushStyleVar(int idx, int val); /*
+        ImPlot::PushStyleVar(idx, (int)val);
+    */
+
+    /**
+     * Temporarily modify a style variable of ImVec2 type. Don't forget to call PopStyleVar!
+     */
+    public static void pushStyleVar(final int idx, final ImVec2 val) {
+        nPushStyleVar(idx, val.x, val.y);
+    }
+
+    private static native void nPushStyleVar(int idx, float x, float y); /*
+        ImPlot::PushStyleVar(idx, ImVec2(x, y));
+    */
+
+    /**
+     * Undo temporary style variable modification(s). Undo multiple pushes at once by increasing count.
+     */
+    public static void popStyleVar() {
+        popStyleVar(1);
+    }
+
+    /**
+     * Undo temporary style variable modification(s). Undo multiple pushes at once by increasing count.
+     */
+    public static native void popStyleVar(int count); /*
+        ImPlot::PopStyleVar(count);
+    */
+
+    /**
+     * Gets the last item primary color (i.e. its legend icon color)
+     */
+    public static ImVec4 getLastItemColor() {
+        return new ImVec4(nGetLastItemColorS(0), nGetLastItemColorS(1), nGetLastItemColorS(2), nGetLastItemColorS(3));
+    }
+
+    private static native float nGetLastItemColorS(int selection); /*
+        if (selection == 0)
+            return ImPlot::GetLastItemColor().w;
+        else if (selection == 1)
+            return ImPlot::GetLastItemColor().x;
+        else if (selection == 2)
+            return ImPlot::GetLastItemColor().y;
+        else
+            return ImPlot::GetLastItemColor().z;
+    */
+
+    /**
+     * Returns the string name for an ImPlotCol.
+     */
+    public static native String getStyleColorName(int idx); /*
+        return env->NewStringUTF(ImPlot::GetStyleColorName(idx));
+    */
+
+    /**
+     * Returns the null terminated string name for an ImPlotMarker.
+     */
+    public static native String getMarkerName(int idx); /*
+        return env->NewStringUTF(ImPlot::GetMarkerName(idx));
+    */
 
     //-----------------------------------------------------------------------------
     // Colormaps
