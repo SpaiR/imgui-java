@@ -1,6 +1,6 @@
 plugins {
     id 'java-library'
-    id 'io.freefair.lombok' version '6.0.0-m2'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
     id 'checkstyle'
     id 'maven-publish'
     id 'signing'
@@ -39,6 +39,10 @@ jar {
         include 'imgui-java64.dll'
         into 'io/imgui/java/native-bin/'
     }
+}
+
+shadowJar {
+    with jar
 }
 
 apply from: "$rootDir/publish.gradle"

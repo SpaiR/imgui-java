@@ -68,6 +68,7 @@ public class ImGuiImplGlfw {
 
     // Mouse cursors provided by GLFW
     private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
+    private final long[] keyOwnerWindows = new long[512];
 
     // Empty array to fill ImGuiIO.NavInputs with zeroes
     private final float[] emptyNavInputs = new float[ImGuiNavInput.COUNT];
@@ -139,10 +140,14 @@ public class ImGuiImplGlfw {
 
         final ImGuiIO io = ImGui.getIO();
 
-        if (action == GLFW_PRESS) {
-            io.setKeysDown(key, true);
-        } else if (action == GLFW_RELEASE) {
-            io.setKeysDown(key, false);
+        if (key >= 0 && key < keyOwnerWindows.length) {
+            if (action == GLFW_PRESS) {
+                io.setKeysDown(key, true);
+                keyOwnerWindows[key] = windowId;
+            } else if (action == GLFW_RELEASE) {
+                io.setKeysDown(key, false);
+                keyOwnerWindows[key] = 0;
+            }
         }
 
         io.setKeyCtrl(io.getKeysDown(GLFW_KEY_LEFT_CONTROL) || io.getKeysDown(GLFW_KEY_RIGHT_CONTROL));
@@ -603,12 +608,20 @@ public class ImGuiImplGlfw {
         }
     }
 
-    private static final class DestroyWindowFunction extends ImPlatformFuncViewport {
+    private final class DestroyWindowFunction extends ImPlatformFuncViewport {
         @Override
         public void accept(final ImGuiViewport vp) {
             final ImGuiViewportDataGlfw data = (ImGuiViewportDataGlfw) vp.getPlatformUserData();
 
             if (data != null && data.windowOwned) {
+                // Release any keys that were pressed in the window being destroyed and are still held down,
+                // because we will not receive any release events after window is destroyed.
+                for (int i = 0; i < keyOwnerWindows.length; i++) {
+                    if (keyOwnerWindows[i] == data.window) {
+                        keyCallback(data.window, i, 0, GLFW_RELEASE, 0); // Later params are only used for main viewport, on which this function is never called.
+                    }
+                }
+
                 glfwDestroyWindow(data.window);
             }
 

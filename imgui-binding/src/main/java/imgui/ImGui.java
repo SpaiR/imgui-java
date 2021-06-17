@@ -107,6 +107,7 @@ public class ImGui {
 
             final Path libBin = tmpDir.resolve(fullLibName);
             Files.copy(is, libBin, StandardCopyOption.REPLACE_EXISTING);
+            libBin.toFile().deleteOnExit();
 
             return libBin.toFile().getAbsolutePath();
         } catch (IOException e) {
@@ -885,7 +886,7 @@ public class ImGui {
         return ImGui::GetWindowContentRegionMin().y;
     */
 
-    public final ImVec2 getWindowContentRegionMax() {
+    public static ImVec2 getWindowContentRegionMax() {
         final ImVec2 value = new ImVec2();
         getWindowContentRegionMax(value);
         return value;
@@ -4718,24 +4719,24 @@ public class ImGui {
     // - Use DockSpace() to create an explicit dock node _within_ an existing window. See Docking demo for details.
     // - DockSpace() needs to be submitted _before_ any window they can host. If you use a dockspace, submit it early in your app.
 
-    public static void dockSpace(int imGuiID) {
-        nDockSpace(imGuiID, 0, 0, 0, 0);
+    public static int dockSpace(int imGuiID) {
+        return nDockSpace(imGuiID, 0, 0, 0, 0);
     }
 
-    public static void dockSpace(int imGuiID, float sizeX, float sizeY) {
-        nDockSpace(imGuiID, sizeX, sizeY, 0, 0);
+    public static int dockSpace(int imGuiID, float sizeX, float sizeY) {
+        return nDockSpace(imGuiID, sizeX, sizeY, 0, 0);
     }
 
-    public static void dockSpace(int imGuiID, float sizeX, float sizeY, int imGuiDockNodeFlags) {
-        nDockSpace(imGuiID, sizeX, sizeY, imGuiDockNodeFlags, 0);
+    public static int dockSpace(int imGuiID, float sizeX, float sizeY, int imGuiDockNodeFlags) {
+        return nDockSpace(imGuiID, sizeX, sizeY, imGuiDockNodeFlags, 0);
     }
 
-    public static void dockSpace(int imGuiID, float sizeX, float sizeY, int imGuiDockNodeFlags, ImGuiWindowClass imGuiWindowClass) {
-        nDockSpace(imGuiID, sizeX, sizeY, imGuiDockNodeFlags, imGuiWindowClass.ptr);
+    public static int dockSpace(int imGuiID, float sizeX, float sizeY, int imGuiDockNodeFlags, ImGuiWindowClass imGuiWindowClass) {
+        return nDockSpace(imGuiID, sizeX, sizeY, imGuiDockNodeFlags, imGuiWindowClass.ptr);
     }
 
-    private static native void nDockSpace(int imGuiID, float sizeX, float sizeY, int imGuiDockNodeFlags, long windowClassPtr); /*
-        ImGui::DockSpace(imGuiID, ImVec2(sizeX, sizeY), imGuiDockNodeFlags, windowClassPtr != 0 ? (ImGuiWindowClass*)windowClassPtr : NULL);
+    private static native int nDockSpace(int imGuiID, float sizeX, float sizeY, int imGuiDockNodeFlags, long windowClassPtr); /*
+        return ImGui::DockSpace(imGuiID, ImVec2(sizeX, sizeY), imGuiDockNodeFlags, windowClassPtr != 0 ? (ImGuiWindowClass*)windowClassPtr : NULL);
     */
 
     public static int dockSpaceOverViewport() {

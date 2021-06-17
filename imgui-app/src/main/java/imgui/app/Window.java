@@ -42,7 +42,7 @@ public abstract class Window {
      *
      * @param config configuration object with basic window information
      */
-    protected final void init(final Configuration config) {
+    protected void init(final Configuration config) {
         initWindow(config);
         initImGui(config);
         imGuiGlfw.init(handle, true);
@@ -52,7 +52,7 @@ public abstract class Window {
     /**
      * Method to dispose all used application resources and destroy its window.
      */
-    protected final void dispose() {
+    protected void dispose() {
         imGuiGl3.dispose();
         imGuiGlfw.dispose();
         disposeImGui();
@@ -139,7 +139,7 @@ public abstract class Window {
     /**
      * Main application loop.
      */
-    protected final void run() {
+    protected void run() {
         while (!GLFW.glfwWindowShouldClose(handle)) {
             startFrame();
             preProcess();

@@ -17,6 +17,10 @@ public class ExampleImNodes {
     private static final ImInt LINK_A = new ImInt();
     private static final ImInt LINK_B = new ImInt();
 
+    static {
+        ImNodes.createContext();
+    }
+
     public static void show(final ImBoolean showImNodesWindow, final Graph graph) {
         ImGui.setNextWindowSize(500, 400, ImGuiCond.Once);
         ImGui.setNextWindowPos(ImGui.getMainViewport().getPosX() + 100, ImGui.getMainViewport().getPosY() + 100, ImGuiCond.Once);
