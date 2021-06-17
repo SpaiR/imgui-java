@@ -672,23 +672,87 @@ public final class ImPlot {
 //    // If #range is specified, outlier values outside of the range are not binned. However, outliers still count toward normalizing and cumulative counts unless #outliers is false. The largest bin count or density is returned.
 //    template <typename T> IMPLOT_API double PlotHistogram(const char* label_id, const T* values, int count, int bins=ImPlotBin_Sturges, bool cumulative=false, bool density=false, ImPlotRange range=ImPlotRange(), bool outliers=true, double bar_scale=1.0);
 //
-//    // Plots two dimensional, bivariate histogram as a heatmap. #x_bins and #y_bins can be a positive integer or an ImPlotBin. If #density is true, the PDF is visualized.
-//    // If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
-//    // However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
-//    template <typename T> IMPLOT_API double PlotHistogram2D(const char* label_id, const T* xs, const T* ys, int count, int x_bins=ImPlotBin_Sturges, int y_bins=ImPlotBin_Sturges, bool density=false, ImPlotLimits range=ImPlotLimits(), bool outliers=true);
-//
-//    // Plots digital data. Digital plots do not respond to y drag or zoom, and are always referenced to the bottom of the plot.
+
+    /**
+     * Plots a horizontal histogram
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> double plotHistogram(String label_id, T[] values) {
+        double[] v = new double[values.length];
+        for (int i = 0; i < values.length; i++)
+            v[i] = (Double)values[i];
+
+        return nPlotHistogram(label_id, v, v.length);
+    }
+
+    private static native double nPlotHistogram(String label_id, double[] values, int size); /*
+        return ImPlot::PlotHistogram(label_id, values, size);
+    */
+
+    /**
+     * Plots two dimensional, bivariate histogram as a heatmap
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> double plotHistogram2D(String label_id, T[] xs, T[] ys) {
+        double[] x = new double[xs.length];
+        double[] y = new double[ys.length];
+        convertArrays(xs, ys, x, y);
+
+        return nPlotHistogram2D(label_id, x, y, x.length);
+    }
+
+    private static native double nPlotHistogram2D(String label_id, double[] xs, double[] ys, int size); /*
+        return ImPlot::PlotHistogram2D(label_id, xs, ys, size);
+    */
+
+//    //
 //    template <typename T> IMPLOT_API void PlotDigital(const char* label_id, const T* xs, const T* ys, int count, int offset=0, int stride=sizeof(T));
 //    IMPLOT_API void PlotDigitalG(const char* label_id, ImPlotPoint (*getter)(void* data, int idx), void* data, int count, int offset=0);
 //
+
+    /**
+     * Plots digital data. Digital plots do not respond to y drag or zoom, and are always referenced to the bottom of the plot.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     */
+    public static <T> double plotDigital(String label_id, T[] xs, T[] ys) {
+        double[] x = new double[xs.length];
+        double[] y = new double[ys.length];
+        convertArrays(xs, ys, x, y);
+
+        return nPlotDigital(label_id, x, y, x.length);
+    }
+
+    private static native double nPlotDigital(String label_id, double[] xs, double[] ys, int size); /*
+        return ImPlot::PlotDigital(label_id, xs, ys, size);
+    */
+
+    //TODO not yet supported
 //    // Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
 //    IMPLOT_API void PlotImage(const char* label_id, ImTextureID user_texture_id, const ImPlotPoint& bounds_min, const ImPlotPoint& bounds_max, const ImVec2& uv0=ImVec2(0,0), const ImVec2& uv1=ImVec2(1,1), const ImVec4& tint_col=ImVec4(1,1,1,1));
-//
-//    // Plots a centered text label at point x,y with an optional pixel offset. Text color can be changed with ImPlot::PushStyleColor(ImPlotCol_InlayText, ...).
-//    IMPLOT_API void PlotText(const char* text, double x, double y, bool vertical=false, const ImVec2& pix_offset=ImVec2(0,0));
-//
-//    // Plots a dummy item (i.e. adds a legend entry colored by ImPlotCol_Line)
-//    IMPLOT_API void PlotDummy(const char* label_id);
+
+    /**
+     * Plots a centered text label at point x,y
+     */
+    public static void plotText(String text, double x, double y) {
+        plotText(text, x, y, false);
+    }
+
+    /**
+     * Plots a centered text label at point x,y
+     */
+    public static native void plotText(String text, double x, double y, boolean vertical); /*
+        ImPlot::PlotText(text, x, y, vertical);
+    */
+
+    /**
+     * Plots a dummy item (i.e. adds a legend entry colored by ImPlotCol_Line)
+     */
+    public static native void plotDummy(String label_id); /*
+        ImPlot::PlotDummy(label_id);
+    */
 
     //-----------------------------------------------------------------------------
     // Plot Utils
