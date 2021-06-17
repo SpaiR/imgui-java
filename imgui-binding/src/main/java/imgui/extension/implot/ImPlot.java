@@ -104,12 +104,12 @@ public final class ImPlot {
      *
      * Important notes:
      *
-     * - #title_id must be unique to the current ImGui ID scope. If you need to avoid ID
+     * - #titleID must be unique to the current ImGui ID scope. If you need to avoid ID
      *   collisions or don't want to display a title in the plot, use double hashes
      *   (e.g. "MyPlot##HiddenIdText" or "##NoTitle").
      */
-    public static boolean beginPlot(final String title_id) {
-        return beginPlot(title_id, null, null);
+    public static boolean beginPlot(final String titleID) {
+        return beginPlot(titleID, null, null);
     }
 
     /**
@@ -124,15 +124,15 @@ public final class ImPlot {
      *
      * Important notes:
      *
-     * - #title_id must be unique to the current ImGui ID scope. If you need to avoid ID
+     * - #titleID must be unique to the current ImGui ID scope. If you need to avoid ID
      *   collisions or don't want to display a title in the plot, use double hashes
      *   (e.g. "MyPlot##HiddenIdText" or "##NoTitle").
-     * - If #x_label and/or #y_label are provided, axes labels will be displayed.
+     * - If #xLabel and/or #yLabel are provided, axes labels will be displayed.
      */
-    public static boolean beginPlot(final String title_id,
-                                    final String x_label,
-                                    final String y_label) {
-        return beginPlot(title_id, x_label, y_label, new ImVec2(-1, 0));
+    public static boolean beginPlot(final String titleID,
+                                    final String xLabel,
+                                    final String yLabel) {
+        return beginPlot(titleID, xLabel, yLabel, new ImVec2(-1, 0));
     }
 
     /**
@@ -147,19 +147,19 @@ public final class ImPlot {
      *
      * Important notes:
      *
-     * - #title_id must be unique to the current ImGui ID scope. If you need to avoid ID
+     * - #titleID must be unique to the current ImGui ID scope. If you need to avoid ID
      *   collisions or don't want to display a title in the plot, use double hashes
      *   (e.g. "MyPlot##HiddenIdText" or "##NoTitle").
-     * - If #x_label and/or #y_label are provided, axes labels will be displayed.
+     * - If #xLabel and/or #yLabel are provided, axes labels will be displayed.
      * - #size is the **frame** size of the plot widget, not the plot area. The default
      *   size of plots (i.e. when ImVec2(0,0)) can be modified in your ImPlotStyle
      *   (default is 400x300 px).
      */
-    public static boolean beginPlot(final String title_id,
-                                    final String x_label,
-                                    final String y_label,
+    public static boolean beginPlot(final String titleID,
+                                    final String xLabel,
+                                    final String yLabel,
                                     final ImVec2 size) {
-        return beginPlot(title_id, x_label, y_label, size, ImPlotFlags.None, ImPlotAxisFlags.None, ImPlotAxisFlags.None);
+        return beginPlot(titleID, xLabel, yLabel, size, ImPlotFlags.None, ImPlotAxisFlags.None, ImPlotAxisFlags.None);
     }
 
     /**
@@ -174,23 +174,23 @@ public final class ImPlot {
      *
      * Important notes:
      *
-     * - #title_id must be unique to the current ImGui ID scope. If you need to avoid ID
+     * - #titleID must be unique to the current ImGui ID scope. If you need to avoid ID
      *   collisions or don't want to display a title in the plot, use double hashes
      *   (e.g. "MyPlot##HiddenIdText" or "##NoTitle").
-     * - If #x_label and/or #y_label are provided, axes labels will be displayed.
+     * - If #xLabel and/or #yLabel are provided, axes labels will be displayed.
      * - #size is the **frame** size of the plot widget, not the plot area. The default
      *   size of plots (i.e. when ImVec2(0,0)) can be modified in your ImPlotStyle
      *   (default is 400x300 px).
      * - See ImPlotFlags and ImPlotAxisFlags for more available options.
      */
-    public static boolean beginPlot(final String title_id,
-                                    final String x_label,
-                                    final String y_label,
+    public static boolean beginPlot(final String titleID,
+                                    final String xLabel,
+                                    final String yLabel,
                                     final ImVec2 size,
-                                    int flags,
-                                    int x_flags,
-                                    int y_flags) {
-        return beginPlot(title_id, x_label, y_label, size, flags, x_flags, y_flags, ImPlotAxisFlags.None, ImPlotAxisFlags.None, null, null);
+                                    final int flags,
+                                    final int xFlags,
+                                    final int yFlags) {
+        return beginPlot(titleID, xLabel, yLabel, size, flags, xFlags, yFlags, ImPlotAxisFlags.None, ImPlotAxisFlags.None, null, null);
     }
 
     /**
@@ -205,53 +205,53 @@ public final class ImPlot {
      *
      * Important notes:
      *
-     * - #title_id must be unique to the current ImGui ID scope. If you need to avoid ID
+     * - #titleID must be unique to the current ImGui ID scope. If you need to avoid ID
      *   collisions or don't want to display a title in the plot, use double hashes
      *   (e.g. "MyPlot##HiddenIdText" or "##NoTitle").
-     * - If #x_label and/or #y_label are provided, axes labels will be displayed.
+     * - If #xLabel and/or #yLabel are provided, axes labels will be displayed.
      * - #size is the **frame** size of the plot widget, not the plot area. The default
      *   size of plots (i.e. when ImVec2(0,0)) can be modified in your ImPlotStyle
      *   (default is 400x300 px).
      * - Auxiliary y-axes must be enabled with ImPlotFlags_YAxis2/3 to be displayed.
      * - See ImPlotFlags and ImPlotAxisFlags for more available options.
      */
-    public static boolean beginPlot(final String title_id,
-                                    final String x_label,
-                                    final String y_label,
+    public static boolean beginPlot(final String titleID,
+                                    final String xLabel,
+                                    final String yLabel,
                                     final ImVec2 size,
-                                    int flags,
-                                    int x_flags,
-                                    int y_flags,
-                                    int y2_flags,
-                                    int y3_flags,
-                                    final String y2_label,
-                                    final String y3_label) {
-        return nBeginPlot(title_id, x_label, y_label, size.x, size.y, flags, x_flags, y_flags, y2_flags, y3_flags, y2_label, y3_label);
+                                    final int flags,
+                                    final int xFlags,
+                                    final int yFlags,
+                                    final int y2Flags,
+                                    final int y3Flags,
+                                    final String y2Label,
+                                    final String y3Label) {
+        return nBeginPlot(titleID, xLabel, yLabel, size.x, size.y, flags, xFlags, yFlags, y2Flags, y3Flags, y2Label, y3Label);
     }
 
-    private static native boolean nBeginPlot(final String title_id,
-                                             final String x_label,
-                                             final String y_label,
+    private static native boolean nBeginPlot(String titleID,
+                                             String xLabel,
+                                             String yLabel,
                                              float x,
                                              float y,
                                              int flags,
-                                             int x_flags,
-                                             int y_flags,
-                                             int y2_flags,
-                                             int y3_flags,
-                                             final String y2_label,
-                                             final String y3_label); /*
-        return ImPlot::BeginPlot(title_id,
-                                 x_label,
-                                 y_label,
+                                             int xFlags,
+                                             int yFlags,
+                                             int y2Flags,
+                                             int y3Flags,
+                                             String y2Label,
+                                             String y3Label); /*
+        return ImPlot::BeginPlot(titleID,
+                                 xLabel,
+                                 yLabel,
                                  ImVec2(x, y),
                                  flags,
-                                 x_flags,
-                                 y_flags,
-                                 y2_flags,
-                                 y3_flags,
-                                 y2_label,
-                                 y3_label);
+                                 xFlags,
+                                 yFlags,
+                                 y2Flags,
+                                 y3Flags,
+                                 y2Label,
+                                 y3Label);
     */
 
     /**
@@ -267,15 +267,16 @@ public final class ImPlot {
     //-----------------------------------------------------------------------------
 
     /**
-     * Make sure to initialize xs_out and ys_out with length xs.length, ys.length before passing them, or data may be lost/errors may occur
+     * Make sure to initialize xsOut and ysOut with length xs.length, ys.length before passing them, or data may be lost/errors may occur
      */
-    private static <T> void convertArrays(T[] xs, T[] ys, double[] xs_out, double[] ys_out) {
-        if (xs.length != ys.length)
+    private static <T> void convertArrays(final T[] xs, final T[] ys, final double[] xsOut, final double[] ysOut) {
+        if (xs.length != ys.length) {
             throw new InvalidParameterException();
+        }
 
         for (int i = 0; i < xs.length; i++) {
-            xs_out[i] = (Double) xs[i]; //Throws CastClassException if invalid type, which is OK
-            ys_out[i] = (Double) ys[i];
+            xsOut[i] = (Double) xs[i]; //Throws CastClassException if invalid type, which is OK
+            ysOut[i] = (Double) ys[i];
         }
     }
 
@@ -284,8 +285,8 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotLine(String label_id, T[] xs, T[] ys) {
-        plotLine(label_id, xs, ys, 0);
+    public static <T> void plotLine(final String labelID, final T[] xs, final T[] ys) {
+        plotLine(labelID, xs, ys, 0);
     }
 
     /**
@@ -293,16 +294,16 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotLine(String label_id, T[] xs, T[] ys, int offset) {
-        double[] x = new double[xs.length];
-        double[] y = new double [ys.length];
+    public static <T> void plotLine(final String labelID, final T[] xs, final T[] ys, final int offset) {
+        final double[] x = new double[xs.length];
+        final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
 
-        nPlotLine(label_id, x, y, x.length, offset);
+        nPlotLine(labelID, x, y, x.length, offset);
     }
 
-    private static native void nPlotLine(String label_id, double[] xs, double[] ys, int size, int offset); /*
-        ImPlot::PlotLine(label_id, xs, ys, size, offset);
+    private static native void nPlotLine(String labelID, double[] xs, double[] ys, int size, int offset); /*
+        ImPlot::PlotLine(labelID, xs, ys, size, offset);
     */
 
     /**
@@ -310,8 +311,8 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotScatter(String label_id, T[] xs, T[] ys) {
-        plotScatter(label_id, xs, ys, 0);
+    public static <T> void plotScatter(final String labelID, final T[] xs, final T[] ys) {
+        plotScatter(labelID, xs, ys, 0);
     }
 
     /**
@@ -319,16 +320,16 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotScatter(String label_id, T[] xs, T[] ys, int offset) {
-        double[] x = new double[xs.length];
-        double[] y = new double [ys.length];
+    public static <T> void plotScatter(final String labelID, final T[] xs, final T[] ys, final int offset) {
+        final double[] x = new double[xs.length];
+        final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
 
-        nPlotScatter(label_id, x, y, x.length, offset);
+        nPlotScatter(labelID, x, y, x.length, offset);
     }
 
-    private static native void nPlotScatter(String label_id, double[] xs, double[] ys, int size, int offset); /*
-        ImPlot::PlotScatter(label_id, xs, ys, size, offset);
+    private static native void nPlotScatter(String labelID, double[] xs, double[] ys, int size, int offset); /*
+        ImPlot::PlotScatter(labelID, xs, ys, size, offset);
     */
 
     /**
@@ -336,8 +337,8 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotStairs(String label_id, T[] xs, T[] ys) {
-        plotStairs(label_id, xs, ys, 0);
+    public static <T> void plotStairs(final String labelID, final T[] xs, final T[] ys) {
+        plotStairs(labelID, xs, ys, 0);
     }
 
     /**
@@ -345,42 +346,42 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotStairs(String label_id, T[] xs, T[] ys, int offset) {
-        double[] x = new double[xs.length];
-        double[] y = new double [ys.length];
+    public static <T> void plotStairs(final String labelID, final T[] xs, final T[] ys, final int offset) {
+        final double[] x = new double[xs.length];
+        final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
 
-        nPlotStairs(label_id, x, y, x.length, offset);
+        nPlotStairs(labelID, x, y, x.length, offset);
     }
 
-    private static native void nPlotStairs(String label_id, double[] xs, double[] ys, int size, int offset); /*
-        ImPlot::PlotStairs(label_id, xs, ys, size, offset);
+    private static native void nPlotStairs(String labelID, double[] xs, double[] ys, int size, int offset); /*
+        ImPlot::PlotStairs(labelID, xs, ys, size, offset);
     */
 
     /**
-     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref (default 0) to +/-INFINITY for infinite fill extents.
+     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set yRef (default 0) to +/-INFINITY for infinite fill extents.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotShaded(String label_id, T[] xs, T[] ys, int y_ref) {
-        plotShaded(label_id, xs, ys, y_ref, 0);
+    public static <T> void plotShaded(final String labelID, final T[] xs, final T[] ys, final int yRef) {
+        plotShaded(labelID, xs, ys, yRef, 0);
     }
 
     /**
-     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref (default 0) to +/-INFINITY for infinite fill extents.
+     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set yRef (default 0) to +/-INFINITY for infinite fill extents.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotShaded(String label_id, T[] xs, T[] ys, int y_ref, int offset) {
-        double[] x = new double[xs.length];
-        double[] y = new double [ys.length];
+    public static <T> void plotShaded(final String labelID, final T[] xs, final T[] ys, final int yRef, final int offset) {
+        final double[] x = new double[xs.length];
+        final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
 
-        nPlotShaded(label_id, x, y, x.length, y_ref, offset);
+        nPlotShaded(labelID, x, y, x.length, yRef, offset);
     }
 
-    private static native void nPlotShaded(String label_id, double[] xs, double[] ys, int size, int y_ref, int offset); /*
-        ImPlot::PlotShaded(label_id, xs, ys, size, y_ref, offset);
+    private static native void nPlotShaded(String labelID, double[] xs, double[] ys, int size, int yRef, int offset); /*
+        ImPlot::PlotShaded(labelID, xs, ys, size, yRef, offset);
     */
 
     /**
@@ -388,8 +389,8 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotBars(String label_id, T[] xs, T[] ys) {
-        plotBars(label_id, xs, ys, 0.67f, 0);
+    public static <T> void plotBars(final String labelID, final T[] xs, final T[] ys) {
+        plotBars(labelID, xs, ys, 0.67f, 0);
     }
 
     /**
@@ -398,8 +399,8 @@ public final class ImPlot {
      * @param <T> MUST be castable to double!
      * @param width is in X units
      */
-    public static <T> void plotBars(String label_id, T[] xs, T[] ys, float width) {
-        plotBars(label_id, xs, ys, width, 0);
+    public static <T> void plotBars(final String labelID, final T[] xs, final T[] ys, final float width) {
+        plotBars(labelID, xs, ys, width, 0);
     }
 
     /**
@@ -408,16 +409,16 @@ public final class ImPlot {
      * @param <T> MUST be castable to double!
      * @param width is in X units
      */
-    public static <T> void plotBars(String label_id, T[] xs, T[] ys, float width, int offset) {
-        double[] x = new double[xs.length];
-        double[] y = new double [ys.length];
+    public static <T> void plotBars(final String labelID, final T[] xs, final T[] ys, final float width, final int offset) {
+        final double[] x = new double[xs.length];
+        final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
 
-        nPlotBars(label_id, x, y, x.length, width, offset);
+        nPlotBars(labelID, x, y, x.length, width, offset);
     }
 
-    private static native void nPlotBars(String label_id, double[] xs, double[] ys, int size, float width, int offset); /*
-        ImPlot::PlotBars(label_id, xs, ys, size, width, offset);
+    private static native void nPlotBars(String labelID, double[] xs, double[] ys, int size, float width, int offset); /*
+        ImPlot::PlotBars(labelID, xs, ys, size, width, offset);
     */
 
     /**
@@ -425,18 +426,8 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotBarsH(String label_id, T[] xs, T[] ys) {
-        plotBarsH(label_id, xs, ys, 0.67f, 0);
-    }
-
-    /**
-     * Plots a horizontal bar graph.
-     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
-     * @param height is in Y units
-     */
-    public static <T> void plotBarsH(String label_id, T[] xs, T[] ys, float height) {
-        plotBarsH(label_id, xs, ys, height, 0);
+    public static <T> void plotBarsH(final String labelID, final T[] xs, final T[] ys) {
+        plotBarsH(labelID, xs, ys, 0.67f, 0);
     }
 
     /**
@@ -445,72 +436,82 @@ public final class ImPlot {
      * @param <T> MUST be castable to double!
      * @param height is in Y units
      */
-    public static <T> void plotBarsH(String label_id, T[] xs, T[] ys, float height, int offset) {
-        double[] x = new double[xs.length];
-        double[] y = new double [ys.length];
-        convertArrays(xs, ys, x, y);
-
-        nPlotBarsH(label_id, x, y, x.length, height, offset);
+    public static <T> void plotBarsH(final String labelID, final T[] xs, final T[] ys, final float height) {
+        plotBarsH(labelID, xs, ys, height, 0);
     }
 
-    private static native void nPlotBarsH(String label_id, double[] xs, double[] ys, int size, float height, int offset); /*
-        ImPlot::PlotBarsH(label_id, xs, ys, size, height, offset);
+    /**
+     * Plots a horizontal bar graph.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     * @param <T> MUST be castable to double!
+     * @param height is in Y units
+     */
+    public static <T> void plotBarsH(final String labelID, final T[] xs, final T[] ys, final float height, final int offset) {
+        final double[] x = new double[xs.length];
+        final double[] y = new double[ys.length];
+        convertArrays(xs, ys, x, y);
+
+        nPlotBarsH(labelID, x, y, x.length, height, offset);
+    }
+
+    private static native void nPlotBarsH(String labelID, double[] xs, double[] ys, int size, float height, int offset); /*
+        ImPlot::PlotBarsH(labelID, xs, ys, size, height, offset);
     */
 
     /**
-     * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
+     * Plots vertical error bar. The labelID should be the same as the labelID of the associated line or bar plot.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotErrorBars(String label_id, T[] xs, T[] ys, T[] err) {
-        plotErrorBars(label_id, xs, ys, err, 0);
+    public static <T> void plotErrorBars(final String labelID, final T[] xs, final T[] ys, final T[] err) {
+        plotErrorBars(labelID, xs, ys, err, 0);
     }
 
     /**
-     * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
+     * Plots vertical error bar. The labelID should be the same as the labelID of the associated line or bar plot.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotErrorBars(String label_id, T[] xs, T[] ys, T[] err, int offset) {
-        double[] x = new double[xs.length];
-        double[] y = new double [ys.length];
-        double[] err_out = new double[err.length];
+    public static <T> void plotErrorBars(final String labelID, final T[] xs, final T[] ys, final T[] err, final int offset) {
+        final double[] x = new double[xs.length];
+        final double[] y = new double[ys.length];
+        final double[] errOut = new double[err.length];
         convertArrays(xs, ys, x, y);
-        convertArrays(xs, err, x, err_out); //It's easier here to just do the X array twice than process the err array alone
+        convertArrays(xs, err, x, errOut); //It's easier here to just do the X array twice than process the err array alone
 
-        nPlotErrorBars(label_id, x, y, err_out, x.length, offset);
+        nPlotErrorBars(labelID, x, y, errOut, x.length, offset);
     }
 
-    private static native void nPlotErrorBars(String label_id, double[] xs, double[] ys, double[] err, int size, int offset); /*
-        ImPlot::PlotErrorBars(label_id, xs, ys, err, size, offset);
+    private static native void nPlotErrorBars(String labelID, double[] xs, double[] ys, double[] err, int size, int offset); /*
+        ImPlot::PlotErrorBars(labelID, xs, ys, err, size, offset);
     */
 
     /**
-     * Plots horizontal error bar. The label_id should be the same as the label_id of the associated line or bar plot.
+     * Plots horizontal error bar. The labelID should be the same as the labelID of the associated line or bar plot.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotErrorBarsH(String label_id, T[] xs, T[] ys, T[] err) {
-        plotErrorBarsH(label_id, xs, ys, err, 0);
+    public static <T> void plotErrorBarsH(final String labelID, final T[] xs, final T[] ys, final T[] err) {
+        plotErrorBarsH(labelID, xs, ys, err, 0);
     }
 
     /**
-     * Plots horizontal error bar. The label_id should be the same as the label_id of the associated line or bar plot.
+     * Plots horizontal error bar. The labelID should be the same as the labelID of the associated line or bar plot.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotErrorBarsH(String label_id, T[] xs, T[] ys, T[] err, int offset) {
-        double[] x = new double[xs.length];
-        double[] y = new double [ys.length];
-        double[] err_out = new double[err.length];
+    public static <T> void plotErrorBarsH(final String labelID, final T[] xs, final T[] ys, final T[] err, final int offset) {
+        final double[] x = new double[xs.length];
+        final double[] y = new double[ys.length];
+        final double[] errOut = new double[err.length];
         convertArrays(xs, ys, x, y);
-        convertArrays(xs, err, x, err_out); //It's easier here to just do the X array twice than process the err array alone
+        convertArrays(xs, err, x, errOut); //It's easier here to just do the X array twice than process the err array alone
 
-        nPlotErrorBarsH(label_id, x, y, err_out, x.length, offset);
+        nPlotErrorBarsH(labelID, x, y, errOut, x.length, offset);
     }
 
-    private static native void nPlotErrorBarsH(String label_id, double[] xs, double[] ys, double[] err, int size, int offset); /*
-        ImPlot::PlotErrorBarsH(label_id, xs, ys, err, size, offset);
+    private static native void nPlotErrorBarsH(String labelID, double[] xs, double[] ys, double[] err, int size, int offset); /*
+        ImPlot::PlotErrorBarsH(labelID, xs, ys, err, size, offset);
     */
 
     /**
@@ -518,8 +519,8 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotStems(String label_id, T[] values, int y_ref) {
-        plotStems(label_id, values, y_ref, 0);
+    public static <T> void plotStems(final String labelID, final T[] values, final int yRef) {
+        plotStems(labelID, values, yRef, 0);
     }
 
     /**
@@ -527,16 +528,17 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotStems(String label_id, T[] values, int y_ref, int offset) {
-        double[] v = new double[values.length];
-        for (int i = 0; i < values.length; i++)
-            v[i] = (Double)values[i];
+    public static <T> void plotStems(final String labelID, final T[] values, final int yRef, final int offset) {
+        final double[] v = new double[values.length];
+        for (int i = 0; i < values.length; i++) {
+            v[i] = (Double) values[i];
+        }
 
-        nPlotStems(label_id, v, v.length, y_ref, offset);
+        nPlotStems(labelID, v, v.length, yRef, offset);
     }
 
-    private static native void nPlotStems(String label_id, double[] values, int size, int y_ref, int offset); /*
-        ImPlot::PlotStems(label_id, values, size, y_ref, offset);
+    private static native void nPlotStems(String labelID, double[] values, int size, int yRef, int offset); /*
+        ImPlot::PlotStems(labelID, values, size, yRef, offset);
     */
 
     /**
@@ -544,8 +546,8 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotVLines(String label_id, T[] values) {
-        plotVLines(label_id, values, 0);
+    public static <T> void plotVLines(final String labelID, final T[] values) {
+        plotVLines(labelID, values, 0);
     }
 
     /**
@@ -553,16 +555,17 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotVLines(String label_id, T[] values, int offset) {
-        double[] v = new double[values.length];
-        for (int i = 0; i < values.length; i++)
-            v[i] = (Double)values[i];
+    public static <T> void plotVLines(final String labelID, final T[] values, final int offset) {
+        final double[] v = new double[values.length];
+        for (int i = 0; i < values.length; i++) {
+            v[i] = (Double) values[i];
+        }
 
-        nPlotVLines(label_id, v, v.length, offset);
+        nPlotVLines(labelID, v, v.length, offset);
     }
 
-    private static native void nPlotVLines(String label_id, double[] values, int size, int offset); /*
-        ImPlot::PlotVLines(label_id, values, size, offset);
+    private static native void nPlotVLines(String labelID, double[] values, int size, int offset); /*
+        ImPlot::PlotVLines(labelID, values, size, offset);
     */
 
     /**
@@ -570,8 +573,8 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotHLines(String label_id, T[] values) {
-        plotHLines(label_id, values, 0);
+    public static <T> void plotHLines(final String labelID, final T[] values) {
+        plotHLines(labelID, values, 0);
     }
 
     /**
@@ -579,16 +582,17 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotHLines(String label_id, T[] values, int offset) {
-        double[] v = new double[values.length];
-        for (int i = 0; i < values.length; i++)
-            v[i] = (Double)values[i];
+    public static <T> void plotHLines(final String labelID, final T[] values, final int offset) {
+        final double[] v = new double[values.length];
+        for (int i = 0; i < values.length; i++) {
+            v[i] = (Double) values[i];
+        }
 
-        nPlotHLines(label_id, v, v.length, offset);
+        nPlotHLines(labelID, v, v.length, offset);
     }
 
-    private static native void nPlotHLines(String label_id, double[] values, int size, int offset); /*
-        ImPlot::PlotHLines(label_id, values, size, offset);
+    private static native void nPlotHLines(String labelID, double[] values, int size, int offset); /*
+        ImPlot::PlotHLines(labelID, values, size, offset);
     */
 
     /**
@@ -596,54 +600,56 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> void plotPieChart(String[] label_ids, T[] values, double x, double y, double radius) {
-        double[] v = new double[values.length];
-        for (int i = 0; i < values.length; i++)
-            v[i] = (Double)values[i];
+    public static <T> void plotPieChart(final String[] labelIDs, final T[] values, final double x, final double y, final double radius) {
+        final double[] v = new double[values.length];
+        for (int i = 0; i < values.length; i++) {
+            v[i] = (Double) values[i];
+        }
 
-        String label_ids_ss = "";
+        String labelIDsSs = "";
         boolean first = true;
-        int max_size = 0;
-        for (String s : label_ids) {
+        int maxSize = 0;
+        for (String s : labelIDs) {
             if (first) {
                 first = false;
                 continue;
             } else {
-                label_ids_ss += "\n";
+                labelIDsSs += "\n";
             }
-            if (s.length() > max_size)
-                max_size = s.length();
+            if (s.length() > maxSize) {
+                maxSize = s.length();
+            }
 
-            label_ids_ss += s.replace("\n", "");
+            labelIDsSs += s.replace("\n", "");
         }
 
-        nPlotPieChart(label_ids_ss, max_size, v, v.length, x, y, radius);
+        nPlotPieChart(labelIDsSs, maxSize, v, v.length, x, y, radius);
     }
 
-    //JNI function splits up passed string label_ids_ss to array for use in C++, as String[] is not converted by JNI
-    private static native void nPlotPieChart(String label_ids_ss, int str_length, double[] values, int size, double x, double y, double radius); /*
-        char** label_ids = new char*[size];
+    //JNI function splits up passed string labelIDsSs to array for use in C++, as String[] is not converted by JNI
+    private static native void nPlotPieChart(String labelIDsSs, int strLen, double[] values, int size, double x, double y, double radius); /*
+        char** labelIDs = new char*[size];
 
         for (int pos = 0; pos < size; pos++) {
-            char* str = new char[str_length + 1];
+            char* str = new char[strLen + 1];
             char* str_i = str;
 
-            while (*label_ids_ss != '\n' && *label_ids_ss != '\0') {
-                *str = *label_ids_ss;
-                label_ids_ss++;
+            while (*labelIDsSs != '\n' && *labelIDsSs != '\0') {
+                *str = *labelIDsSs;
+                labelIDsSs++;
                 str++;
             }
-            label_ids_ss++; //move past \n
+            labelIDsSs++; //move past \n
 
-            label_ids[pos] = str_i;
+            labelIDs[pos] = str_i;
         }
 
-        ImPlot::PlotPieChart(label_ids, values, size, x, y, radius);
+        ImPlot::PlotPieChart(labelIDs, values, size, x, y, radius);
 
         for (int i = 0; i < size; i++) {
-            delete label_ids[i];
+            delete labelIDs[i];
         }
-        delete[] label_ids;
+        delete[] labelIDs;
     */
 
     /**
@@ -652,25 +658,26 @@ public final class ImPlot {
      * @param <T> MUST be castable to double!
      * @param values must have fixed dimensions (all arrays are same length)
      */
-    public static <T> void plotHeatmap(String label_id, T[][] values, int offset) {
-        double[] v = new double[values.length * values[0].length];
+    public static <T> void plotHeatmap(final String labelID, final T[][] values, final int offset) {
+        final double[] v = new double[values.length * values[0].length];
         int pos = 0;
         for (T[] a : values) {
-            for (T p : a)
-                v[pos++] = (Double)p;
+            for (T p : a) {
+                v[pos++] = (Double) p;
+            }
         }
 
-        nPlotHeatmap(label_id, v, values[0].length, values.length);
+        nPlotHeatmap(labelID, v, values[0].length, values.length);
     }
 
-    private static native void nPlotHeatmap(String label_id, double[] values, int rows, int cols); /*
-        ImPlot::PlotHeatmap(label_id, values, rows, cols);
+    private static native void nPlotHeatmap(String labelID, double[] values, int rows, int cols); /*
+        ImPlot::PlotHeatmap(labelID, values, rows, cols);
     */
 
 //    // Plots a horizontal histogram. #bins can be a positive integer or an ImPlotBin_ method. If #cumulative is true, each bin contains its count plus the counts of all previous bins.
 //    // If #density is true, the PDF is visualized. If both are true, the CDF is visualized. If #range is left unspecified, the min/max of #values will be used as the range.
 //    // If #range is specified, outlier values outside of the range are not binned. However, outliers still count toward normalizing and cumulative counts unless #outliers is false. The largest bin count or density is returned.
-//    template <typename T> IMPLOT_API double PlotHistogram(const char* label_id, const T* values, int count, int bins=ImPlotBin_Sturges, bool cumulative=false, bool density=false, ImPlotRange range=ImPlotRange(), bool outliers=true, double bar_scale=1.0);
+//    template <typename T> IMPLOT_API double PlotHistogram(const char* labelID, const T* values, int count, int bins=ImPlotBin_Sturges, bool cumulative=false, bool density=false, ImPlotRange range=ImPlotRange(), bool outliers=true, double bar_scale=1.0);
 //
 
     /**
@@ -678,16 +685,17 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> double plotHistogram(String label_id, T[] values) {
-        double[] v = new double[values.length];
-        for (int i = 0; i < values.length; i++)
-            v[i] = (Double)values[i];
+    public static <T> double plotHistogram(final String labelID, final T[] values) {
+        final double[] v = new double[values.length];
+        for (int i = 0; i < values.length; i++) {
+            v[i] = (Double) values[i];
+        }
 
-        return nPlotHistogram(label_id, v, v.length);
+        return nPlotHistogram(labelID, v, v.length);
     }
 
-    private static native double nPlotHistogram(String label_id, double[] values, int size); /*
-        return ImPlot::PlotHistogram(label_id, values, size);
+    private static native double nPlotHistogram(String labelID, double[] values, int size); /*
+        return ImPlot::PlotHistogram(labelID, values, size);
     */
 
     /**
@@ -695,21 +703,21 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> double plotHistogram2D(String label_id, T[] xs, T[] ys) {
-        double[] x = new double[xs.length];
-        double[] y = new double[ys.length];
+    public static <T> double plotHistogram2D(final String labelID, final T[] xs, final T[] ys) {
+        final double[] x = new double[xs.length];
+        final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
 
-        return nPlotHistogram2D(label_id, x, y, x.length);
+        return nPlotHistogram2D(labelID, x, y, x.length);
     }
 
-    private static native double nPlotHistogram2D(String label_id, double[] xs, double[] ys, int size); /*
-        return ImPlot::PlotHistogram2D(label_id, xs, ys, size);
+    private static native double nPlotHistogram2D(String labelID, double[] xs, double[] ys, int size); /*
+        return ImPlot::PlotHistogram2D(labelID, xs, ys, size);
     */
 
 //    //
-//    template <typename T> IMPLOT_API void PlotDigital(const char* label_id, const T* xs, const T* ys, int count, int offset=0, int stride=sizeof(T));
-//    IMPLOT_API void PlotDigitalG(const char* label_id, ImPlotPoint (*getter)(void* data, int idx), void* data, int count, int offset=0);
+//    template <typename T> IMPLOT_API void PlotDigital(const char* labelID, const T* xs, const T* ys, int count, int offset=0, int stride=sizeof(T));
+//    IMPLOT_API void PlotDigitalG(const char* labelID, ImPlotPoint (*getter)(void* data, int idx), void* data, int count, int offset=0);
 //
 
     /**
@@ -717,26 +725,26 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> double plotDigital(String label_id, T[] xs, T[] ys) {
-        double[] x = new double[xs.length];
-        double[] y = new double[ys.length];
+    public static <T> double plotDigital(final String labelID, final T[] xs, final T[] ys) {
+        final double[] x = new double[xs.length];
+        final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
 
-        return nPlotDigital(label_id, x, y, x.length);
+        return nPlotDigital(labelID, x, y, x.length);
     }
 
-    private static native double nPlotDigital(String label_id, double[] xs, double[] ys, int size); /*
-        return ImPlot::PlotDigital(label_id, xs, ys, size);
+    private static native double nPlotDigital(String labelID, double[] xs, double[] ys, int size); /*
+        return ImPlot::PlotDigital(labelID, xs, ys, size);
     */
 
     //TODO not yet supported
 //    // Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
-//    IMPLOT_API void PlotImage(const char* label_id, ImTextureID user_texture_id, const ImPlotPoint& bounds_min, const ImPlotPoint& bounds_max, const ImVec2& uv0=ImVec2(0,0), const ImVec2& uv1=ImVec2(1,1), const ImVec4& tint_col=ImVec4(1,1,1,1));
+//    IMPLOT_API void PlotImage(const char* labelID, ImTextureID user_texture_id, const ImPlotPoint& bounds_min, const ImPlotPoint& bounds_max, const ImVec2& uv0=ImVec2(0,0), const ImVec2& uv1=ImVec2(1,1), const ImVec4& tint_col=ImVec4(1,1,1,1));
 
     /**
      * Plots a centered text label at point x,y
      */
-    public static void plotText(String text, double x, double y) {
+    public static void plotText(final String text, final double x, final double y) {
         plotText(text, x, y, false);
     }
 
@@ -750,8 +758,8 @@ public final class ImPlot {
     /**
      * Plots a dummy item (i.e. adds a legend entry colored by ImPlotCol_Line)
      */
-    public static native void plotDummy(String label_id); /*
-        ImPlot::PlotDummy(label_id);
+    public static native void plotDummy(String labelID); /*
+        ImPlot::PlotDummy(labelID);
     */
 
     //-----------------------------------------------------------------------------
@@ -786,7 +794,7 @@ public final class ImPlot {
      * This function MUST be called BEFORE beginPlot!
      * Links the next plot limits to external values. Set to NULL for no linkage. The pointer data must remain valid until the matching call to EndPlot.
      */
-    public static void linkNextPlotLimits(ImDouble xmin, ImDouble xmax, ImDouble ymin, ImDouble ymax) {
+    public static void linkNextPlotLimits(final ImDouble xmin, final ImDouble xmax, final ImDouble ymin, final ImDouble ymax) {
         linkNextPlotLimits(xmin, xmax, ymin, ymax, null, null, null, null);
     }
 
@@ -794,7 +802,7 @@ public final class ImPlot {
      * This function MUST be called BEFORE beginPlot!
      * Links the next plot limits to external values. Set to NULL for no linkage. The pointer data must remain valid until the matching call to EndPlot.
      */
-    public static void linkNextPlotLimits(ImDouble xmin, ImDouble xmax, ImDouble ymin, ImDouble ymax, ImDouble ymin2, ImDouble ymax2) {
+    public static void linkNextPlotLimits(final ImDouble xmin, final ImDouble xmax, final ImDouble ymin, final ImDouble ymax, final ImDouble ymin2, final ImDouble ymax2) {
         linkNextPlotLimits(xmin, xmax, ymin, ymax, ymin2, ymax2, null, null);
     }
 
@@ -802,7 +810,7 @@ public final class ImPlot {
      * This function MUST be called BEFORE beginPlot!
      * Links the next plot limits to external values. Set to NULL for no linkage. The pointer data must remain valid until the matching call to EndPlot.
      */
-    public static void linkNextPlotLimits(ImDouble xmin, ImDouble xmax, ImDouble ymin, ImDouble ymax, ImDouble ymin2, ImDouble ymax2, ImDouble ymin3, ImDouble ymax3) {
+    public static void linkNextPlotLimits(final ImDouble xmin, final ImDouble xmax, final ImDouble ymin, final ImDouble ymax, final ImDouble ymin2, final ImDouble ymax2, final ImDouble ymin3, final ImDouble ymax3) {
         nLinkNextPlotLimits(xmin.getData(), xmax.getData(), ymin.getData(), ymax.getData(), ymin2.getData(), ymax2.getData(), ymin3.getData(), ymax3.getData());
     }
 
@@ -822,7 +830,7 @@ public final class ImPlot {
      * This function MUST be called BEFORE beginPlot!
      * Fits the next plot axes to all plotted data if they are unlocked (equivalent to double-clicks).
      */
-    public static void fitNextPlotAxes(boolean x, boolean y) {
+    public static void fitNextPlotAxes(final boolean x, final boolean y) {
         fitNextPlotAxes(x, y, true, true);
     }
 
@@ -839,73 +847,75 @@ public final class ImPlot {
      * This function MUST be called BEFORE beginPlot!
      * Set the X axis ticks and optionally the labels for the next plot.
      */
-    public static void setNextPlotTicksX(double x_min, double x_max, int n_ticks) {
-        setNextPlotTicksX(x_min, x_max, n_ticks, null, false);
+    public static void setNextPlotTicksX(final double xMin, final double xMax, final int nTicks) {
+        setNextPlotTicksX(xMin, xMax, nTicks, null, false);
     }
 
     /**
      * This function MUST be called BEFORE beginPlot!
-     * Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keepDefault=true.
      */
-    public static void setNextPlotTicksX(double x_min, double x_max, int n_ticks, final String[] labels, boolean keep_default) {
-        String[] labelStrings = new String[4];
+    public static void setNextPlotTicksX(final double xMin, final double xMax, final int nTicks, final String[] labels, final boolean keepDefault) {
+        final String[] labelStrings = new String[4];
         for (int i = 0; i < 4; i++) {
-            if (labels != null && i < labels.length)
+            if (labels != null && i < labels.length) {
                 labelStrings[i] = labels[i];
-            else
+            } else {
                 labelStrings[i] = null;
+            }
         }
 
-        nSetNextPlotTicksX(x_min, x_max, n_ticks, labelStrings[0], labelStrings[1], labelStrings[2], labelStrings[3], keep_default);
+        nSetNextPlotTicksX(xMin, xMax, nTicks, labelStrings[0], labelStrings[1], labelStrings[2], labelStrings[3], keepDefault);
     }
 
-    private static native void nSetNextPlotTicksX(double x_min, double x_max, int n_ticks, final String s1, final String s2, final String s3, final String s4, boolean keep_default); /*
+    private static native void nSetNextPlotTicksX(double xMin, double xMax, int nTicks, String s1, String s2, String s3, String s4, boolean keepDefault); /*
         char* strings[] = {s1, s2, s3, s4};
-        ImPlot::SetNextPlotTicksX(x_min, x_max, n_ticks, strings, keep_default);
+        ImPlot::SetNextPlotTicksX(xMin, xMax, nTicks, strings, keepDefault);
     */
 
     /**
      * This function MUST be called BEFORE beginPlot!
      * Set the Y axis ticks and optionally the labels for the next plot.
      */
-    public static void setNextPlotTicksY(double x_min, double x_max, int n_ticks) {
-        setNextPlotTicksY(x_min, x_max, n_ticks, null, false, ImPlotYAxis.YAxis_1);
+    public static void setNextPlotTicksY(final double xMin, final double xMax, final int nTicks) {
+        setNextPlotTicksY(xMin, xMax, nTicks, null, false, ImPlotYAxis.YAxis_1);
     }
 
     /**
      * This function MUST be called BEFORE beginPlot!
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keepDefault=true.
      */
-    public static void setNextPlotTicksY(double x_min, double x_max, int n_ticks, final String[] labels, boolean keep_default) {
-        setNextPlotTicksY(x_min, x_max, n_ticks, labels, keep_default, ImPlotYAxis.YAxis_1);
+    public static void setNextPlotTicksY(final double xMin, final double xMax, final int nTicks, final String[] labels, final boolean keepDefault) {
+        setNextPlotTicksY(xMin, xMax, nTicks, labels, keepDefault, ImPlotYAxis.YAxis_1);
     }
 
     /**
      * This function MUST be called BEFORE beginPlot!
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keepDefault=true.
      */
-    public static void setNextPlotTicksY(double x_min, double x_max, int n_ticks, final String[] labels, boolean keep_default, int y_axis) {
-        String[] labelStrings = new String[4];
+    public static void setNextPlotTicksY(final double xMin, final double xMax, final int nTicks, final String[] labels, final boolean keepDefault, final int yAxis) {
+        final String[] labelStrings = new String[4];
         for (int i = 0; i < 4; i++) {
-            if (labels != null && i < labels.length)
+            if (labels != null && i < labels.length) {
                 labelStrings[i] = labels[i];
-            else
+            } else {
                 labelStrings[i] = null;
+            }
         }
 
-        nSetNextPlotTicksY(x_min, x_max, n_ticks, labelStrings[0], labelStrings[1], labelStrings[2], labelStrings[3], keep_default, y_axis);
+        nSetNextPlotTicksY(xMin, xMax, nTicks, labelStrings[0], labelStrings[1], labelStrings[2], labelStrings[3], keepDefault, yAxis);
     }
 
-    public static native void nSetNextPlotTicksY(double x_min, double x_max, int n_ticks, final String s1, final String s2, final String s3, final String s4, boolean keep_default, int y_axis); /*
+    public static native void nSetNextPlotTicksY(double xMin, double xMax, int nTicks, String s1, String s2, String s3, String s4, boolean keepDefault, int yAxis); /*
         char* strings[] = {s1, s2, s3, s4};
-        ImPlot::SetNextPlotTicksY(x_min, x_max, n_ticks, strings, keep_default, y_axis);
+        ImPlot::SetNextPlotTicksY(xMin, xMax, nTicks, strings, keepDefault, yAxis);
     */
 
     /**
      * This function MUST be called BEFORE beginPlot!
      * Set the format for numeric X axis labels (default="%g"). Formated values will be doubles (i.e. don't supply %d, %i, etc.). Not applicable if ImPlotAxisFlags_Time enabled.
      */
-    public static native void setNextPlotFormatX(final String fmt); /*
+    public static native void setNextPlotFormatX(String fmt); /*
         ImPlot::SetNextPlotFormatX(fmt);
     */
 
@@ -921,7 +931,7 @@ public final class ImPlot {
      * This function MUST be called BEFORE beginPlot!
      * Set the format for numeric Y axis labels (default="%g"). Formated values will be doubles (i.e. don't supply %d, %i, etc.). Not applicable if ImPlotAxisFlags_Time enabled.
      */
-    public static native void setNextPlotFormatY(final String fmt, int y_axis); /*
+    public static native void setNextPlotFormatY(String fmt, int yAxis); /*
         ImPlot::SetNextPlotFormatY(fmt);
      */
 
@@ -929,8 +939,8 @@ public final class ImPlot {
      * This function MUST be called BETWEEN begin/endPlot!
      * Select which Y axis will be used for subsequent plot elements. The default is ImPlotYAxis_1, or the first (left) Y axis. Enable 2nd and 3rd axes with ImPlotFlags_YAxisX.
      */
-    public static native void setPlotYAxis(int y_axis); /*
-        ImPlot::SetPlotYAxis(y_axis);
+    public static native void setPlotYAxis(int yAxis); /*
+        ImPlot::SetPlotYAxis(yAxis);
     */
 
     /**
@@ -945,53 +955,53 @@ public final class ImPlot {
      * This function MUST be called BETWEEN begin/endPlot!
      * Hides the next plot item. Use ImGuiCond. Always if you need to forcefully set this every frame (default ImGuiCond.Once).
      */
-    public static native void hideNextItem(boolean hidden, int imgui_cond); /*
-        ImPlot::HideNextItem(hidden, imgui_cond);
+    public static native void hideNextItem(boolean hidden, int imguiCond); /*
+        ImPlot::HideNextItem(hidden, imguiCond);
     */
 
     /**
      * This function MUST be called BETWEEN begin/endPlot!
-     * Convert pixels to a position in the current plot's coordinate system. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
+     * Convert pixels to a position in the current plot's coordinate system. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
      */
-    public static ImPlotPoint pixelsToPlot(final ImVec2 pix, int y_axis) {
-        IMPLOT_POINT.ptr = nPixelsToPlot(pix.x, pix.y, y_axis);
+    public static ImPlotPoint pixelsToPlot(final ImVec2 pix, final int yAxis) {
+        IMPLOT_POINT.ptr = nPixelsToPlot(pix.x, pix.y, yAxis);
         return IMPLOT_POINT;
     }
 
     /**
      * This function MUST be called BETWEEN begin/endPlot!
-     * Convert pixels to a position in the current plot's coordinate system. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
+     * Convert pixels to a position in the current plot's coordinate system. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
      */
-    public static ImPlotPoint pixelsToPlot(float x, float y, int y_axis) {
-        IMPLOT_POINT.ptr = nPixelsToPlot(x, y, y_axis);
+    public static ImPlotPoint pixelsToPlot(final float x, final float y, final int yAxis) {
+        IMPLOT_POINT.ptr = nPixelsToPlot(x, y, yAxis);
         return IMPLOT_POINT;
     }
 
-    private static native long nPixelsToPlot(float x, float y, int y_axis); /*
-        ImPlotPoint* p = new ImPlotPoint(ImPlot::PixelsToPlot(x, y, y_axis)); //avoid complaining about taking the address of an rvalue
+    private static native long nPixelsToPlot(float x, float y, int yAxis); /*
+        ImPlotPoint* p = new ImPlotPoint(ImPlot::PixelsToPlot(x, y, yAxis)); //avoid complaining about taking the address of an rvalue
         return (intptr_t)p;
     */
 
     /**
      * This function MUST be called BETWEEN begin/endPlot!
-     * Convert a position in the current plot's coordinate system to pixels. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
+     * Convert a position in the current plot's coordinate system to pixels. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
      */
-    public static ImVec2 plotToPixels(ImPlotPoint plt, int y_axis) {
-        return plotToPixels(plt.getX(), plt.getY(), y_axis);
+    public static ImVec2 plotToPixels(final ImPlotPoint plt, final int yAxis) {
+        return plotToPixels(plt.getX(), plt.getY(), yAxis);
     }
 
     /**
      * This function MUST be called BETWEEN begin/endPlot!
-     * Convert a position in the current plot's coordinate system to pixels. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
+     * Convert a position in the current plot's coordinate system to pixels. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
      */
-    public static ImVec2 plotToPixels(double x, double y, int y_axis) {
+    public static ImVec2 plotToPixels(final double x, final double y, final int yAxis) {
         final ImVec2 value = new ImVec2();
-        nPlotToPixels(x, y, y_axis, value);
+        nPlotToPixels(x, y, yAxis, value);
         return value;
     }
 
-    private static native void nPlotToPixels(double x, double y, int y_axis, ImVec2 vec); /*
-        Jni::ImVec2Cpy(env, ImPlot::PlotToPixels(x, y, y_axis), vec);
+    private static native void nPlotToPixels(double x, double y, int yAxis, ImVec2 vec); /*
+        Jni::ImVec2Cpy(env, ImPlot::PlotToPixels(x, y, yAxis), vec);
     */
 
 
@@ -1048,35 +1058,35 @@ public final class ImPlot {
      * This function MUST be called BETWEEN begin/endPlot!
      * Returns true if the YAxis[n] plot area in the current plot is hovered.
      */
-    public static native boolean isPlotYAxisHovered(int y_axis); /*
-        return ImPlot::IsPlotYAxisHovered(y_axis);
+    public static native boolean isPlotYAxisHovered(int yAxis); /*
+        return ImPlot::IsPlotYAxisHovered(yAxis);
     */
 
     /**
      * This function MUST be called BETWEEN begin/endPlot!
-     * Returns the mouse position in x,y coordinates of the current plot. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
+     * Returns the mouse position in x,y coordinates of the current plot. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
      */
-    public static ImPlotPoint getPlotMousePos(int y_axis) {
-        IMPLOT_POINT.ptr = nGetPlotMousePos(y_axis);
+    public static ImPlotPoint getPlotMousePos(final int yAxis) {
+        IMPLOT_POINT.ptr = nGetPlotMousePos(yAxis);
         return IMPLOT_POINT;
     }
 
-    private static native long nGetPlotMousePos(int y_axis); /*
-        ImPlotPoint* p = new ImPlotPoint(ImPlot::GetPlotMousePos(y_axis));
+    private static native long nGetPlotMousePos(int yAxis); /*
+        ImPlotPoint* p = new ImPlotPoint(ImPlot::GetPlotMousePos(yAxis));
         return (intptr_t)p;
     */
 
     /**
      * This function MUST be called BETWEEN begin/endPlot!
-     * Returns the current plot axis range. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
+     * Returns the current plot axis range. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
      */
-    public static ImPlotLimits getPlotLimits(int y_axis) {
-        IMPLOT_LIMITS.ptr = nGetPlotLimits(y_axis);
+    public static ImPlotLimits getPlotLimits(final int yAxis) {
+        IMPLOT_LIMITS.ptr = nGetPlotLimits(yAxis);
         return IMPLOT_LIMITS;
     }
 
-    private static native long nGetPlotLimits(int y_axis); /*
-        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotLimits(y_axis));
+    private static native long nGetPlotLimits(int yAxis); /*
+        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotLimits(yAxis));
         return (intptr_t)p;
     */
 
@@ -1092,13 +1102,13 @@ public final class ImPlot {
      * This function MUST be called BETWEEN begin/endPlot!
      * Returns the current plot box selection bounds.
      */
-    public static ImPlotLimits getPlotSelection(int y_axis) {
-        IMPLOT_LIMITS.ptr = nGetPlotSelection(y_axis);
+    public static ImPlotLimits getPlotSelection(final int yAxis) {
+        IMPLOT_LIMITS.ptr = nGetPlotSelection(yAxis);
         return IMPLOT_LIMITS;
     }
 
-    private static native long nGetPlotSelection(int y_axis); /*
-        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotSelection(y_axis));
+    private static native long nGetPlotSelection(int yAxis); /*
+        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotSelection(yAxis));
         return (intptr_t)p;
     */
 
@@ -1114,13 +1124,13 @@ public final class ImPlot {
      * This function MUST be called BETWEEN begin/endPlot!
      * Returns the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
      */
-    public static ImPlotLimits getPlotQuery(int y_axis) {
-        IMPLOT_LIMITS.ptr = nGetPlotQuery(y_axis);
+    public static ImPlotLimits getPlotQuery(final int yAxis) {
+        IMPLOT_LIMITS.ptr = nGetPlotQuery(yAxis);
         return IMPLOT_LIMITS;
     }
 
-    private static native long nGetPlotQuery(int y_axis); /*
-        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotQuery(y_axis));
+    private static native long nGetPlotQuery(int yAxis); /*
+        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotQuery(yAxis));
         return (intptr_t)p;
     */
 
@@ -1128,13 +1138,13 @@ public final class ImPlot {
      * This function MUST be called BETWEEN begin/endPlot!
      * Set the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
      */
-    public static void setPlotQuery(ImPlotLimits query, int y_axis) {
-        nSetPlotQuery(query.ptr, y_axis);
+    public static void setPlotQuery(final ImPlotLimits query, final int yAxis) {
+        nSetPlotQuery(query.ptr, yAxis);
     }
 
-    private static native void nSetPlotQuery(long ptr, int y_axis); /*
+    private static native void nSetPlotQuery(long ptr, int yAxis); /*
         ImPlotLimits* query = (ImPlotLimits*)ptr;
-        ImPlot::SetPlotQuery(*query, y_axis);
+        ImPlot::SetPlotQuery(*query, yAxis);
     */
 
     //-----------------------------------------------------------------------------
@@ -1145,15 +1155,15 @@ public final class ImPlot {
      * Shows an annotation callout at a chosen point.
      * Uses default color
      */
-    public static void annotate(double x, double y, ImVec2 pix_offset, String... fmt) {
-        annotate(x, y, pix_offset, new ImVec4(0, 0, 0, 0), fmt);
+    public static void annotate(final double x, final double y, final ImVec2 pixOffset, final String... fmt) {
+        annotate(x, y, pixOffset, new ImVec4(0, 0, 0, 0), fmt);
     }
 
     /**
      * Shows an annotation callout at a chosen point.
      */
-    public static void annotate(double x, double y, ImVec2 pix_offset, ImVec4 color, String... fmt) {
-        nAnnotate(x, y, pix_offset.x, pix_offset.y, color.w, color.x, color.y, color.z,
+    public static void annotate(final double x, final double y, final ImVec2 pixOffset, final ImVec4 color, final String... fmt) {
+        nAnnotate(x, y, pixOffset.x, pixOffset.y, color.w, color.x, color.y, color.z,
                   fmt.length > 0 ? fmt[0] : null,
                   fmt.length > 1 ? fmt[1] : null,
                   fmt.length > 2 ? fmt[2] : null,
@@ -1161,35 +1171,35 @@ public final class ImPlot {
                   fmt.length > 4 ? fmt[4] : null);
     }
 
-    private static native void nAnnotate(double x, double y, float pix_x, float pix_y, float col_a, float col_b, float col_c, float col_d, String a, String b, String c, String d, String e); /*
-        ImVec2 pix_offset(pix_x, pix_y);
-        ImVec4 col(col_a, col_b, col_c, col_d);
+    private static native void nAnnotate(double x, double y, float pixX, float pixY, float colA, float colB, float colC, float colD, String a, String b, String c, String d, String e); /*
+        ImVec2 pixOffset(pixX, pixY);
+        ImVec4 col(colA, colB, colC, colD);
 
         if (b == nullptr)
-            ImPlot::Annotate(x, y, pix_offset, col, a);
+            ImPlot::Annotate(x, y, pixOffset, col, a);
         else if (b == nullptr)
-            ImPlot::Annotate(x, y, pix_offset, col, a, b);
+            ImPlot::Annotate(x, y, pixOffset, col, a, b);
         else if (b == nullptr)
-            ImPlot::Annotate(x, y, pix_offset, col, a, b, c);
+            ImPlot::Annotate(x, y, pixOffset, col, a, b, c);
         else if (b == nullptr)
-            ImPlot::Annotate(x, y, pix_offset, col, a, b, c, d);
+            ImPlot::Annotate(x, y, pixOffset, col, a, b, c, d);
         else
-            ImPlot::Annotate(x, y, pix_offset, col, a, b, c, d, e);
+            ImPlot::Annotate(x, y, pixOffset, col, a, b, c, d, e);
     */
 
     /**
      * Shows an annotation callout at a chosen point, clamped inside the plot area.
      * Uses default color
      */
-    public static void annotateClamped(double x, double y, ImVec2 pix_offset, String... fmt) {
-        annotateClamped(x, y, pix_offset, new ImVec4(0, 0, 0, 0), fmt);
+    public static void annotateClamped(final double x, final double y, final ImVec2 pixOffset, final String... fmt) {
+        annotateClamped(x, y, pixOffset, new ImVec4(0, 0, 0, 0), fmt);
     }
 
     /**
      * Shows an annotation callout at a chosen point, clamped inside the plot area.
      */
-    public static void annotateClamped(double x, double y, ImVec2 pix_offset, ImVec4 color, String... fmt) {
-        nAnnotateClamped(x, y, pix_offset.x, pix_offset.y, color.w, color.x, color.y, color.z,
+    public static void annotateClamped(final double x, final double y, final ImVec2 pixOffset, final ImVec4 color, final String... fmt) {
+        nAnnotateClamped(x, y, pixOffset.x, pixOffset.y, color.w, color.x, color.y, color.z,
                   fmt.length > 0 ? fmt[0] : null,
                   fmt.length > 1 ? fmt[1] : null,
                   fmt.length > 2 ? fmt[2] : null,
@@ -1197,57 +1207,57 @@ public final class ImPlot {
                   fmt.length > 4 ? fmt[4] : null);
     }
 
-    private static native void nAnnotateClamped(double x, double y, float pix_x, float pix_y, float col_a, float col_b, float col_c, float col_d, String a, String b, String c, String d, String e); /*
-        ImVec2 pix_offset(pix_x, pix_y);
-        ImVec4 col(col_a, col_b, col_c, col_d);
+    private static native void nAnnotateClamped(double x, double y, float pixX, float pixY, float colA, float colB, float colC, float colD, String a, String b, String c, String d, String e); /*
+        ImVec2 pixOffset(pixX, pixY);
+        ImVec4 col(colA, colB, colC, colD);
 
         if (b == nullptr)
-            ImPlot::AnnotateClamped(x, y, pix_offset, col, a);
+            ImPlot::AnnotateClamped(x, y, pixOffset, col, a);
         else if (b == nullptr)
-            ImPlot::AnnotateClamped(x, y, pix_offset, col, a, b);
+            ImPlot::AnnotateClamped(x, y, pixOffset, col, a, b);
         else if (b == nullptr)
-            ImPlot::AnnotateClamped(x, y, pix_offset, col, a, b, c);
+            ImPlot::AnnotateClamped(x, y, pixOffset, col, a, b, c);
         else if (b == nullptr)
-            ImPlot::AnnotateClamped(x, y, pix_offset, col, a, b, c, d);
+            ImPlot::AnnotateClamped(x, y, pixOffset, col, a, b, c, d);
         else
-            ImPlot::AnnotateClamped(x, y, pix_offset, col, a, b, c, d, e);
+            ImPlot::AnnotateClamped(x, y, pixOffset, col, a, b, c, d, e);
     */
 
 //
 //    //
-//    IMPLOT_API bool DragLineX(const char* id, double* x_value, bool show_label = true, const ImVec4& col = IMPLOT_AUTO_COL, float thickness = 1);
+//    IMPLOT_API bool DragLineX(const char* id, double* xValue, bool showLabel = true, const ImVec4& col = IMPLOT_AUTO_COL, float thickness = 1);
 
     /**
      * Shows a draggable vertical guide line at an x-value.
      */
-    public static boolean dragLineX(String id, double x_value, boolean show_label, ImVec4 color, float thickness) {
-        return nDragLineX(id, x_value, show_label, color.w, color.x, color.y, color.z, thickness);
+    public static boolean dragLineX(final String id, final double xValue, final boolean showLabel, final ImVec4 color, final float thickness) {
+        return nDragLineX(id, xValue, showLabel, color.w, color.x, color.y, color.z, thickness);
     }
 
-    private static native boolean nDragLineX(String id, double x_value, boolean show_label, float w, float x, float y, float z, float thickness); /*
-        return ImPlot::DragLineX(id, &x_value, show_label, ImVec4(w, x, y, z), thickness);
+    private static native boolean nDragLineX(String id, double xValue, boolean showLabel, float w, float x, float y, float z, float thickness); /*
+        return ImPlot::DragLineX(id, &xValue, showLabel, ImVec4(w, x, y, z), thickness);
     */
 
     /**
      * Shows a draggable horizontal guide line at a y-value.
      */
-    public static boolean dragLineY(String id, double y_value, boolean show_label, ImVec4 color, float thickness) {
-        return nDragLineY(id, y_value, show_label, color.w, color.x, color.y, color.z, thickness);
+    public static boolean dragLineY(final String id, final double yValue, final boolean showLabel, final ImVec4 color, final float thickness) {
+        return nDragLineY(id, yValue, showLabel, color.w, color.x, color.y, color.z, thickness);
     }
 
-    private static native boolean nDragLineY(String id, double y_value, boolean show_label, float w, float x, float y, float z, float thickness); /*
-        return ImPlot::DragLineY(id, &y_value, show_label, ImVec4(w, x, y, z), thickness);
+    private static native boolean nDragLineY(String id, double yValue, boolean showLabel, float w, float x, float y, float z, float thickness); /*
+        return ImPlot::DragLineY(id, &yValue, showLabel, ImVec4(w, x, y, z), thickness);
     */
 
     /**
      * Shows a draggable point at x,y.
      */
-    public static boolean dragPoint(String id, double x, double y, boolean show_label, ImVec4 color, float radius) {
-        return nDragPoint(id, x, y, show_label, color.w, color.x, color.y, color.z, radius);
+    public static boolean dragPoint(final String id, final double x, final double y, final boolean showLabel, final ImVec4 color, final float radius) {
+        return nDragPoint(id, x, y, showLabel, color.w, color.x, color.y, color.z, radius);
     }
 
-    private static native boolean nDragPoint(String id, double x_value, double y_value, boolean show_label, float w, float x, float y, float z, float radius); /*
-        return ImPlot::DragPoint(id, &x_value, &y_value, show_label, ImVec4(w, x, y, z), radius);
+    private static native boolean nDragPoint(String id, double xValue, double yValue, boolean showLabel, float w, float x, float y, float z, float radius); /*
+        return ImPlot::DragPoint(id, &xValue, &yValue, showLabel, ImVec4(w, x, y, z), radius);
     */
 
 
@@ -1272,22 +1282,22 @@ public final class ImPlot {
     /**
      * Returns true if a plot item legend entry is hovered.
      */
-    public static native boolean isLegendEntryHovered(String label_id); /*
-        return ImPlot::IsLegendEntryHovered(label_id);
+    public static native boolean isLegendEntryHovered(String labelID); /*
+        return ImPlot::IsLegendEntryHovered(labelID);
     */
 
     /**
      * Begin a popup for a legend entry.
      */
-    public static boolean beginLegendPopup(String label_id) {
-        return beginLegendPopup(label_id, ImGuiMouseButton.Right);
+    public static boolean beginLegendPopup(final String labelID) {
+        return beginLegendPopup(labelID, ImGuiMouseButton.Right);
     }
 
     /**
      * Begin a popup for a legend entry.
      */
-    public static native boolean beginLegendPopup(String label_id, int mouse_button); /*
-        return ImPlot::BeginLegendPopup(label_id, mouse_button);
+    public static native boolean beginLegendPopup(String labelID, int mouseButton); /*
+        return ImPlot::BeginLegendPopup(labelID, mouseButton);
     */
 
     /**
@@ -1318,8 +1328,8 @@ public final class ImPlot {
     /**
      * Turns the current plot's Y-Axis into a drag and drop target. Don't forget to call EndDragDropTarget!
      */
-    public static native boolean beginDragDropTargetY(int y_axis); /*
-        return ImPlot::BeginDragDropTargetY(y_axis);
+    public static native boolean beginDragDropTargetY(int yAxis); /*
+        return ImPlot::BeginDragDropTargetY(yAxis);
     */
 
     /**
@@ -1339,29 +1349,29 @@ public final class ImPlot {
     /**
      * Turns the current plot's plotting area into a drag and drop source. Don't forget to call EndDragDropSource!
      */
-    public static native boolean beginDragDropSource(int key_mods, int drag_drop_flags); /*
-        return ImPlot::BeginDragDropSource(key_mods, drag_drop_flags);
+    public static native boolean beginDragDropSource(int keyMods, int dragDropFlags); /*
+        return ImPlot::BeginDragDropSource(keyMods, dragDropFlags);
     */
 
     /**
      * Turns the current plot's X-axis into a drag and drop source. Don't forget to call EndDragDropSource!
      */
-    public static native boolean beginDragDropSourceX(int key_mods, int drag_drop_flags); /*
-        return ImPlot::BeginDragDropSourceX(key_mods, drag_drop_flags);
+    public static native boolean beginDragDropSourceX(int keyMods, int dragDropFlags); /*
+        return ImPlot::BeginDragDropSourceX(keyMods, dragDropFlags);
     */
 
     /**
      * Turns the current plot's Y-axis into a drag and drop source. Don't forget to call EndDragDropSource!
      */
-    public static native boolean beginDragDropSourceY(int y_axis, int key_mods, int drag_drop_flags); /*
-        return ImPlot::BeginDragDropSourceY(y_axis, key_mods, drag_drop_flags);
+    public static native boolean beginDragDropSourceY(int yAxis, int keyMods, int dragDropFlags); /*
+        return ImPlot::BeginDragDropSourceY(yAxis, keyMods, dragDropFlags);
     */
 
     /**
      * Turns an item in the current plot's legend into drag and drop source. Don't forget to call EndDragDropSource!
      */
-    public static native boolean beginDragDropSourceItem(String label_id, int drag_drop_flags); /*
-        return ImPlot::BeginDragDropSourceItem(label_id, drag_drop_flags);
+    public static native boolean beginDragDropSourceItem(String labelID, int dragDropFlags); /*
+        return ImPlot::BeginDragDropSourceItem(labelID, dragDropFlags);
     */
 
     /**
@@ -1394,15 +1404,15 @@ public final class ImPlot {
         nItemIcon(col.w, col.x, col.y, col.z);
     }
 
-    private static native void nItemIcon(final double a, final double b, final double c, final double d); /*
+    private static native void nItemIcon(double a, double b, double c, double d); /*
         ImPlot::ItemIcon(ImVec4(a, b, c, d));
     */
 
     /**
      * Render icons similar to those that appear in legends (nifty for data lists).
      */
-    public static native void colormapIcon(int color_map); /*
-        ImPlot::ColormapIcon(color_map);
+    public static native void colormapIcon(int colorMap); /*
+        ImPlot::ColormapIcon(colorMap);
     */
 
     /**

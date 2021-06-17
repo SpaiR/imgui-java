@@ -2,10 +2,8 @@ package imgui.extension.implot;
 
 import imgui.binding.ImGuiStruct;
 
-public final class ImPlotLimits extends ImGuiStruct
-{
-    public ImPlotLimits(long ptr)
-    {
+public final class ImPlotLimits extends ImGuiStruct {
+    public ImPlotLimits(final long ptr) {
         super(ptr);
     }
 
@@ -13,8 +11,8 @@ public final class ImPlotLimits extends ImGuiStruct
         this(0, 0, 0, 0);
     }
 
-    public ImPlotLimits(double x_min, double x_max, double y_min, double y_max) {
-        this(create(x_min, x_max, y_min, y_max));
+    public ImPlotLimits(final double xMin, final double xMax, final double yMin, final double yMax) {
+        this(create(xMin, xMax, yMin, yMax));
     }
 
     /*JNI
@@ -23,15 +21,15 @@ public final class ImPlotLimits extends ImGuiStruct
 
      */
 
-    private static native long create(double x_min, double x_max, double y_min, double y_max); /*
-        return (intptr_t)(new ImPlotLimits(x_min, x_max, y_min, y_max));
+    private static native long create(double xMin, double xMax, double yMin, double yMax); /*
+        return (intptr_t)(new ImPlotLimits(xMin, xMax, yMin, yMax));
     */
 
-    public boolean contains(ImPlotPoint plotPoint) {
+    public boolean contains(final ImPlotPoint plotPoint) {
         return contains(plotPoint.getX(), plotPoint.getY());
     }
 
-    public boolean contains(double x, double y) {
+    public boolean contains(final double x, final double y) {
         return nContains(this.ptr, x, y);
     }
 
@@ -73,7 +71,7 @@ public final class ImPlotLimits extends ImGuiStruct
         return (intptr_t)&(((ImPlotLimits*)ptr)->Y);
      */
 
-    public void setX(ImPlotRange value) {
+    public void setX(final ImPlotRange value) {
         nSetX(this.ptr, value.ptr);
     }
 
@@ -81,7 +79,7 @@ public final class ImPlotLimits extends ImGuiStruct
         ((ImPlotLimits*)ptr)->X = *((ImPlotRange*)valueptr);
      */
 
-    public void setY(ImPlotRange value) {
+    public void setY(final ImPlotRange value) {
         nSetY(this.ptr, value.ptr);
     }
 

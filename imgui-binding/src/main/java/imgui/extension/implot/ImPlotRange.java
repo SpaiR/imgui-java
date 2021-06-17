@@ -2,10 +2,8 @@ package imgui.extension.implot;
 
 import imgui.binding.ImGuiStruct;
 
-public final class ImPlotRange extends ImGuiStruct
-{
-    public ImPlotRange(long ptr)
-    {
+public final class ImPlotRange extends ImGuiStruct {
+    public ImPlotRange(final long ptr) {
         super(ptr);
     }
 
@@ -13,7 +11,7 @@ public final class ImPlotRange extends ImGuiStruct
         this(0, 0);
     }
 
-    public ImPlotRange(double min, double max) {
+    public ImPlotRange(final double min, final double max) {
         this(create(min, max));
     }
 
@@ -27,7 +25,7 @@ public final class ImPlotRange extends ImGuiStruct
         return (intptr_t)(new ImPlotRange(min, max));
     */
 
-    public boolean contains(double value) {
+    public boolean contains(final double value) {
         return nContains(this.ptr, value);
     }
 
@@ -59,7 +57,7 @@ public final class ImPlotRange extends ImGuiStruct
         return ((ImPlotRange*)ptr)->Max;
      */
 
-    public void setMin(double min) {
+    public void setMin(final double min) {
         nSetMin(this.ptr, min);
     }
 
@@ -67,7 +65,7 @@ public final class ImPlotRange extends ImGuiStruct
         ((ImPlotRange*)ptr)->Min = value;
      */
 
-    public void setMax(double max) {
+    public void setMax(final double max) {
         nSetMax(this.ptr, max);
     }
 

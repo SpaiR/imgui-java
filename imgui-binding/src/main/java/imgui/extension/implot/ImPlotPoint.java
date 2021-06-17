@@ -3,10 +3,8 @@ package imgui.extension.implot;
 import imgui.ImVec2;
 import imgui.binding.ImGuiStruct;
 
-public final class ImPlotPoint extends ImGuiStruct
-{
-    public ImPlotPoint(long ptr)
-    {
+public final class ImPlotPoint extends ImGuiStruct {
+    public ImPlotPoint(final long ptr) {
         super(ptr);
     }
 
@@ -14,11 +12,11 @@ public final class ImPlotPoint extends ImGuiStruct
         this(0, 0);
     }
 
-    public ImPlotPoint(ImVec2 vec) {
+    public ImPlotPoint(final ImVec2 vec) {
         this(vec.x, vec.y);
     }
 
-    public ImPlotPoint(double x, double y) {
+    public ImPlotPoint(final double x, final double y) {
         this(create(x, y));
     }
 
@@ -48,7 +46,7 @@ public final class ImPlotPoint extends ImGuiStruct
         return ((ImPlotPoint*)ptr)->y;
      */
 
-    public void setX(double value) {
+    public void setX(final double value) {
         nSetX(this.ptr, value);
     }
 
@@ -56,7 +54,7 @@ public final class ImPlotPoint extends ImGuiStruct
         ((ImPlotPoint*)ptr)->x = value;
      */
 
-    public void setY(double value) {
+    public void setY(final double value) {
         nSetY(this.ptr, value);
     }
 
