@@ -725,16 +725,16 @@ public final class ImPlot {
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      * @param <T> MUST be castable to double!
      */
-    public static <T> double plotDigital(final String labelID, final T[] xs, final T[] ys) {
+    public static <T> void plotDigital(final String labelID, final T[] xs, final T[] ys) {
         final double[] x = new double[xs.length];
         final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
 
-        return nPlotDigital(labelID, x, y, x.length);
+        nPlotDigital(labelID, x, y, x.length);
     }
 
-    private static native double nPlotDigital(String labelID, double[] xs, double[] ys, int size); /*
-        return ImPlot::PlotDigital(labelID, xs, ys, size);
+    private static native void nPlotDigital(String labelID, double[] xs, double[] ys, int size); /*
+        ImPlot::PlotDigital(labelID, xs, ys, size);
     */
 
     //TODO not yet supported
