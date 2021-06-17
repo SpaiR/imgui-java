@@ -274,8 +274,8 @@ public final class ImPlot {
             throw new InvalidParameterException();
 
         for (int i = 0; i < xs.length; i++) {
-            xs_out[i] = (double) xs[i]; //Throws CastClassException if invalid type, which is OK
-            ys_out[i] = (double) ys[i];
+            xs_out[i] = (Double) xs[i]; //Throws CastClassException if invalid type, which is OK
+            ys_out[i] = (Double) ys[i];
         }
     }
 
@@ -530,7 +530,7 @@ public final class ImPlot {
     public static <T> void plotStems(String label_id, T[] values, int y_ref, int offset) {
         double[] v = new double[values.length];
         for (int i = 0; i < values.length; i++)
-            v[i] = (double)values[i];
+            v[i] = (Double)values[i];
 
         nPlotStems(label_id, v, v.length, y_ref, offset);
     }
@@ -556,7 +556,7 @@ public final class ImPlot {
     public static <T> void plotVLines(String label_id, T[] values, int offset) {
         double[] v = new double[values.length];
         for (int i = 0; i < values.length; i++)
-            v[i] = (double)values[i];
+            v[i] = (Double)values[i];
 
         nPlotVLines(label_id, v, v.length, offset);
     }
@@ -582,7 +582,7 @@ public final class ImPlot {
     public static <T> void plotHLines(String label_id, T[] values, int offset) {
         double[] v = new double[values.length];
         for (int i = 0; i < values.length; i++)
-            v[i] = (double)values[i];
+            v[i] = (Double)values[i];
 
         nPlotHLines(label_id, v, v.length, offset);
     }
@@ -599,7 +599,7 @@ public final class ImPlot {
     public static <T> void plotPieChart(String[] label_ids, T[] values, double x, double y, double radius) {
         double[] v = new double[values.length];
         for (int i = 0; i < values.length; i++)
-            v[i] = (double)values[i];
+            v[i] = (Double)values[i];
 
         String label_ids_ss = "";
         boolean first = true;
@@ -657,7 +657,7 @@ public final class ImPlot {
         int pos = 0;
         for (T[] a : values) {
             for (T p : a)
-                v[pos++] = (double)p;
+                v[pos++] = (Double)p;
         }
 
         nPlotHeatmap(label_id, v, values[0].length, values.length);
