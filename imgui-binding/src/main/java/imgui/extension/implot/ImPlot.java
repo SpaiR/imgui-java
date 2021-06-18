@@ -3,8 +3,6 @@ package imgui.extension.implot;
 import imgui.ImDrawList;
 import imgui.ImVec2;
 import imgui.ImVec4;
-import imgui.extension.implot.flag.ImPlotAxisFlags;
-import imgui.extension.implot.flag.ImPlotFlags;
 import imgui.extension.implot.flag.ImPlotYAxis;
 import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiMouseButton;
@@ -110,9 +108,9 @@ public final class ImPlot {
      *   collisions or don't want to display a title in the plot, use double hashes
      *   (e.g. "MyPlot##HiddenIdText" or "##NoTitle").
      */
-    public static boolean beginPlot(final String titleID) {
-        return beginPlot(titleID, null, null);
-    }
+    public static native boolean beginPlot(String titleID); /*
+        return ImPlot::BeginPlot(titleID);
+    */
 
     /**
      * Starts a 2D plotting context. If this function returns true, EndPlot() MUST
@@ -131,11 +129,9 @@ public final class ImPlot {
      *   (e.g. "MyPlot##HiddenIdText" or "##NoTitle").
      * - If #xLabel and/or #yLabel are provided, axes labels will be displayed.
      */
-    public static boolean beginPlot(final String titleID,
-                                    final String xLabel,
-                                    final String yLabel) {
-        return beginPlot(titleID, xLabel, yLabel, new ImVec2(-1, 0));
-    }
+    public static native boolean beginPlot(String titleID, String xLabel, String yLabel); /*
+        return ImPlot::BeginPlot(titleID, xLabel, yLabel);
+    */
 
     /**
      * Starts a 2D plotting context. If this function returns true, EndPlot() MUST
@@ -157,12 +153,13 @@ public final class ImPlot {
      *   size of plots (i.e. when ImVec2(0,0)) can be modified in your ImPlotStyle
      *   (default is 400x300 px).
      */
-    public static boolean beginPlot(final String titleID,
-                                    final String xLabel,
-                                    final String yLabel,
-                                    final ImVec2 size) {
-        return beginPlot(titleID, xLabel, yLabel, size, ImPlotFlags.None, ImPlotAxisFlags.None, ImPlotAxisFlags.None);
+    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final ImVec2 size) {
+        return nBeginPlot(titleID, xLabel, yLabel, size.x, size.y);
     }
+
+    private static native boolean nBeginPlot(String titleID, String xLabel, String yLabel, float x, float y); /*
+        return ImPlot::BeginPlot(titleID, xLabel, yLabel, ImVec2(x, y));
+    */
 
     /**
      * Starts a 2D plotting context. If this function returns true, EndPlot() MUST
@@ -185,15 +182,13 @@ public final class ImPlot {
      *   (default is 400x300 px).
      * - See ImPlotFlags and ImPlotAxisFlags for more available options.
      */
-    public static boolean beginPlot(final String titleID,
-                                    final String xLabel,
-                                    final String yLabel,
-                                    final ImVec2 size,
-                                    final int flags,
-                                    final int xFlags,
-                                    final int yFlags) {
-        return beginPlot(titleID, xLabel, yLabel, size, flags, xFlags, yFlags, ImPlotAxisFlags.None, ImPlotAxisFlags.None, null, null);
+    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final ImVec2 size, final int flags, final int xFlags, final int yFlags) {
+        return nBeginPlot(titleID, xLabel, yLabel, size.x, size.y, flags, xFlags, yFlags);
     }
+
+    private static native boolean nBeginPlot(String titleID, String xLabel, String yLabel, float x, float y, int flags, int xFlags, int yFlags); /*
+        return ImPlot::BeginPlot(titleID, xLabel, yLabel, ImVec2(x, y), flags, xFlags, yFlags);
+    */
 
     /**
      * Starts a 2D plotting context. If this function returns true, EndPlot() MUST
@@ -271,32 +266,30 @@ public final class ImPlot {
     /**
      * Make sure to initialize xsOut and ysOut with length xs.length, ys.length before passing them, or data may be lost/errors may occur
      */
-    private static <T> void convertArrays(final T[] xs, final T[] ys, final double[] xsOut, final double[] ysOut) {
+    private static <T extends Number> void convertArrays(final T[] xs, final T[] ys, final double[] xsOut, final double[] ysOut) {
         if (xs.length != ys.length) {
             throw new InvalidParameterException();
         }
 
         for (int i = 0; i < xs.length; i++) {
-            xsOut[i] = (Double) xs[i]; //Throws CastClassException if invalid type, which is OK
-            ysOut[i] = (Double) ys[i];
+            xsOut[i] = xs[i].doubleValue();
+            ysOut[i] = ys[i].doubleValue();
         }
     }
 
     /**
      * Plots a standard 2D line plot.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotLine(final String labelID, final T[] xs, final T[] ys) {
+    public static <T extends Number> void plotLine(final String labelID, final T[] xs, final T[] ys) {
         plotLine(labelID, xs, ys, 0);
     }
 
     /**
      * Plots a standard 2D line plot.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotLine(final String labelID, final T[] xs, final T[] ys, final int offset) {
+    public static <T extends Number> void plotLine(final String labelID, final T[] xs, final T[] ys, final int offset) {
         final double[] x = new double[xs.length];
         final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
@@ -311,18 +304,16 @@ public final class ImPlot {
     /**
      * Plots a standard 2D scatter plot.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotScatter(final String labelID, final T[] xs, final T[] ys) {
+    public static <T extends Number> void plotScatter(final String labelID, final T[] xs, final T[] ys) {
         plotScatter(labelID, xs, ys, 0);
     }
 
     /**
      * Plots a standard 2D scatter plot.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotScatter(final String labelID, final T[] xs, final T[] ys, final int offset) {
+    public static <T extends Number> void plotScatter(final String labelID, final T[] xs, final T[] ys, final int offset) {
         final double[] x = new double[xs.length];
         final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
@@ -337,18 +328,16 @@ public final class ImPlot {
     /**
      * Plots a a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotStairs(final String labelID, final T[] xs, final T[] ys) {
+    public static <T extends Number> void plotStairs(final String labelID, final T[] xs, final T[] ys) {
         plotStairs(labelID, xs, ys, 0);
     }
 
     /**
      * Plots a a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotStairs(final String labelID, final T[] xs, final T[] ys, final int offset) {
+    public static <T extends Number> void plotStairs(final String labelID, final T[] xs, final T[] ys, final int offset) {
         final double[] x = new double[xs.length];
         final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
@@ -363,18 +352,16 @@ public final class ImPlot {
     /**
      * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set yRef (default 0) to +/-INFINITY for infinite fill extents.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotShaded(final String labelID, final T[] xs, final T[] ys, final int yRef) {
+    public static <T extends Number> void plotShaded(final String labelID, final T[] xs, final T[] ys, final int yRef) {
         plotShaded(labelID, xs, ys, yRef, 0);
     }
 
     /**
      * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set yRef (default 0) to +/-INFINITY for infinite fill extents.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotShaded(final String labelID, final T[] xs, final T[] ys, final int yRef, final int offset) {
+    public static <T extends Number> void plotShaded(final String labelID, final T[] xs, final T[] ys, final int yRef, final int offset) {
         final double[] x = new double[xs.length];
         final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
@@ -389,29 +376,26 @@ public final class ImPlot {
     /**
      * Plots a vertical bar graph.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotBars(final String labelID, final T[] xs, final T[] ys) {
+    public static <T extends Number> void plotBars(final String labelID, final T[] xs, final T[] ys) {
         plotBars(labelID, xs, ys, 0.67f, 0);
     }
 
     /**
      * Plots a vertical bar graph.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      * @param width is in X units
      */
-    public static <T> void plotBars(final String labelID, final T[] xs, final T[] ys, final float width) {
+    public static <T extends Number> void plotBars(final String labelID, final T[] xs, final T[] ys, final float width) {
         plotBars(labelID, xs, ys, width, 0);
     }
 
     /**
      * Plots a vertical bar graph.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      * @param width is in X units
      */
-    public static <T> void plotBars(final String labelID, final T[] xs, final T[] ys, final float width, final int offset) {
+    public static <T extends Number> void plotBars(final String labelID, final T[] xs, final T[] ys, final float width, final int offset) {
         final double[] x = new double[xs.length];
         final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
@@ -426,29 +410,26 @@ public final class ImPlot {
     /**
      * Plots a horizontal bar graph.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotBarsH(final String labelID, final T[] xs, final T[] ys) {
+    public static <T extends Number> void plotBarsH(final String labelID, final T[] xs, final T[] ys) {
         plotBarsH(labelID, xs, ys, 0.67f, 0);
     }
 
     /**
      * Plots a horizontal bar graph.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      * @param height is in Y units
      */
-    public static <T> void plotBarsH(final String labelID, final T[] xs, final T[] ys, final float height) {
+    public static <T extends Number> void plotBarsH(final String labelID, final T[] xs, final T[] ys, final float height) {
         plotBarsH(labelID, xs, ys, height, 0);
     }
 
     /**
      * Plots a horizontal bar graph.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      * @param height is in Y units
      */
-    public static <T> void plotBarsH(final String labelID, final T[] xs, final T[] ys, final float height, final int offset) {
+    public static <T extends Number> void plotBarsH(final String labelID, final T[] xs, final T[] ys, final float height, final int offset) {
         final double[] x = new double[xs.length];
         final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
@@ -463,18 +444,16 @@ public final class ImPlot {
     /**
      * Plots vertical error bar. The labelID should be the same as the labelID of the associated line or bar plot.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotErrorBars(final String labelID, final T[] xs, final T[] ys, final T[] err) {
+    public static <T extends Number> void plotErrorBars(final String labelID, final T[] xs, final T[] ys, final T[] err) {
         plotErrorBars(labelID, xs, ys, err, 0);
     }
 
     /**
      * Plots vertical error bar. The labelID should be the same as the labelID of the associated line or bar plot.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotErrorBars(final String labelID, final T[] xs, final T[] ys, final T[] err, final int offset) {
+    public static <T extends Number> void plotErrorBars(final String labelID, final T[] xs, final T[] ys, final T[] err, final int offset) {
         final double[] x = new double[xs.length];
         final double[] y = new double[ys.length];
         final double[] errOut = new double[err.length];
@@ -491,18 +470,16 @@ public final class ImPlot {
     /**
      * Plots horizontal error bar. The labelID should be the same as the labelID of the associated line or bar plot.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotErrorBarsH(final String labelID, final T[] xs, final T[] ys, final T[] err) {
+    public static <T extends Number> void plotErrorBarsH(final String labelID, final T[] xs, final T[] ys, final T[] err) {
         plotErrorBarsH(labelID, xs, ys, err, 0);
     }
 
     /**
      * Plots horizontal error bar. The labelID should be the same as the labelID of the associated line or bar plot.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotErrorBarsH(final String labelID, final T[] xs, final T[] ys, final T[] err, final int offset) {
+    public static <T extends Number> void plotErrorBarsH(final String labelID, final T[] xs, final T[] ys, final T[] err, final int offset) {
         final double[] x = new double[xs.length];
         final double[] y = new double[ys.length];
         final double[] errOut = new double[err.length];
@@ -519,21 +496,19 @@ public final class ImPlot {
     /**
      * Plots vertical stems.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotStems(final String labelID, final T[] values, final int yRef) {
+    public static <T extends Number> void plotStems(final String labelID, final T[] values, final int yRef) {
         plotStems(labelID, values, yRef, 0);
     }
 
     /**
      * Plots vertical stems.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotStems(final String labelID, final T[] values, final int yRef, final int offset) {
+    public static <T extends Number> void plotStems(final String labelID, final T[] values, final int yRef, final int offset) {
         final double[] v = new double[values.length];
         for (int i = 0; i < values.length; i++) {
-            v[i] = (Double) values[i];
+            v[i] = values[i].doubleValue();
         }
 
         nPlotStems(labelID, v, v.length, yRef, offset);
@@ -546,21 +521,19 @@ public final class ImPlot {
     /**
      * Plots infinite vertical lines (e.g. for references or asymptotes).
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotVLines(final String labelID, final T[] values) {
+    public static <T extends Number> void plotVLines(final String labelID, final T[] values) {
         plotVLines(labelID, values, 0);
     }
 
     /**
      *Plots infinite vertical lines (e.g. for references or asymptotes).
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotVLines(final String labelID, final T[] values, final int offset) {
+    public static <T extends Number> void plotVLines(final String labelID, final T[] values, final int offset) {
         final double[] v = new double[values.length];
         for (int i = 0; i < values.length; i++) {
-            v[i] = (Double) values[i];
+            v[i] = values[i].doubleValue();
         }
 
         nPlotVLines(labelID, v, v.length, offset);
@@ -573,21 +546,19 @@ public final class ImPlot {
     /**
      * Plots infinite horizontal lines (e.g. for references or asymptotes).
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotHLines(final String labelID, final T[] values) {
+    public static <T extends Number> void plotHLines(final String labelID, final T[] values) {
         plotHLines(labelID, values, 0);
     }
 
     /**
      * Plots infinite horizontal lines (e.g. for references or asymptotes).
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotHLines(final String labelID, final T[] values, final int offset) {
+    public static <T extends Number> void plotHLines(final String labelID, final T[] values, final int offset) {
         final double[] v = new double[values.length];
         for (int i = 0; i < values.length; i++) {
-            v[i] = (Double) values[i];
+            v[i] = values[i].doubleValue();
         }
 
         nPlotHLines(labelID, v, v.length, offset);
@@ -600,12 +571,11 @@ public final class ImPlot {
     /**
      * Plots a pie chart. If the sum of values > 1, each value will be normalized. Center and radius are in plot units. #label_fmt can be set to NULL for no labels.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotPieChart(final String[] labelIDs, final T[] values, final double x, final double y, final double radius) {
+    public static <T extends Number> void plotPieChart(final String[] labelIDs, final T[] values, final double x, final double y, final double radius) {
         final double[] v = new double[values.length];
         for (int i = 0; i < values.length; i++) {
-            v[i] = (Double) values[i];
+            v[i] = values[i].doubleValue();
         }
 
         String labelIDsSs = "";
@@ -657,15 +627,14 @@ public final class ImPlot {
     /**
      * Plots a 2D heatmap chart.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      * @param values must have fixed dimensions (all arrays are same length)
      */
-    public static <T> void plotHeatmap(final String labelID, final T[][] values, final int offset) {
+    public static <T extends Number> void plotHeatmap(final String labelID, final T[][] values, final int offset) {
         final double[] v = new double[values.length * values[0].length];
         int pos = 0;
         for (T[] a : values) {
             for (T p : a) {
-                v[pos++] = (Double) p;
+                v[pos++] = p.doubleValue();
             }
         }
 
@@ -685,12 +654,11 @@ public final class ImPlot {
     /**
      * Plots a horizontal histogram
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> double plotHistogram(final String labelID, final T[] values) {
+    public static <T extends Number> double plotHistogram(final String labelID, final T[] values) {
         final double[] v = new double[values.length];
         for (int i = 0; i < values.length; i++) {
-            v[i] = (Double) values[i];
+            v[i] = values[i].doubleValue();
         }
 
         return nPlotHistogram(labelID, v, v.length);
@@ -703,9 +671,8 @@ public final class ImPlot {
     /**
      * Plots two dimensional, bivariate histogram as a heatmap
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> double plotHistogram2D(final String labelID, final T[] xs, final T[] ys) {
+    public static <T extends Number> double plotHistogram2D(final String labelID, final T[] xs, final T[] ys) {
         final double[] x = new double[xs.length];
         final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
@@ -725,9 +692,8 @@ public final class ImPlot {
     /**
      * Plots digital data. Digital plots do not respond to y drag or zoom, and are always referenced to the bottom of the plot.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
-     * @param <T> MUST be castable to double!
      */
-    public static <T> void plotDigital(final String labelID, final T[] xs, final T[] ys) {
+    public static <T extends Number> void plotDigital(final String labelID, final T[] xs, final T[] ys) {
         final double[] x = new double[xs.length];
         final double[] y = new double[ys.length];
         convertArrays(xs, ys, x, y);
