@@ -1528,7 +1528,178 @@ public final class ImPlot {
     // Colormaps
     //-----------------------------------------------------------------------------
 
-    //TODO colormaps
+    /**
+     * Add a new colormap. The color data will be copied. The colormap can be used by pushing either the returned index or the
+     * string name with PushColormap. The colormap name must be unique and the size must be greater than 1. You will receive
+     * an assert otherwise! Colormaps are considered to be qualitative (i.e. discrete).
+     */
+    public static int addColormap(final String name, final ImVec4[] cols) {
+        final float[] w = new float[cols.length];
+        final float[] x = new float[cols.length];
+        final float[] y = new float[cols.length];
+        final float[] z = new float[cols.length];
+
+        for (int i = 0; i < cols.length; i++) {
+            w[i] = cols[i].w;
+            x[i] = cols[i].x;
+            y[i] = cols[i].y;
+            z[i] = cols[i].z;
+        }
+
+        return nAddColormap(name, w, x, y, z, cols.length);
+    }
+
+    private static native int nAddColormap(String name, float[] w, float[] x, float[] y, float[] z, int count); /*
+        ImVec4* cols = new ImVec4[count];
+        for (int i = 0; i < count; i++) {
+            cols[i] = ImVec4(w[i], x[i], y[i], z[i]);
+        }
+
+        return ImPlot::AddColormap(name, cols, count);
+    */
+
+    /**
+     * Returns the number of available colormaps (i.e. the built-in + user-added count).
+     */
+    public static native int getColormapCount(); /*
+        return ImPlot::GetColormapCount();
+    */
+
+    /**
+     * Returns a string name for a colormap given an index.
+     */
+    public static native String getColormapName(int cmap); /*
+        return env->NewStringUTF(ImPlot::GetColormapName(cmap));
+    */
+
+    /**
+     * Returns an index number for a colormap given a valid string name. Returns -1 if the name is invalid.
+     */
+    public static native int getColormapIndex(String name); /*
+        return ImPlot::GetColormapIndex(name);
+    */
+
+    /**
+     * Temporarily switch to one of the built-in (i.e. ImPlotColormap_XXX) or user-added colormaps (i.e. a return value of AddColormap). Don't forget to call PopColormap!
+     */
+    public static native void pushColormap(int cmap); /*
+        ImPlot::PushColormap(cmap);
+    */
+
+    /**
+     * Push a colormap by string name. Use built-in names such as "Default", "Deep", "Jet", etc. or a string you provided to AddColormap. Don't forget to call PopColormap!
+     */
+    public static native void pushColormap(String name); /*
+        ImPlot::PushColormap(name);
+    */
+
+    /**
+     * Undo temporary colormap modification(s). Undo multiple pushes at once by increasing count.
+     */
+    public static void popColormap() {
+        popColormap(1);
+    }
+
+    /**
+     * Undo temporary colormap modification(s). Undo multiple pushes at once by increasing count.
+     */
+    public static native void popColormap(int count); /*
+        ImPlot::PopColormap(count);
+    */
+
+    /**
+     * Returns the next color from the current colormap and advances the colormap for the current plot.
+     * Can also be used with no return value to skip colors if desired. You need to call this between Begin/EndPlot!
+     */
+    public static ImVec4 nextColormapColor() {
+        final ImVec4 vec = new ImVec4();
+        nNextColormapColor(vec);
+        return vec;
+    }
+
+    private static native void nNextColormapColor(ImVec4 vec); /*
+        Jni::ImVec4Cpy(env, ImPlot::NextColormapColor(), vec);
+    */
+
+    /**
+     * Returns the size of a colormap.
+     */
+    public static native int getColormapSize(int cmap); /*
+        return ImPlot::GetColormapSize(cmap);
+    */
+
+    /**
+     * Returns a color from a colormap given an index >= 0 (modulo will be performed).
+     */
+    public static ImVec4 getColormapColor(final int idx, final int cmap) {
+        final ImVec4 vec = new ImVec4();
+        nGetColormapColor(idx, cmap, vec);
+        return vec;
+    }
+
+    private static native void nGetColormapColor(int idx, int cmap, ImVec4 vec); /*
+        Jni::ImVec4Cpy(env, ImPlot::GetColormapColor(idx, cmap), vec);
+    */
+
+    /**
+     * Sample a color from a colormap given t between 0 and 1
+     */
+    public static ImVec4 sampleColormap(final float t, final int cmap) {
+        final ImVec4 vec = new ImVec4();
+        nSampleColormap(t, cmap, vec);
+        return vec;
+    }
+
+    private static native void nSampleColormap(float t, int cmap, ImVec4 vec); /*
+        Jni::ImVec4Cpy(env, ImPlot::SampleColormap(t, cmap), vec);
+    */
+
+    /**
+     * Shows a vertical color scale with linear spaced ticks using the specified color map. Use double hashes to hide label (e.g. "##NoLabel").
+     */
+    public static native void colormapScale(String label, double scaleMin, double scaleMax, int cmap); /*
+        ImPlot::ColormapScale(label, scaleMin, scaleMax, ImVec2(0,0), cmap);
+    */
+
+    /**
+     * Shows a horizontal slider with a colormap gradient background.
+     */
+    public static native boolean colormapSlider(String label, float t, int cmap); /*
+        return ImPlot::ColormapSlider(label, &t, NULL, "", cmap);
+    */
+
+    /**
+     * Shows a button with a colormap gradient brackground.
+     */
+    public static native boolean colormapButton(String label, int cmap); /*
+        return ImPlot::ColormapButton(label, ImVec2(0,0), cmap);
+    */
+
+    /**
+     * When items in a plot sample their color from a colormap, the color is cached and does not change
+     * unless explicitly overriden. Therefore, if you change the colormap after the item has already been plotted,
+     * item colors will NOT update. If you need item colors to resample the new colormap, then use this
+     * function to bust the cached colors. If #plot_title_id is NULL, then every item in EVERY existing plot
+     * will be cache busted. Otherwise only the plot specified by #plot_title_id will be busted. For the
+     * latter, this function must be called in the same ImGui ID scope that the plot is in. You should rarely if ever
+     * need this function, but it is available for applications that require runtime colormap swaps (e.g. Heatmaps demo).
+     */
+    public static void bustColorCache() {
+        bustColorCache(null);
+    }
+
+    /**
+     * When items in a plot sample their color from a colormap, the color is cached and does not change
+     * unless explicitly overriden. Therefore, if you change the colormap after the item has already been plotted,
+     * item colors will NOT update. If you need item colors to resample the new colormap, then use this
+     * function to bust the cached colors. If #plot_title_id is NULL, then every item in EVERY existing plot
+     * will be cache busted. Otherwise only the plot specified by #plot_title_id will be busted. For the
+     * latter, this function must be called in the same ImGui ID scope that the plot is in. You should rarely if ever
+     * need this function, but it is available for applications that require runtime colormap swaps (e.g. Heatmaps demo).
+     */
+    public static native void bustColorCache(String plotTableID); /*
+        ImPlot::BustColorCache(plotTableID);
+    */
 
     //-----------------------------------------------------------------------------
     // Miscellaneous
