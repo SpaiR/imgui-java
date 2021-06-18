@@ -8,6 +8,7 @@ import java.net.URI;
 
 public class ExampleImPlot {
     private static final String URL = "https://github.com/epezent/implot";
+    private static final ImBoolean showDemo = new ImBoolean(false);
 
     public static void show(ImBoolean showImPlotWindow) {
         ImGui.setNextWindowSize(500, 400, ImGuiCond.Once);
@@ -15,6 +16,19 @@ public class ExampleImPlot {
         if (ImGui.begin("ImPlot Demo", showImPlotWindow))
         {
             ImGui.text("This a demo for ImPlot");
+
+            ImGui.alignTextToFramePadding();
+            ImGui.text("Repo:");
+            ImGui.sameLine();
+            if (ImGui.button(URL)) {
+                try {
+                    Desktop.getDesktop().browse(new URI(URL));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            ImGui.checkbox("Show ImPlot Built-In Demo", showDemo);
 
             final Integer[] xs = {0, 1, 2, 3, 4, 5};
             final Integer[] ys = {0, 1, 2, 3, 4, 5};
@@ -30,6 +44,10 @@ public class ExampleImPlot {
             if (ImPlot.beginPlot("Example Scatterplot")) {
                 ImPlot.plotScatter("Scatter", xs, ys);
                 ImPlot.endPlot();
+            }
+
+            if (showDemo.get()) {
+                ImPlot.showDemoWindow(showDemo);
             }
         }
 
