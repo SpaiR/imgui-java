@@ -15,18 +15,19 @@ public class ExampleImPlot {
         if (ImGui.begin("ImPlot Demo", showImPlotWindow)) {
             ImGui.text("This a demo for ImPlot");
 
-            ImGui.alignTextToFramePadding();
-            ImGui.text("Repo:");
-            ImGui.sameLine();
-            if (ImGui.button(URL)) {
-                try {
-                    Desktop.getDesktop().browse(new URI(URL));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            final Integer[] xs = {0, 1, 2, 3, 4, 5};
+            final Integer[] ys = {0, 1, 2, 3, 4, 5};
 
-            ImPlot.showDemoWindow(showImPlotWindow);
+            ImPlot.beginPlot("Example Plot");
+
+            ImPlot.plotLine("Line", xs, ys);
+            ImPlot.plotBars("Bars", xs, ys);
+
+            ImPlot.endPlot();
+
+            ImPlot.beginPlot("Example Scatterplot");
+            ImPlot.plotScatter("Scatter", xs, ys);
+            ImPlot.endPlot();
         }
 
         ImGui.end();

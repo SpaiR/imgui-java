@@ -3,6 +3,7 @@ import imgui.app.Application;
 import imgui.app.Configuration;
 import imgui.extension.imnodes.ImNodes;
 import imgui.extension.implot.ImPlot;
+import imgui.extension.implot.ImPlotContext;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiInputTextFlags;
 import imgui.type.ImString;
@@ -16,6 +17,8 @@ public class Main extends Application {
     private final ImString str = new ImString(5);
     private final float[] flt = new float[1];
     private int count = 0;
+
+    private ImPlotContext IMPLOT_CONTEXT;
 
     @Override
     protected void configure(final Configuration config) {
@@ -34,7 +37,7 @@ public class Main extends Application {
         io.setConfigViewportsNoTaskBarIcon(true);
 
         ImNodes.createContext();
-        ImPlot.createContext();
+        IMPLOT_CONTEXT = ImPlot.createContext();
 
         // Example of fonts configuration
         // For more information read: https://github.com/ocornut/imgui/blob/33cdbe97b8fd233c6c12ca216e76398c2e89b0d8/docs/FONTS.md
@@ -75,6 +78,7 @@ public class Main extends Application {
     @Override
     protected void disposeImGui() {
         ImNodes.destroyContext();
+        ImPlot.destroyContext(IMPLOT_CONTEXT);
         super.disposeImGui();
     }
 
