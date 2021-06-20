@@ -1,8 +1,9 @@
 package imgui.extension.implot;
 
-import imgui.binding.ImGuiStruct;
+import imgui.ImVec2;
+import imgui.binding.ImGuiStructDestroyable;
 
-public final class ImPlotLimits extends ImGuiStruct {
+public final class ImPlotLimits extends ImGuiStructDestroyable {
     public ImPlotLimits(final long ptr) {
         super(ptr);
     }
@@ -12,7 +13,8 @@ public final class ImPlotLimits extends ImGuiStruct {
     }
 
     public ImPlotLimits(final double xMin, final double xMax, final double yMin, final double yMax) {
-        this(create(xMin, xMax, yMin, yMax));
+        this(0);
+        ptr = create(xMin, xMax, yMin, yMax);
     }
 
     /*JNI
@@ -22,7 +24,12 @@ public final class ImPlotLimits extends ImGuiStruct {
         #define IMPLOT_LIMITS ((ImPlotLimits*)STRUCT_PTR)
      */
 
-    private static native long create(double xMin, double xMax, double yMin, double yMax); /*
+    @Override
+    protected native long create(); /*
+        return (intptr_t)(new ImPlotLimits(0, 0, 0, 0));
+    */
+
+    protected native long create(double xMin, double xMax, double yMin, double yMax); /*
         return (intptr_t)(new ImPlotLimits(xMin, xMax, yMin, yMax));
     */
 
@@ -34,21 +41,47 @@ public final class ImPlotLimits extends ImGuiStruct {
         return IMPLOT_LIMITS->Contains(x, y);
     */
 
+    /**
+     * Returns the same as min(), but instead as an ImVec2.
+     */
+    public ImVec2 minVec() {
+        ImPlotPoint val = min();
+        ImVec2 vec = new ImVec2((float)val.getX(), (float)val.getY());
+        val.destroy();
+        return vec;
+    }
+
+    /**
+     * The returned ImPlotPoint should be manually deallocated with destroy()!
+     */
     public ImPlotPoint min() {
         return new ImPlotPoint(nMin());
     }
 
     private native long nMin(); /*
-        ImPlotPoint* p = new ImPlotPoint(IMPLOT_LIMITS->Min()); //TODO fix memory leak
+        ImPlotPoint* p = new ImPlotPoint(IMPLOT_LIMITS->Min());
         return (intptr_t)p;
     */
 
+    /**
+     * The returned ImPlotPoint should be manually deallocated with destroy()!
+     */
     public ImPlotPoint max() {
         return new ImPlotPoint(nMax());
     }
 
+    /**
+     * Returns the same as max(), but instead as an ImVec2.
+     */
+    public ImVec2 maxVec() {
+        ImPlotPoint val = max();
+        ImVec2 vec = new ImVec2((float)val.getX(), (float)val.getY());
+        val.destroy();
+        return vec;
+    }
+
     private native long nMax(); /*
-        ImPlotPoint* p = new ImPlotPoint(IMPLOT_LIMITS->Max()); //TODO fix memory leak
+        ImPlotPoint* p = new ImPlotPoint(IMPLOT_LIMITS->Max());
         return (intptr_t)p;
     */
 

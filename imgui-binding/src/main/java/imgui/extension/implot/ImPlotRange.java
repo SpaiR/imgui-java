@@ -1,8 +1,8 @@
 package imgui.extension.implot;
 
-import imgui.binding.ImGuiStruct;
+import imgui.binding.ImGuiStructDestroyable;
 
-public final class ImPlotRange extends ImGuiStruct {
+public final class ImPlotRange extends ImGuiStructDestroyable {
     public ImPlotRange(final long ptr) {
         super(ptr);
     }
@@ -12,7 +12,8 @@ public final class ImPlotRange extends ImGuiStruct {
     }
 
     public ImPlotRange(final double min, final double max) {
-        this(create(min, max));
+        this(0);
+        ptr = create(min, max);
     }
 
     /*JNI
@@ -22,7 +23,12 @@ public final class ImPlotRange extends ImGuiStruct {
         #define IMPLOT_RANGE ((ImPlotRange*)STRUCT_PTR)
      */
 
-    private static native long create(double min, double max); /*
+    @Override
+    protected native long create(); /*
+        return (intptr_t)(new ImPlotRange(0, 0));
+    */
+
+    protected native long create(double min, double max); /*
         return (intptr_t)(new ImPlotRange(min, max));
     */
 

@@ -929,6 +929,7 @@ public final class ImPlot {
 
     /**
      * This function MUST be called BETWEEN begin/endPlot!
+     * The returned ImPlotPoint should be manually deallocated with destroy()!
      * Convert pixels to a position in the current plot's coordinate system. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
      */
     public static ImPlotPoint pixelsToPlot(final float x, final float y, final int yAxis) {
@@ -937,7 +938,7 @@ public final class ImPlot {
     }
 
     private static native long nPixelsToPlot(float x, float y, int yAxis); /*
-        ImPlotPoint* p = new ImPlotPoint(ImPlot::PixelsToPlot(x, y, yAxis)); //TODO fix memory leak
+        ImPlotPoint* p = new ImPlotPoint(ImPlot::PixelsToPlot(x, y, yAxis));
         return (intptr_t)p;
     */
 
@@ -1023,6 +1024,7 @@ public final class ImPlot {
 
     /**
      * This function MUST be called BETWEEN begin/endPlot!
+     * The returned ImPlotPoint should be manually deallocated with destroy()!
      * Returns the mouse position in x,y coordinates of the current plot. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
      */
     public static ImPlotPoint getPlotMousePos(final int yAxis) {
@@ -1031,12 +1033,13 @@ public final class ImPlot {
     }
 
     private static native long nGetPlotMousePos(int yAxis); /*
-        ImPlotPoint* p = new ImPlotPoint(ImPlot::GetPlotMousePos(yAxis)); //TODO fix memory leak
+        ImPlotPoint* p = new ImPlotPoint(ImPlot::GetPlotMousePos(yAxis));
         return (intptr_t)p;
     */
 
     /**
      * This function MUST be called BETWEEN begin/endPlot!
+     * The returned ImPlotLimits should be manually deallocated with destroy()!
      * Returns the current plot axis range. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
      */
     public static ImPlotLimits getPlotLimits(final int yAxis) {
@@ -1045,7 +1048,7 @@ public final class ImPlot {
     }
 
     private static native long nGetPlotLimits(int yAxis); /*
-        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotLimits(yAxis)); //TODO fix memory leak
+        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotLimits(yAxis))
         return (intptr_t)p;
     */
 
@@ -1059,6 +1062,7 @@ public final class ImPlot {
 
     /**
      * This function MUST be called BETWEEN begin/endPlot!
+     * The returned ImPlotLimits should be manually deallocated with destroy()!
      * Returns the current plot box selection bounds.
      */
     public static ImPlotLimits getPlotSelection(final int yAxis) {
@@ -1067,7 +1071,7 @@ public final class ImPlot {
     }
 
     private static native long nGetPlotSelection(int yAxis); /*
-        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotSelection(yAxis)); //TODO fix memory leak
+        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotSelection(yAxis));
         return (intptr_t)p;
     */
 
@@ -1081,6 +1085,7 @@ public final class ImPlot {
 
     /**
      * This function MUST be called BETWEEN begin/endPlot!
+     * The returned ImPlotLimits should be manually deallocated with destroy()!
      * Returns the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
      */
     public static ImPlotLimits getPlotQuery(final int yAxis) {
@@ -1089,7 +1094,7 @@ public final class ImPlot {
     }
 
     private static native long nGetPlotQuery(int yAxis); /*
-        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotQuery(yAxis)); //TODO fix memory leak
+        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotQuery(yAxis));
         return (intptr_t)p;
     */
 

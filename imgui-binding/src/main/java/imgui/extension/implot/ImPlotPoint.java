@@ -1,9 +1,9 @@
 package imgui.extension.implot;
 
 import imgui.ImVec2;
-import imgui.binding.ImGuiStruct;
+import imgui.binding.ImGuiStructDestroyable;
 
-public final class ImPlotPoint extends ImGuiStruct {
+public final class ImPlotPoint extends ImGuiStructDestroyable {
     public ImPlotPoint(final long ptr) {
         super(ptr);
     }
@@ -17,7 +17,8 @@ public final class ImPlotPoint extends ImGuiStruct {
     }
 
     public ImPlotPoint(final double x, final double y) {
-        this(create(x, y));
+        this(0);
+        ptr = create(x, y);
     }
 
     /*JNI
@@ -27,7 +28,12 @@ public final class ImPlotPoint extends ImGuiStruct {
         #define IMPLOT_POINT ((ImPlotPoint*)STRUCT_PTR)
      */
 
-    private static native long create(double x, double y); /*
+    @Override
+    protected native long create(); /*
+        return (intptr_t)(new ImPlotPoint(0, 0));
+    */
+
+    protected native long create(double x, double y); /*
         return (intptr_t)(new ImPlotPoint(x, y));
     */
 
