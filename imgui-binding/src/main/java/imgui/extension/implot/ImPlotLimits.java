@@ -45,8 +45,8 @@ public final class ImPlotLimits extends ImGuiStructDestroyable {
      * Returns the same as min(), but instead as an ImVec2.
      */
     public ImVec2 minVec() {
-        ImPlotPoint val = min();
-        ImVec2 vec = new ImVec2((float)val.getX(), (float)val.getY());
+        final ImPlotPoint val = min();
+        final ImVec2 vec = new ImVec2((float) val.getX(), (float) val.getY());
         val.destroy();
         return vec;
     }
@@ -74,8 +74,8 @@ public final class ImPlotLimits extends ImGuiStructDestroyable {
      * Returns the same as max(), but instead as an ImVec2.
      */
     public ImVec2 maxVec() {
-        ImPlotPoint val = max();
-        ImVec2 vec = new ImVec2((float)val.getX(), (float)val.getY());
+        final ImPlotPoint val = max();
+        final ImVec2 vec = new ImVec2((float) val.getX(), (float) val.getY());
         val.destroy();
         return vec;
     }
