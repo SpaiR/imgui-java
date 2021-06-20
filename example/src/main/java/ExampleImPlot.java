@@ -7,14 +7,16 @@ import java.awt.*;
 import java.net.URI;
 
 public class ExampleImPlot {
-    private static final String URL = "https://github.com/epezent/implot";
+    private static final String URL = "https://github.com/epezent/implot/tree/555ff68";
     private static final ImBoolean showDemo = new ImBoolean(false);
+
+    private static final Integer[] xs = {0, 1, 2, 3, 4, 5};
+    private static final Integer[] ys = {0, 1, 2, 3, 4, 5};
 
     public static void show(ImBoolean showImPlotWindow) {
         ImGui.setNextWindowSize(500, 400, ImGuiCond.Once);
         ImGui.setNextWindowPos(ImGui.getMainViewport().getPosX() + 100, ImGui.getMainViewport().getPosY() + 100, ImGuiCond.Once);
-        if (ImGui.begin("ImPlot Demo", showImPlotWindow))
-        {
+        if (ImGui.begin("ImPlot Demo", showImPlotWindow)) {
             ImGui.text("This a demo for ImPlot");
 
             ImGui.alignTextToFramePadding();
@@ -30,15 +32,10 @@ public class ExampleImPlot {
 
             ImGui.checkbox("Show ImPlot Built-In Demo", showDemo);
 
-            final Integer[] xs = {0, 1, 2, 3, 4, 5};
-            final Integer[] ys = {0, 1, 2, 3, 4, 5};
-
             if (ImPlot.beginPlot("Example Plot")) {
-
-            ImPlot.plotLine("Line", xs, ys);
-            ImPlot.plotBars("Bars", xs, ys);
-
-            ImPlot.endPlot();
+                ImPlot.plotLine("Line", xs, ys);
+                ImPlot.plotBars("Bars", xs, ys);
+                ImPlot.endPlot();
             }
 
             if (ImPlot.beginPlot("Example Scatterplot")) {
