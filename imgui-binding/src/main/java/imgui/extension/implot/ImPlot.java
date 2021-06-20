@@ -12,21 +12,12 @@ import imgui.type.ImDouble;
 import java.security.InvalidParameterException;
 
 public final class ImPlot {
-    private static final ImDrawList IM_DRAW_LIST;
+    private static final ImDrawList IM_DRAW_LIST = new ImDrawList(0);
 
-    private static final ImPlotContext IMPLOT_CONTEXT;
-    private static final ImPlotPoint IMPLOT_POINT;
-    private static final ImPlotLimits IMPLOT_LIMITS;
-    private static final ImPlotStyle IMPLOT_STYLE;
-
-    static {
-        IM_DRAW_LIST = new ImDrawList(0);
-
-        IMPLOT_CONTEXT = new ImPlotContext(0);
-        IMPLOT_POINT = new ImPlotPoint(0);
-        IMPLOT_LIMITS = new ImPlotLimits(0);
-        IMPLOT_STYLE = new ImPlotStyle(0);
-    }
+    private static final ImPlotContext IMPLOT_CONTEXT = new ImPlotContext(0);
+    private static final ImPlotPoint IMPLOT_POINT = new ImPlotPoint(0);
+    private static final ImPlotLimits IMPLOT_LIMITS = new ImPlotLimits(0);
+    private static final ImPlotStyle IMPLOT_STYLE = new ImPlotStyle(0);
 
     private ImPlot() {
 
