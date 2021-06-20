@@ -19,6 +19,7 @@ public final class ImPlotLimits extends ImGuiStruct {
         #include "_common.h"
         #include "_implot.h"
 
+        #define IMPLOT_LIMITS ((ImPlotLimits*)STRUCT_PTR)
      */
 
     private static native long create(double xMin, double xMax, double yMin, double yMax); /*
@@ -29,29 +30,25 @@ public final class ImPlotLimits extends ImGuiStruct {
         return contains(plotPoint.getX(), plotPoint.getY());
     }
 
-    public boolean contains(final double x, final double y) {
-        return nContains(this.ptr, x, y);
-    }
-
-    private static native boolean nContains(long ptr, double x, double y); /*
-        return ((ImPlotLimits*)ptr)->Contains(x, y);
+    public native boolean contains(double x, double y); /*
+        return IMPLOT_LIMITS->Contains(x, y);
     */
 
     public ImPlotPoint min() {
-        return new ImPlotPoint(nMin(this.ptr));
+        return new ImPlotPoint(nMin());
     }
 
-    private static native long nMin(long ptr); /*
-        ImPlotPoint* p = new ImPlotPoint(((ImPlotLimits*)ptr)->Min());
+    private native long nMin(); /*
+        ImPlotPoint* p = new ImPlotPoint(IMPLOT_LIMITS->Min()); //TODO fix memory leak
         return (intptr_t)p;
     */
 
     public ImPlotPoint max() {
-        return new ImPlotPoint(nMax(this.ptr));
+        return new ImPlotPoint(nMax());
     }
 
-    private static native long nMax(long ptr); /*
-        ImPlotPoint* p = new ImPlotPoint(((ImPlotLimits*)ptr)->Max());
+    private native long nMax(); /*
+        ImPlotPoint* p = new ImPlotPoint(IMPLOT_LIMITS->Max()); //TODO fix memory leak
         return (intptr_t)p;
     */
 
@@ -59,8 +56,8 @@ public final class ImPlotLimits extends ImGuiStruct {
         return new ImPlotRange(nGetX(this.ptr));
     }
 
-    private static native long nGetX(long ptr); /*
-        return (intptr_t)&(((ImPlotLimits*)ptr)->X);
+    private native long nGetX(long ptr); /*
+        return (intptr_t)&(IMPLOT_LIMITS->X);
     */
 
     public ImPlotRange getY() {
@@ -68,22 +65,22 @@ public final class ImPlotLimits extends ImGuiStruct {
     }
 
     private native long nGetY(long ptr); /*
-        return (intptr_t)&(((ImPlotLimits*)ptr)->Y);
+        return (intptr_t)&(IMPLOT_LIMITS->Y);
      */
 
     public void setX(final ImPlotRange value) {
-        nSetX(this.ptr, value.ptr);
+        nSetX(value.ptr);
     }
 
-    private static native void nSetX(long ptr, long valueptr); /*
-        ((ImPlotLimits*)ptr)->X = *((ImPlotRange*)valueptr);
+    private native void nSetX(long valueptr); /*
+        IMPLOT_LIMITS->X = *((ImPlotRange*)valueptr);
      */
 
     public void setY(final ImPlotRange value) {
-        nSetY(this.ptr, value.ptr);
+        nSetY(value.ptr);
     }
 
-    private static native void nSetY(long ptr, long valueptr); /*
-        ((ImPlotLimits*)ptr)->Y = *((ImPlotRange*)valueptr);
+    private native void nSetY(long valueptr); /*
+        IMPLOT_LIMITS->Y = *((ImPlotRange*)valueptr);
      */
 }

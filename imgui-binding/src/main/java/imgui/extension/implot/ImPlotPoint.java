@@ -24,41 +24,26 @@ public final class ImPlotPoint extends ImGuiStruct {
         #include "_common.h"
         #include "_implot.h"
 
+        #define IMPLOT_POINT ((ImPlotPoint*)STRUCT_PTR)
      */
 
     private static native long create(double x, double y); /*
         return (intptr_t)(new ImPlotPoint(x, y));
     */
 
-    public double getX() {
-        return nGetX(this.ptr);
-    }
-
-    private static native double nGetX(long ptr); /*
-        return ((ImPlotPoint*)ptr)->x;
+    public native double getX(); /*
+        return IMPLOT_POINT->x;
     */
 
-    public double getY() {
-        return nGetY(this.ptr);
-    }
-
-    private static native double nGetY(long ptr); /*
-        return ((ImPlotPoint*)ptr)->y;
+    public native double getY(); /*
+        return IMPLOT_POINT->y;
      */
 
-    public void setX(final double value) {
-        nSetX(this.ptr, value);
-    }
-
-    private static native void nSetX(long ptr, double value); /*
-        ((ImPlotPoint*)ptr)->x = value;
+    public native void setX(double value); /*
+        IMPLOT_POINT->x = value;
      */
 
-    public void setY(final double value) {
-        nSetY(this.ptr, value);
-    }
-
-    private static native void nSetY(long ptr, double value); /*
-        ((ImPlotPoint*)ptr)->y = value;
+    public native void setY(double value); /*
+        IMPLOT_POINT->y = value;
      */
 }

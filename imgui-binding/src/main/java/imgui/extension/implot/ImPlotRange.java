@@ -19,57 +19,34 @@ public final class ImPlotRange extends ImGuiStruct {
         #include "_common.h"
         #include "_implot.h"
 
+        #define IMPLOT_RANGE ((ImPlotRange*)STRUCT_PTR)
      */
 
     private static native long create(double min, double max); /*
         return (intptr_t)(new ImPlotRange(min, max));
     */
 
-    public boolean contains(final double value) {
-        return nContains(this.ptr, value);
-    }
-
-    private static native boolean nContains(long ptr, double value); /*
-        return ((ImPlotRange*)ptr)->Contains(value);
+    public native boolean contains(double value); /*
+        return IMPLOT_RANGE->Contains(value);
     */
 
-    public double size() {
-        return nSize(this.ptr);
-    }
-
-    private static native double nSize(long ptr); /*
-        return ((ImPlotRange*)ptr)->Size();
+    public native double size(); /*
+        return IMPLOT_RANGE->Size();
      */
 
-    public double getMin() {
-        return nGetMin(this.ptr);
-    }
-
-    private static native double nGetMin(long ptr); /*
-        return ((ImPlotRange*)ptr)->Min;
+    public native double getMin(); /*
+        return IMPLOT_RANGE->Min;
     */
 
-    public double getMax() {
-        return nGetMax(this.ptr);
-    }
-
-    private static native double nGetMax(long ptr); /*
-        return ((ImPlotRange*)ptr)->Max;
+    public native double getMax(); /*
+        return IMPLOT_RANGE->Max;
      */
 
-    public void setMin(final double min) {
-        nSetMin(this.ptr, min);
-    }
-
-    private static native void nSetMin(long ptr, double value); /*
-        ((ImPlotRange*)ptr)->Min = value;
+    public native void setMin(double min); /*
+        IMPLOT_RANGE->Min = min;
      */
 
-    public void setMax(final double max) {
-        nSetMax(this.ptr, max);
-    }
-
-    private static native void nSetMax(long ptr, double value); /*
-        ((ImPlotRange*)ptr)->Max = value;
+    public native void nSetMax(double max); /*
+        IMPLOT_RANGE->Max = max;
      */
 }

@@ -937,7 +937,7 @@ public final class ImPlot {
     }
 
     private static native long nPixelsToPlot(float x, float y, int yAxis); /*
-        ImPlotPoint* p = new ImPlotPoint(ImPlot::PixelsToPlot(x, y, yAxis)); //avoid complaining about taking the address of an rvalue
+        ImPlotPoint* p = new ImPlotPoint(ImPlot::PixelsToPlot(x, y, yAxis)); //TODO fix memory leak
         return (intptr_t)p;
     */
 
@@ -1031,7 +1031,7 @@ public final class ImPlot {
     }
 
     private static native long nGetPlotMousePos(int yAxis); /*
-        ImPlotPoint* p = new ImPlotPoint(ImPlot::GetPlotMousePos(yAxis));
+        ImPlotPoint* p = new ImPlotPoint(ImPlot::GetPlotMousePos(yAxis)); //TODO fix memory leak
         return (intptr_t)p;
     */
 
@@ -1045,7 +1045,7 @@ public final class ImPlot {
     }
 
     private static native long nGetPlotLimits(int yAxis); /*
-        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotLimits(yAxis));
+        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotLimits(yAxis)); //TODO fix memory leak
         return (intptr_t)p;
     */
 
@@ -1067,7 +1067,7 @@ public final class ImPlot {
     }
 
     private static native long nGetPlotSelection(int yAxis); /*
-        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotSelection(yAxis));
+        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotSelection(yAxis)); //TODO fix memory leak
         return (intptr_t)p;
     */
 
@@ -1089,7 +1089,7 @@ public final class ImPlot {
     }
 
     private static native long nGetPlotQuery(int yAxis); /*
-        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotQuery(yAxis));
+        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotQuery(yAxis)); //TODO fix memory leak
         return (intptr_t)p;
     */
 
