@@ -1048,7 +1048,7 @@ public final class ImPlot {
     }
 
     private static native long nGetPlotLimits(int yAxis); /*
-        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotLimits(yAxis))
+        ImPlotLimits* p = new ImPlotLimits(ImPlot::GetPlotLimits(yAxis));
         return (intptr_t)p;
     */
 
