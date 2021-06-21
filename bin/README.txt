@@ -8,6 +8,7 @@ You can change that by using 'imgui.library.name' VM option (ex: -Dimgui.library
 
 - imgui-java64.dll      << Windows
 - libimgui-java64.so    << Linux
+- libimgui-javaarm64.so << Linux (ARM-based CPU)
 - libimgui-java64.dylib << MacOS
 
 Freetype folder contains same libraries, but with Freetype support.
