@@ -4,10 +4,7 @@ import imgui.ImGui;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
-import org.lwjgl.glfw.Callbacks;
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL32;
 import org.lwjgl.system.MemoryStack;
@@ -90,14 +87,29 @@ public abstract class Window {
         }
 
         GLFW.glfwMakeContextCurrent(handle);
+
+        GL.createCapabilities();
+
         GLFW.glfwSwapInterval(GLFW.GLFW_TRUE);
-        GLFW.glfwShowWindow(handle);
 
         if (config.isFullScreen()) {
             GLFW.glfwMaximizeWindow(handle);
         }
+        else {
+            GLFW.glfwShowWindow(handle);
+        }
 
-        GL.createCapabilities();
+        GL32.glClearColor(colorBg.getRed(), colorBg.getGreen(), colorBg.getBlue(), colorBg.getAlpha());
+        GL32.glClear(GL32.GL_COLOR_BUFFER_BIT | GL32.GL_DEPTH_BUFFER_BIT);
+        GLFW.glfwSwapBuffers(handle);
+        GLFW.glfwPollEvents();
+
+        GLFW.glfwSetWindowSizeCallback(handle, new GLFWWindowSizeCallback() {
+            @Override
+            public void invoke(long window, int width, int height) {
+                runFrame();
+            }
+        });
     }
 
     private void decideGlGlslVersions() {
@@ -141,12 +153,19 @@ public abstract class Window {
      */
     protected void run() {
         while (!GLFW.glfwWindowShouldClose(handle)) {
-            startFrame();
-            preProcess();
-            process();
-            postProcess();
-            endFrame();
+            runFrame();
         }
+    }
+
+    /**
+     * Method used to run the next frame.
+     */
+    protected void runFrame() {
+        startFrame();
+        preProcess();
+        process();
+        postProcess();
+        endFrame();
     }
 
     /**
