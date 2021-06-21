@@ -20,6 +20,7 @@ class GenerateLibs extends DefaultTask {
     private final boolean forMac = buildEnvs?.contains('mac')
 
     private final boolean isLocal = System.properties.containsKey('local')
+    private final boolean isArm = System.getProperty("os.arch") == "aarch64"
     private final boolean withFreeType = Boolean.valueOf(System.properties.getProperty('freetype', 'false'))
 
     private final String sourceDir = project.file('src/main/java')
@@ -33,6 +34,7 @@ class GenerateLibs extends DefaultTask {
         println 'Generating Native Libraries...'
         println "Build targets: $buildEnvs"
         println "Local: $isLocal"
+        println "Is ARM: $isArm"
         println "FreeType: $withFreeType"
         println '====================================='
 
@@ -73,7 +75,7 @@ class GenerateLibs extends DefaultTask {
         }
 
         if (forLinux) {
-            def linux64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, true)
+            def linux64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, true, isArm)
             addFreeTypeIfEnabled(linux64)
             buildTargets += linux64
         }
@@ -97,8 +99,13 @@ class GenerateLibs extends DefaultTask {
 
         if (forWindows)
             BuildExecutor.executeAnt(jniDir + '/build-windows64.xml', commonParams)
-        if (forLinux)
-            BuildExecutor.executeAnt(jniDir + '/build-linux64.xml', commonParams)
+        if (forLinux) {
+            if (!isArm) {
+                BuildExecutor.executeAnt(jniDir + '/build-linux64.xml', commonParams)
+            } else {
+                BuildExecutor.executeAnt(jniDir + '/build-linuxarm64.xml', commonParams)
+            }
+        }
         if (forMac)
             BuildExecutor.executeAnt(jniDir + '/build-macosx64.xml', commonParams)
 

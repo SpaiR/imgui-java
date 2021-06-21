@@ -23,7 +23,7 @@ import java.nio.file.StandardCopyOption;
 public class ImGui {
     private static final String LIB_PATH_PROP = "imgui.library.path";
     private static final String LIB_NAME_PROP = "imgui.library.name";
-    private static final String LIB_NAME_DEFAULT = System.getProperty("os.arch").contains("64") ? "imgui-java64" : "imgui-java";
+    private static final String LIB_NAME_DEFAULT;
     private static final String LIB_TMP_DIR_PREFIX = "imgui-java-natives_" + System.currentTimeMillis();
 
     private static final ImGuiIO IMGUI_IO;
@@ -41,6 +41,12 @@ public class ImGui {
     private static final ImGuiPlatformIO PLATFORM_IO;
 
     static {
+        if (!System.getProperty("os.arch").contains("aarch")) {
+            LIB_NAME_DEFAULT = System.getProperty("os.arch").contains("64") ? "imgui-java64" : "imgui-java";
+        } else {
+            LIB_NAME_DEFAULT = System.getProperty("os.arch").contains("64") ? "imgui-javaarm64" : "imgui-javaarm";
+        }
+
         final String libPath = System.getProperty(LIB_PATH_PROP);
         final String libName = System.getProperty(LIB_NAME_PROP, LIB_NAME_DEFAULT);
         final String fullLibName = resolveFullLibName();
