@@ -2,6 +2,8 @@ import imgui.*;
 import imgui.app.Application;
 import imgui.app.Configuration;
 import imgui.extension.imnodes.ImNodes;
+import imgui.extension.implot.ImPlot;
+import imgui.extension.implot.ImPlotContext;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiInputTextFlags;
 import imgui.type.ImString;
