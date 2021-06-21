@@ -558,7 +558,7 @@ public final class ImPlot {
     */
 
     /**
-     * Plots a pie chart. If the sum of values > 1, each value will be normalized. Center and radius are in plot units. #label_fmt can be set to NULL for no labels.
+     * Plots a pie chart. If the sum of values {@code >} 1, each value will be normalized. Center and radius are in plot units. #label_fmt can be set to NULL for no labels.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      */
     public static <T extends Number> void plotPieChart(final String[] labelIDs, final T[] values, final double x, final double y, final double radius) {
@@ -1589,7 +1589,7 @@ public final class ImPlot {
     */
 
     /**
-     * Returns a color from a colormap given an index >= 0 (modulo will be performed).
+     * Returns a color from a colormap given an index {@code >=} 0 (modulo will be performed).
      */
     public static ImVec4 getColormapColor(final int idx, final int cmap) {
         final ImVec4 vec = new ImVec4();
