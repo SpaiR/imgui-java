@@ -20,7 +20,8 @@ class GenerateLibs extends DefaultTask {
     private final boolean forMac = buildEnvs?.contains('mac')
 
     private final boolean isLocal = System.properties.containsKey('local')
-    private final boolean isArm = System.getProperty("os.arch") == "aarch64"
+    private final String[] arches = System.getProperty('arch')?.split(',')
+    private final boolean isArm = arches?.contains('aarch64')
     private final boolean withFreeType = Boolean.valueOf(System.properties.getProperty('freetype', 'false'))
 
     private final String sourceDir = project.file('src/main/java')

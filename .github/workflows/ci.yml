@@ -26,16 +26,21 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-20.04, macos-10.15]
-        type: [win, linux, linuxarm, mac]
+        type: [win, linux, mac]
+        arch: [amd, arm]
         freetype: [true, false]
         include:
           - type: win
+            arch: amd
             expected: /tmp/imgui/libsNative/windows64/imgui-java64.dll
           - type: linux
+            arch: amd
             expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
-          - type: linuxarm
-            expected: /tmp/imgui/libsNative/linuxarm64/libimgui-javaarm64.so
+          - type: linux
+            arch: arm
+            expected: /tmp/imgui/libsNative/linux64/libimgui-javaarm64.so
           - type: mac
+            arch: amd
             expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
         exclude:
           - os: ubuntu-20.04
@@ -44,9 +49,12 @@ jobs:
             type: win
           - os: macos-10.15
             type: linux
-          - os: macos-10.15
-            type: linuxarm
-    name: Build Native (type=${{ matrix.type }}, freetype=${{ matrix.freetype }})
+        # temporary exclude
+          - arch: arm
+            type: mac
+          - arch: arm
+            type: win
+    name: Build Native (type=${{ matrix.type }}, arch=${{ matrix.arch }}, freetype=${{ matrix.freetype }})
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Repository and Submodules
@@ -70,10 +78,6 @@ jobs:
         name: FreeType - Install
         run: sudo apt install libfreetype6-dev
 
-      - if: matrix.os == 'ubuntu-20.04' && matrix.type == 'linuxarm' && matrix.freetype == true
-        name: FreeType - Install
-        run: sudo apt install libfreetype6-dev
-
       - if: matrix.os == 'ubuntu-20.04' && matrix.type == 'win' && matrix.freetype == true
         name: FreeType - Download
         run: |
@@ -92,7 +96,7 @@ jobs:
       - name: Build
         uses: eskatos/gradle-command-action@v1
         with:
-          arguments: :imgui-binding:generateLibs -Denvs=${{ matrix.type }} -Dfreetype=${{ matrix.freetype }}
+          arguments: :imgui-binding:generateLibs -Denvs=${{ matrix.type }} -Darch=${{ matrix.arch }} -Dfreetype=${{ matrix.freetype }}
 
       - name: Upload Native
         uses: actions/upload-artifact@v2
