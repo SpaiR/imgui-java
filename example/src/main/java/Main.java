@@ -1,9 +1,9 @@
-import imgui.*;
+import imgui.ImFontConfig;
+import imgui.ImFontGlyphRangesBuilder;
+import imgui.ImGui;
+import imgui.ImGuiIO;
 import imgui.app.Application;
 import imgui.app.Configuration;
-import imgui.extension.imnodes.ImNodes;
-import imgui.extension.implot.ImPlot;
-import imgui.extension.implot.ImPlotContext;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiInputTextFlags;
 import imgui.type.ImString;
@@ -66,12 +66,6 @@ public class Main extends Application {
         io.getFonts().build();
 
         fontConfig.destroy();
-    }
-
-    @Override
-    protected void disposeImGui() {
-        ImNodes.destroyContext();
-        super.disposeImGui();
     }
 
     @Override

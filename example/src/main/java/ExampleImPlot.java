@@ -1,10 +1,9 @@
 import imgui.extension.implot.ImPlot;
-import imgui.extension.implot.ImPlotContext;
 import imgui.flag.ImGuiCond;
 import imgui.internal.ImGui;
 import imgui.type.ImBoolean;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.net.URI;
 
 public class ExampleImPlot {
@@ -14,10 +13,8 @@ public class ExampleImPlot {
     private static final Integer[] xs = {0, 1, 2, 3, 4, 5};
     private static final Integer[] ys = {0, 1, 2, 3, 4, 5};
 
-    private final static ImPlotContext IMPLOT_CONTEXT;
-
     static {
-        IMPLOT_CONTEXT = ImPlot.createContext();
+        ImPlot.createContext();
     }
 
     public static void show(ImBoolean showImPlotWindow) {

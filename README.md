@@ -5,14 +5,6 @@
 [![binding javadoc](https://javadoc.io/badge2/io.github.spair/imgui-java-binding/javadoc_binding.svg?logo=java)](https://javadoc.io/doc/io.github.spair/imgui-java-binding)
 [![app javadoc](https://javadoc.io/badge2/io.github.spair/imgui-java-app/javadoc_app.svg?logo=java)](https://javadoc.io/doc/io.github.spair/imgui-java-app)
 
-## Important News!
-_(If you are using raw jars, you can skip this section.)_<br>
-Because of [JCenter shutdown](https://jfrog.com/blog/into-the-sunset-bintray-jcenter-gocenter-and-chartcenter/) library has moved to Maven Central.
-That fact affects nothing, but the groupId parameter in your Gradle and Maven configuration files.
-From version `1.80-1.5.0` use `io.github.spair` instead of `io.imgui.java`. See an updated [How To Use](#how-to-use) section for details.
-
-**<ins>Old versions will not be transferred to Maven Central and will become unavailable after JCenter goes down.</ins>**
-
 ---
 
 JNI based binding for [Dear ImGui](https://github.com/ocornut/imgui) with no dependencies.<br>
@@ -54,7 +46,7 @@ cd imgui-java
 
 See [example](https://github.com/SpaiR/imgui-java/blob/v1.83.0/example) module to try other widgets in action.
 
-# How To Use
+# How to Use
 **[ImGui in LWJGL YouTube video](https://youtu.be/Xq-eVcNtUbw)** by [GamesWithGabe](https://www.youtube.com/channel/UCQP4qSCj1eHMHisDDR4iPzw).<br>
 You can use this video as a basic step-by-step tutorial. It shows how to integrate binding with the usage of jar files. Gradle and Maven dependecies could be used for this purpose as well.
 
@@ -262,6 +254,8 @@ dependencies {
   Node Editor using ImGui. (A bit more complex than ImNodes, but has more features.)
 - [ImGuizmo](https://github.com/CedricGuillemet/ImGuizmo/tree/f7bbbe39971d9d45816417a70e9b53a0f698c56e) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.83.0/example/src/main/java/ExampleImGuizmo.java) <br>
   Immediate mode 3D gizmo for scene editing and other controls based on Dear Imgui.
+- [implot](https://github.com/epezent/implot/tree/555ff688a8134bc0c602123149abe9c17d577475) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.83.0/example/src/main/java/ExampleImPlot.java) <br>
+  Advanced 2D Plotting for Dear ImGui.  
 
 ## Freetype
 By default, Dear ImGui uses stb-truetype to render fonts. Yet there is an option to use FreeType font renderer. Go to the [imgui_freetype](https://github.com/ocornut/imgui/tree/256594575d95d56dda616c544c509740e74906b4/misc/freetype) to read about the difference.
