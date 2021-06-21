@@ -9,8 +9,6 @@ import imgui.flag.ImGuiMouseButton;
 import imgui.type.ImBoolean;
 import imgui.type.ImDouble;
 
-import java.security.InvalidParameterException;
-
 public final class ImPlot {
     private static final ImDrawList IM_DRAW_LIST = new ImDrawList(0);
 
@@ -259,7 +257,7 @@ public final class ImPlot {
      */
     private static <T extends Number> void convertArrays(final T[] xs, final T[] ys, final double[] xsOut, final double[] ysOut) {
         if (xs.length != ys.length) {
-            throw new InvalidParameterException();
+            throw new IllegalArgumentException("Invalid length for arrays");
         }
 
         for (int i = 0; i < xs.length; i++) {
