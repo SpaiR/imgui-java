@@ -53,6 +53,10 @@ jobs:
             type: win
           - os: macos-10.15
             type: linux
+          - arch: aarch64
+            type: [mac, win]
+          - arch: aarch64
+            os: macos-10.15
     name: Build Native (type=${{ matrix.type }}, arch=${{ matrix.arch }}, freetype=${{ matrix.freetype }})
     runs-on: ${{ matrix.os }}
     steps:
@@ -72,10 +76,14 @@ jobs:
       - if: matrix.os == 'ubuntu-20.04'
         name: Install MinGW-w64/GCC/G++
         run: sudo apt install mingw-w64
+        with:
+          arch: ${{ matrix.arch }}
 
       - if: matrix.os == 'ubuntu-20.04' && matrix.type == 'linux' && matrix.freetype == true
         name: FreeType - Install
         run: sudo apt install libfreetype6-dev
+        with:
+          arch: ${{ matrix.arch }}
 
       - if: matrix.os == 'ubuntu-20.04' && matrix.type == 'win' && matrix.freetype == true
         name: FreeType - Download
@@ -83,6 +91,8 @@ jobs:
           sudo wget -O /freetype.tar.gz ${{ env.FREETYPE_URL }}
           sudo mkdir /freetype
           sudo tar -xzf /freetype.tar.gz -C /freetype --strip-components=1
+        with:
+          arch: ${{ matrix.arch }}
 
       - if: matrix.os == 'ubuntu-20.04' && matrix.type == 'win' && matrix.freetype == true
         name: FreeType - Compile & Install
@@ -91,6 +101,8 @@ jobs:
           sudo ./configure --with-zlib=no --with-bzip2=no --with-png=no --with-harfbuzz=no --with-brotli=no --host=x86_64-w64-mingw32 --prefix=/usr/x86_64-w64-mingw32
           sudo make
           sudo make install
+        with:
+          arch: ${{ matrix.arch }}
 
       - name: Build
         uses: eskatos/gradle-command-action@v1
