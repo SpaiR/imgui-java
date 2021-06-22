@@ -77,7 +77,7 @@ jobs:
         name: Install MinGW-w64/GCC/G++
         uses: uraimo/run-on-arch-action@v2.0.5
         with:
-          arch: aarch64
+          arch: arm64
           dockerRunArgs: --platform=$linux/arm64
           run: sudo apt install mingw-w64
       - if: matrix.os == 'ubuntu-20.04' && matrix.arch != 'aarch64'
