@@ -27,7 +27,7 @@ jobs:
       matrix:
         os: [ubuntu-20.04, macos-10.15]
         type: [win, linux, mac]
-        arch: [amd, arm]
+        arch: [amd64, aarch64]
         freetype: [true, false]
         include:
           - type: win
@@ -37,7 +37,7 @@ jobs:
             arch: amd
             expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
           - type: linux
-            arch: arm
+            arch: aarch64
             expected: /tmp/imgui/libsNative/linux64/libimgui-javaarm64.so
           - type: mac
             arch: amd
@@ -50,9 +50,9 @@ jobs:
           - os: macos-10.15
             type: linux
         # temporary exclude
-          - arch: arm
+          - arch: aarch64
             type: mac
-          - arch: arm
+          - arch: aarch64
             type: win
     name: Build Native (type=${{ matrix.type }}, arch=${{ matrix.arch }}, freetype=${{ matrix.freetype }})
     runs-on: ${{ matrix.os }}
