@@ -78,6 +78,7 @@ jobs:
         uses: uraimo/run-on-arch-action@v2.0.5
         with:
           arch: aarch64
+          dockerRunArgs: --platform=linux/aarch64
           run: sudo apt install mingw-w64
       - if: matrix.os == 'ubuntu-20.04' && matrix.arch != 'aarch64'
         name: Install MinGW-w64/GCC/G++
@@ -88,6 +89,7 @@ jobs:
         uses: uraimo/run-on-arch-action@v2.0.5
         with:
           arch: aarch64
+          dockerRunArgs: --platform=linux/aarch64
           run: sudo apt install libfreetype6-dev
       - if: matrix.os == 'ubuntu-20.04' && matrix.type == 'linux' && matrix.freetype == true && matrix.arch != 'aarch64'
         name: FreeType - Install
@@ -98,6 +100,7 @@ jobs:
         uses: uraimo/run-on-arch-action@v2.0.5
         with:
           arch: aarch64
+          dockerRunArgs: --platform=linux/aarch64
           run: |
             sudo wget -O /freetype.tar.gz ${{ env.FREETYPE_URL }}
             sudo mkdir /freetype
@@ -114,6 +117,7 @@ jobs:
         uses: uraimo/run-on-arch-action@v2.0.5
         with:
           arch: aarch64
+          dockerRunArgs: --platform=linux/aarch64
           working-directory: /freetype
           run: |
             sudo ./configure --with-zlib=no --with-bzip2=no --with-png=no --with-harfbuzz=no --with-brotli=no --host=x86_64-w64-mingw32 --prefix=/usr/x86_64-w64-mingw32
