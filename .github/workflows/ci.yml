@@ -50,7 +50,7 @@ jobs:
           - os: macos-10.15
             type: linux
     name: Build Native (type=${{ matrix.type }}, arch=${{ matrix.arch }}, freetype=${{ matrix.freetype }})
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Repository and Submodules
         uses: actions/checkout@v2
