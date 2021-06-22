@@ -32,15 +32,19 @@ jobs:
         include:
           - type: win
             arch: amd
+            os: ubuntu-20.04
             expected: /tmp/imgui/libsNative/windows64/imgui-java64.dll
           - type: linux
             arch: amd
+            os: ubuntu-20.04
             expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
           - type: linux
             arch: aarch64
+            os: ubuntu-20.04
             expected: /tmp/imgui/libsNative/linuxarm64/libimgui-javaarm64.so
           - type: mac
             arch: amd
+            os: macos-10.15
             expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
         exclude:
           - os: ubuntu-20.04
