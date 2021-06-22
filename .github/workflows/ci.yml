@@ -38,7 +38,7 @@ jobs:
             expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
           - type: linux
             arch: aarch64
-            expected: /tmp/imgui/libsNative/linux64/libimgui-javaarm64.so
+            expected: /tmp/imgui/libsNative/linuxarm64/libimgui-javaarm64.so
           - type: mac
             arch: amd
             expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
