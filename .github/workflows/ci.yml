@@ -49,11 +49,6 @@ jobs:
             type: win
           - os: macos-10.15
             type: linux
-        # temporary exclude
-          - arch: aarch64
-            type: mac
-          - arch: aarch64
-            type: win
     name: Build Native (type=${{ matrix.type }}, arch=${{ matrix.arch }}, freetype=${{ matrix.freetype }})
     runs-on: ${{ matrix.os }}
     steps:
