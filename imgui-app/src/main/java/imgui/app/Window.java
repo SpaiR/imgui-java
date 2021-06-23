@@ -4,7 +4,11 @@ import imgui.ImGui;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
-import org.lwjgl.glfw.*;
+import org.lwjgl.glfw.Callbacks;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL32;
 import org.lwjgl.system.MemoryStack;
@@ -19,6 +23,7 @@ import java.util.Objects;
  * When extended, life-cycle methods should be called manually.
  */
 public abstract class Window {
+
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
 
@@ -32,7 +37,7 @@ public abstract class Window {
     /**
      * Background color of the window.
      */
-    protected final Color colorBg = new Color(.5f, .5f, .5f, 1);
+    protected Color colorBg = new Color(.5f, .5f, .5f, 1);
 
     /**
      * Method to initialize application.
@@ -94,19 +99,16 @@ public abstract class Window {
 
         if (config.isFullScreen()) {
             GLFW.glfwMaximizeWindow(handle);
-        }
-        else {
+        } else {
             GLFW.glfwShowWindow(handle);
         }
 
-        GL32.glClearColor(colorBg.getRed(), colorBg.getGreen(), colorBg.getBlue(), colorBg.getAlpha());
-        GL32.glClear(GL32.GL_COLOR_BUFFER_BIT | GL32.GL_DEPTH_BUFFER_BIT);
-        GLFW.glfwSwapBuffers(handle);
-        GLFW.glfwPollEvents();
+        clearBuffer();
+        renderBuffer();
 
         GLFW.glfwSetWindowSizeCallback(handle, new GLFWWindowSizeCallback() {
             @Override
-            public void invoke(long window, int width, int height) {
+            public void invoke(final long window, final int width, final int height) {
                 runFrame();
             }
         });
@@ -174,12 +176,19 @@ public abstract class Window {
     public abstract void process();
 
     /**
+     * Method used to clear the OpenGL buffer.
+     */
+    private void clearBuffer() {
+        GL32.glClearColor(colorBg.getRed(), colorBg.getGreen(), colorBg.getBlue(), colorBg.getAlpha());
+        GL32.glClear(GL32.GL_COLOR_BUFFER_BIT | GL32.GL_DEPTH_BUFFER_BIT);
+    }
+
+    /**
      * Method called at the beginning of the main cycle.
      * It clears OpenGL buffer and starts an ImGui frame.
      */
     protected void startFrame() {
-        GL32.glClearColor(colorBg.getRed(), colorBg.getGreen(), colorBg.getBlue(), colorBg.getAlpha());
-        GL32.glClear(GL32.GL_COLOR_BUFFER_BIT | GL32.GL_DEPTH_BUFFER_BIT);
+        clearBuffer();
         imGuiGlfw.newFrame();
         ImGui.newFrame();
     }
@@ -199,6 +208,13 @@ public abstract class Window {
             GLFW.glfwMakeContextCurrent(backupWindowPtr);
         }
 
+        renderBuffer();
+    }
+
+    /**
+     * Method to render the OpenGL buffer and poll window events.
+     */
+    private void renderBuffer() {
         GLFW.glfwSwapBuffers(handle);
         GLFW.glfwPollEvents();
     }
