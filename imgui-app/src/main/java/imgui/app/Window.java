@@ -37,7 +37,7 @@ public abstract class Window {
     /**
      * Background color of the window.
      */
-    protected Color colorBg = new Color(.5f, .5f, .5f, 1);
+    protected final Color colorBg = new Color(.5f, .5f, .5f, 1);
 
     /**
      * Method to initialize application.
