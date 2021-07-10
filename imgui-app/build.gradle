@@ -43,6 +43,7 @@ jar {
 
 shadowJar {
     with jar
+    archiveClassifier.set(null)
 }
 
 apply from: "$rootDir/publish.gradle"

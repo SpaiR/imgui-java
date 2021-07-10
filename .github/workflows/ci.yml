@@ -19,7 +19,7 @@ jobs:
       - name: Build
         uses: eskatos/gradle-command-action@v1
         with:
-          arguments: build
+          arguments: buildAll
   build-natives:
     env:
       FREETYPE_URL: https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.gz

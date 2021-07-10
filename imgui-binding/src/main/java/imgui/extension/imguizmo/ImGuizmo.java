@@ -307,16 +307,8 @@ public final class ImGuizmo {
     */
 
     /**
-     * Checks if we're over the current operation
-     *
-     * One of:
-     * <table summary="">
-     *     <tr>
-     *         <td>{@link imgui.extension.imguizmo.flag.Operation#ROTATE}</td>
-     *         <td>{@link imgui.extension.imguizmo.flag.Operation#SCALE}</td>
-     *         <td>{@link imgui.extension.imguizmo.flag.Operation#TRANSLATE}</td>
-     *     </tr>
-     * </table>
+     * Checks if we're over the current operation.
+     * One of {@link imgui.extension.imguizmo.flag.Operation}.
      *
      * @param operation target
      */
