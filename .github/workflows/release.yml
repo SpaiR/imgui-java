@@ -36,7 +36,7 @@ jobs:
         with:
           arguments: buildAll
 
-      - name: Generate changelog
+      - name: Generate Changelog
         id: changelog
         uses: metcalfc/changelog-generator@v1.0.0
         with:
@@ -47,7 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          body: ${{ steps.tag_version.outputs.changelog }} ${{ steps.changelog.outputs.changelog }}
+          body: ${{ steps.changelog.outputs.changelog }}
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
           draft: true
           prerelease: false
