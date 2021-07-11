@@ -1,4 +1,4 @@
-package imgui.generate
+package tool.generator
 
 import com.badlogic.gdx.jnigen.*
 import groovy.transform.CompileStatic

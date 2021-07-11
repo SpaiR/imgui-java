@@ -3,8 +3,13 @@ import tool.UpVersion
 allprojects {
     group 'imgui-java'
     version property('version')
+
     repositories {
         mavenCentral()
+    }
+
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = JavaVersion.VERSION_1_8
     }
 }
 

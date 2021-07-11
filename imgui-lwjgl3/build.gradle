@@ -5,8 +5,6 @@ plugins {
     id 'signing'
 }
 
-sourceCompatibility = 1.8
-
 dependencies {
     implementation platform("org.lwjgl:lwjgl-bom:3.2.3")
 

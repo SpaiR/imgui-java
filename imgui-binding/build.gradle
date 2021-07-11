@@ -1,4 +1,4 @@
-import imgui.generate.GenerateLibs
+import tool.generator.GenerateLibs
 
 plugins {
     id 'java'
@@ -6,8 +6,6 @@ plugins {
     id 'maven-publish'
     id 'signing'
 }
-
-sourceCompatibility = 1.8
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
