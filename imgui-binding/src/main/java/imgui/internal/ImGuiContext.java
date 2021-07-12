@@ -1,4 +1,4 @@
-package imgui;
+package imgui.internal;
 
 import imgui.binding.ImGuiStruct;
 

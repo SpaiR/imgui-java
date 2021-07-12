@@ -3,6 +3,7 @@ package imgui;
 import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiDragDropFlags;
 import imgui.flag.ImGuiInputTextFlags;
+import imgui.internal.ImGuiContext;
 import imgui.type.ImBoolean;
 import imgui.type.ImDouble;
 import imgui.type.ImFloat;
@@ -148,7 +149,7 @@ public class ImGui {
     }
 
     private static native long nCreateContext(); /*
-        return (intptr_t)&ImGui::CreateContext();
+        return (intptr_t)ImGui::CreateContext();
     */
 
     public static ImGuiContext createContext(ImFontAtlas sharedFontAtlas) {
@@ -157,7 +158,7 @@ public class ImGui {
     }
 
     private static native long nCreateContext(long sharedFontAtlasPtr); /*
-        return (intptr_t)&ImGui::CreateContext((ImFontAtlas*)sharedFontAtlasPtr);
+        return (intptr_t)ImGui::CreateContext((ImFontAtlas*)sharedFontAtlasPtr);
     */
 
     public static native void destroyContext(); /*
@@ -178,7 +179,7 @@ public class ImGui {
     }
 
     private static native long nGetCurrentContext(); /*
-        return (intptr_t)&ImGui::GetCurrentContext();
+        return (intptr_t)ImGui::GetCurrentContext();
     */
 
     public static void setCurrentContext(ImGuiContext ctx) {
