@@ -3,6 +3,7 @@ package imgui;
 import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiDragDropFlags;
 import imgui.flag.ImGuiInputTextFlags;
+import imgui.internal.ImGuiContext;
 import imgui.type.ImBoolean;
 import imgui.type.ImDouble;
 import imgui.type.ImFloat;
@@ -26,6 +27,7 @@ public class ImGui {
     private static final String LIB_NAME_DEFAULT = System.getProperty("os.arch").contains("64") ? "imgui-java64" : "imgui-java";
     private static final String LIB_TMP_DIR_PREFIX = "imgui-java-natives_" + System.currentTimeMillis();
 
+    private static final ImGuiContext IMGUI_CONTEXT;
     private static final ImGuiIO IMGUI_IO;
     private static final ImDrawList WINDOW_DRAW_LIST;
     private static final ImDrawList BACKGROUND_DRAW_LIST;
@@ -55,6 +57,7 @@ public class ImGui {
             System.loadLibrary(libName);
         }
 
+        IMGUI_CONTEXT = new ImGuiContext(0);
         IMGUI_IO = new ImGuiIO(0);
         WINDOW_DRAW_LIST = new ImDrawList(0);
         BACKGROUND_DRAW_LIST = new ImDrawList(0);
@@ -140,20 +143,51 @@ public class ImGui {
     //
     // BINDING NOTICE: Getting of the current context is not implemented since it's a part of internal API which is not exposed here.
 
-    public static native void createContext(); /*
-        ImGui::CreateContext();
-    */
-
-    public static void createContext(ImFontAtlas sharedFontAtlas) {
-        nCreateContext(sharedFontAtlas.ptr);
+    public static ImGuiContext createContext() {
+        IMGUI_CONTEXT.ptr = nCreateContext();
+        return IMGUI_CONTEXT;
     }
 
-    private static native void nCreateContext(long sharedFontAtlasPtr); /*
-        ImGui::CreateContext((ImFontAtlas*)sharedFontAtlasPtr);
+    private static native long nCreateContext(); /*
+        return (intptr_t)ImGui::CreateContext();
+    */
+
+    public static ImGuiContext createContext(ImFontAtlas sharedFontAtlas) {
+        IMGUI_CONTEXT.ptr = nCreateContext(sharedFontAtlas.ptr);
+        return IMGUI_CONTEXT;
+    }
+
+    private static native long nCreateContext(long sharedFontAtlasPtr); /*
+        return (intptr_t)ImGui::CreateContext((ImFontAtlas*)sharedFontAtlasPtr);
     */
 
     public static native void destroyContext(); /*
         ImGui::DestroyContext();
+    */
+
+    public static void destroyContext(ImGuiContext ctx) {
+        nDestroyContext(ctx.ptr);
+    }
+
+    private static native void nDestroyContext(long ptr); /*
+        ImGui::DestroyContext((ImGuiContext*) ptr);
+    */
+
+    public static ImGuiContext getCurrentContext() {
+        IMGUI_CONTEXT.ptr = nGetCurrentContext();
+        return IMGUI_CONTEXT;
+    }
+
+    private static native long nGetCurrentContext(); /*
+        return (intptr_t)ImGui::GetCurrentContext();
+    */
+
+    public static void setCurrentContext(ImGuiContext ctx) {
+        nSetCurrentContext(ctx.ptr);
+    }
+
+    private static native void nSetCurrentContext(long ptr); /*
+        ImGui::SetCurrentContext((ImGuiContext*) ptr);
     */
 
     // Main
