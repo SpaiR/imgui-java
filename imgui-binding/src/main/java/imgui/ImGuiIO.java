@@ -1212,9 +1212,23 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-     * Clear the text input buffer manually.
+     * Notifies Dear ImGui when hosting platform windows lose or gain input focus
+     */
+    public native void addFocusEvent(boolean focused); /*
+        IO->AddFocusEvent(focused);
+    */
+
+    /**
+     * [Internal] Clear the text input buffer manually
      */
     public native void clearInputCharacters(); /*
         IO->ClearInputCharacters();
+    */
+
+    /**
+     * [Internal] Release all keys
+     */
+    public native void clearInputKeys(); /*
+        IO->ClearInputKeys();
     */
 }

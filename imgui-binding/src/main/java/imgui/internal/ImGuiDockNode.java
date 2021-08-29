@@ -71,8 +71,8 @@ public final class ImGuiDockNode extends ImGuiStruct {
     /**
      * Flags specific to this node
      */
-    public native void setLocalFlags(int localFlags); /*
-       IMGUI_DOCK_NODE->LocalFlags = localFlags;
+    public native void setLocalFlags(int flags); /*
+       IMGUI_DOCK_NODE->SetLocalFlags(flags);
     */
 
     /**
@@ -88,6 +88,37 @@ public final class ImGuiDockNode extends ImGuiStruct {
     public void removeLocalFlags(final int flags) {
         setLocalFlags(getLocalFlags() & ~(flags));
     }
+    /**
+     * Flags specific to this node, applied from windows
+     */
+    public native int getLocalFlagsInWindows(); /*
+       return IMGUI_DOCK_NODE->LocalFlagsInWindows;
+    */
+
+    /**
+     * Flags specific to this node, applied from windows
+     */
+    public native void setLocalFlagsInWindows(int flags); /*
+       IMGUI_DOCK_NODE->LocalFlagsInWindows = flags;
+    */
+
+    /**
+     * Flags specific to this node, applied from windows
+     */
+    public void addLocalFlagsInWindows(final int flags) {
+        setLocalFlagsInWindows(getLocalFlagsInWindows() | flags);
+    }
+
+    /**
+     * Flags specific to this node, applied from windows
+     */
+    public void removeLocalFlagsInWindows(final int flags) {
+        setLocalFlagsInWindows(getLocalFlagsInWindows() & ~(flags));
+    }
+
+    public native int getMergedFlags(); /*
+        return IMGUI_DOCK_NODE->MergedFlags;
+    */
 
     public ImGuiDockNode getParentNode() {
         PARENT_NODE.ptr = nGetParentNode();
@@ -639,10 +670,6 @@ public final class ImGuiDockNode extends ImGuiStruct {
 
     public native boolean isEmpty(); /*
         return IMGUI_DOCK_NODE->IsEmpty();
-    */
-
-    public native int getMergedFlags(); /*
-        return IMGUI_DOCK_NODE->GetMergedFlags();
     */
 
     public ImRect rect() {

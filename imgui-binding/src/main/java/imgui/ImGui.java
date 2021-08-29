@@ -5085,6 +5085,28 @@ public class ImGui {
         return ImGui::GetDragDropPayload()->IsDataType(dataType);
     */
 
+    /**
+     * Disable all user interactions and dim items visuals (applying style.DisabledAlpha over current colors)
+     * BeginDisabled(false) essentially does nothing useful but is provided to facilitate use of boolean expressions.
+     * If you can avoid calling BeginDisabled(False)/EndDisabled() best to avoid it.
+     */
+    public static void beginDisabled() {
+        beginDisabled(true);
+    }
+
+    /**
+     * Disable all user interactions and dim items visuals (applying style.DisabledAlpha over current colors)
+     * BeginDisabled(false) essentially does nothing useful but is provided to facilitate use of boolean expressions.
+     * If you can avoid calling BeginDisabled(False)/EndDisabled() best to avoid it.
+     */
+    public static native void beginDisabled(boolean disabled); /*
+        ImGui::BeginDisabled(disabled);
+    */
+
+    public static native void endDisabled(); /*
+        ImGui::EndDisabled();
+    */
+
     // Clipping
     // - Mouse hovering is affected by ImGui::PushClipRect() calls, unlike direct calls to ImDrawList::PushClipRect() which are render only.
 

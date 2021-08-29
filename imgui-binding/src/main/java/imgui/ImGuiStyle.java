@@ -46,6 +46,20 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     /**
+     * Additional alpha multiplier applied by BeginDisabled(). Multiply over current value of Alpha.
+     */
+    public native float getDisabledAlpha(); /*
+        return IMGUI_STYLE->DisabledAlpha;
+    */
+
+    /**
+     * Additional alpha multiplier applied by BeginDisabled(). Multiply over current value of Alpha.
+     */
+    public native void setDisabledAlpha(float disabledAlpha); /*
+        IMGUI_STYLE->DisabledAlpha = disabledAlpha;
+    */
+
+    /**
      * Padding within a window.
      */
     public ImVec2 getWindowPadding() {

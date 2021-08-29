@@ -148,41 +148,6 @@ public final class ImGuiWindowClass extends ImGuiStructDestroyable {
     }
 
     /**
-     * [EXPERIMENTAL]
-     */
-    public native int getDockNodeFlagsOverrideClear(); /*
-        return IMGUI_WINDOW_CLASS->DockNodeFlagsOverrideClear;
-    */
-
-    /**
-     * [EXPERIMENTAL]
-     */
-    public native void setDockNodeFlagsOverrideClear(int dockNodeFlagsOverrideClear); /*
-        IMGUI_WINDOW_CLASS->DockNodeFlagsOverrideClear = dockNodeFlagsOverrideClear;
-    */
-
-    /**
-     * [EXPERIMENTAL]
-     */
-    public void addDockNodeFlagsOverrideClear(final int flags) {
-        setDockNodeFlagsOverrideClear(getDockNodeFlagsOverrideClear() | flags);
-    }
-
-    /**
-     * [EXPERIMENTAL]
-     */
-    public void removeDockNodeFlagsOverrideClear(final int flags) {
-        setDockNodeFlagsOverrideClear(getDockNodeFlagsOverrideClear() & ~(flags));
-    }
-
-    /**
-     * [EXPERIMENTAL]
-     */
-    public boolean hasDockNodeFlagsOverrideClear(final int flags) {
-        return (getDockNodeFlagsOverrideClear() & flags) != 0;
-    }
-
-    /**
      * Set to true to enforce single floating windows of this class always having their own docking node
      * (equivalent of setting the global io.ConfigDockingAlwaysTabBar)
      */

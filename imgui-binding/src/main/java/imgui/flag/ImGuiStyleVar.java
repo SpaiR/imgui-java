@@ -18,96 +18,100 @@ public final class ImGuiStyleVar {
      */
     public static final int Alpha = 0;
     /**
+     * float     DisabledAlpha
+     */
+    public static final int DisabledAlpha = 1;
+    /**
      * ImVec2    WindowPadding
      */
-    public static final int WindowPadding = 1;
+    public static final int WindowPadding = 2;
     /**
      * float     WindowRounding
      */
-    public static final int WindowRounding = 2;
+    public static final int WindowRounding = 3;
     /**
      * float     WindowBorderSize
      */
-    public static final int WindowBorderSize = 3;
+    public static final int WindowBorderSize = 4;
     /**
      * ImVec2    WindowMinSize
      */
-    public static final int WindowMinSize = 4;
+    public static final int WindowMinSize = 5;
     /**
      * ImVec2    WindowTitleAlign
      */
-    public static final int WindowTitleAlign = 5;
+    public static final int WindowTitleAlign = 6;
     /**
      * float     ChildRounding
      */
-    public static final int ChildRounding = 6;
+    public static final int ChildRounding = 7;
     /**
      * float     ChildBorderSize
      */
-    public static final int ChildBorderSize = 7;
+    public static final int ChildBorderSize = 8;
     /**
      * float     PopupRounding
      */
-    public static final int PopupRounding = 8;
+    public static final int PopupRounding = 9;
     /**
      * float     PopupBorderSize
      */
-    public static final int PopupBorderSize = 9;
+    public static final int PopupBorderSize = 10;
     /**
      * ImVec2    FramePadding
      */
-    public static final int FramePadding = 10;
+    public static final int FramePadding = 11;
     /**
      * float     FrameRounding
      */
-    public static final int FrameRounding = 11;
+    public static final int FrameRounding = 12;
     /**
      * float     FrameBorderSize
      */
-    public static final int FrameBorderSize = 12;
+    public static final int FrameBorderSize = 13;
     /**
      * ImVec2    ItemSpacing
      */
-    public static final int ItemSpacing = 13;
+    public static final int ItemSpacing = 14;
     /**
      * ImVec2    ItemInnerSpacing
      */
-    public static final int ItemInnerSpacing = 14;
+    public static final int ItemInnerSpacing = 15;
     /**
      * float     IndentSpacing
      */
-    public static final int IndentSpacing = 15;
+    public static final int IndentSpacing = 16;
     /**
      * ImVec2    CellPadding
      */
-    public static final int CellPadding = 16;
+    public static final int CellPadding = 17;
     /**
      * float     ScrollbarSize
      */
-    public static final int ScrollbarSize = 17;
+    public static final int ScrollbarSize = 18;
     /**
      * float     ScrollbarRounding
      */
-    public static final int ScrollbarRounding = 18;
+    public static final int ScrollbarRounding = 19;
     /**
      * float     GrabMinSize
      */
-    public static final int GrabMinSize = 19;
+    public static final int GrabMinSize = 20;
     /**
      * float     GrabRounding
      */
-    public static final int GrabRounding = 20;
+    public static final int GrabRounding = 21;
     /**
      * float     TabRounding
      */
-    public static final int TabRounding = 21;
+    public static final int TabRounding = 22;
     /**
      * ImVec2    ButtonTextAlign
      */
-    public static final int ButtonTextAlign = 22;
+    public static final int ButtonTextAlign = 23;
     /**
      * ImVec2    SelectableTextAlign
      */
-    public static final int SelectableTextAlign = 23;
-    public static final int COUNT = 24;
+    public static final int SelectableTextAlign = 24;
+    public static final int COUNT = 25;
 }

@@ -100,6 +100,20 @@ public final class ImFont extends ImGuiStructDestroyable {
         IM_FONT->EllipsisChar = (ImWchar)ellipsisChar;
     */
 
+    /**
+     * Character used for ellipsis rendering (if a single '...' character isn't found)
+     */
+    public native short getDotChar(); /*
+        return IM_FONT->DotChar;
+    */
+
+    /**
+     * Character used for ellipsis rendering (if a single '...' character isn't found)
+     */
+    public native void setDotChar(int dotChar); /*
+        IM_FONT->DotChar = (ImWchar)dotChar;
+    */
+
     public native boolean getDirtyLookupTables(); /*
         return IM_FONT->DirtyLookupTables;
     */
