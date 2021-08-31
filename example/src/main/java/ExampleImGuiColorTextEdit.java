@@ -18,7 +18,7 @@ public class ExampleImGuiColorTextEdit {
     static {
         editor = new TextEditor();
 
-        TextEditorLanguageDefinition lang = TextEditorLanguageDefinition.CPlusPlus();
+        TextEditorLanguageDefinition lang = TextEditorLanguageDefinition.c();
 
         String[] ppnames = { "NULL", "PM_REMOVE",
             "ZeroMemory", "DXGI_SWAP_EFFECT_DISCARD", "D3D_FEATURE_LEVEL", "D3D_DRIVER_TYPE_HARDWARE", "WINAPI","D3D11_SDK_VERSION", "assert" };

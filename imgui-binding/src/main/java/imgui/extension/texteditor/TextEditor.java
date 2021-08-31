@@ -1,12 +1,8 @@
 package imgui.extension.texteditor;
 
 import imgui.binding.ImGuiStructDestroyable;
-import imgui.extension.texteditor.flag.TextEditorPaletteIndex;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public final class TextEditor extends ImGuiStructDestroyable {
 
@@ -32,7 +28,7 @@ public final class TextEditor extends ImGuiStructDestroyable {
         return (intptr_t)(new TextEditor());
     */
 
-    public void setLanguageDefinition(TextEditorLanguageDefinition ref) {
+    public void setLanguageDefinition(final TextEditorLanguageDefinition ref) {
         nSetLanguageDefinition(ref.ptr);
     }
 
@@ -55,7 +51,7 @@ public final class TextEditor extends ImGuiStructDestroyable {
         return res;
     */
 
-    public void setPalette(int[] palette) {
+    public void setPalette(final int[] palette) {
         nSetPalette(palette, palette.length);
     }
 
@@ -68,9 +64,9 @@ public final class TextEditor extends ImGuiStructDestroyable {
         TEXT_EDITOR->SetPalette(arr);
     */
 
-    public void setErrorMarkers(Map<Integer, String> errorMarkers) {
-        int[] keys = errorMarkers.keySet().stream().mapToInt(i -> i).toArray();
-        String[] values = errorMarkers.values().toArray(new String[0]);
+    public void setErrorMarkers(final Map<Integer, String> errorMarkers) {
+        final int[] keys = errorMarkers.keySet().stream().mapToInt(i -> i).toArray();
+        final String[] values = errorMarkers.values().toArray(new String[0]);
 
         nSetErrorMarkers(keys, keys.length, values, values.length);
     }
@@ -89,7 +85,7 @@ public final class TextEditor extends ImGuiStructDestroyable {
         TEXT_EDITOR->SetErrorMarkers(markers);
     */
 
-    public void setBreakpoints(int[] breakpoints) {
+    public void setBreakpoints(final int[] breakpoints) {
         nSetBreakpoints(breakpoints, breakpoints.length);
     }
 
@@ -115,7 +111,7 @@ public final class TextEditor extends ImGuiStructDestroyable {
         return env->NewStringUTF(TEXT_EDITOR->GetText().c_str());
     */
 
-    public void setTextLines(String[] lines) {
+    public void setTextLines(final String[] lines) {
         nSetTextLines(lines, lines.length);
     }
 
@@ -185,7 +181,7 @@ public final class TextEditor extends ImGuiStructDestroyable {
         return TEXT_EDITOR->IsColorizerEnabled();
     */
 
-    public native void SetColorizerEnable(boolean value); /*
+    public native void setColorizerEnable(boolean value); /*
         TEXT_EDITOR->SetColorizerEnable(value);
     */
 
@@ -294,7 +290,7 @@ public final class TextEditor extends ImGuiStructDestroyable {
         TEXT_EDITOR->SelectWordUnderCursor();
     */
 
-    public native void SelectAll(); /*
+    public native void selectAll(); /*
         TEXT_EDITOR->SelectAll();
     */
 

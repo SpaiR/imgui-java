@@ -1,6 +1,5 @@
 package imgui.extension.texteditor;
 
-import imgui.binding.ImGuiStruct;
 import imgui.binding.ImGuiStructDestroyable;
 
 import java.util.Map;
@@ -16,7 +15,7 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     public TextEditorLanguageDefinition() {
     }
 
-    public TextEditorLanguageDefinition(long ptr) {
+    public TextEditorLanguageDefinition(final long ptr) {
         super(ptr);
     }
 
@@ -33,7 +32,7 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
         LANG_DEF->mName = name;
     */
 
-    public void setKeywords(String[] keywords) {
+    public void setKeywords(final String[] keywords) {
         nSetKeywords(keywords, keywords.length);
     }
 
@@ -50,9 +49,9 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
         LANG_DEF->mKeywords = set;
     */
 
-    public void setIdentifiers(Map<String, String> identifiers) {
-        String[] keys = identifiers.keySet().toArray(new String[0]);
-        String[] decl = identifiers.values().toArray(new String[0]);
+    public void setIdentifiers(final Map<String, String> identifiers) {
+        final String[] keys = identifiers.keySet().toArray(new String[0]);
+        final String[] decl = identifiers.values().toArray(new String[0]);
 
         nSetIdentifiers(keys, keys.length, decl, decl.length);
     }
@@ -76,9 +75,9 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
         LANG_DEF->mIdentifiers = identifiers;
     */
 
-    public void setPreprocIdentifiers(Map<String, String> identifiers) {
-        String[] keys = identifiers.keySet().toArray(new String[0]);
-        String[] decl = identifiers.values().toArray(new String[0]);
+    public void setPreprocIdentifiers(final Map<String, String> identifiers) {
+        final String[] keys = identifiers.keySet().toArray(new String[0]);
+        final String[] decl = identifiers.values().toArray(new String[0]);
 
         nSetPreprocIdentifiers(keys, keys.length, decl, decl.length);
     }
@@ -122,9 +121,9 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
         LANG_DEF->mAutoIndentation = value;
     */
 
-    public void setTokenRegexStrings(Map<String, Integer> tokenRegexStrings) {
-        String[] keys = tokenRegexStrings.keySet().toArray(new String[0]);
-        int[] paletteIndexes = tokenRegexStrings.values().stream().mapToInt(i -> i).toArray();
+    public void setTokenRegexStrings(final Map<String, Integer> tokenRegexStrings) {
+        final String[] keys = tokenRegexStrings.keySet().toArray(new String[0]);
+        final int[] paletteIndexes = tokenRegexStrings.values().stream().mapToInt(i -> i).toArray();
 
         nSetTokenRegexStrings(keys, keys.length, paletteIndexes, paletteIndexes.length);
     }
@@ -149,31 +148,31 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
         LANG_DEF->mCaseSensitive = value;
     */
 
-    public static TextEditorLanguageDefinition CPlusPlus() {
+    public static TextEditorLanguageDefinition cPlusPlus() {
         return new TextEditorLanguageDefinition(nCPlusPlus());
     }
 
-    public static TextEditorLanguageDefinition HLSL() {
+    public static TextEditorLanguageDefinition hlsl() {
         return new TextEditorLanguageDefinition(nHLSL());
     }
 
-    public static TextEditorLanguageDefinition GLSL() {
+    public static TextEditorLanguageDefinition glsl() {
         return new TextEditorLanguageDefinition(nGLSL());
     }
 
-    public static TextEditorLanguageDefinition C() {
+    public static TextEditorLanguageDefinition c() {
         return new TextEditorLanguageDefinition(nC());
     }
 
-    public static TextEditorLanguageDefinition SQL() {
+    public static TextEditorLanguageDefinition sql() {
         return new TextEditorLanguageDefinition(nSQL());
     }
 
-    public static TextEditorLanguageDefinition AngelScript() {
+    public static TextEditorLanguageDefinition angelScript() {
         return new TextEditorLanguageDefinition(nAngelScript());
     }
 
-    public static TextEditorLanguageDefinition Lua() {
+    public static TextEditorLanguageDefinition lua() {
         return new TextEditorLanguageDefinition(nLua());
     }
 
