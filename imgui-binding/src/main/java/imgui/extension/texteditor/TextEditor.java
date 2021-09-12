@@ -5,11 +5,10 @@ import imgui.binding.ImGuiStructDestroyable;
 import java.util.Map;
 
 public final class TextEditor extends ImGuiStructDestroyable {
-
     /*JNI
-    #include "_texteditor.h"
+        #include "_texteditor.h"
 
-    #define TEXT_EDITOR ((TextEditor*)STRUCT_PTR)
+        #define TEXT_EDITOR ((TextEditor*)STRUCT_PTR)
      */
 
     public TextEditor() {
@@ -28,8 +27,8 @@ public final class TextEditor extends ImGuiStructDestroyable {
         return (intptr_t)(new TextEditor());
     */
 
-    public void setLanguageDefinition(final TextEditorLanguageDefinition ref) {
-        nSetLanguageDefinition(ref.ptr);
+    public void setLanguageDefinition(final TextEditorLanguageDefinition definition) {
+        nSetLanguageDefinition(definition.ptr);
     }
 
     public native void nSetLanguageDefinition(long ptr); /*
@@ -57,6 +56,7 @@ public final class TextEditor extends ImGuiStructDestroyable {
 
     public native void nSetPalette(int[] palette, int length); /*
         std::array<ImU32, (unsigned)TextEditor::PaletteIndex::Max> arr;
+
         for (int i = 0; i < length; i++) {
             arr[i] = palette[i];
         }

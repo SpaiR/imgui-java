@@ -2,39 +2,34 @@
 import imgui.ImGui;
 import imgui.extension.texteditor.TextEditor;
 import imgui.extension.texteditor.TextEditorLanguageDefinition;
-import imgui.extension.texteditor.flag.TextEditorPaletteIndex;
 import imgui.flag.ImGuiWindowFlags;
 import imgui.type.ImBoolean;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ExampleImGuiColorTextEdit {
-
-    private static final TextEditor editor;
+    private static final TextEditor EDITOR = new TextEditor();
 
     static {
-        editor = new TextEditor();
-
         TextEditorLanguageDefinition lang = TextEditorLanguageDefinition.c();
 
-        String[] ppnames = { "NULL", "PM_REMOVE",
-            "ZeroMemory", "DXGI_SWAP_EFFECT_DISCARD", "D3D_FEATURE_LEVEL", "D3D_DRIVER_TYPE_HARDWARE", "WINAPI","D3D11_SDK_VERSION", "assert" };
+        String[] ppnames = {
+            "NULL", "PM_REMOVE",
+            "ZeroMemory", "DXGI_SWAP_EFFECT_DISCARD", "D3D_FEATURE_LEVEL", "D3D_DRIVER_TYPE_HARDWARE", "WINAPI", "D3D11_SDK_VERSION", "assert"};
         String[] ppvalues = {
             "#define NULL ((void*)0)",
-                "#define PM_REMOVE (0x0001)",
-                "Microsoft's own memory zapper function\n(which is a macro actually)\nvoid ZeroMemory(\n\t[in] PVOID  Destination,\n\t[in] SIZE_T Length\n); ",
-                "enum DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD = 0",
-                "enum D3D_FEATURE_LEVEL",
-                "enum D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE  = ( D3D_DRIVER_TYPE_UNKNOWN + 1 )",
-                "#define WINAPI __stdcall",
-                "#define D3D11_SDK_VERSION (7)",
-                " #define assert(expression) (void)(                                                  \n",
-            "    (!!(expression)) ||                                                              \n",
-            "    (_wassert(_CRT_WIDE(#expression), _CRT_WIDE(__FILE__), (unsigned)(__LINE__)), 0) \n",
-            " )"
+            "#define PM_REMOVE (0x0001)",
+            "Microsoft's own memory zapper function\n(which is a macro actually)\nvoid ZeroMemory(\n\t[in] PVOID  Destination,\n\t[in] SIZE_T Length\n); ",
+            "enum DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD = 0",
+            "enum D3D_FEATURE_LEVEL",
+            "enum D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE  = ( D3D_DRIVER_TYPE_UNKNOWN + 1 )",
+            "#define WINAPI __stdcall",
+            "#define D3D11_SDK_VERSION (7)",
+            " #define assert(expression) (void)(                                                  \n" +
+                "    (!!(expression)) ||                                                              \n" +
+                "    (_wassert(_CRT_WIDE(#expression), _CRT_WIDE(__FILE__), (unsigned)(__LINE__)), 0) \n" +
+                " )"
         };
 
         // Adding custom preproc identifiers
@@ -63,14 +58,14 @@ public class ExampleImGuiColorTextEdit {
         }
         lang.setIdentifiers(identifierMap);
 
-        editor.setLanguageDefinition(lang);
+        EDITOR.setLanguageDefinition(lang);
 
         // Adding error markers
         Map<Integer, String> errorMarkers = new HashMap<>();
         errorMarkers.put(1, "Expected '>'");
-        editor.setErrorMarkers(errorMarkers);
+        EDITOR.setErrorMarkers(errorMarkers);
 
-        editor.setTextLines(new String[]{
+        EDITOR.setTextLines(new String[]{
             "#include <iostream",
             "",
             "int main() {",
@@ -86,33 +81,41 @@ public class ExampleImGuiColorTextEdit {
             if (ImGui.beginMenuBar()) {
                 if (ImGui.beginMenu("File")) {
                     if (ImGui.menuItem("Save")) {
-                        String textToSave = editor.getText();
+                        String textToSave = EDITOR.getText();
                         /// save text....
                     }
 
                     ImGui.endMenu();
                 }
                 if (ImGui.beginMenu("Edit")) {
-                    boolean ro = editor.isReadOnly();
-                    if (ImGui.menuItem("Read-only mode", "", ro))
-                        editor.setReadOnly(!ro);
-                    ImGui.separator();
-
-                    if (ImGui.menuItem("Undo", "ALT-Backspace", !ro && editor.canUndo()))
-                        editor.undo(1);
-                    if (ImGui.menuItem("Redo", "Ctrl-Y", !ro && editor.canRedo()))
-                        editor.redo(1);
+                    final boolean ro = EDITOR.isReadOnly();
+                    if (ImGui.menuItem("Read-only mode", "", ro)) {
+                        EDITOR.setReadOnly(!ro);
+                    }
 
                     ImGui.separator();
 
-                    if (ImGui.menuItem("Copy", "Ctrl-C", editor.hasSelection()))
-                        editor.copy();
-                    if (ImGui.menuItem("Cut", "Ctrl-X", !ro && editor.hasSelection()))
-                        editor.cut();
-                    if (ImGui.menuItem("Delete", "Del", !ro && editor.hasSelection()))
-                        editor.delete();
-                    if (ImGui.menuItem("Paste", "Ctrl-V", !ro && ImGui.getClipboardText() != null))
-                        editor.paste();
+                    if (ImGui.menuItem("Undo", "ALT-Backspace", !ro && EDITOR.canUndo())) {
+                        EDITOR.undo(1);
+                    }
+                    if (ImGui.menuItem("Redo", "Ctrl-Y", !ro && EDITOR.canRedo())) {
+                        EDITOR.redo(1);
+                    }
+
+                    ImGui.separator();
+
+                    if (ImGui.menuItem("Copy", "Ctrl-C", EDITOR.hasSelection())) {
+                        EDITOR.copy();
+                    }
+                    if (ImGui.menuItem("Cut", "Ctrl-X", !ro && EDITOR.hasSelection())) {
+                        EDITOR.cut();
+                    }
+                    if (ImGui.menuItem("Delete", "Del", !ro && EDITOR.hasSelection())) {
+                        EDITOR.delete();
+                    }
+                    if (ImGui.menuItem("Paste", "Ctrl-V", !ro && ImGui.getClipboardText() != null)) {
+                        EDITOR.paste();
+                    }
 
                     ImGui.endMenu();
                 }
@@ -120,18 +123,17 @@ public class ExampleImGuiColorTextEdit {
                 ImGui.endMenuBar();
             }
 
-            int cposX = editor.getCursorPositionLine();
-            int cposY = editor.getCursorPositionColumn();
+            int cposX = EDITOR.getCursorPositionLine();
+            int cposY = EDITOR.getCursorPositionColumn();
 
-            String overwrite = editor.isOverwrite() ? "Ovr" : "Ins";
-            String canUndo = editor.canUndo() ? "*" : " ";
+            String overwrite = EDITOR.isOverwrite() ? "Ovr" : "Ins";
+            String canUndo = EDITOR.canUndo() ? "*" : " ";
 
-            ImGui.text(cposX + "/" + cposY + " " + editor.getTotalLines() + " lines | " + overwrite + " | " + canUndo);
+            ImGui.text(cposX + "/" + cposY + " " + EDITOR.getTotalLines() + " lines | " + overwrite + " | " + canUndo);
 
-            editor.render("TextEditor");
+            EDITOR.render("TextEditor");
 
             ImGui.end();
         }
     }
-
 }

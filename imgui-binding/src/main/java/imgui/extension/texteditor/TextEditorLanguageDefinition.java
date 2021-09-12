@@ -5,11 +5,10 @@ import imgui.binding.ImGuiStructDestroyable;
 import java.util.Map;
 
 public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
-
     /*JNI
-    #include "_texteditor.h"
+        #include "_texteditor.h"
 
-    #define LANG_DEF ((TextEditor::LanguageDefinition*)STRUCT_PTR)
+        #define LANG_DEF ((TextEditor::LanguageDefinition*)STRUCT_PTR)
      */
 
     public TextEditorLanguageDefinition() {
@@ -203,5 +202,4 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     private static native long nLua(); /*
         return (intptr_t)&TextEditor::LanguageDefinition::Lua();
     */
-
 }
