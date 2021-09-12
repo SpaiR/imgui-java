@@ -2093,23 +2093,23 @@ public class ImGui {
     */
 
     public static native boolean dragInt3(String label, int[] v); /*
-        return ImGui::DragInt2(label, v);
+        return ImGui::DragInt3(label, v);
     */
 
     public static native boolean dragInt3(String label, int[] v, float vSpeed); /*
-        return ImGui::DragInt2(label, v, vSpeed);
+        return ImGui::DragInt3(label, v, vSpeed);
     */
 
     public static native boolean dragInt3(String label, int[] v, float vSpeed, float vMin); /*
-        return ImGui::DragInt2(label, v, vSpeed, vMin);
+        return ImGui::DragInt3(label, v, vSpeed, vMin);
     */
 
     public static native boolean dragInt3(String label, int[] v, float vSpeed, float vMin, float vMax); /*
-        return ImGui::DragInt2(label, v, vSpeed, vMin, vMax);
+        return ImGui::DragInt3(label, v, vSpeed, vMin, vMax);
     */
 
     public static native boolean dragInt3(String label, int[] v, float vSpeed, float vMin, float vMax, String format); /*
-        return ImGui::DragInt2(label, v, vSpeed, vMin, vMax, format);
+        return ImGui::DragInt3(label, v, vSpeed, vMin, vMax, format);
     */
 
     public static native boolean dragInt4(String label, int[] v); /*
