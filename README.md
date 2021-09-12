@@ -256,6 +256,8 @@ dependencies {
   Immediate mode 3D gizmo for scene editing and other controls based on Dear Imgui.
 - [implot](https://github.com/epezent/implot/tree/555ff688a8134bc0c602123149abe9c17d577475) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.84.1.0/example/src/main/java/ExampleImPlot.java) <br>
   Advanced 2D Plotting for Dear ImGui.  
+- [ImGuiColorTextEdit](https://github.com/BalazsJako/ImGuiColorTextEdit/tree/0a88824f7de8d0bd11d8419066caa7d3469395c4) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.84.1.0/example/src/main/java/ExampleImGuiColorTextEdit.java) <br>
+  Syntax highlighting text editor for ImGui.
 
 ## Freetype
 By default, Dear ImGui uses stb-truetype to render fonts. Yet there is an option to use FreeType font renderer. Go to the [imgui_freetype](https://github.com/ocornut/imgui/tree/256594575d95d56dda616c544c509740e74906b4/misc/freetype) to read about the difference.
