@@ -17,14 +17,14 @@ public class ImGuiWindow extends ImGuiStruct {
     /**
      * Is scrollbar visible?
      */
-    public native boolean getScrollbarX(); /*
+    public native boolean isScrollbarX(); /*
        return IMGUI_WINDOW->ScrollbarX;
     */
 
     /**
      * Is scrollbar visible?
      */
-    public native boolean getScrollbarY(); /*
+    public native boolean isScrollbarY(); /*
        return IMGUI_WINDOW->ScrollbarY;
     */
 
