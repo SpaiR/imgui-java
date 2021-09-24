@@ -185,7 +185,7 @@ public final class ImGui extends imgui.ImGui {
     */
 
     public static ImRect getWindowScrollbarRect(final ImGuiWindow imGuiWindow, int axis) {
-        ImRect imRect = new ImRect();
+        final ImRect imRect = new ImRect();
         nGetWindowScrollbarRect(imGuiWindow.ptr, axis, imRect.min, imRect.max);
         return imRect;
     }
