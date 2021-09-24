@@ -7,6 +7,8 @@ import imgui.type.ImInt;
 public final class ImGui extends imgui.ImGui {
     private static final ImGuiDockNode DOCK_NODE = new ImGuiDockNode(0);
 
+    private static final ImGuiWindow IMGUI_CURRENT_WINDOW = new ImGuiWindow(0);
+
     /*JNI
         #include "_common.h"
         #include <imgui_internal.h>
@@ -171,5 +173,26 @@ public final class ImGui extends imgui.ImGui {
 
     private static native boolean nSplitterBehaviour(float bbMinX, float bbMinY, float bbMaxX, float bbMaxY, int id, int imGuiAxis, float[] size1, float[] size2, float minSize1, float minSize2, float hoverExtend, float hoverVisibilityDelay); /*
         return ImGui::SplitterBehavior(ImRect(bbMinX, bbMinY, bbMaxX, bbMaxY), id, (ImGuiAxis)imGuiAxis, &size1[0], &size2[0], minSize1, minSize2, hoverExtend, hoverVisibilityDelay);
+    */
+
+    public static ImGuiWindow getCurrentWindow() {
+        IMGUI_CURRENT_WINDOW.ptr = nGetCurrentWindow();
+        return IMGUI_CURRENT_WINDOW;
+    }
+
+    private static native long nGetCurrentWindow(); /*
+        return (intptr_t)ImGui::GetCurrentWindow();
+    */
+
+    public static ImRect getWindowScrollbarRect(final ImGuiWindow imGuiWindow, int axis) {
+        final ImRect imRect = new ImRect();
+        nGetWindowScrollbarRect(imGuiWindow.ptr, axis, imRect.min, imRect.max);
+        return imRect;
+    }
+
+    private static native void nGetWindowScrollbarRect(long windowPtr, int axis, ImVec2 minDstImVec2, ImVec2 maxDstImVec2); /*
+        ImRect rect = ImGui::GetWindowScrollbarRect((ImGuiWindow*)windowPtr, static_cast<ImGuiAxis>(axis));
+        Jni::ImVec2Cpy(env, &rect.Min, minDstImVec2);
+        Jni::ImVec2Cpy(env, &rect.Max, maxDstImVec2);
     */
 }
