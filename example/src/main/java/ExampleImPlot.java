@@ -12,6 +12,8 @@ public class ExampleImPlot {
 
     private static final Integer[] xs = {0, 1, 2, 3, 4, 5};
     private static final Integer[] ys = {0, 1, 2, 3, 4, 5};
+    private static final Integer[] ys1 = {0, 0, 1, 2, 3, 4};
+    private static final Integer[] ys2 = {1, 2, 3, 4, 5, 6};
 
     static {
         ImPlot.createContext();
@@ -37,6 +39,7 @@ public class ExampleImPlot {
             ImGui.checkbox("Show ImPlot Built-In Demo", showDemo);
 
             if (ImPlot.beginPlot("Example Plot")) {
+                ImPlot.plotShaded("Shaded", xs, ys1, ys2);
                 ImPlot.plotLine("Line", xs, ys);
                 ImPlot.plotBars("Bars", xs, ys);
                 ImPlot.endPlot();
