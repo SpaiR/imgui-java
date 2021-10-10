@@ -267,6 +267,21 @@ public final class ImPlot {
     }
 
     /**
+     * Make sure to initialize xsOut, ysOut1, and ysOut2 with length xs.length, ys1.length, and ys2.length before passing them, or data may be lost/errors may occur
+     */
+    private static <T extends Number> void convertArrays(final T[] xs, final T[] ys1, final T[] ys2, final double[] xsOut, final double[] ysOut1, final double[] ysOut2) {
+        if (xs.length != ys1.length || xs.length != ys2.length) {
+            throw new IllegalArgumentException("Invalid length for arrays");
+        }
+
+        for (int i = 0; i < xs.length; i++) {
+            xsOut[i] = xs[i].doubleValue();
+            ysOut1[i] = ys1[i].doubleValue();
+            ysOut2[i] = ys2[i].doubleValue();
+        }
+    }
+
+    /**
      * Plots a standard 2D line plot.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      */
@@ -347,6 +362,14 @@ public final class ImPlot {
     }
 
     /**
+     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     */
+    public static <T extends Number> void plotShaded(final String labelID, final T[] xs, final T[] ys1, final T[] ys2) {
+        plotShaded(labelID, xs, ys1, ys2, 0);
+    }
+
+    /**
      * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set yRef (default 0) to +/-INFINITY for infinite fill extents.
      * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
      */
@@ -358,8 +381,25 @@ public final class ImPlot {
         nPlotShaded(labelID, x, y, x.length, yRef, offset);
     }
 
+    /**
+     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference.
+     * Due to conversion from T to double, extremely large 64-bit integer (long) values may lose data!
+     */
+    public static <T extends Number> void plotShaded(final String labelID, final T[] xs, final T[] ys1, final T[] ys2, final int offset) {
+        final double[] x = new double[xs.length];
+        final double[] y1 = new double[ys1.length];
+        final double[] y2 = new double[ys2.length];
+        convertArrays(xs, ys1, ys2, x, y1, y2);
+
+        nPlotShaded(labelID, x, y1, y2, x.length, offset);
+    }
+
     private static native void nPlotShaded(String labelID, double[] xs, double[] ys, int size, int yRef, int offset); /*
         ImPlot::PlotShaded(labelID, xs, ys, size, yRef, offset);
+    */
+
+    private static native void nPlotShaded(String labelID, double[] xs, double[] ys1, double[] ys2, int size, int offset); /*
+        ImPlot::PlotShaded(labelID, xs, ys1, ys2, size, offset);
     */
 
     /**
