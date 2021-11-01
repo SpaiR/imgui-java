@@ -494,4 +494,8 @@ public final class ImNodes {
     private static native void nLoadEditorStateFromIniFile(long context, String fileName); /*
         imnodes::LoadEditorStateFromIniFile((imnodes::EditorContext*)context, fileName);
     */
+
+    public static native void miniMap(float miniMapSizeFraction, int miniMapLocation); /*
+        imnodes::MiniMap(miniMapSizeFraction, (imnodes::ImNodesMiniMapLocation)miniMapLocation);
+    */
 }

@@ -1,6 +1,7 @@
 import imgui.extension.imnodes.ImNodes;
 import imgui.extension.imnodes.ImNodesContext;
 import imgui.extension.imnodes.flag.ImNodesPinShape;
+import imgui.extension.imnodes.flag.ImNodesMiniMapLocation;
 import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiMouseButton;
 import imgui.internal.ImGui;
@@ -70,6 +71,7 @@ public class ExampleImNodes {
 
             final boolean isEditorHovered = ImNodes.isEditorHovered();
 
+            ImNodes.miniMap(0.2f, ImNodesMiniMapLocation.TopLeft);
             ImNodes.endNodeEditor();
 
             if (ImNodes.isLinkCreated(LINK_A, LINK_B)) {
