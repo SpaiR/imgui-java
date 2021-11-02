@@ -71,7 +71,7 @@ public class ExampleImNodes {
 
             final boolean isEditorHovered = ImNodes.isEditorHovered();
 
-            ImNodes.miniMap(0.2f, ImNodesMiniMapLocation.TopLeft);
+            ImNodes.miniMap(0.2f, ImNodesMiniMapLocation.BottomRight);
             ImNodes.endNodeEditor();
 
             if (ImNodes.isLinkCreated(LINK_A, LINK_B)) {
