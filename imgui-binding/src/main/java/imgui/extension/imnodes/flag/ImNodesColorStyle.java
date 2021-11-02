@@ -20,5 +20,17 @@ public final class ImNodesColorStyle {
     public static final int BoxSelectorOutline = 13;
     public static final int GridBackground = 14;
     public static final int GridLine = 15;
-    public static final int COUNT = 16;
+    public static final int MiniMapBackground = 16;
+    public static final int MiniMapBackgroundHovered = 17;
+    public static final int MiniMapOutline = 18;
+    public static final int MiniMapOutlineHovered = 19;
+    public static final int MiniMapNodeBackground = 20;
+    public static final int MiniMapNodeBackgroundHovered = 21;
+    public static final int MiniMapNodeBackgroundSelected = 22;
+    public static final int MiniMapNodeOutline = 23;
+    public static final int MiniMapLink = 24;
+    public static final int MiniMapLinkSelected = 25;
+    public static final int MiniMapCanvas = 26;
+    public static final int MiniMapCanvasOutline = 27;
+    public static final int COUNT = 28;
 }

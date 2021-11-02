@@ -24,7 +24,7 @@ public final class ImNodes {
     // An editor context corresponds to a set of nodes in a single workspace (created with a single
     // Begin/EndNodeEditor pair)
     //
-    // By default, the library creates an editor context behind the scenes, so using any of the imnodes
+    // By default, the library creates an editor context behind the scenes, so using any of the ImNodes
     // functions doesn't require you to explicitly create a context.
 
     public static ImNodesContext editorContextCreate() {
@@ -40,18 +40,18 @@ public final class ImNodes {
     }
 
     private static native void nEditorContextSet(long ptr); /*
-        imnodes::EditorContextSet((imnodes::EditorContext*)ptr);
+        ImNodes::EditorContextSet((ImNodesEditorContext*)ptr);
     */
 
     /**
      * Initialize the node editor system.
      */
     public static native void createContext(); /*
-        imnodes::CreateContext();
+        ImNodes::CreateContext();
     */
 
     public static native void destroyContext(); /*
-        imnodes::DestroyContext();
+        ImNodes::DestroyContext();
     */
 
     /**
@@ -63,40 +63,40 @@ public final class ImNodes {
     }
 
     private static native long nGetStyle(); /*
-        return (intptr_t)&imnodes::GetStyle();
+        return (intptr_t)&ImNodes::GetStyle();
     */
 
     // Style presets matching the dear imgui styles of the same name.
 
     public static native void styleColorsDark(); /*
-        imnodes::StyleColorsDark();
+        ImNodes::StyleColorsDark();
     */
 
     public static native void styleColorsClassic(); /*
-        imnodes::StyleColorsClassic();
+        ImNodes::StyleColorsClassic();
     */
 
     public static native void styleColorsLight(); /*
-        imnodes::StyleColorsLight();
+        ImNodes::StyleColorsLight();
     */
 
     /**
      * Use PushColorStyle and PopColorStyle to modify ImNodesColorStyle mid-frame.
      */
-    public static native void pushColorStyle(int imNodesStyleColor, int color); /*
-        imnodes::PushColorStyle((imnodes::ColorStyle)imNodesStyleColor, color);
+    public static native void pushColorStyle(int ImNodesStyleColor, int color); /*
+        ImNodes::PushColorStyle((ImNodesCol)ImNodesStyleColor, color);
     */
 
     public static native void popColorStyle(); /*
-        imnodes::PopColorStyle();
+        ImNodes::PopColorStyle();
     */
 
     public static native void pushStyleVar(int imNodesStyleVar, float value); /*
-        imnodes::PushStyleVar((imnodes::StyleVar)imNodesStyleVar, value);
+        ImNodes::PushStyleVar((ImNodesStyleVar)imNodesStyleVar, value);
     */
 
     public static native void popStyleVar(); /*
-        imnodes::PopStyleVar();
+        ImNodes::PopStyleVar();
     */
 
     /**
@@ -104,19 +104,19 @@ public final class ImNodes {
      * will result the node editor grid workspace being rendered.
      */
     public static native void beginNodeEditor(); /*
-        imnodes::BeginNodeEditor();
+        ImNodes::BeginNodeEditor();
     */
 
     public static native void endNodeEditor(); /*
-        imnodes::EndNodeEditor();
+        ImNodes::EndNodeEditor();
     */
 
     public static native void beginNode(int node); /*
-        imnodes::BeginNode(node);
+        ImNodes::BeginNode(node);
     */
 
     public static native void endNode(); /*
-        imnodes::EndNode();
+        ImNodes::EndNode();
     */
 
     /**
@@ -125,7 +125,7 @@ public final class ImNodes {
      * calls. The order of source and target doesn't make a difference for rendering the link.
      */
     public static native void link(int id, int source, int target); /*
-        imnodes::Link(id, source, target);
+        ImNodes::Link(id, source, target);
     */
 
     /**
@@ -134,11 +134,11 @@ public final class ImNodes {
      * layout of the node will be incorrect.
      */
     public static native void beginNodeTitleBar(); /*
-        imnodes::BeginNodeTitleBar();
+        ImNodes::BeginNodeTitleBar();
     */
 
     public static native void endNodeTitleBar(); /*
-        imnodes::EndNodeTitleBar();
+        ImNodes::EndNodeTitleBar();
     */
 
     // Attributes are ImGui UI elements embedded within the node. Attributes can have pin shapes
@@ -156,11 +156,11 @@ public final class ImNodes {
      * attribute activity.
      */
     public static native void beginStaticAttribute(int id); /*
-        imnodes::BeginStaticAttribute(id);
+        ImNodes::BeginStaticAttribute(id);
     */
 
     public static native void endStaticAttribute(); /*
-        imnodes::EndStaticAttribute();
+        ImNodes::EndStaticAttribute();
     */
 
     /**
@@ -171,11 +171,11 @@ public final class ImNodes {
     }
 
     public static native void beginInputAttribute(int id, int imNodesPinShape); /*
-        imnodes::BeginInputAttribute(id, (imnodes::PinShape)imNodesPinShape);
+        ImNodes::BeginInputAttribute(id, (ImNodesPinShape)imNodesPinShape);
     */
 
     public static native void endInputAttribute(); /*
-        imnodes::EndInputAttribute();
+        ImNodes::EndInputAttribute();
     */
 
     /**
@@ -186,18 +186,18 @@ public final class ImNodes {
     }
 
     public static native void beginOutputAttribute(int id, int imNodesPinShape); /*
-        imnodes::BeginOutputAttribute(id, (imnodes::PinShape)imNodesPinShape);
+        ImNodes::BeginOutputAttribute(id, (ImNodesPinShape)imNodesPinShape);
     */
 
     /**
      * Push a single AttributeFlags value. By default, only AttributeFlags_None is set.
      */
     public static native void pushAttributeFlag(int imNodesAttributeFlags); /*
-        imnodes::PushAttributeFlag((imnodes::AttributeFlags)imNodesAttributeFlags);
+        ImNodes::PushAttributeFlag((ImNodesAttributeFlags)imNodesAttributeFlags);
     */
 
     public static native void endOutputAttribute(); /*
-        imnodes::EndOutputAttribute();
+        ImNodes::EndOutputAttribute();
     */
 
     /**
@@ -205,22 +205,22 @@ public final class ImNodes {
      * blocked by any other windows.
      */
     public static native boolean isEditorHovered(); /*
-        return imnodes::IsEditorHovered();
+        return ImNodes::IsEditorHovered();
     */
 
     // Binding notice: getHoveredNode(), getHoveredLink() and getHoveredPin()
     // return id of the hovered object. If there is no such object -1 will be returned.
     // Use these functions after endNodeEditor() has been called.
     //
-    // These methods implemented instead of the original bool imnodes::IsNodeHovered(int* node_id),
-    // bool imnodes::IsLinkHovered(int* link_id) and bool imnodes::IsPinHovered(int* attribute_id) for convenience.
+    // These methods implemented instead of the original bool ImNodes::IsNodeHovered(int* node_id),
+    // bool ImNodes::IsLinkHovered(int* link_id) and bool ImNodes::IsPinHovered(int* attribute_id) for convenience.
 
     /**
      * @return id of the hovered node or -1 if there is no such object
      */
     public static native int getHoveredNode(); /*
         int i;
-        return imnodes::IsNodeHovered(&i) ? i : -1;
+        return ImNodes::IsNodeHovered(&i) ? i : -1;
     */
 
     /**
@@ -228,7 +228,7 @@ public final class ImNodes {
      */
     public static native int getHoveredLink(); /*
         int i;
-        return imnodes::IsLinkHovered(&i) ? i : -1;
+        return ImNodes::IsLinkHovered(&i) ? i : -1;
     */
 
     /**
@@ -236,17 +236,17 @@ public final class ImNodes {
      */
     public static native int getHoveredPin(); /*
         int i;
-        return imnodes::IsPinHovered(&i) ? i : -1;
+        return ImNodes::IsPinHovered(&i) ? i : -1;
     */
 
     /**
      * Binding notice: getActiveAttribute() returns id the active attribute. If there is no active attribute -1 will be returned.
      * <p>
-     * This method implemented instead of the original bool imnodes::IsAnyAttributeActive(int* attribute_id) for convenience.
+     * This method implemented instead of the original bool ImNodes::IsAnyAttributeActive(int* attribute_id) for convenience.
      */
     public static native int getActiveAttribute(); /*
         int i;
-        return imnodes::IsAnyAttributeActive(&i) ? i : -1;
+        return ImNodes::IsAnyAttributeActive(&i) ? i : -1;
     */
 
     /**
@@ -254,7 +254,7 @@ public final class ImNodes {
      * is being pressed over the UI content of the attribute.
      */
     public static native boolean isAttributeActive(); /*
-        return imnodes::IsAttributeActive();
+        return ImNodes::IsAttributeActive();
     */
 
     // Use the following functions to query a change of state for an existing link, or new link. Call
@@ -268,7 +268,7 @@ public final class ImNodes {
     }
 
     private static native boolean nIsLinkStarted(int[] data); /*
-        return imnodes::IsLinkStarted(&data[0]);
+        return ImNodes::IsLinkStarted(&data[0]);
     */
 
     /**
@@ -284,7 +284,7 @@ public final class ImNodes {
     }
 
     private static native boolean nIsLinkDropped(int[] data, boolean includingDetachedLinks); /*
-        return imnodes::IsLinkDropped(&data[0], includingDetachedLinks);
+        return ImNodes::IsLinkDropped(&data[0], includingDetachedLinks);
     */
 
     /**
@@ -295,7 +295,7 @@ public final class ImNodes {
     }
 
     private static native boolean nIsLinkCreated(int[] sourceAttribute, int[] targetAttribute); /*
-        return imnodes::IsLinkCreated(&sourceAttribute[0], &targetAttribute[0]);
+        return ImNodes::IsLinkCreated(&sourceAttribute[0], &targetAttribute[0]);
     */
 
     public static boolean isLinkCreated(final ImInt startedAtNodeId, final ImInt startedAtAttributeId,
@@ -305,7 +305,7 @@ public final class ImNodes {
     }
 
     private static native boolean nIsLinkCreated(int[] startedAtNodeId, int[] startedAtAttributeId, int[] endedAtNodeId, int[] endedAtAttributeId, boolean[] createdFromSnap); /*
-        return imnodes::IsLinkCreated(&startedAtNodeId[0], &startedAtAttributeId[0], &endedAtNodeId[0], &endedAtAttributeId[0], &createdFromSnap[0]);
+        return ImNodes::IsLinkCreated(&startedAtNodeId[0], &startedAtAttributeId[0], &endedAtNodeId[0], &endedAtAttributeId[0], &createdFromSnap[0]);
     */
 
     /**
@@ -317,7 +317,7 @@ public final class ImNodes {
     }
 
     private static native boolean nIsLinkDestroyed(int[] linkId); /*
-        return imnodes::IsLinkDestroyed(&linkId[0]);
+        return ImNodes::IsLinkDestroyed(&linkId[0]);
     */
 
     /**
@@ -325,11 +325,11 @@ public final class ImNodes {
      * editor. Use after calling EndNodeEditor().
      */
     public static native int numSelectedNodes(); /*
-        return imnodes::NumSelectedNodes();
+        return ImNodes::NumSelectedNodes();
     */
 
     public static native int numSelectedLinks(); /*
-        return imnodes::NumSelectedLinks();
+        return ImNodes::NumSelectedLinks();
     */
 
     /**
@@ -338,42 +338,42 @@ public final class ImNodes {
      * returned.
      */
     public static native void getSelectedNodes(int[] nodeIds); /*
-        imnodes::GetSelectedNodes(&nodeIds[0]);
+        ImNodes::GetSelectedNodes(&nodeIds[0]);
     */
 
     public static native void getSelectedLinks(int[] linkIds); /*
-        imnodes::GetSelectedLinks(&linkIds[0]);
+        ImNodes::GetSelectedLinks(&linkIds[0]);
     */
 
     /**
      * Clears the list of selected nodes/links. Useful if you want to delete a selected node or link.
      */
     public static native void clearNodeSelection(); /*
-        imnodes::ClearNodeSelection();
+        ImNodes::ClearNodeSelection();
     */
 
     public static native void clearLinkSelection(); /*
-        imnodes::ClearLinkSelection();
+        ImNodes::ClearLinkSelection();
     */
 
     /**
      * Enable or disable the ability to click and drag a specific node.
      */
     public static native void setNodeDraggable(int node, boolean isDraggable); /*
-        imnodes::SetNodeDraggable(node, isDraggable);
+        ImNodes::SetNodeDraggable(node, isDraggable);
     */
 
     public static native void getNodeDimensions(int node, ImVec2 result); /*
-        ImVec2 dst = imnodes::GetNodeDimensions(node);
+        ImVec2 dst = ImNodes::GetNodeDimensions(node);
         Jni::ImVec2Cpy(env, &dst, result);
     */
 
     public static native float getNodeDimensionsX(int node); /*
-        return imnodes::GetNodeDimensions(node).x;
+        return ImNodes::GetNodeDimensions(node).x;
     */
 
     public static native float getNodeDimensionsY(int node); /*
-        return imnodes::GetNodeDimensions(node).y;
+        return ImNodes::GetNodeDimensions(node).y;
     */
 
 
@@ -386,69 +386,69 @@ public final class ImNodes {
     // Use the following functions to get and set the node's coordinates in these coordinate systems.
 
     public static native void setNodeScreenSpacePos(int node, float x, float y); /*
-        imnodes::SetNodeScreenSpacePos(node, ImVec2(x, y));
+        ImNodes::SetNodeScreenSpacePos(node, ImVec2(x, y));
     */
 
     public static native void setNodeEditorSpacePos(int node, float x, float y); /*
-        imnodes::SetNodeEditorSpacePos(node, ImVec2(x, y));
+        ImNodes::SetNodeEditorSpacePos(node, ImVec2(x, y));
     */
 
     public static native void setNodeGridSpacePos(int node, float x, float y); /*
-        imnodes::SetNodeGridSpacePos(node, ImVec2(x, y));
+        ImNodes::SetNodeGridSpacePos(node, ImVec2(x, y));
     */
 
     public static native void getNodeScreenSpacePos(int node, ImVec2 result); /*
-        ImVec2 dst = imnodes::GetNodeScreenSpacePos(node);
+        ImVec2 dst = ImNodes::GetNodeScreenSpacePos(node);
         Jni::ImVec2Cpy(env, &dst, result);
     */
 
     public static native float getNodeScreenSpacePosX(int node); /*
-        return imnodes::GetNodeScreenSpacePos(node).x;
+        return ImNodes::GetNodeScreenSpacePos(node).x;
     */
 
     public static native float getNodeScreenSpacePosY(int node); /*
-        return imnodes::GetNodeScreenSpacePos(node).y;
+        return ImNodes::GetNodeScreenSpacePos(node).y;
     */
 
     public static native void getNodeEditorSpacePos(int node, ImVec2 result); /*
-        ImVec2 dst = imnodes::GetNodeEditorSpacePos(node);
+        ImVec2 dst = ImNodes::GetNodeEditorSpacePos(node);
         Jni::ImVec2Cpy(env, &dst, result);
     */
 
     public static native float getNodeEditorSpacePosX(int node); /*
-        return imnodes::GetNodeEditorSpacePos(node).x;
+        return ImNodes::GetNodeEditorSpacePos(node).x;
     */
 
     public static native float getNodeEditorSpacePosY(int node); /*
-        return imnodes::GetNodeEditorSpacePos(node).y;
+        return ImNodes::GetNodeEditorSpacePos(node).y;
     */
 
     public static native void getNodeGridSpacePos(int node, ImVec2 dst); /*
-        ImVec2 result = imnodes::GetNodeGridSpacePos(node);
+        ImVec2 result = ImNodes::GetNodeGridSpacePos(node);
         Jni::ImVec2Cpy(env, &result, dst);
     */
 
     public static native float getNodeGridSpacePosX(int node); /*
-        return imnodes::GetNodeGridSpacePos(node).x;
+        return ImNodes::GetNodeGridSpacePos(node).x;
     */
 
     public static native float getNodeGridSpacePosY(int node); /*
-        return imnodes::GetNodeGridSpacePos(node).y;
+        return ImNodes::GetNodeGridSpacePos(node).y;
     */
 
     public static native void editorResetPanning(float x, float y); /*
-        imnodes::EditorContextResetPanning(ImVec2(x, y));
+        ImNodes::EditorContextResetPanning(ImVec2(x, y));
     */
 
     public static native void editorMoveToNode(int node); /*
-        imnodes::EditorContextMoveToNode(node);
+        ImNodes::EditorContextMoveToNode(node);
     */
 
     // Use the following functions to write the editor context's state to a string, or directly to a
     // file. The editor context is serialized in the INI file format.
 
     public static native String saveCurrentEditorStateToIniString(); /*
-        return env->NewStringUTF(imnodes::SaveCurrentEditorStateToIniString(NULL));
+        return env->NewStringUTF(ImNodes::SaveCurrentEditorStateToIniString(NULL));
     */
 
     public static String saveEditorStateToIniString(final ImNodesContext context) {
@@ -456,11 +456,11 @@ public final class ImNodes {
     }
 
     private static native String nSaveEditorStateToIniString(long context); /*
-        return env->NewStringUTF(imnodes::SaveEditorStateToIniString((imnodes::EditorContext*)context, NULL));
+        return env->NewStringUTF(ImNodes::SaveEditorStateToIniString((ImNodesEditorContext*)context, NULL));
     */
 
     public static native void loadCurrentEditorStateFromIniString(String data, int dataSize); /*
-        imnodes::LoadCurrentEditorStateFromIniString(data, dataSize);
+        ImNodes::LoadCurrentEditorStateFromIniString(data, dataSize);
     */
 
     public static void loadEditorStateFromIniString(final ImNodesContext context, final String data, final int dataSize) {
@@ -468,11 +468,11 @@ public final class ImNodes {
     }
 
     private static native void nLoadEditorStateFromIniString(long context, String data, int dataSize); /*
-        imnodes::LoadEditorStateFromIniString((imnodes::EditorContext*)context, data, dataSize);
+        ImNodes::LoadEditorStateFromIniString((ImNodesEditorContext*)context, data, dataSize);
     */
 
     public static native void saveCurrentEditorStateToIniFile(String fileName); /*
-        imnodes::SaveCurrentEditorStateToIniFile(fileName);
+        ImNodes::SaveCurrentEditorStateToIniFile(fileName);
     */
 
     public static void saveEditorStateToIniFile(final ImNodesContext context, final String fileName) {
@@ -480,11 +480,11 @@ public final class ImNodes {
     }
 
     private static native void nSaveEditorStateToIniFile(long context, String fileName); /*
-        imnodes::SaveEditorStateToIniFile((imnodes::EditorContext*)context, fileName);
+        ImNodes::SaveEditorStateToIniFile((ImNodesEditorContext*)context, fileName);
     */
 
     public static native void loadCurrentEditorStateFromIniFile(String fileName); /*
-        imnodes::LoadCurrentEditorStateFromIniFile(fileName);
+        ImNodes::LoadCurrentEditorStateFromIniFile(fileName);
     */
 
     public static void loadEditorStateFromIniFile(final ImNodesContext context, final String fileName) {
@@ -492,10 +492,10 @@ public final class ImNodes {
     }
 
     private static native void nLoadEditorStateFromIniFile(long context, String fileName); /*
-        imnodes::LoadEditorStateFromIniFile((imnodes::EditorContext*)context, fileName);
+        ImNodes::LoadEditorStateFromIniFile((ImNodesEditorContext*)context, fileName);
     */
 
     public static native void miniMap(float miniMapSizeFraction, int miniMapLocation); /*
-        imnodes::MiniMap(miniMapSizeFraction, (imnodes::ImNodesMiniMapLocation)miniMapLocation);
+        ImNodes::MiniMap(miniMapSizeFraction, (ImNodesMiniMapLocation)miniMapLocation);
     */
 }
