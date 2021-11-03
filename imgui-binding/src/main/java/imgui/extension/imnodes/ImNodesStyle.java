@@ -181,7 +181,7 @@ public final class ImNodesStyle extends ImGuiStruct {
     public native void setMiniMapOffset(float x, float y); /*
        IMNODES_STYLE->MiniMapOffset = ImVec2(x, y);
     */
-    
+
     public native int getFlags(); /*
        return IMNODES_STYLE->Flags;
     */

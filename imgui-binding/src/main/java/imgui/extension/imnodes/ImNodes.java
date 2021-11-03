@@ -83,8 +83,8 @@ public final class ImNodes {
     /**
      * Use PushColorStyle and PopColorStyle to modify ImNodesColorStyle mid-frame.
      */
-    public static native void pushColorStyle(int ImNodesStyleColor, int color); /*
-        ImNodes::PushColorStyle((ImNodesCol)ImNodesStyleColor, color);
+    public static native void pushColorStyle(int imNodesStyleColor, int color); /*
+        ImNodes::PushColorStyle((ImNodesCol)imNodesStyleColor, color);
     */
 
     public static native void popColorStyle(); /*
