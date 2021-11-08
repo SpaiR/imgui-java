@@ -18,79 +18,96 @@ public final class ImGuiFileDialog {
         #include "_imguifiledialog.h"
     */
 
-    //TODO:
-    /*
-    // standard dialog
-    void OpenDialog(                                   // open simple dialog (path and fileName can be specified)
-        const std::string& vKey,                       // key dialog
-        const std::string& vTitle,                     // title
-        const char* vFilters,                          // filters
-        const std::string& vPath,                      // path
-        const std::string& vFileName,                  // defaut file name
-        const int& vCountSelectionMax = 1,             // count selection max
-        UserDatas vUserDatas = nullptr,                // user datas (can be retrieved in pane)
-        ImGuiFileDialogFlags vFlags = 0);              // ImGuiFileDialogFlags
+    /**
+     * open simple dialog (path and fileName can be specified)
+     *
+     * @param vKey key dialog
+     * @param vTitle title
+     * @param vFilters filters
+     * @param vPath path
+     * @param vFileName default file name
+     * @param vCountSelectionMax count selection max
+     * @param vUserDatas user datas (can be retrieved in pane)
+     * @param vFlags ImGuiFileDialogFlags
+     */
+    public static native void openDialog(String vKey, String vTitle, String vFilters, String vPath, String vFileName,
+                                  int vCountSelectionMax, Object vUserDatas, int vFlags); /*
+        ImGuiFileDialog::Instance()->OpenDialog(vKey, vTitle, vFilters, vPath, vFileName, vCountSelectionMax, vUserDatas, vFlags);
+    */
+
+
+    /**
+     * open simple modal (path and fileName can be specified)
+     *
+     * @param vKey key dialog
+     * @param vTitle title
+     * @param vFilters filters
+     * @param vPath path
+     * @param vFileName default file name
+     * @param vCountSelectionMax count selection max
+     * @param vUserDatas user datas (can be retrieved in pane)
+     * @param vFlags ImGuiFileDialogFlags
+     */
+    public static native void openModal(String vKey, String vTitle, String vFilters, String vPath, String vFileName,
+                                        int vCountSelectionMax, Object vUserDatas, int vFlags);  /*
+        ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vPath, vFileName, vCountSelectionMax, vUserDatas, vFlags);
+    */
+
+
+    /**
+     * open simple modal (path and filename are obtained from filePathName)
+     *
+     * @param vKey key dialog
+     * @param vTitle title
+     * @param vFilters filters
+     * @param vFilePathName file path name (will be decomposed in path and fileName)
+     * @param vCountSelectionMax count selection max
+     * @param vUserDatas user datas (can be retrieved in pane)
+     * @param vFlags ImGuiFileDialogFlags
+     */
+    public static native void openModal(String vKey, String vTitle, String vFilters, String vFilePathName,
+                                        int vCountSelectionMax, Object vUserDatas, int vFlags);  /*
+        ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vFilePathName, vCountSelectionMax, vUserDatas, vFlags);
+    */
+
+
+    /**
+     * open modal with custom right pane (path and fileName can be specified)
+     *
+     * @param vKey key dialog
+     * @param vTitle title
+     * @param vFilters filters
+     * @param vPath path
+     * @param vFileName default file name
+     * @param vSidePane side pane
+     * @param vSidePaneWidth side pane width
+     * @param vCountSelectionMax count selection max
+     * @param vUserDatas user datas (can be retrieved in pane)
+     * @param vFlags ImGuiFileDialogFlags
+     */
+    public static native void openModal(String vKey, String vTitle, String vFilters, String vPath, String vFileName, ImGuiFileDialogPaneFun vSidePane,
+                                        float vSidePaneWidth, int vCountSelectionMax, Object vUserDatas, int vFlags); /*
+         //TODO: Solve how to handle callback for paneFun
      */
 
 
-    //TODO:
-    /*
-    // modal dialog
-    void OpenModal(                                    // open simple modal (path and fileName can be specified)
-        const std::string& vKey,                       // key dialog
-        const std::string& vTitle,                     // title
-        const char* vFilters,                          // filters
-        const std::string& vPath,                      // path
-        const std::string& vFileName,                  // defaut file name
-        const int& vCountSelectionMax = 1,             // count selection max
-        UserDatas vUserDatas = nullptr,                // user datas (can be retrieved in pane)
-        ImGuiFileDialogFlags vFlags = 0);              // ImGuiFileDialogFlags
+    /**
+     * open modal with custom right pane (path and filename are obtained from filePathName)
+     *
+     * @param vKey key dialog
+     * @param vTitle title
+     * @param vFilters filters
+     * @param vFilePathName file path name (will be decomposed in path and fileName)
+     * @param vSidePane side pane
+     * @param vSidePaneWidth side pane width
+     * @param vCountSelectionMax count selection max
+     * @param vUserDatas user datas (can be retrieved in pane)
+     * @param vFlags ImGuiFileDialogFlags
      */
-
-    //TODO:
-    /*
-    OpenModal(                                    // open simple modal (path and fielname are obtained from filePathName)
-        const std::string& vKey,                       // key dialog
-        const std::string& vTitle,                     // title
-        const char* vFilters,                          // filters
-        const std::string& vFilePathName,              // file path name (will be decompsoed in path and fileName)
-        const int& vCountSelectionMax = 1,             // count selection max
-        UserDatas vUserDatas = nullptr,                // user datas (can be retrieved in pane)
-        ImGuiFileDialogFlags vFlags = 0);              // ImGuiFileDialogFlags
-     */
-
-    //TODO:
-    /*
-    // with pane
-    void OpenModal(                                    // open modal with custom right pane (path and filename are obtained from filePathName)
-        const std::string& vKey,                       // key dialog
-        const std::string& vTitle,                     // title
-        const char* vFilters,                          // filters
-        const std::string& vPath,                      // path
-        const std::string& vFileName,                  // defaut file name
-        const PaneFun& vSidePane,                      // side pane
-        const float& vSidePaneWidth = 250.0f,                               // side pane width
-        const int& vCountSelectionMax = 1,             // count selection max
-        UserDatas vUserDatas = nullptr,                // user datas (can be retrieved in pane)
-        ImGuiFileDialogFlags vFlags = 0);              // ImGuiFileDialogFlags
-     */
-
-    //TODO:
-    /*
-    void OpenModal(                                    // open modal with custom right pane (path and fielname are obtained from filePathName)
-        const std::string& vKey,                       // key dialog
-        const std::string& vTitle,                     // title
-        const char* vFilters,                          // filters
-        const std::string& vFilePathName,              // file path name (will be decompsoed in path and fileName)
-        const PaneFun& vSidePane,                      // side pane
-        const float& vSidePaneWidth = 250.0f,                               // side pane width
-        const int& vCountSelectionMax = 1,             // count selection max
-        UserDatas vUserDatas = nullptr,                // user datas (can be retrieved in pane)
-        ImGuiFileDialogFlags vFlags = 0);              // ImGuiFileDialogFlags
-     */
-        public static native void openModal(String vKey, String vTitle, String vFilters, String vFilePathName, ImGuiFileDialogPaneFun vSidePane,
+    public static native void openModal(String vKey, String vTitle, String vFilters, String vFilePathName, ImGuiFileDialogPaneFun vSidePane,
                                             float vSidePaneWidth, int vCountSelectionMax, Object vUserDatas, int vFlags); /*
-        */
+        //TODO: Solve how to handle callback for paneFun
+     */
 
     /**
      * Display / Close dialog form
@@ -245,8 +262,12 @@ public final class ImGuiFileDialog {
         return env->NewStringUTF(ImGuiFileDialog::Instance()->GetCurrentFilter().c_str());
     */
 
-    //TODO:
-    //UserDatas GetUserDatas();                          // will return user datas send with Open Dialog/Modal
+
+    /**
+     * will return user datas sent with Open Dialog/Modal
+     *
+     * @return user datas sent with Open Dialog/Modal
+     */
     public static native Object getUserDatas(); /*
         return (jobject) ImGuiFileDialog::Instance()->GetUserDatas();
     */
