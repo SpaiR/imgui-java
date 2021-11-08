@@ -16,3 +16,6 @@
 [submodule "include/ImGuiColorTextEdit"]
 	path = include/ImGuiColorTextEdit
 	url = https://github.com/BalazsJako/ImGuiColorTextEdit
+[submodule "include/ImGuiFileDialog"]
+	path = include/ImGuiFileDialog
+	url = https://github.com/aiekick/ImGuiFileDialog

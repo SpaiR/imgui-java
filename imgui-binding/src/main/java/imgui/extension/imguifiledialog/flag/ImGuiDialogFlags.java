@@ -1,7 +1,10 @@
 package imgui.extension.imguifiledialog.flag;
 
-public class ImGuiDialogFlags {
+public final class ImGuiDialogFlags {
 
+    private ImGuiDialogFlags() {
+
+    }
 
     public static final int None = 0;
 

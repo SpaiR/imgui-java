@@ -1,10 +1,14 @@
 package imgui.extension.imguifiledialog;
 
+import imgui.extension.imguifiledialog.callback.ImGuiFileDialogPaneFun;
+
+import java.util.HashMap;
+
 /**
  * ImGuiFileDialog extension for ImGui
  * Repo: https://github.com/aiekick/ImGuiFileDialog
  */
-public class ImGuiFileDialog {
+public final class ImGuiFileDialog {
 
     private ImGuiFileDialog() {
 
@@ -27,6 +31,29 @@ public class ImGuiFileDialog {
         UserDatas vUserDatas = nullptr,                // user datas (can be retrieved in pane)
         ImGuiFileDialogFlags vFlags = 0);              // ImGuiFileDialogFlags
      */
+
+    /*JNI
+        #define IGFD_PANE_FUN(name)\
+            jobject paneFun##name = NULL;\
+            void PaneFunStub##name(char* filters, UserDatas user_datas, bool canWeContinue) {\
+                if (panFun##name != NULL) {\
+                    JNIEnv* env = Jni::GetEnv();\
+                    Jni::CallImGuiFileDialogPaneFun(env, paneFun##name, filters, user_datas, canWeContinue);\
+                }\
+            }\
+
+        IGFD_PANE_FUN(OpenModal)
+
+        #define IGFD_PANE_FUN_METHOD(name)\
+            if (paneFun##name != NULL) {\
+                env->DeleteGlobalRef(paneFun##name);\
+            }\
+            paneFun##name = env->NewGlobalRef(func);
+
+        #define IGFD_PANE_FUN(name)\
+            paneFun##name
+     */
+
 
     //TODO:
     /*
@@ -83,16 +110,27 @@ public class ImGuiFileDialog {
         UserDatas vUserDatas = nullptr,                // user datas (can be retrieved in pane)
         ImGuiFileDialogFlags vFlags = 0);              // ImGuiFileDialogFlags
      */
+        public static native void openModal(String vKey, String vTitle, String vFilters, String vFilePathName, ImGuiFileDialogPaneFun vSidePane,
+                                            float vSidePaneWidth, int vCountSelectionMax, Object vUserDatas, int vFlags); /*
+            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vFilePathName, )
+        */
 
-    //TODO:
-    /*
-    // Display / Close dialog form
-    bool Display(                                      // Display the dialog. return true if a result was obtained (Ok or not)
-        const std::string& vKey,                       // key dialog to display (if not the same key as defined by OpenDialog/Modal => no opening)
-        ImGuiWindowFlags vFlags = ImGuiWindowFlags_NoCollapse, // ImGuiWindowFlags
-        ImVec2 vMinSize = ImVec2(0, 0),                // mininmal size contraint for the ImGuiWindow
-        ImVec2 vMaxSize = ImVec2(FLT_MAX, FLT_MAX));   // maximal size contraint for the ImGuiWindow
+    /**
+     * Display / Close dialog form
+     * Display the dialog. return true if a result was obtained (Ok or not)
+     *
+     * @param vKey key dialog to display (if not the same key as defined by OpenDialog/Modal =&gt; no opening)
+     * @param vFlags ImGuiWindowFlags
+     * @param vMinSizeX minimal size constraint for the ImGuiWindow
+     * @param vMinSizeY minimal size constraint for the ImGuiWindow
+     * @param vMaxSizeX maximal size constraint for the ImGuiWindow
+     * @param vMaxSizeY maximal size constraint for the ImGuiWindow
+     * @return true if a result was obtained (Ok or not)
      */
+    public static native boolean display(String vKey, int vFlags, float vMinSizeX, float vMinSizeY, float vMaxSizeX, float vMaxSizeY); /*
+        return ImGuiFileDialog::Instance()->Display(vKey, vFlags, ImVec2(vMinSizeX, vMinSizeY), ImVec2(vMaxSizeX, vMaxSizeY));
+    */
+
 
     /**
      * close dialog
@@ -143,75 +181,96 @@ public class ImGuiFileDialog {
         return ImGuiFileDialog::Instance()->IsOpened();
     */
 
+
     /**
      * return the dialog key who is opened, return nothing if not opened
      *
      * @return the dialog key who is opened or nothing is not opened
      */
     public static native String getOpenedKey(); /*
-        return ImGuiFileDialog::Instance()->GetOpenedKey();
+        return env->NewStringUTF(ImGuiFileDialog::Instance()->GetOpenedKey().c_str());
     */
 
 
     /**
-     * true => Dialog Closed with Ok result / false : Dialog closed with cancel result
+     * true: Dialog Closed with Ok result / false: Dialog closed with cancel result
      *
-     * @return True is the dialog closed with Ok result, or false with cancel result
+     * @return True if the dialog closed with Ok result, or false with cancel result
      */
     public static native boolean isOk(); /*
-        return ImGuiFileDialog::Instance()->IsOK();
+        return ImGuiFileDialog::Instance()->IsOk();
     */
 
-    //TODO:
-    //std::map<std::string, std::string> GetSelection(); // Open File behavior : will return selection via a map<FileName, FilePathName>
+
+    /**
+     * Open File behavior : will return selection via a map&lt;FileName, FilePathName&gt;
+     * @return Map of FileName to FilePathName in key,value pair
+     */
+    private static native HashMap<String, String> getSelection(); /*
+        //Get the map from ImGuiFileDialog
+        std::map<std::string, std::string> mMap = ImGuiFileDialog::Instance()->GetSelection();
+
+        env->PushLocalFrame(mMap.size() * 2); // Expands stack size to not overflow
+
+        //Get reference to java's HashMap
+        jclass hashMapClass = env->FindClass("java/util/HashMap");
+        jmethodID hashMapInit = env->GetMethodID(hashMapClass, "<init>", "(I)V");
+        jobject hashMapObj = env->NewObject(hashMapClass, hashMapInit, mMap.size());
+        jmethodID hashMapPut = env->GetMethodID(hashMapClass, "put",
+                    "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
+
+        //Copy key,value pairs from map to hashmap
+        for (auto it : mMap)
+        {
+            env->CallObjectMethod(hashMapObj, hashMapPut,
+                 env->NewStringUTF(it.first.c_str()),
+                 env->NewStringUTF(it.second.c_str())
+             );
+        }
+
+        env->PopLocalFrame(hashMapObj); //Cleanup stack
+
+        return hashMapObj;
+    */
+
 
     /**
      * Save File behavior : will always return the content of the field with current filter extention and current path
      */
     public static native String getFilePathName(); /*
-        return ImGuiFileDialog::Instance()->GetFilePathName();
+        return env->NewStringUTF(ImGuiFileDialog::Instance()->GetFilePathName().c_str());
     */
-
-    //TODO:
-    //std::string GetCurrentFileName();                  // Save File behavior : will always return the content of the field with current filter extention
-
-    //TODO:
-    //std::string GetCurrentPath();                      // will return current path
-
-    //TODO:
-    //std::string GetCurrentFilter();                    // will return selected filter
-
-    //TODO:
-    //UserDatas GetUserDatas();                          // will return user datas send with Open Dialog/Modal
-
-    //TODO:
-    /*
-    void SetExtentionInfos(                            // SetExtention datas for have custom display of particular file type
-        const std::string& vFilter,                    // extention filter to tune
-        const FileExtentionInfosStruct& vInfos);       // Filter Extention Struct who contain Color and Icon/Text for the display of the file with extention filter
-     */
-
-    //TODO:
-    /*
-    void SetExtentionInfos(                            // SetExtention datas for have custom display of particular file type
-        const std::string& vFilter,                    // extention filter to tune
-        const ImVec4& vColor,                          // wanted color for the display of the file with extention filter
-        const std::string& vIcon = "");                // wanted text or icon of the file with extention filter
-     */
-
-    //TODO:
-    /*
-    bool GetExtentionInfos(                            // GetExtention datas. return true is extention exist
-        const std::string& vFilter,                    // extention filter (same as used in SetExtentionInfos)
-        ImVec4 *vOutColor,                             // color to retrieve
-        std::string* vOutIcon = 0);                    // icon or text to retrieve
-     */
 
 
     /**
-     * clear extentions setttings
+     * Save File behavior : will always return the content of the field with current filter extension
+     * @return the content of the field with current filter extension
      */
-    public static native void clearExtentionInfos(); /*
-        ImGuiFileDialog::Instance()->ClearExtentionInfos();
+    public static native String getCurrentFileName(); /*
+        return env->NewStringUTF(ImGuiFileDialog::Instance()->GetCurrentFileName().c_str());
+    */
+
+
+    /**
+     * will return current path
+     * @return the current path
+     */
+    public static native String getCurrentPath(); /*
+        return env->NewStringUTF(ImGuiFileDialog::Instance()->GetCurrentPath().c_str());
+    */
+
+
+    /**
+     * will return selected filter
+     * @return the selected filter
+     */
+    public static native String getCurrentFilter(); /*
+        return env->NewStringUTF(ImGuiFileDialog::Instance()->GetCurrentFilter().c_str());
+    */
+
+    //TODO:
+    //UserDatas GetUserDatas();                          // will return user datas send with Open Dialog/Modal
+    public static native Object getUserDatas(); /*
+        return (jobject) ImGuiFileDialog::Instance()->GetUserDatas();
     */
 }
