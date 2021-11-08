@@ -32,28 +32,6 @@ public final class ImGuiFileDialog {
         ImGuiFileDialogFlags vFlags = 0);              // ImGuiFileDialogFlags
      */
 
-    /*JNI
-        #define IGFD_PANE_FUN(name)\
-            jobject paneFun##name = NULL;\
-            void PaneFunStub##name(char* filters, UserDatas user_datas, bool canWeContinue) {\
-                if (panFun##name != NULL) {\
-                    JNIEnv* env = Jni::GetEnv();\
-                    Jni::CallImGuiFileDialogPaneFun(env, paneFun##name, filters, user_datas, canWeContinue);\
-                }\
-            }\
-
-        IGFD_PANE_FUN(OpenModal)
-
-        #define IGFD_PANE_FUN_METHOD(name)\
-            if (paneFun##name != NULL) {\
-                env->DeleteGlobalRef(paneFun##name);\
-            }\
-            paneFun##name = env->NewGlobalRef(func);
-
-        #define IGFD_PANE_FUN(name)\
-            paneFun##name
-     */
-
 
     //TODO:
     /*
@@ -112,7 +90,6 @@ public final class ImGuiFileDialog {
      */
         public static native void openModal(String vKey, String vTitle, String vFilters, String vFilePathName, ImGuiFileDialogPaneFun vSidePane,
                                             float vSidePaneWidth, int vCountSelectionMax, Object vUserDatas, int vFlags); /*
-            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vFilePathName, )
         */
 
     /**
