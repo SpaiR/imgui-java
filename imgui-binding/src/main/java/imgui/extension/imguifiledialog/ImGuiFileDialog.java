@@ -16,96 +16,115 @@ public final class ImGuiFileDialog {
 
     /*JNI
         #include "_imguifiledialog.h"
+
+        //Map between vKey and the callback function
+        std::map<std::string, jobject> pane_fun_xref;
+
+        //From the imguifiledialog header file:
+        //typedef void* UserDatas;
+        //typedef std::function<void(const char*, UserDatas, bool*)> PaneFun;
+
+        const void paneFunCallback(const char* filter, void* user_data, bool* can_we_continue) {
+            JNIEnv* env = Jni::GetEnv();
+            std::string vKey = ImGuiFileDialog::Instance()->GetOpenedKey();
+            if (pane_fun_xref.count(vKey)) {
+                jlong ret_user_datas = reinterpret_cast<jlong>(user_data);
+                Jni::CallImGuiFileDialogPaneFun(env, pane_fun_xref[vKey], filter, ret_user_datas, *can_we_continue);
+            }
+        }
     */
 
     /**
      * open simple dialog (path and fileName can be specified)
      *
-     * @param vKey key dialog
-     * @param vTitle title
-     * @param vFilters filters
-     * @param vPath path
-     * @param vFileName default file name
+     * @param vKey               key dialog
+     * @param vTitle             title
+     * @param vFilters           filters
+     * @param vPath              path
+     * @param vFileName          default file name
      * @param vCountSelectionMax count selection max
-     * @param vUserDatas user datas (can be retrieved in pane)
-     * @param vFlags ImGuiFileDialogFlags
+     * @param vUserDatas         user datas (can be retrieved in pane)
+     * @param vFlags             ImGuiFileDialogFlags
      */
     public static native void openDialog(String vKey, String vTitle, String vFilters, String vPath, String vFileName,
-                                  int vCountSelectionMax, Object vUserDatas, int vFlags); /*
-        ImGuiFileDialog::Instance()->OpenDialog(vKey, vTitle, vFilters, vPath, vFileName, vCountSelectionMax, vUserDatas, vFlags);
+                                         int vCountSelectionMax, long vUserDatas, int vFlags); /*
+        ImGuiFileDialog::Instance()->OpenDialog(vKey, vTitle, vFilters, vPath, vFileName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
     */
 
 
     /**
      * open simple modal (path and fileName can be specified)
      *
-     * @param vKey key dialog
-     * @param vTitle title
-     * @param vFilters filters
-     * @param vPath path
-     * @param vFileName default file name
+     * @param vKey               key dialog
+     * @param vTitle             title
+     * @param vFilters           filters
+     * @param vPath              path
+     * @param vFileName          default file name
      * @param vCountSelectionMax count selection max
-     * @param vUserDatas user datas (can be retrieved in pane)
-     * @param vFlags ImGuiFileDialogFlags
+     * @param vUserDatas         user datas (can be retrieved in pane)
+     * @param vFlags             ImGuiFileDialogFlags
      */
     public static native void openModal(String vKey, String vTitle, String vFilters, String vPath, String vFileName,
-                                        int vCountSelectionMax, Object vUserDatas, int vFlags);  /*
-        ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vPath, vFileName, vCountSelectionMax, vUserDatas, vFlags);
+                                        int vCountSelectionMax, long vUserDatas, int vFlags);  /*
+        ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vPath, vFileName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
     */
 
 
     /**
      * open simple modal (path and filename are obtained from filePathName)
      *
-     * @param vKey key dialog
-     * @param vTitle title
-     * @param vFilters filters
-     * @param vFilePathName file path name (will be decomposed in path and fileName)
+     * @param vKey               key dialog
+     * @param vTitle             title
+     * @param vFilters           filters
+     * @param vFilePathName      file path name (will be decomposed in path and fileName)
      * @param vCountSelectionMax count selection max
-     * @param vUserDatas user datas (can be retrieved in pane)
-     * @param vFlags ImGuiFileDialogFlags
+     * @param vUserDatas         user datas (can be retrieved in pane)
+     * @param vFlags             ImGuiFileDialogFlags
      */
     public static native void openModal(String vKey, String vTitle, String vFilters, String vFilePathName,
-                                        int vCountSelectionMax, Object vUserDatas, int vFlags);  /*
-        ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vFilePathName, vCountSelectionMax, vUserDatas, vFlags);
+                                        int vCountSelectionMax, long vUserDatas, int vFlags);  /*
+        ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vFilePathName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
     */
 
 
     /**
      * open modal with custom right pane (path and fileName can be specified)
      *
-     * @param vKey key dialog
-     * @param vTitle title
-     * @param vFilters filters
-     * @param vPath path
-     * @param vFileName default file name
-     * @param vSidePane side pane
-     * @param vSidePaneWidth side pane width
+     * @param vKey               key dialog
+     * @param vTitle             title
+     * @param vFilters           filters
+     * @param vPath              path
+     * @param vFileName          default file name
+     * @param vSidePane          side pane
+     * @param vSidePaneWidth     side pane width
      * @param vCountSelectionMax count selection max
-     * @param vUserDatas user datas (can be retrieved in pane)
-     * @param vFlags ImGuiFileDialogFlags
+     * @param vUserDatas         user datas (can be retrieved in pane)
+     * @param vFlags             ImGuiFileDialogFlags
      */
     public static native void openModal(String vKey, String vTitle, String vFilters, String vPath, String vFileName, ImGuiFileDialogPaneFun vSidePane,
-                                        float vSidePaneWidth, int vCountSelectionMax, Object vUserDatas, int vFlags); /*
-         //TODO: Solve how to handle callback for paneFun
+                                        float vSidePaneWidth, int vCountSelectionMax, long vUserDatas, int vFlags); /*
+        jobject globalRef = env->NewGlobalRef(vSidePane);
+        pane_fun_xref[vKey] = globalRef;
+
+        ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vPath, vFileName, paneFunCallback, vSidePaneWidth, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
      */
 
 
     /**
      * open modal with custom right pane (path and filename are obtained from filePathName)
      *
-     * @param vKey key dialog
-     * @param vTitle title
-     * @param vFilters filters
-     * @param vFilePathName file path name (will be decomposed in path and fileName)
-     * @param vSidePane side pane
-     * @param vSidePaneWidth side pane width
+     * @param vKey               key dialog
+     * @param vTitle             title
+     * @param vFilters           filters
+     * @param vFilePathName      file path name (will be decomposed in path and fileName)
+     * @param vSidePane          side pane
+     * @param vSidePaneWidth     side pane width
      * @param vCountSelectionMax count selection max
-     * @param vUserDatas user datas (can be retrieved in pane)
-     * @param vFlags ImGuiFileDialogFlags
+     * @param vUserDatas         user datas (can be retrieved in pane)
+     * @param vFlags             ImGuiFileDialogFlags
      */
     public static native void openModal(String vKey, String vTitle, String vFilters, String vFilePathName, ImGuiFileDialogPaneFun vSidePane,
-                                            float vSidePaneWidth, int vCountSelectionMax, Object vUserDatas, int vFlags); /*
+                                        float vSidePaneWidth, int vCountSelectionMax, Object vUserDatas, int vFlags); /*
         //TODO: Solve how to handle callback for paneFun
      */
 
@@ -113,8 +132,8 @@ public final class ImGuiFileDialog {
      * Display / Close dialog form
      * Display the dialog. return true if a result was obtained (Ok or not)
      *
-     * @param vKey key dialog to display (if not the same key as defined by OpenDialog/Modal =&gt; no opening)
-     * @param vFlags ImGuiWindowFlags
+     * @param vKey      key dialog to display (if not the same key as defined by OpenDialog/Modal =&gt; no opening)
+     * @param vFlags    ImGuiWindowFlags
      * @param vMinSizeX minimal size constraint for the ImGuiWindow
      * @param vMinSizeY minimal size constraint for the ImGuiWindow
      * @param vMaxSizeX maximal size constraint for the ImGuiWindow
@@ -130,7 +149,17 @@ public final class ImGuiFileDialog {
      * close dialog
      */
     public static native void close(); /*
-        ImGuiFileDialog::Instance()->Close();
+        //Cleanup and leftover callback references
+        std::string vKey = ImGuiFileDialog::Instance()->GetOpenedKey();
+
+         if (pane_fun_xref.count(vKey)) {
+            jobject obj = pane_fun_xref[vKey];
+            pane_fun_xref.erase(vKey);
+            env->DeleteGlobalRef(obj);
+         }
+
+         //Close the dialog/modal
+         ImGuiFileDialog::Instance()->Close();
     */
 
 
@@ -198,6 +227,10 @@ public final class ImGuiFileDialog {
 
     /**
      * Open File behavior : will return selection via a map&lt;FileName, FilePathName&gt;
+     * <p>
+     * For example, if a file is selected, say test.txt. Then the key value pair will be:
+     * 'test.txt', '/some/path/to/test.txt'
+     *
      * @return Map of FileName to FilePathName in key,value pair
      */
     public static native HashMap<String, String> getSelection(); /*
@@ -238,6 +271,7 @@ public final class ImGuiFileDialog {
 
     /**
      * Save File behavior : will always return the content of the field with current filter extension
+     *
      * @return the content of the field with current filter extension
      */
     public static native String getCurrentFileName(); /*
@@ -247,6 +281,7 @@ public final class ImGuiFileDialog {
 
     /**
      * will return current path
+     *
      * @return the current path
      */
     public static native String getCurrentPath(); /*
@@ -256,6 +291,7 @@ public final class ImGuiFileDialog {
 
     /**
      * will return selected filter
+     *
      * @return the selected filter
      */
     public static native String getCurrentFilter(); /*
@@ -265,10 +301,13 @@ public final class ImGuiFileDialog {
 
     /**
      * will return user datas sent with Open Dialog/Modal
+     * <p>
+     * Can be used to pass a long value to the dialog and get the value back.
+     * This long value can be a pointer to a native data structure.
      *
      * @return user datas sent with Open Dialog/Modal
      */
-    public static native Object getUserDatas(); /*
-        return (jobject) ImGuiFileDialog::Instance()->GetUserDatas();
+    public static native long getUserDatas(); /*
+        return reinterpret_cast<jlong>(ImGuiFileDialog::Instance()->GetUserDatas());
     */
 }
