@@ -200,7 +200,7 @@ public final class ImGuiFileDialog {
      * Open File behavior : will return selection via a map&lt;FileName, FilePathName&gt;
      * @return Map of FileName to FilePathName in key,value pair
      */
-    private static native HashMap<String, String> getSelection(); /*
+    public static native HashMap<String, String> getSelection(); /*
         //Get the map from ImGuiFileDialog
         std::map<std::string, std::string> mMap = ImGuiFileDialog::Instance()->GetSelection();
 

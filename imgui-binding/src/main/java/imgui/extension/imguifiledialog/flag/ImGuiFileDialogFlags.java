@@ -1,8 +1,8 @@
 package imgui.extension.imguifiledialog.flag;
 
-public final class ImGuiDialogFlags {
+public final class ImGuiFileDialogFlags {
 
-    private ImGuiDialogFlags() {
+    private ImGuiFileDialogFlags() {
 
     }
 
