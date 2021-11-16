@@ -11,7 +11,6 @@ import java.util.Map;
 
 public class ExampleImGuiFileDialog {
     private static final String URL = "https://github.com/aiekick/ImGuiFileDialog";
-    private static final ImBoolean showDemo = new ImBoolean(false);
 
     private static Map<String, String> selection = null;
     private static long userData = 0;

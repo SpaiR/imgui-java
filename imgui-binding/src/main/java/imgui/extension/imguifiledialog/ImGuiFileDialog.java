@@ -17,21 +17,21 @@ public final class ImGuiFileDialog {
     /*JNI
         #include "_imguifiledialog.h"
 
-        //Map between vKey and the callback function
-        std::map<std::string, jobject> pane_fun_xref;
-
-        //From the imguifiledialog header file:
-        //typedef void* UserDatas;
-        //typedef std::function<void(const char*, UserDatas, bool*)> PaneFun;
-
+        jobject imgfdPaneFunCallback = NULL;
         const void paneFunCallback(const char* filter, void* user_data, bool* can_we_continue) {
-            JNIEnv* env = Jni::GetEnv();
-            std::string vKey = ImGuiFileDialog::Instance()->GetOpenedKey();
-            if (pane_fun_xref.count(vKey)) {
+            if (imgfdPaneFunCallback != NULL) {
+                JNIEnv* env = Jni::GetEnv();
+                std::string vKey = ImGuiFileDialog::Instance()->GetOpenedKey();
                 jlong ret_user_datas = reinterpret_cast<jlong>(user_data);
-                Jni::CallImGuiFileDialogPaneFun(env, pane_fun_xref[vKey], filter, ret_user_datas, *can_we_continue);
+                Jni::CallImGuiFileDialogPaneFun(env, imgfdPaneFunCallback, filter, ret_user_datas, *can_we_continue);
             }
         }
+
+        #define IMGFD_PANE_FUN_METHOD_TMPL()\
+            if (imgfdPaneFunCallback != NULL) {\
+                env->DeleteGlobalRef(imgfdPaneFunCallback);\
+            }\
+            imgfdPaneFunCallback = env->NewGlobalRef(vSidePane);
     */
 
     /**
@@ -103,9 +103,7 @@ public final class ImGuiFileDialog {
      */
     public static native void openModal(String vKey, String vTitle, String vFilters, String vPath, String vFileName, ImGuiFileDialogPaneFun vSidePane,
                                         float vSidePaneWidth, int vCountSelectionMax, long vUserDatas, int vFlags); /*
-        jobject globalRef = env->NewGlobalRef(vSidePane);
-        pane_fun_xref[vKey] = globalRef;
-
+        IMGFD_PANE_FUN_METHOD_TMPL()
         ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vPath, vFileName, paneFunCallback, vSidePaneWidth, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
      */
 
@@ -124,8 +122,9 @@ public final class ImGuiFileDialog {
      * @param vFlags             ImGuiFileDialogFlags
      */
     public static native void openModal(String vKey, String vTitle, String vFilters, String vFilePathName, ImGuiFileDialogPaneFun vSidePane,
-                                        float vSidePaneWidth, int vCountSelectionMax, Object vUserDatas, int vFlags); /*
-        //TODO: Solve how to handle callback for paneFun
+                                        float vSidePaneWidth, int vCountSelectionMax, long vUserDatas, int vFlags); /*
+        IMGFD_PANE_FUN_METHOD_TMPL()
+        ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vFilePathName, paneFunCallback, vSidePaneWidth, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
      */
 
     /**
@@ -149,16 +148,6 @@ public final class ImGuiFileDialog {
      * close dialog
      */
     public static native void close(); /*
-        //Cleanup and leftover callback references
-        std::string vKey = ImGuiFileDialog::Instance()->GetOpenedKey();
-
-         if (pane_fun_xref.count(vKey)) {
-            jobject obj = pane_fun_xref[vKey];
-            pane_fun_xref.erase(vKey);
-            env->DeleteGlobalRef(obj);
-         }
-
-         //Close the dialog/modal
          ImGuiFileDialog::Instance()->Close();
     */
 

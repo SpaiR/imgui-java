@@ -48,7 +48,7 @@ namespace Jni
         jImPlatformFuncViewportSuppFloatGetMID = env->GetMethodID(jImPlatformFuncViewportSuppFloat, "get", "(Limgui/ImGuiViewport;)F");
 
         jclass jImGuiFileDialogPaneFun = env->FindClass("imgui/extension/imguifiledialog/callback/ImGuiFileDialogPaneFun");
-        jImGuiFileDialogPaneFunMID = env->GetMethodID(jImGuiFileDialogPaneFunMID, "paneFun", "(Ljava/lang/String;JZ)");`
+        jImGuiFileDialogPaneFunMID = env->GetMethodID(jImGuiFileDialogPaneFun, "paneFun", "(Ljava/lang/String;JZ)V");
     }
 
     void CallImListClipperCallback(JNIEnv* env, jobject consumer, int index) {
