@@ -258,6 +258,8 @@ dependencies {
   Advanced 2D Plotting for Dear ImGui.  
 - [ImGuiColorTextEdit](https://github.com/BalazsJako/ImGuiColorTextEdit/tree/0a88824f7de8d0bd11d8419066caa7d3469395c4) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.84.1.3/example/src/main/java/ExampleImGuiColorTextEdit.java) <br>
   Syntax highlighting text editor for ImGui.
+- [ImGuiFileDialog](https://github.com/aiekick/ImGuiFileDialog/tree/4d42dfba125cbd4780a90fbc5f75e7dfbae64060) | [Example](https://github.com/SpaiR/imgui-java/blob/master/example/src/main/java/ExampleImGuiFileDialog.java) <br>
+  A file selection dialog built for ImGui.
 
 ## Freetype
 By default, Dear ImGui uses stb-truetype to render fonts. Yet there is an option to use FreeType font renderer. Go to the [imgui_freetype](https://github.com/ocornut/imgui/tree/256594575d95d56dda616c544c509740e74906b4/misc/freetype) to read about the difference.
