@@ -22,3 +22,9 @@ tasks.register('generateLibs', GenerateLibs) {
 
 apply from: "$rootDir/publish.gradle"
 configurePublishing('imgui-java-binding', 'JNI based binding for Dear ImGui')
+
+jar {
+    manifest {
+        attributes "Automatic-Module-Name": "io.github.spair.imgui-java-binding"
+    }
+}

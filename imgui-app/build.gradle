@@ -28,6 +28,9 @@ dependencies {
 }
 
 jar {
+    manifest {
+        attributes "Automatic-Module-Name": "io.github.spair.imgui-java-app"
+    }
     from('../bin') {
         include 'libimgui-java64.so'
         include 'libimgui-java64.dylib'
