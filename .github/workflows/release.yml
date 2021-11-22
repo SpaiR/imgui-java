@@ -52,9 +52,9 @@ jobs:
           draft: true
           prerelease: false
           files: |
-            imgui-app/build/libs/*.jar
-            imgui-binding/build/libs/*.jar
-            imgui-lwjgl3/build/libs/*.jar
+            modules/io.github.spair.imgui.app/build/libs/*.jar
+            modules/io.github.spair.imgui/build/libs/*.jar
+            modules/io.github.spair.imgui.lwjgl/build/libs/*.jar
             bin/imgui-java64.dll
             bin/libimgui-java64.dylib
             bin/libimgui-java64.so

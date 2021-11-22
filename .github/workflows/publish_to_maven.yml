@@ -50,4 +50,4 @@ jobs:
       - name: Publish
         uses: eskatos/gradle-command-action@v1
         with:
-          arguments: ${{ format(':imgui-binding-natives:publishMavenJavaPublicationToMavenCentralRepository -PdeployType={0} -Pfreetype={1}', matrix.type, matrix.freetype) }}
+          arguments: ${{ format(':modules:io.github.spair.imgui.natives:publishMavenJavaPublicationToMavenCentralRepository -PdeployType={0} -Pfreetype={1}', matrix.type, matrix.freetype) }}
