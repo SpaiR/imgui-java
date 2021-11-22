@@ -330,20 +330,20 @@ Read [javadoc](https://javadoc.io/doc/io.github.spair/imgui-java-binding) and so
 # How to Build Native Libraries
 ### Windows
  - Make sure you have installed and **available in PATH**:
-    * Java 11 or higher
+    * Java 17 or higher **Compilation required JDK 17**
     * Ant
     * Mingw-w64 (recommended way: use [MSYS2](https://www.msys2.org/) and install [mingw-w64-x86_64-toolchain](https://packages.msys2.org/group/mingw-w64-x86_64-toolchain) group)
- - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=win -Dlocal`
+ - Build with: `./gradlew :modules:io.github.spair.imgui:generateLibs -Denvs=win -Dlocal`
  - Run with: `./gradlew :example:run -PlibPath="../imgui-binding/build/libsNative/windows64"`
  
 ### Linux
- - Install dependencies: `openjdk11`, `mingw-w64-gcc`, `ant`. (Package names could vary from system to system.)
- - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=linux -Dlocal`
+ - Install dependencies: `openjdk17`, `mingw-w64-gcc`, `ant`. (Package names could vary from system to system.)
+ - Build with: `./gradlew :modules:io.github.spair.imgui:generateLibs -Denvs=linux -Dlocal`
  - Run with: `./gradlew :example:run -PlibPath=../imgui-binding/build/libsNative/linux64`
  
 ### MacOS
  - Check dependencies from "Linux" section and make sure you have them installed.
- - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=mac -Dlocal`
+ - Build with: `./gradlew :modules:io.github.spair.imgui:generateLibs -Denvs=mac -Dlocal`
  - Run with: `./gradlew :example:run -PlibPath=../imgui-binding/build/libsNative/macosx64`
 
 In `envs` parameter next values could be used `win`, `linux` or `mac`.<br>
