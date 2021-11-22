@@ -1,10 +1,10 @@
-import imgui.ImGui;
-import imgui.flag.ImGuiDragDropFlags;
-import imgui.flag.ImGuiInputTextFlags;
-import imgui.flag.ImGuiWindowFlags;
-import imgui.type.ImBoolean;
-import imgui.type.ImInt;
-import imgui.type.ImString;
+import io.github.spair.imgui.ImGui;
+import io.github.spair.imgui.flag.ImGuiDragDropFlags;
+import io.github.spair.imgui.flag.ImGuiInputTextFlags;
+import io.github.spair.imgui.flag.ImGuiWindowFlags;
+import io.github.spair.imgui.type.ImBoolean;
+import io.github.spair.imgui.type.ImInt;
+import io.github.spair.imgui.type.ImString;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

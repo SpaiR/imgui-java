@@ -1,0 +1,19 @@
+plugins {
+    id 'java-library'
+    id 'checkstyle'
+    id 'maven-publish'
+    id 'signing'
+}
+
+dependencies {
+    api platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+
+    api 'org.lwjgl:lwjgl'
+    api 'org.lwjgl:lwjgl-glfw'
+    api 'org.lwjgl:lwjgl-opengl'
+
+    api project(':modules:io.github.spair.imgui')
+}
+
+apply from: "$rootDir/publish.gradle"
+configurePublishing('imgui-java-lwjgl3', 'Backend LWJGL3 implementation for imgui-java')

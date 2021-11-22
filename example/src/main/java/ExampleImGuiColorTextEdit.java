@@ -1,8 +1,8 @@
-import imgui.ImGui;
-import imgui.extension.texteditor.TextEditor;
-import imgui.extension.texteditor.TextEditorLanguageDefinition;
-import imgui.flag.ImGuiWindowFlags;
-import imgui.type.ImBoolean;
+import io.github.spair.imgui.ImGui;
+import io.github.spair.imgui.extension.texteditor.TextEditor;
+import io.github.spair.imgui.extension.texteditor.TextEditorLanguageDefinition;
+import io.github.spair.imgui.flag.ImGuiWindowFlags;
+import io.github.spair.imgui.type.ImBoolean;
 
 import java.util.HashMap;
 import java.util.Map;

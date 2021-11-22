@@ -1,13 +1,13 @@
-import imgui.extension.nodeditor.NodeEditor;
-import imgui.extension.nodeditor.NodeEditorConfig;
-import imgui.extension.nodeditor.NodeEditorContext;
-import imgui.extension.nodeditor.flag.NodeEditorPinKind;
-import imgui.flag.ImGuiCond;
-import imgui.internal.ImGui;
-import imgui.type.ImBoolean;
-import imgui.type.ImLong;
+import io.github.spair.imgui.extension.nodeditor.NodeEditor;
+import io.github.spair.imgui.extension.nodeditor.NodeEditorConfig;
+import io.github.spair.imgui.extension.nodeditor.NodeEditorContext;
+import io.github.spair.imgui.extension.nodeditor.flag.NodeEditorPinKind;
+import io.github.spair.imgui.flag.ImGuiCond;
+import io.github.spair.imgui.internal.ImGui;
+import io.github.spair.imgui.type.ImBoolean;
+import io.github.spair.imgui.type.ImLong;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.net.URI;
 
 public class ExampleImGuiNodeEditor {

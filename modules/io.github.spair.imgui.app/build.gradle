@@ -1,0 +1,52 @@
+plugins {
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
+    id 'checkstyle'
+    id 'maven-publish'
+    id 'signing'
+}
+
+repositories {
+    mavenCentral()
+}
+
+checkstyle {
+    toolVersion '9.1'
+}
+
+dependencies {
+    api platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+
+    api 'org.lwjgl:lwjgl'
+    api 'org.lwjgl:lwjgl-glfw'
+    api 'org.lwjgl:lwjgl-opengl'
+
+    ['natives-linux', 'natives-windows', 'natives-macos'].each {
+        api "org.lwjgl:lwjgl::$it"
+        api "org.lwjgl:lwjgl-glfw::$it"
+        api "org.lwjgl:lwjgl-opengl::$it"
+    }
+
+    api project(':modules:io.github.spair.imgui')
+    api project(':modules:io.github.spair.imgui.lwjgl')
+}
+
+jar {
+    from('../bin') {
+        include 'libimgui-java64.so'
+        include 'libimgui-java64.dylib'
+        into 'io/github/spair/imgui/natives/java/native-bin/'
+    }
+    from('../bin/freetype') {
+        include 'imgui-java64.dll'
+        into 'io/github/spair/imgui/natives/java/native-bin/'
+    }
+}
+
+shadowJar {
+    with jar
+    archiveClassifier.set(null)
+}
+
+apply from: "$rootDir/publish.gradle"
+configurePublishing('imgui-java-app', 'Application wrapper for Dear ImGui')

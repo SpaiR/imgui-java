@@ -1,12 +1,12 @@
-import imgui.ImFontConfig;
-import imgui.ImFontGlyphRangesBuilder;
-import imgui.ImGui;
-import imgui.ImGuiIO;
-import imgui.app.Application;
-import imgui.app.Configuration;
-import imgui.flag.ImGuiConfigFlags;
-import imgui.flag.ImGuiInputTextFlags;
-import imgui.type.ImString;
+import io.github.spair.imgui.ImFontConfig;
+import io.github.spair.imgui.ImFontGlyphRangesBuilder;
+import io.github.spair.imgui.ImGui;
+import io.github.spair.imgui.ImGuiIO;
+import io.github.spair.imgui.app.Application;
+import io.github.spair.imgui.app.Configuration;
+import io.github.spair.imgui.flag.ImGuiConfigFlags;
+import io.github.spair.imgui.flag.ImGuiInputTextFlags;
+import io.github.spair.imgui.type.ImString;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

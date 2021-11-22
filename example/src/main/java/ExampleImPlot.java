@@ -1,9 +1,9 @@
-import imgui.extension.implot.ImPlot;
-import imgui.flag.ImGuiCond;
-import imgui.internal.ImGui;
-import imgui.type.ImBoolean;
+import io.github.spair.imgui.extension.implot.ImPlot;
+import io.github.spair.imgui.flag.ImGuiCond;
+import io.github.spair.imgui.internal.ImGui;
+import io.github.spair.imgui.type.ImBoolean;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.net.URI;
 
 public class ExampleImPlot {

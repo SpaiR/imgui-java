@@ -1,9 +1,9 @@
-import imgui.extension.imguifiledialog.ImGuiFileDialog;
-import imgui.extension.imguifiledialog.callback.ImGuiFileDialogPaneFun;
-import imgui.extension.imguifiledialog.flag.ImGuiFileDialogFlags;
-import imgui.flag.ImGuiCond;
-import imgui.internal.ImGui;
-import imgui.type.ImBoolean;
+import io.github.spair.imgui.extension.imguifiledialog.ImGuiFileDialog;
+import io.github.spair.imgui.extension.imguifiledialog.callback.ImGuiFileDialogPaneFun;
+import io.github.spair.imgui.extension.imguifiledialog.flag.ImGuiFileDialogFlags;
+import io.github.spair.imgui.flag.ImGuiCond;
+import io.github.spair.imgui.internal.ImGui;
+import io.github.spair.imgui.type.ImBoolean;
 
 import java.awt.*;
 import java.net.URI;

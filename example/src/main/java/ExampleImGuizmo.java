@@ -1,21 +1,18 @@
-import imgui.ImGui;
-import imgui.extension.imguizmo.ImGuizmo;
-import imgui.extension.imguizmo.flag.Mode;
-import imgui.extension.imguizmo.flag.Operation;
-import imgui.flag.ImGuiCond;
-import imgui.flag.ImGuiInputTextFlags;
-import imgui.flag.ImGuiWindowFlags;
-import imgui.type.ImBoolean;
-import imgui.type.ImFloat;
+import io.github.spair.imgui.ImGui;
+import io.github.spair.imgui.extension.imguizmo.ImGuizmo;
+import io.github.spair.imgui.extension.imguizmo.flag.Mode;
+import io.github.spair.imgui.extension.imguizmo.flag.Operation;
+import io.github.spair.imgui.flag.ImGuiCond;
+import io.github.spair.imgui.flag.ImGuiInputTextFlags;
+import io.github.spair.imgui.flag.ImGuiWindowFlags;
+import io.github.spair.imgui.type.ImBoolean;
+import io.github.spair.imgui.type.ImFloat;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.net.URI;
 import java.util.Arrays;
 
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_SHIFT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_R;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_S;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_T;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class ExampleImGuizmo {
     private static final String URL = "https://github.com/CedricGuillemet/ImGuizmo/tree/f7bbbe";

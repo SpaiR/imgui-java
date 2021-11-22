@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'signing'
+}
+
+def packageName = 'imgui-java-natives-linux'
+def packageDesc = 'Native binaries for imgui-java binding for Linux'
+def fromDir = '../bin'
+def libName = 'libimgui-java64.so'
+
+switch (findProperty('deployType')) {
+    case 'win':
+        packageName = 'imgui-java-natives-windows'
+        packageDesc = 'Native binaries for imgui-java binding for Windows'
+        libName = 'imgui-java64.dll'
+        break
+    case 'linux':
+        packageName = 'imgui-java-natives-linux'
+        packageDesc = 'Native binaries for imgui-java binding for Linux'
+        libName = 'libimgui-java64.so'
+        break
+    case 'mac':
+        packageName = 'imgui-java-natives-macos'
+        packageDesc = 'Native binaries for imgui-java binding for MacOS'
+        libName = 'libimgui-java64.dylib'
+        break
+}
+
+if (findProperty('freetype') == 'true') {
+    packageName += '-ft'
+    packageDesc += ' with Freetype support'
+    fromDir += '/freetype'
+}
+
+jar {
+    manifest {
+        attributes "Automatic-Module-Name": "io.github.spair.imgui.natives"
+    }
+    from(fromDir) {
+        include "$libName" // this is fine
+        into 'io/github/spair/imgui/natives/java/native-bin/'
+    }
+}
+
+apply from: "$rootDir/publish.gradle"
+configurePublishing(packageName, packageDesc)

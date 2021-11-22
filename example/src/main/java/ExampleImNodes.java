@@ -1,13 +1,13 @@
-import imgui.extension.imnodes.ImNodes;
-import imgui.extension.imnodes.ImNodesContext;
-import imgui.extension.imnodes.flag.ImNodesPinShape;
-import imgui.flag.ImGuiCond;
-import imgui.flag.ImGuiMouseButton;
-import imgui.internal.ImGui;
-import imgui.type.ImBoolean;
-import imgui.type.ImInt;
+import io.github.spair.imgui.extension.imnodes.ImNodes;
+import io.github.spair.imgui.extension.imnodes.ImNodesContext;
+import io.github.spair.imgui.extension.imnodes.flag.ImNodesPinShape;
+import io.github.spair.imgui.flag.ImGuiCond;
+import io.github.spair.imgui.flag.ImGuiMouseButton;
+import io.github.spair.imgui.internal.ImGui;
+import io.github.spair.imgui.type.ImBoolean;
+import io.github.spair.imgui.type.ImInt;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.net.URI;
 
 public class ExampleImNodes {

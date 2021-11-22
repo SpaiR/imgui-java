@@ -1,6 +1,6 @@
-import imgui.ImGui;
-import imgui.app.Application;
-import imgui.type.ImBoolean;
+import io.github.spair.imgui.ImGui;
+import io.github.spair.imgui.app.Application;
+import io.github.spair.imgui.type.ImBoolean;
 
 public class Extra {
     private static final ImBoolean SHOW_DEMO_WINDOW = new ImBoolean(false);

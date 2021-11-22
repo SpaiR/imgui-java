@@ -51,7 +51,7 @@ class GenerateLibs extends DefaultTask {
              'include/ImGuiFileDialog'].each {
                 spec.from(project.rootProject.file(it)) { CopySpec s -> s.include('*.h', '*.cpp', '*.inl') }
             }
-            spec.from(project.rootProject.file('imgui-binding/src/main/native'))
+            spec.from(project.rootProject.file('modules/io.github.spair.imgui/src/main/native'))
             spec.into(jniDir)
         }
 

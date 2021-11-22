@@ -1,5 +1,9 @@
 import tool.UpVersion
 
+ext {
+    lwjglVersion = "3.3.0"
+}
+
 allprojects {
     group 'imgui-java'
     version property('version')
@@ -9,7 +13,13 @@ allprojects {
     }
 
     tasks.withType(JavaCompile) {
-        sourceCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+
+        java {
+            toolchain {
+                languageVersion.set(JavaLanguageVersion.of(17))
+            }
+        }
     }
 }
 
@@ -19,11 +29,11 @@ tasks.register('buildAll') { t ->
     t.group = 'build'
     t.description = 'Build all project sources.'
 
-    t.dependsOn ':imgui-app:shadowJar'
+    t.dependsOn ':modules:io.github.spair.imgui.app:shadowJar'
 
-    ['app', 'binding', 'lwjgl3'].each { module ->
+    ['.app', '', '.lwjgl'].each { module ->
         ['build', 'sourcesJar', 'javadocJar'].each { task ->
-            t.dependsOn ":imgui-$module:$task"
+            t.dependsOn ":modules:io.github.spair.imgui$module:$task"
         }
     }
 }
