@@ -27,7 +27,7 @@ It hides all low-level stuff under one class to extend, so you can build your GU
 - **FreeType Font Renderer**<br>
   FreeType font renderer provides a much better fonts quality. [See how to use](#freetype).<br>
 - **Extensions**<br>
-  Binding includes several useful [extensions](https://github.com/ocornut/imgui/wiki/Useful-Widgets) for Dear ImGui. [See full list](#extensions).
+  Binding includes several useful [extensions](https://github.com/ocornut/imgui/wiki/Useful-Extensions) for Dear ImGui. [See full list](#extensions).
 
 # How to Try
 _Make sure you have installed Java 8 or higher._
@@ -129,11 +129,11 @@ You can refer to [imgui-app](https://github.com/SpaiR/imgui-java/blob/v1.84.1.4/
 For simplicity, example of dependencies for Gradle/Maven only shows how to add natives for Windows.
 Feel free to add other platforms.
 
-| Native Binaries                | System  |
-| ------------------------------ | ------- |
-| imgui-java-natives-windows     | Windows |
-| imgui-java-natives-linux       | Linux   |
-| imgui-java-natives-macos       | MacOS   |
+| Native Binaries            | System  |
+|----------------------------|---------|
+| imgui-java-natives-windows | Windows |
+| imgui-java-natives-linux   | Linux   |
+| imgui-java-natives-macos   | MacOS   |
 
 Take a note, that you also need to add dependencies to [LWJGL](https://www.lwjgl.org/). Examples below shows how to do it as well.
 
@@ -258,7 +258,7 @@ dependencies {
   Advanced 2D Plotting for Dear ImGui.  
 - [ImGuiColorTextEdit](https://github.com/BalazsJako/ImGuiColorTextEdit/tree/0a88824f7de8d0bd11d8419066caa7d3469395c4) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.84.1.4/example/src/main/java/ExampleImGuiColorTextEdit.java) <br>
   Syntax highlighting text editor for ImGui.
-- [ImGuiFileDialog](https://github.com/aiekick/ImGuiFileDialog/tree/4d42dfba125cbd4780a90fbc5f75e7dfbae64060) | [Example](https://github.com/SpaiR/imgui-java/blob/master/example/src/main/java/ExampleImGuiFileDialog.java) <br>
+- [ImGuiFileDialog](https://github.com/aiekick/ImGuiFileDialog/tree/4d42dfba125cbd4780a90fbc5f75e7dfbae64060) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.84.1.4/example/src/main/java/ExampleImGuiFileDialog.java) <br>
   A file selection dialog built for ImGui.
 
 ## Freetype
@@ -280,12 +280,6 @@ Don't forget to make clear for your Linux/Mac users, that they will need to inst
 ### How To Use FreeType
 - Maven/Gradle:<br>
   Use the same native libraries as you would, but with `-ft` suffix in the end.
-  
-  | Native Binaries With FreeType     |  System  |
-  | --------------------------------- |  ------- |
-  | imgui-java-natives-windows-ft     |  Windows |
-  | imgui-java-natives-linux-ft       |  Linux   |
-  | imgui-java-natives-macos-ft       |  MacOS   |
   <details>
         <summary><b>Modified Gradle Example</b></summary>
 
@@ -317,6 +311,12 @@ Don't forget to make clear for your Linux/Mac users, that they will need to inst
     </details>
 - If you're using raw dll/so files, go to the `bin/freetype` folder and take them from there.
 
+| Native Binaries With FreeType | System  |
+|-------------------------------|---------|
+| imgui-java-natives-windows-ft | Windows |
+| imgui-java-natives-linux-ft   | Linux   |
+| imgui-java-natives-macos-ft   | MacOS   |
+
 # Binding Notice
 Binding was made with java usage in mind. Some places of the original library were adapted for that.<br>
 For example, in places where in C++ you need to pass a reference value, in Java you pass primitive wrappers: `ImInt`, `ImFloat` etc.<br>
@@ -328,6 +328,10 @@ Most of the time you can ignore this fact and just work with objects in a common
 Read [javadoc](https://javadoc.io/doc/io.github.spair/imgui-java-binding) and source comments to get more info about how to do specific stuff.
 
 # How to Build Native Libraries
+Ensure you've downloaded git submodules. That could be achieved:
+- When cloning the repository: `git clone --recurse-submodules https://github.com/SpaiR/imgui-java.git`
+- When the repository cloned: `git submodule init` + `git submodule update`
+
 ### Windows
  - Make sure you have installed and **available in PATH**:
     * Java 8 or higher
