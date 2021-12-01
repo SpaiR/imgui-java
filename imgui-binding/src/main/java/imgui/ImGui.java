@@ -286,6 +286,24 @@ public class ImGui {
     */
 
     /**
+     * Create Stack Tool window. hover items with mouse to query information about the source of their unique ID.
+     */
+    public static void showStackToolWindow(ImBoolean pOpen) {
+        nShowMetricsWindow(pOpen.getData());
+    }
+
+    /**
+     * Create Stack Tool window. hover items with mouse to query information about the source of their unique ID.
+     */
+    public static native void showStackToolWindow(); /*
+        ImGui::ShowStackToolWindow();
+    */
+
+    private static native void nShowStackToolWindow(boolean[] pOpen); /*
+        ImGui::ShowStackToolWindow(&pOpen[0]);
+    */
+
+    /**
      * Create About window. display Dear ImGui version, credits and build/system information.
      */
     public static native void showAboutWindow(); /*
