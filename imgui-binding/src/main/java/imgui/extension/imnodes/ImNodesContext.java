@@ -13,7 +13,7 @@ public final class ImNodesContext extends ImGuiStructDestroyable {
     /*JNI
         #include "_imnodes.h"
 
-        #define IMNODES_CONTEXT ((imnodes::EditorContext*)STRUCT_PTR)
+        #define IMNODES_CONTEXT ((ImNodesEditorContext*)STRUCT_PTR)
      */
 
     @Override
@@ -27,10 +27,10 @@ public final class ImNodesContext extends ImGuiStructDestroyable {
     }
 
     private native long nCreate(); /*
-        return (intptr_t)imnodes::EditorContextCreate();
+        return (intptr_t)ImNodes::EditorContextCreate();
     */
 
     private native void nDestroy(); /*
-        imnodes::EditorContextFree(IMNODES_CONTEXT);
+        ImNodes::EditorContextFree(IMNODES_CONTEXT);
     */
 }
