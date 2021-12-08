@@ -1,5 +1,7 @@
 import tool.UpVersion
 
+ext["lwjgl"] = [bom:"org.lwjgl:lwjgl-bom:3.3.0"]
+
 allprojects {
     group 'imgui-java'
     version property('version')

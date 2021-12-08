@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    api platform('org.lwjgl:lwjgl-bom:3.2.3')
+    api platform(lwjgl.bom)
 
     api 'org.lwjgl:lwjgl'
     api 'org.lwjgl:lwjgl-glfw'
