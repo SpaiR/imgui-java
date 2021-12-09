@@ -39,7 +39,7 @@ public final class ImGuiFileDialog {
      *
      * @param vKey               key dialog
      * @param vTitle             title
-     * @param vFilters           filters
+     * @param vFilters           filters (in comma separated form i.e. ".png,.jpg" or ".*") or null for directories
      * @param vPath              path
      * @param vFileName          default file name
      * @param vCountSelectionMax count selection max
@@ -47,8 +47,25 @@ public final class ImGuiFileDialog {
      * @param vFlags             ImGuiFileDialogFlags
      */
     public static native void openDialog(String vKey, String vTitle, String vFilters, String vPath, String vFileName,
-                                         int vCountSelectionMax, long vUserDatas, int vFlags); /*
-        ImGuiFileDialog::Instance()->OpenDialog(vKey, vTitle, vFilters, vPath, vFileName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+                                         int vCountSelectionMax, long vUserDatas, int vFlags); /*MANUAL
+
+        char* vKey = (char*)env->GetStringUTFChars(obj_vKey, 0);
+        char* vTitle = (char*)env->GetStringUTFChars(obj_vTitle, 0);
+        char* vPath = (char*)env->GetStringUTFChars(obj_vPath, 0);
+        char* vFileName = (char*)env->GetStringUTFChars(obj_vFileName, 0);
+
+        if (env->IsSameObject(obj_vFilters, NULL)) {
+            ImGuiFileDialog::Instance()->OpenDialog(vKey, vTitle, nullptr, vPath, vFileName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+        } else {
+            char* vFilters = (char*)env->GetStringUTFChars(obj_vFilters, JNI_FALSE);
+            ImGuiFileDialog::Instance()->OpenDialog(vKey, vTitle, vFilters, vPath, vFileName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+            env->ReleaseStringUTFChars(obj_vFilters, vFilters);
+        }
+
+        env->ReleaseStringUTFChars(obj_vKey, vKey);
+        env->ReleaseStringUTFChars(obj_vTitle, vTitle);
+        env->ReleaseStringUTFChars(obj_vPath, vPath);
+        env->ReleaseStringUTFChars(obj_vFileName, vFileName);
     */
 
 
@@ -57,7 +74,7 @@ public final class ImGuiFileDialog {
      *
      * @param vKey               key dialog
      * @param vTitle             title
-     * @param vFilters           filters
+     * @param vFilters           filters (in comma separated form i.e. ".png,.jpg" or ".*") or null for directories
      * @param vPath              path
      * @param vFileName          default file name
      * @param vCountSelectionMax count selection max
@@ -65,8 +82,24 @@ public final class ImGuiFileDialog {
      * @param vFlags             ImGuiFileDialogFlags
      */
     public static native void openModal(String vKey, String vTitle, String vFilters, String vPath, String vFileName,
-                                        int vCountSelectionMax, long vUserDatas, int vFlags);  /*
-        ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vPath, vFileName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+                                        int vCountSelectionMax, long vUserDatas, int vFlags);  /*MANUAL
+        char* vKey = (char*)env->GetStringUTFChars(obj_vKey, 0);
+        char* vTitle = (char*)env->GetStringUTFChars(obj_vTitle, 0);
+        char* vPath = (char*)env->GetStringUTFChars(obj_vPath, 0);
+        char* vFileName = (char*)env->GetStringUTFChars(obj_vFileName, 0);
+
+        if (env->IsSameObject(obj_vFilters, NULL)) {
+            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, nullptr, vPath, vFileName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+        } else {
+            char* vFilters = (char*)env->GetStringUTFChars(obj_vFilters, JNI_FALSE);
+            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vPath, vFileName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+            env->ReleaseStringUTFChars(obj_vFilters, vFilters);
+        }
+
+        env->ReleaseStringUTFChars(obj_vKey, vKey);
+        env->ReleaseStringUTFChars(obj_vTitle, vTitle);
+        env->ReleaseStringUTFChars(obj_vPath, vPath);
+        env->ReleaseStringUTFChars(obj_vFileName, vFileName);
     */
 
 
@@ -75,15 +108,29 @@ public final class ImGuiFileDialog {
      *
      * @param vKey               key dialog
      * @param vTitle             title
-     * @param vFilters           filters
+     * @param vFilters           filters (in comma separated form i.e. ".png,.jpg" or ".*") or null for directories
      * @param vFilePathName      file path name (will be decomposed in path and fileName)
      * @param vCountSelectionMax count selection max
      * @param vUserDatas         user datas (can be retrieved in pane)
      * @param vFlags             ImGuiFileDialogFlags
      */
     public static native void openModal(String vKey, String vTitle, String vFilters, String vFilePathName,
-                                        int vCountSelectionMax, long vUserDatas, int vFlags);  /*
-        ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vFilePathName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+                                        int vCountSelectionMax, long vUserDatas, int vFlags);  /*MANUAL
+        char* vKey = (char*)env->GetStringUTFChars(obj_vKey, 0);
+        char* vTitle = (char*)env->GetStringUTFChars(obj_vTitle, 0);
+        char* vFilePathName = (char*)env->GetStringUTFChars(obj_vFilePathName, 0);
+
+        if (env->IsSameObject(obj_vFilters, NULL)) {
+            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, nullptr, vFilePathName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+        } else {
+            char* vFilters = (char*)env->GetStringUTFChars(obj_vFilters, JNI_FALSE);
+            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vFilePathName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+            env->ReleaseStringUTFChars(obj_vFilters, vFilters);
+        }
+
+        env->ReleaseStringUTFChars(obj_vKey, vKey);
+        env->ReleaseStringUTFChars(obj_vTitle, vTitle);
+        env->ReleaseStringUTFChars(obj_vFilePathName, vFilePathName);
     */
 
 
@@ -92,7 +139,7 @@ public final class ImGuiFileDialog {
      *
      * @param vKey               key dialog
      * @param vTitle             title
-     * @param vFilters           filters
+     * @param vFilters           filters (in comma separated form i.e. ".png,.jpg" or ".*") or null for directories
      * @param vPath              path
      * @param vFileName          default file name
      * @param vSidePane          side pane
@@ -102,9 +149,26 @@ public final class ImGuiFileDialog {
      * @param vFlags             ImGuiFileDialogFlags
      */
     public static native void openModal(String vKey, String vTitle, String vFilters, String vPath, String vFileName, ImGuiFileDialogPaneFun vSidePane,
-                                        float vSidePaneWidth, int vCountSelectionMax, long vUserDatas, int vFlags); /*
+                                        float vSidePaneWidth, int vCountSelectionMax, long vUserDatas, int vFlags); /*MANUAL
         IMGFD_PANE_FUN_METHOD_TMPL()
-        ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vPath, vFileName, paneFunCallback, vSidePaneWidth, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+
+        char* vKey = (char*)env->GetStringUTFChars(obj_vKey, 0);
+        char* vTitle = (char*)env->GetStringUTFChars(obj_vTitle, 0);
+        char* vPath = (char*)env->GetStringUTFChars(obj_vPath, 0);
+        char* vFileName = (char*)env->GetStringUTFChars(obj_vFileName, 0);
+
+        if (env->IsSameObject(obj_vFilters, NULL)) {
+            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, nullptr, vPath, vFileName, paneFunCallback, vSidePaneWidth, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+        } else {
+            char* vFilters = (char*)env->GetStringUTFChars(obj_vFilters, JNI_FALSE);
+            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vPath, vFileName, paneFunCallback, vSidePaneWidth, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+            env->ReleaseStringUTFChars(obj_vFilters, vFilters);
+        }
+
+        env->ReleaseStringUTFChars(obj_vKey, vKey);
+        env->ReleaseStringUTFChars(obj_vTitle, vTitle);
+        env->ReleaseStringUTFChars(obj_vPath, vPath);
+        env->ReleaseStringUTFChars(obj_vFileName, vFileName);
      */
 
 
@@ -113,7 +177,7 @@ public final class ImGuiFileDialog {
      *
      * @param vKey               key dialog
      * @param vTitle             title
-     * @param vFilters           filters
+     * @param vFilters           filters (in comma separated form i.e. ".png,.jpg" or ".*") or null for directories
      * @param vFilePathName      file path name (will be decomposed in path and fileName)
      * @param vSidePane          side pane
      * @param vSidePaneWidth     side pane width
@@ -122,9 +186,24 @@ public final class ImGuiFileDialog {
      * @param vFlags             ImGuiFileDialogFlags
      */
     public static native void openModal(String vKey, String vTitle, String vFilters, String vFilePathName, ImGuiFileDialogPaneFun vSidePane,
-                                        float vSidePaneWidth, int vCountSelectionMax, long vUserDatas, int vFlags); /*
+                                        float vSidePaneWidth, int vCountSelectionMax, long vUserDatas, int vFlags); /*MANUAL
         IMGFD_PANE_FUN_METHOD_TMPL()
-        ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vFilePathName, paneFunCallback, vSidePaneWidth, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+
+        char* vKey = (char*)env->GetStringUTFChars(obj_vKey, 0);
+        char* vTitle = (char*)env->GetStringUTFChars(obj_vTitle, 0);
+        char* vFilePathName = (char*)env->GetStringUTFChars(obj_vFilePathName, 0);
+
+        if (env->IsSameObject(obj_vFilters, NULL)) {
+            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, nullptr, vFilePathName, paneFunCallback, vSidePaneWidth, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+        } else {
+            char* vFilters = (char*)env->GetStringUTFChars(obj_vFilters, JNI_FALSE);
+            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vFilePathName, paneFunCallback, vSidePaneWidth, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
+            env->ReleaseStringUTFChars(obj_vFilters, vFilters);
+        }
+
+        env->ReleaseStringUTFChars(obj_vKey, vKey);
+        env->ReleaseStringUTFChars(obj_vTitle, vTitle);
+        env->ReleaseStringUTFChars(obj_vFilePathName, vFilePathName);
      */
 
     /**
