@@ -49,6 +49,18 @@ public class ExampleImGuiFileDialog {
                 }
                 ImGuiFileDialog.close();
             }
+
+            if (ImGui.button("Browse Folder")) {
+                ImGuiFileDialog.openDialog("browse-folder-key", "Choose Folder", null, ".", "", 1, 7, ImGuiFileDialogFlags.None);
+            }
+
+            if (ImGuiFileDialog.display("browse-folder-key", ImGuiFileDialogFlags.None, 200, 400, 800, 600)) {
+                if (ImGuiFileDialog.isOk()) {
+                    selection = ImGuiFileDialog.getSelection();
+                    userData = ImGuiFileDialog.getUserDatas();
+                }
+                ImGuiFileDialog.close();
+            }
         }
 
         if (selection != null && !selection.isEmpty()) {
