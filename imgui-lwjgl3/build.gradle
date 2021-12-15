@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    implementation platform("org.lwjgl:lwjgl-bom:3.2.3")
+    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
     implementation 'org.lwjgl:lwjgl'
     implementation 'org.lwjgl:lwjgl-glfw'

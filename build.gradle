@@ -1,5 +1,9 @@
 import tool.UpVersion
 
+ext {
+    lwjglVersion = '3.3.0'
+}
+
 allprojects {
     group 'imgui-java'
     version property('version')
