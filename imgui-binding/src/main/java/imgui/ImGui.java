@@ -1,5 +1,6 @@
 package imgui;
 
+import imgui.assertion.ImAssertCallback;
 import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiDragDropFlags;
 import imgui.flag.ImGuiInputTextFlags;
@@ -76,6 +77,12 @@ public class ImGui {
         ImFontAtlas.nInit();
         ImGuiPlatformIO.init();
         nInitInputTextData();
+        setAssertCallback(new ImAssertCallback() {
+            @Override
+            public void imAssert(String assertion) {
+                throw new RuntimeException("ImGui Assertion Failure: " + assertion);
+            }
+        });
     }
 
     private static String resolveFullLibName() {
@@ -134,6 +141,7 @@ public class ImGui {
         Jni::InitCommon(env);
         Jni::InitCallbacks(env);
         Jni::InitBindingStruct(env);
+        Jni::InitAssertion(env);
     */
 
     // Context creation and access
@@ -188,6 +196,10 @@ public class ImGui {
 
     private static native void nSetCurrentContext(long ptr); /*
         ImGui::SetCurrentContext((ImGuiContext*) ptr);
+    */
+
+    public static native void setAssertCallback(ImAssertCallback callback); /*
+        Jni::SetAssertionCallback(callback);
     */
 
     // Main
