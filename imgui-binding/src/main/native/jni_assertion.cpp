@@ -2,16 +2,16 @@
 
 static JavaVM* assertJvm;
 
+jmethodID jImAssertCallbackMID = NULL;
+jobject jImAssertCallbackInstance = NULL;
+
 namespace Jni
-{
-    jmethodID jImAssertCallbackMID;
-    jobject jImAssertCallbackInstance = NULL;
-    
+{    
     void InitAssertion(JNIEnv* env) {
         env->GetJavaVM(&assertJvm);
         
         jclass jImAssertCallback = env->FindClass("imgui/assertion/ImAssertCallback");
-        jImAssertCallbackMID = env->GetMethodID(jImAssertCallback, "imAssert", "(Ljava/lang/String;)V");
+        jImAssertCallbackMID = env->GetMethodID(jImAssertCallback, "imAssert", "(Ljava/lang/String;ILjava/lang/String;)V");
     }
     
     JNIEnv* GetAssertEnv() {
@@ -21,7 +21,8 @@ namespace Jni
         return env;
     }
     
-    void SetAssertionCallback(JNIEnv* env, jobject func) {
+    void SetAssertionCallback(jobject func) {
+        JNIEnv* env = Jni::GetAssertEnv();
         if (jImAssertCallbackInstance != NULL) {
             env->DeleteGlobalRef(jImAssertCallbackInstance);
         }
@@ -32,14 +33,12 @@ namespace Jni
         }
     }
         
-    void ImAssertToException(JNIEnv* env, const char* assertion) {
-        CallImAssert(env, jImAssertCallbackInstance, assertion);
-    }
-       
-    void CallImAssert(JNIEnv* env, jobject func, const char* assertion) {
-        assert(assertion != NULL); //Sanity check for EXCEPTION_ACCESS_VIOLATION
-        if (func != NULL) {
-            env->CallVoidMethod(func, jImAssertCallbackMID, env->NewStringUTF(assertion));
+    void ImAssertToCallback(const char* assertion, int line, const char* file) {
+        JNIEnv* env = Jni::GetAssertEnv();
+        assert(jImAssertCallbackMID != NULL);
+        assert(assertion != NULL);
+        if (jImAssertCallbackInstance != NULL) {
+            env->CallVoidMethod(jImAssertCallbackInstance, jImAssertCallbackMID, env->NewStringUTF(assertion), line, env->NewStringUTF(file));
         }
     }
     

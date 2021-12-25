@@ -9,11 +9,9 @@ namespace Jni
     
     JNIEnv* GetAssertEnv();
     
-    void SetAssertionCallback(JNIEnv* env, jobject func);
-        
-    void CallImAssert(JNIEnv* env, jobject func, const char* assertion);
+    void SetAssertionCallback(jobject func);
     
-    void ImAssertToException(JNIEnv* env, const char* assertion);
+    void ImAssertToCallback(const char* assertion, int line, const char* file);
     
     bool ImAssertionSet();
 }

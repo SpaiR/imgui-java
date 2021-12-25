@@ -79,8 +79,10 @@ public class ImGui {
         nInitInputTextData();
         setAssertCallback(new ImAssertCallback() {
             @Override
-            public void imAssert(String assertion) {
-                throw new RuntimeException("ImGui Assertion Failure: " + assertion);
+            public void imAssertCallback(String assertion, int line, String file) {
+                System.err.println("ImGui Assertion Failed: " + assertion);
+                System.err.println("Assertion Located At: " + file + ":" + line);
+                Thread.dumpStack();
             }
         });
     }
@@ -198,8 +200,15 @@ public class ImGui {
         ImGui::SetCurrentContext((ImGuiContext*) ptr);
     */
 
+    /**
+     * Set a custom assertion callback for ImGui assertions.
+     * Take note: Any custom assertion callback SHOULD NOT throw any exception.
+     * After any callback the application will be terminated, any attempt to bypass this behavior
+     * will result in a EXCEPTION_ACCESS_VIOLATION from within the native layer.
+     * @param callback The custom ImGui assertion callback
+     */
     public static native void setAssertCallback(ImAssertCallback callback); /*
-        Jni::SetAssertionCallback(env, callback);
+        Jni::SetAssertionCallback(callback);
     */
 
     // Main
