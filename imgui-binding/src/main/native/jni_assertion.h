@@ -1,13 +1,11 @@
 #pragma once
 
-#include <jni.h>
+#include "jni_jvm.h"
 #include <assert.h>
 
 namespace Jni
 {
     void InitAssertion(JNIEnv* env);
-    
-    JNIEnv* GetAssertEnv();
     
     void SetAssertionCallback(jobject func);
     

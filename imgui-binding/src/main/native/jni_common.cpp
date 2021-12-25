@@ -8,13 +8,9 @@ jfieldID imVec4YID;
 jfieldID imVec4ZID;
 jfieldID imVec4WID;
 
-static JavaVM* jvm;
-
 namespace Jni
 {
     void InitCommon(JNIEnv* env) {
-        env->GetJavaVM(&jvm);
-
         jclass jImVec2Class = env->FindClass("imgui/ImVec2");
         imVec2XID = env->GetFieldID(jImVec2Class, "x", "F");
         imVec2YID = env->GetFieldID(jImVec2Class, "y", "F");
@@ -24,13 +20,6 @@ namespace Jni
         imVec4YID = env->GetFieldID(jImVec4Class, "y", "F");
         imVec4ZID = env->GetFieldID(jImVec4Class, "z", "F");
         imVec4WID = env->GetFieldID(jImVec4Class, "w", "F");
-    }
-
-    JNIEnv* GetEnv() {
-        JNIEnv* env;
-        jint res = jvm->GetEnv((void**)(&env), JNI_VERSION_1_8);
-        assert(res == JNI_OK);
-        return env;
     }
 
     void ImVec2Cpy(JNIEnv* env, ImVec2* src, jobject dst) {

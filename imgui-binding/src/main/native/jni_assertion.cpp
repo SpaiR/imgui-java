@@ -1,28 +1,17 @@
 #include "jni_assertion.h"
 
-static JavaVM* assertJvm;
-
 jmethodID jImAssertCallbackMID = NULL;
 jobject jImAssertCallbackInstance = NULL;
 
 namespace Jni
 {    
-    void InitAssertion(JNIEnv* env) {
-        env->GetJavaVM(&assertJvm);
-        
+    void InitAssertion(JNIEnv* env) {      
         jclass jImAssertCallback = env->FindClass("imgui/assertion/ImAssertCallback");
         jImAssertCallbackMID = env->GetMethodID(jImAssertCallback, "imAssert", "(Ljava/lang/String;ILjava/lang/String;)V");
     }
     
-    JNIEnv* GetAssertEnv() {
-        JNIEnv* env;
-        jint res = assertJvm->GetEnv((void**)(&env), JNI_VERSION_1_8);
-        assert(res == JNI_OK);
-        return env;
-    }
-    
     void SetAssertionCallback(jobject func) {
-        JNIEnv* env = Jni::GetAssertEnv();
+        JNIEnv* env = Jni::GetEnv();
         if (jImAssertCallbackInstance != NULL) {
             env->DeleteGlobalRef(jImAssertCallbackInstance);
         }
@@ -34,7 +23,7 @@ namespace Jni
     }
         
     void ImAssertToCallback(const char* assertion, int line, const char* file) {
-        JNIEnv* env = Jni::GetAssertEnv();
+        JNIEnv* env = Jni::GetEnv();
         assert(jImAssertCallbackMID != NULL);
         assert(assertion != NULL);
         if (jImAssertCallbackInstance != NULL) {

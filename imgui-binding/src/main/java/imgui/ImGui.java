@@ -140,6 +140,7 @@ public class ImGui {
      */
 
     private static native void nInitJni(); /*
+        Jni::InitJvm(env);
         Jni::InitCommon(env);
         Jni::InitAssertion(env);
         Jni::InitCallbacks(env);

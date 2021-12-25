@@ -8,6 +8,5 @@
 #include <unordered_map>
 #include <map>
 #include <regex>
-#include "_base.h"
-#include "_binding.h"
+#include "_common.h"
 #include "TextEditor.h"
