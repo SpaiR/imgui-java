@@ -1,37 +1,49 @@
 #include "jni_assertion.h"
 
+static JavaVM* assertJvm;
+
 namespace Jni
 {
     jmethodID jImAssertCallbackMID;
     jobject jImAssertCallbackInstance = NULL;
-    JNIEnv* globalEnv;
     
     void InitAssertion(JNIEnv* env) {
-        globalEnv = env;
+        env->GetJavaVM(&assertJvm);
+        
         jclass jImAssertCallback = env->FindClass("imgui/assertion/ImAssertCallback");
         jImAssertCallbackMID = env->GetMethodID(jImAssertCallback, "imAssert", "(Ljava/lang/String;)V");
     }
     
-    void SetAssertionCallback(jobject func) {
+    JNIEnv* GetAssertEnv() {
+        JNIEnv* env;
+        jint res = assertJvm->GetEnv((void**)(&env), JNI_VERSION_1_8);
+        assert(res == JNI_OK);
+        return env;
+    }
+    
+    void SetAssertionCallback(JNIEnv* env, jobject func) {
         if (jImAssertCallbackInstance != NULL) {
-            globalEnv->DeleteGlobalRef(jImAssertCallbackInstance);
+            env->DeleteGlobalRef(jImAssertCallbackInstance);
         }
         if (func != NULL) {
-            jImAssertCallbackInstance = globalEnv->NewGlobalRef(func);
+            jImAssertCallbackInstance = env->NewGlobalRef(func);
         } else {
             jImAssertCallbackInstance = NULL;   
         }
     }
         
-    void ImAssertToException(const char* assertion) {
-        CallImAssert(globalEnv, jImAssertCallbackInstance, assertion);
+    void ImAssertToException(JNIEnv* env, const char* assertion) {
+        CallImAssert(env, jImAssertCallbackInstance, assertion);
     }
        
     void CallImAssert(JNIEnv* env, jobject func, const char* assertion) {
-        if (jImAssertCallbackInstance != NULL) {
+        assert(assertion != NULL); //Sanity check for EXCEPTION_ACCESS_VIOLATION
+        if (func != NULL) {
             env->CallVoidMethod(func, jImAssertCallbackMID, env->NewStringUTF(assertion));
-        } else {
-               assert(assertion);
         }
+    }
+    
+    bool ImAssertionSet() {
+        return jImAssertCallbackInstance != NULL;
     }
 }

@@ -139,9 +139,9 @@ public class ImGui {
 
     private static native void nInitJni(); /*
         Jni::InitCommon(env);
+        Jni::InitAssertion(env);
         Jni::InitCallbacks(env);
         Jni::InitBindingStruct(env);
-        Jni::InitAssertion(env);
     */
 
     // Context creation and access
@@ -199,7 +199,7 @@ public class ImGui {
     */
 
     public static native void setAssertCallback(ImAssertCallback callback); /*
-        Jni::SetAssertionCallback(callback);
+        Jni::SetAssertionCallback(env, callback);
     */
 
     // Main

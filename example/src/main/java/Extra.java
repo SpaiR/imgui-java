@@ -56,5 +56,8 @@ public class Extra {
         if (SHOW_IMGUI_FILE_DIALOG_WINDOW.get()) {
             ExampleImGuiFileDialog.show(SHOW_IMGUI_FILE_DIALOG_WINDOW);
         }
+
+        //ImGui.popStyleColor();
+        ImGui.popID();
     }
 }
