@@ -4,30 +4,32 @@ namespace Jni
 {
     jmethodID jImAssertCallbackMID;
     jobject jImAssertCallbackInstance = NULL;
+    JNIEnv* globalEnv;
     
     void InitAssertion(JNIEnv* env) {
-         jclass jImAssertCallback = env->FindClass("imgui/callback/ImAssertCallback");
-         jImAssertCallbackMID = env->GetMethodID(jImAssertCallback, "imAssert", "(Ljava/lang/String;)V");
+        globalEnv = env;
+        jclass jImAssertCallback = env->FindClass("imgui/assertion/ImAssertCallback");
+        jImAssertCallbackMID = env->GetMethodID(jImAssertCallback, "imAssert", "(Ljava/lang/String;)V");
     }
     
     void SetAssertionCallback(jobject func) {
         if (jImAssertCallbackInstance != NULL) {
-            env->DeleteGlobalRef(jImAssertCallbackInstance);
+            globalEnv->DeleteGlobalRef(jImAssertCallbackInstance);
         }
         if (func != NULL) {
-            jImAssertCallbackInstance = env->NewGlobalRef(func);
+            jImAssertCallbackInstance = globalEnv->NewGlobalRef(func);
         } else {
             jImAssertCallbackInstance = NULL;   
         }
     }
         
     void ImAssertToException(const char* assertion) {
-        CallImAssert(Jni::GetEnv(), jImAssertCallbackInstance, assertion)
+        CallImAssert(globalEnv, jImAssertCallbackInstance, assertion);
     }
        
     void CallImAssert(JNIEnv* env, jobject func, const char* assertion) {
-        if (jImAssertCallbackInstance != null) {
-            env->CallVoidMethod(func, jImAssertCallbackMID, env->NewStringUTF(str));
+        if (jImAssertCallbackInstance != NULL) {
+            env->CallVoidMethod(func, jImAssertCallbackMID, env->NewStringUTF(assertion));
         } else {
                assert(assertion);
         }
