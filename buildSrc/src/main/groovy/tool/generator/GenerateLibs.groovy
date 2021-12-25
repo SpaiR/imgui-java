@@ -54,7 +54,7 @@ class GenerateLibs extends DefaultTask {
             }
             spec.from(project.rootProject.file('imgui-binding/src/main/native'))
             spec.into(jniDir)
-            spec.duplicatesStrategy = DuplicatesStrategy.INCLUDE
+            spec.duplicatesStrategy = DuplicatesStrategy.INCLUDE //Allows for duplicate imconfig.h, we ensure the correct one is copied below
         }
 
         //Ensure we overwrite imconfig.h with our own
