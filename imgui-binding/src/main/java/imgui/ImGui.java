@@ -80,7 +80,7 @@ public class ImGui {
         setAssertCallback(new ImAssertCallback() {
             @Override
             public void imAssertCallback(String assertion, int line, String file) {
-                System.err.println("ImGui Assertion Failed: " + assertion);
+                System.err.println("Dear ImGui Assertion Failed: " + assertion);
                 System.err.println("Assertion Located At: " + file + ":" + line);
                 Thread.dumpStack();
             }

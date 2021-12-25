@@ -20,8 +20,8 @@ public abstract class ImAssertCallback {
         try {
             imAssertCallback(assertion, line, file);
         } catch (Exception ex) {
-            System.err.println("WARNING: Exception thrown in ImGui Assertion Callback!");
-            System.err.println("ImGui Assertion Failed: " + assertion);
+            System.err.println("WARNING: Exception thrown in Dear ImGui Assertion Callback!");
+            System.err.println("Dear ImGui Assertion Failed: " + assertion);
             System.err.println("Assertion Located At: " + file + ":" + line);
             ex.printStackTrace();
         }
