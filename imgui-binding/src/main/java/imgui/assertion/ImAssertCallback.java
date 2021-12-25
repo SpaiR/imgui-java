@@ -16,7 +16,7 @@ public abstract class ImAssertCallback {
      * @param line      The line number of the assertion in the source file
      * @param file      The source file where the assertion occurred
      */
-    public void imAssert(String assertion, int line, String file) {
+    public void imAssert(final String assertion, final int line, final String file) {
         try {
             imAssertCallback(assertion, line, file);
         } catch (Exception ex) {
