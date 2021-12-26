@@ -106,6 +106,7 @@ public final class ImGuiImplGl3 {
      *  4.1       410       "#version 410 core"
      *  4.2       420       "#version 410 core"
      *  4.3       430       "#version 430 core"
+     *  ES 3.0    300       "#version 300 es"   = WebGL 2.0
      * ---------------------------------------
      * </pre>
      * <p>
@@ -138,7 +139,13 @@ public final class ImGuiImplGl3 {
 
         // Will project scissor/clipping rectangles into framebuffer space
         drawData.getDisplaySize(displaySize);           // (0,0) unless using multi-viewports
+        drawData.getDisplayPos(displayPos);
         drawData.getFramebufferScale(framebufferScale); // (1,1) unless using retina display which are often (2,2)
+
+        final float clipOffX = displayPos.x;
+        final float clipOffY = displayPos.y;
+        final float clipScaleX = framebufferScale.x;
+        final float clipScaleY = framebufferScale.y;
 
         // Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer coordinates)
         final int fbWidth = (int) (displaySize.x * framebufferScale.x);
@@ -147,8 +154,6 @@ public final class ImGuiImplGl3 {
         if (fbWidth <= 0 || fbHeight <= 0) {
             return;
         }
-
-        drawData.getDisplayPos(displayPos);
 
         backupGlState();
         bind(fbWidth, fbHeight);
@@ -162,29 +167,31 @@ public final class ImGuiImplGl3 {
             for (int cmdBufferIdx = 0; cmdBufferIdx < drawData.getCmdListCmdBufferSize(cmdListIdx); cmdBufferIdx++) {
                 drawData.getCmdListCmdBufferClipRect(cmdListIdx, cmdBufferIdx, clipRect);
 
-                final float clipRectX = (clipRect.x - displayPos.x) * framebufferScale.x;
-                final float clipRectY = (clipRect.y - displayPos.y) * framebufferScale.y;
-                final float clipRectZ = (clipRect.z - displayPos.x) * framebufferScale.x;
-                final float clipRectW = (clipRect.w - displayPos.y) * framebufferScale.y;
+                final float clipMinX = (clipRect.x - clipOffX) * clipScaleX;
+                final float clipMinY = (clipRect.y - clipOffY) * clipScaleY;
+                final float clipMaxX = (clipRect.z - clipOffX) * clipScaleX;
+                final float clipMaxY = (clipRect.w - clipOffY) * clipScaleY;
 
-                if (clipRectX < fbWidth && clipRectY < fbHeight && clipRectZ >= 0.0f && clipRectW >= 0.0f) {
-                    // Apply scissor/clipping rectangle
-                    glScissor((int) clipRectX, (int) (fbHeight - clipRectW), (int) (clipRectZ - clipRectX), (int) (clipRectW - clipRectY));
+                if (clipMaxX <= clipMinX || clipMaxY <= clipMinY) {
+                    continue;
+                }
 
-                    // Bind texture, Draw
-                    final int textureId = drawData.getCmdListCmdBufferTextureId(cmdListIdx, cmdBufferIdx);
-                    final int elemCount = drawData.getCmdListCmdBufferElemCount(cmdListIdx, cmdBufferIdx);
-                    final int idxBufferOffset = drawData.getCmdListCmdBufferIdxOffset(cmdListIdx, cmdBufferIdx);
-                    final int vtxBufferOffset = drawData.getCmdListCmdBufferVtxOffset(cmdListIdx, cmdBufferIdx);
-                    final int indices = idxBufferOffset * ImDrawData.SIZEOF_IM_DRAW_IDX;
+                // Apply scissor/clipping rectangle (Y is inverted in OpenGL)
+                glScissor((int) clipMinX, (int) (fbHeight - clipMaxY), (int) (clipMaxX - clipMinX), (int) (clipMaxY - clipMinY));
 
-                    glBindTexture(GL_TEXTURE_2D, textureId);
+                // Bind texture, Draw
+                final int textureId = drawData.getCmdListCmdBufferTextureId(cmdListIdx, cmdBufferIdx);
+                final int elemCount = drawData.getCmdListCmdBufferElemCount(cmdListIdx, cmdBufferIdx);
+                final int idxBufferOffset = drawData.getCmdListCmdBufferIdxOffset(cmdListIdx, cmdBufferIdx);
+                final int vtxBufferOffset = drawData.getCmdListCmdBufferVtxOffset(cmdListIdx, cmdBufferIdx);
+                final int indices = idxBufferOffset * ImDrawData.SIZEOF_IM_DRAW_IDX;
 
-                    if (glVersion >= 320) {
-                        glDrawElementsBaseVertex(GL_TRIANGLES, elemCount, GL_UNSIGNED_SHORT, indices, vtxBufferOffset);
-                    } else {
-                        glDrawElements(GL_TRIANGLES, elemCount, GL_UNSIGNED_SHORT, indices);
-                    }
+                glBindTexture(GL_TEXTURE_2D, textureId);
+
+                if (glVersion >= 320) {
+                    glDrawElementsBaseVertex(GL_TRIANGLES, elemCount, GL_UNSIGNED_SHORT, indices, vtxBufferOffset);
+                } else {
+                    glDrawElements(GL_TRIANGLES, elemCount, GL_UNSIGNED_SHORT, indices);
                 }
             }
         }
@@ -288,6 +295,9 @@ public final class ImGuiImplGl3 {
         if (glslVersionValue < 130) {
             vertShaderSource = getVertexShaderGlsl120();
             fragShaderSource = getFragmentShaderGlsl120();
+        } else if (glslVersionValue == 300) {
+            vertShaderSource = getVertexShaderGlsl300es();
+            fragShaderSource = getFragmentShaderGlsl300es();
         } else if (glslVersionValue >= 410) {
             vertShaderSource = getVertexShaderGlsl410Core();
             fragShaderSource = getFragmentShaderGlsl410Core();
@@ -484,6 +494,23 @@ public final class ImGuiImplGl3 {
             + "}\n";
     }
 
+    private String getVertexShaderGlsl300es() {
+        return glslVersion + "\n"
+            + "precision highp float;\n"
+            + "layout (location = 0) in vec2 Position;\n"
+            + "layout (location = 1) in vec2 UV;\n"
+            + "layout (location = 2) in vec4 Color;\n"
+            + "uniform mat4 ProjMtx;\n"
+            + "out vec2 Frag_UV;\n"
+            + "out vec4 Frag_Color;\n"
+            + "void main()\n"
+            + "{\n"
+            + "    Frag_UV = UV;\n"
+            + "    Frag_Color = Color;\n"
+            + "    gl_Position = ProjMtx * vec4(Position.xy,0,1);\n"
+            + "}\n";
+    }
+
     private String getVertexShaderGlsl410Core() {
         return glslVersion + "\n"
             + "layout (location = 0) in vec2 Position;\n"
@@ -520,6 +547,19 @@ public final class ImGuiImplGl3 {
             + "in vec2 Frag_UV;\n"
             + "in vec4 Frag_Color;\n"
             + "out vec4 Out_Color;\n"
+            + "void main()\n"
+            + "{\n"
+            + "    Out_Color = Frag_Color * texture(Texture, Frag_UV.st);\n"
+            + "}\n";
+    }
+
+    private String getFragmentShaderGlsl300es() {
+        return glslVersion + "\n"
+            + "precision mediump float;\n"
+            + "uniform sampler2D Texture;\n"
+            + "in vec2 Frag_UV;\n"
+            + "in vec4 Frag_Color;\n"
+            + "layout (location = 0) out vec4 Out_Color;\n"
             + "void main()\n"
             + "{\n"
             + "    Out_Color = Frag_Color * texture(Texture, Frag_UV.st);\n"

@@ -97,7 +97,7 @@ public final class ImDrawData extends ImGuiStruct {
     */
 
     public ByteBuffer getCmdListIdxBufferData(final int cmdListIdx) {
-        final int idxBufferCapacity = getCmdListIdxBufferSize(cmdListIdx) * SIZEOF_IM_DRAW_IDX;
+        final int idxBufferCapacity = getCmdListIdxBufferSize(cmdListIdx) * sizeOfImDrawIdx();
         if (dataBuffer.capacity() < idxBufferCapacity) {
             dataBuffer.clear();
             dataBuffer = ByteBuffer.allocateDirect(idxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
@@ -123,7 +123,7 @@ public final class ImDrawData extends ImGuiStruct {
     */
 
     public ByteBuffer getCmdListVtxBufferData(final int cmdListIdx) {
-        final int vtxBufferCapacity = getCmdListVtxBufferSize(cmdListIdx) * SIZEOF_IM_DRAW_VERT;
+        final int vtxBufferCapacity = getCmdListVtxBufferSize(cmdListIdx) * sizeOfImDrawVert();
         if (dataBuffer.capacity() < vtxBufferCapacity) {
             dataBuffer.clear();
             dataBuffer = ByteBuffer.allocateDirect(vtxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
@@ -139,6 +139,14 @@ public final class ImDrawData extends ImGuiStruct {
 
     private native void nGetCmdListVtxBufferData(int cmdListIdx, ByteBuffer vtxBuffer, int vtxBufferCapacity); /*
         memcpy(vtxBuffer, IM_DRAW_DATA->CmdLists[cmdListIdx]->VtxBuffer.Data, vtxBufferCapacity);
+    */
+
+    public static native int sizeOfImDrawVert(); /*
+        return (int)sizeof(ImDrawVert);
+    */
+
+    public static native int sizeOfImDrawIdx(); /*
+        return (int)sizeof(ImDrawIdx);
     */
 
     ///////// End of Render Methods
