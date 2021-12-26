@@ -21,6 +21,7 @@ import imgui.callback.ImListClipperCallback;
  * - Clipper can measure the height of the first element
  * - Clipper calculate the actual range of elements to display based on the current clipping rectangle, position the cursor before the first visible element.
  * - User code submit visible elements.
+ * - The clipper also handles various subtleties related to keyboard/gamepad navigation, wrapping etc.
  * <p>
  * BINDING NOTICE:
  * It's impossible to implement the same API like in the original. Method {@link #forEach(int, int, ImListClipperCallback)} could be used instead.

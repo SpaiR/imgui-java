@@ -160,19 +160,19 @@ public final class ImGui extends imgui.ImGui {
     // Widgets low-level behaviors
 
     public static boolean splitterBehavior(float bbMinX, float bbMinY, float bbMaxX, float bbMaxY, int id, int imGuiAxis, ImFloat size1, ImFloat size2, float minSize1, float minSize2) {
-        return splitterBehavior(bbMinX, bbMinY, bbMaxX, bbMaxY, id, imGuiAxis, size1, size2, minSize1, minSize2, 0, 0);
+        return splitterBehavior(bbMinX, bbMinY, bbMaxX, bbMaxY, id, imGuiAxis, size1, size2, minSize1, minSize2, 0, 0, 0);
     }
 
     public static boolean splitterBehavior(float bbMinX, float bbMinY, float bbMaxX, float bbMaxY, int id, int imGuiAxis, ImFloat size1, ImFloat size2, float minSize1, float minSize2, float hoverExtend) {
-        return splitterBehavior(bbMinX, bbMinY, bbMaxX, bbMaxY, id, imGuiAxis, size1, size2, minSize1, minSize2, hoverExtend, 0);
+        return splitterBehavior(bbMinX, bbMinY, bbMaxX, bbMaxY, id, imGuiAxis, size1, size2, minSize1, minSize2, hoverExtend, 0, 0);
     }
 
-    public static boolean splitterBehavior(float bbMinX, float bbMinY, float bbMaxX, float bbMaxY, int id, int imGuiAxis, ImFloat size1, ImFloat size2, float minSize1, float minSize2, float hoverExtend, float hoverVisibilityDelay) {
-        return nSplitterBehaviour(bbMinX, bbMinY, bbMaxX, bbMaxY, id, imGuiAxis, size1.getData(), size2.getData(), minSize1, minSize2, hoverExtend, hoverVisibilityDelay);
+    public static boolean splitterBehavior(float bbMinX, float bbMinY, float bbMaxX, float bbMaxY, int id, int imGuiAxis, ImFloat size1, ImFloat size2, float minSize1, float minSize2, float hoverExtend, float hoverVisibilityDelay, int bgCol) {
+        return nSplitterBehaviour(bbMinX, bbMinY, bbMaxX, bbMaxY, id, imGuiAxis, size1.getData(), size2.getData(), minSize1, minSize2, hoverExtend, hoverVisibilityDelay, bgCol);
     }
 
-    private static native boolean nSplitterBehaviour(float bbMinX, float bbMinY, float bbMaxX, float bbMaxY, int id, int imGuiAxis, float[] size1, float[] size2, float minSize1, float minSize2, float hoverExtend, float hoverVisibilityDelay); /*
-        return ImGui::SplitterBehavior(ImRect(bbMinX, bbMinY, bbMaxX, bbMaxY), id, (ImGuiAxis)imGuiAxis, &size1[0], &size2[0], minSize1, minSize2, hoverExtend, hoverVisibilityDelay);
+    private static native boolean nSplitterBehaviour(float bbMinX, float bbMinY, float bbMaxX, float bbMaxY, int id, int imGuiAxis, float[] size1, float[] size2, float minSize1, float minSize2, float hoverExtend, float hoverVisibilityDelay, int bgCol); /*
+        return ImGui::SplitterBehavior(ImRect(bbMinX, bbMinY, bbMaxX, bbMaxY), id, (ImGuiAxis)imGuiAxis, &size1[0], &size2[0], minSize1, minSize2, hoverExtend, hoverVisibilityDelay, bgCol);
     */
 
     public static ImGuiWindow getCurrentWindow() {

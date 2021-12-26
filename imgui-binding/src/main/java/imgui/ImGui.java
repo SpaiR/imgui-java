@@ -5521,13 +5521,6 @@ public class ImGui {
     */
 
     /**
-     * Calculate coarse clipping for large list of evenly sized items. Prefer using the ImGuiListClipper higher-level helper if you can.
-     */
-    public static native void calcListClipping(int itemCount, float itemsHeight, int[] outItemsDisplayStart, int[] outItemsDisplayEnd); /*
-        ImGui::CalcListClipping(itemCount, itemsHeight, &outItemsDisplayStart[0], &outItemsDisplayEnd[0]);
-    */
-
-    /**
      * Helper to create a child window / scrolling region that looks like a normal widget frame
      */
     public static native boolean beginChildFrame(int id, float width, float height); /*
@@ -5712,6 +5705,13 @@ public class ImGui {
      */
     public static native boolean isMouseDoubleClicked(int button); /*
         return ImGui::IsMouseDoubleClicked(button);
+    */
+
+    /**
+     * Return the number of successive mouse-clicks at the time where a click happen (otherwise 0).
+     */
+    public static native int getMouseClickedCount(int button); /*
+        return ImGui::GetMouseClickedCount(button);
     */
 
     /**
