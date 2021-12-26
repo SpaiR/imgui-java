@@ -4,8 +4,8 @@ package imgui.app;
  * Application class from which ImGui applications extend.
  * Serves as an abstraction layer to hide all low-level details about window creation and rendering routine.
  *
- * <p><h3>Life-cycle</h3>
- * The entry point for ImGui applications is the Application class and {@link #launch(Application)} method.
+ * <h3>Life-cycle</h3>
+ * <p>The entry point for ImGui applications is the Application class and {@link #launch(Application)} method.
  * It initializes application instance and starts the main application loop.
  *
  * <ol>
@@ -25,8 +25,8 @@ package imgui.app;
  * Instead of creating widgets and adding listeners to them we have an application loop where everything is handled right away.
  * Read more about Immediate GUI mode to understand that paradigm better.
  *
- * <p><h3>Example</h3>
- * The simplest application example could be done in the next way:
+ * <h3>Example</h3>
+ * <p>The simplest application example could be done in the next way:
  *
  * <pre>
  * import imgui.ImGui;
@@ -44,10 +44,11 @@ package imgui.app;
  * }
  * </pre>
  *
- * <p>As its said, {@link #process()} method is meant to be overridden. All your application logic should go there.
+ * <p>
+ * As its said, {@link #process()} method is meant to be overridden. All your application logic should go there.
  *
- * <p><h3>Threading</h3>
- * Unlike other Java applications, ImGui is about "one thread for everything". You still can use multi-threading, but be careful.
+ * <h3>Threading</h3>
+ * <p>Unlike other Java applications, ImGui is about "one thread for everything". You still can use multi-threading, but be careful.
  * For example, large list of computations could be separated between application ticks. {@link #process()} method is called constantly.
  * Use that wisely and remember that all GUI should be in the main thread.
  */

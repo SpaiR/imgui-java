@@ -22,6 +22,7 @@ import imgui.flag.ImGuiNavInput;
 import imgui.flag.ImGuiViewportFlags;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFWCharCallback;
+import org.lwjgl.glfw.GLFWCursorEnterCallback;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWMonitorCallback;
@@ -29,6 +30,7 @@ import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWNativeWin32;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.glfw.GLFWWindowFocusCallback;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -93,19 +95,27 @@ public class ImGuiImplGlfw {
     private final float[] monitorContentScaleY = new float[1];
 
     // GLFW callbacks
+    private GLFWWindowFocusCallback prevUserCallbackWindowFocus = null;
     private GLFWMouseButtonCallback prevUserCallbackMouseButton = null;
     private GLFWScrollCallback prevUserCallbackScroll = null;
     private GLFWKeyCallback prevUserCallbackKey = null;
     private GLFWCharCallback prevUserCallbackChar = null;
     private GLFWMonitorCallback prevUserCallbackMonitor = null;
+    private GLFWCursorEnterCallback prevUserCallbackCursorEnter = null;
 
     // Internal data
     private boolean callbacksInstalled = false;
     private boolean wantUpdateMonitors = true;
     private double time = 0.0;
+    private long mouseWindowPtr;
 
     /**
      * Method to set the {@link GLFWMouseButtonCallback}.
+     *
+     * @param windowId pointer to the window
+     * @param button   clicked mouse button
+     * @param action   click action type
+     * @param mods     click modifiers
      */
     public void mouseButtonCallback(final long windowId, final int button, final int action, final int mods) {
         if (prevUserCallbackMouseButton != null && windowId == windowPtr) {
@@ -119,6 +129,10 @@ public class ImGuiImplGlfw {
 
     /**
      * Method to set the {@link GLFWScrollCallback}.
+     *
+     * @param windowId pointer to the window
+     * @param xOffset  scroll offset by x-axis
+     * @param yOffset  scroll offset by y-axis
      */
     public void scrollCallback(final long windowId, final double xOffset, final double yOffset) {
         if (prevUserCallbackScroll != null && windowId == windowPtr) {
@@ -132,6 +146,12 @@ public class ImGuiImplGlfw {
 
     /**
      * Method to set the {@link GLFWKeyCallback}.
+     *
+     * @param windowId pointer to the window
+     * @param key      pressed key
+     * @param scancode key scancode
+     * @param action   press action
+     * @param mods     press modifiers
      */
     public void keyCallback(final long windowId, final int key, final int scancode, final int action, final int mods) {
         if (prevUserCallbackKey != null && windowId == windowPtr) {
@@ -157,7 +177,43 @@ public class ImGuiImplGlfw {
     }
 
     /**
+     * Method to set the {@link GLFWWindowFocusCallback}.
+     *
+     * @param windowId pointer to the window
+     * @param focused  is window focused
+     */
+    public void windowFocusCallback(final long windowId, final boolean focused) {
+        if (prevUserCallbackWindowFocus != null && windowId == windowPtr) {
+            prevUserCallbackWindowFocus.invoke(windowId, focused);
+        }
+
+        ImGui.getIO().addFocusEvent(focused);
+    }
+
+    /**
+     * Method to set the {@link GLFWCursorEnterCallback}.
+     *
+     * @param windowId pointer to the window
+     * @param entered  is cursor entered
+     */
+    public void cursorEnterCallback(final long windowId, final boolean entered) {
+        if (prevUserCallbackCursorEnter != null && windowId == windowPtr) {
+            prevUserCallbackCursorEnter.invoke(windowId, entered);
+        }
+
+        if (entered) {
+            mouseWindowPtr = windowId;
+        }
+        if (!entered && mouseWindowPtr == windowId) {
+            mouseWindowPtr = 0;
+        }
+    }
+
+    /**
      * Method to set the {@link GLFWCharCallback}.
+     *
+     * @param windowId pointer to the window
+     * @param c        pressed char
      */
     public void charCallback(final long windowId, final int c) {
         if (prevUserCallbackChar != null && windowId == windowPtr) {
@@ -170,6 +226,9 @@ public class ImGuiImplGlfw {
 
     /**
      * Method to set the {@link GLFWMonitorCallback}.
+     *
+     * @param windowId pointer to the window
+     * @param event    monitor event type (ignored)
      */
     public void monitorCallback(final long windowId, final int event) {
         wantUpdateMonitors = true;
@@ -179,6 +238,10 @@ public class ImGuiImplGlfw {
      * Method to do an initialization of the {@link ImGuiImplGlfw} state. It SHOULD be called before calling the {@link ImGuiImplGlfw#newFrame()} method.
      * <p>
      * Method takes two arguments, which should be a valid GLFW window pointer and a boolean indicating whether or not to install callbacks.
+     *
+     * @param windowId         pointer to the window
+     * @param installCallbacks should window callbacks be installed
+     * @return true if everything initialized
      */
     public boolean init(final long windowId, final boolean installCallbacks) {
         this.windowPtr = windowId;
@@ -247,6 +310,8 @@ public class ImGuiImplGlfw {
 
         if (installCallbacks) {
             callbacksInstalled = true;
+            prevUserCallbackWindowFocus = glfwSetWindowFocusCallback(windowId, this::windowFocusCallback);
+            prevUserCallbackCursorEnter = glfwSetCursorEnterCallback(windowId, this::cursorEnterCallback);
             prevUserCallbackMouseButton = glfwSetMouseButtonCallback(windowId, this::mouseButtonCallback);
             prevUserCallbackScroll = glfwSetScrollCallback(windowId, this::scrollCallback);
             prevUserCallbackKey = glfwSetKeyCallback(windowId, this::keyCallback);
@@ -278,11 +343,6 @@ public class ImGuiImplGlfw {
      */
     public void newFrame() {
         final ImGuiIO io = ImGui.getIO();
-        if (!io.getFonts().isBuilt()) {
-            throw new IllegalStateException(
-                "Font atlas not built! It is generally built by the renderer back-end. Missing call to renderer init() method? e.g. ImGuiImplGl3.init()"
-            );
-        }
 
         glfwGetWindowSize(windowPtr, winWidth, winHeight);
         glfwGetFramebufferSize(windowPtr, fbWidth, fbHeight);
@@ -313,6 +373,8 @@ public class ImGuiImplGlfw {
         shutdownPlatformInterface();
 
         if (callbacksInstalled) {
+            glfwSetWindowFocusCallback(windowPtr, prevUserCallbackWindowFocus);
+            glfwSetCursorEnterCallback(windowPtr, prevUserCallbackCursorEnter);
             glfwSetMouseButtonCallback(windowPtr, prevUserCallbackMouseButton);
             glfwSetScrollCallback(windowPtr, prevUserCallbackScroll);
             glfwSetKeyCallback(windowPtr, prevUserCallbackKey);
@@ -362,24 +424,32 @@ public class ImGuiImplGlfw {
 
             final boolean focused = glfwGetWindowAttrib(windowPtr, GLFW_FOCUSED) != 0;
 
+            final long mouseWindowPtr = (this.mouseWindowPtr == windowPtr || focused) ? windowPtr : 0;
+
+            // Update mouse buttons
             if (focused) {
-                if (io.getWantSetMousePos()) {
-                    glfwSetCursorPos(windowPtr, mousePosBackup.x - viewport.getPosX(), mousePosBackup.y - viewport.getPosY());
-                } else {
-                    glfwGetCursorPos(windowPtr, mouseX, mouseY);
-
-                    if (io.hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
-                        // Multi-viewport mode: mouse position in OS absolute coordinates (io.MousePos is (0,0) when the mouse is on the upper-left of the primary monitor)
-                        glfwGetWindowPos(windowPtr, windowX, windowY);
-                        io.setMousePos((float) mouseX[0] + windowX[0], (float) mouseY[0] + windowY[0]);
-                    } else {
-                        // Single viewport mode: mouse position in client window coordinates (io.MousePos is (0,0) when the mouse is on the upper-left corner of the app window)
-                        io.setMousePos((float) mouseX[0], (float) mouseY[0]);
-                    }
-                }
-
                 for (int i = 0; i < ImGuiMouseButton.COUNT; i++) {
                     io.setMouseDown(i, glfwGetMouseButton(windowPtr, i) != 0);
+                }
+            }
+
+            // Set OS mouse position from Dear ImGui if requested (rarely used, only when ImGuiConfigFlags_NavEnableSetMousePos is enabled by user)
+            // (When multi-viewports are enabled, all Dear ImGui positions are same as OS positions)
+            if (io.getWantSetMousePos() && focused) {
+                glfwSetCursorPos(windowPtr, mousePosBackup.x - viewport.getPosX(), mousePosBackup.y - viewport.getPosY());
+            }
+
+            // Set Dear ImGui mouse position from OS position
+            if (mouseWindowPtr != 0) {
+                glfwGetCursorPos(mouseWindowPtr, mouseX, mouseY);
+
+                if (io.hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
+                    // Multi-viewport mode: mouse position in OS absolute coordinates (io.MousePos is (0,0) when the mouse is on the upper-left of the primary monitor)
+                    glfwGetWindowPos(windowPtr, windowX, windowY);
+                    io.setMousePos((float) mouseX[0] + windowX[0], (float) mouseY[0] + windowY[0]);
+                } else {
+                    // Single viewport mode: mouse position in client window coordinates (io.MousePos is (0,0) when the mouse is on the upper-left corner of the app window)
+                    io.setMousePos((float) mouseX[0], (float) mouseY[0]);
                 }
             }
         }

@@ -111,6 +111,8 @@ public final class ImGuiImplGl3 {
      * </pre>
      * <p>
      * If the argument is null, then a "#version 130" string will be used by default.
+     *
+     * @param glslVersion string with the version of the GLSL
      */
     public void init(final String glslVersion) {
         readGlVersion();
@@ -131,6 +133,8 @@ public final class ImGuiImplGl3 {
 
     /**
      * Method to render {@link ImDrawData} into current OpenGL context.
+     *
+     * @param drawData draw data to render
      */
     public void renderDrawData(final ImDrawData drawData) {
         if (drawData.getCmdListsCount() <= 0) {
