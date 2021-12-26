@@ -616,20 +616,6 @@ public final class ImGuiDockNode extends ImGuiStruct {
        IMGUI_DOCK_NODE->WantHiddenTabBarToggle = wantHiddenTabBarToggle;
     */
 
-    /**
-     * Update by DockNodeTreeUpdatePosSize() write-filtering
-     */
-    public native boolean getMarkedForPosSizeWrite(); /*
-       return IMGUI_DOCK_NODE->MarkedForPosSizeWrite;
-    */
-
-    /**
-     * Update by DockNodeTreeUpdatePosSize() write-filtering
-     */
-    public native void setMarkedForPosSizeWrite(boolean markedForPosSizeWrite); /*
-       IMGUI_DOCK_NODE->MarkedForPosSizeWrite = markedForPosSizeWrite;
-    */
-
     public native boolean isRootNode(); /*
         return IMGUI_DOCK_NODE->IsRootNode();
     */
