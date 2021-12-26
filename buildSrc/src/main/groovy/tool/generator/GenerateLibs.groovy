@@ -4,6 +4,7 @@ import com.badlogic.gdx.jnigen.*
 import groovy.transform.CompileStatic
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.CopySpec
+import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 
@@ -52,6 +53,13 @@ class GenerateLibs extends DefaultTask {
                 spec.from(project.rootProject.file(it)) { CopySpec s -> s.include('*.h', '*.cpp', '*.inl') }
             }
             spec.from(project.rootProject.file('imgui-binding/src/main/native'))
+            spec.into(jniDir)
+            spec.duplicatesStrategy = DuplicatesStrategy.INCLUDE //Allows for duplicate imconfig.h, we ensure the correct one is copied below
+        }
+
+        //Ensure we overwrite imconfig.h with our own
+        project.copy { CopySpec spec ->
+            spec.from(project.rootProject.file('imgui-binding/src/main/native/imconfig.h'))
             spec.into(jniDir)
         }
 

@@ -1,5 +1,6 @@
 package imgui;
 
+import imgui.assertion.ImAssertCallback;
 import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiDragDropFlags;
 import imgui.flag.ImGuiInputTextFlags;
@@ -76,6 +77,14 @@ public class ImGui {
         ImFontAtlas.nInit();
         ImGuiPlatformIO.init();
         nInitInputTextData();
+        setAssertCallback(new ImAssertCallback() {
+            @Override
+            public void imAssertCallback(String assertion, int line, String file) {
+                System.err.println("Dear ImGui Assertion Failed: " + assertion);
+                System.err.println("Assertion Located At: " + file + ":" + line);
+                Thread.dumpStack();
+            }
+        });
     }
 
     private static String resolveFullLibName() {
@@ -131,7 +140,9 @@ public class ImGui {
      */
 
     private static native void nInitJni(); /*
+        Jni::InitJvm(env);
         Jni::InitCommon(env);
+        Jni::InitAssertion(env);
         Jni::InitCallbacks(env);
         Jni::InitBindingStruct(env);
     */
@@ -188,6 +199,17 @@ public class ImGui {
 
     private static native void nSetCurrentContext(long ptr); /*
         ImGui::SetCurrentContext((ImGuiContext*) ptr);
+    */
+
+    /**
+     * Set a custom assertion callback for ImGui assertions.
+     * Take note: Any custom assertion callback SHOULD NOT throw any exception.
+     * After any callback the application will be terminated, any attempt to bypass this behavior
+     * will result in a EXCEPTION_ACCESS_VIOLATION from within the native layer.
+     * @param callback The custom ImGui assertion callback
+     */
+    public static native void setAssertCallback(ImAssertCallback callback); /*
+        Jni::SetAssertionCallback(callback);
     */
 
     // Main
