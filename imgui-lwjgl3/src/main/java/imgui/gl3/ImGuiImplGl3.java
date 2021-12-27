@@ -249,7 +249,7 @@ public final class ImGuiImplGl3 {
 
     private void setupBackendCapabilitiesFlags() {
         final ImGuiIO io = ImGui.getIO();
-        io.setBackendRendererName("imgui_java_impl_opnegl3");
+        io.setBackendRendererName("imgui_java_impl_opengl3");
 
         // We can honor the ImDrawCmd::VtxOffset field, allowing for large meshes.
         if (glVersion >= 320) {
