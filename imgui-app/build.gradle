@@ -6,6 +6,9 @@ plugins {
     id 'signing'
 }
 
+sourceCompatibility = '17'
+targetCompatibility = '1.8'
+
 repositories {
     mavenCentral()
 }
@@ -36,6 +39,9 @@ jar {
     from('../bin/freetype') {
         include 'imgui-java64.dll'
         into 'io/imgui/java/native-bin/'
+    }
+    manifest {
+        attributes  'Automatic-Module-Name': 'imgui.app'
     }
 }
 

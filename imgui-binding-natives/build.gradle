@@ -4,6 +4,9 @@ plugins {
     id 'signing'
 }
 
+sourceCompatibility = '17'
+targetCompatibility = '1.8'
+
 def packageName = 'imgui-java-natives-linux'
 def packageDesc = 'Native binaries for imgui-java binding for Linux'
 def fromDir = '../bin'
@@ -37,6 +40,9 @@ jar {
     from(fromDir) {
         include "$libName" // this is fine
         into 'io/imgui/java/native-bin/'
+    }
+    manifest {
+        attributes  'Automatic-Module-Name': 'imgui.natives'
     }
 }
 

@@ -1,6 +1,6 @@
 package imgui.glfw;
 
-final class ImGuiImplGlfwNative {
+public final class ImGuiImplGlfwNative {
     private ImGuiImplGlfwNative() {
     }
 
@@ -10,9 +10,15 @@ final class ImGuiImplGlfwNative {
         #endif
      */
 
-    // GLFW hack: Hide icon from task bar
-    // Applied only for windows
-    static native void win32hideFromTaskBar(long hwndPtr); /*
+    /**
+     *  GLFW hack: Hide icon from task bar
+     * Applied only for windows
+     *
+     * Internal Use Only.
+     * FIXME: Once Java Module System has been implemented, this function should only be exported
+     *  to the imgui.lwjgl module.
+     */
+    public static native void win32hideFromTaskBar(long hwndPtr); /*
         #if defined(_WIN32)
             HWND hwnd = (HWND)hwndPtr;
             LONG ex_style = ::GetWindowLong(hwnd, GWL_EXSTYLE);
