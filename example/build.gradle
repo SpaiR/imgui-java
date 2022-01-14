@@ -6,9 +6,6 @@ repositories {
     mavenCentral()
 }
 
-sourceCompatibility = '17'
-targetCompatibility = '1.8'
-
 application {
     mainClass = 'Main'
     try {

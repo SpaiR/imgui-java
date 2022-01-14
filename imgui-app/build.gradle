@@ -6,9 +6,6 @@ plugins {
     id 'signing'
 }
 
-sourceCompatibility = '17'
-targetCompatibility = '1.8'
-
 repositories {
     mavenCentral()
 }
