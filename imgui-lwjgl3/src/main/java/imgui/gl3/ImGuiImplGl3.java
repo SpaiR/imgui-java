@@ -1,4 +1,4 @@
-package imgui.lwjgl.gl3;
+package imgui.gl3;
 
 import imgui.ImDrawData;
 import imgui.ImFontAtlas;

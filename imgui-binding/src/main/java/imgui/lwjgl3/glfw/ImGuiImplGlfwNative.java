@@ -1,4 +1,4 @@
-package imgui.glfw;
+package imgui.lwjgl3.glfw;
 
 public final class ImGuiImplGlfwNative {
     private ImGuiImplGlfwNative() {
