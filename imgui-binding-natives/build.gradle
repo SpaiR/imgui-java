@@ -38,6 +38,9 @@ jar {
         include "$libName" // this is fine
         into 'io/imgui/java/native-bin/'
     }
+    manifest {
+        attributes  'Automatic-Module-Name': 'imgui.natives'
+    }
 }
 
 apply from: "$rootDir/publish.gradle"

@@ -37,6 +37,9 @@ jar {
         include 'imgui-java64.dll'
         into 'io/imgui/java/native-bin/'
     }
+    manifest {
+        attributes  'Automatic-Module-Name': 'imgui.app'
+    }
 }
 
 shadowJar {

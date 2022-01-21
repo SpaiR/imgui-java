@@ -121,6 +121,10 @@ dependencies {
 3. Add the jar to your classpath.
 </details>
 
+#### Java Module System
+If using Java 9 modules, you will need to require the `imgui.app` module.
+
+
 ## Binding
 Using binding without the wrapper requires to "attach" it to your application manually.
 You can refer to [imgui-app](https://github.com/SpaiR/imgui-java/blob/v1.86.0/imgui-app) module and see how things are done there.
@@ -246,6 +250,16 @@ dependencies {
  3. Add jars to your classpath;
  4. Provide a VM option: `imgui.library.path` or `java.library.path`. It should point to the folder where you've placed downloaded native libraries.
 </details>
+
+#### Java Module System
+If using Java 9 modules, imgui-java has Automatic Module Names:
+
+| Package            | Module        |
+|--------------------|---------------|
+| imgui-java-app     | imgui.app     |
+| imgui-java-binding | imgui.binding |
+| imgui-java-lwjgl3  | imgui.lwjgl3  |
+| imgui-java-natives | imgui.natives |
 
 ## Extensions
 - [ImNodes](https://github.com/Nelarius/imnodes/tree/857cc860af05ac0f6a4039c2af33d982377b6cf4) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.86.0/example/src/main/java/ExampleImNodes.java) <br>

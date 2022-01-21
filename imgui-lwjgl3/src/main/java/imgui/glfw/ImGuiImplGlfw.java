@@ -20,6 +20,7 @@ import imgui.flag.ImGuiMouseButton;
 import imgui.flag.ImGuiMouseCursor;
 import imgui.flag.ImGuiNavInput;
 import imgui.flag.ImGuiViewportFlags;
+import imgui.lwjgl3.glfw.ImGuiImplGlfwNative;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFWCharCallback;
 import org.lwjgl.glfw.GLFWCursorEnterCallback;

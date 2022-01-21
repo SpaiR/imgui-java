@@ -4,7 +4,7 @@ package imgui.app;
  * Application class from which ImGui applications extend.
  * Serves as an abstraction layer to hide all low-level details about window creation and rendering routine.
  *
- * <h3>Life-cycle</h3>
+ * <h2>Life-cycle</h2>
  * <p>The entry point for ImGui applications is the Application class and {@link #launch(Application)} method.
  * It initializes application instance and starts the main application loop.
  *

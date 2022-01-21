@@ -17,3 +17,9 @@ dependencies {
 
 apply from: "$rootDir/publish.gradle"
 configurePublishing('imgui-java-lwjgl3', 'Backend LWJGL3 implementation for imgui-java')
+
+jar {
+    manifest {
+        attributes  'Automatic-Module-Name': 'imgui.lwjgl3'
+    }
+}
