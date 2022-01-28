@@ -35,30 +35,43 @@ public final class MemoryEditor extends ImGuiStructDestroyable {
         MEMORY_EDITOR->GotoAddrAndHighlight(addrMin, addrMax);
     */
 
-    //void CalcSizes(Sizes& s, size_t mem_size, size_t base_display_addr)
-    public native void calcSizes(MemoryEditorSizes s, long memSize, long baseDisplayAddr); //TODO
+    public void calcSizes(final MemoryEditorSizes s, final long memSize, final long baseDisplayAddr) {
+        nCalcSizes(s.ptr, memSize, baseDisplayAddr);
+    }
 
-    //void DrawWindow(const char* title, void* mem_data, size_t mem_size, size_t base_display_addr = 0x0000)
-    public void drawWindow(String title, long memData, long memSize) {
+    public native void nCalcSizes(long ptr, long memSize, long baseDisplayAddr); /*
+        MEMORY_EDITOR->CalcSizes(*((MemoryEditor::Sizes*)ptr), static_cast<size_t>(memSize), static_cast<size_t>(baseDisplayAddr));
+    */
+
+    public void drawWindow(final String title, final long memData, final long memSize) {
         drawWindow(title, memData, memSize, 0x000);
     }
 
-    public native void drawWindow(String title, long memData, long memSize, long baseDisplayAddr); //TODO
+    public native void drawWindow(String title, long memData, long memSize, long baseDisplayAddr); /*
+        MEMORY_EDITOR->DrawWindow(title, reinterpret_cast<void*>(memData), static_cast<size_t>(memSize), static_cast<size_t>(baseDisplayAddr));
+    */
 
-
-    //void DrawContents(void* mem_data_void, size_t mem_size, size_t base_display_addr = 0x0000)
-    public void drawContents(long memData, long memSize) {
+    public void drawContents(final long memData, final long memSize) {
         drawContents(memData, memSize, 0x0000);
     }
 
-    public native void drawContents(long memData, long memSize, long baseDisplayAddress); //TODO
+    public native void drawContents(long memData, long memSize, long baseDisplayAddr); /*
+        MEMORY_EDITOR->DrawContents(reinterpret_cast<void*>(memData), static_cast<size_t>(memSize), static_cast<size_t>(baseDisplayAddr));
+    */
 
+    public void drawOptionsLine(final MemoryEditorSizes s, final long memData, final long memSize, final long baseDisplayAddr) {
+        nDrawOptionsLine(s.ptr, memData, memSize, baseDisplayAddr);
+    }
 
-    //void DrawOptionsLine(const Sizes& s, void* mem_data, size_t mem_size, size_t base_display_addr)
-    public native void drawOptionsLine(MemoryEditorSizes s, long memData, long memSize, long baseDisplayAddr); //TODO
+    public native void nDrawOptionsLine(long ptr, long memData, long memSize, long baseDisplayAddr); /*
+        MEMORY_EDITOR->DrawOptionsLine(*((MemoryEditor::Sizes*)ptr), reinterpret_cast<void*>(memData), static_cast<size_t>(memSize), static_cast<size_t>(baseDisplayAddr));
+    */
 
-    //void DrawPreviewLine(const Sizes& s, void* mem_data_void, size_t mem_size, size_t base_display_addr)
-    public native void drawPreviewLine(MemoryEditorSizes s, long memDataVoid, long memSize, long baseDisplayAddr); //TODO
+    public void drawPreviewLine(final MemoryEditorSizes s, final long memDataVoid, final long memSize, final long baseDisplayAddr) {
+        nDrawPreviewLine(s.ptr, memDataVoid, memSize, baseDisplayAddr);
+    }
 
-
+    public native void nDrawPreviewLine(long ptr, long memDataVoid, long memSize, long baseDisplayAddr); /*
+        MEMORY_EDITOR->DrawPreviewLine(*((MemoryEditor::Sizes*)ptr), reinterpret_cast<void*>(memDataVoid), static_cast<size_t>(memSize), static_cast<size_t>(baseDisplayAddr));
+    */
 }
