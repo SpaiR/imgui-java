@@ -1,4 +1,4 @@
-import imgui.extension.club.MemoryEditor;
+import imgui.extension.memedit.MemoryEditor;
 import imgui.flag.ImGuiCond;
 import imgui.internal.ImGui;
 import imgui.type.ImBoolean;

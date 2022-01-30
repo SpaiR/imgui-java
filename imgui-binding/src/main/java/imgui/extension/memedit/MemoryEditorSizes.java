@@ -1,4 +1,4 @@
-package imgui.extension.club;
+package imgui.extension.memedit;
 
 import imgui.binding.ImGuiStructDestroyable;
 
