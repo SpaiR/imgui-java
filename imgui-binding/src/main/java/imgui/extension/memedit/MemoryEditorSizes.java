@@ -5,7 +5,7 @@ import imgui.binding.ImGuiStructDestroyable;
 public final class MemoryEditorSizes extends ImGuiStructDestroyable {
 
     /*JNI
-        #include "_club.h"
+        #include "_memedit.h"
 
         #define MEMORY_EDITOR_SIZES ((MemoryEditor::Sizes*)STRUCT_PTR)
      */

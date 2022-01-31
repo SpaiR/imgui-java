@@ -9,7 +9,7 @@ import imgui.binding.ImGuiStructDestroyable;
 public final class MemoryEditor extends ImGuiStructDestroyable {
 
      /*JNI
-        #include "_club.h"
+        #include "_memedit.h"
 
         #define MEMORY_EDITOR ((MemoryEditor*)STRUCT_PTR)
       */
