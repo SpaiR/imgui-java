@@ -274,6 +274,8 @@ If using Java 9 modules, imgui-java has Automatic Module Names:
   Syntax highlighting text editor for ImGui.
 - [ImGuiFileDialog](https://github.com/aiekick/ImGuiFileDialog/tree/4d42dfba125cbd4780a90fbc5f75e7dfbae64060) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.86.1/example/src/main/java/ExampleImGuiFileDialog.java) <br>
   A file selection dialog built for ImGui.
+- [ImGui Club MemoryEditor](https://github.com/ocornut/imgui_club/tree/d4cd9896e15a03e92702a578586c3f91bbde01e8) | [Example](https://github.com/SpaiR/imgui-java/blob/master/example/src/main/java/ExampleImGuiMemoryEditor.java) <br>
+  Memory editor and viewer for ImGui.
 
 ## Freetype
 By default, Dear ImGui uses stb-truetype to render fonts. Yet there is an option to use FreeType font renderer. Go to the [imgui_freetype](https://github.com/ocornut/imgui/tree/256594575d95d56dda616c544c509740e74906b4/misc/freetype) to read about the difference.
