@@ -36,7 +36,7 @@ jobs:
           - type: mac
             expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
           - type: mac
-          expected: /tmp/imgui/libsNative/macosx64/libimgui-javaarm64.dylib
+            expected: /tmp/imgui/libsNative/macosx64/libimgui-javaarm64.dylib
         exclude:
           - os: ubuntu-20.04
             type: mac
