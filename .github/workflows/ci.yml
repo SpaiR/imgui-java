@@ -73,6 +73,7 @@ jobs:
           sudo mv /Applications/Xcode_12.4.app /Applications/Xcode.app
           sudo xcode-select -switch /Applications/Xcode.app
           /usr/bin/xcodebuild -version
+          brew install freetype
 
       - if: matrix.os == 'ubuntu-20.04' && matrix.type == 'linux' && matrix.freetype == true
         name: FreeType - Install

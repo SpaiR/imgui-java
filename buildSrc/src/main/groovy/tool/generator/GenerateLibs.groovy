@@ -19,6 +19,7 @@ class GenerateLibs extends DefaultTask {
     private final boolean forWindows = buildEnvs?.contains('win')
     private final boolean forLinux = buildEnvs?.contains('linux')
     private final boolean forMac = buildEnvs?.contains('mac')
+    private static final boolean isARM = System.getProperty("os.arch").equals("arm") || System.getProperty("os.arch").startsWith("aarch64");
 
     private final boolean isLocal = System.properties.containsKey('local')
     private final boolean withFreeType = Boolean.valueOf(System.properties.getProperty('freetype', 'false'))
@@ -145,7 +146,12 @@ class GenerateLibs extends DefaultTask {
                 target.cppFlags += ' -I/usr/include/freetype2'
                 break
             case BuildTarget.TargetOs.MacOsX:
-                target.cppFlags += ' -I/usr/local/include/freetype2'
+                if (isARM) {
+                    target.cppFlags += " -I/opt/homebrew/Cellar/freetype/2.11.1/include/freetype2"
+                    target.linkerFlags += " -L/opt/homebrew/Cellar/freetype/2.11.1/lib/"
+                } else {
+                    target.cppFlags += ' -I/usr/local/include/freetype2'
+                }
                 break
         }
 
