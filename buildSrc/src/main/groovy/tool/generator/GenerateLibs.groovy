@@ -148,7 +148,6 @@ class GenerateLibs extends DefaultTask {
             case BuildTarget.TargetOs.MacOsX:
                 if (isARM) {
                     target.cppFlags += " -I/opt/homebrew/Cellar/freetype/2.11.1/include/freetype2"
-                    target.linkerFlags += " -L/opt/homebrew/Cellar/freetype/2.11.1/lib/"
                 } else {
                     target.cppFlags += ' -I/usr/local/include/freetype2'
                 }
