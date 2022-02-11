@@ -50,8 +50,12 @@ public class ImGui {
         final String libPath = System.getProperty(LIB_PATH_PROP);
         String genLibName = LIB_NAME_BASE;
 
-        if (isARM) genLibName += "arm";
-        if (is64Bit) genLibName += "64";
+        if (isARM) {
+            genLibName += "arm";
+        }
+        if (is64Bit) {
+            genLibName += "64";
+        }
 
         final String libName = System.getProperty(LIB_NAME_PROP, genLibName);
         final String fullLibName = resolveFullLibName();
@@ -114,8 +118,12 @@ public class ImGui {
 
         String genLibName = LIB_NAME_BASE;
 
-        if (isARM) genLibName += "arm";
-        if (is64Bit) genLibName += "64";
+        if (isARM) {
+            genLibName += "arm";
+        }
+        if (is64Bit) {
+            genLibName += "64";
+        }
 
 
         return System.getProperty(LIB_NAME_PROP, libPrefix + genLibName + libSuffix);
