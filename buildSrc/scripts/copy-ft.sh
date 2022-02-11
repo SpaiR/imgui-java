@@ -10,3 +10,4 @@ mkdir ./bin/freetype
 [ -e "/tmp/imgui/libsNative/linux32/libimgui-java.so" ] && cp /tmp/imgui/libsNative/linux32/libimgui-java.so ./bin/freetype
 [ -e "/tmp/imgui/libsNative/linux64/libimgui-java64.so" ] && cp /tmp/imgui/libsNative/linux64/libimgui-java64.so ./bin/freetype
 [ -e "/tmp/imgui/libsNative/macosx64/libimgui-java64.dylib" ] && cp /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib ./bin/freetype
+[ -e "/tmp/imgui/libsNative/macosxarm64/libimgui-javaarm64.dylib" ] && cp /tmp/imgui/libsNative/macosxarm64/libimgui-javaarm64.dylib ./bin/freetype

@@ -247,6 +247,7 @@ dependencies {
    - imgui-java64.dll - Windows
    - libimgui-java64.so - Linux
    - libimgui-java64.dylib - MacOS
+   - libimgui-javaarm64.dylib - MacOS
  3. Add jars to your classpath;
  4. Provide a VM option: `imgui.library.path` or `java.library.path`. It should point to the folder where you've placed downloaded native libraries.
 </details>
@@ -365,6 +366,7 @@ Ensure you've downloaded git submodules. That could be achieved:
  - Check dependencies from "Linux" section and make sure you have them installed.
  - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=mac -Dlocal`
  - Run with: `./gradlew :example:run -PlibPath=../imgui-binding/build/libsNative/macosx64`
+ - Alternatively for M1 Run with: `./gradlew :example:run -PlibPath=../imgui-binding/build/libsNative/macosxarm64`
 
 In `envs` parameter next values could be used `win`, `linux` or `mac`.<br>
 `-Dlocal` is optional and means that natives will be built under the `./imgui-binding/build/` folder. Otherwise `/tmp/imgui` folder will be used.
