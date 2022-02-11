@@ -7,23 +7,23 @@ plugins {
 def packageName = 'imgui-java-natives-linux'
 def packageDesc = 'Native binaries for imgui-java binding for Linux'
 def fromDir = '../bin'
-def libName = 'libimgui-java64.so'
+def libNames = ['libimgui-java64.so']
 
 switch (findProperty('deployType')) {
     case 'win':
         packageName = 'imgui-java-natives-windows'
         packageDesc = 'Native binaries for imgui-java binding for Windows'
-        libName = 'imgui-java64.dll'
+        libName = ['imgui-java64.dll']
         break
     case 'linux':
         packageName = 'imgui-java-natives-linux'
         packageDesc = 'Native binaries for imgui-java binding for Linux'
-        libName = 'libimgui-java64.so'
+        libNames = ['libimgui-java64.so']
         break
     case 'mac':
         packageName = 'imgui-java-natives-macos'
         packageDesc = 'Native binaries for imgui-java binding for MacOS'
-        libName = 'libimgui-java64.dylib'
+        libNames = ['libimgui-java64.dylib', 'libimgui-javaarm64.dylib']
         break
 }
 
@@ -35,7 +35,7 @@ if (findProperty('freetype') == 'true') {
 
 jar {
     from(fromDir) {
-        include "$libName" // this is fine
+        include libNames // this is fine
         into 'io/imgui/java/native-bin/'
     }
     manifest {

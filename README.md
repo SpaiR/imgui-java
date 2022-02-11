@@ -247,6 +247,7 @@ dependencies {
    - imgui-java64.dll - Windows
    - libimgui-java64.so - Linux
    - libimgui-java64.dylib - MacOS
+   - libimgui-javaarm64.dylib - MacOS
  3. Add jars to your classpath;
  4. Provide a VM option: `imgui.library.path` or `java.library.path`. It should point to the folder where you've placed downloaded native libraries.
 </details>

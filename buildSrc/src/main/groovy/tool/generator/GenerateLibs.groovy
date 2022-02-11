@@ -104,6 +104,13 @@ class GenerateLibs extends DefaultTask {
             mac64.linkerFlags = mac64.linkerFlags.replace('10.7', minMacOsVersion)
             addFreeTypeIfEnabled(mac64)
             buildTargets += mac64
+
+            def macM1 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true, true)
+            macM1.cppFlags += ' -std=c++14'
+            macM1.cppFlags = macM1.cppFlags.replace('10.7', minMacOsVersion)
+            macM1.linkerFlags = macM1.linkerFlags.replace('10.7', minMacOsVersion)
+            addFreeTypeIfEnabled(macM1)
+            buildTargets += macM1
         }
 
         new AntScriptGenerator().generate(buildConfig, buildTargets)
@@ -117,8 +124,10 @@ class GenerateLibs extends DefaultTask {
             BuildExecutor.executeAnt(jniDir + '/build-windows64.xml', commonParams)
         if (forLinux)
             BuildExecutor.executeAnt(jniDir + '/build-linux64.xml', commonParams)
-        if (forMac)
+        if (forMac) {
             BuildExecutor.executeAnt(jniDir + '/build-macosx64.xml', commonParams)
+            BuildExecutor.executeAnt(jniDir + '/build-macosxarm64.xml', commonParams)
+        }
 
         BuildExecutor.executeAnt(jniDir + '/build.xml', '-v', 'pack-natives')
     }
