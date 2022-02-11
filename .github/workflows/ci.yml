@@ -4,7 +4,7 @@ jobs:
   build-java:
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-10.15]
+        os: [ubuntu-20.04, macos-latest]
     name: Build Java
     runs-on: ${{ matrix.os }}
     steps:
@@ -25,7 +25,7 @@ jobs:
       FREETYPE_URL: https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.gz
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-10.15]
+        os: [ubuntu-20.04, macos-latest]
         type: [win, linux, mac]
         freetype: [true, false]
         include:
@@ -40,9 +40,9 @@ jobs:
         exclude:
           - os: ubuntu-20.04
             type: mac
-          - os: macos-10.15
+          - os: macos-latest
             type: win
-          - os: macos-10.15
+          - os: macos-latest
             type: linux
     name: Build Native (type=${{ matrix.type }}, freetype=${{ matrix.freetype }})
     runs-on: ${{ matrix.os }}
@@ -63,6 +63,16 @@ jobs:
       - if: matrix.os == 'ubuntu-20.04'
         name: Install MinGW-w64/GCC/G++
         run: sudo apt install mingw-w64
+
+      - if: matrix.os == 'macos-latest'
+        name: Build Setup Mac xcode
+        run: |
+          # See https://github.com/actions/virtual-environments/issues/2557
+          sudo mv /Library/Developer/CommandLineTools/SDKs/* /tmp
+          sudo mv /Applications/Xcode.app /Applications/Xcode.app.bak
+          sudo mv /Applications/Xcode_12.4.app /Applications/Xcode.app
+          sudo xcode-select -switch /Applications/Xcode.app
+          /usr/bin/xcodebuild -version
 
       - if: matrix.os == 'ubuntu-20.04' && matrix.type == 'linux' && matrix.freetype == true
         name: FreeType - Install
