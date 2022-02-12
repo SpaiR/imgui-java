@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
-        type: [ windows, linux, macos ]
+        type: [ windows, linux, macos, macosarm64 ]
         freetype: [ true, false ]
         include:
           - type: windows
@@ -43,11 +43,13 @@ jobs:
             expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
           - type: macos
             expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
-          - type: macos
+          - type: macosarm64
             expected: /tmp/imgui/libsNative/macosxarm64/libimgui-javaarm64.dylib
         exclude:
           - os: ubuntu-latest
             type: macos
+          - os: ubuntu-latest
+            type: macosarm64
           - os: macos-latest
             type: windows
           - os: macos-latest
