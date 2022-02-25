@@ -332,7 +332,7 @@ public final class ImPlot {
         nPlotScatter(labelID, x, y, x.length, offset);
     }
 
-    public static void plotScatter(String labelID, double[] xs, double[] ys, int size, int offset) {
+    public static void plotScatter(final String labelID, final double[] xs, final double[] ys, final int size, final int offset) {
         nPlotScatter(labelID, xs, ys, size, offset);
     }
 
