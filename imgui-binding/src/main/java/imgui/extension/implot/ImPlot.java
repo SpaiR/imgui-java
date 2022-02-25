@@ -301,7 +301,7 @@ public final class ImPlot {
         nPlotLine(labelID, x, y, x.length, offset);
     }
 
-    private static native void nPlotLine(String labelID, double[] xs, double[] ys, int size, int offset); /*
+    public static native void nPlotLine(String labelID, double[] xs, double[] ys, int size, int offset); /*
         ImPlot::PlotLine(labelID, xs, ys, size, offset);
     */
 
