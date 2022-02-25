@@ -1,7 +1,7 @@
 import tool.UpVersion
 
 ext {
-    lwjglVersion = '3.3.0'
+    lwjglVersion = '3.3.1'
 }
 
 allprojects {

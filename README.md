@@ -150,7 +150,7 @@ repositories {
 }
 
 ext {
-    lwjglVersion = '3.3.0'
+    lwjglVersion = '3.3.1'
     imguiVersion = '1.86.2'
 }
 
@@ -175,7 +175,7 @@ dependencies {
 
 ```
 <properties>
-    <lwjgl.version>3.3.0</lwjgl.version>
+    <lwjgl.version>3.3.1</lwjgl.version>
     <imgui.java.version>1.86.2</imgui.java.version>
 </properties>
 
@@ -305,7 +305,7 @@ Don't forget to make clear for your Linux/Mac users, that they will need to inst
     }
     
     ext {
-        lwjglVersion = '3.3.0'
+        lwjglVersion = '3.3.1'
         imguiVersion = '1.86.2'
     }
     
