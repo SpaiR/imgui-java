@@ -301,7 +301,14 @@ public final class ImPlot {
         nPlotLine(labelID, x, y, x.length, offset);
     }
 
-    public static native void nPlotLine(String labelID, double[] xs, double[] ys, int size, int offset); /*
+    /**
+     * Plots a standard 2D line plot.
+     */
+    public static void plotLine(String labelID, double[] xs, double[] ys, int size, int offset) {
+        nPlotLine(labelID, xs, ys, size, offset);
+    }
+
+    private static native void nPlotLine(String labelID, double[] xs, double[] ys, int size, int offset); /*
         ImPlot::PlotLine(labelID, xs, ys, size, offset);
     */
 
@@ -323,6 +330,10 @@ public final class ImPlot {
         convertArrays(xs, ys, x, y);
 
         nPlotScatter(labelID, x, y, x.length, offset);
+    }
+
+    public static void plotScatter(String labelID, double[] xs, double[] ys, int size, int offset) {
+        nPlotScatter(labelID, xs, ys, size, offset);
     }
 
     private static native void nPlotScatter(String labelID, double[] xs, double[] ys, int size, int offset); /*
@@ -347,6 +358,13 @@ public final class ImPlot {
         convertArrays(xs, ys, x, y);
 
         nPlotStairs(labelID, x, y, x.length, offset);
+    }
+
+    /**
+     * Plots a a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
+     */
+    public static void nPlotStairs(String labelID, double[] xs, double[] ys, int size, int offset) {
+        nPlotStairs(labelID, xs, ys, size, offset);
     }
 
     private static native void nPlotStairs(String labelID, double[] xs, double[] ys, int size, int offset); /*
@@ -394,6 +412,13 @@ public final class ImPlot {
         nPlotShaded(labelID, x, y1, y2, x.length, offset);
     }
 
+    /**
+     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference.
+     */
+    public static void nPlotShaded(String labelID, double[] xs, double[] ys, int size, int yRef, int offset) {
+        nPlotShaded(labelID, xs, ys, size, yRef, offset);
+    }
+
     private static native void nPlotShaded(String labelID, double[] xs, double[] ys, int size, int yRef, int offset); /*
         ImPlot::PlotShaded(labelID, xs, ys, size, yRef, offset);
     */
@@ -432,6 +457,14 @@ public final class ImPlot {
         nPlotBars(labelID, x, y, x.length, width, offset);
     }
 
+    /**
+     * Plots a vertical bar graph.
+     * @param width is in X units
+     */
+    public static void plotBars(String labelID, double[] xs, double[] ys, int size, float width, int offset) {
+        nPlotBars(labelID, xs, ys, size, width, offset);
+    }
+
     private static native void nPlotBars(String labelID, double[] xs, double[] ys, int size, float width, int offset); /*
         ImPlot::PlotBars(labelID, xs, ys, size, width, offset);
     */
@@ -466,6 +499,14 @@ public final class ImPlot {
         nPlotBarsH(labelID, x, y, x.length, height, offset);
     }
 
+    /**
+     * Plots a horizontal bar graph.
+     * @param height is in Y units
+     */
+    public static void plotBarsH(String labelID, double[] xs, double[] ys, int size, float height, int offset) {
+        nPlotBarsH(labelID, xs, ys, size, height, offset);
+    }
+
     private static native void nPlotBarsH(String labelID, double[] xs, double[] ys, int size, float height, int offset); /*
         ImPlot::PlotBarsH(labelID, xs, ys, size, height, offset);
     */
@@ -490,6 +531,13 @@ public final class ImPlot {
         convertArrays(xs, err, x, errOut); //It's easier here to just do the X array twice than process the err array alone
 
         nPlotErrorBars(labelID, x, y, errOut, x.length, offset);
+    }
+
+    /**
+     * Plots vertical error bar. The labelID should be the same as the labelID of the associated line or bar plot.
+     */
+    public static void plotErrorBars(String labelID, double[] xs, double[] ys, double[] err, int size, int offset) {
+        nPlotErrorBars(labelID, xs, ys, err, size, offset);
     }
 
     private static native void nPlotErrorBars(String labelID, double[] xs, double[] ys, double[] err, int size, int offset); /*
