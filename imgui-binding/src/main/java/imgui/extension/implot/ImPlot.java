@@ -301,6 +301,13 @@ public final class ImPlot {
         nPlotLine(labelID, x, y, x.length, offset);
     }
 
+    /**
+     * Plots a standard 2D line plot.
+     */
+    public static void plotLine(final String labelID, final double[] xs, final double[] ys, final int size, final int offset) {
+        nPlotLine(labelID, xs, ys, size, offset);
+    }
+
     private static native void nPlotLine(String labelID, double[] xs, double[] ys, int size, int offset); /*
         ImPlot::PlotLine(labelID, xs, ys, size, offset);
     */
@@ -325,6 +332,10 @@ public final class ImPlot {
         nPlotScatter(labelID, x, y, x.length, offset);
     }
 
+    public static void plotScatter(final String labelID, final double[] xs, final double[] ys, final int size, final int offset) {
+        nPlotScatter(labelID, xs, ys, size, offset);
+    }
+
     private static native void nPlotScatter(String labelID, double[] xs, double[] ys, int size, int offset); /*
         ImPlot::PlotScatter(labelID, xs, ys, size, offset);
     */
@@ -347,6 +358,13 @@ public final class ImPlot {
         convertArrays(xs, ys, x, y);
 
         nPlotStairs(labelID, x, y, x.length, offset);
+    }
+
+    /**
+     * Plots a a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
+     */
+    public static void plotStairs(final String labelID, final double[] xs, final double[] ys, final int size, final int offset) {
+        nPlotStairs(labelID, xs, ys, size, offset);
     }
 
     private static native void nPlotStairs(String labelID, double[] xs, double[] ys, int size, int offset); /*
@@ -394,9 +412,23 @@ public final class ImPlot {
         nPlotShaded(labelID, x, y1, y2, x.length, offset);
     }
 
+    /**
+     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set yRef (default 0) to +/-INFINITY for infinite fill extents.
+     */
+    public static void plotShaded(final String labelID, final double[] xs, final double[] ys, final int size, final int yRef, final int offset) {
+        nPlotShaded(labelID, xs, ys, size, yRef, offset);
+    }
+
     private static native void nPlotShaded(String labelID, double[] xs, double[] ys, int size, int yRef, int offset); /*
         ImPlot::PlotShaded(labelID, xs, ys, size, yRef, offset);
     */
+
+    /**
+     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference.
+     */
+    public static void plotShaded(final String labelID, final double[] xs, final double[] ys1, final double[] ys2, final int size, final int offset) {
+        nPlotShaded(labelID, xs, ys1, ys2, size, offset);
+    }
 
     private static native void nPlotShaded(String labelID, double[] xs, double[] ys1, double[] ys2, int size, int offset); /*
         ImPlot::PlotShaded(labelID, xs, ys1, ys2, size, offset);
@@ -430,6 +462,14 @@ public final class ImPlot {
         convertArrays(xs, ys, x, y);
 
         nPlotBars(labelID, x, y, x.length, width, offset);
+    }
+
+    /**
+     * Plots a vertical bar graph.
+     * @param width is in X units
+     */
+    public static void plotBars(final String labelID, final double[] xs, final double[] ys, final int size, final float width, final int offset) {
+        nPlotBars(labelID, xs, ys, size, width, offset);
     }
 
     private static native void nPlotBars(String labelID, double[] xs, double[] ys, int size, float width, int offset); /*
@@ -466,6 +506,14 @@ public final class ImPlot {
         nPlotBarsH(labelID, x, y, x.length, height, offset);
     }
 
+    /**
+     * Plots a horizontal bar graph.
+     * @param height is in Y units
+     */
+    public static void plotBarsH(final String labelID, final double[] xs, final double[] ys, final int size, final float height, final int offset) {
+        nPlotBarsH(labelID, xs, ys, size, height, offset);
+    }
+
     private static native void nPlotBarsH(String labelID, double[] xs, double[] ys, int size, float height, int offset); /*
         ImPlot::PlotBarsH(labelID, xs, ys, size, height, offset);
     */
@@ -490,6 +538,13 @@ public final class ImPlot {
         convertArrays(xs, err, x, errOut); //It's easier here to just do the X array twice than process the err array alone
 
         nPlotErrorBars(labelID, x, y, errOut, x.length, offset);
+    }
+
+    /**
+     * Plots vertical error bar. The labelID should be the same as the labelID of the associated line or bar plot.
+     */
+    public static void plotErrorBars(final String labelID, final double[] xs, final double[] ys, final double[] err, final int size, final int offset) {
+        nPlotErrorBars(labelID, xs, ys, err, size, offset);
     }
 
     private static native void nPlotErrorBars(String labelID, double[] xs, double[] ys, double[] err, int size, int offset); /*
@@ -518,6 +573,13 @@ public final class ImPlot {
         nPlotErrorBarsH(labelID, x, y, errOut, x.length, offset);
     }
 
+    /**
+     * Plots horizontal error bar. The labelID should be the same as the labelID of the associated line or bar plot.
+     */
+    public static void plotErrorBarsH(final String labelID, final double[] xs, final double[] ys, final double[] err, final int size, final int offset) {
+        nPlotErrorBarsH(labelID, xs, ys, err, size, offset);
+    }
+
     private static native void nPlotErrorBarsH(String labelID, double[] xs, double[] ys, double[] err, int size, int offset); /*
         ImPlot::PlotErrorBarsH(labelID, xs, ys, err, size, offset);
     */
@@ -541,6 +603,13 @@ public final class ImPlot {
         }
 
         nPlotStems(labelID, v, v.length, yRef, offset);
+    }
+
+    /**
+     * Plots vertical stems.
+     */
+    public static void plotStems(final String labelID, final double[] values, final int size, final int yRef, final int offset) {
+        nPlotStems(labelID, values, size, yRef, offset);
     }
 
     private static native void nPlotStems(String labelID, double[] values, int size, int yRef, int offset); /*
@@ -568,6 +637,13 @@ public final class ImPlot {
         nPlotVLines(labelID, v, v.length, offset);
     }
 
+    /**
+     * Plots infinite vertical lines (e.g. for references or asymptotes).
+     */
+    public static void plotVLines(final String labelID, final double[] values, final int size, final int offset) {
+        nPlotVLines(labelID, values, size, offset);
+    }
+
     private static native void nPlotVLines(String labelID, double[] values, int size, int offset); /*
         ImPlot::PlotVLines(labelID, values, size, offset);
     */
@@ -591,6 +667,13 @@ public final class ImPlot {
         }
 
         nPlotHLines(labelID, v, v.length, offset);
+    }
+
+    /**
+     * Plots infinite horizontal lines (e.g. for references or asymptotes).
+     */
+    public static void plotHLines(final String labelID, final double[] values, final int size, final int offset) {
+        nPlotHLines(labelID, values, size, offset);
     }
 
     private static native void nPlotHLines(String labelID, double[] values, int size, int offset); /*
@@ -625,6 +708,13 @@ public final class ImPlot {
         }
 
         nPlotPieChart(labelIDsSs, maxSize, v, v.length, x, y, radius);
+    }
+
+    /**
+     * Plots a pie chart. If the sum of values {@code >} 1, each value will be normalized. Center and radius are in plot units. #label_fmt can be set to NULL for no labels.
+     */
+    public static void plotPieChart(final String labelIDsSs, final int strLen, final double[] values, final int size, final double x, final double y, final double radius) {
+        nPlotPieChart(labelIDsSs, strLen, values, size, x, y, radius);
     }
 
     //JNI function splits up passed string labelIDsSs to array for use in C++, as String[] is not converted by JNI
@@ -670,6 +760,14 @@ public final class ImPlot {
         nPlotHeatmap(labelID, v, values[0].length, values.length);
     }
 
+    /**
+     * Plots a 2D heatmap chart.
+     * @param values must have fixed dimensions (all arrays are same length)
+     */
+    public static void plotHeatmap(final String labelID, final double[] values, final int rows, final int cols) {
+        nPlotHeatmap(labelID, values, rows, cols);
+    }
+
     private static native void nPlotHeatmap(String labelID, double[] values, int rows, int cols); /*
         ImPlot::PlotHeatmap(labelID, values, rows, cols);
     */
@@ -693,6 +791,13 @@ public final class ImPlot {
         return nPlotHistogram(labelID, v, v.length);
     }
 
+    /**
+     * Plots a horizontal histogram.
+     */
+    public static double plotHistogram(final String labelID, final double[] values, final int size) {
+        return nPlotHistogram(labelID, values, size);
+    }
+
     private static native double nPlotHistogram(String labelID, double[] values, int size); /*
         return ImPlot::PlotHistogram(labelID, values, size);
     */
@@ -707,6 +812,13 @@ public final class ImPlot {
         convertArrays(xs, ys, x, y);
 
         return nPlotHistogram2D(labelID, x, y, x.length);
+    }
+
+    /**
+     * Plots two dimensional, bivariate histogram as a heatmap.
+     */
+    public static double plotHistogram2D(final String labelID, final double[] xs, final double[] ys, final int size) {
+        return nPlotHistogram2D(labelID, xs, ys, size);
     }
 
     private static native double nPlotHistogram2D(String labelID, double[] xs, double[] ys, int size); /*
@@ -728,6 +840,13 @@ public final class ImPlot {
         convertArrays(xs, ys, x, y);
 
         nPlotDigital(labelID, x, y, x.length);
+    }
+
+    /**
+     * Plots digital data. Digital plots do not respond to y drag or zoom, and are always referenced to the bottom of the plot.
+     */
+    public static void plotDigital(final String labelID, final double[] xs, final double[] ys, final int size) {
+        nPlotDigital(labelID, xs, ys, size);
     }
 
     private static native void nPlotDigital(String labelID, double[] xs, double[] ys, int size); /*
@@ -865,6 +984,14 @@ public final class ImPlot {
         nSetNextPlotTicksX(xMin, xMax, nTicks, labelStrings[0], labelStrings[1], labelStrings[2], labelStrings[3], keepDefault);
     }
 
+    /**
+     * This function MUST be called BEFORE beginPlot!
+     * Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keepDefault=true.
+     */
+    public static void setNextPlotTicksX(final double xMin, final double xMax, final int nTicks, final String s1, final String s2, final String s3, final String s4, final boolean keepDefault) {
+        nSetNextPlotTicksX(xMin, xMax, nTicks, s1, s2, s3, s4, keepDefault);
+    }
+
     private static native void nSetNextPlotTicksX(double xMin, double xMax, int nTicks, String s1, String s2, String s3, String s4, boolean keepDefault); /*
         char* strings[] = {s1, s2, s3, s4};
         ImPlot::SetNextPlotTicksX(xMin, xMax, nTicks, strings, keepDefault);
@@ -903,7 +1030,15 @@ public final class ImPlot {
         nSetNextPlotTicksY(xMin, xMax, nTicks, labelStrings[0], labelStrings[1], labelStrings[2], labelStrings[3], keepDefault, yAxis);
     }
 
-    public static native void nSetNextPlotTicksY(double xMin, double xMax, int nTicks, String s1, String s2, String s3, String s4, boolean keepDefault, int yAxis); /*
+    /**
+     * This function MUST be called BEFORE beginPlot!
+     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keepDefault=true.
+     */
+    public static void setNextPlotTicksY(final double xMin, final double xMax, final int nTicks, final String s1, final String s2, final String s3, final String s4, final boolean keepDefault, final int yAxis) {
+        nSetNextPlotTicksY(xMin, xMax, nTicks, s1, s2, s3, s4, keepDefault, yAxis);
+    }
+
+    private static native void nSetNextPlotTicksY(double xMin, double xMax, int nTicks, String s1, String s2, String s3, String s4, boolean keepDefault, int yAxis); /*
         char* strings[] = {s1, s2, s3, s4};
         ImPlot::SetNextPlotTicksY(xMin, xMax, nTicks, strings, keepDefault, yAxis);
     */
