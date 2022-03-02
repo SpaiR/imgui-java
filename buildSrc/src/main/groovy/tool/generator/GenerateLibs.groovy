@@ -19,6 +19,7 @@ class GenerateLibs extends DefaultTask {
     private final boolean forWindows = buildEnvs?.contains('win')
     private final boolean forLinux = buildEnvs?.contains('linux')
     private final boolean forMac = buildEnvs?.contains('mac')
+    private static final boolean isARM = System.getProperty("os.arch").equals("arm") || System.getProperty("os.arch").startsWith("aarch64");
 
     private final boolean isLocal = System.properties.containsKey('local')
     private final boolean withFreeType = Boolean.valueOf(System.properties.getProperty('freetype', 'false'))
@@ -104,6 +105,13 @@ class GenerateLibs extends DefaultTask {
             mac64.linkerFlags = mac64.linkerFlags.replace('10.7', minMacOsVersion)
             addFreeTypeIfEnabled(mac64)
             buildTargets += mac64
+
+            def macM1 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true, true)
+            macM1.cppFlags += ' -std=c++14'
+            macM1.cppFlags = macM1.cppFlags.replace('10.7', minMacOsVersion)
+            macM1.linkerFlags = macM1.linkerFlags.replace('10.7', minMacOsVersion)
+            addFreeTypeIfEnabled(macM1)
+            buildTargets += macM1
         }
 
         new AntScriptGenerator().generate(buildConfig, buildTargets)
@@ -117,8 +125,10 @@ class GenerateLibs extends DefaultTask {
             BuildExecutor.executeAnt(jniDir + '/build-windows64.xml', commonParams)
         if (forLinux)
             BuildExecutor.executeAnt(jniDir + '/build-linux64.xml', commonParams)
-        if (forMac)
+        if (forMac) {
             BuildExecutor.executeAnt(jniDir + '/build-macosx64.xml', commonParams)
+            BuildExecutor.executeAnt(jniDir + '/build-macosxarm64.xml', commonParams)
+        }
 
         BuildExecutor.executeAnt(jniDir + '/build.xml', '-v', 'pack-natives')
     }
@@ -137,6 +147,10 @@ class GenerateLibs extends DefaultTask {
                 break
             case BuildTarget.TargetOs.MacOsX:
                 target.cppFlags += ' -I/usr/local/include/freetype2'
+                if (isARM) {
+                    //For GHA
+                    target.cppFlags += ' -I/usr/local/arm64/include/freetype2'
+                }
                 break
         }
 

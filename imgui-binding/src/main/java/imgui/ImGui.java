@@ -25,7 +25,10 @@ import java.nio.file.StandardCopyOption;
 public class ImGui {
     private static final String LIB_PATH_PROP = "imgui.library.path";
     private static final String LIB_NAME_PROP = "imgui.library.name";
-    private static final String LIB_NAME_DEFAULT = System.getProperty("os.arch").contains("64") ? "imgui-java64" : "imgui-java";
+    private static final String LIB_NAME_BASE = "imgui-java";
+    private static final boolean is64Bit = System.getProperty("os.arch").contains("64") || System.getProperty("os.arch").startsWith("armv8");
+    private static final boolean isARM = System.getProperty("os.arch").equals("arm") || System.getProperty("os.arch").startsWith("aarch64");
+
     private static final String LIB_TMP_DIR_PREFIX = "imgui-java-natives_" + System.currentTimeMillis();
 
     private static final ImGuiContext IMGUI_CONTEXT;
@@ -45,7 +48,16 @@ public class ImGui {
 
     static {
         final String libPath = System.getProperty(LIB_PATH_PROP);
-        final String libName = System.getProperty(LIB_NAME_PROP, LIB_NAME_DEFAULT);
+        String genLibName = LIB_NAME_BASE;
+
+        if (isARM) {
+            genLibName += "arm";
+        }
+        if (is64Bit) {
+            genLibName += "64";
+        }
+
+        final String libName = System.getProperty(LIB_NAME_PROP, genLibName);
         final String fullLibName = resolveFullLibName();
 
         final String extractedLibAbsPath = tryLoadFromClasspath(fullLibName);
@@ -104,7 +116,17 @@ public class ImGui {
             libSuffix = ".so";
         }
 
-        return System.getProperty(LIB_NAME_PROP, libPrefix + LIB_NAME_DEFAULT + libSuffix);
+        String genLibName = LIB_NAME_BASE;
+
+        if (isARM) {
+            genLibName += "arm";
+        }
+        if (is64Bit) {
+            genLibName += "64";
+        }
+
+
+        return System.getProperty(LIB_NAME_PROP, libPrefix + genLibName + libSuffix);
     }
 
     // This method tries to unpack the library binary from classpath into the temp dir.
