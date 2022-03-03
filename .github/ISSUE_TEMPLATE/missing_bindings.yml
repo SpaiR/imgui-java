@@ -1,0 +1,38 @@
+name: Missing Bindings
+description: Create a report to help reproduce and fix the issue
+title: "Missing Bindings: "
+labels: [ "missing binding" ]
+body:
+  - type: input
+    attributes:
+      label: Version
+      description: What version of imgui-java did you use?
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: What part of the binding has gaps?
+      options:
+        - Dear ImGui
+        - ImNodes
+        - imgui-node-editor
+        - ImGuizmo
+        - implot
+        - ImGuiColorTextEdit
+        - ImGuiFileDialog
+        - ImGui Club MemoryEditor
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What is missing?
+      description: Tell us, what part of the API is missing?
+      placeholder: Tell us what you are missing!
+      value: Something is missing!
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Please, provide additional references like links to a source code of the missing API. 
+        If there are several ways to implement the API, provide a pov of yourself.
