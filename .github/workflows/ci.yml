@@ -1,10 +1,10 @@
 name: CI
-on: [push, pull_request]
+on: [push]
 jobs:
   build-java:
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-10.15]
+        os: [ubuntu-latest, macos-latest]
     name: Build Java
     runs-on: ${{ matrix.os }}
     steps:
@@ -25,7 +25,7 @@ jobs:
       FREETYPE_URL: https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.gz
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-10.15]
+        os: [ubuntu-latest, macos-latest]
         type: [win, linux, mac]
         freetype: [true, false]
         include:
@@ -36,11 +36,11 @@ jobs:
           - type: mac
             expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
         exclude:
-          - os: ubuntu-20.04
+          - os: ubuntu-latest
             type: mac
-          - os: macos-10.15
+          - os: macos-latest
             type: win
-          - os: macos-10.15
+          - os: macos-latest
             type: linux
     name: Build Native (type=${{ matrix.type }}, freetype=${{ matrix.freetype }})
     runs-on: ${{ matrix.os }}
@@ -58,22 +58,22 @@ jobs:
       - name: Ant Version
         run: ant -version
 
-      - if: matrix.os == 'ubuntu-20.04'
+      - if: matrix.os == 'ubuntu-latest'
         name: Install MinGW-w64/GCC/G++
         run: sudo apt install mingw-w64
 
-      - if: matrix.os == 'ubuntu-20.04' && matrix.type == 'linux' && matrix.freetype == true
+      - if: matrix.os == 'ubuntu-latest' && matrix.type == 'linux' && matrix.freetype == true
         name: FreeType - Install
         run: sudo apt install libfreetype6-dev
 
-      - if: matrix.os == 'ubuntu-20.04' && matrix.type == 'win' && matrix.freetype == true
+      - if: matrix.os == 'ubuntu-latest' && matrix.type == 'win' && matrix.freetype == true
         name: FreeType - Download
         run: |
           sudo wget -O /freetype.tar.gz ${{ env.FREETYPE_URL }}
           sudo mkdir /freetype
           sudo tar -xzf /freetype.tar.gz -C /freetype --strip-components=1
 
-      - if: matrix.os == 'ubuntu-20.04' && matrix.type == 'win' && matrix.freetype == true
+      - if: matrix.os == 'ubuntu-latest' && matrix.type == 'win' && matrix.freetype == true
         name: FreeType - Compile & Install
         working-directory: /freetype
         run: |
