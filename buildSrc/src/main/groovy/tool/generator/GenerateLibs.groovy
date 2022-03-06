@@ -71,6 +71,26 @@ class GenerateLibs extends DefaultTask {
             spec.into(jniDir + '/dirent')
         }
 
+        //Copy vulkan
+        project.copy { CopySpec spec ->
+            ['include/Vulkan-Headers/include/vulkan'].each {
+                spec.from(project.rootProject.file(it)) { CopySpec s -> s.include('*.h', "*.hpp", '*.cpp', '*.inl') }
+            }
+            spec.into(jniDir + "/vulkan")
+        }
+
+        //Copy backends
+        def backendsToCopy = ['imgui_impl_vulkan*']
+        project.copy { CopySpec spec ->
+            ['include/imgui/backends'].each {
+                spec.from(project.rootProject.file(it)) {
+                    CopySpec s -> s.include(backendsToCopy)
+                }
+            }
+
+            spec.into(jniDir + "/backends")
+        }
+
         if (withFreeType) {
             project.copy { CopySpec spec ->
                 spec.from(project.rootProject.file('include/imgui/misc/freetype')) { CopySpec it -> it.include('*.h', '*.cpp') }
