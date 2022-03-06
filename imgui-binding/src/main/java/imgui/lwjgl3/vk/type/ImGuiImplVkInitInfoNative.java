@@ -184,7 +184,7 @@ public class ImGuiImplVkInitInfoNative extends ImGuiStruct {
      * @param imageCount the image count
      */
     public native void setImageCount(int imageCount); /*
-        IM_VK_INIT_INFO->ImageCount = minImageCount;
+        IM_VK_INIT_INFO->ImageCount = imageCount;
     */
 
     /**
@@ -198,10 +198,10 @@ public class ImGuiImplVkInitInfoNative extends ImGuiStruct {
     /**
      * Set MSAA Samples
      * Must be greater or equal to VK_SAMPLE_COUNT_1_BIT (0 -> default to VK_SAMPLE_COUNT_1_BIT)
-     * @param MSAASamples MSAA Samples (VK_SAMPLE_COUNT_x)
+     * @param msaaSamples MSAA Samples (VK_SAMPLE_COUNT_x)
      */
-    public native void setMSAASamples(int MSAASamples); /*
-        IM_VK_INIT_INFO->MSAASamples = (VkSampleCountFlagBits) MSAASamples;
+    public native void setMSAASamples(int msaaSamples); /*
+        IM_VK_INIT_INFO->MSAASamples = (VkSampleCountFlagBits) msaaSamples;
     */
 
     /**

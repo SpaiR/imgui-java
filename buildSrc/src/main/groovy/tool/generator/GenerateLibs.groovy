@@ -35,6 +35,7 @@ class GenerateLibs extends DefaultTask {
         println "Build targets: $buildEnvs"
         println "Local: $isLocal"
         println "FreeType: $withFreeType"
+        println "Vulkan SDK: ${System.getenv('VULKAN_SDK')}"
         println '====================================='
 
         if (!buildEnvs) {
@@ -107,12 +108,27 @@ class GenerateLibs extends DefaultTask {
         if (forWindows) {
             def win64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, true)
             addFreeTypeIfEnabled(win64)
+
+            //Convert vulkan sdk path for MinGW
+            //def vulkanSdkPath = System.getenv("VULKAN_SDK")
+            //vulkanSdkPath = vulkanSdkPath.replace(':', '')
+            //vulkanSdkPath = vulkanSdkPath.replaceAll("\\\\", "/")
+
+            //Add vulkan for linker
+            win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\Lib"
+            win64.libraries += ' -lvulkan-1'
+
             buildTargets += win64
         }
 
         if (forLinux) {
             def linux64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, true)
             addFreeTypeIfEnabled(linux64)
+
+            //Vulkan
+            linux64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}/x86_64"
+            linux64.libraries += ' -lvulkan-1'
+
             buildTargets += linux64
         }
 
@@ -122,7 +138,13 @@ class GenerateLibs extends DefaultTask {
             mac64.cppFlags += ' -std=c++14'
             mac64.cppFlags = mac64.cppFlags.replace('10.7', minMacOsVersion)
             mac64.linkerFlags = mac64.linkerFlags.replace('10.7', minMacOsVersion)
+
             addFreeTypeIfEnabled(mac64)
+
+            //Vulkan
+            mac64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}/Lib"
+            mac64.libraries += ' -lvulkan-1'
+
             buildTargets += mac64
         }
 

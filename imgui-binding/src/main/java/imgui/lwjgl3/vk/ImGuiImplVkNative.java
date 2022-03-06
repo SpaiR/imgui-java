@@ -48,7 +48,7 @@ public final class ImGuiImplVkNative {
         ImGui_ImplVulkan_DestroyFontUploadObjects();
     */
 
-    public static native void nSetMinImageCount(int minImageCount); /*
+    public static native void setMinImageCount(int minImageCount); /*
         ImGui_ImplVulkan_SetMinImageCount(minImageCount);
     */
 
