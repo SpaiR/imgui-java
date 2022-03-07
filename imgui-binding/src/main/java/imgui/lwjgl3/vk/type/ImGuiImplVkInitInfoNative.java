@@ -1,27 +1,6 @@
 package imgui.lwjgl3.vk.type;
 
 import imgui.binding.ImGuiStruct;
-
-/**
- * <code>
- * struct ImGui_ImplVulkan_InitInfo
- * {
- * VkInstance                      Instance;
- * VkPhysicalDevice                PhysicalDevice;
- * VkDevice                        Device;
- * uint32_t                        QueueFamily;
- * VkQueue                         Queue;
- * VkPipelineCache                 PipelineCache;
- * VkDescriptorPool                DescriptorPool;
- * uint32_t                        Subpass;
- * uint32_t                        MinImageCount;          // >= 2
- * uint32_t                        ImageCount;             // >= MinImageCount
- * VkSampleCountFlagBits           MSAASamples;            // >= VK_SAMPLE_COUNT_1_BIT (0 -> default to VK_SAMPLE_COUNT_1_BIT)
- * const VkAllocationCallbacks*    Allocator;
- * void                            (*CheckVkResultFn)(VkResult err);
- * };
- * </code>
- */
 public class ImGuiImplVkInitInfoNative extends ImGuiStruct {
 
     public ImGuiImplVkInitInfoNative(final long ptr) {
