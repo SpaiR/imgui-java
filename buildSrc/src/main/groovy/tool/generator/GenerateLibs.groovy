@@ -145,7 +145,7 @@ class GenerateLibs extends DefaultTask {
 
             //Vulkan
             mac64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
-            mac64.libraries += ' -l:libvulkan.so.1'
+            mac64.libraries += ' -l:libvulkan.dylib'
 
             buildTargets += mac64
         }
