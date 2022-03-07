@@ -116,7 +116,7 @@ class GenerateLibs extends DefaultTask {
             if (OperatingSystem.current() == OperatingSystem.WINDOWS) {
                 win64.libraries += ' -lvulkan-1'
             } else {
-                win64.libraries += ' -lvulkan'
+                win64.libraries += ' -l:libvulkan.so.1'
             }
 
 
@@ -129,7 +129,7 @@ class GenerateLibs extends DefaultTask {
 
             //Vulkan
             linux64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
-            linux64.libraries += ' -lvulkan'
+            linux64.libraries += ' -l:libvulkan.so.1'
 
             buildTargets += linux64
         }
@@ -145,7 +145,7 @@ class GenerateLibs extends DefaultTask {
 
             //Vulkan
             mac64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
-            mac64.libraries += ' -lvulkan'
+            mac64.libraries += ' -l:libvulkan.so.1'
 
             buildTargets += mac64
         }
