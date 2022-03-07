@@ -2,7 +2,6 @@ package imgui.vk;
 
 import imgui.ImDrawData;
 import imgui.lwjgl3.vk.ImGuiImplVkNative;
-import imgui.lwjgl3.vk.type.ImGuiImplVkInitInfoNative;
 import org.lwjgl.vulkan.VkCommandBuffer;
 
 public final class ImGuiImplVk {
@@ -34,7 +33,7 @@ public final class ImGuiImplVk {
         ImGuiImplVkNative.destroyFontUploadObjects();
     }
 
-    public static void setMinImageCount(int minImageCount) {
+    public static void setMinImageCount(final int minImageCount) {
         ImGuiImplVkNative.setMinImageCount(minImageCount);
     }
 }
