@@ -83,7 +83,6 @@ jobs:
         name: Install MinGW-w64/GCC/G++
         run: |
           sudo apt install mingw-w64
-          ls -R /home/runner/work/imgui-java/imgui-java/VULKAN_SDK
 
       - if: matrix.os == 'ubuntu-latest' && matrix.type == 'linux' && matrix.freetype == true
         name: FreeType - Install
