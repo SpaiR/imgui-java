@@ -57,11 +57,11 @@ public class Configuration {
         this.fullScreen = fullScreen;
     }
 
-    public BackendType getBackend() {
+    public BackendType getBackendType() {
         return backendType;
     }
 
-    public void setBackend(BackendType backendType) {
+    public void setBackendType(BackendType backendType) {
         this.backendType = backendType;
     }
 }

@@ -26,8 +26,7 @@ public abstract class Window {
 
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private Backend backend;
-
-
+    private Backend customBackend;
 
     /**
      * Pointer to the native GLFW window.
@@ -49,10 +48,16 @@ public abstract class Window {
         initImGui(config);
         imGuiGlfw.init(handle, true);
 
-        if (config.getBackend() == BackendType.OPENGL) {
+        if (config.getBackendType() == BackendType.OPENGL) {
             backend = new ImGuiGlBackend();
-        } else if (config.getBackend() == BackendType.VULKAN) {
+        } else if (config.getBackendType() == BackendType.VULKAN) {
             backend = new ImGuiVkBackend();
+        } else if (config.getBackendType() == BackendType.CUSTOM) {
+            if (customBackend != null) {
+                backend = customBackend;
+            } else {
+                throw new RuntimeException("No custom rendering backend provided");
+            }
         }
         backend.init(handle, colorBg);
     }
@@ -218,6 +223,23 @@ public abstract class Window {
         GLFW.glfwDestroyWindow(handle);
         GLFW.glfwTerminate();
         Objects.requireNonNull(GLFW.glfwSetErrorCallback(null)).free();
+    }
+
+    /**
+     * Get the backend being used to render on the window
+     * @return The current backend
+     */
+    protected Backend getBackend() {
+        return backend;
+    }
+
+    /**
+     * Use a custom backend for rendering
+     * Must be called before {@link #init(Configuration)}
+     * @param backend The custom backend to use
+     */
+    public void setBackend(Backend backend) {
+        customBackend = backend;
     }
 
     /**
