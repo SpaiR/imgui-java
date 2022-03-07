@@ -3,6 +3,7 @@ package imgui.lwjgl3.vk.type;
 import imgui.binding.ImGuiStruct;
 
 /**
+ * <code>
  * struct ImGui_ImplVulkan_InitInfo
  * {
  * VkInstance                      Instance;
@@ -19,6 +20,7 @@ import imgui.binding.ImGuiStruct;
  * const VkAllocationCallbacks*    Allocator;
  * void                            (*CheckVkResultFn)(VkResult err);
  * };
+ * </code>
  */
 public class ImGuiImplVkInitInfoNative extends ImGuiStruct {
 

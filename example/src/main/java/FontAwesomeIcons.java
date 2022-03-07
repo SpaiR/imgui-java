@@ -1,7 +1,7 @@
 /**
  * Font Awesome icons codepoints, can be used to render icons with imgui in any place where text can be rendered.
  *
- * To preview and search for icons use: https://fontawesome.com/icons?d=gallery&p=2&m=free
+ * To preview and search for icons use: <a href="https://fontawesome.com/icons?d=gallery&p=2&m=free">icons</a>
  */
 @SuppressWarnings("unused")
 public class FontAwesomeIcons {
