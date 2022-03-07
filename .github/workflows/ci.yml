@@ -62,7 +62,7 @@ jobs:
       - if: matrix.type == 'win'
         name: Prepare Vulkan DLL
         run: |
-          sudo apt install unzip
+          sudo pwd
           sudo wget -O /vulkan.zip ${{ env.VULKAN_DLL_URL }}
           sudo unzip /vulkan.zip
           sudo ls
