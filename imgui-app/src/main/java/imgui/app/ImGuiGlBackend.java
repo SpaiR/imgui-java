@@ -3,6 +3,7 @@ package imgui.app;
 import imgui.ImGui;
 import imgui.gl3.ImGuiImplGl3;
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL32;
 
 public class ImGuiGlBackend implements Backend {
@@ -17,8 +18,15 @@ public class ImGuiGlBackend implements Backend {
     }
 
     @Override
-    public void init(long windowHandle, Color clearColor) {
+    public void postCreateWindow(long windowHandle) {
         this.windowHandle = windowHandle;
+        GLFW.glfwMakeContextCurrent(windowHandle);
+        GL.createCapabilities();
+        GLFW.glfwSwapInterval(GLFW.GLFW_TRUE);
+    }
+
+    @Override
+    public void init(Color clearColor) {
         this.clearColor = clearColor;
         decideGlGlslVersions();
         imGuiGl3.init(glslVersion);

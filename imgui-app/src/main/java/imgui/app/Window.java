@@ -44,10 +44,6 @@ public abstract class Window {
      * @param config configuration object with basic window information
      */
     protected void init(final Configuration config) {
-        initWindow(config);
-        initImGui(config);
-        imGuiGlfw.init(handle, true);
-
         if (config.getBackendType() == BackendType.OPENGL) {
             backend = new ImGuiGlBackend();
         } else if (config.getBackendType() == BackendType.VULKAN) {
@@ -59,7 +55,11 @@ public abstract class Window {
                 throw new RuntimeException("No custom rendering backend provided");
             }
         }
-        backend.init(handle, colorBg);
+
+        initWindow(config);
+        initImGui(config);
+        imGuiGlfw.init(handle, true);
+        backend.init(colorBg);
     }
 
     /**
@@ -84,9 +84,10 @@ public abstract class Window {
             throw new IllegalStateException("Unable to initialize GLFW");
         }
 
-
-
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
+
+        backend.preCreateWindow();
+
         handle = GLFW.glfwCreateWindow(config.getWidth(), config.getHeight(), config.getTitle(), MemoryUtil.NULL, MemoryUtil.NULL);
 
         if (handle == MemoryUtil.NULL) {
@@ -102,11 +103,7 @@ public abstract class Window {
             GLFW.glfwSetWindowPos(handle, (vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2);
         }
 
-        GLFW.glfwMakeContextCurrent(handle);
-
-        GL.createCapabilities();
-
-        GLFW.glfwSwapInterval(GLFW.GLFW_TRUE);
+        backend.postCreateWindow(handle);
 
         if (config.isFullScreen()) {
             GLFW.glfwMaximizeWindow(handle);
@@ -123,7 +120,6 @@ public abstract class Window {
             }
         });
     }
-
 
 
     /**
@@ -227,6 +223,7 @@ public abstract class Window {
 
     /**
      * Get the backend being used to render on the window
+     *
      * @return The current backend
      */
     protected Backend getBackend() {
@@ -236,6 +233,7 @@ public abstract class Window {
     /**
      * Use a custom backend for rendering
      * Must be called before {@link #init(Configuration)}
+     *
      * @param backend The custom backend to use
      */
     public void setBackend(Backend backend) {

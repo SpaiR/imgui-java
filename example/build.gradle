@@ -25,4 +25,12 @@ run {
     if (org.gradle.internal.os.OperatingSystem.current().isMacOsX()) {
         jvmArgs += ['-XstartOnFirstThread', '-Djava.awt.headless=true']
     }
+    try {
+        if (useVulkan) {
+            args += 'vulkan'
+        }
+    } catch (ignored) {
+        // ignore
+    }
+    
 }

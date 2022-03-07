@@ -11,7 +11,7 @@ JNI based binding for [Dear ImGui](https://github.com/ocornut/imgui) with no dep
 Read official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki) to see how to work with Dear ImGui.
 Almost everything from C++ could be done in Java in the same way.
 
-Binding has an OpenGL renderer and a GLFW backendType implementation, using a [LWJGL3](https://www.lwjgl.org/) library. Could be found in [imgui-lwjgl3](https://github.com/SpaiR/imgui-java/blob/v1.86.3/imgui-lwjgl3) module.<br>
+Binding has an OpenGL/Vulkan renderer and a GLFW backendType implementation, using a [LWJGL3](https://www.lwjgl.org/) library. Could be found in [imgui-lwjgl3](https://github.com/SpaiR/imgui-java/blob/v1.86.3/imgui-lwjgl3) module.<br>
 They are recommended, yet optional to use. The advantage of Dear ImGui is a portability, so feel free to copy-paste classes or write your own implementations.<br>
 
 Additionally, there is an [imgui-app](https://github.com/SpaiR/imgui-java/blob/v1.86.3/imgui-app) module, which provides **a high abstraction layer**.<br>
@@ -53,9 +53,10 @@ You can use this video as a basic step-by-step tutorial. It shows how to integra
 Take a note, that integration itself is a very flexible process. It could be done in one way or another. If you just need a framework for your GUI - use **Application** module. Otherwise, if you need more control, the best way is not just to repeat steps, but to understand what each step does.
 
 ## Application
-If you don't care about OpenGL or other low-level stuff, then you can use application layer from [imgui-app](https://github.com/SpaiR/imgui-java/blob/v1.86.3/imgui-app) module.
-It is a **one jar solution** which includes: GLFW, OpenGL and Dear ImGui itself. So you only need **one dependency** line or **one jar in classpath** to make everything to work. <ins>You don't need to add separate dependencies to LWJGL or native libraries, since they are already included.</ins><br>
-Application module is the best choice if everything you care is the GUI for your app.
+If you don't care about OpenGL, Vulkan or other low-level stuff, then you can use application layer from [imgui-app](https://github.com/SpaiR/imgui-java/blob/v1.86.3/imgui-app) module.
+It is a **one jar solution** which includes: GLFW, OpenGL, Vulkan and Dear ImGui itself. So you only need **one dependency** line or **one jar in classpath** to make everything to work. <ins>You don't need to add separate dependencies to LWJGL or native libraries, since they are already included.</ins><br>
+Application module is the best choice if everything you care is the GUI for your app.  
+Note on Vulkan: No vulkan natives are provided since these are provided by your GPU driver.
 
 At the same time, Application gives an option to override any life-cycle method it has. That means that if you're seeking for a bit more low-level control - you can gain it too.
 
@@ -69,6 +70,9 @@ public class Main extends Application {
     @Override
     protected void configure(Configuration config) {
         config.setTitle("Dear ImGui is Awesome!");
+        
+        //Optional, by default it will use opengl
+        config.setBackendType(Backend.OPENGL); //Set to Backend.VULKAN for vulkan
     }
 
     @Override
@@ -355,20 +359,28 @@ Ensure you've downloaded git submodules. That could be achieved:
     * Mingw-w64 (recommended way: use [MSYS2](https://www.msys2.org/) and install [mingw-w64-x86_64-toolchain](https://packages.msys2.org/group/mingw-w64-x86_64-toolchain) group)
  - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=win -Dlocal`
  - Run with: `./gradlew :example:run -PlibPath="../imgui-binding/build/libsNative/windows64"`
+ - Or run with Vulkan: `./gradlew :example:run -PlibPath="../imgui-binding/build/libsNative/windows64" -PuseVulkan=true`
  
 ### Linux
  - Install dependencies: `openjdk8`, `mingw-w64-gcc`, `ant`. (Package names could vary from system to system.)
  - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=linux -Dlocal`
  - Run with: `./gradlew :example:run -PlibPath=../imgui-binding/build/libsNative/linux64`
+- Or run with Vulkan: `./gradlew :example:run -PlibPath="../imgui-binding/build/libsNative/linux64" -PuseVulkan=true`
  
 ### MacOS
  - Check dependencies from "Linux" section and make sure you have them installed.
  - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=mac -Dlocal`
  - Run with: `./gradlew :example:run -PlibPath=../imgui-binding/build/libsNative/macosx64`
+- Or run with Vulkan: `./gradlew :example:run -PlibPath="../imgui-binding/build/libsNative/macosx64" -PuseVulkan=true`
 
 In `envs` parameter next values could be used `win`, `linux` or `mac`.<br>
 `-Dlocal` is optional and means that natives will be built under the `./imgui-binding/build/` folder. Otherwise `/tmp/imgui` folder will be used.
 On Windows always use local build.
+
+### Vulkan bindings
+Vulkan Loader binaries are stored in `/bin/vulkan/...` for each platform. These binaries are used to link against during
+the build process when building the native libraries. To link against a different version of the vulkan loader, simply
+replace the binary for your platform in `/bin/vulkan`. These binaries are not included in the distibution.  
 
 # License
 See the LICENSE file for license rights and limitations (Apache-2.0).

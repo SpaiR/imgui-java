@@ -3,6 +3,7 @@ import imgui.ImFontGlyphRangesBuilder;
 import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.app.Application;
+import imgui.app.BackendType;
 import imgui.app.Configuration;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiInputTextFlags;
@@ -18,9 +19,20 @@ public class Main extends Application {
     private final float[] flt = new float[1];
     private int count = 0;
 
+    private final boolean useVulkan;
+
+    public Main() {
+        useVulkan = false;
+    }
+
+    public Main(boolean useVulkan) {
+        this.useVulkan = useVulkan;
+    }
+
     @Override
     protected void configure(final Configuration config) {
         config.setTitle("Example Application");
+        config.setBackendType(useVulkan ? BackendType.VULKAN : BackendType.OPENGL);
     }
 
     @Override
@@ -93,7 +105,11 @@ public class Main extends Application {
     }
 
     public static void main(final String[] args) {
-        launch(new Main());
+        if (args.length == 1 && args[0].equals("vulkan")) {
+            launch(new Main(true));
+        } else {
+            launch(new Main());
+        }
         System.exit(0);
     }
 }

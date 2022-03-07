@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.vulkan.EXTDebugUtils.*;
 import static org.lwjgl.vulkan.EXTDebugUtils.VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
 import static org.lwjgl.vulkan.KHRSurface.vkDestroySurfaceKHR;
@@ -56,8 +57,17 @@ public class ImGuiVkBackend implements Backend {
     }
 
     @Override
-    public void init(long windowHandle, Color clearColor) {
+    public void preCreateWindow() {
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    }
+
+    @Override
+    public void postCreateWindow(long windowHandle) {
         this.window = windowHandle;
+    }
+
+    @Override
+    public void init(Color clearColor) {
         createValidationCallbacks();
         createInstance();
         createSurface();
