@@ -1,4 +1,5 @@
-# imgui-java 
+# imgui-java
+
 [![Github All Releases](https://img.shields.io/github/downloads/SpaiR/imgui-java/total.svg?logo=github)](https://github.com/SpaiR/imgui-java/releases)
 [![CI](https://github.com/SpaiR/imgui-java/actions/workflows/ci.yml/badge.svg)](https://github.com/SpaiR/imgui-java/actions/workflows/ci.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.spair/imgui-java-binding?logo=apache-maven)](https://search.maven.org/search?q=g:io.github.spair%20AND%20a:imgui-java-*)
@@ -369,6 +370,11 @@ Ensure you've downloaded git submodules. That could be achieved:
 In `envs` parameter next values could be used `win`, `linux` or `mac`.<br>
 `-Dlocal` is optional and means that natives will be built under the `./imgui-binding/build/` folder. Otherwise `/tmp/imgui` folder will be used.
 On Windows always use local build.
+
+# Support
+You can support the project to motivate its further development.
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P5BF17Q)
 
 # License
 See the LICENSE file for license rights and limitations (Apache-2.0).
