@@ -63,13 +63,13 @@ jobs:
         name: Prepare Vulkan DLL
         run: |
           sudo pwd
-          sudo wget -O /vulkan.zip ${{ env.VULKAN_DLL_URL }}
-          sudo unzip /vulkan.zip
+          sudo wget -O vulkan.zip ${{ env.VULKAN_DLL_URL }}
+          sudo unzip vulkan.zip
           sudo ls
-          sudo mv /VulkanRT-1.3.204.1-Components /vulkan-sdk
-          sudo mv /vulkan-sdk/x64 /vulkan-sdk/lib
-          sudo ls -R /vulkan-sdk
-          sudo export VULKAN_SDK "/vulkan-sdk"
+          sudo mv VulkanRT-1.3.204.1-Components vulkan-sdk
+          sudo mv vulkan-sdk/x64 vulkan-sdk/lib
+          sudo ls -R vulkan-sdk
+          sudo export VULKAN_SDK "/home/runner/work/imgui-java/imgui-java/vulkan-sdk"
         
       - if: matrix.type != 'win'
         name: Prepare Vulkan SDK
