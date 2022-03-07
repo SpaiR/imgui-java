@@ -116,6 +116,9 @@ class GenerateLibs extends DefaultTask {
 
             //Add vulkan for linker
             win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\Lib"
+            win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
+            win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\Bin"
+            win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\bin"
             win64.libraries += ' -lvulkan-1'
 
             buildTargets += win64
@@ -126,7 +129,8 @@ class GenerateLibs extends DefaultTask {
             addFreeTypeIfEnabled(linux64)
 
             //Vulkan
-            linux64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}/x86_64"
+            linux64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
+            linux64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\bin"
             linux64.libraries += ' -lvulkan-1'
 
             buildTargets += linux64
@@ -142,7 +146,8 @@ class GenerateLibs extends DefaultTask {
             addFreeTypeIfEnabled(mac64)
 
             //Vulkan
-            mac64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}/Lib"
+            mac64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
+            mac64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\bin"
             mac64.libraries += ' -lvulkan-1'
 
             buildTargets += mac64
