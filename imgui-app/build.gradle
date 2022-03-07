@@ -16,6 +16,7 @@ dependencies {
     api 'org.lwjgl:lwjgl'
     api 'org.lwjgl:lwjgl-glfw'
     api 'org.lwjgl:lwjgl-opengl'
+    api 'org.lwjgl:lwjgl-vulkan'
 
     ['natives-linux', 'natives-windows', 'natives-macos'].each {
         api "org.lwjgl:lwjgl::$it"

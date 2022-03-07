@@ -7,6 +7,7 @@ import org.gradle.api.file.CopySpec
 import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
+import org.gradle.internal.os.OperatingSystem
 
 @CompileStatic
 class GenerateLibs extends DefaultTask {
@@ -27,6 +28,7 @@ class GenerateLibs extends DefaultTask {
     private final String classpath = project.file('build/classes/java/main')
     private final String jniDir = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/jni'
     private final String tmpFolder = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/tmp'
+    private final String vulkanDir = project.file('bin/vulkan')
     private final String libsFolder = 'libsNative'
 
     @TaskAction
@@ -35,6 +37,7 @@ class GenerateLibs extends DefaultTask {
         println "Build targets: $buildEnvs"
         println "Local: $isLocal"
         println "FreeType: $withFreeType"
+        println "Vulkan SDK: ${System.getenv('VULKAN_SDK')}"
         println '====================================='
 
         if (!buildEnvs) {
@@ -71,6 +74,26 @@ class GenerateLibs extends DefaultTask {
             spec.into(jniDir + '/dirent')
         }
 
+        //Copy vulkan
+        project.copy { CopySpec spec ->
+            ['include/Vulkan-Headers/include/vulkan'].each {
+                spec.from(project.rootProject.file(it)) { CopySpec s -> s.include('*.h', "*.hpp", '*.cpp', '*.inl') }
+            }
+            spec.into(jniDir + "/vulkan")
+        }
+
+        //Copy backends
+        def backendsToCopy = ['imgui_impl_vulkan*']
+        project.copy { CopySpec spec ->
+            ['include/imgui/backends'].each {
+                spec.from(project.rootProject.file(it)) {
+                    CopySpec s -> s.include(backendsToCopy)
+                }
+            }
+
+            spec.into(jniDir + "/backends")
+        }
+
         if (withFreeType) {
             project.copy { CopySpec spec ->
                 spec.from(project.rootProject.file('include/imgui/misc/freetype')) { CopySpec it -> it.include('*.h', '*.cpp') }
@@ -87,12 +110,22 @@ class GenerateLibs extends DefaultTask {
         if (forWindows) {
             def win64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, true)
             addFreeTypeIfEnabled(win64)
+
+            //Add vulkan for linker
+            win64.linkerFlags += " -L $vulkanDir"
+            win64.libraries += ' -l:vulkan-1.dll'
+
             buildTargets += win64
         }
 
         if (forLinux) {
             def linux64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, true)
             addFreeTypeIfEnabled(linux64)
+
+            //Vulkan
+            linux64.linkerFlags += " -L $vulkanDir"
+            linux64.libraries += ' -l:libvulkan.so.1'
+
             buildTargets += linux64
         }
 
@@ -102,7 +135,13 @@ class GenerateLibs extends DefaultTask {
             mac64.cppFlags += ' -std=c++14'
             mac64.cppFlags = mac64.cppFlags.replace('10.7', minMacOsVersion)
             mac64.linkerFlags = mac64.linkerFlags.replace('10.7', minMacOsVersion)
+
             addFreeTypeIfEnabled(mac64)
+
+            //Vulkan
+            mac64.linkerFlags += " -L $vulkanDir"
+            mac64.libraries += ' -l:libvulkan.1.dylib'
+
             buildTargets += mac64
         }
 

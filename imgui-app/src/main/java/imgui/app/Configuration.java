@@ -20,6 +20,10 @@ public class Configuration {
      * When true, application will be maximized by default.
      */
     private boolean fullScreen = false;
+    /**
+     * Backend rendering API to use for ImGUI
+     */
+    private BackendType backendType = BackendType.OPENGL;
 
     public String getTitle() {
         return title;
@@ -51,5 +55,13 @@ public class Configuration {
 
     public void setFullScreen(final boolean fullScreen) {
         this.fullScreen = fullScreen;
+    }
+
+    public BackendType getBackendType() {
+        return backendType;
+    }
+
+    public void setBackendType(BackendType backendType) {
+        this.backendType = backendType;
     }
 }

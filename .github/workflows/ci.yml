@@ -60,7 +60,8 @@ jobs:
 
       - if: matrix.os == 'ubuntu-latest'
         name: Install MinGW-w64/GCC/G++
-        run: sudo apt install mingw-w64
+        run: |
+          sudo apt install mingw-w64
 
       - if: matrix.os == 'ubuntu-latest' && matrix.type == 'linux' && matrix.freetype == true
         name: FreeType - Install
