@@ -62,13 +62,10 @@ jobs:
       - if: matrix.type == 'win'
         name: Prepare Vulkan DLL
         run: |
-          sudo pwd
           sudo wget -O vulkan.zip ${{ env.VULKAN_DLL_URL }}
           sudo unzip vulkan.zip
-          sudo ls
           sudo mv VulkanRT-1.3.204.1-Components vulkan-sdk
           sudo mv vulkan-sdk/x64 vulkan-sdk/lib
-          sudo ls -R vulkan-sdk
           echo "VULKAN_SDK=/home/runner/work/imgui-java/imgui-java/vulkan-sdk" >> $GITHUB_ENV
         
       - if: matrix.type != 'win'
