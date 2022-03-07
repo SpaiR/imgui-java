@@ -7,6 +7,7 @@ import org.gradle.api.file.CopySpec
 import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
+import org.gradle.internal.os.OperatingSystem
 
 @CompileStatic
 class GenerateLibs extends DefaultTask {
@@ -109,17 +110,15 @@ class GenerateLibs extends DefaultTask {
             def win64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, true)
             addFreeTypeIfEnabled(win64)
 
-            //Convert vulkan sdk path for MinGW
-            //def vulkanSdkPath = System.getenv("VULKAN_SDK")
-            //vulkanSdkPath = vulkanSdkPath.replace(':', '')
-            //vulkanSdkPath = vulkanSdkPath.replaceAll("\\\\", "/")
-
             //Add vulkan for linker
             win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\Lib"
             win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
-            win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\Bin"
-            win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\bin"
-            win64.libraries += ' -lvulkan-1'
+            if (OperatingSystem.current() == OperatingSystem.WINDOWS) {
+                win64.libraries += ' -lvulkan-1'
+            } else {
+                win64.libraries += ' -lvulkan'
+            }
+
 
             buildTargets += win64
         }
@@ -130,8 +129,7 @@ class GenerateLibs extends DefaultTask {
 
             //Vulkan
             linux64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
-            linux64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\bin"
-            linux64.libraries += ' -lvulkan-1'
+            linux64.libraries += ' -lvulkan'
 
             buildTargets += linux64
         }
@@ -147,8 +145,7 @@ class GenerateLibs extends DefaultTask {
 
             //Vulkan
             mac64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
-            mac64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\bin"
-            mac64.libraries += ' -lvulkan-1'
+            mac64.libraries += ' -lvulkan'
 
             buildTargets += mac64
         }
