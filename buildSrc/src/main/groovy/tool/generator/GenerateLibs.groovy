@@ -28,6 +28,7 @@ class GenerateLibs extends DefaultTask {
     private final String classpath = project.file('build/classes/java/main')
     private final String jniDir = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/jni'
     private final String tmpFolder = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/tmp'
+    private final String vulkanDir = project.file('bin/vulkan')
     private final String libsFolder = 'libsNative'
 
     @TaskAction
@@ -111,15 +112,8 @@ class GenerateLibs extends DefaultTask {
             addFreeTypeIfEnabled(win64)
 
             //Add vulkan for linker
-            if (OperatingSystem.current() == OperatingSystem.WINDOWS) {
-                win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\Lib"
-                win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
-                win64.libraries += ' -lvulkan-1'
-            } else {
-                win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}/lib"
-                win64.libraries += ' -l:vulkan-1.dll'
-            }
-
+            win64.linkerFlags += " -L $vulkanDir"
+            win64.libraries += ' -l:vulkan-1.dll'
 
             buildTargets += win64
         }
@@ -129,7 +123,7 @@ class GenerateLibs extends DefaultTask {
             addFreeTypeIfEnabled(linux64)
 
             //Vulkan
-            linux64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
+            linux64.linkerFlags += " -L $vulkanDir"
             linux64.libraries += ' -l:libvulkan.so.1'
 
             buildTargets += linux64
@@ -145,8 +139,8 @@ class GenerateLibs extends DefaultTask {
             addFreeTypeIfEnabled(mac64)
 
             //Vulkan
-            mac64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
-            mac64.libraries += ' -l:libvulkan.dylib'
+            mac64.linkerFlags += " -L $vulkanDir"
+            mac64.libraries += ' -l:libvulkan.1.dylib'
 
             buildTargets += mac64
         }
