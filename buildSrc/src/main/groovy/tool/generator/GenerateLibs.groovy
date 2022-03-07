@@ -111,9 +111,15 @@ class GenerateLibs extends DefaultTask {
             addFreeTypeIfEnabled(win64)
 
             //Add vulkan for linker
-            win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\Lib"
-            win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
-            win64.libraries += ' -lvulkan-1'
+            if (OperatingSystem.current() == OperatingSystem.WINDOWS) {
+                win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\Lib"
+                win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
+                win64.libraries += ' -lvulkan-1'
+            } else {
+                win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}/lib"
+                win64.libraries += ' -l:vulkan-1.dll'
+            }
+
 
             buildTargets += win64
         }
