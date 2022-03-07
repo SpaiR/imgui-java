@@ -25,9 +25,9 @@ import java.util.Objects;
 public abstract class Window {
 
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
-    private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+    private Backend backend;
 
-    private String glslVersion = null;
+
 
     /**
      * Pointer to the native GLFW window.
@@ -48,15 +48,21 @@ public abstract class Window {
         initWindow(config);
         initImGui(config);
         imGuiGlfw.init(handle, true);
-        imGuiGl3.init(glslVersion);
+
+        if (config.getBackend() == BackendType.OPENGL) {
+            backend = new ImGuiGlBackend();
+        } else if (config.getBackend() == BackendType.VULKAN) {
+            backend = new ImGuiVkBackend();
+        }
+        backend.init(handle, colorBg);
     }
 
     /**
      * Method to dispose all used application resources and destroy its window.
      */
     protected void dispose() {
-        imGuiGl3.dispose();
         imGuiGlfw.dispose();
+        backend.destroy();
         disposeImGui();
         disposeWindow();
     }
@@ -73,7 +79,7 @@ public abstract class Window {
             throw new IllegalStateException("Unable to initialize GLFW");
         }
 
-        decideGlGlslVersions();
+
 
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
         handle = GLFW.glfwCreateWindow(config.getWidth(), config.getHeight(), config.getTitle(), MemoryUtil.NULL, MemoryUtil.NULL);
@@ -103,7 +109,6 @@ public abstract class Window {
             GLFW.glfwShowWindow(handle);
         }
 
-        clearBuffer();
         renderBuffer();
 
         GLFW.glfwSetWindowSizeCallback(handle, new GLFWWindowSizeCallback() {
@@ -114,20 +119,7 @@ public abstract class Window {
         });
     }
 
-    private void decideGlGlslVersions() {
-        final boolean isMac = System.getProperty("os.name").toLowerCase().contains("mac");
-        if (isMac) {
-            glslVersion = "#version 150";
-            GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
-            GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 2);
-            GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-            GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GLFW.GLFW_TRUE);          // Required on Mac
-        } else {
-            glslVersion = "#version 130";
-            GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
-            GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 0);
-        }
-    }
+
 
     /**
      * Method to initialize Dear ImGui context. Could be overridden to do custom Dear ImGui setup before application start.
@@ -176,19 +168,11 @@ public abstract class Window {
     public abstract void process();
 
     /**
-     * Method used to clear the OpenGL buffer.
-     */
-    private void clearBuffer() {
-        GL32.glClearColor(colorBg.getRed(), colorBg.getGreen(), colorBg.getBlue(), colorBg.getAlpha());
-        GL32.glClear(GL32.GL_COLOR_BUFFER_BIT | GL32.GL_DEPTH_BUFFER_BIT);
-    }
-
-    /**
      * Method called at the beginning of the main cycle.
      * It clears OpenGL buffer and starts an ImGui frame.
      */
     protected void startFrame() {
-        clearBuffer();
+        backend.begin();
         imGuiGlfw.newFrame();
         ImGui.newFrame();
     }
@@ -199,7 +183,7 @@ public abstract class Window {
      */
     protected void endFrame() {
         ImGui.render();
-        imGuiGl3.renderDrawData(ImGui.getDrawData());
+        backend.end();
 
         if (ImGui.getIO().hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
             final long backupWindowPtr = GLFW.glfwGetCurrentContext();

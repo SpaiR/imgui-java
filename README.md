@@ -11,7 +11,7 @@ JNI based binding for [Dear ImGui](https://github.com/ocornut/imgui) with no dep
 Read official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki) to see how to work with Dear ImGui.
 Almost everything from C++ could be done in Java in the same way.
 
-Binding has an OpenGL renderer and a GLFW backend implementation, using a [LWJGL3](https://www.lwjgl.org/) library. Could be found in [imgui-lwjgl3](https://github.com/SpaiR/imgui-java/blob/v1.86.3/imgui-lwjgl3) module.<br>
+Binding has an OpenGL renderer and a GLFW backendType implementation, using a [LWJGL3](https://www.lwjgl.org/) library. Could be found in [imgui-lwjgl3](https://github.com/SpaiR/imgui-java/blob/v1.86.3/imgui-lwjgl3) module.<br>
 They are recommended, yet optional to use. The advantage of Dear ImGui is a portability, so feel free to copy-paste classes or write your own implementations.<br>
 
 Additionally, there is an [imgui-app](https://github.com/SpaiR/imgui-java/blob/v1.86.3/imgui-app) module, which provides **a high abstraction layer**.<br>
