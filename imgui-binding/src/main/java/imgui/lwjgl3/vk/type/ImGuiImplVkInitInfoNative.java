@@ -178,7 +178,7 @@ public class ImGuiImplVkInitInfoNative extends ImGuiStruct {
 
     /**
      * Set MSAA Samples
-     * Must be greater or equal to VK_SAMPLE_COUNT_1_BIT (0 -> default to VK_SAMPLE_COUNT_1_BIT)
+     * Must be greater or equal to VK_SAMPLE_COUNT_1_BIT (default to VK_SAMPLE_COUNT_1_BIT = 0)
      * @param msaaSamples MSAA Samples (VK_SAMPLE_COUNT_x)
      */
     public native void setMSAASamples(int msaaSamples); /*
