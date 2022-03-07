@@ -113,12 +113,7 @@ class GenerateLibs extends DefaultTask {
             //Add vulkan for linker
             win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\Lib"
             win64.linkerFlags += " -L ${System.getenv('VULKAN_SDK')}\\lib"
-            if (OperatingSystem.current() == OperatingSystem.WINDOWS) {
-                win64.libraries += ' -lvulkan-1'
-            } else {
-                win64.libraries += ' -l:libvulkan.so.1'
-            }
-
+            win64.libraries += ' -lvulkan-1'
 
             buildTargets += win64
         }

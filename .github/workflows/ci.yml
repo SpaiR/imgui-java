@@ -23,6 +23,7 @@ jobs:
   build-natives:
     env:
       FREETYPE_URL: https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.gz
+      VULKAN_DLL_URL: https://sdk.lunarg.com/sdk/download/1.3.204.1/windows/VulkanRT-1.3.204.1-Components.zip
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
@@ -58,7 +59,20 @@ jobs:
       - name: Ant Version
         run: ant -version
         
-      - name: Prepare Vulkan SDK
+      - if: matrix.type == 'win'
+        name: Prepare Vulkan DLL
+        run: |
+          sudo apt install unzip
+          sudo wget -O /vulkan.zip ${{ env.VULKAN_DLL_URL }}
+          sudo unzip /vulkan.zip
+          sudo ls
+          sudo mv /VulkanRT-1.3.204.1-Components /vulkan-sdk
+          sudo mv /vulkan-sdk/x64 /vulkan-sdk/lib
+          sudo ls -R /vulkan-sdk
+          sudo export VULKAN_SDK "/vulkan-sdk"
+        
+      - if: matrix.type != 'win'
+        name: Prepare Vulkan SDK
         uses: humbletim/setup-vulkan-sdk@v1.2.0
         with:
           vulkan-query-version: 1.3.204.0
