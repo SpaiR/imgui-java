@@ -6,7 +6,7 @@ plugins {
 
 def packageName = 'imgui-java-natives-linux'
 def packageDesc = 'Native binaries for imgui-java binding for Linux'
-def moduleName = "imgui.natives.linux"
+def moduleName = 'imgui.natives.linux'
 def fromDir = '../bin'
 def libName = 'libimgui-java64.so'
 
