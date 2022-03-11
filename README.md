@@ -138,7 +138,7 @@ Feel free to add other platforms.
 |----------------------------|---------|
 | imgui-java-natives-windows | Windows |
 | imgui-java-natives-linux   | Linux   |
-| imgui-java-natives-macos   | MacOS   |
+| imgui-java-natives-macos   | macOS   |
 
 Take a note, that you also need to add dependencies to [LWJGL](https://www.lwjgl.org/). Examples below shows how to do it as well.
 
@@ -247,7 +247,7 @@ dependencies {
  2. Download `imgui-binding-${version}.jar`, `imgui-lwjgl3-${version}.jar` and binary libraries for your OS;
    - imgui-java64.dll - Windows
    - libimgui-java64.so - Linux
-   - libimgui-java64.dylib - MacOS
+   - libimgui-java64.dylib - macOS
  3. Add jars to your classpath;
  4. Provide a VM option: `imgui.library.path` or `java.library.path`. It should point to the folder where you've placed downloaded native libraries.
 </details>
@@ -255,12 +255,14 @@ dependencies {
 #### Java Module System
 If using Java 9 modules, imgui-java has Automatic Module Names:
 
-| Package            | Module        |
-|--------------------|---------------|
-| imgui-java-app     | imgui.app     |
-| imgui-java-binding | imgui.binding |
-| imgui-java-lwjgl3  | imgui.lwjgl3  |
-| imgui-java-natives | imgui.natives |
+| Package                    | Module                |
+|----------------------------|-----------------------|
+| imgui-java-app             | imgui.app             |
+| imgui-java-binding         | imgui.binding         |
+| imgui-java-lwjgl3          | imgui.lwjgl3          |
+| imgui-java-natives-windows | imgui.natives.windows |
+| imgui-java-natives-linux   | imgui.natives.linux   |
+| imgui-java-natives-macos   | imgui.natives.macos   |
 
 ## Extensions
 - [ImNodes](https://github.com/Nelarius/imnodes/tree/857cc860af05ac0f6a4039c2af33d982377b6cf4) | [Example](https://github.com/SpaiR/imgui-java/blob/v1.86.3/example/src/main/java/ExampleImNodes.java) <br>
@@ -332,7 +334,7 @@ Don't forget to make clear for your Linux/Mac users, that they will need to inst
 |-------------------------------|---------|
 | imgui-java-natives-windows-ft | Windows |
 | imgui-java-natives-linux-ft   | Linux   |
-| imgui-java-natives-macos-ft   | MacOS   |
+| imgui-java-natives-macos-ft   | macOS   |
 
 # Binding Notice
 Binding was made with java usage in mind. Some places of the original library were adapted for that.<br>
@@ -362,7 +364,7 @@ Ensure you've downloaded git submodules. That could be achieved:
  - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=linux -Dlocal`
  - Run with: `./gradlew :example:run -PlibPath=../imgui-binding/build/libsNative/linux64`
  
-### MacOS
+### macOS
  - Check dependencies from "Linux" section and make sure you have them installed.
  - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=mac -Dlocal`
  - Run with: `./gradlew :example:run -PlibPath=../imgui-binding/build/libsNative/macosx64`
@@ -372,9 +374,9 @@ In `envs` parameter next values could be used `win`, `linux` or `mac`.<br>
 On Windows always use local build.
 
 # Support
-You can support the project to motivate its further development.
-
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P5BF17Q)
+
+You can support the project to motivate its further development.
 
 # License
 See the LICENSE file for license rights and limitations (Apache-2.0).
