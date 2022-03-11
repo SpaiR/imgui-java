@@ -14,7 +14,7 @@ switch (findProperty('deployType')) {
     case 'win':
         packageName = 'imgui-java-natives-windows'
         packageDesc = 'Native binaries for imgui-java binding for Windows'
-        moduleName = "imgui.natives.windows"
+        moduleName = 'imgui.natives.windows'
         libName = 'imgui-java64.dll'
         break
     case 'linux':
