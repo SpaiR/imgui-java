@@ -3,23 +3,50 @@ package imgui.app.vk;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
-import org.lwjgl.vulkan.*;
+import org.lwjgl.vulkan.VkExtensionProperties;
+import org.lwjgl.vulkan.VkMemoryType;
+import org.lwjgl.vulkan.VkPhysicalDevice;
+import org.lwjgl.vulkan.VkPhysicalDeviceFeatures;
+import org.lwjgl.vulkan.VkPhysicalDeviceIDProperties;
+import org.lwjgl.vulkan.VkPhysicalDeviceMemoryProperties;
+import org.lwjgl.vulkan.VkPhysicalDeviceProperties;
+import org.lwjgl.vulkan.VkPhysicalDeviceProperties2;
+import org.lwjgl.vulkan.VkQueueFamilyProperties;
+import org.lwjgl.vulkan.VkSurfaceCapabilitiesKHR;
+import org.lwjgl.vulkan.VkSurfaceFormatKHR;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.logging.Logger;
 
-import static org.lwjgl.system.MemoryUtil.NULL;
-import static org.lwjgl.vulkan.KHRSurface.*;
+import static org.lwjgl.vulkan.KHRSurface.vkGetPhysicalDeviceSurfaceCapabilitiesKHR;
+import static org.lwjgl.vulkan.KHRSurface.vkGetPhysicalDeviceSurfaceFormatsKHR;
 import static org.lwjgl.vulkan.KHRSurface.vkGetPhysicalDeviceSurfacePresentModesKHR;
+import static org.lwjgl.vulkan.KHRSurface.vkGetPhysicalDeviceSurfaceSupportKHR;
 import static org.lwjgl.vulkan.KHRSwapchain.VK_KHR_SWAPCHAIN_EXTENSION_NAME;
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.VK10.VK_MAX_MEMORY_TYPES;
+import static org.lwjgl.vulkan.VK10.VK_NULL_HANDLE;
+import static org.lwjgl.vulkan.VK10.VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU;
+import static org.lwjgl.vulkan.VK10.VK_QUEUE_GRAPHICS_BIT;
+import static org.lwjgl.vulkan.VK10.VK_TRUE;
+import static org.lwjgl.vulkan.VK10.vkEnumerateDeviceExtensionProperties;
+import static org.lwjgl.vulkan.VK10.vkEnumeratePhysicalDevices;
+import static org.lwjgl.vulkan.VK10.vkGetPhysicalDeviceFeatures;
+import static org.lwjgl.vulkan.VK10.vkGetPhysicalDeviceMemoryProperties;
+import static org.lwjgl.vulkan.VK10.vkGetPhysicalDeviceProperties;
+import static org.lwjgl.vulkan.VK10.vkGetPhysicalDeviceQueueFamilyProperties;
 import static org.lwjgl.vulkan.VK11.vkGetPhysicalDeviceProperties2;
 
 public class ImVkPhysicalDevice {
 
-    private final static Logger LOGGER = Logger.getLogger(ImVkPhysicalDevice.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImVkPhysicalDevice.class.getName());
 
     private ImVkInstance instance;
     private long surface = VK_NULL_HANDLE;
@@ -78,9 +105,9 @@ public class ImVkPhysicalDevice {
 
     private void pickPhysicalDevice() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            IntBuffer deviceCountBuff = stack.callocInt(1);
+            final IntBuffer deviceCountBuff = stack.callocInt(1);
             vkEnumeratePhysicalDevices(instance.getInstance(), deviceCountBuff, null);
-            int deviceCount = deviceCountBuff.get();
+            final int deviceCount = deviceCountBuff.get();
             deviceCountBuff.flip();
 
             if (deviceCount < 1) {
@@ -90,13 +117,13 @@ public class ImVkPhysicalDevice {
                 LOGGER.finest("Vulkan GPUs found: " + deviceCount);
             }
 
-            PointerBuffer devicePointerBuff = stack.callocPointer(deviceCount);
+            final PointerBuffer devicePointerBuff = stack.callocPointer(deviceCount);
             vkEnumeratePhysicalDevices(instance.getInstance(), deviceCountBuff, devicePointerBuff);
 
-            HashMap<VkPhysicalDevice, Integer> scores = new HashMap<>();
+            final HashMap<VkPhysicalDevice, Integer> scores = new HashMap<>();
 
             for (int i = 0; i < deviceCount; i++) {
-                VkPhysicalDevice device = new VkPhysicalDevice(devicePointerBuff.get(i), instance.getInstance());
+                final VkPhysicalDevice device = new VkPhysicalDevice(devicePointerBuff.get(i), instance.getInstance());
                 scores.put(device, rateDeviceSuitability(device));
             }
 
@@ -106,13 +133,13 @@ public class ImVkPhysicalDevice {
         }
     }
 
-    private int rateDeviceSuitability(VkPhysicalDevice device) {
+    private int rateDeviceSuitability(final VkPhysicalDevice device) {
         int score = 0;
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkPhysicalDeviceProperties deviceProperties = VkPhysicalDeviceProperties.calloc(stack);
+            final VkPhysicalDeviceProperties deviceProperties = VkPhysicalDeviceProperties.calloc(stack);
             vkGetPhysicalDeviceProperties(device, deviceProperties);
 
-            VkPhysicalDeviceFeatures deviceFeatures = VkPhysicalDeviceFeatures.calloc(stack);
+            final VkPhysicalDeviceFeatures deviceFeatures = VkPhysicalDeviceFeatures.calloc(stack);
             vkGetPhysicalDeviceFeatures(device, deviceFeatures);
 
             if (deviceProperties.deviceType() == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU) {
@@ -123,7 +150,7 @@ public class ImVkPhysicalDevice {
                 score += 100;
             }
 
-            QueueFamilyIndices indices = findQueueFamilies(device);
+            final QueueFamilyIndices indices = findQueueFamilies(device);
 
             if (Objects.equals(indices.getPresentFamily(), indices.getGraphicsFamily())) {
                 score += 500;
@@ -139,18 +166,18 @@ public class ImVkPhysicalDevice {
         return score;
     }
 
-    private boolean isDeviceSuitable(VkPhysicalDevice device) {
+    private boolean isDeviceSuitable(final VkPhysicalDevice device) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkPhysicalDeviceProperties deviceProperties = VkPhysicalDeviceProperties.calloc(stack);
+            final VkPhysicalDeviceProperties deviceProperties = VkPhysicalDeviceProperties.calloc(stack);
             vkGetPhysicalDeviceProperties(device, deviceProperties);
 
-            VkPhysicalDeviceFeatures deviceFeatures = VkPhysicalDeviceFeatures.calloc(stack);
+            final VkPhysicalDeviceFeatures deviceFeatures = VkPhysicalDeviceFeatures.calloc(stack);
             vkGetPhysicalDeviceFeatures(device, deviceFeatures);
 
-            boolean extensionsSupported = checkDeviceExtensionSupport(device);
+            final boolean extensionsSupported = checkDeviceExtensionSupport(device);
             boolean swapChainAdequate = false;
             if (extensionsSupported) {
-                SwapChainDetails details = findSwapChainDetails(device);
+                final SwapChainDetails details = findSwapChainDetails(device);
                 swapChainAdequate = details.getFormats().capacity() != 0 && details.getPresentModes().capacity() != 0;
                 details.free();
             }
@@ -163,16 +190,16 @@ public class ImVkPhysicalDevice {
         }
     }
 
-    private QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device) {
-        QueueFamilyIndices indices = new QueueFamilyIndices();
+    private QueueFamilyIndices findQueueFamilies(final VkPhysicalDevice device) {
+        final QueueFamilyIndices indices = new QueueFamilyIndices();
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            IntBuffer queueFamilyCountBuff = stack.callocInt(1);
+            final IntBuffer queueFamilyCountBuff = stack.callocInt(1);
             vkGetPhysicalDeviceQueueFamilyProperties(device, queueFamilyCountBuff, null);
-            int queueFamilyCount = queueFamilyCountBuff.get();
+            final int queueFamilyCount = queueFamilyCountBuff.get();
             queueFamilyCountBuff.flip();
 
 
-            VkQueueFamilyProperties.Buffer queueFamilyProperties = VkQueueFamilyProperties.calloc(queueFamilyCount, stack);
+            final VkQueueFamilyProperties.Buffer queueFamilyProperties = VkQueueFamilyProperties.calloc(queueFamilyCount, stack);
             vkGetPhysicalDeviceQueueFamilyProperties(device, queueFamilyCountBuff, queueFamilyProperties);
 
             int i = 0;
@@ -181,7 +208,7 @@ public class ImVkPhysicalDevice {
                     indices.setGraphicsFamily(i);
                 }
 
-                IntBuffer vkBool = stack.callocInt(1);
+                final IntBuffer vkBool = stack.callocInt(1);
                 vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, vkBool);
 
                 if (vkBool.get() == VK_TRUE) {
@@ -197,18 +224,18 @@ public class ImVkPhysicalDevice {
         return indices;
     }
 
-    private boolean checkDeviceExtensionSupport(VkPhysicalDevice device) {
+    private boolean checkDeviceExtensionSupport(final VkPhysicalDevice device) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            IntBuffer extensionCountBuff = stack.callocInt(1);
+            final IntBuffer extensionCountBuff = stack.callocInt(1);
             vkEnumerateDeviceExtensionProperties(device, (ByteBuffer) null, extensionCountBuff, null);
 
-            int extensionCount = extensionCountBuff.get();
+            final int extensionCount = extensionCountBuff.get();
             extensionCountBuff.flip();
 
-            VkExtensionProperties.Buffer deviceExtensionPointerBuff = VkExtensionProperties.calloc(extensionCount);
+            final VkExtensionProperties.Buffer deviceExtensionPointerBuff = VkExtensionProperties.calloc(extensionCount);
             vkEnumerateDeviceExtensionProperties(device, (ByteBuffer) null, extensionCountBuff, deviceExtensionPointerBuff);
 
-            Set<String> requiredExtensions = new HashSet<>(getRequiredExtensions());
+            final Set<String> requiredExtensions = new HashSet<>(getRequiredExtensions());
 
             //If the extension is a required extension, remove it from the list.
             for (VkExtensionProperties prop : deviceExtensionPointerBuff) {
@@ -219,33 +246,33 @@ public class ImVkPhysicalDevice {
         }
     }
 
-    private SwapChainDetails findSwapChainDetails(VkPhysicalDevice device) {
-        SwapChainDetails swapChainDetails = new SwapChainDetails();
+    private SwapChainDetails findSwapChainDetails(final VkPhysicalDevice device) {
+        final SwapChainDetails swapChainDetails = new SwapChainDetails();
         try (MemoryStack stack = MemoryStack.stackPush()) {
             //Get capabilities
-            VkSurfaceCapabilitiesKHR capabilitiesKHR = VkSurfaceCapabilitiesKHR.calloc();
+            final VkSurfaceCapabilitiesKHR capabilitiesKHR = VkSurfaceCapabilitiesKHR.calloc();
             vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, surface, capabilitiesKHR);
             swapChainDetails.setCapabilities(capabilitiesKHR);
 
             //Get formats
-            IntBuffer formatsCountBuff = stack.callocInt(1);
+            final IntBuffer formatsCountBuff = stack.callocInt(1);
             vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, formatsCountBuff, null);
-            int formatCount = formatsCountBuff.get();
+            final int formatCount = formatsCountBuff.get();
             formatsCountBuff.flip();
 
             if (formatCount != 0) {
-                VkSurfaceFormatKHR.Buffer formatBuffer = VkSurfaceFormatKHR.calloc(formatCount);
+                final VkSurfaceFormatKHR.Buffer formatBuffer = VkSurfaceFormatKHR.calloc(formatCount);
                 vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, formatsCountBuff, formatBuffer);
                 swapChainDetails.setFormats(formatBuffer);
             }
 
-            IntBuffer presentModeCountBuff = stack.callocInt(1);
+            final IntBuffer presentModeCountBuff = stack.callocInt(1);
             vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, presentModeCountBuff, null);
-            int presentModeCount = presentModeCountBuff.get();
+            final int presentModeCount = presentModeCountBuff.get();
             presentModeCountBuff.flip();
 
             if (presentModeCount != 0) {
-                IntBuffer presentModes = MemoryUtil.memAllocInt(presentModeCount);
+                final IntBuffer presentModes = MemoryUtil.memAllocInt(presentModeCount);
                 vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, presentModeCountBuff, presentModes);
                 swapChainDetails.setPresentModes(presentModes);
             }
@@ -253,15 +280,16 @@ public class ImVkPhysicalDevice {
         return swapChainDetails;
     }
 
-    public int memoryTypeFromProperties(int typeBits, int reqsMask) {
+    public int memoryTypeFromProperties(final int typeBits, final int reqsMask) {
         int result = -1;
-        VkMemoryType.Buffer memoryTypes = getMemoryProperties().memoryTypes();
+        int typeBitsTemp = typeBits;
+        final VkMemoryType.Buffer memoryTypes = getMemoryProperties().memoryTypes();
         for (int i = 0; i < VK_MAX_MEMORY_TYPES; i++) {
-            if ((typeBits & 1) == 1 && (memoryTypes.get(i).propertyFlags() & reqsMask) == reqsMask) {
+            if ((typeBitsTemp & 1) == 1 && (memoryTypes.get(i).propertyFlags() & reqsMask) == reqsMask) {
                 result = i;
                 break;
             }
-            typeBits >>= 1;
+            typeBitsTemp >>= 1;
         }
         if (result < 0) {
             throw new RuntimeException("Failed to find memoryType");
@@ -276,13 +304,13 @@ public class ImVkPhysicalDevice {
             vkGetPhysicalDeviceMemoryProperties(physicalDevice, memoryProperties);
 
             //List extensions
-            IntBuffer extensionCountBuff = stack.callocInt(1);
+            final IntBuffer extensionCountBuff = stack.callocInt(1);
             vkEnumerateDeviceExtensionProperties(physicalDevice, (ByteBuffer) null, extensionCountBuff, null);
 
-            int extensionCount = extensionCountBuff.get();
+            final int extensionCount = extensionCountBuff.get();
             extensionCountBuff.flip();
 
-            VkExtensionProperties.Buffer deviceExtensionPointerBuff = VkExtensionProperties.calloc(extensionCount);
+            final VkExtensionProperties.Buffer deviceExtensionPointerBuff = VkExtensionProperties.calloc(extensionCount);
             vkEnumerateDeviceExtensionProperties(physicalDevice, (ByteBuffer) null, extensionCountBuff, deviceExtensionPointerBuff);
 
             supportedExtensions.clear();
@@ -308,7 +336,7 @@ public class ImVkPhysicalDevice {
         return instance;
     }
 
-    public void setInstance(ImVkInstance instance) {
+    public void setInstance(final ImVkInstance instance) {
         this.instance = instance;
     }
 
@@ -316,7 +344,7 @@ public class ImVkPhysicalDevice {
         return surface;
     }
 
-    public void setSurface(long surface) {
+    public void setSurface(final long surface) {
         this.surface = surface;
     }
 

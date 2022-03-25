@@ -21,7 +21,7 @@ public class SwapChainDetails {
         return capabilities;
     }
 
-    public void setCapabilities(VkSurfaceCapabilitiesKHR capabilities) {
+    public void setCapabilities(final VkSurfaceCapabilitiesKHR capabilities) {
         this.capabilities = capabilities;
     }
 
@@ -29,7 +29,7 @@ public class SwapChainDetails {
         return formats;
     }
 
-    public void setFormats(VkSurfaceFormatKHR.Buffer formats) {
+    public void setFormats(final VkSurfaceFormatKHR.Buffer formats) {
         this.formats = formats;
     }
 
@@ -37,7 +37,7 @@ public class SwapChainDetails {
         return presentModes;
     }
 
-    public void setPresentModes(IntBuffer presentModes) {
+    public void setPresentModes(final IntBuffer presentModes) {
         this.presentModes = presentModes;
     }
 }

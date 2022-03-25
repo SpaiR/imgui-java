@@ -1,32 +1,58 @@
 package imgui.app.vk;
 
-import org.lwjgl.vulkan.*;
+import org.lwjgl.vulkan.EXTBufferDeviceAddress;
+import org.lwjgl.vulkan.EXTDebugReport;
+import org.lwjgl.vulkan.EXTDescriptorIndexing;
+import org.lwjgl.vulkan.EXTFullScreenExclusive;
+import org.lwjgl.vulkan.EXTGlobalPriority;
+import org.lwjgl.vulkan.EXTImageDrmFormatModifier;
+import org.lwjgl.vulkan.EXTPipelineCreationCacheControl;
+import org.lwjgl.vulkan.KHRBufferDeviceAddress;
+import org.lwjgl.vulkan.KHRDeferredHostOperations;
+import org.lwjgl.vulkan.KHRDisplaySwapchain;
+import org.lwjgl.vulkan.KHRExternalMemory;
+import org.lwjgl.vulkan.KHRMaintenance1;
+import org.lwjgl.vulkan.KHRSurface;
+import org.lwjgl.vulkan.KHRSwapchain;
+import org.lwjgl.vulkan.NVGLSLShader;
+import org.lwjgl.vulkan.VK10;
+import org.lwjgl.vulkan.VK11;
+import org.lwjgl.vulkan.VK12;
+import org.lwjgl.vulkan.VkDebugUtilsMessengerCallbackDataEXT;
+import org.lwjgl.vulkan.VkDebugUtilsMessengerCreateInfoEXT;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.lwjgl.vulkan.EXTDebugUtils.*;
+import static org.lwjgl.vulkan.EXTDebugUtils.VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
+import static org.lwjgl.vulkan.EXTDebugUtils.VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT;
+import static org.lwjgl.vulkan.EXTDebugUtils.VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT;
+import static org.lwjgl.vulkan.EXTDebugUtils.VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT;
+import static org.lwjgl.vulkan.EXTDebugUtils.VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT;
+import static org.lwjgl.vulkan.EXTDebugUtils.VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+import static org.lwjgl.vulkan.EXTDebugUtils.VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT;
 import static org.lwjgl.vulkan.VK10.VK_FALSE;
 
 /**
  * Vulkan debugging helper functions.
  * Provides helper functions for managing the messenger lifecycle and result error valudation.
  */
-public class ImVkDebug {
-    private ImVkDebug() {}
+public final class ImVkDebug {
+    private ImVkDebug() {
+    }
 
-    private final static Logger LOGGER = Logger.getLogger(ImVkDebug.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImVkDebug.class.getName());
 
-    private final static int MESSAGE_SEVERITY_BITMASK =
-        VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT |
-            VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT |
-            VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT |
-            VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT;
+    private static final int MESSAGE_SEVERITY_BITMASK =
+        VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT
+            | VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT
+            | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT
+            | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT;
 
-    private final static int MESSAGE_TYPE_BITMASK =
-        VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT |
-            VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT |
-            VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+    private static final int MESSAGE_TYPE_BITMASK =
+        VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT
+            | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT
+            | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
 
     public static VkDebugUtilsMessengerCreateInfoEXT createDebugCallback() {
         return VkDebugUtilsMessengerCreateInfoEXT
@@ -35,7 +61,7 @@ public class ImVkDebug {
             .messageSeverity(MESSAGE_SEVERITY_BITMASK)
             .messageType(MESSAGE_TYPE_BITMASK)
             .pfnUserCallback((messageSeverity, messageTypes, pCallbackData, pUserData) -> {
-                VkDebugUtilsMessengerCallbackDataEXT callbackData = VkDebugUtilsMessengerCallbackDataEXT.create(pCallbackData);
+                final VkDebugUtilsMessengerCallbackDataEXT callbackData = VkDebugUtilsMessengerCallbackDataEXT.create(pCallbackData);
                 Level logLevel = Level.FINE;
                 if ((messageSeverity & VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT) != 0) {
                     logLevel = Level.INFO;
@@ -47,7 +73,7 @@ public class ImVkDebug {
 
                 LOGGER.log(logLevel, "[validation] " + callbackData.pMessageString());
                 if (logLevel == Level.SEVERE) {
-                    StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+                    final StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
                     for (StackTraceElement stackTraceElement : stackTrace) {
                         LOGGER.log(logLevel, "[validation] [trace] " + stackTraceElement.toString());
                     }
@@ -56,14 +82,14 @@ public class ImVkDebug {
             });
     }
 
-    public static void destroyDebugCallback(VkDebugUtilsMessengerCreateInfoEXT callback) {
+    public static void destroyDebugCallback(final VkDebugUtilsMessengerCreateInfoEXT callback) {
         if (callback != null) {
             callback.pfnUserCallback().free();
             callback.free();
         }
     }
 
-    public static void vkOK(int result) {
+    public static void vkOK(final int result) {
         if (result != VK10.VK_SUCCESS) {
             throw new RuntimeException("Failed to execute vulkan call: (" + result + ") " + getResultMessage(result));
         }
@@ -71,10 +97,11 @@ public class ImVkDebug {
 
     /**
      * Get the result message from a vulkan result code.
+     *
      * @param vkResultCode The VkResult to get the message for
      * @return The message for the corresponding
      */
-    public static String getResultMessage(int vkResultCode) {
+    public static String getResultMessage(final int vkResultCode) {
         for (VkResults results : VkResults.values()) {
             if (results.getResultCode() == vkResultCode) {
                 return results.getResultMessage();
@@ -167,7 +194,7 @@ public class ImVkDebug {
         private final int resultCode;
         private final String resultMessage;
 
-        VkResults(int code, String message) {
+        VkResults(final int code, final String message) {
             this.resultCode = code;
             this.resultMessage = message;
         }

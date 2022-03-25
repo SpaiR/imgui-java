@@ -9,12 +9,22 @@ import java.nio.LongBuffer;
 import java.util.logging.Logger;
 
 import static imgui.app.vk.ImVkDebug.vkOK;
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.VK10.VK_FORMAT_R8G8B8A8_SRGB;
+import static org.lwjgl.vulkan.VK10.VK_IMAGE_LAYOUT_UNDEFINED;
+import static org.lwjgl.vulkan.VK10.VK_IMAGE_TILING_OPTIMAL;
+import static org.lwjgl.vulkan.VK10.VK_IMAGE_TYPE_2D;
+import static org.lwjgl.vulkan.VK10.VK_NULL_HANDLE;
+import static org.lwjgl.vulkan.VK10.VK_SHARING_MODE_EXCLUSIVE;
+import static org.lwjgl.vulkan.VK10.vkAllocateMemory;
+import static org.lwjgl.vulkan.VK10.vkBindImageMemory;
+import static org.lwjgl.vulkan.VK10.vkCreateImage;
+import static org.lwjgl.vulkan.VK10.vkDestroyImage;
 import static org.lwjgl.vulkan.VK10.vkFreeMemory;
+import static org.lwjgl.vulkan.VK10.vkGetImageMemoryRequirements;
 
 public class ImVkImage {
 
-    private final static Logger LOGGER = Logger.getLogger(ImVkImage.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImVkImage.class.getName());
 
     private long nativeHandle = VK_NULL_HANDLE;
 
@@ -43,7 +53,7 @@ public class ImVkImage {
 
     private void createImage() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkImageCreateInfo imageCreateInfo = VkImageCreateInfo.calloc(stack)
+            final VkImageCreateInfo imageCreateInfo = VkImageCreateInfo.calloc(stack)
                 .sType$Default()
                 .imageType(VK_IMAGE_TYPE_2D)
                 .format(format)
@@ -60,16 +70,16 @@ public class ImVkImage {
                 .tiling(VK_IMAGE_TILING_OPTIMAL)
                 .usage(usage);
 
-            LongBuffer lp = stack.mallocLong(1);
+            final LongBuffer lp = stack.mallocLong(1);
             vkOK(vkCreateImage(getDevice().getDevice(), imageCreateInfo, null, lp));
             nativeHandle = lp.get(0);
 
             // Get memory requirements for this object
-            VkMemoryRequirements memReqs = VkMemoryRequirements.calloc(stack);
+            final VkMemoryRequirements memReqs = VkMemoryRequirements.calloc(stack);
             vkGetImageMemoryRequirements(getDevice().getDevice(), nativeHandle, memReqs);
 
             // Select memory size and type
-            VkMemoryAllocateInfo memAlloc = VkMemoryAllocateInfo.calloc(stack)
+            final VkMemoryAllocateInfo memAlloc = VkMemoryAllocateInfo.calloc(stack)
                 .sType$Default()
                 .allocationSize(memReqs.size())
                 .memoryTypeIndex(getDevice().getPhysicalDevice().memoryTypeFromProperties(memReqs.memoryTypeBits(), 0));
@@ -96,7 +106,7 @@ public class ImVkImage {
         return format;
     }
 
-    public void setFormat(int format) {
+    public void setFormat(final int format) {
         this.format = format;
     }
 
@@ -104,7 +114,7 @@ public class ImVkImage {
         return mips;
     }
 
-    public void setMips(int mips) {
+    public void setMips(final int mips) {
         this.mips = mips;
     }
 
@@ -112,7 +122,7 @@ public class ImVkImage {
         return samples;
     }
 
-    public void setSamples(int samples) {
+    public void setSamples(final int samples) {
         this.samples = samples;
     }
 
@@ -120,7 +130,7 @@ public class ImVkImage {
         return layers;
     }
 
-    public void setLayers(int layers) {
+    public void setLayers(final int layers) {
         this.layers = layers;
     }
 
@@ -128,7 +138,7 @@ public class ImVkImage {
         return usage;
     }
 
-    public void setUsage(int usage) {
+    public void setUsage(final int usage) {
         this.usage = usage;
     }
 
@@ -140,7 +150,7 @@ public class ImVkImage {
         return device;
     }
 
-    public void setDevice(ImVkDevice device) {
+    public void setDevice(final ImVkDevice device) {
         this.device = device;
     }
 
@@ -148,7 +158,7 @@ public class ImVkImage {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(final int width) {
         this.width = width;
     }
 
@@ -156,7 +166,7 @@ public class ImVkImage {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(final int height) {
         this.height = height;
     }
 }

@@ -216,7 +216,7 @@ public abstract class Window {
      *
      * @param backend The custom backend to use
      */
-    public void setBackend(Backend backend) {
+    public void setBackend(final Backend backend) {
         customBackend = backend;
     }
 

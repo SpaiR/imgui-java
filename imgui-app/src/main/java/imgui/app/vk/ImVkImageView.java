@@ -7,12 +7,14 @@ import java.nio.LongBuffer;
 import java.util.logging.Logger;
 
 import static imgui.app.vk.ImVkDebug.vkOK;
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.VK10.VK_IMAGE_VIEW_TYPE_2D;
+import static org.lwjgl.vulkan.VK10.VK_NULL_HANDLE;
+import static org.lwjgl.vulkan.VK10.vkCreateImageView;
 import static org.lwjgl.vulkan.VK10.vkDestroyImageView;
 
 public class ImVkImageView {
 
-    private final static Logger LOGGER = Logger.getLogger(ImVkImageView.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImVkImageView.class.getName());
 
     private long nativeHandle = VK_NULL_HANDLE;
 
@@ -48,7 +50,7 @@ public class ImVkImageView {
 
     private void createImageView() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkImageViewCreateInfo createInfo = VkImageViewCreateInfo.calloc(stack)
+            final VkImageViewCreateInfo createInfo = VkImageViewCreateInfo.calloc(stack)
                 .sType$Default()
                 .image(image)
                 .viewType(viewType)
@@ -61,7 +63,7 @@ public class ImVkImageView {
                     .layerCount(layers)
                 );
 
-            LongBuffer imageBuff = stack.callocLong(1);
+            final LongBuffer imageBuff = stack.callocLong(1);
             vkOK(vkCreateImageView(getDevice().getDevice(), createInfo, null, imageBuff));
             nativeHandle = imageBuff.get();
         }
@@ -76,7 +78,7 @@ public class ImVkImageView {
         return device;
     }
 
-    public void setDevice(ImVkDevice device) {
+    public void setDevice(final ImVkDevice device) {
         this.device = device;
     }
 
@@ -84,7 +86,7 @@ public class ImVkImageView {
         return aspectMask;
     }
 
-    public void setAspectMask(Integer aspectMask) {
+    public void setAspectMask(final Integer aspectMask) {
         this.aspectMask = aspectMask;
     }
 
@@ -92,7 +94,7 @@ public class ImVkImageView {
         return mips;
     }
 
-    public void setMips(int mips) {
+    public void setMips(final int mips) {
         this.mips = mips;
     }
 
@@ -100,7 +102,7 @@ public class ImVkImageView {
         return baseArrayLayer;
     }
 
-    public void setBaseArrayLayer(int baseArrayLayer) {
+    public void setBaseArrayLayer(final int baseArrayLayer) {
         this.baseArrayLayer = baseArrayLayer;
     }
 
@@ -108,7 +110,7 @@ public class ImVkImageView {
         return format;
     }
 
-    public void setFormat(Integer format) {
+    public void setFormat(final Integer format) {
         this.format = format;
     }
 
@@ -116,7 +118,7 @@ public class ImVkImageView {
         return layers;
     }
 
-    public void setLayers(int layers) {
+    public void setLayers(final int layers) {
         this.layers = layers;
     }
 
@@ -124,7 +126,7 @@ public class ImVkImageView {
         return viewType;
     }
 
-    public void setViewType(int viewType) {
+    public void setViewType(final int viewType) {
         this.viewType = viewType;
     }
 
@@ -132,7 +134,7 @@ public class ImVkImageView {
         return image;
     }
 
-    public void setImage(long image) {
+    public void setImage(final long image) {
         this.image = image;
     }
 

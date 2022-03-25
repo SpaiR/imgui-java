@@ -7,12 +7,14 @@ import java.nio.LongBuffer;
 import java.util.logging.Logger;
 
 import static imgui.app.vk.ImVkDebug.vkOK;
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.VK10.VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
+import static org.lwjgl.vulkan.VK10.VK_NULL_HANDLE;
+import static org.lwjgl.vulkan.VK10.vkCreateCommandPool;
 import static org.lwjgl.vulkan.VK10.vkDestroyCommandPool;
 
 public class ImVkCommandPool {
 
-    private final static Logger LOGGER = Logger.getLogger(ImVkCommandPool.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImVkCommandPool.class.getName());
 
     private long nativeHandle = VK_NULL_HANDLE;
 
@@ -32,12 +34,12 @@ public class ImVkCommandPool {
 
     private void createCommandPool() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkCommandPoolCreateInfo cmdPoolInfo = VkCommandPoolCreateInfo.calloc(stack)
+            final VkCommandPoolCreateInfo cmdPoolInfo = VkCommandPoolCreateInfo.calloc(stack)
                 .sType$Default()
                 .flags(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT)
                 .queueFamilyIndex(getDevice().getPhysicalDevice().getIndices().getGraphicsFamily());
 
-            LongBuffer longBuff = stack.callocLong(1);
+            final LongBuffer longBuff = stack.callocLong(1);
             vkOK(
                 vkCreateCommandPool(
                     getDevice().getDevice(),
@@ -58,7 +60,7 @@ public class ImVkCommandPool {
         return device;
     }
 
-    public void setDevice(ImVkDevice device) {
+    public void setDevice(final ImVkDevice device) {
         this.device = device;
     }
 

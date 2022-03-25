@@ -12,7 +12,7 @@ public class QueueFamilyIndices {
         return graphicsFamily;
     }
 
-    public void setGraphicsFamily(Integer graphicsFamily) {
+    public void setGraphicsFamily(final Integer graphicsFamily) {
         this.graphicsFamily = graphicsFamily;
     }
 
@@ -20,7 +20,7 @@ public class QueueFamilyIndices {
         return presentFamily;
     }
 
-    public void setPresentFamily(Integer presentFamily) {
+    public void setPresentFamily(final Integer presentFamily) {
         this.presentFamily = presentFamily;
     }
 }

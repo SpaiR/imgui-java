@@ -1,7 +1,7 @@
 package imgui.lwjgl3.vk.type;
 
 import imgui.binding.ImGuiStructDestroyable;
-import imgui.lwjgl3.vk.callback.ImGuiVkCheckResultCallback;
+import imgui.lwjgl3.vk.callback.ImGuiImplVkCheckResultCallback;
 
 public class ImGuiImplVkInitInfoNative extends ImGuiStructDestroyable {
 
@@ -20,6 +20,10 @@ public class ImGuiImplVkInitInfoNative extends ImGuiStructDestroyable {
     #define IM_VK_INIT_INFO ((ImGui_ImplVulkan_InitInfo*)STRUCT_PTR)
     */
 
+    /**
+     *  Create a new native instance of the ImGui_ImplVulkan_InitInfo object
+     * @return new native instance of ImGui_ImplVulkan_InitInfo
+     */
     @Override
     protected long create() {
         return nCreate();
@@ -218,18 +222,22 @@ public class ImGuiImplVkInitInfoNative extends ImGuiStructDestroyable {
     */
 
     /**
-     * Get the VkAllocationCallbacks pointer
-     * @return the VkAllocationCallbacks pointer
+     * Set the callback function for validating vulkan result codes
+     * @param checkVkResultFn Callback for VkResult
      */
-    public native long nGetAllocator(); /*
-        return (intptr_t) IM_VK_INIT_INFO->Allocator;
+    /*JNI
+        jobject imGuiImplVkCheckResultCallback = NULL;
+        const void vkCheckResultCallback(VkResult result) {
+            if (imGuiImplVkCheckResultCallback != NULL) {
+                JNIEnv* env = Jni::GetEnv();
+                Jni::CallImGuiImplVkCheckResultCallback(env, imGuiImplVkCheckResultCallback, (int) result);
+            }
+        }
+     */
+    public native void setCheckVkResultFn(ImGuiImplVkCheckResultCallback checkVkResultFn); /*
+        if (imGuiImplVkCheckResultCallback != NULL) {
+            env->DeleteGlobalRef(imGuiImplVkCheckResultCallback);
+        }
+        imGuiImplVkCheckResultCallback = env->NewGlobalRef(checkVkResultFn);
     */
-
-    public void setCheckVkResultFn(ImGuiVkCheckResultCallback checkVkResultFn) {
-        //TODO
-    }
-
-    public ImGuiVkCheckResultCallback getCheckVkResultFn() {
-        return null; //TODO
-    }
 }

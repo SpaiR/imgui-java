@@ -12,6 +12,7 @@ jmethodID jImPlatformFuncViewportStringAcceptMID;
 jmethodID jImPlatformFuncViewportSuppImVec2GetMID;
 jmethodID jImPlatformFuncViewportSuppBooleanGetMID;
 jmethodID jImPlatformFuncViewportSuppFloatGetMID;
+jmethodID jImGuiImplVkCheckResultCallbackMID;
 jmethodID jImGuiFileDialogPaneFunMID;
 
 namespace Jni
@@ -46,6 +47,9 @@ namespace Jni
 
         jclass jImPlatformFuncViewportSuppFloat = env->FindClass("imgui/callback/ImPlatformFuncViewportSuppFloat");
         jImPlatformFuncViewportSuppFloatGetMID = env->GetMethodID(jImPlatformFuncViewportSuppFloat, "get", "(Limgui/ImGuiViewport;)F");
+
+        jclass jImGuiImplVkCheckResultCallback = env->FindClass("imgui/lwjgl3/vk/callback/ImGuiImplVkCheckResultCallback");
+        jImGuiImplVkCheckResultCallbackMID = env->GetMethodID(jImGuiImplVkCheckResultCallback, "callback", "(I)V");
 
         jclass jImGuiFileDialogPaneFun = env->FindClass("imgui/extension/imguifiledialog/callback/ImGuiFileDialogPaneFun");
         jImGuiFileDialogPaneFunMID = env->GetMethodID(jImGuiFileDialogPaneFun, "paneFun", "(Ljava/lang/String;JZ)V");
@@ -89,6 +93,10 @@ namespace Jni
 
     jfloat CallImPlatformFuncViewportSuppFloat(JNIEnv* env, jobject func, jobject vp) {
         return (jfloat)env->CallFloatMethod(func, jImPlatformFuncViewportSuppFloatGetMID, vp);
+    }
+    
+    void CallImGuiImplVkCheckResultCallback(JNIEnv* env, jobject func, int vkResult) {
+        env->CallVoidMethod(func, jImGuiImplVkCheckResultCallbackMID, vkResult);
     }
 
     void CallImGuiFileDialogPaneFun(JNIEnv* env, jobject func, const char* filter, long user_datas, bool canWeContinue) {

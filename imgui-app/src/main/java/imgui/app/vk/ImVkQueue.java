@@ -10,11 +10,14 @@ import java.nio.LongBuffer;
 import java.util.logging.Logger;
 
 import static imgui.app.vk.ImVkDebug.vkOK;
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.VK10.VK_NULL_HANDLE;
+import static org.lwjgl.vulkan.VK10.vkGetDeviceQueue;
+import static org.lwjgl.vulkan.VK10.vkQueueSubmit;
+import static org.lwjgl.vulkan.VK10.vkQueueWaitIdle;
 
 public class ImVkQueue {
 
-    private final static Logger LOGGER = Logger.getLogger(ImVkQueue.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImVkQueue.class.getName());
 
     private long nativeHandle = VK_NULL_HANDLE;
     private VkQueue queue;
@@ -39,7 +42,7 @@ public class ImVkQueue {
 
     private void createQueue() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            PointerBuffer queuePointerBuff = stack.callocPointer(1);
+            final PointerBuffer queuePointerBuff = stack.callocPointer(1);
             vkGetDeviceQueue(getDevice().getDevice(), familyIndex, index, queuePointerBuff);
             nativeHandle = queuePointerBuff.get();
             queue = new VkQueue(nativeHandle, getDevice().getDevice());
@@ -59,9 +62,9 @@ public class ImVkQueue {
         vkQueueWaitIdle(queue);
     }
 
-    public void submit(PointerBuffer commandBuffers, LongBuffer waitSemaphores, IntBuffer dstStageMasks, LongBuffer signalSemaphores, ImVkFence fence) {
+    public void submit(final PointerBuffer commandBuffers, final LongBuffer waitSemaphores, final IntBuffer dstStageMasks, final LongBuffer signalSemaphores, final ImVkFence fence) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkSubmitInfo submitInfo = VkSubmitInfo.calloc(stack)
+            final VkSubmitInfo submitInfo = VkSubmitInfo.calloc(stack)
                 .sType$Default()
                 .pCommandBuffers(commandBuffers)
                 .pSignalSemaphores(signalSemaphores);
@@ -74,7 +77,7 @@ public class ImVkQueue {
                 submitInfo.waitSemaphoreCount(0);
             }
 
-            long fenceHandle = fence != null ? fence.getNativeHandle() : VK_NULL_HANDLE;
+            final long fenceHandle = fence != null ? fence.getNativeHandle() : VK_NULL_HANDLE;
 
             vkOK(vkQueueSubmit(queue, submitInfo, fenceHandle));
         }
@@ -88,7 +91,7 @@ public class ImVkQueue {
         return device;
     }
 
-    public void setDevice(ImVkDevice device) {
+    public void setDevice(final ImVkDevice device) {
         this.device = device;
     }
 
@@ -96,7 +99,7 @@ public class ImVkQueue {
         return familyIndex;
     }
 
-    public void setFamilyIndex(Integer familyIndex) {
+    public void setFamilyIndex(final Integer familyIndex) {
         this.familyIndex = familyIndex;
     }
 
@@ -104,7 +107,7 @@ public class ImVkQueue {
         return index;
     }
 
-    public void setIndex(Integer index) {
+    public void setIndex(final Integer index) {
         this.index = index;
     }
 

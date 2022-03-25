@@ -7,11 +7,13 @@ import java.nio.LongBuffer;
 import java.util.logging.Logger;
 
 import static imgui.app.vk.ImVkDebug.vkOK;
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.VK10.VK_NULL_HANDLE;
+import static org.lwjgl.vulkan.VK10.vkCreateSemaphore;
+import static org.lwjgl.vulkan.VK10.vkDestroySemaphore;
 
 public class ImVkSemaphore {
 
-    private final static Logger LOGGER = Logger.getLogger(ImVkSemaphore.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImVkSemaphore.class.getName());
 
     private long nativeHandle = VK_NULL_HANDLE;
 
@@ -30,9 +32,9 @@ public class ImVkSemaphore {
 
     private void createSemaphore() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkSemaphoreCreateInfo semaphoreCreateInfo = VkSemaphoreCreateInfo.calloc(stack)
+            final VkSemaphoreCreateInfo semaphoreCreateInfo = VkSemaphoreCreateInfo.calloc(stack)
                 .sType$Default();
-            LongBuffer longBuff = stack.callocLong(1);
+            final LongBuffer longBuff = stack.callocLong(1);
             vkOK(
                 vkCreateSemaphore(getDevice().getDevice(),
                     semaphoreCreateInfo,
@@ -53,7 +55,7 @@ public class ImVkSemaphore {
         return nativeHandle;
     }
 
-    public void setNativeHandle(long nativeHandle) {
+    public void setNativeHandle(final long nativeHandle) {
         this.nativeHandle = nativeHandle;
     }
 
@@ -61,7 +63,7 @@ public class ImVkSemaphore {
         return device;
     }
 
-    public void setDevice(ImVkDevice device) {
+    public void setDevice(final ImVkDevice device) {
         this.device = device;
     }
 }

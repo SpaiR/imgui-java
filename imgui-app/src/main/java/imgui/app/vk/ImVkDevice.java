@@ -13,11 +13,13 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import static imgui.app.vk.ImVkDebug.vkOK;
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.VK10.vkCreateDevice;
+import static org.lwjgl.vulkan.VK10.vkDestroyDevice;
+import static org.lwjgl.vulkan.VK10.vkDeviceWaitIdle;
 
 public class ImVkDevice {
 
-    private final static Logger LOGGER = Logger.getLogger(ImVkDevice.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImVkDevice.class.getName());
 
 
     private boolean samplerAnisotropy;
@@ -47,20 +49,20 @@ public class ImVkDevice {
 
     private void createDevice() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkDeviceQueueCreateInfo.Buffer queues = initQueues(stack);
+            final VkDeviceQueueCreateInfo.Buffer queues = initQueues(stack);
 
             samplerAnisotropy = physicalDevice.getPhysicalDeviceFeatures().samplerAnisotropy();
 
-            VkPhysicalDeviceFeatures features = VkPhysicalDeviceFeatures.calloc(stack)
+            final VkPhysicalDeviceFeatures features = VkPhysicalDeviceFeatures.calloc(stack)
                 .samplerAnisotropy(samplerAnisotropy);
 
-            VkDeviceCreateInfo createInfo = VkDeviceCreateInfo.calloc(stack)
+            final VkDeviceCreateInfo createInfo = VkDeviceCreateInfo.calloc(stack)
                 .sType$Default()
                 .pQueueCreateInfos(queues)
                 .pEnabledFeatures(features);
 
             if (getPhysicalDevice().getInstance().isValidationEnabled()) {
-                PointerBuffer validationBuff = stack.mallocPointer(getPhysicalDevice().getInstance().getEnabledValidationLayers().size());
+                final PointerBuffer validationBuff = stack.mallocPointer(getPhysicalDevice().getInstance().getEnabledValidationLayers().size());
                 int i = 0;
                 for (String validationLayer : getPhysicalDevice().getInstance().getEnabledValidationLayers()) {
                     validationBuff.put(i++, stack.ASCII(validationLayer));
@@ -84,32 +86,32 @@ public class ImVkDevice {
                 LOGGER.fine("Using vulkan device extension: " + extension);
             }
 
-            PointerBuffer extensionBuff = stack.mallocPointer(extensions.size());
+            final PointerBuffer extensionBuff = stack.mallocPointer(extensions.size());
             int i = 0;
             for (String extension : extensions) {
                 extensionBuff.put(i++, stack.ASCII(extension));
             }
             createInfo.ppEnabledExtensionNames(extensionBuff);
 
-            PointerBuffer devicePointerBuff = stack.callocPointer(1);
+            final PointerBuffer devicePointerBuff = stack.callocPointer(1);
             vkOK(vkCreateDevice(getPhysicalDevice().getPhysicalDevice(), createInfo, null, devicePointerBuff));
             device = new VkDevice(devicePointerBuff.get(0), getPhysicalDevice().getPhysicalDevice(), createInfo);
         }
     }
 
-    private VkDeviceQueueCreateInfo.Buffer initQueues(MemoryStack stack) {
-        Set<Integer> uniqueQueueFamilies = new HashSet<>();
+    private VkDeviceQueueCreateInfo.Buffer initQueues(final MemoryStack stack) {
+        final Set<Integer> uniqueQueueFamilies = new HashSet<>();
         uniqueQueueFamilies.add(getPhysicalDevice().getIndices().getGraphicsFamily());
         uniqueQueueFamilies.add(getPhysicalDevice().getIndices().getPresentFamily());
 
-        VkDeviceQueueCreateInfo.Buffer queueBuff = VkDeviceQueueCreateInfo.calloc(uniqueQueueFamilies.size(), stack);
+        final VkDeviceQueueCreateInfo.Buffer queueBuff = VkDeviceQueueCreateInfo.calloc(uniqueQueueFamilies.size(), stack);
 
         int i = 0;
         for (Integer queueFamily : uniqueQueueFamilies) {
-            VkDeviceQueueCreateInfo queueCreateInfo = queueBuff.get(i++);
+            final VkDeviceQueueCreateInfo queueCreateInfo = queueBuff.get(i++);
             queueCreateInfo.sType$Default();
             queueCreateInfo.queueFamilyIndex(queueFamily);
-            FloatBuffer queuePrioritiesBuff = stack.callocFloat(1);
+            final FloatBuffer queuePrioritiesBuff = stack.callocFloat(1);
             queuePrioritiesBuff.put(1.0f);
             queuePrioritiesBuff.flip();
             queueCreateInfo.pQueuePriorities(queuePrioritiesBuff);
@@ -127,7 +129,7 @@ public class ImVkDevice {
         return physicalDevice;
     }
 
-    public void setPhysicalDevice(ImVkPhysicalDevice physicalDevice) {
+    public void setPhysicalDevice(final ImVkPhysicalDevice physicalDevice) {
         this.physicalDevice = physicalDevice;
     }
 

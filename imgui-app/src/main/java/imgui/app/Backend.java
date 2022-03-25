@@ -1,12 +1,19 @@
 package imgui.app;
 
 public interface Backend {
+    default void preCreateWindow() {
+    }
 
-    public default void preCreateWindow() {}
-    public default void postCreateWindow(long windowHandle) {}
-    public void init(Color clearColor);
-    public void begin();
-    public void end();
-    public void destroy();
-    public void resize(long windowHandle, int width, int height);
+    default void postCreateWindow(long windowHandle) {
+    }
+
+    void init(Color clearColor);
+
+    void begin();
+
+    void end();
+
+    void destroy();
+
+    void resize(long windowHandle, int width, int height);
 }

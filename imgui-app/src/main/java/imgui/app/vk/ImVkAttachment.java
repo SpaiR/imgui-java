@@ -2,11 +2,15 @@ package imgui.app.vk;
 
 import java.util.logging.Logger;
 
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.VK10.VK_IMAGE_ASPECT_COLOR_BIT;
+import static org.lwjgl.vulkan.VK10.VK_IMAGE_ASPECT_DEPTH_BIT;
+import static org.lwjgl.vulkan.VK10.VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+import static org.lwjgl.vulkan.VK10.VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;
+import static org.lwjgl.vulkan.VK10.VK_IMAGE_USAGE_SAMPLED_BIT;
 
 public class ImVkAttachment {
 
-    private final static Logger LOGGER = Logger.getLogger(ImVkAttachment.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImVkAttachment.class.getName());
 
     private ImVkDevice device;
 
@@ -67,7 +71,7 @@ public class ImVkAttachment {
         return format;
     }
 
-    public void setFormat(Integer format) {
+    public void setFormat(final Integer format) {
         this.format = format;
     }
 
@@ -75,7 +79,7 @@ public class ImVkAttachment {
         return usage;
     }
 
-    public void setUsage(Integer usage) {
+    public void setUsage(final Integer usage) {
         this.usage = usage;
     }
 
@@ -91,7 +95,7 @@ public class ImVkAttachment {
         return device;
     }
 
-    public void setDevice(ImVkDevice device) {
+    public void setDevice(final ImVkDevice device) {
         this.device = device;
     }
 
@@ -99,7 +103,7 @@ public class ImVkAttachment {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(final int width) {
         this.width = width;
     }
 
@@ -107,7 +111,7 @@ public class ImVkAttachment {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(final int height) {
         this.height = height;
     }
 }

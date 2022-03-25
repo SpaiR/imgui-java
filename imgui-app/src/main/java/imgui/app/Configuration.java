@@ -61,7 +61,7 @@ public class Configuration {
         return backendType;
     }
 
-    public void setBackendType(BackendType backendType) {
+    public void setBackendType(final BackendType backendType) {
         this.backendType = backendType;
     }
 }

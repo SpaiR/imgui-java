@@ -7,11 +7,13 @@ import java.nio.LongBuffer;
 import java.util.logging.Logger;
 
 import static imgui.app.vk.ImVkDebug.vkOK;
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.VK10.VK_NULL_HANDLE;
+import static org.lwjgl.vulkan.VK10.vkCreatePipelineCache;
+import static org.lwjgl.vulkan.VK10.vkDestroyPipelineCache;
 
 public class ImVkPipelineCache {
 
-    private final static Logger LOGGER = Logger.getLogger(ImVkPipelineCache.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImVkPipelineCache.class.getName());
 
     private long nativeHandle = VK_NULL_HANDLE;
 
@@ -33,10 +35,10 @@ public class ImVkPipelineCache {
 
     private void createPipelineCache() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkPipelineCacheCreateInfo createInfo = VkPipelineCacheCreateInfo.calloc(stack)
+            final VkPipelineCacheCreateInfo createInfo = VkPipelineCacheCreateInfo.calloc(stack)
                 .sType$Default();
 
-            LongBuffer lp = stack.mallocLong(1);
+            final LongBuffer lp = stack.mallocLong(1);
             vkOK(vkCreatePipelineCache(getDevice().getDevice(), createInfo, null, lp));
             nativeHandle = lp.get(0);
         }
@@ -51,7 +53,7 @@ public class ImVkPipelineCache {
         return device;
     }
 
-    public void setDevice(ImVkDevice device) {
+    public void setDevice(final ImVkDevice device) {
         this.device = device;
     }
 

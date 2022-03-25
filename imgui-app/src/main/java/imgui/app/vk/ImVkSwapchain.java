@@ -2,7 +2,11 @@ package imgui.app.vk;
 
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
-import org.lwjgl.vulkan.*;
+import org.lwjgl.vulkan.VkExtent2D;
+import org.lwjgl.vulkan.VkPresentInfoKHR;
+import org.lwjgl.vulkan.VkSurfaceCapabilitiesKHR;
+import org.lwjgl.vulkan.VkSurfaceFormatKHR;
+import org.lwjgl.vulkan.VkSwapchainCreateInfoKHR;
 
 import java.nio.IntBuffer;
 import java.nio.LongBuffer;
@@ -12,15 +16,30 @@ import java.util.logging.Logger;
 
 import static imgui.app.vk.ImVkDebug.vkOK;
 import static org.lwjgl.system.MemoryUtil.NULL;
-import static org.lwjgl.vulkan.KHRSurface.*;
 import static org.lwjgl.vulkan.KHRSurface.VK_COLOR_SPACE_SRGB_NONLINEAR_KHR;
-import static org.lwjgl.vulkan.KHRSwapchain.*;
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.KHRSurface.VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
+import static org.lwjgl.vulkan.KHRSurface.VK_PRESENT_MODE_FIFO_KHR;
+import static org.lwjgl.vulkan.KHRSurface.VK_PRESENT_MODE_IMMEDIATE_KHR;
+import static org.lwjgl.vulkan.KHRSurface.VK_PRESENT_MODE_MAILBOX_KHR;
+import static org.lwjgl.vulkan.KHRSwapchain.VK_ERROR_OUT_OF_DATE_KHR;
+import static org.lwjgl.vulkan.KHRSwapchain.VK_SUBOPTIMAL_KHR;
+import static org.lwjgl.vulkan.KHRSwapchain.vkAcquireNextImageKHR;
+import static org.lwjgl.vulkan.KHRSwapchain.vkCreateSwapchainKHR;
+import static org.lwjgl.vulkan.KHRSwapchain.vkDestroySwapchainKHR;
+import static org.lwjgl.vulkan.KHRSwapchain.vkGetSwapchainImagesKHR;
+import static org.lwjgl.vulkan.KHRSwapchain.vkQueuePresentKHR;
+import static org.lwjgl.vulkan.VK10.VK_FORMAT_B8G8R8A8_SRGB;
+import static org.lwjgl.vulkan.VK10.VK_IMAGE_ASPECT_COLOR_BIT;
+import static org.lwjgl.vulkan.VK10.VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+import static org.lwjgl.vulkan.VK10.VK_IMAGE_VIEW_TYPE_2D;
+import static org.lwjgl.vulkan.VK10.VK_NULL_HANDLE;
+import static org.lwjgl.vulkan.VK10.VK_SHARING_MODE_CONCURRENT;
+import static org.lwjgl.vulkan.VK10.VK_SHARING_MODE_EXCLUSIVE;
 import static org.lwjgl.vulkan.VK10.VK_SUCCESS;
 
 public class ImVkSwapchain {
 
-    private final static Logger LOGGER = Logger.getLogger(ImVkSwapchain.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImVkSwapchain.class.getName());
 
     private long nativeHandle = VK_NULL_HANDLE;
 
@@ -63,17 +82,17 @@ public class ImVkSwapchain {
 
     private void createSwapChain() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            SwapChainDetails swapChainSupport = getGraphicsQueue().getDevice().getPhysicalDevice().getDetails();
-            VkSurfaceFormatKHR surfaceFormat = chooseSwapSurfaceFormat(swapChainSupport.getFormats());
-            int presentMode = isVsync() ? VK_PRESENT_MODE_FIFO_KHR : VK_PRESENT_MODE_IMMEDIATE_KHR;
-            VkExtent2D extent = chooseSwapExtent(swapChainSupport.getCapabilities());
+            final SwapChainDetails swapChainSupport = getGraphicsQueue().getDevice().getPhysicalDevice().getDetails();
+            final VkSurfaceFormatKHR surfaceFormat = chooseSwapSurfaceFormat(swapChainSupport.getFormats());
+            final int presentMode = isVsync() ? VK_PRESENT_MODE_FIFO_KHR : VK_PRESENT_MODE_IMMEDIATE_KHR;
+            final VkExtent2D extent = chooseSwapExtent(swapChainSupport.getCapabilities());
 
             int imageCount = swapChainSupport.getCapabilities().minImageCount() + 1;
             if (swapChainSupport.getCapabilities().maxImageCount() > 0 && imageCount > swapChainSupport.getCapabilities().maxImageCount()) {
                 imageCount = swapChainSupport.getCapabilities().maxImageCount();
             }
 
-            VkSwapchainCreateInfoKHR creatInfo = VkSwapchainCreateInfoKHR.calloc(stack)
+            final VkSwapchainCreateInfoKHR creatInfo = VkSwapchainCreateInfoKHR.calloc(stack)
                 .sType$Default()
                 .surface(surface)
                 .minImageCount(imageCount)
@@ -87,7 +106,7 @@ public class ImVkSwapchain {
 
             if (getGraphicsQueue().getDevice().getPhysicalDevice().getIndices().getGraphicsFamily() != getGraphicsQueue().getDevice().getPhysicalDevice().getIndices().getPresentFamily()) {
                 creatInfo.imageSharingMode(VK_SHARING_MODE_CONCURRENT);
-                IntBuffer queueFamilyIndicesBuff = stack.callocInt(2);
+                final IntBuffer queueFamilyIndicesBuff = stack.callocInt(2);
                 queueFamilyIndicesBuff.put(0, getGraphicsQueue().getDevice().getPhysicalDevice().getIndices().getGraphicsFamily());
                 queueFamilyIndicesBuff.put(1, getGraphicsQueue().getDevice().getPhysicalDevice().getIndices().getPresentFamily());
                 creatInfo.pQueueFamilyIndices(queueFamilyIndicesBuff);
@@ -102,14 +121,14 @@ public class ImVkSwapchain {
                 .clipped(true)
                 .oldSwapchain(VK_NULL_HANDLE);
 
-            LongBuffer swapchainBuff = stack.callocLong(1);
+            final LongBuffer swapchainBuff = stack.callocLong(1);
             vkOK(vkCreateSwapchainKHR(getGraphicsQueue().getDevice().getDevice(), creatInfo, null, swapchainBuff));
             nativeHandle = swapchainBuff.get();
 
             //Get swap chain images
-            IntBuffer imageCountBuff = stack.callocInt(1);
+            final IntBuffer imageCountBuff = stack.callocInt(1);
             vkOK(vkGetSwapchainImagesKHR(getGraphicsQueue().getDevice().getDevice(), nativeHandle, imageCountBuff, null));
-            LongBuffer imagesBuff = MemoryUtil.memAllocLong(imageCountBuff.get(0));
+            final LongBuffer imagesBuff = MemoryUtil.memAllocLong(imageCountBuff.get(0));
             vkOK(vkGetSwapchainImagesKHR(getGraphicsQueue().getDevice().getDevice(), nativeHandle, imageCountBuff, imagesBuff));
 
             LOGGER.finer("Got swapchain images: " + imageCountBuff.get(0));
@@ -126,7 +145,7 @@ public class ImVkSwapchain {
     private void createImageViews() {
         imageViews.clear();
         for (int i = 0; i < images.capacity(); i++) {
-            ImVkImageView imageView = new ImVkImageView();
+            final ImVkImageView imageView = new ImVkImageView();
             imageView.setDevice(getGraphicsQueue().getDevice());
             imageView.setImage(images.get(i));
             imageView.setAspectMask(VK_IMAGE_ASPECT_COLOR_BIT);
@@ -153,8 +172,8 @@ public class ImVkSwapchain {
         }
     }
 
-    private VkExtent2D chooseSwapExtent(VkSurfaceCapabilitiesKHR capabilities) {
-        VkExtent2D actualExtent = VkExtent2D.calloc();
+    private VkExtent2D chooseSwapExtent(final VkSurfaceCapabilitiesKHR capabilities) {
+        final VkExtent2D actualExtent = VkExtent2D.calloc();
         if (capabilities.currentExtent().width() != 0xffffffff) {
             actualExtent.set(capabilities.currentExtent());
             return actualExtent;
@@ -181,7 +200,7 @@ public class ImVkSwapchain {
         }
     }
 
-    private int chooseSwapPresentMode(IntBuffer modes) {
+    private int chooseSwapPresentMode(final IntBuffer modes) {
         for (int i = 0; i < modes.capacity(); i++) {
             if (modes.get(i) == VK_PRESENT_MODE_MAILBOX_KHR) {
                 return VK_PRESENT_MODE_MAILBOX_KHR;
@@ -190,7 +209,7 @@ public class ImVkSwapchain {
         return VK_PRESENT_MODE_FIFO_KHR;
     }
 
-    private VkSurfaceFormatKHR chooseSwapSurfaceFormat(VkSurfaceFormatKHR.Buffer formats) {
+    private VkSurfaceFormatKHR chooseSwapSurfaceFormat(final VkSurfaceFormatKHR.Buffer formats) {
         VkSurfaceFormatKHR format = formats.get(0);
         for (VkSurfaceFormatKHR f : formats) {
             if (f.format() == VK_FORMAT_B8G8R8A8_SRGB && f.colorSpace() == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR) {
@@ -222,15 +241,16 @@ public class ImVkSwapchain {
     public boolean nextImage() {
         boolean resize = false;
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            IntBuffer ip = stack.mallocInt(1);
-            int err = vkAcquireNextImageKHR(getGraphicsQueue().getDevice().getDevice(), nativeHandle, ~0L, imageAvailableSemaphores[currentFrame].getNativeHandle(), NULL, ip);
+            final IntBuffer ip = stack.mallocInt(1);
+            final int err = vkAcquireNextImageKHR(getGraphicsQueue().getDevice().getDevice(), nativeHandle, ~0L, imageAvailableSemaphores[currentFrame].getNativeHandle(), NULL, ip);
             if (err == VK_ERROR_OUT_OF_DATE_KHR) {
                 resize = true;
-            } else if (err == VK_SUBOPTIMAL_KHR) {
-                // Not optimal but swapchain can still be used
             } else if (err != VK_SUCCESS) {
                 throw new RuntimeException("Failed to acquire image: " + err);
             }
+            /*else if (err == VK_SUBOPTIMAL_KHR) {
+                // Not optimal but swapchain can still be used
+            }*/
             currentFrame = ip.get();
         }
 
@@ -240,14 +260,14 @@ public class ImVkSwapchain {
     public boolean presentImage() {
         boolean resize = false;
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkPresentInfoKHR present = VkPresentInfoKHR.calloc(stack)
+            final VkPresentInfoKHR present = VkPresentInfoKHR.calloc(stack)
                 .sType$Default()
                 .pWaitSemaphores(stack.longs(renderFinishedSemaphores[currentFrame].getNativeHandle()))
                 .swapchainCount(1)
                 .pSwapchains(stack.longs(nativeHandle))
                 .pImageIndices(stack.ints(currentFrame));
 
-            int err = vkQueuePresentKHR(getGraphicsQueue().getQueue(), present);
+            final int err = vkQueuePresentKHR(getGraphicsQueue().getQueue(), present);
             if (err == VK_ERROR_OUT_OF_DATE_KHR) {
                 resize = true;
             } else if (err == VK_SUBOPTIMAL_KHR) {
@@ -293,7 +313,7 @@ public class ImVkSwapchain {
         return graphicsQueue;
     }
 
-    public void setGraphicsQueue(ImVkQueue graphicsQueue) {
+    public void setGraphicsQueue(final ImVkQueue graphicsQueue) {
         this.graphicsQueue = graphicsQueue;
     }
 
@@ -301,7 +321,7 @@ public class ImVkSwapchain {
         return surface;
     }
 
-    public void setSurface(long surface) {
+    public void setSurface(final long surface) {
         this.surface = surface;
     }
 
@@ -313,7 +333,7 @@ public class ImVkSwapchain {
         return vsync;
     }
 
-    public void setVsync(boolean vsync) {
+    public void setVsync(final boolean vsync) {
         this.vsync = vsync;
     }
 
@@ -321,7 +341,7 @@ public class ImVkSwapchain {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(final int width) {
         this.width = width;
     }
 
@@ -329,7 +349,7 @@ public class ImVkSwapchain {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(final int height) {
         this.height = height;
     }
 }

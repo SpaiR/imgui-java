@@ -3,7 +3,13 @@ package imgui.app.vk;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
-import org.lwjgl.vulkan.*;
+import org.lwjgl.vulkan.VkAllocationCallbacks;
+import org.lwjgl.vulkan.VkApplicationInfo;
+import org.lwjgl.vulkan.VkDebugUtilsMessengerCreateInfoEXT;
+import org.lwjgl.vulkan.VkExtensionProperties;
+import org.lwjgl.vulkan.VkInstance;
+import org.lwjgl.vulkan.VkInstanceCreateInfo;
+import org.lwjgl.vulkan.VkLayerProperties;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -16,20 +22,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static imgui.app.vk.ImVkDebug.vkOK;
-import static org.lwjgl.vulkan.EXTDebugUtils.*;
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.EXTDebugUtils.VK_EXT_DEBUG_UTILS_EXTENSION_NAME;
+import static org.lwjgl.vulkan.EXTDebugUtils.vkCreateDebugUtilsMessengerEXT;
+import static org.lwjgl.vulkan.EXTDebugUtils.vkDestroyDebugUtilsMessengerEXT;
+import static org.lwjgl.vulkan.VK10.VK_MAKE_VERSION;
+import static org.lwjgl.vulkan.VK10.VK_NULL_HANDLE;
+import static org.lwjgl.vulkan.VK10.vkCreateInstance;
+import static org.lwjgl.vulkan.VK10.vkDestroyInstance;
+import static org.lwjgl.vulkan.VK10.vkEnumerateInstanceExtensionProperties;
+import static org.lwjgl.vulkan.VK10.vkEnumerateInstanceLayerProperties;
 import static org.lwjgl.vulkan.VK12.VK_API_VERSION_1_2;
 
 public class ImVkInstance {
 
-    private final static Logger LOGGER = Logger.getLogger(ImVkInstance.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImVkInstance.class.getName());
 
     private VkInstance vkInstance;
     private long nativeHandle = VK_NULL_HANDLE;
     private boolean validationEnabled;
     private VkDebugUtilsMessengerCreateInfoEXT callback;
     private long callbackHandle = VK_NULL_HANDLE;
-    private VkAllocationCallbacks allocationCallbacks = null;
+    private final VkAllocationCallbacks allocationCallbacks = null;
 
     private String appName = "Dear ImGui Java";
     private int appVersionMajor = 0;
@@ -63,41 +76,41 @@ public class ImVkInstance {
 
     private void createInstance() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkApplicationInfo appInfo = VkApplicationInfo.calloc(stack)
+            final VkApplicationInfo appInfo = VkApplicationInfo.calloc(stack)
                 .sType$Default();
 
             //Build app name
-            String name = getAppName();
-            ByteBuffer nameBuff = stack.ASCIISafe(name);
+            final String name = getAppName();
+            final ByteBuffer nameBuff = stack.ASCIISafe(name);
             appInfo.pApplicationName(nameBuff);
 
             //Build app version info
-            int vkVersion = VK_MAKE_VERSION(getAppVersionMajor(), getAppVersionMinor(), getAppVersionPatch());
+            final int vkVersion = VK_MAKE_VERSION(getAppVersionMajor(), getAppVersionMinor(), getAppVersionPatch());
             appInfo.applicationVersion(vkVersion);
 
             //Build engine name
-            String engName = getEngineName();
-            ByteBuffer engNameBuff = stack.ASCIISafe(engName);
+            final String engName = getEngineName();
+            final ByteBuffer engNameBuff = stack.ASCIISafe(engName);
             appInfo.pEngineName(engNameBuff);
 
             //Build app version info
-            int vkEngVersion = VK_MAKE_VERSION(getEngineVersionMajor(), getEngineVersionMinor(), getEngineVersionPatch());
+            final int vkEngVersion = VK_MAKE_VERSION(getEngineVersionMajor(), getEngineVersionMinor(), getEngineVersionPatch());
             appInfo.engineVersion(vkEngVersion);
 
             //VK API Version
             appInfo.apiVersion(VK_API_VERSION_1_2);
 
-            VkInstanceCreateInfo createInfo = VkInstanceCreateInfo.calloc(stack)
+            final VkInstanceCreateInfo createInfo = VkInstanceCreateInfo.calloc(stack)
                 .sType$Default()
                 .pApplicationInfo(appInfo);
 
             //Extensions
-            List<String> foundExtensions = new ArrayList<>();
+            final List<String> foundExtensions = new ArrayList<>();
 
-            IntBuffer extensionCountBuff = stack.callocInt(1);
+            final IntBuffer extensionCountBuff = stack.callocInt(1);
             vkEnumerateInstanceExtensionProperties((ByteBuffer) null, extensionCountBuff, null);
-            int extensionsCount = extensionCountBuff.get();
-            VkExtensionProperties.Buffer availableExtensions = VkExtensionProperties.calloc(extensionsCount, stack);
+            final int extensionsCount = extensionCountBuff.get();
+            final VkExtensionProperties.Buffer availableExtensions = VkExtensionProperties.calloc(extensionsCount, stack);
             extensionCountBuff.flip();
             vkEnumerateInstanceExtensionProperties((ByteBuffer) null, extensionCountBuff, availableExtensions);
 
@@ -121,7 +134,7 @@ public class ImVkInstance {
             }
 
             //Set extensions
-            PointerBuffer extensionBuff = stack.mallocPointer(foundExtensions.size());
+            final PointerBuffer extensionBuff = stack.mallocPointer(foundExtensions.size());
             for (int i = 0; i < foundExtensions.size(); i++) {
                 extensionBuff.put(i, stack.ASCII(foundExtensions.get(i)));
             }
@@ -129,9 +142,9 @@ public class ImVkInstance {
 
             //Validation layers
             if (isValidationEnabled()) {
-                IntBuffer layerCount = stack.callocInt(1);
+                final IntBuffer layerCount = stack.callocInt(1);
                 vkEnumerateInstanceLayerProperties(layerCount, null);
-                VkLayerProperties.Buffer availableLayers = VkLayerProperties.calloc(layerCount.get(), stack);
+                final VkLayerProperties.Buffer availableLayers = VkLayerProperties.calloc(layerCount.get(), stack);
                 layerCount.flip();
                 vkEnumerateInstanceLayerProperties(layerCount, availableLayers);
 
@@ -155,7 +168,7 @@ public class ImVkInstance {
                 }
 
                 //Set layers
-                PointerBuffer layerBuff = stack.mallocPointer(enabledValidationLayers.size());
+                final PointerBuffer layerBuff = stack.mallocPointer(enabledValidationLayers.size());
                 for (String validationLayer : enabledValidationLayers) {
                     layerBuff.put(stack.ASCII(validationLayer));
                 }
@@ -168,7 +181,7 @@ public class ImVkInstance {
                 createInfo.pNext(MemoryUtil.NULL); //No debugging info
             }
 
-            PointerBuffer instancePointerBuff = stack.mallocPointer(1);
+            final PointerBuffer instancePointerBuff = stack.mallocPointer(1);
             vkOK(vkCreateInstance(createInfo, allocationCallbacks, instancePointerBuff));
 
             //Save native handle to vk instance
@@ -177,7 +190,7 @@ public class ImVkInstance {
 
             //Create validation callback
             if (validationEnabled) {
-                LongBuffer longBuff = stack.mallocLong(1);
+                final LongBuffer longBuff = stack.mallocLong(1);
                 vkOK(vkCreateDebugUtilsMessengerEXT(vkInstance, callback, null, longBuff));
                 callbackHandle = longBuff.get(0);
             }
@@ -206,7 +219,7 @@ public class ImVkInstance {
         return appName;
     }
 
-    public void setAppName(String appName) {
+    public void setAppName(final String appName) {
         this.appName = appName;
     }
 
@@ -214,7 +227,7 @@ public class ImVkInstance {
         return engineName;
     }
 
-    public void setEngineName(String engineName) {
+    public void setEngineName(final String engineName) {
         this.engineName = engineName;
     }
 
@@ -230,7 +243,7 @@ public class ImVkInstance {
         return engineVersionPatch;
     }
 
-    public void setEngineVersion(int major, int minor, int patch) {
+    public void setEngineVersion(final int major, final int minor, final int patch) {
         this.engineVersionMajor = major;
         this.engineVersionMinor = minor;
         this.engineVersionPatch = patch;
@@ -248,7 +261,7 @@ public class ImVkInstance {
         return appVersionPatch;
     }
 
-    public void setAppVersion(int major, int minor, int patch) {
+    public void setAppVersion(final int major, final int minor, final int patch) {
         this.appVersionMajor = major;
         this.appVersionMinor = minor;
         this.appVersionPatch = patch;
@@ -258,7 +271,7 @@ public class ImVkInstance {
         return validationEnabled;
     }
 
-    public void setValidationEnabled(boolean validationEnabled) {
+    public void setValidationEnabled(final boolean validationEnabled) {
         this.validationEnabled = validationEnabled;
     }
 

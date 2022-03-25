@@ -2,34 +2,52 @@ package imgui.app;
 
 import imgui.ImDrawData;
 import imgui.ImGui;
-import imgui.app.vk.*;
-import imgui.lwjgl3.vk.callback.ImGuiVkCheckResultCallback;
+import imgui.app.vk.ImVkAttachment;
+import imgui.app.vk.ImVkCommandBuffer;
+import imgui.app.vk.ImVkCommandPool;
+import imgui.app.vk.ImVkDescriptorPool;
+import imgui.app.vk.ImVkDevice;
+import imgui.app.vk.ImVkFence;
+import imgui.app.vk.ImVkFrameBuffer;
+import imgui.app.vk.ImVkInstance;
+import imgui.app.vk.ImVkPhysicalDevice;
+import imgui.app.vk.ImVkPipelineCache;
+import imgui.app.vk.ImVkQueue;
+import imgui.app.vk.ImVkRenderPass;
+import imgui.app.vk.ImVkSwapchain;
+import imgui.lwjgl3.vk.callback.ImGuiImplVkCheckResultCallback;
 import imgui.vk.ImGuiImplVk;
 import imgui.vk.ImGuiImplVkInitInfo;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWVulkan;
 import org.lwjgl.system.MemoryStack;
-import org.lwjgl.system.MemoryUtil;
-import org.lwjgl.vulkan.*;
+import org.lwjgl.vulkan.VK10;
+import org.lwjgl.vulkan.VkClearValue;
+import org.lwjgl.vulkan.VkExtent2D;
+import org.lwjgl.vulkan.VkRenderPassBeginInfo;
 
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.LongBuffer;
-import java.util.*;
-import java.util.logging.Level;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 import static imgui.app.vk.ImVkDebug.vkOK;
-import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.GLFW_CLIENT_API;
+import static org.lwjgl.glfw.GLFW.GLFW_NO_API;
+import static org.lwjgl.glfw.GLFW.glfwWindowHint;
 import static org.lwjgl.system.MemoryUtil.NULL;
-import static org.lwjgl.vulkan.EXTDebugUtils.*;
-import static org.lwjgl.vulkan.KHRSurface.*;
-import static org.lwjgl.vulkan.KHRSwapchain.VK_KHR_SWAPCHAIN_EXTENSION_NAME;
-import static org.lwjgl.vulkan.VK10.*;
-import static org.lwjgl.vulkan.VK12.VK_API_VERSION_1_2;
+import static org.lwjgl.vulkan.KHRSurface.vkDestroySurfaceKHR;
+import static org.lwjgl.vulkan.VK10.VK_FORMAT_D32_SFLOAT;
+import static org.lwjgl.vulkan.VK10.VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;
+import static org.lwjgl.vulkan.VK10.VK_NULL_HANDLE;
+import static org.lwjgl.vulkan.VK10.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+import static org.lwjgl.vulkan.VK10.VK_SAMPLE_COUNT_1_BIT;
+import static org.lwjgl.vulkan.VK10.VK_SUBPASS_CONTENTS_INLINE;
+import static org.lwjgl.vulkan.VK10.vkCmdBeginRenderPass;
+import static org.lwjgl.vulkan.VK10.vkCmdEndRenderPass;
 
 public class ImGuiVkBackend implements Backend {
 
@@ -58,12 +76,12 @@ public class ImGuiVkBackend implements Backend {
     private final List<ImVkCommandBuffer> commandBuffers = new ArrayList<>();
 
     //Logger
-    private final Logger LOGGER = Logger.getLogger(ImGuiGlBackend.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImGuiGlBackend.class.getName());
 
     //Engine Info
-    private final String ENGINE_NAME = "imgui-app";
-    private final int[] ENGINE_VERSION = {1, 86, 3}; //FIXME: We should set this automatically to the correct build version
-    private final boolean VALIDATION_ENABLED = false;
+    private final String engineName = "imgui-app";
+    private final int[] engineVersion = {1, 86, 3}; //FIXME: We should set this automatically to the correct build version
+    private final boolean validationEnabled = false;
 
     //Render vars
     private Color clearColor;
@@ -79,18 +97,18 @@ public class ImGuiVkBackend implements Backend {
     }
 
     @Override
-    public void postCreateWindow(long windowHandle) {
+    public void postCreateWindow(final long windowHandle) {
         this.window = windowHandle;
     }
 
     @Override
-    public void init(Color clearColor) {
+    public void init(final Color clearColor) {
         this.clearColor = clearColor;
 
         //Create instance
-        instance.setEngineName(ENGINE_NAME);
-        instance.setEngineVersion(ENGINE_VERSION[0], ENGINE_VERSION[1], ENGINE_VERSION[2]);
-        instance.setValidationEnabled(VALIDATION_ENABLED);
+        instance.setEngineName(engineName);
+        instance.setEngineVersion(engineVersion[0], engineVersion[1], engineVersion[2]);
+        instance.setValidationEnabled(validationEnabled);
         instance.getExtensions().addAll(Arrays.asList(getVulkanRequiredExtensions()));
         instance.create();
 
@@ -152,9 +170,9 @@ public class ImGuiVkBackend implements Backend {
         descriptorPool.create();
 
         //Init imgui vulkan
-        imguiVkInit.setCheckVkResultFn(new ImGuiVkCheckResultCallback() {
+        imguiVkInit.setCheckVkResultFn(new ImGuiImplVkCheckResultCallback() {
             @Override
-            public void callback(int resultCode) {
+            public void callback(final int resultCode) {
                 vkOK(resultCode);
             }
         });
@@ -178,7 +196,7 @@ public class ImGuiVkBackend implements Backend {
 
     private void createSurface() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            LongBuffer longBuff = stack.callocLong(1);
+            final LongBuffer longBuff = stack.callocLong(1);
             if (GLFWVulkan.glfwCreateWindowSurface(instance.getInstance(), window, null, longBuff) == VK10.VK_SUCCESS) {
                 surface = longBuff.get();
             } else {
@@ -188,9 +206,9 @@ public class ImGuiVkBackend implements Backend {
     }
 
     private void createDepthBuffers() {
-        int numImages = swapchain.getImageViews().size();
+        final int numImages = swapchain.getImageViews().size();
         for (int i = 0; i < numImages; i++) {
-            ImVkAttachment attachment = new ImVkAttachment();
+            final ImVkAttachment attachment = new ImVkAttachment();
             attachment.setFormat(VK_FORMAT_D32_SFLOAT);
             attachment.setUsage(VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT);
             attachment.setWidth(swapchain.getExtent().width());
@@ -203,11 +221,11 @@ public class ImGuiVkBackend implements Backend {
 
     private void createFrameBuffers() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            LongBuffer attachments = stack.callocLong(2);
+            final LongBuffer attachments = stack.callocLong(2);
             for (int i = 0; i < swapchain.getImageViews().size(); i++) {
                 attachments.put(0, swapchain.getImageViews().get(i).getNativeHandle());
                 attachments.put(1, depthBuffers.get(i).getImageView().getNativeHandle());
-                ImVkFrameBuffer frameBuffer = new ImVkFrameBuffer();
+                final ImVkFrameBuffer frameBuffer = new ImVkFrameBuffer();
                 frameBuffers.add(frameBuffer);
                 frameBuffer.setAttachments(attachments);
                 frameBuffer.setRenderPass(renderPass);
@@ -219,14 +237,14 @@ public class ImGuiVkBackend implements Backend {
     private void createFencesAndCommandBuffers() {
         for (int i = 0; i < swapchain.getImageViews().size(); i++) {
             //Create Fences
-            ImVkFence fence = new ImVkFence();
+            final ImVkFence fence = new ImVkFence();
             fences.add(fence);
             fence.setSignaled(true);
             fence.setDevice(device);
             fence.create();
 
             //Create Command Buffers
-            ImVkCommandBuffer commandBuffer = new ImVkCommandBuffer();
+            final ImVkCommandBuffer commandBuffer = new ImVkCommandBuffer();
             commandBuffers.add(commandBuffer);
             commandBuffer.setCommandPool(commandPool);
             commandBuffer.setPrimary(true);
@@ -236,8 +254,8 @@ public class ImGuiVkBackend implements Backend {
     }
 
     private String[] getVulkanRequiredExtensions() {
-        PointerBuffer glfwExtensions = GLFWVulkan.glfwGetRequiredInstanceExtensions();
-        String[] extensions = new String[glfwExtensions.capacity()];
+        final PointerBuffer glfwExtensions = GLFWVulkan.glfwGetRequiredInstanceExtensions();
+        final String[] extensions = new String[glfwExtensions.capacity()];
         for (int i = 0; i < extensions.length; i++) {
             extensions[i] = glfwExtensions.getStringASCII(i);
         }
@@ -245,7 +263,7 @@ public class ImGuiVkBackend implements Backend {
     }
 
     @Override
-    public void resize(long windowHandle, int width, int height) {
+    public void resize(final long windowHandle, final int width, final int height) {
         resizeFlag = true;
     }
 
@@ -304,10 +322,10 @@ public class ImGuiVkBackend implements Backend {
     @Override
     public void end() {
         //Get draw calls from imgui
-        ImDrawData drawData = ImGui.getDrawData();
+        final ImDrawData drawData = ImGui.getDrawData();
         if (drawData.getDisplaySizeX() > 0.0f && drawData.getDisplaySizeY() > 0.0f) {
-            int currentFrame = swapchain.getCurrentFrame();
-            ImVkCommandBuffer commandBuffer = commandBuffers.get(currentFrame);
+            final int currentFrame = swapchain.getCurrentFrame();
+            final ImVkCommandBuffer commandBuffer = commandBuffers.get(currentFrame);
             ImGuiImplVk.renderDrawData(drawData, commandBuffer.getCommandBuffer(), VK_NULL_HANDLE);
         }
 
@@ -329,11 +347,11 @@ public class ImGuiVkBackend implements Backend {
         }
     }
 
-    public void submit(ImVkQueue queue) {
+    public void submit(final ImVkQueue queue) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            int currentFrame = swapchain.getCurrentFrame();
-            ImVkCommandBuffer commandBuffer = commandBuffers.get(currentFrame);
-            ImVkFence currentFence = fences.get(currentFrame);
+            final int currentFrame = swapchain.getCurrentFrame();
+            final ImVkCommandBuffer commandBuffer = commandBuffers.get(currentFrame);
+            final ImVkFence currentFence = fences.get(currentFrame);
             queue.submit(
                 stack.pointers(commandBuffer.getCommandBuffer()),
                 stack.longs(swapchain.getImageAvailableSemaphores()[currentFrame].getNativeHandle()),
@@ -346,25 +364,25 @@ public class ImGuiVkBackend implements Backend {
 
     private void beginRenderPass() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkExtent2D swapChainExtent = swapchain.getExtent();
-            int width = swapChainExtent.width();
-            int height = swapChainExtent.height();
-            int currentFrame = swapchain.getCurrentFrame();
+            final VkExtent2D swapChainExtent = swapchain.getExtent();
+            final int width = swapChainExtent.width();
+            final int height = swapChainExtent.height();
+            final int currentFrame = swapchain.getCurrentFrame();
 
             //Start render pass
-            ImVkFence fence = fences.get(currentFrame);
-            ImVkCommandBuffer commandBuffer = commandBuffers.get(currentFrame);
-            ImVkFrameBuffer frameBuffer = frameBuffers.get(currentFrame);
+            final ImVkFence fence = fences.get(currentFrame);
+            final ImVkCommandBuffer commandBuffer = commandBuffers.get(currentFrame);
+            final ImVkFrameBuffer frameBuffer = frameBuffers.get(currentFrame);
 
             fence.waitFor();
             fence.reset();
 
             commandBuffer.reset();
-            VkClearValue.Buffer clearValues = VkClearValue.calloc(2, stack);
+            final VkClearValue.Buffer clearValues = VkClearValue.calloc(2, stack);
             clearValues.apply(0, v -> v.color().float32(0, clearColor.getRed()).float32(1, clearColor.getGreen()).float32(2, clearColor.getBlue()).float32(3, clearColor.getAlpha()));
             clearValues.apply(1, v -> v.depthStencil().depth(1.0f));
 
-            VkRenderPassBeginInfo renderPassBeginInfo = VkRenderPassBeginInfo.calloc(stack)
+            final VkRenderPassBeginInfo renderPassBeginInfo = VkRenderPassBeginInfo.calloc(stack)
                 .sType$Default()
                 .renderPass(renderPass.getNativeHandle())
                 .pClearValues(clearValues)
@@ -384,7 +402,7 @@ public class ImGuiVkBackend implements Backend {
     }
 
     private void endRenderPass() {
-        ImVkCommandBuffer commandBuffer = commandBuffers.get(swapchain.getCurrentFrame());
+        final ImVkCommandBuffer commandBuffer = commandBuffers.get(swapchain.getCurrentFrame());
         vkCmdEndRenderPass(commandBuffer.getCommandBuffer());
         commandBuffer.end();
     }

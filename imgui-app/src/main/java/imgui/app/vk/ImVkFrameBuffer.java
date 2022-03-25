@@ -7,10 +7,12 @@ import java.nio.LongBuffer;
 import java.util.logging.Logger;
 
 import static imgui.app.vk.ImVkDebug.vkOK;
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.VK10.VK_NULL_HANDLE;
+import static org.lwjgl.vulkan.VK10.vkCreateFramebuffer;
+import static org.lwjgl.vulkan.VK10.vkDestroyFramebuffer;
 
 public class ImVkFrameBuffer {
-    private final static Logger LOGGER = Logger.getLogger(ImVkFrameBuffer.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImVkFrameBuffer.class.getName());
 
     private long nativeHandle = VK_NULL_HANDLE;
 
@@ -38,14 +40,14 @@ public class ImVkFrameBuffer {
 
     private void createFrameBuffer() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkFramebufferCreateInfo fci = VkFramebufferCreateInfo.calloc(stack)
+            final VkFramebufferCreateInfo fci = VkFramebufferCreateInfo.calloc(stack)
                 .sType$Default()
                 .pAttachments(attachments)
                 .width(getRenderPass().getSwapchain().getExtent().width())
                 .height(getRenderPass().getSwapchain().getExtent().height())
                 .layers(1)
                 .renderPass(getRenderPass().getNativeHandle());
-            LongBuffer longBuff = stack.callocLong(1);
+            final LongBuffer longBuff = stack.callocLong(1);
             vkOK(
                 vkCreateFramebuffer(getRenderPass().getSwapchain().getGraphicsQueue().getDevice().getDevice(), fci, null, longBuff)
             );
@@ -62,7 +64,7 @@ public class ImVkFrameBuffer {
         return renderPass;
     }
 
-    public void setRenderPass(ImVkRenderPass renderPass) {
+    public void setRenderPass(final ImVkRenderPass renderPass) {
         this.renderPass = renderPass;
     }
 
@@ -70,7 +72,7 @@ public class ImVkFrameBuffer {
         return attachments;
     }
 
-    public void setAttachments(LongBuffer attachments) {
+    public void setAttachments(final LongBuffer attachments) {
         this.attachments = attachments;
     }
 

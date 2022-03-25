@@ -14,7 +14,6 @@ public class ImGuiImplVkInitInfo extends ImGuiImplVkInitInfoNative {
     private VkPhysicalDevice physicalDevice;
     private VkDevice device;
     private VkQueue queue;
-    private VkAllocationCallbacks allocator;
 
     public ImGuiImplVkInitInfo() {
 
@@ -131,14 +130,6 @@ public class ImGuiImplVkInitInfo extends ImGuiImplVkInitInfoNative {
     }
 
     /**
-     * Get the LWJGL Vulkan Allocation Callback
-     * @return Allocation Callback
-     */
-    public VkAllocationCallbacks getAllocator() {
-        return allocator;
-    }
-
-    /**
      * Set the LWJGL Vulkan Allocation Callback
      * @param allocator Allocation Callback
      */
@@ -148,6 +139,5 @@ public class ImGuiImplVkInitInfo extends ImGuiImplVkInitInfoNative {
         } else {
             this.nSetAllocator(0L);
         }
-        this.allocator = allocator;
     }
 }

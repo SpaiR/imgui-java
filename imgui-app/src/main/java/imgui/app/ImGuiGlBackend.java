@@ -3,17 +3,9 @@ package imgui.app;
 import imgui.ImGui;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.gl3.ImGuiImplGl3;
-import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWVulkan;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL32;
-import org.lwjgl.system.MemoryStack;
-import org.lwjgl.system.MemoryUtil;
-import org.lwjgl.vulkan.VK10;
-import org.lwjgl.vulkan.VkAllocationCallbacks;
-
-import java.nio.LongBuffer;
 
 public class ImGuiGlBackend implements Backend {
 
@@ -27,7 +19,7 @@ public class ImGuiGlBackend implements Backend {
     }
 
     @Override
-    public void postCreateWindow(long windowHandle) {
+    public void postCreateWindow(final long windowHandle) {
         this.windowHandle = windowHandle;
         GLFW.glfwMakeContextCurrent(windowHandle);
         GL.createCapabilities();
@@ -35,7 +27,7 @@ public class ImGuiGlBackend implements Backend {
     }
 
     @Override
-    public void init(Color clearColor) {
+    public void init(final Color clearColor) {
         this.clearColor = clearColor;
         decideGlGlslVersions();
         imGuiGl3.init(glslVersion);
@@ -90,7 +82,7 @@ public class ImGuiGlBackend implements Backend {
     }
 
     @Override
-    public void resize(long windowHandle, int width, int height) {
+    public void resize(final long windowHandle, final int width, final int height) {
 
     }
 }

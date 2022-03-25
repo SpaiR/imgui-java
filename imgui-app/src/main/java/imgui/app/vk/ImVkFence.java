@@ -7,11 +7,16 @@ import java.nio.LongBuffer;
 import java.util.logging.Logger;
 
 import static imgui.app.vk.ImVkDebug.vkOK;
-import static org.lwjgl.vulkan.VK10.*;
+import static org.lwjgl.vulkan.VK10.VK_FENCE_CREATE_SIGNALED_BIT;
+import static org.lwjgl.vulkan.VK10.VK_NULL_HANDLE;
+import static org.lwjgl.vulkan.VK10.vkCreateFence;
+import static org.lwjgl.vulkan.VK10.vkDestroyFence;
+import static org.lwjgl.vulkan.VK10.vkResetFences;
+import static org.lwjgl.vulkan.VK10.vkWaitForFences;
 
 public class ImVkFence {
 
-    private final static Logger LOGGER = Logger.getLogger(ImVkFence.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImVkFence.class.getName());
 
     private long nativeHandle = VK_NULL_HANDLE;
 
@@ -32,10 +37,10 @@ public class ImVkFence {
 
     private void createFence() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkFenceCreateInfo fenceCreateInfo = VkFenceCreateInfo.calloc(stack)
+            final VkFenceCreateInfo fenceCreateInfo = VkFenceCreateInfo.calloc(stack)
                 .sType$Default()
                 .flags(isSignaled() ? VK_FENCE_CREATE_SIGNALED_BIT : 0);
-            LongBuffer longBuff = stack.callocLong(1);
+            final LongBuffer longBuff = stack.callocLong(1);
             vkOK(
                 vkCreateFence(
                     getDevice().getDevice(),
@@ -65,7 +70,7 @@ public class ImVkFence {
         return device;
     }
 
-    public void setDevice(ImVkDevice device) {
+    public void setDevice(final ImVkDevice device) {
         this.device = device;
     }
 
@@ -73,7 +78,7 @@ public class ImVkFence {
         return signaled;
     }
 
-    public void setSignaled(boolean signaled) {
+    public void setSignaled(final boolean signaled) {
         this.signaled = signaled;
     }
 
