@@ -30,7 +30,7 @@ public class ImGuiImplVkInitInfoNative extends ImGuiStructDestroyable {
     }
 
     private native long nCreate(); /*
-        return (intptr_t) malloc(sizeof(ImGui_ImplVulkan_InitInfo));
+        return (intptr_t) new ImGui_ImplVulkan_InitInfo;
     */
 
     /**
