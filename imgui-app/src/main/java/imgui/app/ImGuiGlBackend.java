@@ -1,10 +1,19 @@
 package imgui.app;
 
 import imgui.ImGui;
+import imgui.flag.ImGuiConfigFlags;
 import imgui.gl3.ImGuiImplGl3;
+import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWVulkan;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL32;
+import org.lwjgl.system.MemoryStack;
+import org.lwjgl.system.MemoryUtil;
+import org.lwjgl.vulkan.VK10;
+import org.lwjgl.vulkan.VkAllocationCallbacks;
+
+import java.nio.LongBuffer;
 
 public class ImGuiGlBackend implements Backend {
 
@@ -64,10 +73,24 @@ public class ImGuiGlBackend implements Backend {
     @Override
     public void end() {
         imGuiGl3.renderDrawData(ImGui.getDrawData());
+
+        if (ImGui.getIO().hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
+            final long backupWindowPtr = GLFW.glfwGetCurrentContext();
+            ImGui.updatePlatformWindows();
+            ImGui.renderPlatformWindowsDefault();
+            GLFW.glfwMakeContextCurrent(backupWindowPtr);
+        }
+
+        GLFW.glfwSwapBuffers(windowHandle);
     }
 
     @Override
     public void destroy() {
         imGuiGl3.dispose();
+    }
+
+    @Override
+    public void resize(long windowHandle, int width, int height) {
+
     }
 }

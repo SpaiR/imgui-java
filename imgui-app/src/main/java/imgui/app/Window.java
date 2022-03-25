@@ -1,16 +1,12 @@
 package imgui.app;
 
 import imgui.ImGui;
-import imgui.flag.ImGuiConfigFlags;
-import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowSizeCallback;
-import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL32;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
 
@@ -111,11 +107,10 @@ public abstract class Window {
             GLFW.glfwShowWindow(handle);
         }
 
-        renderBuffer();
-
         GLFW.glfwSetWindowSizeCallback(handle, new GLFWWindowSizeCallback() {
             @Override
             public void invoke(final long window, final int width, final int height) {
+                backend.resize(window, width, height);
                 runFrame();
             }
         });
@@ -186,21 +181,6 @@ public abstract class Window {
         ImGui.render();
         backend.end();
 
-        if (ImGui.getIO().hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
-            final long backupWindowPtr = GLFW.glfwGetCurrentContext();
-            ImGui.updatePlatformWindows();
-            ImGui.renderPlatformWindowsDefault();
-            GLFW.glfwMakeContextCurrent(backupWindowPtr);
-        }
-
-        renderBuffer();
-    }
-
-    /**
-     * Method to render the OpenGL buffer and poll window events.
-     */
-    private void renderBuffer() {
-        GLFW.glfwSwapBuffers(handle);
         GLFW.glfwPollEvents();
     }
 

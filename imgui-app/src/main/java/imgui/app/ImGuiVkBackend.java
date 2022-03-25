@@ -1,56 +1,63 @@
 package imgui.app;
 
+import imgui.app.vk.*;
 import org.lwjgl.PointerBuffer;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWVulkan;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
 import org.lwjgl.vulkan.*;
 
 import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.LongBuffer;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.system.MemoryUtil.NULL;
 import static org.lwjgl.vulkan.EXTDebugUtils.*;
-import static org.lwjgl.vulkan.EXTDebugUtils.VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
-import static org.lwjgl.vulkan.KHRSurface.vkDestroySurfaceKHR;
+import static org.lwjgl.vulkan.KHRSurface.*;
+import static org.lwjgl.vulkan.KHRSwapchain.VK_KHR_SWAPCHAIN_EXTENSION_NAME;
 import static org.lwjgl.vulkan.VK10.*;
 import static org.lwjgl.vulkan.VK12.VK_API_VERSION_1_2;
 
 public class ImGuiVkBackend implements Backend {
 
-    private long window;
-    private VkInstance instance;
-    private long surface;
-    private VkDebugUtilsMessengerCreateInfoEXT callback;
-    private long callbackHandle = VK_NULL_HANDLE;
-    private final Set<String> extensions = new HashSet<>();
-    private final Set<String> validationLayers = new HashSet<>();
-    private final Set<String> enabledValidationLayers = new HashSet<>();
-    private final boolean validationEnabled = false;
+    //GLFW Window handle
+    private long window = NULL;
+
+    //Surface info
+    private long surface = VK_NULL_HANDLE;
+
+    //Vulkan Objects
+    private final ImVkInstance instance = new ImVkInstance();
+    private final ImVkPhysicalDevice physicalDevice = new ImVkPhysicalDevice();
+    private final ImVkDevice device = new ImVkDevice();
+    private final ImVkPipelineCache pipelineCache = new ImVkPipelineCache();
+    private final ImVkQueue graphicsQueue = new ImVkQueue();
+    private final ImVkQueue presentationQueue = new ImVkQueue();
+    private final ImVkSwapchain swapchain = new ImVkSwapchain();
+    private final ImVkRenderPass renderPass = new ImVkRenderPass();
+    private final ImVkCommandPool commandPool = new ImVkCommandPool();
+    private final ImVkDescriptorPool descriptorPool = new ImVkDescriptorPool();
+    private final List<ImVkFence> fences = new ArrayList<>();
+
+    //Buffers
+    private final List<ImVkFrameBuffer> frameBuffers = new ArrayList<>();
+    private final List<ImVkAttachment> depthBuffers = new ArrayList<>();
+    private final List<ImVkCommandBuffer> commandBuffers = new ArrayList<>();
+
+    //Logger
     private final Logger LOGGER = Logger.getLogger(ImGuiGlBackend.class.getName());
 
     //Engine Info
     private final String ENGINE_NAME = "imgui-app";
     private final int[] ENGINE_VERSION = {1, 86, 3}; //FIXME: We should set this automatically to the correct build version
-
-    //Callback Message Flags
-    private final static int MESSAGE_SEVERITY_BITMASK =
-        VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT |
-            VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT |
-            VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT |
-            VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT;
-
-    private final static int MESSAGE_TYPE_BITMASK =
-        VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT |
-            VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT |
-            VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+    private final boolean VALIDATION_ENABLED = false;
 
     public ImGuiVkBackend() {
 
@@ -68,176 +75,128 @@ public class ImGuiVkBackend implements Backend {
 
     @Override
     public void init(Color clearColor) {
-        createValidationCallbacks();
-        createInstance();
+        //Create instance
+        instance.setEngineName(ENGINE_NAME);
+        instance.setEngineVersion(ENGINE_VERSION[0], ENGINE_VERSION[1], ENGINE_VERSION[2]);
+        instance.setValidationEnabled(VALIDATION_ENABLED);
+        instance.getExtensions().addAll(Arrays.asList(getVulkanRequiredExtensions()));
+        instance.create();
+
+        //Create surface
         createSurface();
-    }
 
-    public void vkResult(int result) {
-        if (result != VK10.VK_SUCCESS) {
-            throw new RuntimeException("Failed to execute vulkan call: (" + result + ") " + getErrorMessage(result));
-        }
-    }
+        //Create physical device
+        physicalDevice.setInstance(instance);
+        physicalDevice.setSurface(surface);
+        physicalDevice.create();
 
-    public String getErrorMessage(int vkResultErrorCode) {
-        for (VkResultError error : VkResultError.values()) {
-            if (error.errorCode == vkResultErrorCode) {
-                return error.errorMessage;
-            }
-        }
-        return "Unknown VkResult error code!";
-    }
+        //Create logical device
+        device.setPhysicalDevice(physicalDevice);
+        device.create();
 
-    private void createValidationCallbacks() {
-        //Setup necessary data for validation
-        if (validationEnabled) {
-            //Required extensions
-            extensions.add(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+        //Create pipeline cache
+        pipelineCache.setDevice(device);
+        pipelineCache.create();
 
-            //Build callback
-            callback = createDebugCallback();
-        }
-    }
+        //Create graphics queue
+        graphicsQueue.setFamilyIndex(physicalDevice.getIndices().getGraphicsFamily());
+        graphicsQueue.setDevice(device);
+        graphicsQueue.create();
 
-    private void createInstance() {
+        //Create presentation queue
+        presentationQueue.setFamilyIndex(physicalDevice.getIndices().getPresentFamily());
+        presentationQueue.setDevice(device);
+        presentationQueue.create();
+
+        //Create swapchain
+        swapchain.setSurface(surface);
+        swapchain.setVsync(true);
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            VkApplicationInfo appInfo = VkApplicationInfo.calloc(stack)
-                .sType$Default();
+            final IntBuffer pWidth = stack.mallocInt(1);
+            final IntBuffer pHeight = stack.mallocInt(1);
 
-            //Build app name
-            String name = ENGINE_NAME;
-            ByteBuffer nameBuff = stack.ASCIISafe(name);
-            appInfo.pApplicationName(nameBuff);
+            GLFW.glfwGetWindowSize(window, pWidth, pHeight);
+            swapchain.setWidth(pWidth.get(0));
+            swapchain.setHeight(pHeight.get(0));
+        }
+        swapchain.setGraphicsQueue(graphicsQueue);
+        swapchain.create();
 
-            //Build app version info
-            int vkVersion = VK_MAKE_VERSION(ENGINE_VERSION[0], ENGINE_VERSION[1], ENGINE_VERSION[2]);
-            appInfo.applicationVersion(vkVersion);
+        //Create render pass
+        renderPass.setSwapchain(swapchain);
+        renderPass.create();
 
-            //Build engine name
-            String engName = ENGINE_NAME;
-            ByteBuffer engNameBuff = stack.ASCIISafe(engName);
-            appInfo.pEngineName(engNameBuff);
+        //Create command pool
+        commandPool.setDevice(device);
+        commandPool.create();
 
-            //Build app version info
-            int vkEngVersion = VK_MAKE_VERSION(ENGINE_VERSION[0], ENGINE_VERSION[1], ENGINE_VERSION[2]);
-            appInfo.engineVersion(vkEngVersion);
+        //Create buffers
+        createDepthBuffers();
+        createFrameBuffers();
+        createFencesAndCommandBuffers();
 
-            //VK API Version
-            appInfo.apiVersion(VK_API_VERSION_1_2);
+        //Create descriptor pool
+        descriptorPool.setDevice(device);
+        descriptorPool.create();
+    }
 
-            VkInstanceCreateInfo createInfo = VkInstanceCreateInfo.calloc(stack)
-                .sType$Default()
-                .pApplicationInfo(appInfo);
 
-            //Extensions
-            List<String> foundExtensions = new ArrayList<>();
-            String[] glfwExtensions = getVulkanRequiredExtensions();
-
-            IntBuffer extensionCountBuff = stack.callocInt(1);
-            vkEnumerateInstanceExtensionProperties((ByteBuffer) null, extensionCountBuff, null);
-            int extensionsCount = extensionCountBuff.get();
-            VkExtensionProperties.Buffer availableExtensions = VkExtensionProperties.calloc(extensionsCount, stack);
-            extensionCountBuff.flip();
-            vkEnumerateInstanceExtensionProperties((ByteBuffer) null, extensionCountBuff, availableExtensions);
-
-            for (VkExtensionProperties prop : availableExtensions) {
-                LOGGER.finest("Available Vulkan Extension: " + prop.extensionNameString());
-            }
-
-            //Check that our windows supports the extensions
-            for (int i = 0; i < glfwExtensions.length; i++) {
-                String extName = glfwExtensions[i];
-                boolean found = false;
-                for (VkExtensionProperties prop : availableExtensions) {
-                    if (extName.equals(prop.extensionNameString())) {
-                        found = true;
-                        foundExtensions.add(extName);
-                        LOGGER.fine("Using Vulkan Extension: " + extName);
-                        break;
-                    }
-                }
-                if (!found) {
-                    LOGGER.log(Level.WARNING, "Failed to load required Vulkan extension: " + extName);
-                }
-            }
-
-            for (String extensionName : extensions) {
-                boolean found = false;
-                for (VkExtensionProperties extension : availableExtensions) {
-                    if (extensionName.equals(extension.extensionNameString())) {
-                        found = true;
-                        foundExtensions.add(extensionName);
-                        LOGGER.fine("Using Vulkan Extension: " + extensionName);
-                        break;
-                    }
-                }
-                if (!found) {
-                    LOGGER.log(Level.SEVERE, "Failed to load required Vulkan extension: " + extensionName);
-                }
-            }
-
-            //Set extensions
-            PointerBuffer extensionBuff = stack.mallocPointer(foundExtensions.size());
-            for (int i = 0; i < foundExtensions.size(); i++) {
-                extensionBuff.put(i, stack.ASCII(foundExtensions.get(i)));
-            }
-            createInfo.ppEnabledExtensionNames(extensionBuff);
-
-            //Validation layers
-            if (validationEnabled) {
-                IntBuffer layerCount = stack.callocInt(1);
-                vkEnumerateInstanceLayerProperties(layerCount, null);
-                VkLayerProperties.Buffer availableLayers = VkLayerProperties.calloc(layerCount.get(), stack);
-                layerCount.flip();
-                vkEnumerateInstanceLayerProperties(layerCount, availableLayers);
-
-                for (VkLayerProperties layer : availableLayers) {
-                    LOGGER.finest("Available Vulkan Validation Layer: " + layer.layerNameString());
-                }
-
-                enabledValidationLayers.clear();
-                for (String validationLayer : validationLayers) {
-                    boolean found = false;
-                    for (VkLayerProperties layer : availableLayers) {
-                        if (validationLayer.equals(layer.layerNameString())) {
-                            found = true;
-                            enabledValidationLayers.add(validationLayer);
-                            LOGGER.fine("Using Vulkan Validation Layer: " + validationLayer);
-                        }
-                    }
-                    if (!found) {
-                        LOGGER.log(Level.SEVERE, "Failed to load required Vulkan layer: " + validationLayer);
-                    }
-                }
-
-                //Set layers
-                PointerBuffer layerBuff = stack.mallocPointer(enabledValidationLayers.size());
-                for (String validationLayer : enabledValidationLayers) {
-                    layerBuff.put(stack.ASCII(validationLayer));
-                }
-                layerBuff.flip();
-
-                createInfo.ppEnabledLayerNames(layerBuff);
-                createInfo.pNext(callback.address());
+    private void createSurface() {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            LongBuffer longBuff = stack.callocLong(1);
+            if (GLFWVulkan.glfwCreateWindowSurface(instance.getInstance(), window, null, longBuff) == VK10.VK_SUCCESS) {
+                surface = longBuff.get();
             } else {
-                createInfo.ppEnabledLayerNames(null);
-                createInfo.pNext(MemoryUtil.NULL); //No debugging info
+                throw new RuntimeException("Failed to create glfw vulkan surface");
             }
+        }
+    }
 
-            PointerBuffer instancePointerBuff = stack.mallocPointer(1);
-            vkResult(vkCreateInstance(createInfo, null, instancePointerBuff));
+    private void createDepthBuffers() {
+        int numImages = swapchain.getImageViews().size();
+        for (int i = 0; i < numImages; i++) {
+            ImVkAttachment attachment = new ImVkAttachment();
+            attachment.setFormat(VK_FORMAT_D32_SFLOAT);
+            attachment.setUsage(VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT);
+            attachment.setWidth(swapchain.getExtent().width());
+            attachment.setHeight(swapchain.getExtent().height());
+            attachment.setDevice(device);
+            attachment.create();
+            depthBuffers.add(attachment);
+        }
+    }
 
-            //Save native handle to vk instance
-            long nativeHandle = instancePointerBuff.get(0);
-            System.out.println(nativeHandle);
-            instance = new VkInstance(nativeHandle, createInfo);
-
-            //Create validation callback
-            if (validationEnabled) {
-                LongBuffer longBuff = stack.mallocLong(1);
-                vkResult(vkCreateDebugUtilsMessengerEXT(instance, callback, null, longBuff));
-                callbackHandle = longBuff.get(0);
+    private void createFrameBuffers() {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            LongBuffer attachments = stack.callocLong(2);
+            for (int i = 0; i < swapchain.getImageViews().size(); i++) {
+                attachments.put(0, swapchain.getImageViews().get(i).getNativeHandle());
+                attachments.put(1, depthBuffers.get(i).getImageView().getNativeHandle());
+                ImVkFrameBuffer frameBuffer = new ImVkFrameBuffer();
+                frameBuffers.add(frameBuffer);
+                frameBuffer.setAttachments(attachments);
+                frameBuffer.setRenderPass(renderPass);
+                frameBuffer.create();
             }
+        }
+    }
+
+    private void createFencesAndCommandBuffers() {
+        for (int i = 0; i < swapchain.getImageViews().size(); i++) {
+            //Create Fences
+            ImVkFence fence = new ImVkFence();
+            fences.add(fence);
+            fence.setSignaled(true);
+            fence.setDevice(device);
+            fence.create();
+
+            //Create Command Buffers
+            ImVkCommandBuffer commandBuffer = new ImVkCommandBuffer();
+            commandBuffers.add(commandBuffer);
+            commandBuffer.setCommandPool(commandPool);
+            commandBuffer.setPrimary(true);
+            commandBuffer.setOneTimeSubmit(false);
+            commandBuffer.create();
         }
     }
 
@@ -248,45 +207,6 @@ public class ImGuiVkBackend implements Backend {
             extensions[i] = glfwExtensions.getStringASCII(i);
         }
         return extensions;
-    }
-
-    private VkDebugUtilsMessengerCreateInfoEXT createDebugCallback() {
-        return VkDebugUtilsMessengerCreateInfoEXT
-            .calloc()
-            .sType$Default()
-            .messageSeverity(MESSAGE_SEVERITY_BITMASK)
-            .messageType(MESSAGE_TYPE_BITMASK)
-            .pfnUserCallback((messageSeverity, messageTypes, pCallbackData, pUserData) -> {
-                VkDebugUtilsMessengerCallbackDataEXT callbackData = VkDebugUtilsMessengerCallbackDataEXT.create(pCallbackData);
-                Level logLevel = Level.FINE;
-                if ((messageSeverity & VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT) != 0) {
-                    logLevel = Level.INFO;
-                } else if ((messageSeverity & VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT) != 0) {
-                    logLevel = Level.WARNING;
-                } else if ((messageSeverity & VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT) != 0) {
-                    logLevel = Level.SEVERE;
-                }
-
-                LOGGER.log(logLevel, "[validation] " + callbackData.pMessageString());
-                if (logLevel == Level.SEVERE) {
-                    StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-                    for (StackTraceElement stackTraceElement : stackTrace) {
-                        LOGGER.log(logLevel, "[validation] [trace] " + stackTraceElement.toString());
-                    }
-                }
-                return VK_FALSE;
-            });
-    }
-
-    private void createSurface() {
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            LongBuffer longBuff = stack.callocLong(1);
-            if (GLFWVulkan.nglfwCreateWindowSurface(instance.address(), window, MemoryUtil.memAddressSafe((VkAllocationCallbacks) null), MemoryUtil.memAddress(longBuff)) == VK10.VK_SUCCESS) {
-                surface = longBuff.get();
-            } else {
-                throw new RuntimeException("Failed to create glfw vulkan surface");
-            }
-        }
     }
 
     @Override
@@ -301,132 +221,42 @@ public class ImGuiVkBackend implements Backend {
 
     @Override
     public void destroy() {
+        //Wait for GPU to be ready
+        device.waitIdle();
+        presentationQueue.waitIdle();
+        graphicsQueue.waitIdle();
+
+        //Destroy vulkan
+        commandBuffers.forEach(ImVkCommandBuffer::destroy);
+        commandBuffers.clear();
+
+        fences.forEach(ImVkFence::destroy);
+        fences.clear();
+
+        commandPool.destroy();
+
+        frameBuffers.forEach(ImVkFrameBuffer::destroy);
+        frameBuffers.clear();
+
+        depthBuffers.forEach(ImVkAttachment::destroy);
+        depthBuffers.clear();
+
+        swapchain.destroy();
+        presentationQueue.destroy();
+        graphicsQueue.destroy();
+        pipelineCache.destroy();
+        device.destroy();
+        physicalDevice.destroy();
         destroySurface();
-        destroyInstance();
-
-        if (validationEnabled) {
-            destroyDebugCallback(callback);
-        }
+        instance.destroy();
     }
 
-    private void destroyDebugCallback(VkDebugUtilsMessengerCreateInfoEXT callback) {
-        if (callback != null) {
-            callback.pfnUserCallback().free();
-            callback.free();
-        }
-    }
+    @Override
+    public void resize(long windowHandle, int width, int height) {
 
-    private void destroyInstance() {
-        if (validationEnabled) {
-            if (callbackHandle != VK_NULL_HANDLE) {
-                vkDestroyDebugUtilsMessengerEXT(instance, callbackHandle, null);
-            }
-        }
-        vkDestroyInstance(instance, null);
     }
 
     private void destroySurface() {
-        vkDestroySurfaceKHR(instance, surface, null);
-    }
-
-    /**
-     * Helper Enum for getting strings from vulkan error codes
-     */
-    public enum VkResultError {
-        //Vulkan 1.0 errors
-        VK_SUCCESS(VK10.VK_SUCCESS, "Command successfully completed"),
-        VK_NOT_READY(VK10.VK_NOT_READY, "A fence or query has not yet completed"),
-        VK_TIMEOUT(VK10.VK_TIMEOUT, "A wait operation has not completed in the specified time"),
-        VK_EVENT_SET(VK10.VK_EVENT_SET, "An event is signaled"),
-        VK_EVENT_RESET(VK10.VK_EVENT_RESET, "An event is unsignaled"),
-        VK_INCOMPLETE(VK10.VK_INCOMPLETE, "A return array was too small for the result"),
-        VK_ERROR_OUT_OF_HOST_MEMORY(VK10.VK_ERROR_OUT_OF_HOST_MEMORY, "A host memory allocation has failed"),
-        VK_ERROR_OUT_OF_DEVICE_MEMORY(VK10.VK_ERROR_OUT_OF_DEVICE_MEMORY, "A device memory allocation has failed"),
-        VK_ERROR_INITIALIZATION_FAILED(VK10.VK_ERROR_INITIALIZATION_FAILED, "Initialization of an object could not be completed for implementation-specific reasons"),
-        VK_ERROR_DEVICE_LOST(VK10.VK_ERROR_DEVICE_LOST, "The logical or physical device has been lost"),
-        VK_ERROR_MEMORY_MAP_FAILED(VK10.VK_ERROR_MEMORY_MAP_FAILED, "Mapping of a memory object has failed"),
-        VK_ERROR_LAYER_NOT_PRESENT(VK10.VK_ERROR_LAYER_NOT_PRESENT, "A requested layer is not present or could not be loaded"),
-        VK_ERROR_EXTENSION_NOT_PRESENT(VK10.VK_ERROR_EXTENSION_NOT_PRESENT, "A requested extension is not supported"),
-        VK_ERROR_FEATURE_NOT_PRESENT(VK10.VK_ERROR_FEATURE_NOT_PRESENT, "A requested feature is not supported"),
-        VK_ERROR_INCOMPATIBLE_DRIVER(VK10.VK_ERROR_INCOMPATIBLE_DRIVER, "The requested version of Vulkan is not supported by the driver or is otherwise incompatible for implementation-specific reasons"),
-        VK_ERROR_TOO_MANY_OBJECTS(VK10.VK_ERROR_TOO_MANY_OBJECTS, "Too many objects of the type have already been created"),
-        VK_ERROR_FORMAT_NOT_SUPPORTED(VK10.VK_ERROR_FORMAT_NOT_SUPPORTED, "A requested format is not supported on this device"),
-        VK_ERROR_FRAGMENTED_POOL(VK10.VK_ERROR_FRAGMENTED_POOL, "A pool allocation has failed due to fragmentation of the pool’s memory. This must only be returned if no attempt to allocate host or device memory was made to accommodate the new allocation"),
-        VK_ERROR_UNKNOWN(VK10.VK_ERROR_UNKNOWN, "An unknown error has occurred; either the application has provided invalid input, or an implementation failure has occurred"),
-
-        //Vulkan 1.1 errors
-        VK_ERROR_OUT_OF_POOL_MEMORY(VK11.VK_ERROR_OUT_OF_POOL_MEMORY, "A descriptor pool allocation has failed"),
-        VK_ERROR_INVALID_EXTERNAL_HANDLE(VK11.VK_ERROR_INVALID_EXTERNAL_HANDLE, "Invalid external handle"),
-
-        //Vulkan 1.2 errors
-        VK_ERROR_FRAGMENTATION(VK12.VK_ERROR_FRAGMENTATION, "Fragmentation error"),
-        VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS(VK12.VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS, "Invalid opaque address"),
-
-        //KHR Surface
-        VK_ERROR_SURFACE_LOST_KHR(KHRSurface.VK_ERROR_SURFACE_LOST_KHR, "Surface lost"),
-        VK_ERROR_NATIVE_WINDOW_IN_USE_KHR(KHRSurface.VK_ERROR_NATIVE_WINDOW_IN_USE_KHR, "Native window in use error"),
-
-        //KHR Swapchain
-        VK_SUBOPTIMAL_KHR(KHRSwapchain.VK_SUBOPTIMAL_KHR, "Swapchain suboptimal"),
-        VK_ERROR_OUT_OF_DATE_KHR(KHRSwapchain.VK_ERROR_OUT_OF_DATE_KHR, "Swapchain out of date"),
-
-        //KHR Display Swapchain
-        VK_ERROR_INCOMPATIBLE_DISPLAY_KHR(KHRDisplaySwapchain.VK_ERROR_INCOMPATIBLE_DISPLAY_KHR, "Incompatable display"),
-
-        //EXT debug report
-        VK_ERROR_VALIDATION_FAILED_EXT(EXTDebugReport.VK_ERROR_VALIDATION_FAILED_EXT, "Validation failed"),
-
-        //NV GLSL Shader
-        VK_ERROR_INVALID_SHADER_NV(NVGLSLShader.VK_ERROR_INVALID_SHADER_NV, "Invalid shader"),
-
-        //EXT image drm format modifier
-        VK_ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT(EXTImageDrmFormatModifier.VK_ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT, "Invalid DRM format modifier plane layout"),
-
-        //EXT global priority
-        VK_ERROR_NOT_PERMITTED_EXT(EXTGlobalPriority.VK_ERROR_NOT_PERMITTED_EXT, "Not permitted"),
-
-        //EXT full screen exclusive
-        VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT(EXTFullScreenExclusive.VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT, "Full screen exclusive mode lost"),
-
-        //HKR deferred host operations
-        VK_THREAD_IDLE_KHR(KHRDeferredHostOperations.VK_THREAD_IDLE_KHR, "Thread is idle"),
-        VK_THREAD_DONE_KHR(KHRDeferredHostOperations.VK_THREAD_DONE_KHR, "Thread is done"),
-        VK_OPERATION_DEFERRED_KHR(KHRDeferredHostOperations.VK_OPERATION_DEFERRED_KHR, "Operation deferred"),
-        VK_OPERATION_NOT_DEFERRED_KHR(KHRDeferredHostOperations.VK_OPERATION_NOT_DEFERRED_KHR, "Operation not deferred"),
-
-        //EXT pipeline creation cache control
-        VK_PIPELINE_COMPILE_REQUIRED_EXT(EXTPipelineCreationCacheControl.VK_PIPELINE_COMPILE_REQUIRED_EXT, "Pipeline compile required"),
-        VK_ERROR_PIPELINE_COMPILE_REQUIRED_EXT(EXTPipelineCreationCacheControl.VK_ERROR_PIPELINE_COMPILE_REQUIRED_EXT, "Pipeline compile required error"),
-
-        //KHR maintenance 1
-        VK_ERROR_OUT_OF_POOL_MEMORY_KHR(KHRMaintenance1.VK_ERROR_OUT_OF_POOL_MEMORY_KHR, "Out of pool memory"),
-
-        //KHR external memory
-        VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR(KHRExternalMemory.VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR, "Invalid external handle"),
-
-        //EXT descriptor indexing
-        VK_ERROR_FRAGMENTATION_EXT(EXTDescriptorIndexing.VK_ERROR_FRAGMENTATION_EXT, "Fragmentation error"),
-
-        //EXT buffer device address
-        VK_ERROR_INVALID_DEVICE_ADDRESS_EXT(EXTBufferDeviceAddress.VK_ERROR_INVALID_DEVICE_ADDRESS_EXT, "Invalid device address"),
-
-        //KHR buffer device address
-        VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR(KHRBufferDeviceAddress.VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR, "Invalid opaque capture address");
-
-        private final int errorCode;
-        private final String errorMessage;
-
-        VkResultError(int code, String message) {
-            this.errorCode = code;
-            this.errorMessage = message;
-        }
-
-        public int getErrorCode() {
-            return errorCode;
-        }
-
-        public String getErrorMessage() {
-            return errorMessage;
-        }
+        vkDestroySurfaceKHR(instance.getInstance(), surface, null);
     }
 }

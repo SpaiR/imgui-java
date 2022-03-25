@@ -8,4 +8,5 @@ public interface Backend {
     public void begin();
     public void end();
     public void destroy();
+    public void resize(long windowHandle, int width, int height);
 }
