@@ -29,6 +29,7 @@ public class ImVkInstance {
     private boolean validationEnabled;
     private VkDebugUtilsMessengerCreateInfoEXT callback;
     private long callbackHandle = VK_NULL_HANDLE;
+    private VkAllocationCallbacks allocationCallbacks = null;
 
     private String appName = "Dear ImGui Java";
     private int appVersionMajor = 0;
@@ -168,7 +169,7 @@ public class ImVkInstance {
             }
 
             PointerBuffer instancePointerBuff = stack.mallocPointer(1);
-            vkOK(vkCreateInstance(createInfo, null, instancePointerBuff));
+            vkOK(vkCreateInstance(createInfo, allocationCallbacks, instancePointerBuff));
 
             //Save native handle to vk instance
             nativeHandle = instancePointerBuff.get(0);
@@ -193,6 +194,7 @@ public class ImVkInstance {
                 vkDestroyDebugUtilsMessengerEXT(vkInstance, callbackHandle, null);
             }
         }
+        allocationCallbacks.free();
         vkDestroyInstance(vkInstance, null);
     }
 
@@ -270,5 +272,9 @@ public class ImVkInstance {
 
     public Set<String> getEnabledValidationLayers() {
         return enabledValidationLayers;
+    }
+
+    public VkAllocationCallbacks getAllocationCallbacks() {
+        return allocationCallbacks;
     }
 }

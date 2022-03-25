@@ -28,7 +28,7 @@ class GenerateLibs extends DefaultTask {
     private final String classpath = project.file('build/classes/java/main')
     private final String jniDir = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/jni'
     private final String tmpFolder = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/tmp'
-    private final String vulkanDir = project.file('bin/vulkan')
+    private final String vulkanDir = project.rootProject.file('bin/vulkan')
     private final String libsFolder = 'libsNative'
 
     @TaskAction

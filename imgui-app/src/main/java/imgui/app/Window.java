@@ -165,12 +165,12 @@ public abstract class Window {
 
     /**
      * Method called at the beginning of the main cycle.
-     * It clears OpenGL buffer and starts an ImGui frame.
+     * Starts an ImGui frame, then hands off to the backend to begin the frame
      */
     protected void startFrame() {
-        backend.begin();
         imGuiGlfw.newFrame();
         ImGui.newFrame();
+        backend.begin();
     }
 
     /**

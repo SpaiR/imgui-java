@@ -15,6 +15,11 @@ public class ImGuiImplVkInitInfo extends ImGuiImplVkInitInfoNative {
     private VkDevice device;
     private VkQueue queue;
     private VkAllocationCallbacks allocator;
+
+    public ImGuiImplVkInitInfo() {
+
+    }
+
     public ImGuiImplVkInitInfo(final long ptr) {
         super(ptr);
     }
@@ -138,7 +143,11 @@ public class ImGuiImplVkInitInfo extends ImGuiImplVkInitInfoNative {
      * @param allocator Allocation Callback
      */
     public void setAllocator(final VkAllocationCallbacks allocator) {
-        this.nSetAllocator(allocator.address());
+        if (allocator != null) {
+            this.nSetAllocator(allocator.address());
+        } else {
+            this.nSetAllocator(0L);
+        }
         this.allocator = allocator;
     }
 }

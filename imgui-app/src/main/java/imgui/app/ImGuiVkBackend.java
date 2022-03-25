@@ -1,6 +1,11 @@
 package imgui.app;
 
+import imgui.ImDrawData;
+import imgui.ImGui;
 import imgui.app.vk.*;
+import imgui.lwjgl3.vk.callback.ImGuiVkCheckResultCallback;
+import imgui.vk.ImGuiImplVk;
+import imgui.vk.ImGuiImplVkInitInfo;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -17,6 +22,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static imgui.app.vk.ImVkDebug.vkOK;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 import static org.lwjgl.vulkan.EXTDebugUtils.*;
@@ -27,13 +33,12 @@ import static org.lwjgl.vulkan.VK12.VK_API_VERSION_1_2;
 
 public class ImGuiVkBackend implements Backend {
 
-    //GLFW Window handle
+    //GLFW Window
     private long window = NULL;
-
-    //Surface info
-    private long surface = VK_NULL_HANDLE;
+    private boolean resizeFlag = false;
 
     //Vulkan Objects
+    private long surface = VK_NULL_HANDLE;
     private final ImVkInstance instance = new ImVkInstance();
     private final ImVkPhysicalDevice physicalDevice = new ImVkPhysicalDevice();
     private final ImVkDevice device = new ImVkDevice();
@@ -45,6 +50,7 @@ public class ImGuiVkBackend implements Backend {
     private final ImVkCommandPool commandPool = new ImVkCommandPool();
     private final ImVkDescriptorPool descriptorPool = new ImVkDescriptorPool();
     private final List<ImVkFence> fences = new ArrayList<>();
+    private final ImGuiImplVkInitInfo imguiVkInit = new ImGuiImplVkInitInfo();
 
     //Buffers
     private final List<ImVkFrameBuffer> frameBuffers = new ArrayList<>();
@@ -58,6 +64,10 @@ public class ImGuiVkBackend implements Backend {
     private final String ENGINE_NAME = "imgui-app";
     private final int[] ENGINE_VERSION = {1, 86, 3}; //FIXME: We should set this automatically to the correct build version
     private final boolean VALIDATION_ENABLED = false;
+
+    //Render vars
+    private Color clearColor;
+    private boolean transitionFonts = true;
 
     public ImGuiVkBackend() {
 
@@ -75,6 +85,8 @@ public class ImGuiVkBackend implements Backend {
 
     @Override
     public void init(Color clearColor) {
+        this.clearColor = clearColor;
+
         //Create instance
         instance.setEngineName(ENGINE_NAME);
         instance.setEngineVersion(ENGINE_VERSION[0], ENGINE_VERSION[1], ENGINE_VERSION[2]);
@@ -138,6 +150,29 @@ public class ImGuiVkBackend implements Backend {
         //Create descriptor pool
         descriptorPool.setDevice(device);
         descriptorPool.create();
+
+        //Init imgui vulkan
+        imguiVkInit.setCheckVkResultFn(new ImGuiVkCheckResultCallback() {
+            @Override
+            public void callback(int resultCode) {
+                vkOK(resultCode);
+            }
+        });
+        imguiVkInit.setInstance(instance.getInstance());
+        imguiVkInit.setAllocator(instance.getAllocationCallbacks());
+        imguiVkInit.setPhysicalDevice(physicalDevice.getPhysicalDevice());
+        imguiVkInit.setDevice(device.getDevice());
+        imguiVkInit.setMinImageCount(swapchain.getImageViews().size());
+        imguiVkInit.setImageCount(swapchain.getImageViews().size());
+        imguiVkInit.setDescriptorPool(descriptorPool.getNativeHandle());
+        imguiVkInit.setPipelineCache(pipelineCache.getNativeHandle());
+        imguiVkInit.setQueue(graphicsQueue.getQueue());
+        imguiVkInit.setQueueFamily(physicalDevice.getIndices().getGraphicsFamily());
+        imguiVkInit.setMSAASamples(VK_SAMPLE_COUNT_1_BIT);
+        imguiVkInit.setSubpass(0);
+        ImGuiImplVk.init(imguiVkInit, renderPass.getNativeHandle());
+
+
     }
 
 
@@ -210,17 +245,155 @@ public class ImGuiVkBackend implements Backend {
     }
 
     @Override
-    public void begin() {
+    public void resize(long windowHandle, int width, int height) {
+        resizeFlag = true;
+    }
 
+    public void resize() {
+        //=== Wait for gpu to be ready
+        device.waitIdle();
+        graphicsQueue.waitIdle();
+        presentationQueue.waitIdle();
+
+        //=== Unload things with old size
+        //Unload frame buffers
+        frameBuffers.forEach(ImVkFrameBuffer::destroy);
+        frameBuffers.clear();
+
+        //Unload depth buffers
+        depthBuffers.forEach(ImVkAttachment::destroy);
+        depthBuffers.clear();
+
+        //Unload swap chain
+        swapchain.destroy();
+
+        //=== Load with new size
+        //Update swapchain device support
+        physicalDevice.resize();
+
+        //Create swap chain
+        swapchain.setGraphicsQueue(graphicsQueue);
+        swapchain.setSurface(surface);
+        swapchain.create();
+
+        //Create depth buffers
+        createDepthBuffers();
+
+        //Create frame buffer
+        createFrameBuffers();
+
+        //Done
+        resizeFlag = false;
+    }
+
+    @Override
+    public void begin() {
+        //Handle if we have been reized
+        if (resizeFlag || swapchain.nextImage()) {
+            resize();
+            swapchain.nextImage();
+        }
+
+        //Create new imgui vulkan frame
+        ImGuiImplVk.newFrame();
+
+        //Begin the render pass for the frame
+        beginRenderPass();
     }
 
     @Override
     public void end() {
+        //Get draw calls from imgui
+        ImDrawData drawData = ImGui.getDrawData();
+        if (drawData.getDisplaySizeX() > 0.0f && drawData.getDisplaySizeY() > 0.0f) {
+            int currentFrame = swapchain.getCurrentFrame();
+            ImVkCommandBuffer commandBuffer = commandBuffers.get(currentFrame);
+            ImGuiImplVk.renderDrawData(drawData, commandBuffer.getCommandBuffer(), VK_NULL_HANDLE);
+        }
 
+        //Complete render pass
+        endRenderPass();
+
+        //Submit command buffer to GPU for complete render of the scene
+        submit(presentationQueue);
+
+        //Check if fonts were transitioned, if so allow imgui to delete temp objects
+        if (transitionFonts) {
+            ImGuiImplVk.destroyFontUploadObjects();
+            transitionFonts = false;
+        }
+
+        //Present new frame
+        if (swapchain.presentImage()) {
+            resizeFlag = true;
+        }
+    }
+
+    public void submit(ImVkQueue queue) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            int currentFrame = swapchain.getCurrentFrame();
+            ImVkCommandBuffer commandBuffer = commandBuffers.get(currentFrame);
+            ImVkFence currentFence = fences.get(currentFrame);
+            queue.submit(
+                stack.pointers(commandBuffer.getCommandBuffer()),
+                stack.longs(swapchain.getImageAvailableSemaphores()[currentFrame].getNativeHandle()),
+                stack.ints(VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT),
+                stack.longs(swapchain.getRenderFinishedSemaphores()[currentFrame].getNativeHandle()),
+                currentFence
+            );
+        }
+    }
+
+    private void beginRenderPass() {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            VkExtent2D swapChainExtent = swapchain.getExtent();
+            int width = swapChainExtent.width();
+            int height = swapChainExtent.height();
+            int currentFrame = swapchain.getCurrentFrame();
+
+            //Start render pass
+            ImVkFence fence = fences.get(currentFrame);
+            ImVkCommandBuffer commandBuffer = commandBuffers.get(currentFrame);
+            ImVkFrameBuffer frameBuffer = frameBuffers.get(currentFrame);
+
+            fence.waitFor();
+            fence.reset();
+
+            commandBuffer.reset();
+            VkClearValue.Buffer clearValues = VkClearValue.calloc(2, stack);
+            clearValues.apply(0, v -> v.color().float32(0, clearColor.getRed()).float32(1, clearColor.getGreen()).float32(2, clearColor.getBlue()).float32(3, clearColor.getAlpha()));
+            clearValues.apply(1, v -> v.depthStencil().depth(1.0f));
+
+            VkRenderPassBeginInfo renderPassBeginInfo = VkRenderPassBeginInfo.calloc(stack)
+                .sType$Default()
+                .renderPass(renderPass.getNativeHandle())
+                .pClearValues(clearValues)
+                .renderArea(a -> a.extent().set(width, height))
+                .framebuffer(frameBuffer.getNativeHandle());
+
+            commandBuffer.begin();
+
+            //Check if we need to perform the one time upload of fonts to the GPU
+            if (transitionFonts) {
+                ImGuiImplVk.createFontsTexture(commandBuffer.getCommandBuffer());
+            }
+
+            //Start render pass
+            vkCmdBeginRenderPass(commandBuffer.getCommandBuffer(), renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
+        }
+    }
+
+    private void endRenderPass() {
+        ImVkCommandBuffer commandBuffer = commandBuffers.get(swapchain.getCurrentFrame());
+        vkCmdEndRenderPass(commandBuffer.getCommandBuffer());
+        commandBuffer.end();
     }
 
     @Override
     public void destroy() {
+        //Destroy imgui vulkan backend
+        ImGuiImplVk.shutdown();
+
         //Wait for GPU to be ready
         device.waitIdle();
         presentationQueue.waitIdle();
@@ -249,11 +422,6 @@ public class ImGuiVkBackend implements Backend {
         physicalDevice.destroy();
         destroySurface();
         instance.destroy();
-    }
-
-    @Override
-    public void resize(long windowHandle, int width, int height) {
-
     }
 
     private void destroySurface() {

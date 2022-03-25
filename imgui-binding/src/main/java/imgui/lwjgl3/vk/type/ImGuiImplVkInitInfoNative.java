@@ -1,7 +1,13 @@
 package imgui.lwjgl3.vk.type;
 
-import imgui.binding.ImGuiStruct;
-public class ImGuiImplVkInitInfoNative extends ImGuiStruct {
+import imgui.binding.ImGuiStructDestroyable;
+import imgui.lwjgl3.vk.callback.ImGuiVkCheckResultCallback;
+
+public class ImGuiImplVkInitInfoNative extends ImGuiStructDestroyable {
+
+    public ImGuiImplVkInitInfoNative() {
+
+    }
 
     public ImGuiImplVkInitInfoNative(final long ptr) {
         super(ptr);
@@ -12,6 +18,15 @@ public class ImGuiImplVkInitInfoNative extends ImGuiStruct {
     #include "_vulkan.h"
 
     #define IM_VK_INIT_INFO ((ImGui_ImplVulkan_InitInfo*)STRUCT_PTR)
+    */
+
+    @Override
+    protected long create() {
+        return nCreate();
+    }
+
+    private native long nCreate(); /*
+        return (intptr_t) malloc(sizeof(ImGui_ImplVulkan_InitInfo));
     */
 
     /**
@@ -210,5 +225,11 @@ public class ImGuiImplVkInitInfoNative extends ImGuiStruct {
         return (intptr_t) IM_VK_INIT_INFO->Allocator;
     */
 
-    //TODO: Vulkan result callback
+    public void setCheckVkResultFn(ImGuiVkCheckResultCallback checkVkResultFn) {
+        //TODO
+    }
+
+    public ImGuiVkCheckResultCallback getCheckVkResultFn() {
+        return null; //TODO
+    }
 }
