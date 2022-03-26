@@ -20,7 +20,6 @@ import java.util.Objects;
  */
 public abstract class Window {
 
-    private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private Backend backend;
     private Backend customBackend;
 
@@ -54,7 +53,6 @@ public abstract class Window {
 
         initWindow(config);
         initImGui(config);
-        imGuiGlfw.init(handle, true);
         backend.init(colorBg);
     }
 
@@ -62,9 +60,7 @@ public abstract class Window {
      * Method to dispose all used application resources and destroy its window.
      */
     protected void dispose() {
-        imGuiGlfw.dispose();
         backend.destroy();
-        disposeImGui();
         disposeWindow();
     }
 
@@ -168,8 +164,6 @@ public abstract class Window {
      * Starts an ImGui frame, then hands off to the backend to begin the frame
      */
     protected void startFrame() {
-        imGuiGlfw.newFrame();
-        ImGui.newFrame();
         backend.begin();
     }
 
@@ -178,17 +172,8 @@ public abstract class Window {
      * It renders ImGui and swaps GLFW buffers to show an updated frame.
      */
     protected void endFrame() {
-        ImGui.render();
         backend.end();
-
         GLFW.glfwPollEvents();
-    }
-
-    /**
-     * Method to destroy Dear ImGui context.
-     */
-    protected void disposeImGui() {
-        ImGui.destroyContext();
     }
 
     /**

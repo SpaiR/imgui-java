@@ -30,7 +30,7 @@ public class ImGuiImplVkInitInfoNative extends ImGuiStructDestroyable {
     }
 
     private native long nCreate(); /*
-        return (intptr_t) new ImGui_ImplVulkan_InitInfo;
+        return (intptr_t) new ImGui_ImplVulkan_InitInfo();
     */
 
     /**
@@ -227,7 +227,7 @@ public class ImGuiImplVkInitInfoNative extends ImGuiStructDestroyable {
      */
     /*JNI
         jobject imGuiImplVkCheckResultCallback = NULL;
-        const void vkCheckResultCallback(VkResult result) {
+        void vkCheckResultCallback(VkResult result) {
             if (imGuiImplVkCheckResultCallback != NULL) {
                 JNIEnv* env = Jni::GetEnv();
                 Jni::CallImGuiImplVkCheckResultCallback(env, imGuiImplVkCheckResultCallback, (int) result);
@@ -239,5 +239,6 @@ public class ImGuiImplVkInitInfoNative extends ImGuiStructDestroyable {
             env->DeleteGlobalRef(imGuiImplVkCheckResultCallback);
         }
         imGuiImplVkCheckResultCallback = env->NewGlobalRef(checkVkResultFn);
+        IM_VK_INIT_INFO->CheckVkResultFn = &vkCheckResultCallback;
     */
 }

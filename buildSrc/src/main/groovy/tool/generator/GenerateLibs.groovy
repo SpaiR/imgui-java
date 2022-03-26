@@ -37,7 +37,7 @@ class GenerateLibs extends DefaultTask {
         println "Build targets: $buildEnvs"
         println "Local: $isLocal"
         println "FreeType: $withFreeType"
-        println "Vulkan SDK: ${System.getenv('VULKAN_SDK')}"
+        println "Vulkan Libs: $vulkanDir"
         println '====================================='
 
         if (!buildEnvs) {

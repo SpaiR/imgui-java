@@ -15,6 +15,7 @@ import imgui.app.vk.ImVkPipelineCache;
 import imgui.app.vk.ImVkQueue;
 import imgui.app.vk.ImVkRenderPass;
 import imgui.app.vk.ImVkSwapchain;
+import imgui.glfw.ImGuiImplGlfw;
 import imgui.lwjgl3.vk.callback.ImGuiImplVkCheckResultCallback;
 import imgui.vk.ImGuiImplVk;
 import imgui.vk.ImGuiImplVkInitInfo;
@@ -52,6 +53,7 @@ import static org.lwjgl.vulkan.VK10.vkCmdEndRenderPass;
 public class ImGuiVkBackend implements Backend {
 
     //GLFW Window
+    private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private long window = NULL;
     private boolean resizeFlag = false;
 
@@ -99,6 +101,7 @@ public class ImGuiVkBackend implements Backend {
     @Override
     public void postCreateWindow(final long windowHandle) {
         this.window = windowHandle;
+        //imGuiGlfw.initForVulkan(); //TODO: Implement
     }
 
     @Override
@@ -306,6 +309,8 @@ public class ImGuiVkBackend implements Backend {
 
     @Override
     public void begin() {
+        imGuiGlfw.newFrame();
+        ImGui.newFrame();
         //Handle if we have been reized
         if (resizeFlag || swapchain.nextImage()) {
             resize();
@@ -322,6 +327,7 @@ public class ImGuiVkBackend implements Backend {
     @Override
     public void end() {
         //Get draw calls from imgui
+        ImGui.render();
         final ImDrawData drawData = ImGui.getDrawData();
         if (drawData.getDisplaySizeX() > 0.0f && drawData.getDisplaySizeY() > 0.0f) {
             final int currentFrame = swapchain.getCurrentFrame();
@@ -409,8 +415,10 @@ public class ImGuiVkBackend implements Backend {
 
     @Override
     public void destroy() {
+        imGuiGlfw.dispose();
         //Destroy imgui vulkan backend
         ImGuiImplVk.shutdown();
+        ImGui.destroyContext();
 
         //Wait for GPU to be ready
         device.waitIdle();

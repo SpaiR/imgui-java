@@ -3,12 +3,14 @@ package imgui.app;
 import imgui.ImGui;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.gl3.ImGuiImplGl3;
+import imgui.glfw.ImGuiImplGlfw;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL32;
 
 public class ImGuiGlBackend implements Backend {
 
+    private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
     private long windowHandle;
     private Color clearColor;
@@ -24,6 +26,7 @@ public class ImGuiGlBackend implements Backend {
         GLFW.glfwMakeContextCurrent(windowHandle);
         GL.createCapabilities();
         GLFW.glfwSwapInterval(GLFW.GLFW_TRUE);
+        imGuiGlfw.init(windowHandle, true);
     }
 
     @Override
@@ -51,6 +54,8 @@ public class ImGuiGlBackend implements Backend {
 
     @Override
     public void begin() {
+        imGuiGlfw.newFrame();
+        ImGui.newFrame();
         clearBuffer();
     }
 
@@ -64,6 +69,7 @@ public class ImGuiGlBackend implements Backend {
 
     @Override
     public void end() {
+        ImGui.render();
         imGuiGl3.renderDrawData(ImGui.getDrawData());
 
         if (ImGui.getIO().hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
@@ -78,7 +84,9 @@ public class ImGuiGlBackend implements Backend {
 
     @Override
     public void destroy() {
+        imGuiGlfw.dispose();
         imGuiGl3.dispose();
+        ImGui.destroyContext();
     }
 
     @Override
