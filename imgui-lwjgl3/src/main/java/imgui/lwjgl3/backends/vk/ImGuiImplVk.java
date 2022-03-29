@@ -1,7 +1,7 @@
-package imgui.vk;
+package imgui.lwjgl3.backends.vk;
 
 import imgui.ImDrawData;
-import imgui.lwjgl3.vk.ImGuiImplVkNative;
+import imgui.backends.vk.ImGuiImplVkNative;
 import org.lwjgl.vulkan.VkCommandBuffer;
 
 public final class ImGuiImplVk {

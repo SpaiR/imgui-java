@@ -1,7 +1,7 @@
-package imgui.lwjgl3.vk.type;
+package imgui.backends.vk.type;
 
 import imgui.binding.ImGuiStructDestroyable;
-import imgui.lwjgl3.vk.callback.ImGuiImplVkCheckResultCallback;
+import imgui.backends.vk.callback.ImGuiImplVkCheckResultCallback;
 
 public class ImGuiImplVkInitInfoNative extends ImGuiStructDestroyable {
 

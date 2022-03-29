@@ -1,4 +1,4 @@
-package imgui.lwjgl3.vk.callback;
+package imgui.backends.vk.callback;
 
 /**
  * Callback to check the result of a vulkan call

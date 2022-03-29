@@ -1,6 +1,6 @@
-package imgui.vk;
+package imgui.lwjgl3.backends.vk;
 
-import imgui.lwjgl3.vk.type.ImGuiImplVkInitInfoNative;
+import imgui.backends.vk.type.ImGuiImplVkInitInfoNative;
 import org.lwjgl.vulkan.VkAllocationCallbacks;
 import org.lwjgl.vulkan.VkDevice;
 import org.lwjgl.vulkan.VkInstance;

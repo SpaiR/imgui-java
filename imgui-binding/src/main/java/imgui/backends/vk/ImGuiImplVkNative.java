@@ -1,7 +1,7 @@
-package imgui.lwjgl3.vk;
+package imgui.backends.vk;
 
 import imgui.ImDrawData;
-import imgui.lwjgl3.vk.type.ImGuiImplVkInitInfoNative;
+import imgui.backends.vk.type.ImGuiImplVkInitInfoNative;
 
 public final class ImGuiImplVkNative {
 

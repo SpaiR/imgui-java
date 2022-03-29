@@ -8,6 +8,7 @@ import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.gradle.internal.os.OperatingSystem
+import org.gradle.process.ExecSpec
 
 @CompileStatic
 class GenerateLibs extends DefaultTask {
@@ -29,6 +30,7 @@ class GenerateLibs extends DefaultTask {
     private final String jniDir = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/jni'
     private final String tmpFolder = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/tmp'
     private final String vulkanDir = project.rootProject.file('bin/vulkan')
+    private final String glfwDir = project.rootProject.file('bin/glfw')
     private final String libsFolder = 'libsNative'
 
     @TaskAction
@@ -38,6 +40,7 @@ class GenerateLibs extends DefaultTask {
         println "Local: $isLocal"
         println "FreeType: $withFreeType"
         println "Vulkan Libs: $vulkanDir"
+        println "GLFW Libs: $glfwDir"
         println '====================================='
 
         if (!buildEnvs) {
@@ -45,8 +48,9 @@ class GenerateLibs extends DefaultTask {
             return
         }
 
+        println "Generating C/C++ jni bindings"
         // Generate h/cpp files for JNI
-        new NativeCodeGenerator().generate(sourceDir, classpath, jniDir)
+        new NativeCodeGenerator().generate(sourceDir, classpath, jniDir, null, new String[]{"**/package-info.java"})
 
         // Copy ImGui h/cpp files
         project.copy { CopySpec spec ->
@@ -74,6 +78,14 @@ class GenerateLibs extends DefaultTask {
             spec.into(jniDir + '/dirent')
         }
 
+        //Copy glfw
+        project.copy { CopySpec spec ->
+            ['include/glfw/include/GLFW'].each {
+                spec.from(project.rootProject.file(it)) { CopySpec s -> s.include('*.h') }
+            }
+            spec.into(jniDir + "/GLFW")
+        }
+
         //Copy vulkan
         project.copy { CopySpec spec ->
             ['include/Vulkan-Headers/include/vulkan'].each {
@@ -83,7 +95,7 @@ class GenerateLibs extends DefaultTask {
         }
 
         //Copy backends
-        def backendsToCopy = ['imgui_impl_vulkan*']
+        def backendsToCopy = ['imgui_impl_vulkan*', 'imgui_impl_glfw*']
         project.copy { CopySpec spec ->
             ['include/imgui/backends'].each {
                 spec.from(project.rootProject.file(it)) {
@@ -103,6 +115,7 @@ class GenerateLibs extends DefaultTask {
             enableDefine('IMGUI_ENABLE_FREETYPE')
         }
 
+        println "Building natives"
         // Generate platform dependant ant configs and header files
         def buildConfig = new BuildConfig('imgui-java', tmpFolder, libsFolder, jniDir)
         def buildTargets = [] as BuildTarget[]
@@ -112,8 +125,16 @@ class GenerateLibs extends DefaultTask {
             addFreeTypeIfEnabled(win64)
 
             //Add vulkan for linker
-            win64.linkerFlags += " -L $vulkanDir"
+            win64.linkerFlags += " -L $vulkanDir/WINDOWS"
             win64.libraries += ' -l:vulkan-1.dll'
+
+            //Add glfw for linker
+            win64.linkerFlags += " -L $glfwDir/WINDOWS"
+            win64.libraries += ' -l:glfw.dll'
+
+            //Win Api
+            win64.libraries += ' -limm32'
+            win64.libraries += ' -ldwmapi'
 
             buildTargets += win64
         }
@@ -123,8 +144,12 @@ class GenerateLibs extends DefaultTask {
             addFreeTypeIfEnabled(linux64)
 
             //Vulkan
-            linux64.linkerFlags += " -L $vulkanDir"
+            linux64.linkerFlags += " -L $vulkanDir/LINUX"
             linux64.libraries += ' -l:libvulkan.so.1'
+
+            //Add glfw for linker
+            linux64.linkerFlags += " -L $glfwDir/LINUX"
+            linux64.libraries += ' -l:libglfw.so'
 
             buildTargets += linux64
         }
@@ -139,8 +164,12 @@ class GenerateLibs extends DefaultTask {
             addFreeTypeIfEnabled(mac64)
 
             //Vulkan
-            mac64.linkerFlags += " -L $vulkanDir"
-            mac64.libraries += ' -l:libvulkan.1.dylib'
+            mac64.linkerFlags += " -L $vulkanDir/MACOS"
+            mac64.libraries += ' -l:vulkan'
+
+            //Add glfw for linker
+            mac64.linkerFlags += " -L $glfwDir/MACOS"
+            mac64.libraries += ' -l:glfw'
 
             buildTargets += mac64
         }

@@ -25,3 +25,6 @@
 [submodule "include/Vulkan-Headers"]
 	path = include/Vulkan-Headers
 	url = https://github.com/KhronosGroup/Vulkan-Headers
+[submodule "include/glfw"]
+	path = include/glfw
+	url = https://github.com/glfw/glfw
