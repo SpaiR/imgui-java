@@ -1,13 +1,13 @@
 package imgui.lwjgl3.backends.vk;
 
-import imgui.backends.vk.type.ImGuiImplVkInitInfoNative;
+import imgui.backends.vk.type.ImGuiImplVkInitInfo;
 import org.lwjgl.vulkan.VkAllocationCallbacks;
 import org.lwjgl.vulkan.VkDevice;
 import org.lwjgl.vulkan.VkInstance;
 import org.lwjgl.vulkan.VkPhysicalDevice;
 import org.lwjgl.vulkan.VkQueue;
 
-public class ImGuiImplVkInitInfo extends ImGuiImplVkInitInfoNative {
+public class ImGuiVkInitInfo extends ImGuiImplVkInitInfo {
 
     //Cache LWJGL Vk objects
     private VkInstance instance;
@@ -15,11 +15,11 @@ public class ImGuiImplVkInitInfo extends ImGuiImplVkInitInfoNative {
     private VkDevice device;
     private VkQueue queue;
 
-    public ImGuiImplVkInitInfo() {
+    public ImGuiVkInitInfo() {
 
     }
 
-    public ImGuiImplVkInitInfo(final long ptr) {
+    public ImGuiVkInitInfo(final long ptr) {
         super(ptr);
     }
 

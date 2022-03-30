@@ -1,11 +1,11 @@
 package imgui.backends.vk;
 
 import imgui.ImDrawData;
-import imgui.backends.vk.type.ImGuiImplVkInitInfoNative;
+import imgui.backends.vk.type.ImGuiImplVkInitInfo;
 
-public final class ImGuiImplVkNative {
+public final class ImGuiImplVk {
 
-    private ImGuiImplVkNative() {
+    private ImGuiImplVk() {
     }
 
     /*JNI
@@ -13,7 +13,7 @@ public final class ImGuiImplVkNative {
     #include "_vulkan.h"
      */
 
-    public static void nInit(final ImGuiImplVkInitInfoNative info, final long renderPass) {
+    public static void nInit(final ImGuiImplVkInitInfo info, final long renderPass) {
         nInit(info.ptr, renderPass);
     }
 

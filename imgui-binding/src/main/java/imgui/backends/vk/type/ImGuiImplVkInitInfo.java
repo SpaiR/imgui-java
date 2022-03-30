@@ -3,13 +3,13 @@ package imgui.backends.vk.type;
 import imgui.binding.ImGuiStructDestroyable;
 import imgui.backends.vk.callback.ImGuiImplVkCheckResultCallback;
 
-public class ImGuiImplVkInitInfoNative extends ImGuiStructDestroyable {
+public class ImGuiImplVkInitInfo extends ImGuiStructDestroyable {
 
-    public ImGuiImplVkInitInfoNative() {
+    public ImGuiImplVkInitInfo() {
 
     }
 
-    public ImGuiImplVkInitInfoNative(final long ptr) {
+    public ImGuiImplVkInitInfo(final long ptr) {
         super(ptr);
     }
 

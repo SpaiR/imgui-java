@@ -2,23 +2,11 @@ package imgui.app;
 
 import imgui.ImDrawData;
 import imgui.ImGui;
-import imgui.app.vk.ImVkAttachment;
-import imgui.app.vk.ImVkCommandBuffer;
-import imgui.app.vk.ImVkCommandPool;
-import imgui.app.vk.ImVkDescriptorPool;
-import imgui.app.vk.ImVkDevice;
-import imgui.app.vk.ImVkFence;
-import imgui.app.vk.ImVkFrameBuffer;
-import imgui.app.vk.ImVkInstance;
-import imgui.app.vk.ImVkPhysicalDevice;
-import imgui.app.vk.ImVkPipelineCache;
-import imgui.app.vk.ImVkQueue;
-import imgui.app.vk.ImVkRenderPass;
-import imgui.app.vk.ImVkSwapchain;
-import imgui.glfw.ImGuiImplGlfw;
-import imgui.lwjgl3.vk.callback.ImGuiImplVkCheckResultCallback;
-import imgui.vk.ImGuiImplVk;
-import imgui.vk.ImGuiImplVkInitInfo;
+import imgui.app.vk.*;
+import imgui.backends.glfw.ImGuiImplGlfw;
+import imgui.backends.vk.callback.ImGuiImplVkCheckResultCallback;
+import imgui.lwjgl3.backends.vk.ImGuiVk;
+import imgui.lwjgl3.backends.vk.ImGuiVkInitInfo;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVulkan;
@@ -36,24 +24,14 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import static imgui.app.vk.ImVkDebug.vkOK;
-import static org.lwjgl.glfw.GLFW.GLFW_CLIENT_API;
-import static org.lwjgl.glfw.GLFW.GLFW_NO_API;
-import static org.lwjgl.glfw.GLFW.glfwWindowHint;
+import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 import static org.lwjgl.vulkan.KHRSurface.vkDestroySurfaceKHR;
-import static org.lwjgl.vulkan.VK10.VK_FORMAT_D32_SFLOAT;
-import static org.lwjgl.vulkan.VK10.VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;
-import static org.lwjgl.vulkan.VK10.VK_NULL_HANDLE;
-import static org.lwjgl.vulkan.VK10.VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-import static org.lwjgl.vulkan.VK10.VK_SAMPLE_COUNT_1_BIT;
-import static org.lwjgl.vulkan.VK10.VK_SUBPASS_CONTENTS_INLINE;
-import static org.lwjgl.vulkan.VK10.vkCmdBeginRenderPass;
-import static org.lwjgl.vulkan.VK10.vkCmdEndRenderPass;
+import static org.lwjgl.vulkan.VK10.*;
 
 public class ImGuiVkBackend implements Backend {
 
     //GLFW Window
-    private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private long window = NULL;
     private boolean resizeFlag = false;
 
@@ -70,7 +48,7 @@ public class ImGuiVkBackend implements Backend {
     private final ImVkCommandPool commandPool = new ImVkCommandPool();
     private final ImVkDescriptorPool descriptorPool = new ImVkDescriptorPool();
     private final List<ImVkFence> fences = new ArrayList<>();
-    private final ImGuiImplVkInitInfo imguiVkInit = new ImGuiImplVkInitInfo();
+    private final ImGuiVkInitInfo imguiVkInit = new ImGuiVkInitInfo();
 
     //Buffers
     private final List<ImVkFrameBuffer> frameBuffers = new ArrayList<>();
@@ -101,12 +79,14 @@ public class ImGuiVkBackend implements Backend {
     @Override
     public void postCreateWindow(final long windowHandle) {
         this.window = windowHandle;
-        //imGuiGlfw.initForVulkan(); //TODO: Implement
+        ImGuiImplGlfw.initForVulkan(window, true);
     }
 
     @Override
     public void init(final Color clearColor) {
         this.clearColor = clearColor;
+
+        LOGGER.info("Creating Vulkan rendering backend");
 
         //Create instance
         instance.setEngineName(engineName);
@@ -191,9 +171,9 @@ public class ImGuiVkBackend implements Backend {
         imguiVkInit.setQueueFamily(physicalDevice.getIndices().getGraphicsFamily());
         imguiVkInit.setMSAASamples(VK_SAMPLE_COUNT_1_BIT);
         imguiVkInit.setSubpass(0);
-        ImGuiImplVk.init(imguiVkInit, renderPass.getNativeHandle());
+        ImGuiVk.init(imguiVkInit, renderPass.getNativeHandle());
 
-
+        LOGGER.info("Vulkan backend ready");
     }
 
 
@@ -309,7 +289,7 @@ public class ImGuiVkBackend implements Backend {
 
     @Override
     public void begin() {
-        imGuiGlfw.newFrame();
+        ImGuiImplGlfw.newFrame();
         ImGui.newFrame();
         //Handle if we have been reized
         if (resizeFlag || swapchain.nextImage()) {
@@ -318,7 +298,7 @@ public class ImGuiVkBackend implements Backend {
         }
 
         //Create new imgui vulkan frame
-        ImGuiImplVk.newFrame();
+        ImGuiVk.newFrame();
 
         //Begin the render pass for the frame
         beginRenderPass();
@@ -332,7 +312,7 @@ public class ImGuiVkBackend implements Backend {
         if (drawData.getDisplaySizeX() > 0.0f && drawData.getDisplaySizeY() > 0.0f) {
             final int currentFrame = swapchain.getCurrentFrame();
             final ImVkCommandBuffer commandBuffer = commandBuffers.get(currentFrame);
-            ImGuiImplVk.renderDrawData(drawData, commandBuffer.getCommandBuffer(), VK_NULL_HANDLE);
+            ImGuiVk.renderDrawData(drawData, commandBuffer.getCommandBuffer(), VK_NULL_HANDLE);
         }
 
         //Complete render pass
@@ -343,7 +323,7 @@ public class ImGuiVkBackend implements Backend {
 
         //Check if fonts were transitioned, if so allow imgui to delete temp objects
         if (transitionFonts) {
-            ImGuiImplVk.destroyFontUploadObjects();
+            ImGuiVk.destroyFontUploadObjects();
             transitionFonts = false;
         }
 
@@ -353,7 +333,7 @@ public class ImGuiVkBackend implements Backend {
         }
     }
 
-    public void submit(final ImVkQueue queue) {
+    private void submit(final ImVkQueue queue) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             final int currentFrame = swapchain.getCurrentFrame();
             final ImVkCommandBuffer commandBuffer = commandBuffers.get(currentFrame);
@@ -399,7 +379,7 @@ public class ImGuiVkBackend implements Backend {
 
             //Check if we need to perform the one time upload of fonts to the GPU
             if (transitionFonts) {
-                ImGuiImplVk.createFontsTexture(commandBuffer.getCommandBuffer());
+                ImGuiVk.createFontsTexture(commandBuffer.getCommandBuffer());
             }
 
             //Start render pass
@@ -415,9 +395,9 @@ public class ImGuiVkBackend implements Backend {
 
     @Override
     public void destroy() {
-        imGuiGlfw.dispose();
+        ImGuiImplGlfw.shutdown();
         //Destroy imgui vulkan backend
-        ImGuiImplVk.shutdown();
+        ImGuiVk.shutdown();
         ImGui.destroyContext();
 
         //Wait for GPU to be ready
