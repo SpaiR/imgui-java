@@ -38,8 +38,7 @@ class GenerateLibs extends DefaultTask {
         println '====================================='
 
         if (!buildEnvs) {
-            println 'No build targets. Task is cancelled.'
-            return
+            throw new IllegalStateException('No build targets')
         }
 
         // Generate h/cpp files for JNI

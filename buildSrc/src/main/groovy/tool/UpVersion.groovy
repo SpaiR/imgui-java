@@ -1,32 +1,34 @@
 package tool
 
-import groovy.transform.CompileStatic
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 
-@CompileStatic
 class UpVersion extends DefaultTask {
     @Internal
     String group = 'build'
     @Internal
     String description = 'Up project version to the next one.'
 
-    private final String currentVersion = project.findProperty('version')
-    private final String nextVersion = project.findProperty('next')
-
     @TaskAction
     void up() {
+        String currentVersion = project.findProperty('version')
+        String nextVersion = project.findProperty('next')
+
         if (!currentVersion) {
-            throw new IllegalArgumentException('No property was found: "version"')
+            throw new IllegalStateException('No property was found: "version"')
         }
         if (!nextVersion) {
-            throw new IllegalArgumentException('No property was found: "next"')
+            throw new IllegalStateException('No property was found: "next"')
         }
 
+        println "Up project version: $nextVersion..."
+
+        println 'Updating gradle.properties...'
         def propsFile = project.file('gradle.properties')
         propsFile.text = propsFile.text.replace("version=$currentVersion", "version=$nextVersion")
 
+        println 'Updating README.md...'
         def readmeFile = project.file('README.md')
         readmeFile.text = readmeFile.text.replace(currentVersion, nextVersion)
     }
