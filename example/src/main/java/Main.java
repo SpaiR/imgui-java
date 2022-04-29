@@ -70,6 +70,7 @@ public class Main extends Application {
 
     @Override
     public void process() {
+        ImGui.setWindowSize(400, 410);
         ImGui.text("Hello, World! " + FontAwesomeIcons.Smile);
         if (ImGui.button(FontAwesomeIcons.Save + " Save")) {
             count++;

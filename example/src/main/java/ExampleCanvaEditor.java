@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExampleCanvaEditor {
-    private static final String URL = "https://github.com/ocornut/imgui";
-
     private static final List<ImVec2> pointList = new ArrayList<>();
     private static final ImVec2 scrolling = new ImVec2();
 
@@ -37,13 +35,6 @@ public class ExampleCanvaEditor {
             imgui.internal.ImGui.alignTextToFramePadding();
             imgui.internal.ImGui.text("Repo:");
             imgui.internal.ImGui.sameLine();
-            if (imgui.internal.ImGui.button(URL)) {
-                try {
-                    Desktop.getDesktop().browse(new URI(URL));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
             imgui.internal.ImGui.text("Mouse Left: drag to add lines,\nMouse Right: drag to scroll, click for context menu.");
 
             // Typically, you would use a BeginChild()/EndChild() pair to benefit from a clipping region + own scrolling.
@@ -61,8 +52,14 @@ public class ExampleCanvaEditor {
             ImVec2 canvasP0 = ImGui.getCursorScreenPos();      // ImDrawList API uses screen coordinates!
             ImVec2 canvasSize = ImGui.getContentRegionAvail();   // Resize canvas to what's available
 
-            if (canvasSize.x < 50.0f) canvasSize.x = 50.0f;
-            if (canvasSize.y < 50.0f) canvasSize.y = 50.0f;
+            if (canvasSize.x < 50.0f) {
+                canvasSize.x = 50.0f;
+            }
+
+            if (canvasSize.y < 50.0f) {
+                canvasSize.y = 50.0f;
+            }
+
             ImVec2 canvasP1 = new ImVec2(canvasP0.x + canvasSize.x, canvasP0.y + canvasSize.y);
 
             // Draw border and background color
@@ -92,8 +89,9 @@ public class ExampleCanvaEditor {
             }
             if (addingLine) {
                 pointList.set(pointList.size() - 1, mousePosInCanvas);
-                if (!ImGui.isMouseDown(ImGuiMouseButton.Left))
+                if (!ImGui.isMouseDown(ImGuiMouseButton.Left)) {
                     addingLine = false;
+                }
             }
 
             // Pan (we use a zero mouse threshold when there's no context menu)
