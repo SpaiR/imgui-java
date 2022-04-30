@@ -70,19 +70,22 @@ public class Main extends Application {
 
     @Override
     public void process() {
-        ImGui.setWindowSize(400, 410);
-        ImGui.text("Hello, World! " + FontAwesomeIcons.Smile);
-        if (ImGui.button(FontAwesomeIcons.Save + " Save")) {
-            count++;
+        if (ImGui.begin("Demo")) {
+            ImGui.setWindowSize(400, 410);
+            ImGui.text("Hello, World! " + FontAwesomeIcons.Smile);
+            if (ImGui.button(FontAwesomeIcons.Save + " Save")) {
+                count++;
+            }
+            ImGui.sameLine();
+            ImGui.text(String.valueOf(count));
+            ImGui.inputText("string", str, ImGuiInputTextFlags.CallbackResize);
+            ImGui.text("Result: " + str.get());
+            ImGui.sliderFloat("float", flt, 0, 1);
+            ImGui.separator();
+            ImGui.text("Extra");
+            Extra.show(this);
+            ImGui.end();
         }
-        ImGui.sameLine();
-        ImGui.text(String.valueOf(count));
-        ImGui.inputText("string", str, ImGuiInputTextFlags.CallbackResize);
-        ImGui.text("Result: " + str.get());
-        ImGui.sliderFloat("float", flt, 0, 1);
-        ImGui.separator();
-        ImGui.text("Extra");
-        Extra.show(this);
     }
 
     private static byte[] loadFromResources(String name) {

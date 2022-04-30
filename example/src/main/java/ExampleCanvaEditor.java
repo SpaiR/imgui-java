@@ -2,8 +2,6 @@ import imgui.*;
 import imgui.flag.*;
 import imgui.type.ImBoolean;
 
-import java.awt.*;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +25,7 @@ public class ExampleCanvaEditor {
 
     public static void show(final ImBoolean showCanvaWindow) {
         imgui.internal.ImGui.setNextWindowSize(500, 400, ImGuiCond.Once);
-        imgui.internal.ImGui.setNextWindowPos(imgui.internal.ImGui.getMainViewport().getPosX() + 100,
+        imgui.internal.ImGui.setNextWindowPos(imgui.internal.ImGui.getMainViewport().getPosX() + 200,
             imgui.internal.ImGui.getMainViewport().getPosY() + 200, ImGuiCond.Once);
 
         if (ImGui.begin("Canva Demo Window", showCanvaWindow)) {
@@ -104,8 +102,9 @@ public class ExampleCanvaEditor {
 
             // Context menu (under default mouse threshold)
             ImVec2 dragDelta = ImGui.getMouseDragDelta(ImGuiMouseButton.Right);
-            if (dragDelta.x == 0.0f && dragDelta.y == 0.0f)
+            if (dragDelta.x == 0.0f && dragDelta.y == 0.0f) {
                 ImGui.openPopupOnItemClick("context", ImGuiPopupFlags.MouseButtonRight);
+            }
 
             // Draw grid + all lines in the canvas
             drawList.pushClipRect(canvasP0.x, canvasP0.y, canvasP1.x, canvasP1.y, false);
