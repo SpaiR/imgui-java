@@ -6,6 +6,7 @@ import imgui.app.Application;
 import imgui.app.Configuration;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiInputTextFlags;
+import imgui.flag.ImGuiWindowFlags;
 import imgui.type.ImString;
 
 import java.io.IOException;
@@ -70,18 +71,21 @@ public class Main extends Application {
 
     @Override
     public void process() {
-        ImGui.text("Hello, World! " + FontAwesomeIcons.Smile);
-        if (ImGui.button(FontAwesomeIcons.Save + " Save")) {
-            count++;
+        if (ImGui.begin("Demo", ImGuiWindowFlags.AlwaysAutoResize)) {
+            ImGui.text("Hello, World! " + FontAwesomeIcons.Smile);
+            if (ImGui.button(FontAwesomeIcons.Save + " Save")) {
+                count++;
+            }
+            ImGui.sameLine();
+            ImGui.text(String.valueOf(count));
+            ImGui.inputText("string", str, ImGuiInputTextFlags.CallbackResize);
+            ImGui.text("Result: " + str.get());
+            ImGui.sliderFloat("float", flt, 0, 1);
+            ImGui.separator();
+            ImGui.text("Extra");
+            Extra.show(this);
         }
-        ImGui.sameLine();
-        ImGui.text(String.valueOf(count));
-        ImGui.inputText("string", str, ImGuiInputTextFlags.CallbackResize);
-        ImGui.text("Result: " + str.get());
-        ImGui.sliderFloat("float", flt, 0, 1);
-        ImGui.separator();
-        ImGui.text("Extra");
-        Extra.show(this);
+        ImGui.end();
     }
 
     private static byte[] loadFromResources(String name) {
