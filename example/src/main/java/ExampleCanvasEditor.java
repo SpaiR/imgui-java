@@ -1,11 +1,14 @@
 import imgui.*;
-import imgui.flag.*;
+import imgui.flag.ImGuiButtonFlags;
+import imgui.flag.ImGuiCond;
+import imgui.flag.ImGuiMouseButton;
+import imgui.flag.ImGuiPopupFlags;
 import imgui.type.ImBoolean;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExampleCanvaEditor {
+public class ExampleCanvasEditor {
     private static final List<ImVec2> pointList = new ArrayList<>();
     private static final ImVec2 scrolling = new ImVec2();
 
@@ -14,6 +17,7 @@ public class ExampleCanvaEditor {
 
     /**
      * Computes the floating-point remainder of a / b.
+     *
      * @param a float
      * @param b float
      * @return computed floating-point remainder of a / b
@@ -24,16 +28,13 @@ public class ExampleCanvaEditor {
     }
 
     public static void show(final ImBoolean showCanvaWindow) {
-        imgui.internal.ImGui.setNextWindowSize(500, 400, ImGuiCond.Once);
-        imgui.internal.ImGui.setNextWindowPos(imgui.internal.ImGui.getMainViewport().getPosX() + 200,
-            imgui.internal.ImGui.getMainViewport().getPosY() + 200, ImGuiCond.Once);
+        ImGui.setNextWindowSize(700, 400, ImGuiCond.Once);
+        ImGui.setNextWindowPos(ImGui.getMainViewport().getPosX() + 200, ImGui.getMainViewport().getPosY() + 200, ImGuiCond.Once);
 
-        if (ImGui.begin("Canva Demo Window", showCanvaWindow)) {
-            imgui.internal.ImGui.text("This a demo for ImGui Canva editor");
-            imgui.internal.ImGui.alignTextToFramePadding();
-            imgui.internal.ImGui.text("Repo:");
-            imgui.internal.ImGui.sameLine();
-            imgui.internal.ImGui.text("Mouse Left: drag to add lines,\nMouse Right: drag to scroll, click for context menu.");
+        if (ImGui.begin("Canvas Demo Window", showCanvaWindow)) {
+            ImGui.text("This a demo for ImGui Canvas editor");
+            ImGui.sameLine();
+            ImGui.text("Mouse Left: drag to add lines,\nMouse Right: drag to scroll, click for context menu.");
 
             // Typically, you would use a BeginChild()/EndChild() pair to benefit from a clipping region + own scrolling.
             // Here we demonstrate that this can be replaced by simple offsetting + custom drawing + PushClipRect/PopClipRect() calls.
@@ -48,7 +49,7 @@ public class ExampleCanvaEditor {
 
             // Using InvisibleButton() as a convenience 1) it will advance the layout cursor and 2) allows us to use IsItemHovered()/IsItemActive()
             ImVec2 canvasP0 = ImGui.getCursorScreenPos();      // ImDrawList API uses screen coordinates!
-            ImVec2 canvasSize = ImGui.getContentRegionAvail();   // Resize canvas to what's available
+            ImVec2 canvasSize = ImGui.getContentRegionAvail(); // Resize canvas to what's available
 
             if (canvasSize.x < 50.0f) {
                 canvasSize.x = 50.0f;
@@ -73,7 +74,7 @@ public class ExampleCanvaEditor {
                 ImGuiButtonFlags.MouseButtonLeft | ImGuiButtonFlags.MouseButtonRight);
 
             boolean isHovered = ImGui.isItemHovered(); // Hovered
-            boolean isActive  = ImGui.isItemActive();  // Held
+            boolean isActive = ImGui.isItemActive();   // Held
 
             ImVec2 origin = new ImVec2(canvasP0.x + scrolling.x, canvasP0.y + scrolling.y); // Lock scrolled origin
 

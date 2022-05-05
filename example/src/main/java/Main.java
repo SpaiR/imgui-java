@@ -6,6 +6,7 @@ import imgui.app.Application;
 import imgui.app.Configuration;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiInputTextFlags;
+import imgui.flag.ImGuiWindowFlags;
 import imgui.type.ImString;
 
 import java.io.IOException;
@@ -70,8 +71,7 @@ public class Main extends Application {
 
     @Override
     public void process() {
-        if (ImGui.begin("Demo")) {
-            ImGui.setWindowSize(400, 410);
+        if (ImGui.begin("Demo", ImGuiWindowFlags.AlwaysAutoResize)) {
             ImGui.text("Hello, World! " + FontAwesomeIcons.Smile);
             if (ImGui.button(FontAwesomeIcons.Save + " Save")) {
                 count++;
@@ -84,8 +84,8 @@ public class Main extends Application {
             ImGui.separator();
             ImGui.text("Extra");
             Extra.show(this);
-            ImGui.end();
         }
+        ImGui.end();
     }
 
     private static byte[] loadFromResources(String name) {
