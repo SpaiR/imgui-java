@@ -366,7 +366,9 @@ Ensure you've downloaded git submodules. That could be achieved:
  
 ### macOS
  - Check dependencies from "Linux" section and make sure you have them installed.
- - Build with: `./gradlew :imgui-binding:generateLibs -Denvs=mac -Dlocal`
+ - Build with:
+    * x86_64: `./gradlew :imgui-binding:generateLibs -Denvs=mac -Dlocal`
+    * arm64: `./gradlew :imgui-binding:generateLibs -Denvs=mac -Darch=arm64 -Dlocal`
  - Run with: `./gradlew :example:run -PlibPath=../imgui-binding/build/libsNative/macosx64`
 
 In `envs` parameter next values could be used `win`, `linux` or `mac`.<br>

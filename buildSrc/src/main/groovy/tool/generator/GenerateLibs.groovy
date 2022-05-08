@@ -19,6 +19,7 @@ class GenerateLibs extends DefaultTask {
     private final boolean forWindows = buildEnvs?.contains('win')
     private final boolean forLinux = buildEnvs?.contains('linux')
     private final boolean forMac = buildEnvs?.contains('mac')
+    private final boolean forArm64 = System.getProperty('arch') == 'arm64'
 
     private final boolean isLocal = System.properties.containsKey('local')
     private final boolean withFreeType = Boolean.valueOf(System.properties.getProperty('freetype', 'false'))
@@ -97,10 +98,15 @@ class GenerateLibs extends DefaultTask {
 
         if (forMac) {
             def minMacOsVersion = '10.15'
-            def mac64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true)
+            def mac64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true, forArm64)
             mac64.cppFlags += ' -std=c++14'
             mac64.cppFlags = mac64.cppFlags.replace('10.7', minMacOsVersion)
             mac64.linkerFlags = mac64.linkerFlags.replace('10.7', minMacOsVersion)
+            if (forArm64) {
+                mac64.cFlags = mac64.cFlags.replace('x86_64', 'arm64')
+                mac64.cppFlags = mac64.cppFlags.replace('x86_64', 'arm64')
+                mac64.linkerFlags = mac64.linkerFlags.replace('x86_64', 'arm64')
+            }
             addFreeTypeIfEnabled(mac64)
             buildTargets += mac64
         }
