@@ -1064,7 +1064,7 @@ public final class ImPlot {
      * Set the format for numeric Y axis labels (default="%g"). Formated values will be doubles (i.e. don't supply %d, %i, etc.). Not applicable if ImPlotAxisFlags_Time enabled.
      */
     public static native void setNextPlotFormatY(String fmt, int yAxis); /*
-        ImPlot::SetNextPlotFormatY(fmt);
+        ImPlot::SetNextPlotFormatY(fmt, yAxis);
      */
 
     /**
