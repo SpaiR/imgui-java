@@ -1,7 +1,6 @@
 package imgui.extension.imguizmo;
 
 import imgui.ImDrawList;
-import imgui.ImGui;
 
 public final class ImGuizmo {
     private static final float[] MATRICES = new float[4 * 16]; //for drawCubes()
@@ -62,9 +61,9 @@ public final class ImGuizmo {
     /**
      * Setting the default window drawlist.
      */
-    public static void setDrawList() {
-        setDrawList(ImGui.getWindowDrawList());
-    }
+    public static native void setDrawList(); /*
+        ImGuizmo::SetDrawlist();
+    */
 
     /**
      * Starts the next frame for the Gizmo.

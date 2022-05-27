@@ -72,6 +72,7 @@ public class Main extends Application {
     @Override
     public void process() {
         if (ImGui.begin("Demo", ImGuiWindowFlags.AlwaysAutoResize)) {
+            ImGui.text("Dear ImGui v" + ImGui.getVersion());
             ImGui.text("Hello, World! " + FontAwesomeIcons.Smile);
             if (ImGui.button(FontAwesomeIcons.Save + " Save")) {
                 count++;
