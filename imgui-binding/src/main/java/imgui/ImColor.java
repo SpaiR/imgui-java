@@ -1,5 +1,7 @@
 package imgui;
 
+import java.awt.Color;
+
 /**
  * Helper class to get ABGR packed color used by Dear ImGui.
  */
@@ -7,25 +9,105 @@ public final class ImColor {
     private ImColor() {
     }
 
+    public static int rgba(final int r, final int g, final int b, final int a) {
+        return intToColor(r, g, b, a);
+    }
+
+    public static int rgb(final int r, final int g, final int b) {
+        return intToColor(r, g, b);
+    }
+
+    public static int rgba(final float r, final float g, final float b, final float a) {
+        return floatToColor(r, g, b, a);
+    }
+
+    public static int rgb(final float r, final float g, final float b) {
+        return floatToColor(r, g, b);
+    }
+
+    /**
+     * @param hex e.g. "#FFFFFFFF"
+     */
+    public static int rgba(final String hex) {
+        return rgbaToColor(hex);
+    }
+
+    /**
+     * @param hex e.g. "#FFFFFF"
+     */
+    public static int rgb(final String hex) {
+        return rgbToColor(hex);
+    }
+
+    public static int rgba(final ImVec4 color) {
+        return rgba(color.x, color.y, color.z, color.w);
+    }
+
+    public static int rgb(final ImVec4 color) {
+        return rgb(color.x, color.y, color.z);
+    }
+
+    public static int rgba(final Color color) {
+        return rgba(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+    }
+
+    public static int rgb(final Color color) {
+        return rgb(color.getRed(), color.getGreen(), color.getBlue());
+    }
+
+    public static int hsla(final float h, final float s, final float l, final float a) {
+        return hslToColor(h, s, l, a);
+    }
+
+    public static int hsl(final float h, final float s, final float l) {
+        return hslToColor(h, s, l);
+    }
+
+    public static int hsla(final int h, final int s, final int l, final int a) {
+        return hslToColor(h, s, l, a);
+    }
+
+    public static int hsl(final int h, final int s, final int l) {
+        return hslToColor(h, s, l);
+    }
+
+    /**
+     * @deprecated use {@link #rgb(int, int, int)}
+     */
+    @Deprecated
     public static int intToColor(final int r, final int g, final int b, final int a) {
         return a << 24 | b << 16 | g << 8 | r;
     }
 
+    /**
+     * @deprecated use {@link #rgba(int, int, int, int)}
+     */
+    @Deprecated
     public static int intToColor(final int r, final int g, final int b) {
         return intToColor(r, g, b, 255);
     }
 
+    /**
+     * @deprecated use {@link #rgb(float, float, float)}
+     */
+    @Deprecated
     public static int floatToColor(final float r, final float g, final float b, final float a) {
         return intToColor((int) (r * 255), (int) (g * 255), (int) (b * 255), (int) (a * 255));
     }
 
+    /**
+     * @deprecated use {@link #rgba(float, float, float, float)}
+     */
+    @Deprecated
     public static int floatToColor(final float r, final float g, final float b) {
         return floatToColor(r, g, b, 1f);
     }
 
     /**
      * @param hex e.g. "#FFFFFF"
+     * @deprecated use {@link #rgb(String)}
      */
+    @Deprecated
     public static int rgbToColor(final String hex) {
         return intToColor(
             Integer.parseInt(hex.substring(1, 3), 16),
@@ -36,7 +118,9 @@ public final class ImColor {
 
     /**
      * @param hex e.g. "#FFFFFFFF"
+     * @deprecated use {@link #rgba(String)}
      */
+    @Deprecated
     public static int rgbaToColor(final String hex) {
         return intToColor(
             Integer.parseInt(hex.substring(1, 3), 16),
@@ -46,18 +130,34 @@ public final class ImColor {
         );
     }
 
+    /**
+     * @deprecated use {@link #hsl(int, int, int)}
+     */
+    @Deprecated
     public static int hslToColor(final int h, final int s, final int l) {
         return hslToColor(h, s, l, 1);
     }
 
+    /**
+     * @deprecated use {@link #hsla(int, int, int, int)}
+     */
+    @Deprecated
     public static int hslToColor(final int h, final int s, final int l, final float a) {
         return hslToColor(h / 360f, s / 100f, l / 100f, a);
     }
 
+    /**
+     * @deprecated use {@link #hsl(float, float, float)}
+     */
+    @Deprecated
     public static int hslToColor(final float h, final float s, final float l) {
         return hslToColor(h, s, l, 1);
     }
 
+    /**
+     * @deprecated use {@link #hsla(float, float, float, float)}
+     */
+    @Deprecated
     public static int hslToColor(final float h, final float s, final float l, final float a) {
         final float q;
         final float p;
