@@ -18,6 +18,7 @@ class GenerateLibs extends DefaultTask {
     private final String[] buildEnvs = System.getProperty('envs')?.split(',')
     private final boolean forWindows = buildEnvs?.contains('win')
     private final boolean forLinux = buildEnvs?.contains('linux')
+    private final boolean forMacArm = buildEnvs?.contains('macarm')
     private final boolean forMac = buildEnvs?.contains('mac')
 
     private final boolean isLocal = System.properties.containsKey('local')
@@ -105,6 +106,16 @@ class GenerateLibs extends DefaultTask {
             buildTargets += mac64
         }
 
+        if (forMacArm) {
+            def minMacOsVersion = '10.15'
+            def macarm64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true, true)
+            macarm64.cppFlags += ' -std=c++14'
+            macarm64.cppFlags = macarm64.cppFlags.replace('10.7', minMacOsVersion)
+            macarm64.linkerFlags = macarm64.linkerFlags.replace('10.7', minMacOsVersion)
+            addFreeTypeIfEnabled(macarm64)
+            buildTargets += macarm64
+        }
+
         new AntScriptGenerator().generate(buildConfig, buildTargets)
 
         // Generate native libraries
@@ -118,6 +129,8 @@ class GenerateLibs extends DefaultTask {
             BuildExecutor.executeAnt(jniDir + '/build-linux64.xml', commonParams)
         if (forMac)
             BuildExecutor.executeAnt(jniDir + '/build-macosx64.xml', commonParams)
+        if (forMacArm)
+            BuildExecutor.executeAnt(jniDir + '/build-macosxarm64.xml', commonParams)
 
         BuildExecutor.executeAnt(jniDir + '/build.xml', '-v', 'pack-natives')
     }

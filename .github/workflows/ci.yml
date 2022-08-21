@@ -27,7 +27,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        type: [win, linux, mac]
+        type: [win, linux, mac, macarm]
         freetype: [true, false]
         include:
           - type: win
@@ -36,9 +36,13 @@ jobs:
             expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
           - type: mac
             expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
+          - type: macarm
+            expected: /tmp/imgui/libsNative/macosxarm64/libimgui-javaarm64.dylib
         exclude:
           - os: ubuntu-latest
             type: mac
+          - os: ubuntu-latest
+            type: macarm
           - os: macos-latest
             type: win
           - os: macos-latest
@@ -62,6 +66,29 @@ jobs:
       - if: matrix.os == 'ubuntu-latest'
         name: Install MinGW-w64/GCC/G++
         run: sudo apt install mingw-w64
+
+      - if: matrix.os == 'macos-latest'
+        name: Build Setup Mac xcode
+        run: |
+          # See https://github.com/actions/virtual-environments/issues/2557
+          sudo mv /Library/Developer/CommandLineTools/SDKs/* /tmp
+          sudo mv /Applications/Xcode.app /Applications/Xcode.app.bak
+          sudo mv /Applications/Xcode_12.4.app /Applications/Xcode.app
+          sudo xcode-select -switch /Applications/Xcode.app
+          /usr/bin/xcodebuild -version
+          sudo mkdir /opt/freetype
+
+      - if: matrix.os == 'macos-latest' && matrix.freetype == true
+        name: Download FreeType - Compile & Install
+        working-directory: /opt/freetype
+        run: |
+          # freetype download and untar and install
+          sudo wget -O freetype.tar.gz ${{ env.FREETYPE_URL }}
+          sudo tar -xzf freetype.tar.gz -C . --strip-components=1
+          
+          sudo ./configure CFLAGS="-arch arm64 -arch x86_64" --with-zlib=no --with-bzip2=no --with-png=no --with-harfbuzz=no --with-brotli=no
+          sudo make
+          sudo make install
 
       - if: matrix.os == 'ubuntu-latest' && matrix.type == 'linux' && matrix.freetype == true
         name: FreeType - Install

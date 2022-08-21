@@ -57,4 +57,5 @@ jobs:
             imgui-lwjgl3/build/libs/*.jar
             bin/imgui-java64.dll
             bin/libimgui-java64.dylib
+            bin/libimgui-javaarm64.dylib
             bin/libimgui-java64.so
