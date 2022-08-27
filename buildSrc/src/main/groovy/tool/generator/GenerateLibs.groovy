@@ -26,9 +26,11 @@ class GenerateLibs extends DefaultTask {
     private final String sourceDir = project.file('src/main/java')
     private final String classpath = project.file('build/classes/java/main')
     private final String scriptsDir = project.file('scripts')
-    private final String jniDir = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/jni'
-    private final String tmpFolder = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/tmp'
+    private final String baseDir = isLocal ? project.buildDir.path : '/tmp/imgui'
+    private final String jniDir = baseDir + '/jni'
+    private final String tmpFolder = baseDir + '/tmp'
     private final String libsFolder = 'libsNative'
+    private final String libsNativeDir = baseDir + "/$libsFolder"
 
     @TaskAction
     void generate() {
@@ -128,7 +130,7 @@ class GenerateLibs extends DefaultTask {
         if (forMac) {
             BuildExecutor.executeAnt(jniDir + '/build-macosx64.xml', commonParams)
             BuildExecutor.executeAnt(jniDir + '/build-macosxarm64.xml', commonParams)
-            BuildExecutor.executeAnt(scriptsDir + '/combine_macos_libs.xml', ["-v", "combine"] as String[])
+            BuildExecutor.executeAnt(scriptsDir + '/combine_macos_libs.xml', ["-v", "-DlibsNativeDir=$libsNativeDir", "combine"] as String[])
         }
 
         BuildExecutor.executeAnt(jniDir + '/build.xml', '-v', 'pack-natives')

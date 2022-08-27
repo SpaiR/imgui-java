@@ -4,9 +4,9 @@
 		<exec executable="/usr/bin/lipo" failonerror="true">
 			<arg value="-create" />
 			<arg value="-output" />
-			<arg path="../build/libsNative/macosx64/libimgui-java64.dylib" />
-			<arg path="../build/libsNative/macosx64/libimgui-java64.dylib" />
-			<arg path="../build/libsNative/macosxarm64/libimgui-javaarm64.dylib" />
+			<arg path="${libsNativeDir}/macosx64/libimgui-java64.dylib" />
+			<arg path="${libsNativeDir}/macosx64/libimgui-java64.dylib" />
+			<arg path="${libsNativeDir}/macosxarm64/libimgui-javaarm64.dylib" />
 		</exec>
 	</target>
 </project>
