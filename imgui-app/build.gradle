@@ -31,7 +31,6 @@ jar {
     from('../bin') {
         include 'libimgui-java64.so'
         include 'libimgui-java64.dylib'
-        include 'libimgui-javaarm64.dylib'
         into 'io/imgui/java/native-bin/'
     }
     from('../bin/freetype') {
