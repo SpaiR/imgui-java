@@ -1,0 +1,12 @@
+
+<project name="combine-macos-libs">
+	<target name="combine">
+		<exec executable="/usr/bin/lipo" failonerror="true">
+			<arg value="-create" />
+			<arg value="-output" />
+			<arg path="${libsNativeDir}/macosx64/libimgui-java64.dylib" />
+			<arg path="${libsNativeDir}/macosx64/libimgui-java64.dylib" />
+			<arg path="${libsNativeDir}/macosxarm64/libimgui-javaarm64.dylib" />
+		</exec>
+	</target>
+</project>

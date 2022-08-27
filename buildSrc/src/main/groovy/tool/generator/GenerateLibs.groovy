@@ -25,9 +25,12 @@ class GenerateLibs extends DefaultTask {
 
     private final String sourceDir = project.file('src/main/java')
     private final String classpath = project.file('build/classes/java/main')
-    private final String jniDir = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/jni'
-    private final String tmpFolder = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/tmp'
+    private final String scriptsDir = project.file('scripts')
+    private final String baseDir = isLocal ? project.buildDir.path : '/tmp/imgui'
+    private final String jniDir = baseDir + '/jni'
+    private final String tmpFolder = baseDir + '/tmp'
     private final String libsFolder = 'libsNative'
+    private final String libsNativeDir = baseDir + "/$libsFolder"
 
     @TaskAction
     void generate() {
@@ -97,12 +100,20 @@ class GenerateLibs extends DefaultTask {
 
         if (forMac) {
             def minMacOsVersion = '10.15'
+
             def mac64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true)
             mac64.cppFlags += ' -std=c++14'
             mac64.cppFlags = mac64.cppFlags.replace('10.7', minMacOsVersion)
             mac64.linkerFlags = mac64.linkerFlags.replace('10.7', minMacOsVersion)
             addFreeTypeIfEnabled(mac64)
             buildTargets += mac64
+
+            def macarm64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true, true)
+            macarm64.cppFlags += ' -std=c++14'
+            macarm64.cppFlags = macarm64.cppFlags.replace('10.7', minMacOsVersion)
+            macarm64.linkerFlags = macarm64.linkerFlags.replace('10.7', minMacOsVersion)
+            addFreeTypeIfEnabled(macarm64)
+            buildTargets += macarm64
         }
 
         new AntScriptGenerator().generate(buildConfig, buildTargets)
@@ -116,8 +127,11 @@ class GenerateLibs extends DefaultTask {
             BuildExecutor.executeAnt(jniDir + '/build-windows64.xml', commonParams)
         if (forLinux)
             BuildExecutor.executeAnt(jniDir + '/build-linux64.xml', commonParams)
-        if (forMac)
+        if (forMac) {
             BuildExecutor.executeAnt(jniDir + '/build-macosx64.xml', commonParams)
+            BuildExecutor.executeAnt(jniDir + '/build-macosxarm64.xml', commonParams)
+            BuildExecutor.executeAnt(scriptsDir + '/combine_macos_libs.xml', ["-v", "-DlibsNativeDir=$libsNativeDir", "combine"] as String[])
+        }
 
         BuildExecutor.executeAnt(jniDir + '/build.xml', '-v', 'pack-natives')
     }
