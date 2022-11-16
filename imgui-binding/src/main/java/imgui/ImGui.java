@@ -5543,19 +5543,19 @@ public class ImGui {
 
     // Text Utilities
 
-    public final ImVec2 calcTextSize(final String text) {
+    public static ImVec2 calcTextSize(final String text) {
         final ImVec2 value = new ImVec2();
         calcTextSize(value, text);
         return value;
     }
 
-    public final ImVec2 calcTextSize(final String text, final boolean hideTextAfterDoubleHash) {
+    public static ImVec2 calcTextSize(final String text, final boolean hideTextAfterDoubleHash) {
         final ImVec2 value = new ImVec2();
         calcTextSize(value, text, hideTextAfterDoubleHash);
         return value;
     }
 
-    public final ImVec2 calcTextSize(final String text, final boolean hideTextAfterDoubleHash, final float wrapWidth) {
+    public static ImVec2 calcTextSize(final String text, final boolean hideTextAfterDoubleHash, final float wrapWidth) {
         final ImVec2 value = new ImVec2();
         calcTextSize(value, text, hideTextAfterDoubleHash, wrapWidth);
         return value;
