@@ -32,6 +32,7 @@ import org.lwjgl.glfw.GLFWNativeWin32;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowFocusCallback;
+import org.lwjgl.opengl.GL;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -676,6 +677,7 @@ public class ImGuiImplGlfw {
 
             glfwMakeContextCurrent(data.window);
             glfwSwapInterval(0);
+            GL.createCapabilities();
         }
     }
 
