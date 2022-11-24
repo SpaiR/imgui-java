@@ -32,6 +32,7 @@ import org.lwjgl.glfw.GLFWNativeWin32;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowFocusCallback;
+import org.lwjgl.glfw.Callbacks;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -317,12 +318,11 @@ public class ImGuiImplGlfw {
             prevUserCallbackScroll = glfwSetScrollCallback(windowId, this::scrollCallback);
             prevUserCallbackKey = glfwSetKeyCallback(windowId, this::keyCallback);
             prevUserCallbackChar = glfwSetCharCallback(windowId, this::charCallback);
-            prevUserCallbackMonitor = glfwSetMonitorCallback(this::monitorCallback);
         }
-
         // Update monitors the first time (note: monitor callback are broken in GLFW 3.2 and earlier, see github.com/glfw/glfw/issues/784)
         updateMonitors();
-        glfwSetMonitorCallback(this::monitorCallback);
+        prevUserCallbackMonitor = glfwSetMonitorCallback(this::monitorCallback);
+
 
         // Our mouse update function expect PlatformHandle to be filled for the main viewport
         final ImGuiViewport mainViewport = ImGui.getMainViewport();
@@ -373,14 +373,19 @@ public class ImGuiImplGlfw {
     public void dispose() {
         shutdownPlatformInterface();
 
-        if (callbacksInstalled) {
-            glfwSetWindowFocusCallback(windowPtr, prevUserCallbackWindowFocus);
-            glfwSetCursorEnterCallback(windowPtr, prevUserCallbackCursorEnter);
-            glfwSetMouseButtonCallback(windowPtr, prevUserCallbackMouseButton);
-            glfwSetScrollCallback(windowPtr, prevUserCallbackScroll);
-            glfwSetKeyCallback(windowPtr, prevUserCallbackKey);
-            glfwSetCharCallback(windowPtr, prevUserCallbackChar);
-            callbacksInstalled = false;
+        try {
+            if (callbacksInstalled) {
+                glfwSetWindowFocusCallback(windowPtr, prevUserCallbackWindowFocus).free();
+                glfwSetCursorEnterCallback(windowPtr, prevUserCallbackCursorEnter).free();
+                glfwSetMouseButtonCallback(windowPtr, prevUserCallbackMouseButton).free();
+                glfwSetScrollCallback(windowPtr, prevUserCallbackScroll).free();
+                glfwSetKeyCallback(windowPtr, prevUserCallbackKey).free();
+                glfwSetCharCallback(windowPtr, prevUserCallbackChar).free();
+                callbacksInstalled = false;
+            }
+            glfwSetMonitorCallback(prevUserCallbackMonitor).free();
+        } catch (NullPointerException ignored) {
+            // ignored
         }
 
         for (int i = 0; i < ImGuiMouseCursor.COUNT; i++) {
@@ -693,6 +698,7 @@ public class ImGuiImplGlfw {
                     }
                 }
 
+                Callbacks.glfwFreeCallbacks(data.window);
                 glfwDestroyWindow(data.window);
             }
 
