@@ -23,7 +23,7 @@ jobs:
 
   build-natives:
     env:
-      FREETYPE_URL: https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.gz
+      FREETYPE_URL: https://download.savannah.gnu.org/releases/freetype/freetype-2.12.1.tar.gz
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
