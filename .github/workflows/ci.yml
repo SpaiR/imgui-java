@@ -4,43 +4,52 @@ jobs:
   build-java:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ ubuntu-latest, macos-latest ]
     name: Build Java
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Setup Java 8
-        uses: actions/setup-java@v1
+      - name: Setup Java
+        uses: actions/setup-java@v3
         with:
           java-version: 8
+          distribution: liberica
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
 
       - name: Build
-        uses: eskatos/gradle-command-action@v1
+        run: ./gradlew buildAll
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
         with:
-          arguments: buildAll
+          name: java-libraries
+          path: |
+            imgui-app/build/libs/*.jar
+            imgui-binding/build/libs/*.jar
+            imgui-lwjgl3/build/libs/*.jar
 
   build-natives:
-    env:
-      FREETYPE_URL: https://download.savannah.gnu.org/releases/freetype/freetype-2.12.1.tar.gz
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        type: [win, linux, mac]
-        freetype: [true, false]
+        os: [ ubuntu-latest, macos-latest ]
+        type: [ windows, linux, macos ]
+        freetype: [ true, false ]
         include:
-          - type: win
+          - type: windows
             expected: /tmp/imgui/libsNative/windows64/imgui-java64.dll
           - type: linux
             expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
-          - type: mac
+          - type: macos
             expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
         exclude:
           - os: ubuntu-latest
-            type: mac
+            type: macos
           - os: macos-latest
-            type: win
+            type: windows
           - os: macos-latest
             type: linux
     name: Build Native (type=${{ matrix.type }}, freetype=${{ matrix.freetype }})
@@ -51,45 +60,99 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Setup Java 8
-        uses: actions/setup-java@v1
+      - name: Setup Java
+        uses: actions/setup-java@v3
         with:
           java-version: 8
+          distribution: liberica
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
 
       - name: Ant Version
         run: ant -version
 
       - if: matrix.os == 'ubuntu-latest'
-        name: Install MinGW-w64/GCC/G++
+        name: Install MinGW-w64/GCC/G++ (Linux & Windows)
         run: sudo apt install mingw-w64
 
       - if: matrix.os == 'ubuntu-latest' && matrix.type == 'linux' && matrix.freetype == true
-        name: FreeType - Install
+        name: FreeType - Install (Linux)
         run: sudo apt install libfreetype6-dev
 
-      - if: matrix.os == 'ubuntu-latest' && matrix.type == 'win' && matrix.freetype == true
-        name: FreeType - Download
+      - if: matrix.os == 'ubuntu-latest' && matrix.type == 'windows' && matrix.freetype == true
+        name: FreeType - Install (Windows)
         run: |
-          sudo wget -O /freetype.tar.gz ${{ env.FREETYPE_URL }}
           sudo mkdir /freetype
-          sudo tar -xzf /freetype.tar.gz -C /freetype --strip-components=1
-
-      - if: matrix.os == 'ubuntu-latest' && matrix.type == 'win' && matrix.freetype == true
-        name: FreeType - Compile & Install
-        working-directory: /freetype
-        run: |
+          sudo tar -xzf ./vendor/freetype-2.12.1.tar.gz -C /freetype --strip-components=1
+          cd /freetype
           sudo ./configure --with-zlib=no --with-bzip2=no --with-png=no --with-harfbuzz=no --with-brotli=no --host=x86_64-w64-mingw32 --prefix=/usr/x86_64-w64-mingw32
           sudo make
           sudo make install
 
       - name: Build
-        uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: :imgui-binding:generateLibs -Denvs=${{ matrix.type }} -Dfreetype=${{ matrix.freetype }}
+        run: ./gradlew imgui-binding:generateLibs -Denvs=${{ matrix.type }} -Dfreetype=${{ matrix.freetype }}
 
-      - name: Upload Native
-        uses: actions/upload-artifact@v2
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.freetype && 'freetype' || 'common' }}
-          path: ${{ matrix.expected }}
+          name: ${{ matrix.freetype && 'native-libraries-with-freetype' || 'native-libraries' }}
           if-no-files-found: error
+          path: ${{ matrix.expected }}
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: [ build-java, build-natives ]
+#    if: startsWith(github.ref, 'refs/tags/v') # if tag starts with "v"
+    env:
+      NEXUS_UPD_ID: ${{ secrets.RELEASE_NEXUS_UPD_ID }}
+      NEXUS_UPD_PASS: ${{ secrets.RELEASE_NEXUS_UPD_PASS }}
+      SIGNING_KEY_ID: ${{ secrets.RELEASE_SIGNING_KEY_ID }}
+      SIGNING_KEY: ${{ secrets.RELEASE_SIGNING_KEY }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 8
+          distribution: liberica
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: out/artifacts
+
+      - name: Zip Artifacts
+        run: |
+          zip -rj out/archives/native-libraries out/artifacts/native-libraries
+          zip -rj out/archives/native-libraries-with-freetype out/artifacts/native-libraries-with-freetype
+          zip -rj out/archives/java-libraries out/artifacts/java-libraries
+
+      # TODO: remove me
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: test
+          path: |
+            out/archives/**
+
+#      - name: Publish
+#        run: |
+#          chmod +x ./buildSrc/scripts/publish.sh
+#          buildSrc/scripts/publish.sh
+
+#      - name: Release
+#        uses: softprops/action-gh-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          draft: true
+#          prerelease: false
+#          files: |
+#            out/archives/**
