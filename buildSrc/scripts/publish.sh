@@ -5,22 +5,22 @@ cd $BASEDIR/../.. || exit
 
 echo '> Publishing Modules...'
 echo '>> Module [imgui-app]'
-./gradlew imgui-app:publishMavenJavaPublicationToMavenCentralRepository
+./gradlew imgui-app:publishImguiPublicationToMavenCentralRepository
 echo '>> Module [imgui-lwjgl3]'
-./gradlew imgui-lwjgl3:publishMavenJavaPublicationToMavenCentralRepository
+./gradlew imgui-lwjgl3:publishImguiPublicationToMavenCentralRepository
 echo '>> Module [imgui-binding]'
-./gradlew imgui-binding:publishMavenJavaPublicationToMavenCentralRepository
+./gradlew imgui-binding:publishImguiPublicationToMavenCentralRepository
 
 echo '> Publishing Natives...'
-echo '>> Natives: [win & freetype]'
-./gradlew imgui-binding-natives:publishMavenJavaPublicationToMavenCentralRepository -PdeployType=win -Pfreetype=true
-echo '>> Natives: [win & no freetype]'
-./gradlew imgui-binding-natives:publishMavenJavaPublicationToMavenCentralRepository -PdeployType=win -Pfreetype=false
-echo '>> Natives: [linux & freetype]'
-./gradlew imgui-binding-natives:publishMavenJavaPublicationToMavenCentralRepository -PdeployType=linux -Pfreetype=true
-echo '>> Natives: [linux & no freetype]'
-./gradlew imgui-binding-natives:publishMavenJavaPublicationToMavenCentralRepository -PdeployType=linux -Pfreetype=false
-echo '>> Natives: [mac & freetype]'
-./gradlew imgui-binding-natives:publishMavenJavaPublicationToMavenCentralRepository -PdeployType=mac -Pfreetype=true
-echo '>> Natives: [mac & no freetype]'
-./gradlew imgui-binding-natives:publishMavenJavaPublicationToMavenCentralRepository -PdeployType=mac -Pfreetype=false
+echo '>> Natives: [windows, freetype]'
+./gradlew imgui-binding-natives:publishImguiPublicationToMavenCentralRepository -PdeployType=windows -Pfreetype=true
+echo '>> Natives: [windows]'
+./gradlew imgui-binding-natives:publishImguiPublicationToMavenCentralRepository -PdeployType=windows -Pfreetype=false
+echo '>> Natives: [linux, freetype]'
+./gradlew imgui-binding-natives:publishImguiPublicationToMavenCentralRepository -PdeployType=linux -Pfreetype=true
+echo '>> Natives: [linux]'
+./gradlew imgui-binding-natives:publishImguiPublicationToMavenCentralRepository -PdeployType=linux -Pfreetype=false
+echo '>> Natives: [macOS, freetype]'
+./gradlew imgui-binding-natives:publishImguiPublicationToMavenCentralRepository -PdeployType=macos -Pfreetype=true
+echo '>> Natives: [macOS]'
+./gradlew imgui-binding-natives:publishImguiPublicationToMavenCentralRepository -PdeployType=macos -Pfreetype=false

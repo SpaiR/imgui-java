@@ -95,10 +95,10 @@ jobs:
           path: ${{ matrix.expected }}
 
   release:
+    if: startsWith(github.ref, 'refs/tags/v') # if tag starts with "v"
     name: Release
     runs-on: ubuntu-latest
     needs: [ build-java, build-natives ]
-#    if: startsWith(github.ref, 'refs/tags/v') # if tag starts with "v"
     env:
       NEXUS_UPD_ID: ${{ secrets.RELEASE_NEXUS_UPD_ID }}
       NEXUS_UPD_PASS: ${{ secrets.RELEASE_NEXUS_UPD_PASS }}
@@ -126,25 +126,17 @@ jobs:
           zip -rj out/archives/native-libraries-with-freetype out/artifacts/native-libraries-with-freetype
           zip -rj out/archives/java-libraries out/artifacts/java-libraries
 
-      # TODO: remove me
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+      - name: Publish
+        run: |
+          chmod +x ./buildSrc/scripts/publish.sh
+          buildSrc/scripts/publish.sh
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: test
-          path: |
+          draft: true
+          prerelease: false
+          files: |
             out/archives/**
-
-#      - name: Publish
-#        run: |
-#          chmod +x ./buildSrc/scripts/publish.sh
-#          buildSrc/scripts/publish.sh
-
-#      - name: Release
-#        uses: softprops/action-gh-release@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          draft: true
-#          prerelease: false
-#          files: |
-#            out/archives/**

@@ -23,7 +23,7 @@ ext.configurePublishing = { packageName, packageDesc ->
             }
         }
         publications {
-            mavenJava(MavenPublication) {
+            imgui(MavenPublication) {
                 groupId = 'io.github.spair'
                 artifactId = packageName
                 version = property('version')
