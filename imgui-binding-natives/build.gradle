@@ -48,4 +48,4 @@ jar {
 }
 
 apply from: "$rootDir/publish.gradle"
-configurePublishing(packageName, packageDesc)
+configurePublishing(packageName, packageDesc, project.version)
