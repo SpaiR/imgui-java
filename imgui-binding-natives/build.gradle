@@ -7,7 +7,7 @@ plugins {
 def packageName = 'imgui-java-natives-linux'
 def packageDesc = 'Native binaries for imgui-java binding for Linux'
 def moduleName = 'imgui.natives.linux'
-def fromDir = '../out/artifacts/native-libraries'
+def fromDir = '../bin'
 def libName = 'libimgui-java64.so'
 
 switch (findProperty('deployType')) {
@@ -34,7 +34,7 @@ switch (findProperty('deployType')) {
 if (findProperty('freetype') == 'true') {
     packageName += '-ft'
     packageDesc += ' with Freetype support'
-    fromDir += 'with-freetype'
+    fromDir += '/freetype'
 }
 
 jar {
