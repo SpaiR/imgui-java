@@ -16,9 +16,9 @@ class GenerateLibs extends DefaultTask {
     String description = 'Generate imgui-java native binaries.'
 
     private final String[] buildEnvs = System.getProperty('envs')?.split(',')
-    private final boolean forWindows = buildEnvs?.contains('win')
+    private final boolean forWindows = buildEnvs?.contains('windows')
     private final boolean forLinux = buildEnvs?.contains('linux')
-    private final boolean forMac = buildEnvs?.contains('mac')
+    private final boolean forMac = buildEnvs?.contains('macos')
 
     private final boolean isLocal = System.properties.containsKey('local')
     private final boolean withFreeType = Boolean.valueOf(System.properties.getProperty('freetype', 'false'))

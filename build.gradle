@@ -1,4 +1,4 @@
-import tool.UpVersion
+import java.text.SimpleDateFormat
 
 ext {
     lwjglVersion = '3.3.1'
@@ -6,18 +6,38 @@ ext {
 
 allprojects {
     group 'imgui-java'
-    version property('version')
+    version 'git describe --tags --always'.execute().text.trim().substring(1)
 
     repositories {
         mavenCentral()
     }
 
-    tasks.withType(JavaCompile) {
-        sourceCompatibility = JavaVersion.VERSION_1_8
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            sourceCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_1_8
+        }
+    }
+
+    tasks.withType(Jar).tap {
+        configureEach {
+            from(project.rootDir) {
+                include 'LICENSE'
+            }
+
+            manifest {
+                attributes (
+                        'Implementation-Title': project.name,
+                        'Implementation-Version': project.version,
+                        'Build-Timestamp': new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(System.currentTimeMillis()),
+                        'Build-Revision': 'git rev-parse HEAD'.execute().text.trim(),
+                        'Build-Jdk': "${System.getProperty('java.version')} (${System.getProperty('java.vendor')})",
+                        'Created-By': "Gradle ${gradle.gradleVersion}"
+                )
+            }
+        }
     }
 }
-
-tasks.register('upVersion', UpVersion)
 
 tasks.register('buildAll') { t ->
     t.group = 'build'

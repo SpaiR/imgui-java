@@ -48,4 +48,4 @@ shadowJar {
 }
 
 apply from: "$rootDir/publish.gradle"
-configurePublishing('imgui-java-app', 'Application wrapper for Dear ImGui')
+configurePublishing('imgui-java-app', 'Application wrapper for Dear ImGui', project.version)

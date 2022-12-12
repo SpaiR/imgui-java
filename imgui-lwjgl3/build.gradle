@@ -16,7 +16,7 @@ dependencies {
 }
 
 apply from: "$rootDir/publish.gradle"
-configurePublishing('imgui-java-lwjgl3', 'Backend LWJGL3 implementation for imgui-java')
+configurePublishing('imgui-java-lwjgl3', 'Backend LWJGL3 implementation for imgui-java', project.version)
 
 jar {
     manifest {

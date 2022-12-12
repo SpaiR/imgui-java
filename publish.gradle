@@ -1,4 +1,4 @@
-ext.configurePublishing = { packageName, packageDesc ->
+ext.configurePublishing = { packageName, packageDesc, packageVersion ->
     tasks.register('sourcesJar', Jar) {
         it.dependsOn classes
         it.archiveClassifier.set('sources')
@@ -23,10 +23,10 @@ ext.configurePublishing = { packageName, packageDesc ->
             }
         }
         publications {
-            mavenJava(MavenPublication) {
+            imgui(MavenPublication) {
                 groupId = 'io.github.spair'
                 artifactId = packageName
-                version = property('version')
+                version = packageVersion
 
                 from components.java
                 artifact sourcesJar

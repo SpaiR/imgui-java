@@ -21,7 +21,7 @@ tasks.register('generateLibs', GenerateLibs) {
 }
 
 apply from: "$rootDir/publish.gradle"
-configurePublishing('imgui-java-binding', 'JNI based binding for Dear ImGui')
+configurePublishing('imgui-java-binding', 'JNI based binding for Dear ImGui', project.version)
 
 jar {
     manifest {
