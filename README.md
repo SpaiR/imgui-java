@@ -1,7 +1,8 @@
 <div align="center">
 
 # ImGui Java
-#### JNI based binding for [Dear ImGui](https://github.com/ocornut/imgui)
+
+**JNI based binding for [Dear ImGui](https://github.com/ocornut/imgui)**
 
 [![Github All Releases](https://img.shields.io/github/downloads/SpaiR/imgui-java/total.svg?logo=github)](https://github.com/SpaiR/imgui-java/releases)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.spair/imgui-java-binding?logo=apache-maven)](https://search.maven.org/search?q=g:io.github.spair%20AND%20a:imgui-java-*)
