@@ -4,6 +4,12 @@ plugins {
     id 'signing'
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
+
 def packageName = 'imgui-java-natives-linux'
 def packageDesc = 'Native binaries for imgui-java binding for Linux'
 def moduleName = 'imgui.natives.linux'

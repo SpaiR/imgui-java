@@ -1,13 +1,15 @@
 plugins {
     id 'java-library'
-    id 'com.github.johnrengelman.shadow' version '7.0.0'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'checkstyle'
     id 'maven-publish'
     id 'signing'
 }
 
-repositories {
-    mavenCentral()
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
 }
 
 dependencies {
@@ -44,7 +46,6 @@ jar {
 
 shadowJar {
     with jar
-    archiveClassifier.set(null)
 }
 
 apply from: "$rootDir/publish.gradle"
