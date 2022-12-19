@@ -3,7 +3,7 @@ package imgui;
 import java.util.Objects;
 
 /**
- * 2D vector (often used to store positions or sizes)
+ * 2D vector (often used to store positions or sizes).
  */
 public final class ImVec2 implements Cloneable {
     public float x;
@@ -12,24 +12,52 @@ public final class ImVec2 implements Cloneable {
     public ImVec2() {
     }
 
-    public ImVec2(final ImVec2 imVec2) {
-        this.x = imVec2.x;
-        this.y = imVec2.y;
-    }
-
     public ImVec2(final float x, final float y) {
-        this.x = x;
-        this.y = y;
+        set(x, y);
     }
 
-    public void set(final float x, final float y) {
-        this.x = x;
-        this.y = y;
+    public ImVec2(final ImVec2 value) {
+        this(value.x, value.y);
     }
 
-    public void set(final ImVec2 value) {
-        this.x = value.x;
-        this.y = value.y;
+    public ImVec2 set(final float x, final float y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
+    public ImVec2 set(final ImVec2 value) {
+        return set(value.x, value.y);
+    }
+
+    public ImVec2 plus(final float x, final float y) {
+        this.x += x;
+        this.y += y;
+        return this;
+    }
+
+    public ImVec2 plus(final ImVec2 value) {
+        return plus(value.x, value.y);
+    }
+
+    public ImVec2 minus(final float x, final float y) {
+        this.x -= x;
+        this.y -= y;
+        return this;
+    }
+
+    public ImVec2 minus(final ImVec2 value) {
+        return minus(value.x, value.y);
+    }
+
+    public ImVec2 times(final float x, final float y) {
+        this.x *= x;
+        this.y *= y;
+        return this;
+    }
+
+    public ImVec2 times(final ImVec2 value) {
+        return times(value.x, value.y);
     }
 
     @Override
@@ -58,6 +86,7 @@ public final class ImVec2 implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public ImVec2 clone() {
         return new ImVec2(this);
     }

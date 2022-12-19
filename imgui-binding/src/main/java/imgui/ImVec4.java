@@ -3,7 +3,7 @@ package imgui;
 import java.util.Objects;
 
 /**
- * 4D vector (often used to store floating-point colors)
+ * 4D vector (often used to store floating-point colors).
  */
 public final class ImVec4 implements Cloneable {
     public float x;
@@ -14,32 +14,60 @@ public final class ImVec4 implements Cloneable {
     public ImVec4() {
     }
 
-    public ImVec4(final ImVec4 imVec4) {
-        this.x = imVec4.x;
-        this.y = imVec4.y;
-        this.z = imVec4.z;
-        this.w = imVec4.w;
-    }
-
     public ImVec4(final float x, final float y, final float z, final float w) {
+        set(x, y, z, w);
+    }
+
+    public ImVec4(final ImVec4 value) {
+        this(value.x, value.y, value.z, value.w);
+    }
+
+    public ImVec4 set(final float x, final float y, final float z, final float w) {
         this.x = x;
         this.y = y;
         this.z = z;
         this.w = w;
+        return this;
     }
 
-    public void set(final float x, final float y, final float z, final float w) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.w = w;
+    public ImVec4 set(final ImVec4 value) {
+        return set(value.x, value.y, value.z, value.w);
     }
 
-    public void set(final ImVec4 value) {
-        this.x = value.x;
-        this.y = value.y;
-        this.z = value.z;
-        this.w = value.w;
+    public ImVec4 plus(final float x, final float y, final float z, final float w) {
+        this.x += x;
+        this.y += y;
+        this.z += z;
+        this.w += w;
+        return this;
+    }
+
+    public ImVec4 plus(final ImVec4 value) {
+        return plus(value.x, value.y, value.z, value.w);
+    }
+
+    public ImVec4 minus(final float x, final float y, final float z, final float w) {
+        this.x -= x;
+        this.y -= y;
+        this.z -= z;
+        this.w -= w;
+        return this;
+    }
+
+    public ImVec4 minus(final ImVec4 value) {
+        return minus(value.x, value.y, value.z, value.w);
+    }
+
+    public ImVec4 times(final float x, final float y, final float z, final float w) {
+        this.x *= x;
+        this.y *= y;
+        this.z *= z;
+        this.w *= w;
+        return this;
+    }
+
+    public ImVec4 times(final ImVec4 value) {
+        return times(value.x, value.y, value.z, value.w);
     }
 
     @Override
@@ -70,6 +98,7 @@ public final class ImVec4 implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public ImVec4 clone() {
         return new ImVec4(this);
     }
