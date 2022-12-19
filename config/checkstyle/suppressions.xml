@@ -13,4 +13,6 @@
     <suppress checks="FileLength" files="[\\/]imgui[\\/]"/>
     <suppress checks="FinalParameters" files="ImGui.java"/>
     <suppress checks="DesignForExtension" files="[\\/]imgui[\\/]app[\\/]"/>
+
+    <suppress checks="TypeName" files="[\\/]src[\\/]test[\\/]"/>
 </suppressions>

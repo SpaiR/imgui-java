@@ -18,6 +18,7 @@ jobs:
         with:
           java-version: 8
           distribution: liberica
+          cache: gradle
 
       - name: Build
         run: ./gradlew buildAll
@@ -65,6 +66,7 @@ jobs:
         with:
           java-version: 8
           distribution: liberica
+          cache: gradle
 
       - name: Ant Version
         run: ant -version
@@ -151,6 +153,7 @@ jobs:
         with:
           java-version: 8
           distribution: liberica
+          cache: gradle
 
       - name: Download Artifacts
         uses: actions/download-artifact@v3
