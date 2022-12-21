@@ -110,7 +110,7 @@ Read `imgui.app.Application` [javadoc](https://javadoc.io/doc/io.github.spair/im
 
 ### Dependencies
 
-![Maven Central](https://img.shields.io/maven-central/v/io.github.spair/imgui-java-binding?color=green&label=Version%20to%20use&style=flat-square)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.spair/imgui-java-binding?color=green&label=Version:&style=flat-square)
 
 <details>
         <summary><b>Gradle</b></summary>
@@ -144,8 +144,15 @@ dependencies {
         <summary><b>Raw Jar</b></summary>
 
 1. Go to the [release page](https://github.com/SpaiR/imgui-java/releases/latest);
-2. Download `imgui-app-${version}.jar`;
-3. Add the jar to your classpath.
+2. Download `java-libraries.zip`;
+3. Get `imgui-app-${version}-all.jar`;
+4. Add the jar to your classpath.
+
+Jar with `all` classifier already contains `binding` and `lwjgl3` modules.<br>
+If you're using jar without the `all` classifier, add appropriate jars as well.
+
+Both jars, with or without `all` classifier, have all required native libraries already.
+
 </details>
 
 #### Java Module System
@@ -159,7 +166,7 @@ You can refer to `imgui-app` module to see how things are done there.
 
 ### Dependencies
 
-![Maven Central](https://img.shields.io/maven-central/v/io.github.spair/imgui-java-binding?color=green&label=Version%20to%20use&style=flat-square)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.spair/imgui-java-binding?color=green&label=Version:&style=flat-square)
 
 For simplicity, example of dependencies for Gradle / Maven only shows how to add natives for Windows. Feel free to add other platforms.
 
@@ -272,13 +279,18 @@ dependencies {
 <details>
         <summary><b>Raw Jars</b></summary>
 
- 1. Go to the [release page](https://github.com/SpaiR/imgui-java/releases/latest);
- 2. Download `imgui-binding-${version}.jar`, `imgui-lwjgl3-${version}.jar` and binary libraries for your OS;
-   - imgui-java64.dll - Windows
-   - libimgui-java64.so - Linux
-   - libimgui-java64.dylib - macOS
- 3. Add jars to your classpath;
- 4. Provide a VM option: `imgui.library.path` or `java.library.path`. It should point to the folder where you've placed downloaded native libraries.
+1. Go to the [release page](https://github.com/SpaiR/imgui-java/releases/latest);
+2. Download `java-libraries.zip` and `native-libraries.zip` (`native-libraries-with-freetype.zip` for FreeType font rendering);
+3. Get `imgui-binding-${version}.jar` and `imgui-lwjgl3-${version}.jar` from `java-libraries`, and binary libraries for required OS from `native-libraries` archive;
+4. Add jars to your classpath;
+5. Provide a VM option with location of files from the `native-libraries` (or `native-libraries-with-freetype`) archive.
+
+VM option example:
+- **-Dimgui.library.path=_${path}_**
+- **-Djava.library.path=_${path}_**
+
+Both `imgui.library.path` and `java.library.path` are equal with the difference, that `java.library.path` is standard JVM option to provide native libraries.
+
 </details>
 
 #### Java Module System
@@ -335,7 +347,7 @@ Don't forget to make clear for your Linux/Mac users, that they will need to inst
 
 ### Dependencies
 
-![Maven Central](https://img.shields.io/maven-central/v/io.github.spair/imgui-java-binding?color=green&label=Version%20to%20use&style=flat-square)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.spair/imgui-java-binding?color=green&label=Version:&style=flat-square)
 
 Use the same native libraries as you would, but with `-ft` suffix in the end.
 
@@ -375,7 +387,7 @@ Use the same native libraries as you would, but with `-ft` suffix in the end.
 | imgui-java-natives-linux-ft   | Linux   |
 | imgui-java-natives-macos-ft   | macOS   |
 
-If you're using raw dll/so files, go to the `bin/freetype` folder and take them from there.
+If you're using raw dll/so files, go to the [release page](https://github.com/SpaiR/imgui-java/releases/latest) and use libraries from the `native-libraries-with-freetype.zip` archive.
 
 # Binding Notice
 
