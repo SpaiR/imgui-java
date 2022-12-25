@@ -442,7 +442,7 @@ public final class ImNodes {
 
     public static native void editorContextGetPanning(ImVec2 result); /*
         ImVec2 dst = ImNodes::EditorContextGetPanning();
-        Jni::ImVec2Cpy(env, $dst, result);
+        Jni::ImVec2Cpy(env, &dst, result);
     */
 
     public static native void editorMoveToNode(int node); /*
