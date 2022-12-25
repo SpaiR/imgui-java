@@ -17,7 +17,7 @@ def fromDir = '../bin'
 def libName = 'libimgui-java64.so'
 
 switch (findProperty('deployType')) {
-    case 'win':
+    case 'windows':
         packageName = 'imgui-java-natives-windows'
         packageDesc = 'Native binaries for imgui-java binding for Windows'
         moduleName = 'imgui.natives.windows'
