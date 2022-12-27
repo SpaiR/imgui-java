@@ -2,11 +2,8 @@ name: CI
 on: [ push, pull_request ]
 jobs:
   build-java:
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, macos-latest ]
     name: Build Java
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -33,6 +30,7 @@ jobs:
             imgui-lwjgl3/build/libs/*.jar
 
   build-natives:
+    name: Build Native (${{ matrix.type }}${{ matrix.freetype && ', freetype' || ''  }})
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
@@ -52,7 +50,6 @@ jobs:
             type: windows
           - os: macos-latest
             type: linux
-    name: Build Native (${{ matrix.type }}${{ matrix.freetype && ', freetype' || ''  }})
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Repository and Submodules
@@ -113,25 +110,27 @@ jobs:
         with:
           path: /tmp/artifacts
 
-      - name: Equal Artifacts
-        id: equal-artifacts
+      # Job compares sha1 hash of the imgui-binding/src/main directory.
+      # If there are any changes, then we update native libraries.
+      # We do not rely on git in terms of comparing binaries,
+      # since DLL files will always have versioning difference.
+      - name: Compare Binding Hash
+        id: cmp-binding-hash
         continue-on-error: true
         run: |
-          python3 buildSrc/scripts/equal_file_size.py /tmp/artifacts/native-libraries/imgui-java64.dll bin/imgui-java64.dll
-          python3 buildSrc/scripts/equal_file_size.py /tmp/artifacts/native-libraries/libimgui-java64.dylib bin/libimgui-java64.dylib
-          python3 buildSrc/scripts/equal_file_size.py /tmp/artifacts/native-libraries/libimgui-java64.so bin/libimgui-java64.so
-          python3 buildSrc/scripts/equal_file_size.py /tmp/artifacts/native-libraries-with-freetype/imgui-java64.dll bin/freetype/imgui-java64.dll
-          python3 buildSrc/scripts/equal_file_size.py /tmp/artifacts/native-libraries-with-freetype/libimgui-java64.dylib bin/freetype/libimgui-java64.dylib
-          python3 buildSrc/scripts/equal_file_size.py /tmp/artifacts/native-libraries-with-freetype/libimgui-java64.so bin/freetype/libimgui-java64.so
+          touch bin/binding.sha1
+          cat bin/binding.sha1 > /tmp/hash
+          find imgui-binding/src/main -type f -print0 | xargs -0 sha1sum > bin/binding.sha1
+          cmp /tmp/hash bin/binding.sha1
 
       - name: Update
-        if: steps.equal-artifacts.outcome != 'success'
+        if: steps.cmp-binding-hash.outcome != 'success'
         run: |
           mv /tmp/artifacts/native-libraries/* bin/
           mv /tmp/artifacts/native-libraries-with-freetype/* bin/freetype/
 
       - name: Commit
-        if: steps.equal-artifacts.outcome != 'success'
+        if: steps.cmp-binding-hash.outcome != 'success'
         uses: EndBug/add-and-commit@v9
         with:
           default_author: github_actions
