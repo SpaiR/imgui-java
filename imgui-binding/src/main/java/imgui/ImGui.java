@@ -5118,11 +5118,13 @@ public class ImGui {
     }
 
     private static native boolean nHasDragDropPayload(); /*
-        return ImGui::GetDragDropPayload()->Data != NULL;
+        const ImGuiPayload* payload = ImGui::GetDragDropPayload();
+        return payload != NULL && payload->Data != NULL;
     */
 
     private static native boolean nHasDragDropPayload(String dataType); /*
-        return ImGui::GetDragDropPayload()->IsDataType(dataType);
+        const ImGuiPayload* payload = ImGui::GetDragDropPayload();
+        return payload != NULL && payload->IsDataType(dataType);
     */
 
     /**
