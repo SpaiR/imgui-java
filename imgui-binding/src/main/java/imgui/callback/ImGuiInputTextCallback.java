@@ -1,6 +1,7 @@
 package imgui.callback;
 
 import imgui.ImGuiInputTextCallbackData;
+import org.graalvm.nativeimage.c.struct.AllowNarrowingCast;
 
 import java.util.function.Consumer;
 
@@ -8,7 +9,11 @@ import java.util.function.Consumer;
  *
  */
 public abstract class ImGuiInputTextCallback implements Consumer<ImGuiInputTextCallbackData> {
-    public void nAccept(long ptr) {
+    /**
+     * This function will be called by the native Callback and wrapped
+     * @param ptr Ptr
+     */
+    public void nAccept(final long ptr) {
         accept(new ImGuiInputTextCallbackData(ptr));
     }
 }
