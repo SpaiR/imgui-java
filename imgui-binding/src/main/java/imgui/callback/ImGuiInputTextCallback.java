@@ -1,7 +1,6 @@
 package imgui.callback;
 
 import imgui.ImGuiInputTextCallbackData;
-import org.graalvm.nativeimage.c.struct.AllowNarrowingCast;
 
 import java.util.function.Consumer;
 
