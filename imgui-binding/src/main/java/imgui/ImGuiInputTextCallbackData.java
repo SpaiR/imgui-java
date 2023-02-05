@@ -14,7 +14,7 @@ import imgui.binding.ImGuiStruct;
  * - ImGuiInputTextFlags_CallbackResize:      Callback on buffer capacity changes request (beyond 'buf_size' parameter value), allowing the string to grow.<p>
  */
 public class ImGuiInputTextCallbackData extends ImGuiStruct {
-    public ImGuiInputTextCallbackData(long ptr) {
+    public ImGuiInputTextCallbackData(final long ptr) {
         super(ptr);
     }
 
