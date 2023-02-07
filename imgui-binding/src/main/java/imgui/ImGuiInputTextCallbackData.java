@@ -25,7 +25,8 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
      */
 
     /**
-     *  One ImGuiInputTextFlags_Callback*
+     * One ImGuiInputTextFlags_Callback*
+     *
      * @return ImGuiInputTextFlags
      */
     public native int getEventFlag(); /*
@@ -34,6 +35,7 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     /**
      * What user passed to InputText()
+     *
      * @return ImGuiInputTextFlags
      */
     public native int getFlags(); /*
@@ -42,6 +44,7 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     /**
      * [CharFilter] Character input;
+     *
      * @return Character input
      */
     public native int getEventChar(); /*
@@ -50,14 +53,25 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     /**
      * [CharFilter] Replace character with another one, or set to zero to drop. return 1 is equivalent to setting EventChar=0;
+     *
      * @param c Replaced characters
      */
-    public native void setEventChar(char c); /*
+    public void setEventChar(final char c) {
+        setEventChar((int) c);
+    }
+
+    /**
+     * [CharFilter] Replace character with another one, or set to zero to drop. return 1 is equivalent to setting EventChar=0;
+     *
+     * @param c Replaced characters
+     */
+    public native void setEventChar(int c); /*
         IMGUI_CALLBACK_DATA->EventChar = c;
     */
 
     /**
      * [Completion,History]
+     *
      * @return Key pressed (Up/Down/TAB)
      */
     public native int getEventKey(); /*
@@ -67,6 +81,7 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
     /**
      * [Resize] Can replace pointer <p>
      * [Completion,History,Always] Only write to pointed data, don't replace the actual pointer!
+     *
      * @return Buf
      */
     public native String getBuf(); /*
@@ -75,6 +90,7 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     /**
      * Set if you modify Buf/BufTextLen!
+     *
      * @return Dirty
      */
     public native boolean getBufDirty(); /*
@@ -83,6 +99,7 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     /**
      * Set if you modify Buf/BufTextLen!
+     *
      * @param dirty Dirty
      */
     public native void setBufDirty(boolean dirty); /*
@@ -91,6 +108,7 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     /**
      * Current cursor position
+     *
      * @return Current cursor position
      */
     public native int getCursorPos(); /*
@@ -99,6 +117,7 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     /**
      * Set the current cursor position
+     *
      * @param pos Set the current cursor position
      */
     public native void setCursorPos(int pos); /*
@@ -107,6 +126,7 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     /**
      * Selection Start
+     *
      * @return Selection Start
      */
     public native int getSelectionStart(); /*
@@ -115,6 +135,7 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     /**
      * Set Selection Start
+     *
      * @param pos Selection Start
      */
     public native void setSelectionStart(int pos); /*
@@ -123,6 +144,7 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     /**
      * Selection End
+     *
      * @return Selection End
      */
     public native int getSelectionEnd(); /*
@@ -131,6 +153,7 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     /**
      * Set Selection End
+     *
      * @param pos Selection End
      */
     public native void setSelectionEnd(int pos); /*
@@ -139,7 +162,8 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     /**
      * Delete Chars
-     * @param pos Start Delete Pos
+     *
+     * @param pos        Start Delete Pos
      * @param bytesCount Delete Char Count
      */
     public native void deleteChars(int pos, int bytesCount); /*
@@ -148,8 +172,9 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     /**
      * Insert Chars
-     * @param pos Insert Pos
-     * @param str Insert String
+     *
+     * @param pos insert Psos
+     * @param str insert String
      */
     public native void insertChars(int pos, String str); /*
         IMGUI_CALLBACK_DATA->InsertChars(pos, str);

@@ -2996,7 +2996,6 @@ public class ImGui {
         jfieldID inputDataIsResizedID;
 
 
-
         struct InputTextCallbackUserData {
             JNIEnv* env;
             jobject* imString;
@@ -3056,16 +3055,16 @@ public class ImGui {
         jclass jImString = env->FindClass("imgui/type/ImString");
         jImStringResizeInternalMID = env->GetMethodID(jImString, "resizeInternal", "(I)[B");
 
-        jclass jcallback = env->FindClass("imgui/callback/ImGuiInputTextCallback");
-        jInputTextCallbackMID = env->GetMethodID(jcallback, "nAccept", "(J)V");
+        jclass jCallback = env->FindClass("imgui/callback/ImGuiInputTextCallback");
+        jInputTextCallbackMID = env->GetMethodID(jCallback, "accept", "(J)V");
     */
 
     public static boolean inputText(String label, ImString text) {
-        return preInputText(false, label, null, text, 0, 0, ImGuiInputTextFlags.None, null);
+        return preInputText(false, label, null, text);
     }
 
     public static boolean inputText(String label, ImString text, int imGuiInputTextFlags) {
-        return preInputText(false, label, null, text, 0, 0, imGuiInputTextFlags, null);
+        return preInputText(false, label, null, text, 0, 0, imGuiInputTextFlags);
     }
 
     public static boolean inputText(String label, ImString text, int imGuiInputTextFlags, ImGuiInputTextCallback callback) {
@@ -3073,15 +3072,15 @@ public class ImGui {
     }
 
     public static boolean inputTextMultiline(String label, ImString text) {
-        return preInputText(true, label, null, text, 0, 0, ImGuiInputTextFlags.None, null);
+        return preInputText(true, label, null, text);
     }
 
     public static boolean inputTextMultiline(String label, ImString text, float width, float height) {
-        return preInputText(true, label, null, text, width, height, ImGuiInputTextFlags.None, null);
+        return preInputText(true, label, null, text, width, height);
     }
 
     public static boolean inputTextMultiline(String label, ImString text, int imGuiInputTextFlags) {
-        return preInputText(true, label, null, text, 0, 0, imGuiInputTextFlags, null);
+        return preInputText(true, label, null, text, 0, 0, imGuiInputTextFlags);
     }
 
     public static boolean inputTextMultiline(String label, ImString text, int imGuiInputTextFlags, ImGuiInputTextCallback callback) {
@@ -3089,7 +3088,7 @@ public class ImGui {
     }
 
     public static boolean inputTextMultiline(String label, ImString text, float width, float height, int imGuiInputTextFlags) {
-        return preInputText(true, label, null, text, width, height, imGuiInputTextFlags, null);
+        return preInputText(true, label, null, text, width, height, imGuiInputTextFlags);
     }
 
     public static boolean inputTextMultiline(String label, ImString text, float width, float height, int imGuiInputTextFlags, ImGuiInputTextCallback callback) {
@@ -3097,11 +3096,23 @@ public class ImGui {
     }
 
     public static boolean inputTextWithHint(String label, String hint, ImString text) {
-        return preInputText(false, label, hint, text, 0, 0, ImGuiInputTextFlags.None, null);
+        return preInputText(false, label, hint, text);
     }
 
     public static boolean inputTextWithHint(String label, String hint, ImString text, int imGuiInputTextFlags) {
-        return preInputText(false, label, hint, text, 0, 0, imGuiInputTextFlags, null);
+        return preInputText(false, label, hint, text, 0, 0, imGuiInputTextFlags);
+    }
+
+    private static boolean preInputText(boolean multiline, String label, String hint, ImString text) {
+        return preInputText(multiline, label, hint, text, 0, 0);
+    }
+
+    private static boolean preInputText(boolean multiline, String label, String hint, ImString text, float width, float height) {
+        return preInputText(multiline, label, hint, text, width, height, ImGuiInputTextFlags.None);
+    }
+
+    private static boolean preInputText(boolean multiline, String label, String hint, ImString text, float width, float height, int flags) {
+        return preInputText(multiline, label, hint, text, width, height, flags, null);
     }
 
     private static boolean preInputText(boolean multiline, String label, String hint, ImString text, float width, float height, int flags, ImGuiInputTextCallback callback) {
@@ -3135,8 +3146,6 @@ public class ImGui {
         userData.handler = &callback;
 
         bool valueChanged;
-
-        // TestBuild
 
         if (multiline) {
             valueChanged = ImGui::InputTextMultiline(label, buf, maxSize, ImVec2(width, height), flags, &TextEditCallbackStub, &userData);

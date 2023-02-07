@@ -71,7 +71,7 @@ public class Extra {
             ExampleCanvasEditor.show(SHOW_IMGUI_CANVAS_EDITOR_WINDOW);
         }
 
-        if(SHOW_IMGUI_INPUT_CALLBACK_WINDOW.get()) {
+        if (SHOW_IMGUI_INPUT_CALLBACK_WINDOW.get()) {
             ExampleInputTextCallback.show(SHOW_IMGUI_INPUT_CALLBACK_WINDOW);
         }
     }
