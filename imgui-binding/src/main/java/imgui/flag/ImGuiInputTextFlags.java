@@ -86,4 +86,8 @@ public final class ImGuiInputTextFlags {
      * You will be provided a new BufSize in the callback and NEED to honor it. (see misc/cpp/imgui_stdlib.h for an example of using this)
      */
     public static final int CallbackResize = 1 << 18;
+    /**
+     * Callback on any edit (note that InputText() already returns true on edit, the callback is useful mainly to manipulate the underlying buffer while focus is active).
+     */
+    public static final int CallbackEdit = 1 << 19;
 }

@@ -1,6 +1,7 @@
 package imgui;
 
 import imgui.assertion.ImAssertCallback;
+import imgui.callback.ImGuiInputTextCallback;
 import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiDragDropFlags;
 import imgui.flag.ImGuiInputTextFlags;
@@ -2988,10 +2989,12 @@ public class ImGui {
 
     /*JNI
         jmethodID jImStringResizeInternalMID;
+        jmethodID jInputTextCallbackMID;
 
         jfieldID inputDataSizeID;
         jfieldID inputDataIsDirtyID;
         jfieldID inputDataIsResizedID;
+
 
         struct InputTextCallbackUserData {
             JNIEnv* env;
@@ -3001,6 +3004,7 @@ public class ImGui {
             char* resizedBuf;
             jobject* textInputData;
             char* allowedChars;
+            jobject* handler;
         };
 
         static int TextEditCallbackStub(ImGuiInputTextCallbackData* data) {
@@ -3033,6 +3037,11 @@ public class ImGui {
                 }
             }
 
+            if (userData->handler != NULL) {
+                JNIEnv* env = userData->env;
+                env->CallObjectMethod(*userData->handler, jInputTextCallbackMID, data);
+            }
+
             return 0;
         }
     */
@@ -3045,41 +3054,68 @@ public class ImGui {
 
         jclass jImString = env->FindClass("imgui/type/ImString");
         jImStringResizeInternalMID = env->GetMethodID(jImString, "resizeInternal", "(I)[B");
+
+        jclass jCallback = env->FindClass("imgui/callback/ImGuiInputTextCallback");
+        jInputTextCallbackMID = env->GetMethodID(jCallback, "accept", "(J)V");
     */
 
     public static boolean inputText(String label, ImString text) {
-        return preInputText(false, label, null, text, 0, 0, ImGuiInputTextFlags.None);
+        return preInputText(false, label, null, text);
     }
 
     public static boolean inputText(String label, ImString text, int imGuiInputTextFlags) {
         return preInputText(false, label, null, text, 0, 0, imGuiInputTextFlags);
     }
 
+    public static boolean inputText(String label, ImString text, int imGuiInputTextFlags, ImGuiInputTextCallback callback) {
+        return preInputText(false, label, null, text, 0, 0, imGuiInputTextFlags, callback);
+    }
+
     public static boolean inputTextMultiline(String label, ImString text) {
-        return preInputText(true, label, null, text, 0, 0, ImGuiInputTextFlags.None);
+        return preInputText(true, label, null, text);
     }
 
     public static boolean inputTextMultiline(String label, ImString text, float width, float height) {
-        return preInputText(true, label, null, text, width, height, ImGuiInputTextFlags.None);
+        return preInputText(true, label, null, text, width, height);
     }
 
     public static boolean inputTextMultiline(String label, ImString text, int imGuiInputTextFlags) {
         return preInputText(true, label, null, text, 0, 0, imGuiInputTextFlags);
     }
 
+    public static boolean inputTextMultiline(String label, ImString text, int imGuiInputTextFlags, ImGuiInputTextCallback callback) {
+        return preInputText(true, label, null, text, 0, 0, imGuiInputTextFlags, callback);
+    }
+
     public static boolean inputTextMultiline(String label, ImString text, float width, float height, int imGuiInputTextFlags) {
         return preInputText(true, label, null, text, width, height, imGuiInputTextFlags);
     }
 
+    public static boolean inputTextMultiline(String label, ImString text, float width, float height, int imGuiInputTextFlags, ImGuiInputTextCallback callback) {
+        return preInputText(true, label, null, text, width, height, imGuiInputTextFlags, callback);
+    }
+
     public static boolean inputTextWithHint(String label, String hint, ImString text) {
-        return preInputText(false, label, hint, text, 0, 0, ImGuiInputTextFlags.None);
+        return preInputText(false, label, hint, text);
     }
 
     public static boolean inputTextWithHint(String label, String hint, ImString text, int imGuiInputTextFlags) {
         return preInputText(false, label, hint, text, 0, 0, imGuiInputTextFlags);
     }
 
+    private static boolean preInputText(boolean multiline, String label, String hint, ImString text) {
+        return preInputText(multiline, label, hint, text, 0, 0);
+    }
+
+    private static boolean preInputText(boolean multiline, String label, String hint, ImString text, float width, float height) {
+        return preInputText(multiline, label, hint, text, width, height, ImGuiInputTextFlags.None);
+    }
+
     private static boolean preInputText(boolean multiline, String label, String hint, ImString text, float width, float height, int flags) {
+        return preInputText(multiline, label, hint, text, width, height, flags, null);
+    }
+
+    private static boolean preInputText(boolean multiline, String label, String hint, ImString text, float width, float height, int flags, ImGuiInputTextCallback callback) {
         final ImString.InputData inputData = text.inputData;
 
         if (inputData.isResizable) {
@@ -3095,10 +3131,10 @@ public class ImGui {
             hintLabel = "";
         }
 
-        return nInputText(multiline, hint != null, label, hintLabel, text, text.getData(), text.getData().length, width, height, flags, inputData, inputData.allowedChars);
+        return nInputText(multiline, hint != null, label, hintLabel, text, text.getData(), text.getData().length, width, height, flags, inputData, inputData.allowedChars, callback);
     }
 
-    private static native boolean nInputText(boolean multiline, boolean hint, String label, String hintLabel, ImString imString, byte[] buf, int maxSize, float width, float height, int flags, ImString.InputData textInputData, String allowedChars); /*
+    private static native boolean nInputText(boolean multiline, boolean hint, String label, String hintLabel, ImString imString, byte[] buf, int maxSize, float width, float height, int flags, ImString.InputData textInputData, String allowedChars, ImGuiInputTextCallback callback); /*
         InputTextCallbackUserData userData;
         userData.imString = &imString;
         userData.maxSize = maxSize;
@@ -3107,6 +3143,7 @@ public class ImGui {
         userData.textInputData = &textInputData;
         userData.env = env;
         userData.allowedChars = allowedChars;
+        userData.handler = &callback;
 
         bool valueChanged;
 

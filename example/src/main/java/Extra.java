@@ -13,6 +13,7 @@ public class Extra {
     private static final ImBoolean SHOW_IMGUI_FILE_DIALOG_WINDOW = new ImBoolean(false);
     private static final ImBoolean SHOW_IMGUI_MEMORY_EDITOR_WINDOW = new ImBoolean(false);
     private static final ImBoolean SHOW_IMGUI_CANVAS_EDITOR_WINDOW = new ImBoolean(false);
+    private static final ImBoolean SHOW_IMGUI_INPUT_CALLBACK_WINDOW = new ImBoolean(false);
 
     private static final Graph GRAPH = new Graph();
 
@@ -28,6 +29,7 @@ public class Extra {
         ImGui.checkbox("Show ImGuiFileDialog Demo Window", SHOW_IMGUI_FILE_DIALOG_WINDOW);
         ImGui.checkbox("Show ImGui MemoryEditor Demo Window", SHOW_IMGUI_MEMORY_EDITOR_WINDOW);
         ImGui.checkbox("Show ImGui Canvas Demo Window", SHOW_IMGUI_CANVAS_EDITOR_WINDOW);
+        ImGui.checkbox("Show Imgui InputText Callback Window", SHOW_IMGUI_INPUT_CALLBACK_WINDOW);
 
         if (SHOW_DEMO_WINDOW.get()) {
             ImGui.showDemoWindow(SHOW_DEMO_WINDOW);
@@ -67,6 +69,10 @@ public class Extra {
 
         if (SHOW_IMGUI_CANVAS_EDITOR_WINDOW.get()) {
             ExampleCanvasEditor.show(SHOW_IMGUI_CANVAS_EDITOR_WINDOW);
+        }
+
+        if (SHOW_IMGUI_INPUT_CALLBACK_WINDOW.get()) {
+            ExampleInputTextCallback.show(SHOW_IMGUI_INPUT_CALLBACK_WINDOW);
         }
     }
 }
