@@ -35,7 +35,7 @@ cc7fa0c44d9e29152d0daa98f33dcbaca40c2905  imgui-binding/src/main/java/imgui/flag
 0bf24ffb2f866d2c39cd09613221041b32b0d9de  imgui-binding/src/main/java/imgui/flag/ImGuiConfigFlags.java
 fbc4da75a042b92d932fa33e23e810694bd9de50  imgui-binding/src/main/java/imgui/flag/ImGuiCond.java
 e8ad9c463f84e2c4114812a51e29a6532920b811  imgui-binding/src/main/java/imgui/flag/ImGuiTabItemFlags.java
-1cf4f701034dc89eda227b4daf0c816bc207b294  imgui-binding/src/main/java/imgui/flag/ImGuiInputTextFlags.java
+0e41a3b0075f366dc68fdfd9c8c6e03e8619e34b  imgui-binding/src/main/java/imgui/flag/ImGuiInputTextFlags.java
 1fb3c88bd67ccff92a819238458b4e40986f0451  imgui-binding/src/main/java/imgui/flag/ImGuiDragDropFlags.java
 ef785a6b3d150ce55f7e76862613d38ad1222f1c  imgui-binding/src/main/java/imgui/flag/ImGuiMouseCursor.java
 748a1b46ed7f2e122612230e3c6ddfff7fa6ad96  imgui-binding/src/main/java/imgui/flag/ImGuiStyleVar.java
@@ -133,15 +133,17 @@ b569f7c5d3f18c6912271208dac92f8756606678  imgui-binding/src/main/java/imgui/ImFo
 da23c429ca5d187d897254dbfa8667a7bc42f03f  imgui-binding/src/main/java/imgui/callback/ImPlatformFuncViewportFloat.java
 5e85edbef6ed664a5c3d1c012fccc394a11a4db5  imgui-binding/src/main/java/imgui/callback/ImPlatformFuncViewportSuppImVec2.java
 9313a23686de8e42891b20a20da1c0dfe08a2dec  imgui-binding/src/main/java/imgui/callback/ImPlatformFuncViewport.java
+0524d1252793d8ac62abd760f76169fc5daf8766  imgui-binding/src/main/java/imgui/callback/ImGuiInputTextCallback.java
 edf6350a062c899e4eea0b1e5cf40fc31b208265  imgui-binding/src/main/java/imgui/callback/ImStrConsumer.java
 7ef829868f2466cce9bee83553ad16e69ea3bdfc  imgui-binding/src/main/java/imgui/callback/ImPlatformFuncViewportSuppBoolean.java
 1efce30b9442dd8e04bd7953e018ae744a0d6b23  imgui-binding/src/main/java/imgui/callback/ImPlatformFuncViewportImVec2.java
 ae803d26bd4c8c5a57460147014c96013e8a77a6  imgui-binding/src/main/java/imgui/callback/ImStrSupplier.java
 3799e554b90b5537e06f34379ecd97102e84c9f0  imgui-binding/src/main/java/imgui/callback/ImListClipperCallback.java
 e8a97ce01e03a5e01c0824d5c9217bac30987b2e  imgui-binding/src/main/java/imgui/ImDrawList.java
+557a7d9f185646bef28a8e4bb19278ba56379ab6  imgui-binding/src/main/java/imgui/ImGuiInputTextCallbackData.java
 8f13cd9a050fdd5cbbf46d0c535dc87e6f949293  imgui-binding/src/main/java/imgui/ImGuiListClipper.java
 17fc9bcee006e1b029d0948e27003aff44d4e905  imgui-binding/src/main/java/imgui/ImGuiStyle.java
-1f1bbf68e4f80871b3a0ffb772707dd1f5941210  imgui-binding/src/main/java/imgui/ImGui.java
+4114b93419026f805e74078ef6a16abe6e719c88  imgui-binding/src/main/java/imgui/ImGui.java
 47a690530a965c51ea580cd7b9760b55836ab4f3  imgui-binding/src/main/java/imgui/assertion/ImAssertCallback.java
 c936b4904bf3f636c3458c32497790b3b73b2efc  imgui-binding/src/main/java/imgui/ImFontConfig.java
 4c4192df50d3dc3a65d30ff44ca838ac138b5a97  imgui-binding/src/main/java/imgui/ImFontAtlas.java
