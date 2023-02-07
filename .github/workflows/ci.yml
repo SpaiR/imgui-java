@@ -98,7 +98,7 @@ jobs:
 
   update-bin:
     name: Update Binaries
-    if: github.ref == 'refs/heads/main' # runs only on the main branch
+    if: github.ref == 'refs/heads/main' && !github.event.repository.fork # runs only on the main branch and not forks (sometimes people do PRs from the main branch)
     runs-on: ubuntu-latest
     needs: build-natives
     steps:
