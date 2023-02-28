@@ -1,6 +1,6 @@
 package imgui.type;
 
-public final class ImLong implements Cloneable, Comparable<ImLong> {
+public final class ImLong extends Number implements Cloneable, Comparable<ImLong> {
     private final long[] data = new long[]{0};
 
     public ImLong() {
@@ -61,5 +61,25 @@ public final class ImLong implements Cloneable, Comparable<ImLong> {
     @Override
     public int compareTo(final ImLong o) {
         return Long.compare(get(), o.get());
+    }
+
+    @Override
+    public int intValue() {
+        return (int) get();
+    }
+
+    @Override
+    public long longValue() {
+        return get();
+    }
+
+    @Override
+    public float floatValue() {
+        return (float) get();
+    }
+
+    @Override
+    public double doubleValue() {
+        return (double) get();
     }
 }

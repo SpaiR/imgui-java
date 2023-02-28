@@ -1,6 +1,6 @@
 package imgui.type;
 
-public final class ImFloat implements Cloneable, Comparable<ImFloat> {
+public final class ImFloat extends Number implements Cloneable, Comparable<ImFloat> {
     private final float[] data = new float[]{0};
 
     public ImFloat() {
@@ -61,5 +61,25 @@ public final class ImFloat implements Cloneable, Comparable<ImFloat> {
     @Override
     public int compareTo(final ImFloat o) {
         return Float.compare(get(), o.get());
+    }
+
+    @Override
+    public int intValue() {
+        return (int) get();
+    }
+
+    @Override
+    public long longValue() {
+        return (long) get();
+    }
+
+    @Override
+    public float floatValue() {
+        return get();
+    }
+
+    @Override
+    public double doubleValue() {
+        return get();
     }
 }
