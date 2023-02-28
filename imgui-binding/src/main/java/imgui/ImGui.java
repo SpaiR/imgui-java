@@ -3103,6 +3103,10 @@ public class ImGui {
         return preInputText(false, label, hint, text, 0, 0, imGuiInputTextFlags);
     }
 
+    public static boolean inputTextWithHint(String label, String hint, ImString text, int imGuiInputTextFlags, ImGuiInputTextCallback callback) {
+        return preInputText(false, label, hint, text, 0, 0, imGuiInputTextFlags, callback);
+    }
+
     private static boolean preInputText(boolean multiline, String label, String hint, ImString text) {
         return preInputText(multiline, label, hint, text, 0, 0);
     }
