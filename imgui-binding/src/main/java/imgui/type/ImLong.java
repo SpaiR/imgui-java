@@ -1,6 +1,6 @@
 package imgui.type;
 
-public final class ImLong implements Cloneable {
+public final class ImLong implements Cloneable, Comparable<ImLong> {
     private final long[] data = new long[]{0};
 
     public ImLong() {
@@ -53,7 +53,13 @@ public final class ImLong implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public ImLong clone() {
         return new ImLong(this);
+    }
+
+    @Override
+    public int compareTo(final ImLong o) {
+        return Long.compare(get(), o.get());
     }
 }

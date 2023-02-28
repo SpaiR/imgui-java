@@ -1,6 +1,6 @@
 package imgui.type;
 
-public final class ImInt implements Cloneable {
+public final class ImInt implements Cloneable, Comparable<ImInt> {
     private final int[] data = new int[]{0};
 
     public ImInt() {
@@ -53,7 +53,13 @@ public final class ImInt implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public ImInt clone() {
         return new ImInt(this);
+    }
+
+    @Override
+    public int compareTo(final ImInt o) {
+        return Integer.compare(get(), o.get());
     }
 }

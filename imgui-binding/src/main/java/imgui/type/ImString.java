@@ -4,9 +4,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * Wrapper for {@link String} to use inside of th Dear ImGui input widgets.
+ * Wrapper for {@link String} to use inside th Dear ImGui input widgets.
  */
-public final class ImString implements Cloneable {
+public final class ImString implements Cloneable, Comparable<ImString> {
     /**
      * Default size of the inner buffer, if {@link ImString} created with a constructor without args.
      */
@@ -17,8 +17,8 @@ public final class ImString implements Cloneable {
     public static final short CARET_LEN = 1;
 
     /**
-     * Configuration class to setup some specific behaviour for current string.
-     * This is useful when string used inside of ImGui#InputText*() methods.
+     * Configuration class to set up some specific behaviour for current string.
+     * This is useful when string used inside ImGui#InputText*() methods.
      */
     public final InputData inputData = new InputData();
 
@@ -32,6 +32,7 @@ public final class ImString implements Cloneable {
         this(DEFAULT_LENGTH);
     }
 
+    @SuppressWarnings("CopyConstructorMissesField")
     public ImString(final ImString imString) {
         this(imString.text, imString.data.length);
         this.inputData.allowedChars = imString.inputData.allowedChars;
@@ -44,6 +45,7 @@ public final class ImString implements Cloneable {
 
     /**
      * Creates an {@link ImString} instance with provided size for the inner buffer.
+     *
      * @param length size of the inner buffer to use
      */
     public ImString(final int length) {
@@ -53,6 +55,7 @@ public final class ImString implements Cloneable {
     /**
      * Creates an {@link ImString} instance from provided string.
      * Inner buffer size will be equal to the length of the string + {@link ImString#CARET_LEN}.
+     *
      * @param text string to create a new {@link ImString}
      */
     public ImString(final String text) {
@@ -61,7 +64,8 @@ public final class ImString implements Cloneable {
 
     /**
      * Create an {@link ImString} instance from provided string with custom size for the inner buffer.
-     * @param text string to a create a new {@link ImString}
+     *
+     * @param text   string to a creation a new {@link ImString}
      * @param length custom size for the inner buffer
      */
     public ImString(final String text, final int length) {
@@ -140,8 +144,9 @@ public final class ImString implements Cloneable {
     }
 
     /**
-     * Get the length of the text inside of the data buffer.
-     * @return length of the text inside of the data buffer
+     * Get the length of the text inside the data buffer.
+     *
+     * @return length of the text inside the data buffer
      */
     public int getLength() {
         return get().length();
@@ -149,6 +154,7 @@ public final class ImString implements Cloneable {
 
     /**
      * Get the size of the data buffer. Buffer size will always have '+1' to its size, since it's used by the Dear ImGui to draw a caret char.
+     *
      * @return size of the data buffer
      */
     public int getBufferSize() {
@@ -156,14 +162,14 @@ public final class ImString implements Cloneable {
     }
 
     /**
-     * @return true if the length of the text inside of the data buffer is 0
+     * @return true if the length of the text inside the data buffer is 0
      */
     public boolean isEmpty() {
         return getLength() == 0;
     }
 
     /**
-     * @return true if the length of the text inside of the data buffer is not 0
+     * @return true if the length of the text inside the data buffer is not 0
      */
     public boolean isNotEmpty() {
         return !isEmpty();
@@ -199,8 +205,14 @@ public final class ImString implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public ImString clone() {
         return new ImString(this);
+    }
+
+    @Override
+    public int compareTo(final ImString o) {
+        return get().compareTo(o.get());
     }
 
     /**
@@ -216,7 +228,7 @@ public final class ImString implements Cloneable {
         public String allowedChars = "";
 
         /**
-         * If true, then string will be resized during the the {@link imgui.ImGui#inputText} and {@link imgui.ImGui#inputTextMultiline} methods.
+         * If true, then string will be resized during the {@link imgui.ImGui#inputText} and {@link imgui.ImGui#inputTextMultiline} methods.
          * Alternatively you can provide {@link imgui.flag.ImGuiInputTextFlags#CallbackResize} flag to the input text widgets to enable string resizing.
          * Resize factor of the string could be modified by changing {@link #resizeFactor} field.
          */

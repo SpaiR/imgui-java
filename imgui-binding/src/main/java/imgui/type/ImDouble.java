@@ -1,6 +1,6 @@
 package imgui.type;
 
-public final class ImDouble implements Cloneable {
+public final class ImDouble implements Cloneable, Comparable<ImDouble> {
     private final double[] data = new double[]{0.0d};
 
     public ImDouble() {
@@ -53,7 +53,13 @@ public final class ImDouble implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public ImDouble clone() {
         return new ImDouble(this);
+    }
+
+    @Override
+    public int compareTo(final ImDouble o) {
+        return Double.compare(get(), o.get());
     }
 }

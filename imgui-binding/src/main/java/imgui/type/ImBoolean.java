@@ -1,6 +1,6 @@
 package imgui.type;
 
-public final class ImBoolean implements Cloneable {
+public final class ImBoolean implements Cloneable, Comparable<ImBoolean> {
     private final boolean[] data = new boolean[]{false};
 
     public ImBoolean() {
@@ -53,7 +53,13 @@ public final class ImBoolean implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public ImBoolean clone() {
         return new ImBoolean(this);
+    }
+
+    @Override
+    public int compareTo(final ImBoolean o) {
+        return Boolean.compare(get(), o.get());
     }
 }

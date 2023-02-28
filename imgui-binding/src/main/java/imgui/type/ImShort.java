@@ -1,6 +1,6 @@
 package imgui.type;
 
-public final class ImShort implements Cloneable {
+public final class ImShort implements Cloneable, Comparable<ImShort> {
     private final short[] data = new short[]{0};
 
     public ImShort() {
@@ -53,7 +53,13 @@ public final class ImShort implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public ImShort clone() {
         return new ImShort(this);
+    }
+
+    @Override
+    public int compareTo(final ImShort o) {
+        return Short.compare(get(), o.get());
     }
 }
