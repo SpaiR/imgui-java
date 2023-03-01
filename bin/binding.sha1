@@ -77,7 +77,7 @@ e8a97ce01e03a5e01c0824d5c9217bac30987b2e  imgui-binding/src/main/java/imgui/ImDr
 ee09208e3184959005089a6ce5c735153bced0d9  imgui-binding/src/main/java/imgui/ImGuiStorage.java
 c902069596a551954b31ba7786060f92b460bce1  imgui-binding/src/main/java/imgui/binding/ImGuiStruct.java
 171b6e4e7eeb969c07b86f2ed532955d05705139  imgui-binding/src/main/java/imgui/binding/ImGuiStructDestroyable.java
-a15d2603f9ee8d8ccaf02231019f868917634b2c  imgui-binding/src/main/java/imgui/ImGui.java
+37213cf5bbba24168a49fff4bbf00a5ca136b576  imgui-binding/src/main/java/imgui/ImGui.java
 9222983cba4066cc4ce895e07843f7640192cbb4  imgui-binding/src/main/java/imgui/ImGuiPlatformIO.java
 43554abaa66ee1568ea24c5ee60f51851c6a2674  imgui-binding/src/main/java/imgui/ImVec4.java
 eef0a85392267eb9c7b261fdf0ba3c7ef5312f19  imgui-binding/src/main/java/imgui/lwjgl3/glfw/ImGuiImplGlfwNative.java
