@@ -3147,7 +3147,7 @@ public class ImGui {
         userData.textInputData = &textInputData;
         userData.env = env;
         userData.allowedChars = allowedChars;
-        userData.handler = &callback;
+        userData.handler = callback != NULL ? &callback : NULL;
 
         bool valueChanged;
 
