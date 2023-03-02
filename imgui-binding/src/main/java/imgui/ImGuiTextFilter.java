@@ -60,4 +60,12 @@ public final class ImGuiTextFilter extends ImGuiStructDestroyable {
     public native boolean isActive(); /*
         return IMGUI_TEXT_FILTER->IsActive();
     */
+
+    public native String getInputBuffer(); /*
+        return env->NewStringUTF(IMGUI_TEXT_FILTER->InputBuf);
+    */
+
+    public native void setInputBuffer(String inputBuffer); /*
+        strncpy(IMGUI_TEXT_FILTER->InputBuf, inputBuffer, sizeof(IMGUI_TEXT_FILTER->InputBuf));
+    */
 }
