@@ -151,6 +151,6 @@ f8b17599e5a81c141e80dd84038f3333b6864c3e  imgui-binding/src/main/java/imgui/exte
 4c8f340983078277ea835e43a918570ebbee30a6  imgui-binding/src/main/java/imgui/extension/memedit/MemoryEditorSizes.java
 9658e62235c6fff070cc123c08f067848334635a  imgui-binding/src/main/java/imgui/ImGuiPlatformMonitor.java
 17fc9bcee006e1b029d0948e27003aff44d4e905  imgui-binding/src/main/java/imgui/ImGuiStyle.java
-69d7f7e63fd21bee9222c28330997e1328b0a8e9  imgui-binding/src/main/java/imgui/ImGuiTextFilter.java
+256afe70e8cf28fcc47cea380da8551bbf1a516c  imgui-binding/src/main/java/imgui/ImGuiTextFilter.java
 b569f7c5d3f18c6912271208dac92f8756606678  imgui-binding/src/main/java/imgui/ImFont.java
 b246cf774dd5ea87b366e6185025aefc1cd1824d  imgui-binding/src/main/java/imgui/ImDrawData.java
