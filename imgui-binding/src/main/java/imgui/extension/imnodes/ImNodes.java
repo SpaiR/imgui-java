@@ -95,6 +95,10 @@ public final class ImNodes {
         ImNodes::PushStyleVar((ImNodesStyleVar)imNodesStyleVar, value);
     */
 
+    public static native void pushStyleVar(int imNodesStyleVar, float x, float y); /*
+        ImNodes::PushStyleVar((ImNodesStyleVar)imNodesStyleVar, ImVec2(x, y));
+    */
+
     public static native void popStyleVar(); /*
         ImNodes::PopStyleVar();
     */
