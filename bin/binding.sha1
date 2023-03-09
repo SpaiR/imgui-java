@@ -109,12 +109,12 @@ d1153eedea2f10efb74b0c976b1ece360973e4a5  imgui-binding/src/main/java/imgui/inte
 0862524f986f66acc1643c959d6b122aa69671d3  imgui-binding/src/main/java/imgui/extension/texteditor/flag/TextEditorSelectionMode.java
 a349b61218225237d3269c5a6f7f8e825bc741fd  imgui-binding/src/main/java/imgui/extension/texteditor/flag/TextEditorPaletteIndex.java
 852e003ff311efef30f841adb72430852ce5510f  imgui-binding/src/main/java/imgui/extension/texteditor/TextEditor.java
-1db1443f2aae96e83fe4eb1d917951153a4d7d34  imgui-binding/src/main/java/imgui/extension/imnodes/ImNodes.java
+6215c059a5d66f532dcebf078731c27369d3c394  imgui-binding/src/main/java/imgui/extension/imnodes/ImNodes.java
 ee4f73eb1faf77fdb0c550d7d1af2cfb6963f9e5  imgui-binding/src/main/java/imgui/extension/imnodes/flag/ImNodesAttributeFlags.java
 d19bdbe2375ef17c7a97c4f943f401e400bc7090  imgui-binding/src/main/java/imgui/extension/imnodes/flag/ImNodesColorStyle.java
 7d55a029801e236b0b5909bdc2500abd1cc78f5d  imgui-binding/src/main/java/imgui/extension/imnodes/flag/ImNodesStyleFlags.java
 42cec2a6a2bb5bbd654f9aadfbe5ad7a843046ac  imgui-binding/src/main/java/imgui/extension/imnodes/flag/ImNodesPinShape.java
-62a5a7954ce98c04b1351868d582ebc3478992b4  imgui-binding/src/main/java/imgui/extension/imnodes/flag/ImNodesStyleVar.java
+918e7f113c8617d03d00f5ac72efda1d2da12b34  imgui-binding/src/main/java/imgui/extension/imnodes/flag/ImNodesStyleVar.java
 f21f2ca3ddae4d2178070fea807648a4d1d4d3d6  imgui-binding/src/main/java/imgui/extension/imnodes/flag/ImNodesMiniMapLocation.java
 a7ab479fff033e47c9fa28ea8cc5a226054faa68  imgui-binding/src/main/java/imgui/extension/imnodes/ImNodesStyle.java
 cce20eabbe9cbb4fdd4b58abf1db1a789ee51868  imgui-binding/src/main/java/imgui/extension/imnodes/ImNodesContext.java
