@@ -120,7 +120,7 @@ jobs:
         run: |
           touch bin/binding.sha1
           cat bin/binding.sha1 > /tmp/hash
-          find imgui-binding/src/main -type f -print0 | xargs -0 sha1sum > bin/binding.sha1
+          find imgui-binding/src/main -type f -print0 | sort -z | xargs -0 sha1sum > bin/binding.sha1
           cmp /tmp/hash bin/binding.sha1
 
       - name: Update
