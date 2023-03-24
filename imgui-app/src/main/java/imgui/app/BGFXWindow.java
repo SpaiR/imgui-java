@@ -20,7 +20,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.Configuration.GLFW_LIBRARY_NAME;
 import static org.lwjgl.system.MemoryStack.stackPush;
 
-public abstract class BGFXWindow {
+public abstract class BGFXWindow extends Application {
     private final ImGuiImplBGFX imGuiBGFX = new ImGuiImplBGFX();
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
 

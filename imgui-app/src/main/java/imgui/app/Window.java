@@ -22,7 +22,7 @@ import java.util.Objects;
  * It's recommended to use {@link Application}, but this class could be extended directly as well.
  * When extended, life-cycle methods should be called manually.
  */
-public abstract class Window {
+public abstract class Window extends Application {
 
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
@@ -44,7 +44,7 @@ public abstract class Window {
      *
      * @param config configuration object with basic window information
      */
-    protected void init(final Configuration config) {
+    public final void init(final Configuration config) {
         initWindow(config);
         initImGui(config);
         imGuiGlfw.init(handle, true);
@@ -54,7 +54,7 @@ public abstract class Window {
     /**
      * Method to dispose all used application resources and destroy its window.
      */
-    protected void dispose() {
+    public final void dispose() {
         imGuiGl3.dispose();
         imGuiGlfw.dispose();
         disposeImGui();

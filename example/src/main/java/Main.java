@@ -2,7 +2,7 @@ import imgui.ImFontConfig;
 import imgui.ImFontGlyphRangesBuilder;
 import imgui.ImGui;
 import imgui.ImGuiIO;
-import imgui.app.Application;
+import imgui.app.BGFXWindow;
 import imgui.app.Configuration;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiInputTextFlags;
@@ -14,7 +14,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class Main extends Application {
+public class Main extends BGFXWindow {
     private final ImString str = new ImString(5);
     private final float[] flt = new float[1];
     private int count = 0;
