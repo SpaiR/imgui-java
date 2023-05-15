@@ -7,7 +7,7 @@ repositories {
 }
 
 ext {
-    jnigenVersion = '2.3.1'
+    jnigenVersion = '2.4.0'
 }
 
 dependencies {
