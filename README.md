@@ -88,6 +88,7 @@ A very simple application may look like this:
 ```
 import imgui.ImGui;
 import imgui.app.Application;
+import imgui.app.Configuration;
 
 public class Main extends Application {
     @Override
