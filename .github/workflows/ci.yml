@@ -90,25 +90,12 @@ jobs:
           sudo make
           sudo make install
 
-      - name: Build Setup Mac xcode
-        if: matrix.os == 'macos-latest'
-        run: |
-          # See https://github.com/actions/virtual-environments/issues/2557
-          sudo mv /Library/Developer/CommandLineTools/SDKs/* /tmp
-          sudo mv /Applications/Xcode.app /Applications/Xcode.app.bak
-          sudo mv /Applications/Xcode_12.4.app /Applications/Xcode.app
-          sudo xcode-select -switch /Applications/Xcode.app
-          /usr/bin/xcodebuild -version
-          sudo mkdir /opt/freetype
-
       - name: FreeType - Install (MacOS)
-        if: matrix.os == 'macos-latest' && matrix.freetype == true
-        working-directory: /opt/freetype
+        if: matrix.os == 'macos-latest' && matrix.type == 'macosarm64' && matrix.freetype == true
         run: |
-          # freetype download and untar and install
-          sudo wget -O freetype.tar.gz ${{ env.FREETYPE_URL }}
-          sudo tar -xzf freetype.tar.gz -C . --strip-components=1
-          
+          sudo mkdir /opt/freetype
+          sudo tar -xzf ./vendor/freetype-2.12.1.tar.gz -C /opt/freetype --strip-components=1
+          cd /opt/freetype
           sudo ./configure CFLAGS="-arch arm64 -arch x86_64" --with-zlib=no --with-bzip2=no --with-png=no --with-harfbuzz=no --with-brotli=no
           sudo make
           sudo make install
@@ -116,6 +103,9 @@ jobs:
 
       - name: Build
         run: ./gradlew imgui-binding:generateLibs -Denvs=${{ matrix.type }} -Dfreetype=${{ matrix.freetype }}
+
+      - name: List Built Files
+        run: find /tmp/imgui/libsNative
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
