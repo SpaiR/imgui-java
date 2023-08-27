@@ -390,7 +390,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
             const ImWchar* ranges = glyphs; \
             int size = 0; \
             for (; ranges[0]; ranges += 2) \
-                size++; \
+                size += 2; \
             jshortArray jShorts = env->NewShortArray(size); \
             env->SetShortArrayRegion(jShorts, 0, size, (jshort*)glyphs); \
             return jShorts;
