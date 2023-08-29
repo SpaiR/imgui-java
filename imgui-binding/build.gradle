@@ -1,5 +1,4 @@
 import tool.generator.GenerateLibs
-import java.nio.file.Files
 
 plugins {
     id 'java'
@@ -37,9 +36,9 @@ jar {
 }
 
 tasks.register('makePropertyResource') {
-    def directory = file "src/main/resources/META-INF"
-    Files.createDirectories(directory.toPath())
-    def propertyFile = file "${project.projectDir}/src/main/resources/META-INF/imgui-java.properties"
+    def directory = file "${buildDir}/resources/main/imgui/"
+    directory.mkdirs()
+    def propertyFile = file "${directory}/imgui-java.properties"
     def props = new Properties()
     if (propertyFile.exists()) {
         propertyFile.withReader { props.load(it) }
