@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.lang.ref.WeakReference;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,7 +28,7 @@ public class ImGui {
     private static final String LIB_PATH_PROP = "imgui.library.path";
     private static final String LIB_NAME_PROP = "imgui.library.name";
     private static final String LIB_NAME_DEFAULT = System.getProperty("os.arch").contains("64") ? "imgui-java64" : "imgui-java";
-    private static final String LIB_TMP_DIR_PREFIX = "imgui-java-natives_" + System.currentTimeMillis();
+    private static final String LIB_TMP_DIR_PREFIX = "imgui-java-natives";
 
     private static final ImGuiContext IMGUI_CONTEXT;
     private static final ImGuiIO IMGUI_IO;
@@ -115,14 +116,21 @@ public class ImGui {
                 return null;
             }
 
-            final Path tmpDir = Paths.get(System.getProperty("java.io.tmpdir")).resolve(LIB_TMP_DIR_PREFIX);
-            tmpDir.toFile().mkdirs();
+            final Path tmpDir = Paths.get(System.getProperty("java.io.tmpdir")).resolve(LIB_TMP_DIR_PREFIX).resolve(ImGui.class.getPackage().getImplementationVersion());
+            if (!Files.exists(tmpDir)) {
+                Files.createDirectories(tmpDir);
+            }
 
             final Path libBin = tmpDir.resolve(fullLibName);
-            Files.copy(is, libBin, StandardCopyOption.REPLACE_EXISTING);
-            libBin.toFile().deleteOnExit();
+            try {
+                Files.copy(is, libBin, StandardCopyOption.REPLACE_EXISTING);
+            } catch(AccessDeniedException e) {
+                if (!Files.exists(libBin)) {
+                    throw e;
+                }
+            }
 
-            return libBin.toFile().getAbsolutePath();
+            return libBin.toAbsolutePath().toString();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
