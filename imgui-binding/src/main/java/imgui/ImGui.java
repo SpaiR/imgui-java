@@ -143,7 +143,7 @@ public class ImGui {
 
     private static String getVersionString() {
         final Properties properties = new Properties();
-        try (InputStream is = ImGui.class.getResourceAsStream("/META-INF/imgui-java.properties")) {
+        try (InputStream is = ImGui.class.getResourceAsStream("/imgui/imgui-java.properties")) {
             if (is != null) {
                 properties.load(is);
                 return properties.get("version").toString();
