@@ -124,7 +124,7 @@ public class ImGui {
             final Path libBin = tmpDir.resolve(fullLibName);
             try {
                 Files.copy(is, libBin, StandardCopyOption.REPLACE_EXISTING);
-            } catch(AccessDeniedException e) {
+            } catch (AccessDeniedException e) {
                 if (!Files.exists(libBin)) {
                     throw e;
                 }
