@@ -1,4 +1,5 @@
 import tool.generator.GenerateLibs
+import java.nio.file.Files
 
 plugins {
     id 'java'
@@ -33,4 +34,20 @@ jar {
     manifest {
         attributes  'Automatic-Module-Name': 'imgui.binding'
     }
+}
+
+tasks.register('makePropertyResource') {
+    def directory = file "src/main/resources/META-INF"
+    Files.createDirectories(directory.toPath())
+    def propertyFile = file "${project.projectDir}/src/main/resources/META-INF/imgui-java.properties"
+    def props = new Properties()
+    if (propertyFile.exists()) {
+        propertyFile.withReader { props.load(it) }
+    }
+    props.setProperty("version", project.version)
+    propertyFile.withWriter { props.store(it, "imgui-java") }
+}
+
+processResources {
+    dependsOn makePropertyResource
 }
