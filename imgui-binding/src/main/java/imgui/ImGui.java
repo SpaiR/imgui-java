@@ -55,10 +55,18 @@ public class ImGui {
 
         if (libPath != null) {
             System.load(Paths.get(libPath).resolve(fullLibName).toFile().getAbsolutePath());
-        } else if (extractedLibAbsPath != null) {
-            System.load(extractedLibAbsPath);
         } else {
-            System.loadLibrary(libName);
+            try {
+                System.loadLibrary(libName);
+            } catch (Exception | Error e) {
+                if (extractedLibAbsPath != null) {
+                    System.out.println("Extract");
+                    System.load(extractedLibAbsPath);
+                    e.printStackTrace();
+                } else {
+                    throw e;
+                }
+            }
         }
 
         IMGUI_CONTEXT = new ImGuiContext(0);
