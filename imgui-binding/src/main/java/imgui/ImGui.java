@@ -51,14 +51,13 @@ public class ImGui {
         final String libName = System.getProperty(LIB_NAME_PROP, LIB_NAME_DEFAULT);
         final String fullLibName = resolveFullLibName();
 
-        final String extractedLibAbsPath = tryLoadFromClasspath(fullLibName);
-
         if (libPath != null) {
-            System.load(Paths.get(libPath).resolve(fullLibName).toFile().getAbsolutePath());
+            System.load(Paths.get(libPath).resolve(fullLibName).toAbsolutePath().toString());
         } else {
             try {
                 System.loadLibrary(libName);
             } catch (Exception | Error e) {
+                final String extractedLibAbsPath = tryLoadFromClasspath(fullLibName);
                 if (extractedLibAbsPath != null) {
                     System.load(extractedLibAbsPath);
                 } else {
