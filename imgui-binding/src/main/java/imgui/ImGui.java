@@ -60,9 +60,7 @@ public class ImGui {
                 System.loadLibrary(libName);
             } catch (Exception | Error e) {
                 if (extractedLibAbsPath != null) {
-                    System.out.println("Extract");
                     System.load(extractedLibAbsPath);
-                    e.printStackTrace();
                 } else {
                     throw e;
                 }
