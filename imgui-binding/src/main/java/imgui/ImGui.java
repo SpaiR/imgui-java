@@ -23,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Optional;
 import java.util.Properties;
 
 public class ImGui {
@@ -122,10 +123,7 @@ public class ImGui {
                 return null;
             }
 
-            String version = getVersionString();
-            if (version == null) {
-                version = "unknown";
-            }
+            final String version = getVersionString().orElse("undefined");
             final Path tmpDir = Paths.get(System.getProperty("java.io.tmpdir")).resolve(LIB_TMP_DIR_PREFIX).resolve(version);
             if (!Files.exists(tmpDir)) {
                 Files.createDirectories(tmpDir);
@@ -146,17 +144,17 @@ public class ImGui {
         }
     }
 
-    private static String getVersionString() {
+    private static Optional<String> getVersionString() {
         final Properties properties = new Properties();
         try (InputStream is = ImGui.class.getResourceAsStream("/imgui/imgui-java.properties")) {
             if (is != null) {
                 properties.load(is);
-                return properties.get("version").toString();
+                return Optional.of(properties.get("imgui.java.version").toString());
             }
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
-        return null;
+        return Optional.empty();
     }
 
     /**

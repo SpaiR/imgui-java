@@ -1,3 +1,4 @@
+import org.apache.tools.ant.filters.ReplaceTokens
 import tool.generator.GenerateLibs
 
 plugins {
@@ -35,18 +36,10 @@ jar {
     }
 }
 
-tasks.register('makePropertyResource') {
-    def directory = file "${buildDir}/resources/main/imgui/"
-    directory.mkdirs()
-    def propertyFile = file "${directory}/imgui-java.properties"
-    def props = new Properties()
-    if (propertyFile.exists()) {
-        propertyFile.withReader { props.load(it) }
-    }
-    props.setProperty("version", project.version)
-    propertyFile.withWriter { props.store(it, "imgui-java") }
-}
-
 processResources {
-    dependsOn makePropertyResource
+    filesMatching('**/imgui-java.properties') {
+        filter(ReplaceTokens, tokens: [
+                'version': project.version
+        ])
+    }
 }
