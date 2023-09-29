@@ -188,7 +188,7 @@ repositories {
 }
 
 ext {
-    lwjglVersion = '3.3.1'
+    lwjglVersion = '3.3.3'
     imguiVersion = "${version}"
 }
 
@@ -361,7 +361,7 @@ Use the same native libraries as you would, but with `-ft` suffix in the end.
     }
     
     ext {
-        lwjglVersion = '3.3.1'
+        lwjglVersion = '3.3.3'
         imguiVersion = "${version}"
     }
     

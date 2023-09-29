@@ -1,7 +1,7 @@
 import java.text.SimpleDateFormat
 
 ext {
-    lwjglVersion = '3.3.2'
+    lwjglVersion = '3.3.3'
 }
 
 allprojects {
