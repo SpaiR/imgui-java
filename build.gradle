@@ -16,6 +16,7 @@ allprojects {
         configureEach {
             from(project.rootDir) {
                 include 'LICENSE'
+                into 'META-INF'
             }
 
             manifest {
