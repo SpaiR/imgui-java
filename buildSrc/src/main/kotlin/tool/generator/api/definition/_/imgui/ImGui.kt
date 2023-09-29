@@ -14,6 +14,7 @@ class ImGui : Definition {
     }
 
     override fun getNodes(): Collection<DefinitionNode> {
+        return emptyList() //TODO: remove to generate nodes for ImGui
         return defines(
             define {
                 line("""
