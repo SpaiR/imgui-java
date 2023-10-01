@@ -17,8 +17,8 @@ ext.configurePublishing = { packageName, packageDesc, packageVersion ->
                 def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
                 url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
                 credentials {
-                    username = System.getenv('NEXUS_UPD_ID')
-                    password = System.getenv('NEXUS_UPD_PASS')
+                    username = System.getenv('NEXUS_UPD_ID')?.trim() ?: ''
+                    password = System.getenv('NEXUS_UPD_PASS')?.trim() ?: ''
                 }
             }
         }
@@ -38,15 +38,15 @@ ext.configurePublishing = { packageName, packageDesc, packageVersion ->
                     url = 'https://github.com/SpaiR/imgui-java'
                     licenses {
                         license {
-                            name = 'The Apache License, Version 2.0'
-                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            name = 'MIT License'
+                            url = 'https://opensource.org/license/mit/'
                         }
                     }
                     developers {
                         developer {
                             id = 'SpaiR'
                             name = 'Ilya Prymshyts'
-                            email = 'klimbetoo@gmail.com'
+                            email = 'despsolver@gmail.com'
                         }
                     }
                     scm {
