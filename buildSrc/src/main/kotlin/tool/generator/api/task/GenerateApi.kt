@@ -10,9 +10,9 @@ import java.io.File
 
 /**
  * Task generates API by processing provided definitions.
- * To define a new definition create a proper package and class in the [tool.generator.api.definition._] package.
+ * To define a new definition create a proper package and class in the [tool.generator.api.definition._package] package.
  * Package name after `_` will match with the real package name of the class.
- * For example: [tool.generator.api.definition._.imgui.ImGui] is the definition for [imgui.ImGui].
+ * For example: [tool.generator.api.definition._package.imgui.ImGui] is the definition for [imgui.ImGui].
  *
  * The definition itself must implement [Definition] interface and provide a collection of [tool.generator.api.definition.node.DefinitionNode].
  * Definition nodes can be provided in multiple ways. The most common one is to use dsl declared in [tool.generator.api.definition.dsl].

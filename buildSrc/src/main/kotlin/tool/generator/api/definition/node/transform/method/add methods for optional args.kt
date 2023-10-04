@@ -1,4 +1,3 @@
-
 package tool.generator.api.definition.node.transform.method
 
 import tool.generator.api.definition.node.DefinitionNode

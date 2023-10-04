@@ -33,7 +33,7 @@ object `add method for pointer with array` : TransformationChain.Transform {
                         newMethod!!.let {
                             val newArgs = it.signature.args.toMutableList()
                             val newArg = newArgs[index]
-                            newArg.argType.type = when(newArg.argType.type) {
+                            newArg.argType.type = when (newArg.argType.type) {
                                 is ArgType.Short -> ArgType.ShortArray
                                 is ArgType.Int -> ArgType.IntArray
                                 is ArgType.Float -> ArgType.FloatArray

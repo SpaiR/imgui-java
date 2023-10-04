@@ -4,12 +4,12 @@ import org.reflections.Reflections
 
 /**
  * Class collects and provides definitions map collected with the usage of reflection.
- * It basically reads everything under the [tool.generator.api.definition._] package
+ * It basically reads everything under the [tool.generator.api.definition._package] package
  * and instantiates collected classes to read definitions from the map.
  */
 class DefinitionMap private constructor() {
     companion object {
-        private val definitionsPackageName: String = DefinitionMap::class.java.`package`.name + "._"
+        private val definitionsPackageName: String = DefinitionMap::class.java.`package`.name + "._package"
 
         fun create(): DefinitionMap {
             return DefinitionMap().apply {

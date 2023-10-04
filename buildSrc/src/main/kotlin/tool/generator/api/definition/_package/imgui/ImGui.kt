@@ -1,9 +1,7 @@
-package tool.generator.api.definition.`_`.imgui
+package tool.generator.api.definition._package.imgui
 
 import tool.generator.api.definition.Definition
-import tool.generator.api.definition.`_`.imgui.binding.ImGuiApi
-import tool.generator.api.definition.dsl.define
-import tool.generator.api.definition.dsl.defines
+import tool.generator.api.definition._package.imgui.binding.ImGuiApi
 import tool.generator.api.definition.node.DefinitionNode
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
@@ -15,18 +13,18 @@ class ImGui : Definition {
 
     override fun getNodes(): Collection<DefinitionNode> {
         return emptyList() //TODO: remove to generate nodes for ImGui
-        return defines(
-            define {
-                line("""
-                    /**
-                     * Field with generated {@link ${getApiClass()}} to use Dear ImGui API.
-                     * Can be replaced with custom API implementation if required.
-                     */
-                    public static ${getApiClass()} $API_FIELD_NAME = new ${getApiClass()}();
-                """.trimIndent())
-            },
-            collectImGuiApiMethods()
-        )
+//        return defines(
+//            define {
+//                line("""
+//                    /**
+//                     * Field with generated {@link ${getApiClass()}} to use Dear ImGui API.
+//                     * Can be replaced with custom API implementation if required.
+//                     */
+//                    public static ${getApiClass()} $API_FIELD_NAME = new ${getApiClass()}();
+//                """.trimIndent())
+//            },
+//            collectImGuiApiMethods()
+//        )
     }
 
     private fun getApiClass(): String {

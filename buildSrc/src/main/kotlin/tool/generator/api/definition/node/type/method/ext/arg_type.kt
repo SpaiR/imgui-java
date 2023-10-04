@@ -48,8 +48,8 @@ sealed class ArgType : CloneableContent {
     )
 
     /**
-    * [Short]
-    */
+     * [Short]
+     */
     object Short : Definition(
         "short",
         "imgui.type.ImShort",

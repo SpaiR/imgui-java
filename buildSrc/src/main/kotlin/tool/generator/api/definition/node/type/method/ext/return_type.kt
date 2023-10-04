@@ -75,6 +75,7 @@ enum class ReturnTypeFlag : ReturnTypeDefinitionNode.Content {
      * The value of the static return type is set to the object field created statically.
      */
     STATIC,
+
     /**
      * This flag is only useful on the JNI side.
      * When true, the value from JNI will be cast to the REF.

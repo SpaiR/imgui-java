@@ -56,7 +56,7 @@ class DefinitionNodeContainer<T : DefinitionNode>(
 
     @Suppress("UNCHECKED_CAST")
     fun copy(): DefinitionNodeContainer<T> {
-        return DefinitionNodeContainer(content.map { it.copy() as T }.toMutableList(),)
+        return DefinitionNodeContainer(content.map { it.copy() as T }.toMutableList())
     }
 
     override fun equals(other: Any?): Boolean {

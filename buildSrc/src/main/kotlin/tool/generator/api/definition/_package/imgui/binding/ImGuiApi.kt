@@ -1,4 +1,4 @@
-package tool.generator.api.definition.`_`.imgui.binding
+package tool.generator.api.definition._package.imgui.binding
 
 import tool.generator.api.definition.Definition
 import tool.generator.api.definition.dsl.*

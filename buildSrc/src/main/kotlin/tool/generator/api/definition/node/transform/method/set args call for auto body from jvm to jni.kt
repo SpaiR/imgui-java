@@ -32,7 +32,7 @@ object `set args call for auto body from jvm to jni` : TransformationChain.Trans
             return "${arg.name}.getData()"
         }
 
-        return when(arg.argType.type) {
+        return when (arg.argType.type) {
             is ArgType.Struct -> "${arg.name}.$FIELD_PTR_JVM"
             is ArgType.Vec2 -> "${arg.name}X, ${arg.name}Y"
             is ArgType.Vec4 -> "${arg.name}X, ${arg.name}Y, ${arg.name}Z, ${arg.name}W"
