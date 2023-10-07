@@ -1,8 +1,8 @@
 {
   "info" : {
-    "version" : "1.86.11-5-gfd04ccc",
+    "version" : "1.86.11-6-g74f1201",
     "source" : "include/imgui/imgui.h",
-    "hash" : "c3044b2fcb72e16c2fb4f15691686eea",
+    "hash" : "97ead8252e026205d9bf9540a0106e96",
     "url" : "https://github.com/ocornut/imgui",
     "revision" : "15b4a064f9244c430e65214f7249b615fb394321"
   },

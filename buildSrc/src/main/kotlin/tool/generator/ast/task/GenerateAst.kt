@@ -54,30 +54,33 @@ open class GenerateAst : DefaultTask() {
         val scriptPath = "$dstDir/_gen_ast.sh"
         File(scriptPath).setExecutable(true)
 
-        val buildDir = "${project.buildDir}/generated/ast"
-        File(buildDir).mkdirs()
-
         logger.info("Processing headers...")
 
         headerFiles.forEach { header ->
             logger.info(" - $header")
 
-            // Path to the header file relative to the root project directory.
-            val relativeHeaderPath = header.relativeTo(project.rootDir).path
-            val headerName = header.nameWithoutExtension
-
             // Store the header content in the field, so we can access it when parsing.
             currentParsingHeaderContent = header.readText()
 
+            // Header hash content to create a unique path for generated content.
+            val headerHash = md5Hash(currentParsingHeaderContent)
+
+            // We create a unique folder to store files generated for the header.
+            // This is necessary because when we store all headers in the same directory,
+            // their AST bump can overlap with each other.
+            val astBuildDir = File("${project.buildDir}/generated/ast/$headerHash")
+            astBuildDir.mkdirs()
+
             // Move header content to the temp file to make an ast-bump of it.
-            val tmpHeaderFile = File("$buildDir/$headerName.h")
+            val headerName = header.nameWithoutExtension
+            val tmpHeaderFile = File("$astBuildDir/$headerName.h")
             tmpHeaderFile.createNewFile()
             tmpHeaderFile.writeText(currentParsingHeaderContent)
 
             logger.info("   | Making an ast-bump...")
 
             // Destination for ast-bump.
-            val astBumpJson = File("$buildDir/$headerName.json")
+            val astBumpJson = File("$astBuildDir/$headerName.json")
 
             // Call clang++ though a script.
             // During the process of making an ast-bump there could be errors/warnings.
@@ -137,8 +140,8 @@ open class GenerateAst : DefaultTask() {
                 astResultJson, AstRoot(
                     info = AstInfo(
                         version = project.version as String,
-                        source = relativeHeaderPath,
-                        hash = md5Hash(currentParsingHeaderContent),
+                        source = header.relativeTo(project.rootDir).path,
+                        hash = headerHash,
                         url = shellRun(header.parentFile) {
                             command("git", listOf("config", "--get", "remote.origin.url"))
                         },
