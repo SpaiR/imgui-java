@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
 @JsonSubTypes(
-    JsonSubTypes.Type(AstInfo::class),
     JsonSubTypes.Type(AstNamespaceDecl::class),
     JsonSubTypes.Type(AstFullComment::class),
     JsonSubTypes.Type(AstParagraphComment::class),
@@ -17,14 +16,19 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
     JsonSubTypes.Type(AstEnumConstantDecl::class),
     JsonSubTypes.Type(AstRecordDecl::class),
     JsonSubTypes.Type(AstFieldDecl::class),
-    JsonSubTypes.Type(FileLoc::class),
 )
-interface Decl
+interface Decl {
+    val offset: Int
+}
+
+interface DeclContainer {
+    val decls: List<Decl>
+}
 
 data class AstRoot(
     val info: AstInfo = AstInfo(),
-    val decls: List<Decl> = emptyList(),
-) : Decl
+    override val decls: List<Decl> = emptyList()
+) : DeclContainer
 
 data class AstInfo(
     val version: String = "",
@@ -32,35 +36,35 @@ data class AstInfo(
     val hash: String = "",
     val url: String = "",
     val revision: String = "",
-) : Decl
+)
 
 data class AstNamespaceDecl(
-    val loc: FileLoc = FileLoc(),
+    override val offset: Int = -1,
     val name: String = "",
-    val decls: List<Decl> = emptyList()
-) : Decl
+    override val decls: List<Decl> = emptyList(),
+) : Decl, DeclContainer
 
 data class AstFullComment(
-    val loc: FileLoc = FileLoc(),
-    val decls: List<Decl> = emptyList()
-) : Decl
+    override val offset: Int = -1,
+    override val decls: List<Decl> = emptyList(),
+) : Decl, DeclContainer
 
 data class AstParagraphComment(
-    val loc: FileLoc = FileLoc(),
-    val decls: List<Decl> = emptyList()
-) : Decl
+    override val offset: Int = -1,
+    override val decls: List<Decl> = emptyList(),
+) : Decl, DeclContainer
 
 data class AstTextComment(
-    val loc: FileLoc = FileLoc(),
+    override val offset: Int = -1,
     val text: String = "",
 ) : Decl
 
 data class AstFunctionDecl(
-    val loc: FileLoc = FileLoc(),
+    override val offset: Int = -1,
     val name: String = "",
     val resultType: String = "",
-    val decls: List<Decl> = emptyList(),
-) : Decl {
+    override val decls: List<Decl> = emptyList(),
+) : Decl, DeclContainer {
     @JsonIgnore
     fun getParams(): List<AstParmVarDecl> {
         return decls.filterIsInstance<AstParmVarDecl>()
@@ -68,7 +72,7 @@ data class AstFunctionDecl(
 }
 
 data class AstParmVarDecl(
-    val loc: FileLoc = FileLoc(),
+    override val offset: Int = -1,
     val name: String = "",
     val qualType: String = "",
     val desugaredQualType: String = "",
@@ -76,7 +80,7 @@ data class AstParmVarDecl(
 ) : Decl {
     companion object {
         val FORMAT_ATTR: AstParmVarDecl = AstParmVarDecl(
-            loc = FileLoc(-1, -1, -1, -1),
+            offset = -1,
             name = "#FORMAT_ATTR_MARKER#",
             qualType = "#FORMAT_ATTR_MARKER#",
             desugaredQualType = "#FORMAT_ATTR_MARKER#",
@@ -91,36 +95,29 @@ data class AstParmVarDecl(
 }
 
 data class AstEnumDecl(
-    val loc: FileLoc = FileLoc(),
+    override val offset: Int = -1,
     val name: String = "",
-    val decls: List<Decl> = emptyList(),
-) : Decl
+    override val decls: List<Decl> = emptyList(),
+) : Decl, DeclContainer
 
 data class AstEnumConstantDecl(
-    val loc: FileLoc = FileLoc(),
+    override val offset: Int = -1,
     val name: String = "",
     val qualType: String = "",
     val order: Int = -1,
-    val declValue: String? = null,
+    val value: String? = null,
     val evaluatedValue: String? = null,
 ) : Decl
 
 data class AstRecordDecl(
-    val loc: FileLoc = FileLoc(),
+    override val offset: Int = -1,
     val name: String = "",
-    val decls: List<Decl> = emptyList(),
-) : Decl
+    override val decls: List<Decl> = emptyList(),
+) : Decl, DeclContainer
 
 data class AstFieldDecl(
-    val loc: FileLoc = FileLoc(),
+    override val offset: Int = -1,
     val name: String = "",
     val qualType: String = "",
     val desugaredQualType: String = "",
-) : Decl
-
-data class FileLoc(
-    val offset: Int = -1,
-    val line: Int = -1,
-    val col: Int = -1,
-    val tokLen: Int = -1,
 ) : Decl
