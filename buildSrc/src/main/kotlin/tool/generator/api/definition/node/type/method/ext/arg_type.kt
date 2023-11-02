@@ -137,6 +137,16 @@ sealed class ArgType : CloneableContent {
      */
     object DoubleArray : Definition("double[]"), Array
 
+    /**
+     * string[]
+     */
+    object StringArray : Definition(
+        "String[]",
+        "String[]",
+        "String[]",
+        "String[]",
+    ), Array
+
     override fun copy() = this
 }
 
@@ -146,13 +156,13 @@ fun ArgTypeDefinitionNode.hasFlag(flag: ArgTypeFlag): Boolean {
 
 enum class ArgTypeFlag : ArgTypeDefinitionNode.Content {
     /**
-     * Maker, that the argument type is a pointer.
+     * Marker, that the argument type is a pointer.
      * Result in specific argument rendering, like using `ImBoolean` instead of `boolean`.
      */
     POINTER,
 
     /**
-     * Maker, that the argument type is a pointer.
+     * Marker, that the argument type is a pointer.
      * The difference between [POINTER] and [POINTER_WITH_ARRAY] is that,
      * there will be generated an additional JVM version of the method, which accepts appropriate array.
      *

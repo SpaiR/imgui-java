@@ -48,10 +48,24 @@ object `set args call for auto body from jni to native` : TransformationChain.Tr
             arg.name
         }
 
+        getDefaultJniCast(arg)?.let {
+            argCall = "($it)$argCall"
+        }
+
         if (arg.hasJniCast) {
             argCall = arg.jniCast + argCall
         }
 
         return argCall
+    }
+
+    /**
+     * Default JNI cast needed to ensure native code works with types it expects.
+     */
+    private fun getDefaultJniCast(arg: ArgDefinitionNode): String? {
+        if (arg.argType.type is ArgType.Boolean && !arg.argType.hasFlag(ArgTypeFlag.POINTER)) {
+            return "bool"
+        }
+        return null
     }
 }

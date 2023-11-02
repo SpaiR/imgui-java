@@ -79,18 +79,22 @@ data class AstParmVarDecl(
     val defaultValue: String? = null,
 ) : Decl {
     companion object {
-        val FORMAT_ATTR: AstParmVarDecl = AstParmVarDecl(
-            offset = -1,
-            name = "#FORMAT_ATTR_MARKER#",
-            qualType = "#FORMAT_ATTR_MARKER#",
-            desugaredQualType = "#FORMAT_ATTR_MARKER#",
-            defaultValue = null
-        )
+        const val FORMAT_ATTR_NAME = "#FORMAT_ATTR_MARKER#"
+
+        fun asFormatAttr(offset: Int): AstParmVarDecl {
+            return AstParmVarDecl(
+                offset = offset,
+                name = FORMAT_ATTR_NAME,
+                qualType = FORMAT_ATTR_NAME,
+                desugaredQualType = FORMAT_ATTR_NAME,
+                defaultValue = null
+            )
+        }
     }
 
     @JsonIgnore
     fun isFormatAttr(): Boolean {
-        return this == FORMAT_ATTR
+        return this.name == FORMAT_ATTR_NAME
     }
 }
 

@@ -106,7 +106,7 @@ open class GenerateAst : DefaultTask() {
             // Remove all includes and typedefs.
             // They are not needed to process the AST, but they add extra information to the final dump.
             // And since we want to have an ast-dump as minimal as possible we remove that information.
-            currentParsingHeaderContent = header.readText()
+            currentParsingHeaderContent = currentParsingHeaderContent
                 .replace("#include .*".toRegex(), "")
                 .replace("typedef .*".toRegex(), "")
 
@@ -173,7 +173,7 @@ open class GenerateAst : DefaultTask() {
         }
 
         fun JsonNode.getOffset(): Int {
-            val loc = get("loc").let { loc ->
+            val loc = (get("loc") ?: get("range").get("begin")).let { loc ->
                 if (loc.has("expansionLoc")) {
                     loc.get("expansionLoc")
                 } else {
@@ -183,7 +183,7 @@ open class GenerateAst : DefaultTask() {
             return loc.get("offset")?.asInt() ?: -1
         }
 
-         fun JsonNode.getDefaultParamValue(): String {
+        fun JsonNode.getDefaultParamValue(): String {
             fun getOffset(jsonNode: JsonNode): Pair<Int, Int> {
                 val loc = if (jsonNode.has("expansionLoc")) {
                     jsonNode.get("expansionLoc")
@@ -306,7 +306,7 @@ open class GenerateAst : DefaultTask() {
 
                 "FormatAttr" -> {
                     logParsingInner("param ...")
-                    return AstParmVarDecl.FORMAT_ATTR
+                    return AstParmVarDecl.asFormatAttr(declNode.getOffset())
                 }
 
                 "EnumDecl" -> {

@@ -1,6 +1,6 @@
 {
   "info" : {
-    "version" : "1.86.11-6-g74f1201",
+    "version" : "1.86.11-7-gd6ff8fc",
     "source" : "include/imgui/imgui.h",
     "hash" : "97ead8252e026205d9bf9540a0106e96",
     "url" : "https://github.com/ocornut/imgui",
@@ -1888,16 +1888,16 @@
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
-        "@type" : "AstParmVarDecl",
         "offset" : 48118,
         "name" : "fmt",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 48165,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1905,12 +1905,6 @@
       "name" : "TextV",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 48244,
         "name" : "fmt",
@@ -1922,6 +1916,12 @@
         "name" : "args",
         "qualType" : "__va_list_tag *",
         "desugaredQualType" : "__va_list_tag *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 48290,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1929,12 +1929,6 @@
       "name" : "TextColored",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 48359,
         "name" : "col",
@@ -1946,6 +1940,12 @@
         "name" : "fmt",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 48397,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1953,12 +1953,6 @@
       "name" : "TextColoredV",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 48552,
         "name" : "col",
@@ -1976,6 +1970,12 @@
         "name" : "args",
         "qualType" : "__va_list_tag *",
         "desugaredQualType" : "__va_list_tag *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 48589,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1984,16 +1984,16 @@
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
-        "@type" : "AstParmVarDecl",
         "offset" : 48657,
         "name" : "fmt",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 48696,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2001,12 +2001,6 @@
       "name" : "TextDisabledV",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 48882,
         "name" : "fmt",
@@ -2018,6 +2012,12 @@
         "name" : "args",
         "qualType" : "__va_list_tag *",
         "desugaredQualType" : "__va_list_tag *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 48920,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2026,16 +2026,16 @@
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
-        "@type" : "AstParmVarDecl",
         "offset" : 48987,
         "name" : "fmt",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 49027,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2043,12 +2043,6 @@
       "name" : "TextWrappedV",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 49332,
         "name" : "fmt",
@@ -2060,6 +2054,12 @@
         "name" : "args",
         "qualType" : "__va_list_tag *",
         "desugaredQualType" : "__va_list_tag *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 49371,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2067,12 +2067,6 @@
       "name" : "LabelText",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 49436,
         "name" : "label",
@@ -2084,6 +2078,12 @@
         "name" : "fmt",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 49478,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2091,12 +2091,6 @@
       "name" : "LabelTextV",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 49610,
         "name" : "label",
@@ -2114,6 +2108,12 @@
         "name" : "args",
         "qualType" : "__va_list_tag *",
         "desugaredQualType" : "__va_list_tag *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 49651,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2122,16 +2122,16 @@
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
-        "@type" : "AstParmVarDecl",
         "offset" : 49717,
         "name" : "fmt",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 49758,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2139,12 +2139,6 @@
       "name" : "BulletTextV",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 49857,
         "name" : "fmt",
@@ -2156,6 +2150,12 @@
         "name" : "args",
         "qualType" : "__va_list_tag *",
         "desugaredQualType" : "__va_list_tag *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 49897,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -4884,12 +4884,6 @@
       "resultType" : "bool",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
-        "@type" : "AstParmVarDecl",
         "offset" : 65386,
         "name" : "str_id",
         "qualType" : "const char *",
@@ -4900,6 +4894,12 @@
         "name" : "fmt",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 65416,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -4907,12 +4907,6 @@
       "name" : "TreeNode",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 65679,
         "name" : "ptr_id",
@@ -4924,6 +4918,12 @@
         "name" : "fmt",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 65709,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -4931,12 +4931,6 @@
       "name" : "TreeNodeV",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 65781,
         "name" : "str_id",
@@ -4954,6 +4948,12 @@
         "name" : "args",
         "qualType" : "__va_list_tag *",
         "desugaredQualType" : "__va_list_tag *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 65820,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -4961,12 +4961,6 @@
       "name" : "TreeNodeV",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 65885,
         "name" : "ptr_id",
@@ -4984,6 +4978,12 @@
         "name" : "args",
         "qualType" : "__va_list_tag *",
         "desugaredQualType" : "__va_list_tag *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 65924,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -5011,12 +5011,6 @@
       "resultType" : "bool",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
-        "@type" : "AstParmVarDecl",
         "offset" : 66079,
         "name" : "str_id",
         "qualType" : "const char *",
@@ -5033,6 +5027,12 @@
         "name" : "fmt",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 66135,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -5040,12 +5040,6 @@
       "name" : "TreeNodeEx",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 66201,
         "name" : "ptr_id",
@@ -5063,6 +5057,12 @@
         "name" : "fmt",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 66257,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -5070,12 +5070,6 @@
       "name" : "TreeNodeExV",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 66324,
         "name" : "str_id",
@@ -5099,6 +5093,12 @@
         "name" : "args",
         "qualType" : "__va_list_tag *",
         "desugaredQualType" : "__va_list_tag *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 66389,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -5106,12 +5106,6 @@
       "name" : "TreeNodeExV",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 66456,
         "name" : "ptr_id",
@@ -5135,6 +5129,12 @@
         "name" : "args",
         "qualType" : "__va_list_tag *",
         "desugaredQualType" : "__va_list_tag *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 66521,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6015,16 +6015,16 @@
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
-        "@type" : "AstParmVarDecl",
         "offset" : 74227,
         "name" : "fmt",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 74237,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6032,12 +6032,6 @@
       "name" : "SetTooltipV",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 74439,
         "name" : "fmt",
@@ -6049,6 +6043,12 @@
         "name" : "args",
         "qualType" : "__va_list_tag *",
         "desugaredQualType" : "__va_list_tag *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 74458,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -7256,16 +7256,16 @@
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
-        "@type" : "AstParmVarDecl",
         "offset" : 91981,
         "name" : "fmt",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 91991,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -7273,12 +7273,6 @@
       "name" : "LogTextV",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "offset" : -1,
-        "name" : "#FORMAT_ATTR_MARKER#",
-        "qualType" : "#FORMAT_ATTR_MARKER#",
-        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
-      }, {
         "@type" : "AstParmVarDecl",
         "offset" : 92138,
         "name" : "fmt",
@@ -7290,6 +7284,12 @@
         "name" : "args",
         "qualType" : "__va_list_tag *",
         "desugaredQualType" : "__va_list_tag *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 92157,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
       } ]
     }, {
       "@type" : "AstFunctionDecl",

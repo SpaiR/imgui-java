@@ -439,6 +439,21 @@ fun ArgsDsl.argString(name: String, optional: Boolean = false, default: String? 
     }
 }
 
+fun ArgsDsl.argStringArr(name: String, optional: Boolean = false, default: String? = null) {
+    arg {
+        type {
+            asStringArray()
+        }
+        name(name)
+        if (optional) {
+            optional()
+        }
+        if (default != null) {
+            defaultJniValue(default)
+        }
+    }
+}
+
 fun ArgsDsl.argDefault(default: String) {
     argNull(default)
 }

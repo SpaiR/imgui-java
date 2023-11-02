@@ -18,6 +18,10 @@ class ArgTypeDsl {
         type(ArgType.String)
     }
 
+    fun asStringArray() {
+        type(ArgType.StringArray)
+    }
+
     fun asNull() {
         type(ArgType.Null)
     }

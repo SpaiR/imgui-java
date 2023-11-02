@@ -15,16 +15,17 @@ fun define(
     transformationChainAction: TransformationDsl.() -> Unit,
     defineAction: DefineDsl.() -> Unit
 ): Nodes {
-    var result: Collection<DefinitionNode>? = null
+    return define(transformationChainAction, DefineDsl().apply(defineAction).data)
+}
+
+fun define(
+    transformationChainAction: TransformationDsl.() -> Unit,
+    defines: Nodes
+): Nodes {
+    var result = defines
 
     TransformationDsl().apply(transformationChainAction).chains.forEach { transformationChainDsl ->
-        val transformationChain = TransformationChain(
-            if (result == null) {
-                DefineDsl().apply(defineAction).data
-            } else {
-                result!!
-            }
-        )
+        val transformationChain = TransformationChain(result)
 
         result = mutableListOf<DefinitionNode>().apply {
             transformationChainDsl.transforms.forEach { transformations ->
@@ -33,7 +34,7 @@ fun define(
         }
     }
 
-    return result ?: error("No transformations provided, use define without transforms")
+    return result
 }
 
 @DefinitionDsl
