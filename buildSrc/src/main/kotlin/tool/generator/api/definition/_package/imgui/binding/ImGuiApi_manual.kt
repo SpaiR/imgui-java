@@ -5,6 +5,7 @@ import tool.generator.api.definition.dsl.method.MethodsDsl
 
 fun MethodsDsl.manualMethods() {
     comboMethods()
+    listBoxMethods()
     isMousePosValidMethod()
     getColorU32Method()
 }
@@ -61,19 +62,92 @@ private fun MethodsDsl.comboMethods() {
         body {
             line(
                 """
-                            const char* listboxItems[itemsCount];
-                            for (int i = 0; i < itemsCount; i++) {
-                                jstring string = (jstring)env->GetObjectArrayElement(items, i);
-                                const char* rawString = env->GetStringUTFChars(string, JNI_FALSE);
-                                listboxItems[i] = rawString;
-                            }
-                            bool flag = ImGui::Combo(label, &currentItem[0], listboxItems, itemsCount, popupMaxHeightInItems);
-                            for (int i = 0; i< itemsCount; i++) {
-                                jstring string = (jstring)env->GetObjectArrayElement(items, i);
-                                env->ReleaseStringUTFChars(string, listboxItems[i]);
-                            }
-                            return flag;
-                        """.trimIndent()
+                    const char* comboItems[itemsCount];
+                    for (int i = 0; i < itemsCount; i++) {
+                        jstring string = (jstring)env->GetObjectArrayElement(items, i);
+                        const char* rawString = env->GetStringUTFChars(string, JNI_FALSE);
+                        comboItems[i] = rawString;
+                    }
+                    bool flag = ImGui::Combo(label, &currentItem[0], comboItems, itemsCount, popupMaxHeightInItems);
+                    for (int i = 0; i< itemsCount; i++) {
+                        jstring string = (jstring)env->GetObjectArrayElement(items, i);
+                        env->ReleaseStringUTFChars(string, comboItems[i]);
+                    }
+                    return flag;
+                """.trimIndent()
+            )
+        }
+        returnType {
+            asBoolean()
+        }
+    }
+}
+
+private fun MethodsDsl.listBoxMethods() {
+    method {
+        signature {
+            public()
+            name("listBox")
+            args {
+                argString("label")
+                argIntPtr("currentItem")
+                argStringArr("items")
+            }
+        }
+        body {
+            line("return nListBox(label, currentItem.getData(), items, items.length, -1);")
+        }
+        returnType {
+            asBoolean()
+        }
+    }
+    method {
+        signature {
+            public()
+            name("listBox")
+            args {
+                argString("label")
+                argIntPtr("currentItem")
+                argStringArr("items")
+                argInt("heightInItems")
+            }
+        }
+        body {
+            line("return nListBox(label, currentItem.getData(), items, items.length, heightInItems);")
+        }
+        returnType {
+            asBoolean()
+        }
+    }
+    method {
+        signature {
+            private()
+            native()
+            name("nListBox")
+            args {
+                argString("label")
+                argIntArr("currentItem")
+                argStringArr("items")
+                argInt("itemsCount")
+                argInt("heightInItems")
+            }
+        }
+        body {
+            line(
+                """
+                    const char* listBoxItems[itemsCount];
+                    for (int i = 0; i < itemsCount; i++) {
+                        jstring string = (jstring)env->GetObjectArrayElement(items, i);
+                        const char* rawString = env->GetStringUTFChars(string, JNI_FALSE);
+                        listBoxItems[i] = rawString;
+                    }
+                    bool flag = ImGui::Combo(label, &currentItem[0], listBoxItems, itemsCount, popupMaxHeightInItems);
+                    for (int i = 0; i< itemsCount; i++) {
+                        jstring string = (jstring)env->GetObjectArrayElement(items, i);
+                        env->ReleaseStringUTFChars(string, listBoxItems[i]);
+                    }
+                    return flag;
+                """.trimIndent()
             )
         }
         returnType {
@@ -96,9 +170,9 @@ private fun MethodsDsl.isMousePosValidMethod() {
         body {
             line(
                 """
-                            ImVec2 pos = ImVec2(mousePosX, mousePosY);
-                            return ImGui::IsMousePosValid(&pos);
-                        """.trimIndent()
+                    ImVec2 pos = ImVec2(mousePosX, mousePosY);
+                    return ImGui::IsMousePosValid(&pos);
+                """.trimIndent()
             )
         }
         returnType {

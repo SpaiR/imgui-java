@@ -32,7 +32,7 @@ object `set method private jni` : TransformationChain.Transform {
     private fun transform(method: MethodDefinitionNode) {
         method.signature.visibility = SignatureVisibility.PRIVATE
         method.signature.isNative = true
-        method.signature.name = 'n' + method.signature.name.capitalized()
+        method.signature.name = METHOD_JNI_PREFIX + method.signature.name.capitalized()
     }
 
 }

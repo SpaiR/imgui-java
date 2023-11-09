@@ -9,6 +9,7 @@ import tool.generator.api.definition.dsl.defines
 import tool.generator.api.definition.node.MethodSignature
 import tool.generator.api.definition.node.transform.method.`pre process method flags`
 import tool.generator.api.definition.node.transform.method.`remove duplicated signatures`
+import tool.generator.api.definition.node.transform.method.`sort methods`
 import tool.generator.api.definition.node.transform.template.methodsTransformationsTemplate
 import tool.generator.ast.AstFunctionDecl
 import tool.generator.ast.AstNamespaceDecl
@@ -20,6 +21,10 @@ class ImGuiApi : Definition {
         private const val THIS_POINTER_IMGUI = "ImGui::"
         private const val IMGUI_NAMESPACE = "ImGui"
 
+        /**
+         * Methods which return value is a static (global) object.
+         * They should always return the same Java instance with the same native pointer.
+         */
         private val staticReturnMethods: Set<String> = setOf(
             "GetCurrentContext",
             "GetIO",
@@ -29,6 +34,9 @@ class ImGuiApi : Definition {
             "GetPlatformIO",
         )
 
+        /**
+         * Methods with a specific signature. They need a manual handling.
+         */
         private val ignoredMethodsSignatures = setOf(
             MethodSignature("PushID", setOf("const void *")),
             MethodSignature("GetID", setOf("const void *")),
@@ -38,9 +46,13 @@ class ImGuiApi : Definition {
             MethodSignature("GetColorU32", setOf("ImU32")),
         )
 
+        /**
+         * Methods mostly defined manually due to their specific signature or behaviour.
+         */
         private val ignoredMethodNames: Set<String> = setOf(
             // Defined in `ImGuiApi_manual`
             "Combo",
+            "ListBox",
             "IsMousePosValid",
 
             // Defined in `ImGuiApi_gen`
@@ -80,7 +92,6 @@ class ImGuiApi : Definition {
             "MemAlloc", "MemFree",
 
             // FIXME
-            "ListBox",
             "SetDragDropPayload",
             "AcceptDragDropPayload",
             "GetDragDropPayload",
@@ -96,11 +107,15 @@ class ImGuiApi : Definition {
         )
     }
 
-    private fun getAstImGuiFunctions(): Collection<AstFunctionDecl> {
+    private fun getAllAstImGuiFunctions(): Collection<AstFunctionDecl> {
         return parseAstResource("ast-imgui.json").decls
             .filterIsInstance<AstNamespaceDecl>()
             .first { it.name == IMGUI_NAMESPACE }.decls
             .filterIsInstance<AstFunctionDecl>()
+    }
+
+    private fun getAstImGuiFunctions(): Collection<AstFunctionDecl> {
+        return getAllAstImGuiFunctions()
             .filterNot(containsMethodName(ignoredMethodNames))
             .filterNot(containsMethodSignature(ignoredMethodsSignatures))
     }
@@ -113,11 +128,13 @@ class ImGuiApi : Definition {
             transformation {
                 chain(
                     `remove duplicated signatures`,
+                    `sort methods`(getAllAstImGuiFunctions().associate { it.name.toLowerCase() to it.offset })
                 )
             }
         }, defines(
             define {
                 methods {
+                    // Add them without transforms.
                     manualMethods()
                 }
             },

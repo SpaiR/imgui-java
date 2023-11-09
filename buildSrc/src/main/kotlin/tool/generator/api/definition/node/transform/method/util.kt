@@ -4,6 +4,8 @@ import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
 import kotlin.math.abs
 
+const val METHOD_JNI_PREFIX = 'n'
+
 const val MARKER_AUTO_BODY = "# AUTO BODY MARKER #"
 
 const val THIS_PTR_CALL_JNI = "THIS->"

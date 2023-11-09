@@ -157,7 +157,7 @@ object `handle vec4 return` : TransformationChain.Transform {
             buildString {
                 append("return ")
                 append(method.autoBody.thisPointer)
-                append('n')
+                append(METHOD_JNI_PREFIX)
                 append(method.autoBody.methodName)
                 append(float.toUpperCase())
                 append('(')

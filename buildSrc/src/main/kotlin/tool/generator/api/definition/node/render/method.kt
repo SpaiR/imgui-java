@@ -183,7 +183,7 @@ private fun renderAutoBodyMethodCall(method: MethodDefinitionNode): String {
         append(method.autoBody.thisPointer)
 
         if (!method.signature.isNative) {
-            append('n')
+            append(METHOD_JNI_PREFIX)
         }
 
         append(method.autoBody.methodName)
