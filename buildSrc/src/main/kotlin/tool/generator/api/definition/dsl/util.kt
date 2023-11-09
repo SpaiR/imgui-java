@@ -310,6 +310,21 @@ fun ArgsDsl.argShortArr(name: String, optional: Boolean = false, default: String
     }
 }
 
+fun ArgsDsl.argByteArr(name: String, optional: Boolean = false, default: String? = null) {
+    arg {
+        type {
+            asByteArray()
+        }
+        name(name)
+        if (optional) {
+            optional()
+        }
+        if (default != null) {
+            defaultJniValue(default)
+        }
+    }
+}
+
 fun ArgsDsl.argLong(
     name: String,
     optional: Boolean = false,
@@ -424,6 +439,41 @@ fun ArgsDsl.argDoubleArr(name: String, optional: Boolean = false, default: Strin
     }
 }
 
+fun ArgsDsl.argObject(name: String, optional: Boolean = false, default: String? = null) {
+    arg {
+        type {
+            asRaw()
+        }
+        name(name)
+        if (optional) {
+            optional()
+        }
+        if (default != null) {
+            defaultJniValue(default)
+        }
+    }
+}
+
+fun ArgsDsl.argGenericClass(
+    name: String,
+    genericLiteral: String = "T",
+    optional: Boolean = false,
+    default: String? = null
+) {
+    arg {
+        type {
+            asGenericClass(genericLiteral)
+        }
+        name(name)
+        if (optional) {
+            optional()
+        }
+        if (default != null) {
+            defaultJniValue(default)
+        }
+    }
+}
+
 fun ArgsDsl.argString(name: String, optional: Boolean = false, default: String? = null) {
     arg {
         type {
@@ -443,6 +493,21 @@ fun ArgsDsl.argStringArr(name: String, optional: Boolean = false, default: Strin
     arg {
         type {
             asStringArray()
+        }
+        name(name)
+        if (optional) {
+            optional()
+        }
+        if (default != null) {
+            defaultJniValue(default)
+        }
+    }
+}
+
+fun ArgsDsl.argImString(name: String, optional: Boolean = false, default: String? = null) {
+    arg {
+        type {
+            asImString()
         }
         name(name)
         if (optional) {

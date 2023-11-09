@@ -18,7 +18,7 @@ object `set method public jvm` : TransformationChain.Transform {
         val result = mutableListOf<DefinitionNode>()
 
         nodes.forEach { node ->
-            if (node is MethodDefinitionNode) {
+            if (node is MethodDefinitionNode && !node.signature.isNative) {
                 transform(node)
             }
             result += node

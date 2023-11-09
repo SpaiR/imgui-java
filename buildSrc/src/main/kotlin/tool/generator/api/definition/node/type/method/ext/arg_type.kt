@@ -23,9 +23,19 @@ sealed class ArgType : CloneableContent {
     }
 
     /**
+     * [Object]
+     */
+    object Raw : Definition("Object")
+
+    /**
      * [String]
      */
     object String : Definition("String")
+
+    /**
+     * `ImString`
+     */
+    object ImString : Definition("imgui.type.ImString")
 
     /**
      * [Int]
@@ -103,6 +113,11 @@ sealed class ArgType : CloneableContent {
     data class Struct(val name: kotlin.String) : ArgType()
 
     /**
+     * Marker, that the argument type is a generalized class.
+     */
+    data class GenericClass(val name: kotlin.String) : ArgType()
+
+    /**
      * Marker, that the argument type is a NULL value.
      */
     object Null : ArgType()
@@ -126,6 +141,11 @@ sealed class ArgType : CloneableContent {
      * `short[]`
      */
     object ShortArray : Definition("short[]"), Array
+
+    /**
+     * `byte[]`
+     */
+    object ByeArray : Definition("byte[]"), Array
 
     /**
      * `long[]`

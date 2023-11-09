@@ -9,6 +9,7 @@ import tool.generator.api.definition.dsl.defines
 import tool.generator.api.definition.node.MethodSignature
 import tool.generator.api.definition.node.transform.method.`pre process method flags`
 import tool.generator.api.definition.node.transform.method.`remove duplicated signatures`
+import tool.generator.api.definition.node.transform.method.`set method public jvm`
 import tool.generator.api.definition.node.transform.method.`sort methods`
 import tool.generator.api.definition.node.transform.template.methodsTransformationsTemplate
 import tool.generator.ast.AstFunctionDecl
@@ -54,6 +55,8 @@ class ImGuiApi : Definition {
             "Combo",
             "ListBox",
             "IsMousePosValid",
+            "SetDragDropPayload", "AcceptDragDropPayload", "GetDragDropPayload",
+            "ColorConvertRGBtoHSV", "ColorConvertHSVtoRGB",
 
             // Defined in `ImGuiApi_gen`
             "SetNextWindowSizeConstraints",
@@ -92,18 +95,13 @@ class ImGuiApi : Definition {
             "MemAlloc", "MemFree",
 
             // FIXME
-            "SetDragDropPayload",
-            "AcceptDragDropPayload",
-            "GetDragDropPayload",
-            "GetDrawListSharedData",
-            "ColorConvertRGBtoHSV",
-            "ColorConvertHSVtoRGB",
             "InputText",
             "InputTextMultiline",
             "InputTextWithHint",
 
             // TODO
             "TableGetSortSpecs",
+            "GetDrawListSharedData",
         )
     }
 
@@ -132,11 +130,13 @@ class ImGuiApi : Definition {
                 )
             }
         }, defines(
-            define {
-                methods {
-                    // Add them without transforms.
-                    manualMethods()
+            define({
+                transformation {
+                    chain(`set method public jvm`)
                 }
+            }) {
+                // Add them without transforms.
+                manualMethods()
             },
             define({
                 transformation {
@@ -160,7 +160,6 @@ class ImGuiApi : Definition {
                     convertFunctionDeclsToDsl(getAstImGuiFunctions())
                 }
             },
-        )
-        ),
+        )),
     )
 }

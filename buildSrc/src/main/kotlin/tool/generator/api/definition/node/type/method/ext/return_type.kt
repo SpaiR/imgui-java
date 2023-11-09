@@ -59,6 +59,11 @@ sealed class ReturnType : CloneableContent {
      */
     data class Struct(val name: kotlin.String) : ReturnType()
 
+    /**
+     * Marker, that the return type is a generic literal.
+     */
+    data class GenericLiteral(val name: kotlin.String) : ReturnType()
+
     override fun copy() = this
 }
 

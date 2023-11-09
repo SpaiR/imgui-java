@@ -50,6 +50,10 @@ class ReturnTypeDsl {
         type(ReturnType.Struct(name))
     }
 
+    fun asGenericLiteral(name: String = "T") {
+        type(ReturnType.GenericLiteral(name))
+    }
+
     fun flagStatic() {
         data.container.add(ReturnTypeFlag.STATIC)
     }

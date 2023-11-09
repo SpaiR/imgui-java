@@ -67,6 +67,8 @@ private fun renderReturnTypeInSignature(method: MethodDefinitionNode): String {
         } else {
             returnType.name
         }
+    } else if (returnType is ReturnType.GenericLiteral) {
+        "<${returnType.name}> ${returnType.name}"
     } else if (returnType is ReturnType.Vec2) {
         TYPE_IM_VEC2_JVM
     } else if (returnType is ReturnType.Vec4) {
@@ -87,6 +89,10 @@ private fun renderArgType(isNative: Boolean, arg: ArgDefinitionNode): String {
         } else {
             argType.name
         }
+    }
+
+    if (argType is ArgType.GenericClass) {
+        return "Class<${argType.name}>"
     }
 
     // There can only be a definition.

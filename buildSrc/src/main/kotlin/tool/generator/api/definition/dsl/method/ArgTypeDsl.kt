@@ -14,8 +14,16 @@ class ArgTypeDsl {
         data.type = type
     }
 
+    fun asRaw() {
+        type(ArgType.Raw)
+    }
+
     fun asString() {
         type(ArgType.String)
+    }
+
+    fun asImString() {
+        type(ArgType.ImString)
     }
 
     fun asStringArray() {
@@ -50,6 +58,10 @@ class ArgTypeDsl {
         type(ArgType.ShortArray)
     }
 
+    fun asByteArray() {
+        type(ArgType.ByeArray)
+    }
+
     fun asLong() {
         type(ArgType.Long)
     }
@@ -72,6 +84,10 @@ class ArgTypeDsl {
 
     fun asStruct(name: String) {
         type(ArgType.Struct(name))
+    }
+
+    fun asGenericClass(name: String = "T") {
+        type(ArgType.GenericClass(name))
     }
 
     fun asVec2() {
