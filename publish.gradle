@@ -21,6 +21,14 @@ ext.configurePublishing = { packageName, packageDesc, packageVersion ->
                     password = System.getenv('NEXUS_UPD_PASS')?.trim() ?: ''
                 }
             }
+            maven {
+                name = "realRobotixMaven"
+                url = "https://maven.realrobotix.me/imgui-java/"
+                credentials {
+                    username = System.getenv("MAVEN_USER") ?: project.findProperty("realRobotixMavenUsername")
+                    password = System.getenv("MAVEN_TOKEN") ?: project.findProperty("realRobotixMavenPassword")
+                }
+            }
         }
         publications {
             imgui(MavenPublication) {
@@ -44,15 +52,20 @@ ext.configurePublishing = { packageName, packageDesc, packageVersion ->
                     }
                     developers {
                         developer {
+                            id = 'realRobotix'
+                            name = 'realRobotix'
+                            email = 'xzwmfki0p@mozmail.com'
+                        }
+                        developer {
                             id = 'SpaiR'
                             name = 'Ilya Prymshyts'
                             email = 'despsolver@gmail.com'
                         }
                     }
                     scm {
-                        connection = 'scm:git:https://github.com/SpaiR/imgui-java.git'
-                        developerConnection = 'scm:git:https://github.com/SpaiR/imgui-java.git'
-                        url = 'https://github.com/SpaiR/imgui-java.git'
+                        connection = 'scm:git:https://github.com/realRobotix/imgui-java.git'
+                        developerConnection = 'scm:git:https://github.com/realRobotix/imgui-java.git'
+                        url = 'https://github.com/realRobotix/imgui-java/'
                     }
                 }
             }
