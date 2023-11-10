@@ -6,4 +6,4 @@ fun Nodes.copy(): Nodes {
     return map(DefinitionNode::copy)
 }
 
-data class MethodSignature(val name: String, val qualArgTypes: Collection<String>)
+data class MethodSignature(val name: String, val argTypes: Collection<String>)

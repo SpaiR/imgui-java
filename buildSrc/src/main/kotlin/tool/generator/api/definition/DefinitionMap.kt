@@ -9,11 +9,9 @@ import org.reflections.Reflections
  */
 class DefinitionMap private constructor() {
     companion object {
-        private val definitionsPackageName: String = DefinitionMap::class.java.`package`.name + "._package"
-
         fun create(): DefinitionMap {
             return DefinitionMap().apply {
-                Reflections(definitionsPackageName)
+                Reflections(Definition.PACKAGE_PATH)
                     .getSubTypesOf(Definition::class.java)
                     .map { it.getDeclaredConstructor().newInstance() }
                     .forEach { definition ->
@@ -36,7 +34,7 @@ class DefinitionMap private constructor() {
     }
 
     private fun stripDefinitionPackageName(apiPackageName: String): String {
-        return apiPackageName.removePrefix("${definitionsPackageName}.")
+        return apiPackageName.removePrefix("${Definition.PACKAGE_PATH}.")
     }
 
     operator fun get(packageName: String): Definition? = packageNameToDefinition[packageName]

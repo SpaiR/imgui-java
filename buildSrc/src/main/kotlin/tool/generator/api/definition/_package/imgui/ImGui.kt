@@ -28,7 +28,7 @@ class ImGui : Definition {
     }
 
     private fun getApiClass(): String {
-        return ImGuiApi::class.java.name.substringAfter("_package.")
+        return ImGuiApi::class.java.name.removePrefix(Definition.PACKAGE_PATH)
     }
 
     private fun collectImGuiApiMethods(): Collection<DefinitionNode> {
