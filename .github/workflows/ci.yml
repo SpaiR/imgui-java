@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -57,7 +57,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Repository and Submodules
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: recursive
@@ -121,7 +121,7 @@ jobs:
     needs: build-natives
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download Artifacts
         uses: actions/download-artifact@v3
@@ -161,7 +161,7 @@ jobs:
     needs: [ build-java, build-natives ]
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -190,6 +190,7 @@ jobs:
           NEXUS_UPD_PASS: ${{ secrets.RELEASE_NEXUS_UPD_PASS }}
           SIGNING_KEY_ID: ${{ secrets.RELEASE_SIGNING_KEY_ID }}
           SIGNING_KEY: ${{ secrets.RELEASE_SIGNING_KEY }}
+          SIGNING_KEY_PASS: ${{ secrets.RELEASE_SIGNING_KEY_PASS }}
         run: |
           chmod +x ./buildSrc/scripts/publish.sh
           buildSrc/scripts/publish.sh

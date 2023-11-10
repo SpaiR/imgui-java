@@ -1,3 +1,4 @@
+import org.apache.tools.ant.filters.ReplaceTokens
 import tool.generator.GenerateLibs
 
 plugins {
@@ -14,8 +15,8 @@ java {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 }
 
 test {
@@ -32,5 +33,13 @@ configurePublishing('imgui-java-binding', 'JNI based binding for Dear ImGui', pr
 jar {
     manifest {
         attributes  'Automatic-Module-Name': 'imgui.binding'
+    }
+}
+
+processResources {
+    filesMatching('**/imgui-java.properties') {
+        filter(ReplaceTokens, tokens: [
+                'version': project.version
+        ])
     }
 }

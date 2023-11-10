@@ -188,7 +188,7 @@ repositories {
 }
 
 ext {
-    lwjglVersion = '3.3.1'
+    lwjglVersion = '3.3.3'
     imguiVersion = "${version}"
 }
 
@@ -361,7 +361,7 @@ Use the same native libraries as you would, but with `-ft` suffix in the end.
     }
     
     ext {
-        lwjglVersion = '3.3.1'
+        lwjglVersion = '3.3.3'
         imguiVersion = "${version}"
     }
     
@@ -434,4 +434,4 @@ On Windows always use local build.
 
 # License
 
-See the LICENSE file for license rights and limitations (Apache-2.0).
+See the LICENSE file for license rights and limitations (MIT).
