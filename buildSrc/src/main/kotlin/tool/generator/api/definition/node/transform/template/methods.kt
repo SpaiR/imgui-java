@@ -52,7 +52,10 @@ fun TransformationDsl.methodsTransformationsTemplate(
             `handle vec4 return`,
         )
     }
-    transformation {
-        chain(`add static struct field`) // should be the last in the chain
+    transformation { // should be the last in the chain
+        chain(
+            `add static struct field`,
+            `set body from autoBody`,
+        )
     }
 }
