@@ -9,9 +9,6 @@ fun TransformationDsl.methodsTransformationsTemplate(
 ) {
     transformation {
         chain(
-            `add return type node`,
-            `add auto body node`,
-            `add args node`,
             `set auto body method name from original name`,
         )
     }

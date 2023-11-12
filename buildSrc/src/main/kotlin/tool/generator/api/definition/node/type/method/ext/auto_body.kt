@@ -1,6 +1,6 @@
 package tool.generator.api.definition.node.type.method.ext
 
-import tool.generator.api.definition.node.container.ListContent
+import tool.generator.api.definition.node.container.CollectionContent
 import tool.generator.api.definition.node.container.StringContent
 import tool.generator.api.definition.node.type.method.AutoBodyDefinitionNode
 
@@ -25,5 +25,5 @@ var AutoBodyDefinitionNode.methodName: String
  * For example, `this.enable([argsCall])`. So if the content is `num1, str2` we will see `this.enable(num1, str2)`.
  */
 var AutoBodyDefinitionNode.argsCall: Collection<String>
-    get() = storage.get<ListContent<StringContent>>("argsCall")?.value?.map { it.value } ?: emptyList()
-    set(value) = storage.put("argsCall", ListContent(value.map { StringContent(it) }))
+    get() = storage.get<CollectionContent<StringContent>>("argsCall")?.value?.map { it.value } ?: emptyList()
+    set(value) = storage.put("argsCall", CollectionContent(value.map { StringContent(it) }))

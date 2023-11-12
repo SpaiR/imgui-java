@@ -2,7 +2,6 @@ package tool.generator.api.definition._package.imgui.binding
 
 import tool.generator.api.definition.dsl.*
 import tool.generator.api.definition.dsl.method.MethodsDsl
-import tool.generator.api.definition.node.type.method.ext.JniCast
 
 fun MethodsDsl.genRegularSliders() {
     method("SliderFloat", returnBoolean()) {
@@ -81,8 +80,8 @@ fun MethodsDsl.genRegularSliders() {
         argString("label")
         argDefault("ImGuiDataType_Float")
         argFloatPtr("pData")
-        argFloat("pMin", with = listOf(JniCast("&")))
-        argFloat("pMax", with = listOf(JniCast("&")))
+        argFloat("pMin", jniCast = "&")
+        argFloat("pMax", jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }
@@ -90,8 +89,8 @@ fun MethodsDsl.genRegularSliders() {
         argString("label")
         argDefault("ImGuiDataType_S16")
         argShortPtr("pData")
-        argShort("pMin", with = listOf(JniCast("&")))
-        argShort("pMax", with = listOf(JniCast("&")))
+        argShort("pMin", jniCast = "&")
+        argShort("pMax", jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }
@@ -99,8 +98,8 @@ fun MethodsDsl.genRegularSliders() {
         argString("label")
         argDefault("ImGuiDataType_S32")
         argIntPtr("pData")
-        argInt("pMin", with = listOf(JniCast("&")))
-        argInt("pMax", with = listOf(JniCast("&")))
+        argInt("pMin", jniCast = "&")
+        argInt("pMax", jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }
@@ -108,8 +107,8 @@ fun MethodsDsl.genRegularSliders() {
         argString("label")
         argDefault("ImGuiDataType_S64")
         argLongPtr("pData")
-        argLong("pMin", with = listOf(JniCast("&")))
-        argLong("pMax", with = listOf(JniCast("&")))
+        argLong("pMin", jniCast = "&")
+        argLong("pMax", jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }
@@ -136,8 +135,8 @@ fun MethodsDsl.genRegularSliders() {
         argImVec2("size")
         argDefault("ImGuiDataType_Float")
         argFloatPtr("pData")
-        argFloat("pMin", with = listOf(JniCast("&")))
-        argFloat("pMax", with = listOf(JniCast("&")))
+        argFloat("pMin", jniCast = "&")
+        argFloat("pMax", jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }
@@ -146,8 +145,8 @@ fun MethodsDsl.genRegularSliders() {
         argImVec2("size")
         argDefault("ImGuiDataType_S16")
         argShortPtr("pData")
-        argShort("pMin", with = listOf(JniCast("&")))
-        argShort("pMax", with = listOf(JniCast("&")))
+        argShort("pMin", jniCast = "&")
+        argShort("pMax", jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }
@@ -156,8 +155,8 @@ fun MethodsDsl.genRegularSliders() {
         argImVec2("size")
         argDefault("ImGuiDataType_S32")
         argIntPtr("pData")
-        argInt("pMin", with = listOf(JniCast("&")))
-        argInt("pMax", with = listOf(JniCast("&")))
+        argInt("pMin", jniCast = "&")
+        argInt("pMax", jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }
@@ -166,8 +165,8 @@ fun MethodsDsl.genRegularSliders() {
         argImVec2("size")
         argDefault("ImGuiDataType_S64")
         argLongPtr("pData")
-        argLong("pMin", with = listOf(JniCast("&")))
-        argLong("pMax", with = listOf(JniCast("&")))
+        argLong("pMin", jniCast = "&")
+        argLong("pMax", jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }

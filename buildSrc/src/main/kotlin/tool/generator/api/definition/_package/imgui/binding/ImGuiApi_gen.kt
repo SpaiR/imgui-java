@@ -2,7 +2,6 @@ package tool.generator.api.definition._package.imgui.binding
 
 import tool.generator.api.definition.dsl.*
 import tool.generator.api.definition.dsl.method.MethodsDsl
-import tool.generator.api.definition.node.type.method.ext.JniCast
 
 fun MethodsDsl.genMethods() {
     method("SetNextWindowSizeConstraints") {
@@ -18,12 +17,12 @@ fun MethodsDsl.genMethods() {
     }
 
     method("SaveIniSettingsToMemory") {
-        argInt("outIniSize", optional = true, with = listOf(JniCast("(size_t*)&")))
+        argInt("outIniSize", optional = true, jniCast = "(size_t*)&")
     }
 
     method("RenderPlatformWindowsDefault")
 
     method("FindViewportByPlatformHandle", returnStruct("imgui.ImGuiViewport")) {
-        argLong("platformHandle", with = listOf(JniCast("(void*)")))
+        argLong("platformHandle", jniCast = "(void*)")
     }
 }

@@ -27,7 +27,7 @@ fun renderMethod(method: MethodDefinitionNode): String {
             append(signature.name)
 
             append("(")
-            append(signature.args.joinToString {
+            append(signature.argsList.joinToString {
                 buildString {
                     if (it.hasFlag(ArgFlag.FINAL)) {
                         append("final ")

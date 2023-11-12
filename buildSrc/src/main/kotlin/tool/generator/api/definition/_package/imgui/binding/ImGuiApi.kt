@@ -6,6 +6,7 @@ import tool.generator.api.definition.dsl.decl.containsMethodSignature
 import tool.generator.api.definition.dsl.decl.convertFunctionDeclsToDsl
 import tool.generator.api.definition.dsl.define
 import tool.generator.api.definition.dsl.defines
+import tool.generator.api.definition.dsl.initConstructor
 import tool.generator.api.definition.node.MethodSignature
 import tool.generator.api.definition.node.transform.method.`pre process method flags`
 import tool.generator.api.definition.node.transform.method.`remove duplicated signatures`
@@ -120,6 +121,7 @@ class ImGuiApi : Definition {
 
     override fun getNodes() = defines(
         define {
+            initConstructor(ImGuiApi::class.java.simpleName)
             jniBlock("#include \"_common.h\"")
         },
         define({

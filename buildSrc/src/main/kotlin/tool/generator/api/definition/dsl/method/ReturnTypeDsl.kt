@@ -4,6 +4,7 @@ import tool.generator.api.definition.dsl.DefinitionDsl
 import tool.generator.api.definition.node.type.method.ReturnTypeDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.ReturnType
 import tool.generator.api.definition.node.type.method.ext.ReturnTypeFlag
+import tool.generator.api.definition.node.type.method.ext.addFlag
 import tool.generator.api.definition.node.type.method.ext.type
 
 @DefinitionDsl
@@ -55,10 +56,10 @@ class ReturnTypeDsl {
     }
 
     fun flagStatic() {
-        data.container.add(ReturnTypeFlag.STATIC)
+        data.addFlag(ReturnTypeFlag.STATIC)
     }
 
     fun flagRef() {
-        data.container.add(ReturnTypeFlag.REF)
+        data.addFlag(ReturnTypeFlag.REF)
     }
 }

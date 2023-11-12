@@ -4,7 +4,7 @@ import tool.generator.api.definition.dsl.method.ArgDsl
 import tool.generator.api.definition.dsl.method.MethodsDsl
 import tool.generator.api.definition.dsl.method.ReturnTypeDsl
 import tool.generator.api.definition.node.transform.method.CAST_PTR_JNI
-import tool.generator.api.definition.node.type.method.ext.JniCast
+import tool.generator.api.definition.node.type.method.ext.jniCast
 import tool.generator.ast.AstFunctionDecl
 import tool.generator.ast.AstParmVarDecl
 
@@ -156,7 +156,7 @@ private fun declParamToDsl(decl: AstFunctionDecl, param: AstParmVarDecl, dsl: Ar
 
         when (param.qualType) {
             "ImTextureID" -> {
-                data.container.add(JniCast("(ImTextureID)($CAST_PTR_JNI)"))
+                data.jniCast = "(ImTextureID)($CAST_PTR_JNI)"
             }
         }
     }

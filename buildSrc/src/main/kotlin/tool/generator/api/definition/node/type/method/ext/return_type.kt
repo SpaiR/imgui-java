@@ -1,13 +1,14 @@
 package tool.generator.api.definition.node.type.method.ext
 
 import tool.generator.api.definition.node.container.CloneableContent
+import tool.generator.api.definition.node.container.CollectionContent
 import tool.generator.api.definition.node.type.method.ReturnTypeDefinitionNode
 
 /**
  * The type defined by the class.
  */
 var ReturnTypeDefinitionNode.type: ReturnType
-    get() = storage.value("type")
+    get() = storage.getOrPut("type", ReturnType.Void)
     set(value) = storage.put("type", value)
 
 /**
@@ -68,7 +69,19 @@ sealed class ReturnType : CloneableContent {
 }
 
 fun ReturnTypeDefinitionNode.hasFlag(flag: ReturnTypeFlag): Boolean {
-    return container.getAll(ReturnTypeFlag::class).contains(flag)
+    return storage.get<CollectionContent<ReturnTypeFlag>>("flags")?.value?.contains(flag) ?: false
+}
+
+fun ReturnTypeDefinitionNode.addFlag(flag: ReturnTypeFlag) {
+    val flags = (storage.get<CollectionContent<ReturnTypeFlag>>("flags")?.value ?: emptyList()).toMutableSet()
+    flags += flag
+    storage.put("flags", CollectionContent(flags.toList()))
+}
+
+fun ReturnTypeDefinitionNode.removeFlag(flag: ReturnTypeFlag) {
+    val flags = (storage.get<CollectionContent<ReturnTypeFlag>>("flags")?.value ?: emptyList()).toMutableSet()
+    flags -= flag
+    storage.put("flags", CollectionContent(flags.toList()))
 }
 
 /**

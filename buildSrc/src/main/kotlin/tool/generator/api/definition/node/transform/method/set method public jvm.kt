@@ -30,8 +30,8 @@ object `set method public jvm` : TransformationChain.Transform {
     private fun transform(method: MethodDefinitionNode) {
         method.signature.visibility = SignatureVisibility.PUBLIC
         method.signature.name = method.signature.name.decapitalize()
-        method.signature.args.forEach { arg ->
-            arg.container.add(ArgFlag.FINAL)
+        method.signature.argsList.forEach { arg ->
+            arg.addFlag(ArgFlag.FINAL)
         }
     }
 }

@@ -47,7 +47,7 @@ class ImGui : Definition {
                         append('.')
                         append(method.signature.name)
                         append('(')
-                        append(method.signature.args.joinToString { it.name })
+                        append(method.signature.argsList.joinToString { it.name })
                         append(')')
                         append(';')
                     }

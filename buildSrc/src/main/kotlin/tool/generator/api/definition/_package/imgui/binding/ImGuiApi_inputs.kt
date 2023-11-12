@@ -2,7 +2,6 @@ package tool.generator.api.definition._package.imgui.binding
 
 import tool.generator.api.definition.dsl.*
 import tool.generator.api.definition.dsl.method.MethodsDsl
-import tool.generator.api.definition.node.type.method.ext.JniCast
 
 fun MethodsDsl.genInputs() {
     method("InputFloat", returnBoolean()) {
@@ -65,8 +64,8 @@ fun MethodsDsl.genInputs() {
         argString("label")
         argDefault("ImGuiDataType_Float")
         argFloatPtr("pData")
-        argFloat("pStep", optional = true, with = listOf(JniCast("&")))
-        argFloat("pStepFast", optional = true, with = listOf(JniCast("&")))
+        argFloat("pStep", optional = true, jniCast = "&")
+        argFloat("pStepFast", optional = true, jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }
@@ -74,8 +73,8 @@ fun MethodsDsl.genInputs() {
         argString("label")
         argDefault("ImGuiDataType_S16")
         argShortPtr("pData")
-        argShort("pStep", optional = true, with = listOf(JniCast("&")))
-        argShort("pStepFast", optional = true, with = listOf(JniCast("&")))
+        argShort("pStep", optional = true, jniCast = "&")
+        argShort("pStepFast", optional = true, jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }
@@ -83,8 +82,8 @@ fun MethodsDsl.genInputs() {
         argString("label")
         argDefault("ImGuiDataType_S32")
         argIntPtr("pData")
-        argInt("pStep", optional = true, with = listOf(JniCast("&")))
-        argInt("pStepFast", optional = true, with = listOf(JniCast("&")))
+        argInt("pStep", optional = true, jniCast = "&")
+        argInt("pStepFast", optional = true, jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }
@@ -92,8 +91,8 @@ fun MethodsDsl.genInputs() {
         argString("label")
         argDefault("ImGuiDataType_S64")
         argLongPtr("pData")
-        argLong("pStep", optional = true, with = listOf(JniCast("&")))
-        argLong("pStepFast", optional = true, with = listOf(JniCast("&")))
+        argLong("pStep", optional = true, jniCast = "&")
+        argLong("pStepFast", optional = true, jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }

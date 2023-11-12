@@ -1,5 +1,6 @@
 package tool.generator.api.definition.node.type.method.ext
 
+import tool.generator.api.definition.node.container.CollectionContent
 import tool.generator.api.definition.node.container.StringContent
 import tool.generator.api.definition.node.type.method.ArgDefinitionNode
 import tool.generator.api.definition.node.type.method.ArgTypeDefinitionNode
@@ -47,14 +48,15 @@ var ArgDefinitionNode.defaultJniValue: String
 /**
  * Type of the argument.
  */
-val ArgDefinitionNode.argType: ArgTypeDefinitionNode
-    get() = container.get(ArgTypeDefinitionNode::class)
+var ArgDefinitionNode.argType: ArgTypeDefinitionNode
+    get() = storage.value("argType")
+    set(value) = storage.put("argType", value)
 
 /**
  * True if there is a JNI cast value.
  */
 val ArgDefinitionNode.hasJniCast: Boolean
-    get() = container.contains(JniCast::class)
+    get() = storage.has("jniCast")
 
 /**
  * JNI cast value applied when rendering JNI method.
@@ -68,18 +70,23 @@ val ArgDefinitionNode.hasJniCast: Boolean
  * ```
  */
 var ArgDefinitionNode.jniCast: String
-    get() = container.get(JniCast::class).value
-    set(value) = container.add(JniCast(value))
+    get() = storage.value<StringContent>("jniCast").value
+    set(value) = storage.put("jniCast", StringContent(value))
 
-data class JniCast(val value: String) : ArgDefinitionNode.Content {
-    override fun copy(): JniCast = JniCast(value)
+fun ArgDefinitionNode.hasFlag(flag: ArgFlag): Boolean {
+    return storage.get<CollectionContent<ArgFlag>>("flags")?.value?.contains(flag) ?: false
 }
 
-/**
- * Additional flags for the argument.
- */
-fun ArgDefinitionNode.hasFlag(flag: ArgFlag): Boolean {
-    return container.getAll(ArgFlag::class).contains(flag)
+fun ArgDefinitionNode.addFlag(flag: ArgFlag) {
+    val flags = (storage.get<CollectionContent<ArgFlag>>("flags")?.value ?: emptyList()).toMutableSet()
+    flags += flag
+    storage.put("flags", CollectionContent(flags.toList()))
+}
+
+fun ArgDefinitionNode.removeFlag(flag: ArgFlag) {
+    val flags = (storage.get<CollectionContent<ArgFlag>>("flags")?.value ?: emptyList()).toMutableSet()
+    flags -= flag
+    storage.put("flags", CollectionContent(flags.toList()))
 }
 
 enum class ArgFlag : ArgDefinitionNode.Content {

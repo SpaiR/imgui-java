@@ -3,16 +3,14 @@ package tool.generator.api.definition.dsl.method
 import tool.generator.api.definition.dsl.DefinitionDsl
 import tool.generator.api.definition.node.type.method.ArgDefinitionNode
 import tool.generator.api.definition.node.type.method.ArgTypeDefinitionNode
-import tool.generator.api.definition.node.type.method.ext.ArgFlag
-import tool.generator.api.definition.node.type.method.ext.defaultJniValue
-import tool.generator.api.definition.node.type.method.ext.name
+import tool.generator.api.definition.node.type.method.ext.*
 
 @DefinitionDsl
 class ArgDsl {
     val data = ArgDefinitionNode()
 
     fun type(type: ArgTypeDefinitionNode) {
-        data.container.add(type)
+        data.argType = type
     }
 
     fun type(action: ArgTypeDsl.() -> Unit) {
@@ -24,7 +22,7 @@ class ArgDsl {
     }
 
     fun addFlag(flag: ArgFlag) {
-        data.container.add(flag)
+        data.addFlag(flag)
     }
 
     fun final() {

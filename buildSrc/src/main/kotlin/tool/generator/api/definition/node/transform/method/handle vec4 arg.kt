@@ -4,7 +4,6 @@ import tool.generator.api.definition.node.DefinitionNode
 import tool.generator.api.definition.node.Nodes
 import tool.generator.api.definition.node.transform.TransformationChain
 import tool.generator.api.definition.node.type.method.ArgDefinitionNode
-import tool.generator.api.definition.node.type.method.ArgsDefinitionNode
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
 
@@ -18,7 +17,7 @@ object `handle vec4 arg` : TransformationChain.Transform {
 
         for (node in nodes) {
             if (node is MethodDefinitionNode) {
-                if (node.signature.args.find { it.argType.type is ArgType.Vec4 } != null) {
+                if (node.signature.argsList.find { it.argType.type is ArgType.Vec4 } != null) {
                     if (!node.signature.isNative) {
                         result += createJvmSplitArgCallMethod(node)
                     }
@@ -59,7 +58,7 @@ object `handle vec4 arg` : TransformationChain.Transform {
                     append(THIS_PTR_CALL_JVM)
                     append(method.signature.name)
                     append('(')
-                    append(method.signature.args.joinToString(transform = ::renderArg))
+                    append(method.signature.argsList.joinToString(transform = ::renderArg))
                     append(')')
                     append(';')
                 }
@@ -90,7 +89,7 @@ object `handle vec4 arg` : TransformationChain.Transform {
     private fun createSplitArgTypeMethod(node: MethodDefinitionNode): MethodDefinitionNode {
         val method = node.copy()
 
-        val args = method.signature.args.toMutableList()
+        val args = method.signature.argsList.toMutableList()
         val newArgs = mutableListOf<ArgDefinitionNode>()
 
         args.forEach { arg ->
@@ -115,10 +114,7 @@ object `handle vec4 arg` : TransformationChain.Transform {
             }
         }
 
-        method.signature.container.get(ArgsDefinitionNode::class).let {
-            it.container.clear()
-            newArgs.forEach(it.container::add)
-        }
+        method.signature.args.args = newArgs
 
         return method
     }

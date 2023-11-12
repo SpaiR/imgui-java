@@ -41,6 +41,6 @@ class SignatureDsl {
     }
 
     fun args(action: ArgsDsl.() -> Unit) {
-        data.container.add(ArgsDsl().apply(action).data)
+        data.args = ArgsDsl().apply(action).data
     }
 }

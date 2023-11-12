@@ -5,7 +5,6 @@ import tool.generator.api.definition.node.Nodes
 import tool.generator.api.definition.node.transform.TransformationChain
 import tool.generator.api.definition.node.type.method.ArgDefinitionNode
 import tool.generator.api.definition.node.type.method.ArgTypeDefinitionNode
-import tool.generator.api.definition.node.type.method.ArgsDefinitionNode
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
 
@@ -63,9 +62,9 @@ object `handle vec4 return` : TransformationChain.Transform {
                 append(THIS_PTR_CALL_JVM)
                 append(method.signature.name)
                 append("(dst")
-                if (method.signature.args.isNotEmpty()) {
+                if (method.signature.argsList.isNotEmpty()) {
                     append(", ")
-                    append(method.signature.args.joinToString { it.name })
+                    append(method.signature.argsList.joinToString { it.name })
                 }
                 append(");")
             },
@@ -94,7 +93,7 @@ object `handle vec4 return` : TransformationChain.Transform {
                 append(THIS_PTR_CALL_JVM)
                 append(method.signature.name)
                 append("X(")
-                append(method.signature.args.joinToString { it.name })
+                append(method.signature.argsList.joinToString { it.name })
                 append(");")
             },
             buildString {
@@ -102,7 +101,7 @@ object `handle vec4 return` : TransformationChain.Transform {
                 append(THIS_PTR_CALL_JVM)
                 append(method.signature.name)
                 append("Y(")
-                append(method.signature.args.joinToString { it.name })
+                append(method.signature.argsList.joinToString { it.name })
                 append(");")
             },
             buildString {
@@ -110,7 +109,7 @@ object `handle vec4 return` : TransformationChain.Transform {
                 append(THIS_PTR_CALL_JVM)
                 append(method.signature.name)
                 append("Z(")
-                append(method.signature.args.joinToString { it.name })
+                append(method.signature.argsList.joinToString { it.name })
                 append(");")
             },
             buildString {
@@ -118,24 +117,21 @@ object `handle vec4 return` : TransformationChain.Transform {
                 append(THIS_PTR_CALL_JVM)
                 append(method.signature.name)
                 append("W(")
-                append(method.signature.args.joinToString { it.name })
+                append(method.signature.argsList.joinToString { it.name })
                 append(");")
             },
         )
 
-        val newArgs = method.signature.args.toMutableList()
+        val newArgs = method.signature.argsList.toMutableList()
         newArgs.add(0, ArgDefinitionNode().apply {
             name = "dst"
-            container.add(ArgFlag.FINAL)
-            container.add(ArgTypeDefinitionNode().apply {
+            addFlag(ArgFlag.FINAL)
+            argType = ArgTypeDefinitionNode().apply {
                 type = ArgType.Vec4
-            })
+            }
         })
-        method.signature.container.get(ArgsDefinitionNode::class).let {
-            it.container.clear()
-            newArgs.forEach(it.container::add)
-        }
 
+        method.signature.args.args = newArgs
         method.returnType.type = ReturnType.Void
 
         return method

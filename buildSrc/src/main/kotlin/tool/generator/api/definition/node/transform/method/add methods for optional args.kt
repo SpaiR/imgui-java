@@ -29,7 +29,7 @@ object `add methods for optional args` : TransformationChain.Transform {
 
         nodes.forEach { node ->
             if (node is MethodDefinitionNode) {
-                val args = node.signature.args
+                val args = node.signature.argsList
 
                 args.forEachIndexed { index, arg ->
                     if (arg.hasFlag(ArgFlag.OPTIONAL) && isPossibleToCreateOptionalArgs(args, index, arg)) {
@@ -37,12 +37,10 @@ object `add methods for optional args` : TransformationChain.Transform {
                         val newArgs = ArgsDefinitionNode()
 
                         if (index != 0) {
-                            newArgs.container.addAll(args.toList().subList(0, index))
+                            newArgs.args = args.toList().subList(0, index)
                         }
 
-                        newMethod.signature.container.clear(ArgsDefinitionNode::class)
-                        newMethod.signature.container.add(newArgs)
-
+                        newMethod.signature.args = newArgs
                         result += newMethod
                     }
                 }

@@ -21,7 +21,7 @@ object `add method for pointer with array` : TransformationChain.Transform {
             result += node
 
             if (node is MethodDefinitionNode && !node.signature.isNative) {
-                val args = node.signature.args
+                val args = node.signature.argsList
                 var newMethod: MethodDefinitionNode? = null
 
                 args.forEachIndexed { index, arg ->
@@ -31,7 +31,7 @@ object `add method for pointer with array` : TransformationChain.Transform {
                         }
 
                         newMethod!!.let {
-                            val newArgs = it.signature.args.toMutableList()
+                            val newArgs = it.signature.argsList.toMutableList()
                             val newArg = newArgs[index]
                             newArg.argType.type = when (newArg.argType.type) {
                                 is ArgType.Short -> ArgType.ShortArray
@@ -41,14 +41,13 @@ object `add method for pointer with array` : TransformationChain.Transform {
                                 is ArgType.Double -> ArgType.DoubleArray
                                 else -> error("Can't fine array type argType: ${newArg.argType}")
                             }
-                            newArg.argType.container.remove(ArgTypeFlag.POINTER)
-                            newArg.argType.container.remove(ArgTypeFlag.POINTER_WITH_ARRAY)
+                            newArg.argType.removeFlag(ArgTypeFlag.POINTER)
+                            newArg.argType.removeFlag(ArgTypeFlag.POINTER_WITH_ARRAY)
                             newArgs[index] = newArg
 
-                            it.signature.container.clear(ArgsDefinitionNode::class)
-                            it.signature.container.add(ArgsDefinitionNode().apply {
-                                container.addAll(newArgs)
-                            })
+                            it.signature.args = ArgsDefinitionNode().apply {
+                                this.args = newArgs
+                            }
                         }
                     }
                 }

@@ -23,5 +23,5 @@ const val CAST_PTR_JNI = "intptr_t"
  * Returns a unique field name for a field used to store static instances.
  */
 fun getStaticStructFieldName(method: MethodDefinitionNode): String {
-    return "__gen_${method.signature.name}_${abs(method.signature.args.map { it.argType.type.hashCode() }.hashCode())}"
+    return "__gen_${method.signature.name}_${abs(method.signature.argsList.map { it.argType.type.hashCode() }.hashCode())}"
 }

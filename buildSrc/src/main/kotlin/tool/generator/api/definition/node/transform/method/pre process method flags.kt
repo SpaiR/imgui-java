@@ -4,10 +4,7 @@ import tool.generator.api.definition.node.Nodes
 import tool.generator.api.definition.node.transform.TransformationChain
 import tool.generator.api.definition.node.type.method.ArgsDefinitionNode
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
-import tool.generator.api.definition.node.type.method.ext.ReturnTypeFlag
-import tool.generator.api.definition.node.type.method.ext.name
-import tool.generator.api.definition.node.type.method.ext.returnType
-import tool.generator.api.definition.node.type.method.ext.signature
+import tool.generator.api.definition.node.type.method.ext.*
 
 /**
  * Transformation adds to the method [ArgsDefinitionNode] node if absent.
@@ -21,7 +18,7 @@ open class `pre process method flags`(
         nodes.forEach {
             if (it is MethodDefinitionNode) {
                 if (staticReturnMethods.contains(it.signature.name)) {
-                    it.returnType.container.add(ReturnTypeFlag.STATIC)
+                    it.returnType.addFlag(ReturnTypeFlag.STATIC)
                 }
             }
         }

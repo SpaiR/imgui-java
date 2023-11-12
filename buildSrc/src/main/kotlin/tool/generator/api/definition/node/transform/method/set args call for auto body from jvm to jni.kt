@@ -20,7 +20,7 @@ object `set args call for auto body from jvm to jni` : TransformationChain.Trans
             result += node
 
             if (node is MethodDefinitionNode && !node.signature.isNative) {
-                node.autoBody.argsCall = node.signature.args.map(::createArgCall)
+                node.autoBody.argsCall = node.signature.argsList.map(::createArgCall)
             }
         }
 

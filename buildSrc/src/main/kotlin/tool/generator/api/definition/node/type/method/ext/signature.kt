@@ -39,7 +39,7 @@ var SignatureDefinitionNode.isStatic: Boolean
  * Visibility of the method.
  */
 var SignatureDefinitionNode.visibility: SignatureVisibility
-    get() = storage.value("visibility")
+    get() = storage.get("visibility") ?: SignatureVisibility.PUBLIC
     set(value) = storage.put("visibility", value)
 
 /**
@@ -57,8 +57,15 @@ enum class SignatureVisibility : CloneableContent {
     }
 }
 
+var SignatureDefinitionNode.args: ArgsDefinitionNode
+    get() = storage.getOrPut("args", ArgsDefinitionNode())
+    set(value) = storage.put("args", value)
+
 /**
  * Arguments of the method.
  */
-val SignatureDefinitionNode.args: Collection<ArgDefinitionNode>
-    get() = container.find(ArgsDefinitionNode::class)?.args ?: emptyList()
+var SignatureDefinitionNode.argsList: Collection<ArgDefinitionNode>
+    get() = args.args
+    set(value) {
+        args.args = value
+    }

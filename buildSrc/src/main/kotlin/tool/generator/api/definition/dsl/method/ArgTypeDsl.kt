@@ -4,6 +4,7 @@ import tool.generator.api.definition.dsl.DefinitionDsl
 import tool.generator.api.definition.node.type.method.ArgTypeDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.ArgType
 import tool.generator.api.definition.node.type.method.ext.ArgTypeFlag
+import tool.generator.api.definition.node.type.method.ext.addFlag
 import tool.generator.api.definition.node.type.method.ext.type
 
 @DefinitionDsl
@@ -99,10 +100,10 @@ class ArgTypeDsl {
     }
 
     fun flagPointer() {
-        data.container.add(ArgTypeFlag.POINTER)
+        data.addFlag(ArgTypeFlag.POINTER)
     }
 
     fun flatPointerWithArray() {
-        data.container.add(ArgTypeFlag.POINTER_WITH_ARRAY)
+        data.addFlag(ArgTypeFlag.POINTER_WITH_ARRAY)
     }
 }

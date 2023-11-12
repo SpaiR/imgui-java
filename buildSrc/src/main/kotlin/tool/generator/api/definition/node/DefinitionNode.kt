@@ -1,15 +1,11 @@
 package tool.generator.api.definition.node
 
+import tool.generator.api.definition.node.container.CloneableContent
+
 /**
  * Interface to declare definition node.
  */
-interface DefinitionNode {
-    /**
-     * Clone alternative. Definition nodes can be transformed.
-     * So to avoid unpredictable behaviour we need to be able to freely copy nodes.
-     */
-    fun copy(): DefinitionNode
-
+interface DefinitionNode : CloneableContent {
     /**
      * This is mostly required for debug purposes.
      */

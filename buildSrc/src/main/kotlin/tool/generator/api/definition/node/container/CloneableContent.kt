@@ -12,6 +12,6 @@ data class BooleanContent(val value: Boolean) : CloneableContent {
     override fun copy() = this
 }
 
-data class ListContent<T : CloneableContent>(val value: List<T>) : CloneableContent {
-    override fun copy() = ListContent(value.map { it.copy() })
+data class CollectionContent<T : CloneableContent>(val value: Collection<T>) : CloneableContent {
+    override fun copy() = CollectionContent(value.map { it.copy() })
 }

@@ -2,7 +2,6 @@ package tool.generator.api.definition._package.imgui.binding
 
 import tool.generator.api.definition.dsl.*
 import tool.generator.api.definition.dsl.method.MethodsDsl
-import tool.generator.api.definition.node.type.method.ext.JniCast
 
 fun MethodsDsl.genDragSliders() {
     method("DragFloat", returnBoolean()) {
@@ -104,8 +103,8 @@ fun MethodsDsl.genDragSliders() {
         argDefault("ImGuiDataType_Float")
         argFloatPtr("pData", withArray = true)
         argFloat("vSpeed", optional = true)
-        argFloat("pMin", optional = true, with = listOf(JniCast("&")))
-        argFloat("pMax", optional = true, with = listOf(JniCast("&")))
+        argFloat("pMin", optional = true, jniCast = "&")
+        argFloat("pMax", optional = true, jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }
@@ -114,8 +113,8 @@ fun MethodsDsl.genDragSliders() {
         argDefault("ImGuiDataType_S16")
         argShortPtr("pData", withArray = true)
         argFloat("vSpeed", optional = true)
-        argShort("pMin", optional = true, with = listOf(JniCast("&")))
-        argShort("pMax", optional = true, with = listOf(JniCast("&")))
+        argShort("pMin", optional = true, jniCast = "&")
+        argShort("pMax", optional = true, jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }
@@ -124,8 +123,8 @@ fun MethodsDsl.genDragSliders() {
         argDefault("ImGuiDataType_S32")
         argIntPtr("pData", withArray = true)
         argFloat("vSpeed", optional = true)
-        argInt("pMin", optional = true, with = listOf(JniCast("&")))
-        argInt("pMax", optional = true, with = listOf(JniCast("&")))
+        argInt("pMin", optional = true, jniCast = "&")
+        argInt("pMax", optional = true, jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }
@@ -134,8 +133,8 @@ fun MethodsDsl.genDragSliders() {
         argDefault("ImGuiDataType_S64")
         argLongPtr("pData", withArray = true)
         argFloat("vSpeed", optional = true)
-        argLong("pMin", optional = true, with = listOf(JniCast("&")))
-        argLong("pMax", optional = true, with = listOf(JniCast("&")))
+        argLong("pMin", optional = true, jniCast = "&")
+        argLong("pMax", optional = true, jniCast = "&")
         argString("format", optional = true)
         argInt("flags", optional = true)
     }

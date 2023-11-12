@@ -1,14 +1,21 @@
 package tool.generator.api.definition.node.container
 
-class ContentStorage(
+data class ContentStorage(
     private val storage: MutableMap<String, CloneableContent> = mutableMapOf()
 ) {
     @Suppress("UNCHECKED_CAST")
-    fun <T> get(id: String): T? {
+    fun <T : CloneableContent> get(id: String): T? {
         return storage[id]?.let { it as T }
     }
 
-    fun <T> value(id: String): T {
+    fun <T : CloneableContent> getOrPut(id: String, default: T): T {
+        if (!has(id)) {
+            put(id, default)
+        }
+        return get(id)!!
+    }
+
+    fun <T : CloneableContent> value(id: String): T {
         return get(id)!!
     }
 
@@ -22,22 +29,5 @@ class ContentStorage(
 
     fun copy(): ContentStorage {
         return ContentStorage(storage.mapValues { (_, content) -> content.copy() }.toMutableMap())
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as ContentStorage
-
-        return storage == other.storage
-    }
-
-    override fun hashCode(): Int {
-        return storage.hashCode()
-    }
-
-    override fun toString(): String {
-        return "ContentStorage(storage=$storage)"
     }
 }
