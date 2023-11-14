@@ -23,8 +23,8 @@ private fun MethodsDsl.comboMethods() {
             name("combo")
             args {
                 argString("label")
-                argIntPtr("currentItem")
-                argStringArr("items")
+                argInt("currentItem", isPointer = true)
+                argString("items", isArray = true)
             }
         }
         body {
@@ -40,8 +40,8 @@ private fun MethodsDsl.comboMethods() {
             name("combo")
             args {
                 argString("label")
-                argIntPtr("currentItem")
-                argStringArr("items")
+                argInt("currentItem", isPointer = true)
+                argString("items", isArray = true)
                 argInt("popupMaxHeightInItems")
             }
         }
@@ -59,8 +59,8 @@ private fun MethodsDsl.comboMethods() {
             name("${METHOD_JNI_PREFIX}Combo")
             args {
                 argString("label")
-                argIntArr("currentItem")
-                argStringArr("items")
+                argInt("currentItem", isArray = true)
+                argString("items", isArray = true)
                 argInt("itemsCount")
                 argInt("popupMaxHeightInItems")
             }
@@ -96,8 +96,8 @@ private fun MethodsDsl.listBoxMethods() {
             name("listBox")
             args {
                 argString("label")
-                argIntPtr("currentItem")
-                argStringArr("items")
+                argInt("currentItem", isPointer = true)
+                argString("items", isArray = true)
             }
         }
         body {
@@ -113,8 +113,8 @@ private fun MethodsDsl.listBoxMethods() {
             name("listBox")
             args {
                 argString("label")
-                argIntPtr("currentItem")
-                argStringArr("items")
+                argInt("currentItem", isPointer = true)
+                argString("items", isArray = true)
                 argInt("heightInItems")
             }
         }
@@ -132,8 +132,8 @@ private fun MethodsDsl.listBoxMethods() {
             name("${METHOD_JNI_PREFIX}ListBox")
             args {
                 argString("label")
-                argIntArr("currentItem")
-                argStringArr("items")
+                argInt("currentItem", isArray = true)
+                argString("items", isArray = true)
                 argInt("itemsCount")
                 argInt("heightInItems")
             }
@@ -302,7 +302,7 @@ private fun DefineDsl.dragNDrop() {
                 name("${METHOD_JNI_PREFIX}SetDragDropPayload")
                 args {
                     argString("dataType")
-                    argByteArr("data")
+                    argByte("data", isArray = true)
                     argInt("sz")
                     argInt("cond")
                 }
@@ -538,8 +538,8 @@ fun MethodsDsl.colorConvert() {
             public()
             name("colorConvertRGBtoHSV")
             args {
-                argFloatArr("rgb")
-                argFloatArr("hsv")
+                argFloat("rgb", isArray = true)
+                argFloat("hsv", isArray = true)
             }
         }
         body {
@@ -555,8 +555,8 @@ fun MethodsDsl.colorConvert() {
             native()
             name("${METHOD_JNI_PREFIX}ColorConvertRGBtoHSV")
             args {
-                argFloatArr("rgb")
-                argFloatArr("hsv")
+                argFloat("rgb", isArray = true)
+                argFloat("hsv", isArray = true)
             }
         }
         body {
@@ -571,8 +571,8 @@ fun MethodsDsl.colorConvert() {
             public()
             name("colorConvertHSVtoRGB")
             args {
-                argFloatArr("hsv")
-                argFloatArr("rgb")
+                argFloat("hsv", isArray = true)
+                argFloat("rgb", isArray = true)
             }
         }
         body {
@@ -588,8 +588,8 @@ fun MethodsDsl.colorConvert() {
             native()
             name("${METHOD_JNI_PREFIX}ColorConvertHSVtoRGB")
             args {
-                argFloatArr("hsv")
-                argFloatArr("rgb")
+                argFloat("hsv", isArray = true)
+                argFloat("rgb", isArray = true)
             }
         }
         body {
@@ -693,7 +693,7 @@ private fun DefineDsl.inputText() {
                 name("inputText")
                 args {
                     argString("label")
-                    argStruct("imgui.type.ImString", "text")
+                    argString("text", isPointer = true)
                 }
             }
             body {
@@ -709,7 +709,7 @@ private fun DefineDsl.inputText() {
                 name("inputText")
                 args {
                     argString("label")
-                    argStruct("imgui.type.ImString", "text")
+                    argString("text", isPointer = true)
                     argInt("flags")
                 }
             }
@@ -726,7 +726,7 @@ private fun DefineDsl.inputText() {
                 name("inputText")
                 args {
                     argString("label")
-                    argStruct("imgui.type.ImString", "text")
+                    argString("text", isPointer = true)
                     argInt("flags")
                     argStruct("imgui.callback.ImGuiInputTextCallback", "callback")
                 }

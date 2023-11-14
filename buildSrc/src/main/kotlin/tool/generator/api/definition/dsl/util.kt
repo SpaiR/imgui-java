@@ -1,5 +1,6 @@
 package tool.generator.api.definition.dsl
 
+import tool.generator.api.definition.dsl.method.ArgTypeDsl
 import tool.generator.api.definition.dsl.method.ArgsDsl
 import tool.generator.api.definition.dsl.method.MethodsDsl
 import tool.generator.api.definition.dsl.method.ReturnTypeDsl
@@ -65,72 +66,24 @@ fun returnBoolean(): ReturnTypeDefinitionNode {
     Argument types
  */
 
-fun ArgsDsl.argInt(
+private fun ArgsDsl.rawArg(
+    asFun: ArgTypeDsl.() -> Unit,
     name: String,
     optional: Boolean = false,
-    default: String? = null,
-    jniCast: String? = null
-) {
-    arg {
-        type {
-            asInt()
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-        if (jniCast != null) {
-            data.jniCast = jniCast
-        }
-    }
-}
-
-fun ArgsDsl.argIntPtr(name: String, optional: Boolean = false, default: String? = null, withArray: Boolean = false) {
-    arg {
-        type {
-            asInt()
-            flagPointer()
-            if (withArray) {
-                flatPointerWithArray()
-            }
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-    }
-}
-
-fun ArgsDsl.argIntArr(name: String, optional: Boolean = false, default: String? = null) {
-    arg {
-        type {
-            asIntArray()
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-    }
-}
-
-fun ArgsDsl.argFloat(
-    name: String,
-    optional: Boolean = false,
+    isPointer: Boolean = false,
+    isArray: Boolean = false,
     default: String? = null,
     jniCast: String? = null,
 ) {
     arg {
         type {
-            asFloat()
+            asFun()
+            if (isPointer) {
+                flagPointer()
+            }
+            if (isArray) {
+                flagArray()
+            }
         }
         name(name)
         if (optional) {
@@ -141,40 +94,6 @@ fun ArgsDsl.argFloat(
         }
         if (jniCast != null) {
             data.jniCast = jniCast
-        }
-    }
-}
-
-fun ArgsDsl.argFloatPtr(name: String, optional: Boolean = false, default: String? = null, withArray: Boolean = false) {
-    arg {
-        type {
-            asFloat()
-            flagPointer()
-            if (withArray) {
-                flatPointerWithArray()
-            }
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-    }
-}
-
-fun ArgsDsl.argFloatArr(name: String, optional: Boolean = false, default: String? = null) {
-    arg {
-        type {
-            asFloatArray()
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
         }
     }
 }
@@ -182,207 +101,159 @@ fun ArgsDsl.argFloatArr(name: String, optional: Boolean = false, default: String
 fun ArgsDsl.argShort(
     name: String,
     optional: Boolean = false,
+    isPointer: Boolean = false,
+    isArray: Boolean = false,
     default: String? = null,
     jniCast: String? = null,
 ) {
-    arg {
-        type {
-            asShort()
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-        if (jniCast != null) {
-            data.jniCast = jniCast
-        }
-    }
+    rawArg(
+        { asShort() },
+        name,
+        optional = optional,
+        isPointer = isPointer,
+        isArray = isArray,
+        default = default,
+        jniCast = jniCast,
+    )
 }
 
-fun ArgsDsl.argShortPtr(name: String, optional: Boolean = false, default: String? = null, withArray: Boolean = false) {
-    arg {
-        type {
-            asShort()
-            flagPointer()
-            if (withArray) {
-                flatPointerWithArray()
-            }
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-    }
+fun ArgsDsl.argByte(
+    name: String,
+    optional: Boolean = false,
+    isPointer: Boolean = false,
+    isArray: Boolean = false,
+    default: String? = null,
+    jniCast: String? = null,
+) {
+    rawArg(
+        { asByte() },
+        name,
+        optional = optional,
+        isPointer = isPointer,
+        isArray = isArray,
+        default = default,
+        jniCast = jniCast,
+    )
 }
 
-fun ArgsDsl.argByteArr(name: String, optional: Boolean = false, default: String? = null) {
-    arg {
-        type {
-            asByteArray()
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-    }
+fun ArgsDsl.argInt(
+    name: String,
+    optional: Boolean = false,
+    isPointer: Boolean = false,
+    isArray: Boolean = false,
+    default: String? = null,
+    jniCast: String? = null,
+) {
+    rawArg(
+        { asInt() },
+        name,
+        optional = optional,
+        isPointer = isPointer,
+        isArray = isArray,
+        default = default,
+        jniCast = jniCast,
+    )
+}
+
+fun ArgsDsl.argFloat(
+    name: String,
+    optional: Boolean = false,
+    isPointer: Boolean = false,
+    isArray: Boolean = false,
+    default: String? = null,
+    jniCast: String? = null,
+) {
+    rawArg(
+        { asFloat() },
+        name,
+        optional = optional,
+        isPointer = isPointer,
+        isArray = isArray,
+        default = default,
+        jniCast = jniCast,
+    )
 }
 
 fun ArgsDsl.argLong(
     name: String,
     optional: Boolean = false,
+    isPointer: Boolean = false,
+    isArray: Boolean = false,
     default: String? = null,
     jniCast: String? = null,
 ) {
-    arg {
-        type {
-            asLong()
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-        if (jniCast != null) {
-            data.jniCast = jniCast
-        }
-    }
-}
-
-fun ArgsDsl.argLongPtr(name: String, optional: Boolean = false, default: String? = null, withArray: Boolean = false) {
-    arg {
-        type {
-            asLong()
-            flagPointer()
-            if (withArray) {
-                flatPointerWithArray()
-            }
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-    }
+    rawArg(
+        { asLong() },
+        name,
+        optional = optional,
+        isPointer = isPointer,
+        isArray = isArray,
+        default = default,
+        jniCast = jniCast,
+    )
 }
 
 fun ArgsDsl.argDouble(
     name: String,
     optional: Boolean = false,
+    isPointer: Boolean = false,
+    isArray: Boolean = false,
     default: String? = null,
     jniCast: String? = null,
 ) {
-    arg {
-        type {
-            asDouble()
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-        if (jniCast != null) {
-            data.jniCast = jniCast
-        }
-    }
+    rawArg(
+        { asDouble() },
+        name,
+        optional = optional,
+        isPointer = isPointer,
+        isArray = isArray,
+        default = default,
+        jniCast = jniCast,
+    )
 }
 
-fun ArgsDsl.argDoublePtr(name: String, optional: Boolean = false, default: String? = null, withArray: Boolean = false) {
-    arg {
-        type {
-            asDouble()
-            flagPointer()
-            if (withArray) {
-                flatPointerWithArray()
-            }
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-    }
-}
-
-fun ArgsDsl.argObject(name: String, optional: Boolean = false, default: String? = null) {
-    arg {
-        type {
-            asRaw()
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-    }
+fun ArgsDsl.argObject(
+    name: String,
+    optional: Boolean = false,
+    default: String? = null,
+) {
+    rawArg(
+        { asObject() },
+        name,
+        optional = optional,
+        default = default,
+    )
 }
 
 fun ArgsDsl.argGenericClass(
     name: String,
     genericLiteral: String = "T",
     optional: Boolean = false,
-    default: String? = null
+    default: String? = null,
 ) {
-    arg {
-        type {
-            asGenericClass(genericLiteral)
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-    }
+    rawArg(
+        { asGenericClass(genericLiteral) },
+        name,
+        optional = optional,
+        default = default,
+    )
 }
 
-fun ArgsDsl.argString(name: String, optional: Boolean = false, default: String? = null) {
-    arg {
-        type {
-            asString()
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-    }
-}
-
-fun ArgsDsl.argStringArr(name: String, optional: Boolean = false, default: String? = null) {
-    arg {
-        type {
-            asStringArray()
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-    }
+fun ArgsDsl.argString(
+    name: String,
+    optional: Boolean = false,
+    isPointer: Boolean = false,
+    isArray: Boolean = false,
+    default: String? = null,
+) {
+    rawArg(
+        { asString() },
+        name,
+        optional = optional,
+        isPointer = isPointer,
+        isArray = isArray,
+        default = default,
+    )
 }
 
 fun ArgsDsl.argDefault(default: String) {
@@ -401,40 +272,52 @@ fun ArgsDsl.argNull(default: String? = null) {
     }
 }
 
-fun ArgsDsl.argStruct(type: String, name: String, optional: Boolean = false, default: String? = null) {
-    arg {
-        type {
-            asStruct(type)
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-    }
+fun ArgsDsl.argStruct(
+    type: String,
+    name: String,
+    optional: Boolean = false,
+    default: String? = null,
+) {
+    rawArg(
+        { asStruct(type) },
+        name,
+        optional = optional,
+        default = default,
+    )
 }
 
-fun ArgsDsl.argImVec2(name: String, optional: Boolean = false, default: String? = null) {
-    arg {
-        type {
-            asVec2()
-        }
-        name(name)
-        if (optional) {
-            optional()
-        }
-        if (default != null) {
-            defaultJniValue(default)
-        }
-    }
+fun ArgsDsl.argImVec2(
+    name: String,
+    optional: Boolean = false,
+    default: String? = null,
+) {
+    rawArg(
+        { asVec2() },
+        name,
+        optional = optional,
+        default = default,
+    )
+}
+
+fun ArgsDsl.argImVec4(
+    name: String,
+    optional: Boolean = false,
+    default: String? = null,
+) {
+    rawArg(
+        { asVec4() },
+        name,
+        optional = optional,
+        default = default,
+    )
 }
 
 fun DefineDsl.initConstructor(className: String) {
-    line("""
+    line(
+        """
         public $className() {
             imgui.ImGui.init();
         }
-    """.trimIndent())
+    """.trimIndent()
+    )
 }

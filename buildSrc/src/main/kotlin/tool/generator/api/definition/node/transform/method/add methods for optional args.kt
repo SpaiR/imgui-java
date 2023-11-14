@@ -62,13 +62,13 @@ object `add methods for optional args` : TransformationChain.Transform {
     ): Boolean {
         if (index - 1 >= 0) {
             val prevArg = args.toList()[index - 1]
-            if (prevArg.argType.type == arg.argType.type) {
+            if (prevArg.argType.type == arg.argType.type && prevArg.argType.flgas == arg.argType.flgas) {
                 return false
             }
         }
         if (index + 1 < args.size) {
             val nextArg = args.toList()[index + 1]
-            if (nextArg.argType.type == arg.argType.type) {
+            if (nextArg.argType.type == arg.argType.type && nextArg.argType.flgas == arg.argType.flgas) {
                 return false
             }
         }

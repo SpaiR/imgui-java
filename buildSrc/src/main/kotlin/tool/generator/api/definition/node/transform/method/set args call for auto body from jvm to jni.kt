@@ -6,6 +6,9 @@ import tool.generator.api.definition.node.transform.TransformationChain
 import tool.generator.api.definition.node.type.method.ArgDefinitionNode
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
+import tool.generator.api.definition.node.type.method.ext.arg.ArgTypeNull
+import tool.generator.api.definition.node.type.method.ext.arg.ArgTypeStruct
+import tool.generator.api.definition.node.type.method.ext.arg.ArgTypeVec
 
 /**
  * Transformation creates argsCall for JVM auto-body.
@@ -33,10 +36,10 @@ object `set args call for auto body from jvm to jni` : TransformationChain.Trans
         }
 
         return when (arg.argType.type) {
-            is ArgType.Struct -> "${arg.name}.$FIELD_PTR_JVM"
-            is ArgType.Vec2 -> "${arg.name}X, ${arg.name}Y"
-            is ArgType.Vec4 -> "${arg.name}X, ${arg.name}Y, ${arg.name}Z, ${arg.name}W"
-            is ArgType.Null -> TYPE_NULL_JNI
+            ArgTypeVec.V2 -> "${arg.name}X, ${arg.name}Y"
+            ArgTypeVec.V4 -> "${arg.name}X, ${arg.name}Y, ${arg.name}Z, ${arg.name}W"
+            is ArgTypeStruct -> "${arg.name}.$FIELD_PTR_JVM"
+            is ArgTypeNull -> TYPE_NULL_JNI
             else -> arg.name
         }
     }

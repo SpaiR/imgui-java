@@ -36,11 +36,14 @@ object `remove duplicated signatures` : TransformationChain.Transform {
     private fun getMethodSignature(node: MethodDefinitionNode): MethodSignature {
         val name = node.signature.name
         val args = node.signature.argsList.map { a ->
-            var typeName = a.argType.type.javaClass.simpleName
+            var typeName = a.argType.type.toString() + "|" + a.argType.flgas.sorted().toString()
             // Pointers are arrays.
-            if (a.argType.hasFlag(ArgTypeFlag.POINTER) || a.argType.hasFlag(ArgTypeFlag.POINTER_WITH_ARRAY)) {
-                typeName += "Array"
-            }
+//            if (a.argType.hasFlag(ArgTypeFlag.POINTER)) {
+//                typeName += "Pointer"
+//            }
+//            if (a.argType.hasFlag(ArgTypeFlag.ARRAY)) {
+//                typeName += "Array"
+//            }
             typeName
         }
         return MethodSignature(name, args)

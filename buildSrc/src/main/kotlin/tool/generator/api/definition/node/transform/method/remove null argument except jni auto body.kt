@@ -5,6 +5,7 @@ import tool.generator.api.definition.node.Nodes
 import tool.generator.api.definition.node.transform.TransformationChain
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
+import tool.generator.api.definition.node.type.method.ext.arg.ArgTypeNull
 
 /**
  * Transformation removes [ArgType.NULL] from everywhere except jni auto-body.
@@ -19,7 +20,7 @@ object `remove null argument except jni auto body` : TransformationChain.Transfo
 
             if (node is MethodDefinitionNode) {
                 node.signature.args.let { argsNode ->
-                    val newArgs = argsNode.args.filterNot { it.argType.type == ArgType.Null }
+                    val newArgs = argsNode.args.filterNot { it.argType.type is ArgTypeNull }
                     argsNode.args = newArgs
                     if (!node.signature.isNative) {
                         node.autoBody.argsCall = node.autoBody.argsCall.filterNot { it == TYPE_NULL_JNI }

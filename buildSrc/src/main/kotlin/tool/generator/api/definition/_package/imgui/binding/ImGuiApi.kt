@@ -43,7 +43,10 @@ class ImGuiApi : Definition {
             MethodSignature("PushID", setOf("const void *")),
             MethodSignature("GetID", setOf("const void *")),
             MethodSignature("TreeNode", setOf("const void *", "const char *", AstParmVarDecl.FORMAT_ATTR_NAME)),
-            MethodSignature("TreeNodeEx", setOf("const void *", "ImGuiTreeNodeFlags", "const char *", AstParmVarDecl.FORMAT_ATTR_NAME)),
+            MethodSignature(
+                "TreeNodeEx",
+                setOf("const void *", "ImGuiTreeNodeFlags", "const char *", AstParmVarDecl.FORMAT_ATTR_NAME)
+            ),
             MethodSignature("TreePush", setOf("const void *")),
             MethodSignature("GetColorU32", setOf("ImU32")),
         )
@@ -128,7 +131,7 @@ class ImGuiApi : Definition {
             transformation {
                 chain(
                     `remove duplicated signatures`,
-                    `sort methods`(getAllAstImGuiFunctions().associate { it.name.toLowerCase() to it.offset })
+                    `sort methods`(sortOrder = getAllAstImGuiFunctions().associate { it.name.toLowerCase() to it.offset })
                 )
             }
         }, defines(
@@ -162,6 +165,7 @@ class ImGuiApi : Definition {
                     convertFunctionDeclsToDsl(getAstImGuiFunctions())
                 }
             },
-        )),
+        )
+        ),
     )
 }

@@ -6,7 +6,7 @@ import tool.generator.api.definition.dsl.method.MethodsDsl
 fun MethodsDsl.genInputs() {
     method("InputFloat", returnBoolean()) {
         argString("label")
-        argFloatPtr("value", withArray = true)
+        argFloat("value", isPointer = true, isArray = true)
         argFloat("step", optional = true)
         argFloat("stepFast", optional = true)
         argString("format", optional = true, default = "\"%.3f\"")
@@ -14,47 +14,47 @@ fun MethodsDsl.genInputs() {
     }
     method("InputFloat2", returnBoolean()) {
         argString("label")
-        argFloatArr("value")
+        argFloat("value", isArray = true)
         argString("format", optional = true, default = "\"%.3f\"")
         argInt("flags", optional = true)
     }
     method("InputFloat3", returnBoolean()) {
         argString("label")
-        argFloatArr("value")
+        argFloat("value", isArray = true)
         argString("format", optional = true, default = "\"%.3f\"")
         argInt("flags", optional = true)
     }
     method("InputFloat4", returnBoolean()) {
         argString("label")
-        argFloatArr("value")
+        argFloat("value", isArray = true)
         argString("format", optional = true, default = "\"%.3f\"")
         argInt("flags", optional = true)
     }
     method("InputInt", returnBoolean()) {
         argString("label")
-        argIntPtr("value", withArray = true)
+        argInt("value", isPointer = true, isArray = true)
         argInt("step", optional = true)
         argInt("stepFast", optional = true)
         argInt("flags", optional = true)
     }
     method("InputInt2", returnBoolean()) {
         argString("label")
-        argIntArr("value")
+        argInt("value", isArray = true)
         argInt("flags", optional = true)
     }
     method("InputInt3", returnBoolean()) {
         argString("label")
-        argIntArr("value")
+        argInt("value", isArray = true)
         argInt("flags", optional = true)
     }
     method("InputInt4", returnBoolean()) {
         argString("label")
-        argIntArr("value")
+        argInt("value", isArray = true)
         argInt("flags", optional = true)
     }
     method("InputDouble", returnBoolean()) {
         argString("label")
-        argDoublePtr("value", withArray = true)
+        argDouble("value", isPointer = true, isArray = true)
         argDouble("step")
         argDouble("stepFast")
         argString("format", optional = true, default = "\"%.6f\"")
@@ -63,7 +63,7 @@ fun MethodsDsl.genInputs() {
     method("InputScalar", returnBoolean()) {
         argString("label")
         argDefault("ImGuiDataType_Float")
-        argFloatPtr("pData")
+        argFloat("pData", isPointer = true)
         argFloat("pStep", optional = true, jniCast = "&")
         argFloat("pStepFast", optional = true, jniCast = "&")
         argString("format", optional = true)
@@ -72,7 +72,7 @@ fun MethodsDsl.genInputs() {
     method("InputScalar", returnBoolean()) {
         argString("label")
         argDefault("ImGuiDataType_S16")
-        argShortPtr("pData")
+        argShort("pData", isPointer = true)
         argShort("pStep", optional = true, jniCast = "&")
         argShort("pStepFast", optional = true, jniCast = "&")
         argString("format", optional = true)
@@ -81,7 +81,7 @@ fun MethodsDsl.genInputs() {
     method("InputScalar", returnBoolean()) {
         argString("label")
         argDefault("ImGuiDataType_S32")
-        argIntPtr("pData")
+        argInt("pData", isPointer = true)
         argInt("pStep", optional = true, jniCast = "&")
         argInt("pStepFast", optional = true, jniCast = "&")
         argString("format", optional = true)
@@ -90,7 +90,7 @@ fun MethodsDsl.genInputs() {
     method("InputScalar", returnBoolean()) {
         argString("label")
         argDefault("ImGuiDataType_S64")
-        argLongPtr("pData")
+        argLong("pData", isPointer = true)
         argLong("pStep", optional = true, jniCast = "&")
         argLong("pStepFast", optional = true, jniCast = "&")
         argString("format", optional = true)

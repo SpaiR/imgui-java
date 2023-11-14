@@ -6,6 +6,8 @@ import tool.generator.api.definition.node.transform.TransformationChain
 import tool.generator.api.definition.node.type.method.ArgDefinitionNode
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
+import tool.generator.api.definition.node.type.method.ext.arg.ArgTypePrimitive
+import tool.generator.api.definition.node.type.method.ext.arg.ArgTypeVec
 
 /**
  * Transformation handles methods with ImVec4 as argument type.
@@ -17,7 +19,7 @@ object `handle vec4 arg` : TransformationChain.Transform {
 
         for (node in nodes) {
             if (node is MethodDefinitionNode) {
-                if (node.signature.argsList.find { it.argType.type is ArgType.Vec4 } != null) {
+                if (node.signature.argsList.find { it.argType.type == ArgTypeVec.V4 } != null) {
                     if (!node.signature.isNative) {
                         result += createJvmSplitArgCallMethod(node)
                     }
@@ -69,7 +71,7 @@ object `handle vec4 arg` : TransformationChain.Transform {
     }
 
     private fun renderArg(arg: ArgDefinitionNode): String {
-        return if (arg.argType.type is ArgType.Vec4) {
+        return if (arg.argType.type == ArgTypeVec.V4) {
             "${arg.name}.x, ${arg.name}.y, ${arg.name}.z, ${arg.name}.w"
         } else {
             arg.name
@@ -93,9 +95,9 @@ object `handle vec4 arg` : TransformationChain.Transform {
         val newArgs = mutableListOf<ArgDefinitionNode>()
 
         args.forEach { arg ->
-            if (arg.argType.type is ArgType.Vec4) {
+            if (arg.argType.type == ArgTypeVec.V4) {
                 val floatArg = arg.copy().apply {
-                    argType.type = ArgType.Float
+                    argType.type = ArgTypePrimitive.FLOAT
                 }
                 newArgs += floatArg.copy().apply {
                     name += "X"

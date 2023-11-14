@@ -5,6 +5,7 @@ import tool.generator.api.definition.node.type.method.ArgTypeDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.ArgType
 import tool.generator.api.definition.node.type.method.ext.ArgTypeFlag
 import tool.generator.api.definition.node.type.method.ext.addFlag
+import tool.generator.api.definition.node.type.method.ext.arg.*
 import tool.generator.api.definition.node.type.method.ext.type
 
 @DefinitionDsl
@@ -15,95 +16,67 @@ class ArgTypeDsl {
         data.type = type
     }
 
-    fun asRaw() {
-        type(ArgType.Raw)
+    fun asObject() {
+        type(ArgTypeCommonInstance("Object"))
     }
 
     fun asString() {
-        type(ArgType.String)
-    }
-
-    fun asImString() {
-        type(ArgType.ImString)
-    }
-
-    fun asStringArray() {
-        type(ArgType.StringArray)
+        type(ArgTypeString)
     }
 
     fun asNull() {
-        type(ArgType.Null)
-    }
-
-    fun asInt() {
-        type(ArgType.Int)
-    }
-
-    fun asIntArray() {
-        type(ArgType.IntArray)
-    }
-
-    fun asFloat() {
-        type(ArgType.Float)
-    }
-
-    fun asFloatArray() {
-        type(ArgType.FloatArray)
-    }
-
-    fun asShort() {
-        type(ArgType.Short)
-    }
-
-    fun asShortArray() {
-        type(ArgType.ShortArray)
-    }
-
-    fun asByteArray() {
-        type(ArgType.ByeArray)
-    }
-
-    fun asLong() {
-        type(ArgType.Long)
-    }
-
-    fun asLongArray() {
-        type(ArgType.LongArray)
-    }
-
-    fun asDouble() {
-        type(ArgType.Double)
-    }
-
-    fun asDoubleArray() {
-        type(ArgType.DoubleArray)
+        type(ArgTypeNull)
     }
 
     fun asBoolean() {
-        type(ArgType.Boolean)
+        type(ArgTypePrimitive.BOOL)
+    }
+
+    fun asByte() {
+        type(ArgTypePrimitive.BYTE)
+    }
+
+    fun asShort() {
+        type(ArgTypePrimitive.SHORT)
+    }
+
+    fun asInt() {
+        type(ArgTypePrimitive.INT)
+    }
+
+    fun asFloat() {
+        type(ArgTypePrimitive.FLOAT)
+    }
+
+    fun asDouble() {
+        type(ArgTypePrimitive.DOUBLE)
+    }
+
+    fun asLong() {
+        type(ArgTypePrimitive.LONG)
     }
 
     fun asStruct(name: String) {
-        type(ArgType.Struct(name))
+        type(ArgTypeStruct(name))
     }
 
-    fun asGenericClass(name: String = "T") {
-        type(ArgType.GenericClass(name))
+    fun asGenericClass(genericLiteral: String = "T") {
+        type(ArgTypeCommonInstance("Class<$genericLiteral>"))
     }
 
     fun asVec2() {
-        type(ArgType.Vec2)
+        type(ArgTypeVec.V2)
     }
 
     fun asVec4() {
-        type(ArgType.Vec4)
+        type(ArgTypeVec.V4)
     }
 
     fun flagPointer() {
         data.addFlag(ArgTypeFlag.POINTER)
     }
 
-    fun flatPointerWithArray() {
-        data.addFlag(ArgTypeFlag.POINTER_WITH_ARRAY)
+    fun flagArray() {
+        data.addFlag(ArgTypeFlag.ARRAY)
     }
 }

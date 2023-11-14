@@ -8,7 +8,8 @@ import tool.generator.api.definition.node.DefinitionNode
 interface Definition {
     companion object {
         private const val PACKAGE_POINT = "._package"
-        val PACKAGE_PATH = Definition::class.java.`package`.name + PACKAGE_POINT
+        val ROOT_PATH = Definition::class.java.`package`.name
+        val PACKAGE_PATH = ROOT_PATH + PACKAGE_POINT
     }
 
     /**

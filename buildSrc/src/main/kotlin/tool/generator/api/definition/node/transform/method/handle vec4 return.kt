@@ -7,6 +7,7 @@ import tool.generator.api.definition.node.type.method.ArgDefinitionNode
 import tool.generator.api.definition.node.type.method.ArgTypeDefinitionNode
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
+import tool.generator.api.definition.node.type.method.ext.arg.ArgTypeVec
 
 /**
  * Transformation handles methods with ImVec4 as return type.
@@ -127,7 +128,7 @@ object `handle vec4 return` : TransformationChain.Transform {
             name = "dst"
             addFlag(ArgFlag.FINAL)
             argType = ArgTypeDefinitionNode().apply {
-                type = ArgType.Vec4
+                type = ArgTypeVec.V4
             }
         })
 

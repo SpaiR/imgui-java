@@ -6,7 +6,7 @@ import tool.generator.api.definition.dsl.method.MethodsDsl
 fun MethodsDsl.genDataPlotting() {
     method("PlotLines") {
         argString("label")
-        argFloatArr("values")
+        argFloat("values", isArray = true)
         argInt("valuesCount")
         argInt("valuesOffset", optional = true, default = "0")
         argString("overlayText", optional = true, default = "NULL")
@@ -17,7 +17,7 @@ fun MethodsDsl.genDataPlotting() {
     }
     method("PlotHistogram") {
         argString("label")
-        argFloatArr("values")
+        argFloat("values", isArray = true)
         argInt("valuesCount")
         argInt("valuesOffset", default = "0")
         argString("overlayText", default = "NULL")

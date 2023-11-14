@@ -1,10 +1,23 @@
 package tool.generator.api.definition.node.render
 
+import org.reflections.Reflections
+import tool.generator.api.definition.Definition
 import tool.generator.api.definition.node.transform.method.TYPE_IM_VEC2_JVM
 import tool.generator.api.definition.node.transform.method.TYPE_IM_VEC4_JVM
 import tool.generator.api.definition.node.type.method.ArgDefinitionNode
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
+
+interface MethodArgRender {
+    fun render(arg: ArgDefinitionNode): String
+    fun isApplicable(method: MethodDefinitionNode, arg: ArgDefinitionNode): Boolean
+}
+
+private val methodArgRenderLists: List<MethodArgRender> by lazy {
+    Reflections(Definition.ROOT_PATH)
+        .getSubTypesOf(MethodArgRender::class.java)
+        .map { it.getDeclaredConstructor().newInstance() }
+}
 
 fun renderMethod(method: MethodDefinitionNode): String {
     return buildString {
@@ -28,17 +41,7 @@ fun renderMethod(method: MethodDefinitionNode): String {
             append(signature.name)
 
             append("(")
-            append(signature.argsList.joinToString {
-                buildString {
-                    if (it.hasFlag(ArgFlag.FINAL)) {
-                        append("final ")
-                    }
-
-                    append(renderArgType(method.signature.isNative, it))
-                    append(" ")
-                    append(it.name)
-                }
-            })
+            append(signature.argsList.joinToString { renderArg(method, it) })
             append(")")
 
             if (signature.isNative) {
@@ -81,36 +84,11 @@ private fun renderReturnTypeInSignature(method: MethodDefinitionNode): String {
     }
 }
 
-private fun renderArgType(isNative: Boolean, arg: ArgDefinitionNode): String {
-    val argType = arg.argType.type
-
-    if (argType is ArgType.Struct) {
-        return if (isNative) {
-            "long"
-        } else {
-            argType.name
-        }
-    }
-
-    if (argType is ArgType.GenericClass) {
-        return "Class<${argType.name}>"
-    }
-
-    // There can only be a definition.
-    argType as ArgType.Definition
-
-    return if (isNative) {
-        if (arg.argType.hasFlag(ArgTypeFlag.POINTER)) {
-            argType.jniPointerName
-        } else {
-            argType.jniName
-        }
-    } else {
-        if (arg.argType.hasFlag(ArgTypeFlag.POINTER)) {
-            argType.jvmPointerName
-        } else {
-            argType.jvmName
-        }
+private fun renderArg(method: MethodDefinitionNode, arg: ArgDefinitionNode): String {
+    try {
+        return methodArgRenderLists.first { it.isApplicable(method, arg) }.render(arg)
+    } catch (e: NoSuchElementException) {
+        throw RuntimeException("Unable to find method arg render for method:[$method] arg:[$arg]")
     }
 }
 

@@ -6,23 +6,23 @@ import tool.generator.api.definition.dsl.method.MethodsDsl
 fun MethodsDsl.genColorEditorAndPicker() {
     method("ColorEdit3", returnBoolean()) {
         argString("label")
-        argFloatArr("col")
+        argFloat("col", isArray = true)
         argInt("flags", optional = true)
     }
     method("ColorEdit4", returnBoolean()) {
         argString("label")
-        argFloatArr("col")
+        argFloat("col", isArray = true)
         argInt("flags", optional = true)
     }
     method("ColorPicker3", returnBoolean()) {
         argString("label")
-        argFloatArr("col")
+        argFloat("col", isArray = true)
         argInt("flags", optional = true)
     }
     method("ColorPicker4", returnBoolean()) {
         argString("label")
-        argFloatArr("col")
+        argFloat("col", isArray = true)
         argInt("flags", optional = true)
-        argFloatPtr("refCol", optional = true)
+        argFloat("refCol", optional = true, isPointer = true)
     }
 }

@@ -25,25 +25,21 @@ object `add method for pointer with array` : TransformationChain.Transform {
                 var newMethod: MethodDefinitionNode? = null
 
                 args.forEachIndexed { index, arg ->
-                    if (arg.argType.hasFlag(ArgTypeFlag.POINTER_WITH_ARRAY)) {
+                    if (arg.argType.hasFlag(ArgTypeFlag.POINTER) && arg.argType.hasFlag(ArgTypeFlag.ARRAY)) {
                         if (newMethod == null) {
                             newMethod = node.copy()
                         }
 
+                        // Remove ARRAY flag so the method will be generated with a pointer arg.
+                        arg.argType.removeFlag(ArgTypeFlag.ARRAY)
+
                         newMethod!!.let {
                             val newArgs = it.signature.argsList.toMutableList()
                             val newArg = newArgs[index]
-                            newArg.argType.type = when (newArg.argType.type) {
-                                is ArgType.Short -> ArgType.ShortArray
-                                is ArgType.Int -> ArgType.IntArray
-                                is ArgType.Float -> ArgType.FloatArray
-                                is ArgType.Long -> ArgType.LongArray
-                                is ArgType.Double -> ArgType.DoubleArray
-                                else -> error("Can't fine array type argType: ${newArg.argType}")
-                            }
-                            newArg.argType.removeFlag(ArgTypeFlag.POINTER)
-                            newArg.argType.removeFlag(ArgTypeFlag.POINTER_WITH_ARRAY)
                             newArgs[index] = newArg
+
+                            // New method will be generated with an argument as an array.
+                            newArg.argType.removeFlag(ArgTypeFlag.POINTER)
 
                             it.signature.args = ArgsDefinitionNode().apply {
                                 this.args = newArgs

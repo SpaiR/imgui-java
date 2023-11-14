@@ -11,7 +11,7 @@ fun MethodsDsl.genMethods() {
 
     method("Combo", returnBoolean()) {
         argString("label")
-        argIntPtr("currentItem")
+        argInt("currentItem", isPointer = true)
         argString("itemsSeparatedByZeros")
         argInt("popupMaxHeightInItems", optional = true)
     }
