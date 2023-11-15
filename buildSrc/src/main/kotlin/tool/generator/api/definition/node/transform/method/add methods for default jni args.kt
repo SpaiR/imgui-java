@@ -3,6 +3,7 @@ package tool.generator.api.definition.node.transform.method
 import tool.generator.api.definition.node.DefinitionNode
 import tool.generator.api.definition.node.Nodes
 import tool.generator.api.definition.node.transform.TransformationChain
+import tool.generator.api.definition.node.type.method.ArgDefinitionNode
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
 
@@ -19,7 +20,7 @@ object `add methods for default jni args` : TransformationChain.Transform {
             if (node is MethodDefinitionNode) {
                 val args = node.signature.argsList
                 args.forEachIndexed { index, arg ->
-                    if (arg.hasDefaultJniValue && index + 1 < args.size) {
+                    if (arg.hasDefaultJniValue && index + 1 < args.size && isPossibleToCreateDefaultArgs(args, index, arg)) {
                         val firstPart = args.toList().subList(0, index)
                         val secondPart = args.toList().subList(index + 1, args.size)
                         val newArgs = firstPart + secondPart
@@ -50,4 +51,28 @@ object `add methods for default jni args` : TransformationChain.Transform {
 
         return result
     }
+
+    /**
+     * It's impossible to create methods with default arguments when neighboring arguments are of the same type.
+     */
+    private fun isPossibleToCreateDefaultArgs(
+        args: Collection<ArgDefinitionNode>,
+        index: Int,
+        arg: ArgDefinitionNode
+    ): Boolean {
+        if (index - 1 >= 0) {
+            val prevArg = args.toList()[index - 1]
+            if (prevArg.argType.type == arg.argType.type && prevArg.argType.flgas == arg.argType.flgas) {
+                return false
+            }
+        }
+        if (index + 1 < args.size) {
+            val nextArg = args.toList()[index + 1]
+            if (nextArg.argType.type == arg.argType.type && nextArg.argType.flgas == arg.argType.flgas) {
+                return false
+            }
+        }
+        return true
+    }
+
 }

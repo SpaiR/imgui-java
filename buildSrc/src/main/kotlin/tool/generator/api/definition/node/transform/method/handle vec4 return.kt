@@ -56,6 +56,7 @@ object `handle vec4 return` : TransformationChain.Transform {
         val method = node.copy()
         method.body.lines = listOf(
             buildString {
+                append("final ")
                 append(TYPE_IM_VEC4_JVM)
                 append(" dst = new ")
                 append(TYPE_IM_VEC4_JVM)

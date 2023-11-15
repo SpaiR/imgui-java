@@ -52,6 +52,7 @@ object `handle vec2 return` : TransformationChain.Transform {
         val method = node.copy()
         method.body.lines = listOf(
             buildString {
+                append("final ")
                 append(TYPE_IM_VEC2_JVM)
                 append(" dst = new ")
                 append(TYPE_IM_VEC2_JVM)

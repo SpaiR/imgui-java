@@ -14,15 +14,9 @@ fun MethodsDsl.convertFunctionDeclsToDsl(functionDecls: Collection<AstFunctionDe
             signature {
                 name(decl.name)
                 args {
-                    decl.getParams().forEachIndexed { index, param ->
-                        var attachDefault = true
-                        if (index + 1 < decl.getParams().size) {
-                            for (i in decl.getParams().size - 1 downTo index + 1) {
-                                attachDefault = decl.getParams()[i].defaultValue == null
-                            }
-                        }
+                    decl.getParams().forEach { param ->
                         arg {
-                            declParamToDsl(decl, param, this, attachDefault)
+                            declParamToDsl(decl, param, this)
                         }
                     }
                 }
@@ -37,7 +31,7 @@ fun MethodsDsl.convertFunctionDeclsToDsl(functionDecls: Collection<AstFunctionDe
     }
 }
 
-private fun declParamToDsl(decl: AstFunctionDecl, param: AstParmVarDecl, dsl: ArgDsl, attachDefault: Boolean) {
+private fun declParamToDsl(decl: AstFunctionDecl, param: AstParmVarDecl, dsl: ArgDsl) {
     dsl.apply {
         if (param.isFormatAttr()) {
             name("# GENERATED NAME #")
@@ -149,9 +143,7 @@ private fun declParamToDsl(decl: AstFunctionDecl, param: AstParmVarDecl, dsl: Ar
 
         if (param.defaultValue != null) {
             optional()
-            if (attachDefault) {
-                defaultJniValue(param.defaultValue)
-            }
+            defaultJniValue(param.defaultValue)
         }
 
         when (param.qualType) {
