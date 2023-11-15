@@ -6,6 +6,8 @@ import org.gradle.api.tasks.TaskAction
 import tool.generator.api.definition.Definition
 import tool.generator.api.definition.DefinitionMap
 import tool.generator.api.definition.DefinitionRenderer
+import tool.generator.api.definition.DefinitionVirtualContent
+import tool.generator.api.definition._package.virtualContents
 import java.io.File
 
 /**
@@ -51,6 +53,9 @@ open class GenerateApi : DefaultTask() {
             into(genDstDir)
         }
 
+        logger.info("Creating virtual content...")
+        createVirtualContent()
+
         logger.info("Processing raw sources...")
 
         for (sourceFile in project.file(genDstDir).walkTopDown()) {
@@ -62,6 +67,49 @@ open class GenerateApi : DefaultTask() {
                 logger.info(" - $sourceFile")
                 processSourceFile(sourceFile, definition)
             }
+        }
+    }
+
+    /**
+     * Method creates classes and enum defined in [virtualContents] field.
+     * This is helpful to use when a class is fully auto-generated.
+     */
+    private fun createVirtualContent() {
+        virtualContents.forEach { vc ->
+            val dirFile = File(genDstDir + '/' + vc.packageName.replace('.', '/'))
+            dirFile.mkdirs()
+
+            val contentFile = dirFile.resolve("${vc.contentName}.java")
+            if (contentFile.exists()) {
+                logger.error("Virtual content defined for content that exists: $contentFile")
+            }
+            contentFile.createNewFile()
+
+            contentFile.writeText(
+                buildString {
+                    appendLine("package ${vc.packageName};")
+                    appendLine()
+                    appendLine("/**")
+                    appendLine(" * GENERATED CONTENT")
+                    if (vc.javaDoc.isNotEmpty()) {
+                        vc.javaDoc.lineSequence().forEach {
+                            appendLine(" * $it")
+                        }
+                    }
+                    appendLine(" */")
+                    append("public ")
+                    if (vc.isFinal) {
+                        append("final ")
+                    }
+                    when (vc.type) {
+                        DefinitionVirtualContent.Type.CLASS -> append("class ")
+                        DefinitionVirtualContent.Type.ENUM -> append("enum ")
+                    }
+                    append(vc.contentName)
+                    appendLine(" {")
+                    appendLine("}")
+                }
+            )
         }
     }
 

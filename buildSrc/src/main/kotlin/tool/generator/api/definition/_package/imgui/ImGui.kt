@@ -29,7 +29,7 @@ class ImGui : Definition {
     }
 
     private fun getApiClass(): String {
-        return ImGuiApi::class.java.name.removePrefix(Definition.PACKAGE_PATH)
+        return ImGuiApi::class.java.name.removePrefix(Definition.PACKAGE_PATH + '.')
     }
 
     private fun collectImGuiApiMethods(): Collection<DefinitionNode> {
