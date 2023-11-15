@@ -1,11 +1,9 @@
 package tool.generator.api.definition.node.render
 
-import org.reflections.Reflections
 import tool.generator.api.definition.Definition
-import tool.generator.api.definition.node.transform.method.TYPE_IM_VEC2_JVM
-import tool.generator.api.definition.node.transform.method.TYPE_IM_VEC4_JVM
 import tool.generator.api.definition.node.type.method.ArgDefinitionNode
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
+import tool.generator.api.definition.node.type.method.ReturnTypeDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
 
 interface MethodArgRender {
@@ -13,9 +11,20 @@ interface MethodArgRender {
     fun isApplicable(method: MethodDefinitionNode, arg: ArgDefinitionNode): Boolean
 }
 
+interface MethodReturnRender {
+    fun render(returnType: ReturnTypeDefinitionNode): String
+    fun isApplicable(method: MethodDefinitionNode, returnType: ReturnTypeDefinitionNode): Boolean
+}
+
 private val methodArgRenderLists: List<MethodArgRender> by lazy {
-    Reflections(Definition.ROOT_PATH)
+    Definition.ROOT_REFLECTION
         .getSubTypesOf(MethodArgRender::class.java)
+        .map { it.getDeclaredConstructor().newInstance() }
+}
+
+private val methodReturnRenderLists: List<MethodReturnRender> by lazy {
+    Definition.ROOT_REFLECTION
+        .getSubTypesOf(MethodReturnRender::class.java)
         .map { it.getDeclaredConstructor().newInstance() }
 }
 
@@ -35,7 +44,7 @@ fun renderMethod(method: MethodDefinitionNode): String {
             }
 
             append(' ')
-            append(renderReturnTypeInSignature(method))
+            append(renderReturn(method))
 
             append(' ')
             append(signature.name)
@@ -61,26 +70,11 @@ fun renderMethod(method: MethodDefinitionNode): String {
     }
 }
 
-private fun renderReturnTypeInSignature(method: MethodDefinitionNode): String {
-    val returnType = method.returnType.type
-    return if (returnType is ReturnType.Void) {
-        "void"
-    } else if (returnType is ReturnType.Struct) {
-        if (method.signature.isNative) {
-            "long"
-        } else {
-            returnType.name
-        }
-    } else if (returnType is ReturnType.GenericLiteral) {
-        "<${returnType.name}> ${returnType.name}"
-    } else if (returnType is ReturnType.Vec2) {
-        TYPE_IM_VEC2_JVM
-    } else if (returnType is ReturnType.Vec4) {
-        TYPE_IM_VEC4_JVM
-    } else if (returnType is ReturnType.String) {
-        "String"
-    } else {
-        returnType.javaClass.simpleName.toLowerCase()
+private fun renderReturn(method: MethodDefinitionNode): String {
+    try {
+        return methodReturnRenderLists.first { it.isApplicable(method, method.returnType) }.render(method.returnType)
+    } catch (e: NoSuchElementException) {
+        throw RuntimeException("Unable to render return:[${method.returnType}] for method:[$method]")
     }
 }
 
@@ -88,7 +82,7 @@ private fun renderArg(method: MethodDefinitionNode, arg: ArgDefinitionNode): Str
     try {
         return methodArgRenderLists.first { it.isApplicable(method, arg) }.render(arg)
     } catch (e: NoSuchElementException) {
-        throw RuntimeException("Unable to find method arg render for method:[$method] arg:[$arg]")
+        throw RuntimeException("Unable to render arg:[$arg] for method:[$method]")
     }
 }
 

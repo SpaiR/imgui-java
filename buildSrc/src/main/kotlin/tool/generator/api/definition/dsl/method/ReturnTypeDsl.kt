@@ -5,6 +5,10 @@ import tool.generator.api.definition.node.type.method.ReturnTypeDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.ReturnType
 import tool.generator.api.definition.node.type.method.ext.ReturnTypeFlag
 import tool.generator.api.definition.node.type.method.ext.addFlag
+import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeGeneral
+import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeGenericLiteral
+import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeStruct
+import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeVec
 import tool.generator.api.definition.node.type.method.ext.type
 
 @DefinitionDsl
@@ -16,43 +20,43 @@ class ReturnTypeDsl {
     }
 
     fun asVoid() {
-        type(ReturnType.Void)
+        type(ReturnTypeGeneral.VOID)
     }
 
     fun asString() {
-        type(ReturnType.String)
-    }
-
-    fun asInt() {
-        type(ReturnType.Int)
-    }
-
-    fun asDouble() {
-        type(ReturnType.Double)
-    }
-
-    fun asFloat() {
-        type(ReturnType.Float)
+        type(ReturnTypeGeneral.STRING)
     }
 
     fun asBoolean() {
-        type(ReturnType.Boolean)
+        type(ReturnTypeGeneral.BOOL)
+    }
+
+    fun asInt() {
+        type(ReturnTypeGeneral.INT)
+    }
+
+    fun asDouble() {
+        type(ReturnTypeGeneral.DOUBLE)
+    }
+
+    fun asFloat() {
+        type(ReturnTypeGeneral.FLOAT)
     }
 
     fun asVec2() {
-        type(ReturnType.Vec2)
+        type(ReturnTypeVec.V2)
     }
 
     fun asVec4() {
-        type(ReturnType.Vec4)
+        type(ReturnTypeVec.V4)
     }
 
     fun asStruct(name: String) {
-        type(ReturnType.Struct(name))
+        type(ReturnTypeStruct(name))
     }
 
-    fun asGenericLiteral(name: String = "T") {
-        type(ReturnType.GenericLiteral(name))
+    fun asGenericLiteral(literal: String = "T") {
+        type(ReturnTypeGenericLiteral(literal))
     }
 
     fun flagStatic() {

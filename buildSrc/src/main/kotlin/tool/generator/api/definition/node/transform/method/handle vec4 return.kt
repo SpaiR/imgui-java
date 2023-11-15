@@ -8,6 +8,8 @@ import tool.generator.api.definition.node.type.method.ArgTypeDefinitionNode
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
 import tool.generator.api.definition.node.type.method.ext.arg.ArgTypeVec
+import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeGeneral
+import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeVec
 
 /**
  * Transformation handles methods with ImVec4 as return type.
@@ -18,7 +20,7 @@ object `handle vec4 return` : TransformationChain.Transform {
         val result = mutableListOf<DefinitionNode>()
 
         nodes.forEach { node ->
-            if (node is MethodDefinitionNode && node.returnType.type is ReturnType.Vec4) {
+            if (node is MethodDefinitionNode && node.returnType.type == ReturnTypeVec.V4) {
                 if (node.signature.isNative) {
                     result += createJniReturnFloatMethod(node, "x")
                     result += createJniReturnFloatMethod(node, "y")
@@ -133,7 +135,7 @@ object `handle vec4 return` : TransformationChain.Transform {
         })
 
         method.signature.args.args = newArgs
-        method.returnType.type = ReturnType.Void
+        method.returnType.type = ReturnTypeGeneral.VOID
 
         return method
     }
@@ -162,7 +164,7 @@ object `handle vec4 return` : TransformationChain.Transform {
                 append(");")
             }
         )
-        method.returnType.type = ReturnType.Float
+        method.returnType.type = ReturnTypeGeneral.FLOAT
         return method
     }
 
@@ -192,7 +194,7 @@ object `handle vec4 return` : TransformationChain.Transform {
                 append(';')
             }
         )
-        method.returnType.type = ReturnType.Float
+        method.returnType.type = ReturnTypeGeneral.FLOAT
         return method
     }
 }

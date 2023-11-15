@@ -1,5 +1,6 @@
 package tool.generator.api.definition
 
+import org.reflections.Reflections
 import tool.generator.api.definition.node.DefinitionNode
 
 /**
@@ -8,8 +9,9 @@ import tool.generator.api.definition.node.DefinitionNode
 interface Definition {
     companion object {
         private const val PACKAGE_POINT = "._package"
-        val ROOT_PATH = Definition::class.java.`package`.name
-        val PACKAGE_PATH = ROOT_PATH + PACKAGE_POINT
+        private val ROOT_PATH: String = Definition::class.java.`package`.name
+        val PACKAGE_PATH: String = ROOT_PATH + PACKAGE_POINT
+        val ROOT_REFLECTION: Reflections = Reflections(ROOT_PATH)
     }
 
     /**

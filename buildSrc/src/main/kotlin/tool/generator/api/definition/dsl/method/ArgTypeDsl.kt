@@ -60,8 +60,8 @@ class ArgTypeDsl {
         type(ArgTypeStruct(name))
     }
 
-    fun asGenericClass(genericLiteral: String = "T") {
-        type(ArgTypeCommonInstance("Class<$genericLiteral>"))
+    fun asGenericClass(literal: String = "T") {
+        type(ArgTypeCommonInstance("Class<$literal>"))
     }
 
     fun asVec2() {

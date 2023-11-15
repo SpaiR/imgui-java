@@ -610,7 +610,6 @@ private fun DefineDsl.inputText() {
         jfieldID inputDataIsDirtyID;
         jfieldID inputDataIsResizedID;
 
-
         struct InputTextCallbackUserData {
             JNIEnv* env;
             jobject* imString;

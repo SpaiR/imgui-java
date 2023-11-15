@@ -8,6 +8,7 @@ import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
 import tool.generator.api.definition.node.type.method.ext.arg.ArgTypePrimitive
 import tool.generator.api.definition.node.type.method.ext.arg.ArgTypeVec
+import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeGeneral
 
 /**
  * Transformation handles methods with ImVec4 as argument type.
@@ -53,7 +54,7 @@ object `handle vec4 arg` : TransformationChain.Transform {
         method.body.let { body ->
             body.lines = listOf(
                 buildString {
-                    if (method.returnType.type !is ReturnType.Void) {
+                    if (method.returnType.type != ReturnTypeGeneral.VOID) {
                         append("return ")
                     }
 

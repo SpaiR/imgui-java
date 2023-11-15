@@ -5,6 +5,8 @@ import tool.generator.api.definition.node.Nodes
 import tool.generator.api.definition.node.transform.TransformationChain
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
+import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeGeneral
+import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeStruct
 
 @Suppress("ClassName")
 object `set body from autoBody` : TransformationChain.Transform {
@@ -29,7 +31,7 @@ object `set body from autoBody` : TransformationChain.Transform {
     }
 
     private fun renderAutoBody(method: MethodDefinitionNode): String {
-        val isStruct = method.returnType.type is ReturnType.Struct
+        val isStruct = method.returnType.type is ReturnTypeStruct
         val isStatic = method.returnType.hasFlag(ReturnTypeFlag.STATIC)
         return if (isStruct && isStatic && !method.signature.isNative) {
             renderAutoBodyForJvmWithStaticStructField(method)
@@ -57,30 +59,30 @@ object `set body from autoBody` : TransformationChain.Transform {
     private fun renderDefaultAutoBody(method: MethodDefinitionNode): String {
         val returnType = method.returnType.type
         return buildString {
-            if (returnType !is ReturnType.Void) {
+            if (returnType != ReturnTypeGeneral.VOID) {
                 append("return ")
             }
 
-            if (returnType is ReturnType.String && method.signature.isNative) {
+            if (returnType == ReturnTypeGeneral.STRING && method.signature.isNative) {
                 append("env->NewStringUTF(")
             }
-            if (returnType is ReturnType.Struct) {
+            if (returnType is ReturnTypeStruct) {
                 if (method.signature.isNative) {
                     append("($CAST_PTR_JNI)")
                     if (method.returnType.hasFlag(ReturnTypeFlag.REF)) {
                         append('&')
                     }
                 } else {
-                    append("new ${returnType.name}(")
+                    append("new ${returnType.type}(")
                 }
             }
 
             append(renderAutoBodyMethodCall(method))
 
-            if (returnType is ReturnType.String && method.signature.isNative) {
+            if (returnType == ReturnTypeGeneral.STRING && method.signature.isNative) {
                 append(')')
             }
-            if (returnType is ReturnType.Struct && !method.signature.isNative) {
+            if (returnType is ReturnTypeStruct && !method.signature.isNative) {
                 append(')')
             }
 

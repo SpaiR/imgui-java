@@ -6,6 +6,7 @@ import tool.generator.api.definition.node.transform.TransformationChain
 import tool.generator.api.definition.node.type.LineDefinitionNode
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
+import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeStruct
 
 /**
  * Transformation which creates an additional node with a static field.
@@ -20,17 +21,17 @@ object `add static struct field` : TransformationChain.Transform {
             if (node is MethodDefinitionNode) {
                 val returnType = node.returnType.type
                 val isStatic = node.returnType.hasFlag(ReturnTypeFlag.STATIC)
-                if (returnType is ReturnType.Struct && isStatic && !node.signature.isNative) {
+                if (returnType is ReturnTypeStruct && isStatic && !node.signature.isNative) {
                     // Generates field like:
                     // private static final $ReturnType $generatedName = new $ReturnType(0);
                     result += LineDefinitionNode(
                         buildString {
                             append("private static final ")
-                            append(returnType.name)
+                            append(returnType.type)
                             append(' ')
                             append(getStaticStructFieldName(node))
                             append(" = new ")
-                            append(returnType.name)
+                            append(returnType.type)
                             append("(0);")
                         }
                     )

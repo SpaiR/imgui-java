@@ -8,6 +8,7 @@ import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
 import tool.generator.api.definition.node.type.method.ext.arg.ArgTypePrimitive
 import tool.generator.api.definition.node.type.method.ext.arg.ArgTypeVec
+import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeGeneral
 
 /**
  * Transformation handles methods with ImVec2 as argument type.
@@ -52,7 +53,7 @@ object `handle vec2 arg` : TransformationChain.Transform {
         val method = node.copy()
 
         method.body.lines = listOf(buildString {
-            if (method.returnType.type !is ReturnType.Void) {
+            if (method.returnType.type != ReturnTypeGeneral.VOID) {
                 append("return ")
             }
 

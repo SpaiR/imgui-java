@@ -5,6 +5,7 @@ import tool.generator.api.definition._package.imgui.binding.ImGuiApi
 import tool.generator.api.definition.node.DefinitionNode
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
+import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeGeneral
 
 class ImGui : Definition {
     companion object {
@@ -39,7 +40,7 @@ class ImGui : Definition {
                 method.signature.isStatic = true
                 method.body.lines = listOf(
                     buildString {
-                        if (method.returnType.type !is ReturnType.Void) {
+                        if (method.returnType.type != ReturnTypeGeneral.VOID) {
                             append("return ")
                         }
 

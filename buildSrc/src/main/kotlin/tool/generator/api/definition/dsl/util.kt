@@ -227,12 +227,12 @@ fun ArgsDsl.argObject(
 
 fun ArgsDsl.argGenericClass(
     name: String,
-    genericLiteral: String = "T",
+    literal: String = "T",
     optional: Boolean = false,
     default: String? = null,
 ) {
     rawArg(
-        { asGenericClass(genericLiteral) },
+        { asGenericClass(literal) },
         name,
         optional = optional,
         default = default,
