@@ -1,6 +1,7 @@
 package tool.generator.api.definition._package.imgui.binding
 
 import tool.generator.api.definition.dsl.*
+import tool.generator.api.definition.dsl.method.ArgsDsl
 import tool.generator.api.definition.dsl.method.MethodsDsl
 import tool.generator.api.definition.node.transform.method.METHOD_JNI_PREFIX
 
@@ -13,14 +14,17 @@ fun DefineDsl.manualMethods() {
         colorConvert()
     }
     dragNDrop()
-//    inputText()
+    inputText()
 }
 
 private fun MethodsDsl.comboMethods() {
+    val methodName = "combo"
+    val nMethodName = "${METHOD_JNI_PREFIX}Combo"
+
     method {
         signature {
             public()
-            name("combo")
+            name(methodName)
             args {
                 argString("label")
                 argInt("currentItem", isPointer = true)
@@ -28,7 +32,8 @@ private fun MethodsDsl.comboMethods() {
             }
         }
         body {
-            line("return nCombo(label, currentItem.getData(), items, items.length, -1);")
+            // Will be generated in other place.
+            line("return this.$methodName(label, currentItem, items, items.length);")
         }
         returnType {
             asBoolean()
@@ -37,7 +42,7 @@ private fun MethodsDsl.comboMethods() {
     method {
         signature {
             public()
-            name("combo")
+            name(methodName)
             args {
                 argString("label")
                 argInt("currentItem", isPointer = true)
@@ -46,7 +51,7 @@ private fun MethodsDsl.comboMethods() {
             }
         }
         body {
-            line("return nCombo(label, currentItem.getData(), items, items.length, popupMaxHeightInItems);")
+            line("return this.$nMethodName(label, currentItem.getData(), items, items.length, popupMaxHeightInItems);")
         }
         returnType {
             asBoolean()
@@ -56,7 +61,7 @@ private fun MethodsDsl.comboMethods() {
         signature {
             private()
             native()
-            name("${METHOD_JNI_PREFIX}Combo")
+            name(nMethodName)
             args {
                 argString("label")
                 argInt("currentItem", isArray = true)
@@ -68,19 +73,11 @@ private fun MethodsDsl.comboMethods() {
         body {
             line(
                 """
-                    const char* comboItems[itemsCount];
-                    for (int i = 0; i < itemsCount; i++) {
-                        jstring string = (jstring)env->GetObjectArrayElement(items, i);
-                        const char* rawString = env->GetStringUTFChars(string, JNI_FALSE);
-                        comboItems[i] = rawString;
-                    }
-                    bool flag = ImGui::Combo(label, &currentItem[0], comboItems, itemsCount, popupMaxHeightInItems);
-                    for (int i = 0; i< itemsCount; i++) {
-                        jstring string = (jstring)env->GetObjectArrayElement(items, i);
-                        env->ReleaseStringUTFChars(string, comboItems[i]);
-                    }
-                    return flag;
-                """.trimIndent()
+                |${nTmplStringsToCharsGet("itemsChars", "items", "itemsCount")}
+                |bool flag = ImGui::Combo(label, &currentItem[0], itemsChars, itemsCount, popupMaxHeightInItems);
+                |${nTmplStringsToCharsRelease("itemsChars", "items", "itemsCount")}
+                |return flag;
+                """.trimMargin()
             )
         }
         returnType {
@@ -90,10 +87,13 @@ private fun MethodsDsl.comboMethods() {
 }
 
 private fun MethodsDsl.listBoxMethods() {
+    val methodName = "listBox"
+    val nMethodName = "${METHOD_JNI_PREFIX}ListBox"
+
     method {
         signature {
             public()
-            name("listBox")
+            name(methodName)
             args {
                 argString("label")
                 argInt("currentItem", isPointer = true)
@@ -101,7 +101,8 @@ private fun MethodsDsl.listBoxMethods() {
             }
         }
         body {
-            line("return nListBox(label, currentItem.getData(), items, items.length, -1);")
+            // Will be generated in other place.
+            line("return this.$methodName(label, currentItem, items, items.length);")
         }
         returnType {
             asBoolean()
@@ -110,7 +111,7 @@ private fun MethodsDsl.listBoxMethods() {
     method {
         signature {
             public()
-            name("listBox")
+            name(methodName)
             args {
                 argString("label")
                 argInt("currentItem", isPointer = true)
@@ -119,7 +120,7 @@ private fun MethodsDsl.listBoxMethods() {
             }
         }
         body {
-            line("return nListBox(label, currentItem.getData(), items, items.length, heightInItems);")
+            line("return this.$nMethodName(label, currentItem.getData(), items, items.length, heightInItems);")
         }
         returnType {
             asBoolean()
@@ -129,7 +130,7 @@ private fun MethodsDsl.listBoxMethods() {
         signature {
             private()
             native()
-            name("${METHOD_JNI_PREFIX}ListBox")
+            name(nMethodName)
             args {
                 argString("label")
                 argInt("currentItem", isArray = true)
@@ -141,19 +142,11 @@ private fun MethodsDsl.listBoxMethods() {
         body {
             line(
                 """
-                    const char* listBoxItems[itemsCount];
-                    for (int i = 0; i < itemsCount; i++) {
-                        jstring string = (jstring)env->GetObjectArrayElement(items, i);
-                        const char* rawString = env->GetStringUTFChars(string, JNI_FALSE);
-                        listBoxItems[i] = rawString;
-                    }
-                    bool flag = ImGui::Combo(label, &currentItem[0], listBoxItems, itemsCount, heightInItems);
-                    for (int i = 0; i< itemsCount; i++) {
-                        jstring string = (jstring)env->GetObjectArrayElement(items, i);
-                        env->ReleaseStringUTFChars(string, listBoxItems[i]);
-                    }
-                    return flag;
-                """.trimIndent()
+                |${nTmplStringsToCharsGet("itemsChars", "items", "itemsCount")}
+                |bool flag = ImGui::ListBox(label, &currentItem[0], itemsChars, itemsCount, heightInItems);
+                |${nTmplStringsToCharsRelease("itemsChars", "items", "itemsCount")}
+                |return flag;
+                """.trimMargin()
             )
         }
         returnType {
@@ -162,12 +155,34 @@ private fun MethodsDsl.listBoxMethods() {
     }
 }
 
+private fun nTmplStringsToCharsGet(cArrName: String, sArrName: String, countName: String): String {
+    return """
+        const char* $cArrName[$countName];
+        for (int i = 0; i < $countName; i++) {
+            jstring str = (jstring)env->GetObjectArrayElement($sArrName, i);
+            const char* rawStr = env->GetStringUTFChars(str, JNI_FALSE);
+            $cArrName[i] = rawStr;
+        }
+    """.trimIndent()
+}
+
+private fun nTmplStringsToCharsRelease(cArrName: String, sArrName: String, countName: String): String {
+    return """
+        for (int i = 0; i< $countName; i++) {
+            jstring str = (jstring)env->GetObjectArrayElement($sArrName, i);
+            env->ReleaseStringUTFChars(str, $cArrName[i]);
+        }
+    """.trimIndent()
+}
+
 private fun MethodsDsl.isMousePosValidMethod() {
+    val nMethodName = "${METHOD_JNI_PREFIX}IsMousePosValid"
+
     method {
         signature {
             private()
             native()
-            name("${METHOD_JNI_PREFIX}IsMousePosValid")
+            name(nMethodName)
             args {
                 argFloat("mousePosX")
                 argFloat("mousePosY")
@@ -188,16 +203,19 @@ private fun MethodsDsl.isMousePosValidMethod() {
 }
 
 private fun MethodsDsl.colorU32Method() {
+    val methodName = "getColorU32i"
+    val nMethodName = "${METHOD_JNI_PREFIX}GetColorU32i"
+
     method {
         signature {
             public()
-            name("getColorU32i")
+            name(methodName)
             args {
                 argInt("col")
             }
         }
         body {
-            line("return this.${METHOD_JNI_PREFIX}GetColorU32i(col);")
+            line("return this.$nMethodName(col);")
         }
         returnType {
             asInt()
@@ -207,7 +225,7 @@ private fun MethodsDsl.colorU32Method() {
         signature {
             private()
             native()
-            name("${METHOD_JNI_PREFIX}GetColorU32i")
+            name(nMethodName)
             args {
                 argInt("col")
             }
@@ -222,6 +240,13 @@ private fun MethodsDsl.colorU32Method() {
 }
 
 private fun DefineDsl.dragNDrop() {
+    val methodNameSet = "setDragDropPayload"
+    val nMethodNameSet = "${METHOD_JNI_PREFIX}SetDragDropPayload"
+    val methodNameAccept = "acceptDragDropPayload"
+    val nMethodNameAccept = "${METHOD_JNI_PREFIX}AcceptDragDropPayload"
+    val methodNameGet = "getDragDropPayload"
+    val nMethodNameHas = "${METHOD_JNI_PREFIX}HasDragDropPayload"
+
     line("private static java.lang.ref.WeakReference<Object> payloadRef = null;")
     line("private static final byte[] PAYLOAD_PLACEHOLDER_DATA = new byte[1];")
 
@@ -229,14 +254,14 @@ private fun DefineDsl.dragNDrop() {
         method {
             signature {
                 public()
-                name("setDragDropPayload")
+                name(methodNameSet)
                 args {
                     argString("dataType")
                     argObject("payload")
                 }
             }
             body {
-                line("return setDragDropPayload(dataType, payload, imgui.flag.ImGuiCond.None);")
+                line("return this.$methodNameSet(dataType, payload, imgui.flag.ImGuiCond.None);")
             }
             returnType {
                 asBoolean()
@@ -245,7 +270,7 @@ private fun DefineDsl.dragNDrop() {
         method {
             signature {
                 public()
-                name("setDragDropPayload")
+                name(methodNameSet)
                 args {
                     argString("dataType")
                     argObject("payload")
@@ -253,12 +278,14 @@ private fun DefineDsl.dragNDrop() {
                 }
             }
             body {
-                line("""
+                line(
+                    """
                     if (payloadRef == null || payloadRef.get() != payload) {
                         payloadRef = new java.lang.ref.WeakReference<>(payload);
                     }
-                    return ${METHOD_JNI_PREFIX}SetDragDropPayload(dataType, PAYLOAD_PLACEHOLDER_DATA, 1, cond);
-                """.trimIndent())
+                    return this.$nMethodNameSet(dataType, PAYLOAD_PLACEHOLDER_DATA, 1, cond);
+                """.trimIndent()
+                )
             }
             returnType {
                 asBoolean()
@@ -267,13 +294,13 @@ private fun DefineDsl.dragNDrop() {
         method {
             signature {
                 public()
-                name("setDragDropPayload")
+                name(methodNameSet)
                 args {
                     argObject("payload")
                 }
             }
             body {
-                line("return setDragDropPayload(payload, imgui.flag.ImGuiCond.None);")
+                line("return this.$methodNameSet(payload, imgui.flag.ImGuiCond.None);")
             }
             returnType {
                 asBoolean()
@@ -282,14 +309,14 @@ private fun DefineDsl.dragNDrop() {
         method {
             signature {
                 public()
-                name("setDragDropPayload")
+                name(methodNameSet)
                 args {
                     argObject("payload")
                     argInt("cond")
                 }
             }
             body {
-                line("return setDragDropPayload(String.valueOf(payload.getClass().hashCode()), payload, cond);")
+                line("return this.$methodNameSet(String.valueOf(payload.getClass().hashCode()), payload, cond);")
             }
             returnType {
                 asBoolean()
@@ -299,7 +326,7 @@ private fun DefineDsl.dragNDrop() {
             signature {
                 private()
                 native()
-                name("${METHOD_JNI_PREFIX}SetDragDropPayload")
+                name(nMethodNameSet)
                 args {
                     argString("dataType")
                     argByte("data", isArray = true)
@@ -317,13 +344,13 @@ private fun DefineDsl.dragNDrop() {
         method {
             signature {
                 public()
-                name("acceptDragDropPayload")
+                name(methodNameAccept)
                 args {
                     argString("dataType")
                 }
             }
             body {
-                line("return acceptDragDropPayload(dataType, imgui.flag.ImGuiDragDropFlags.None);")
+                line("return this.$methodNameAccept(dataType, imgui.flag.ImGuiDragDropFlags.None);")
             }
             returnType {
                 asGenericLiteral()
@@ -332,14 +359,14 @@ private fun DefineDsl.dragNDrop() {
         method {
             signature {
                 public()
-                name("acceptDragDropPayload")
+                name(methodNameAccept)
                 args {
                     argString("dataType")
                     argGenericClass("aClass")
                 }
             }
             body {
-                line("return acceptDragDropPayload(dataType, imgui.flag.ImGuiDragDropFlags.None, aClass);")
+                line("return this.$methodNameAccept(dataType, imgui.flag.ImGuiDragDropFlags.None, aClass);")
             }
             returnType {
                 asGenericLiteral()
@@ -348,14 +375,14 @@ private fun DefineDsl.dragNDrop() {
         method {
             signature {
                 public()
-                name("acceptDragDropPayload")
+                name(methodNameAccept)
                 args {
                     argString("dataType")
                     argInt("flags")
                 }
             }
             body {
-                line("return acceptDragDropPayload(dataType, flags, null);")
+                line("return this.$methodNameAccept(dataType, flags, null);")
             }
             returnType {
                 asGenericLiteral()
@@ -364,7 +391,7 @@ private fun DefineDsl.dragNDrop() {
         method {
             signature {
                 public()
-                name("acceptDragDropPayload")
+                name(methodNameAccept)
                 args {
                     argString("dataType")
                     argInt("flags")
@@ -372,8 +399,9 @@ private fun DefineDsl.dragNDrop() {
                 }
             }
             body {
-                line("""
-                    if (payloadRef != null && ${METHOD_JNI_PREFIX}AcceptDragDropPayload(dataType, flags)) {
+                line(
+                    """
+                    if (payloadRef != null && this.$nMethodNameAccept(dataType, flags)) {
                         final Object rawPayload = payloadRef.get();
                         if (rawPayload != null) {
                             if (aClass == null || rawPayload.getClass().isAssignableFrom(aClass)) {
@@ -382,7 +410,8 @@ private fun DefineDsl.dragNDrop() {
                         }
                     }
                     return null;
-                """.trimIndent())
+                """.trimIndent()
+                )
             }
             returnType {
                 asGenericLiteral()
@@ -391,13 +420,13 @@ private fun DefineDsl.dragNDrop() {
         method {
             signature {
                 public()
-                name("acceptDragDropPayload")
+                name(methodNameAccept)
                 args {
                     argGenericClass("aClass")
                 }
             }
             body {
-                line("return acceptDragDropPayload(String.valueOf(aClass.hashCode()), imgui.flag.ImGuiDragDropFlags.None, aClass);")
+                line("return this.$methodNameAccept(String.valueOf(aClass.hashCode()), imgui.flag.ImGuiDragDropFlags.None, aClass);")
             }
             returnType {
                 asGenericLiteral()
@@ -406,14 +435,14 @@ private fun DefineDsl.dragNDrop() {
         method {
             signature {
                 public()
-                name("acceptDragDropPayload")
+                name(methodNameAccept)
                 args {
                     argGenericClass("aClass")
                     argInt("flags")
                 }
             }
             body {
-                line("return acceptDragDropPayload(String.valueOf(aClass.hashCode()), flags, aClass);")
+                line("return this.$methodNameAccept(String.valueOf(aClass.hashCode()), flags, aClass);")
             }
             returnType {
                 asGenericLiteral()
@@ -423,7 +452,7 @@ private fun DefineDsl.dragNDrop() {
             signature {
                 private()
                 native()
-                name("${METHOD_JNI_PREFIX}AcceptDragDropPayload")
+                name(nMethodNameAccept)
                 args {
                     argString("dataType")
                     argInt("flags")
@@ -439,18 +468,20 @@ private fun DefineDsl.dragNDrop() {
         method {
             signature {
                 public()
-                name("getDragDropPayload")
+                name(methodNameGet)
             }
             body {
-                line("""
-                    if (payloadRef != null && ${METHOD_JNI_PREFIX}HasDragDropPayload()) {
+                line(
+                    """
+                    if (payloadRef != null && this.$nMethodNameHas()) {
                         final Object rawPayload = payloadRef.get();
                         if (rawPayload != null) {
                             return (T) rawPayload;
                         }
                     }
                     return null;
-                """.trimIndent())
+                """.trimIndent()
+                )
             }
             returnType {
                 asGenericLiteral()
@@ -459,21 +490,23 @@ private fun DefineDsl.dragNDrop() {
         method {
             signature {
                 public()
-                name("getDragDropPayload")
+                name(methodNameGet)
                 args {
                     argString("dataType")
                 }
             }
             body {
-                line("""
-                    if (payloadRef != null && ${METHOD_JNI_PREFIX}HasDragDropPayload(dataType)) {
+                line(
+                    """
+                    if (payloadRef != null && this.$nMethodNameHas(dataType)) {
                         final Object rawPayload = payloadRef.get();
                         if (rawPayload != null) {
                             return (T) rawPayload;
                         }
                     }
                     return null;
-                """.trimIndent())
+                """.trimIndent()
+                )
             }
             returnType {
                 asGenericLiteral()
@@ -482,13 +515,13 @@ private fun DefineDsl.dragNDrop() {
         method {
             signature {
                 public()
-                name("getDragDropPayload")
+                name(methodNameGet)
                 args {
                     argGenericClass("aClass")
                 }
             }
             body {
-                line("return getDragDropPayload(String.valueOf(aClass.hashCode()));")
+                line("return this.$methodNameGet(String.valueOf(aClass.hashCode()));")
             }
             returnType {
                 asGenericLiteral()
@@ -498,13 +531,15 @@ private fun DefineDsl.dragNDrop() {
             signature {
                 private()
                 native()
-                name("${METHOD_JNI_PREFIX}HasDragDropPayload")
+                name(nMethodNameHas)
             }
             body {
-                line("""
+                line(
+                    """
                     const ImGuiPayload* payload = ImGui::GetDragDropPayload();
                     return payload != NULL && payload->Data != NULL;
-                """.trimIndent())
+                """.trimIndent()
+                )
             }
             returnType {
                 asBoolean()
@@ -514,16 +549,18 @@ private fun DefineDsl.dragNDrop() {
             signature {
                 private()
                 native()
-                name("${METHOD_JNI_PREFIX}HasDragDropPayload")
+                name(nMethodNameHas)
                 args {
                     argString("dataType")
                 }
             }
             body {
-                line("""
+                line(
+                    """
                     const ImGuiPayload* payload = ImGui::GetDragDropPayload();
                     return payload != NULL && payload->IsDataType(dataType);
-                """.trimIndent())
+                """.trimIndent()
+                )
             }
             returnType {
                 asBoolean()
@@ -533,17 +570,22 @@ private fun DefineDsl.dragNDrop() {
 }
 
 fun MethodsDsl.colorConvert() {
+    val methodNameRGB2HSV = "colorConvertRGBtoHSV"
+    val nMethodNameRGB2HSV = "${METHOD_JNI_PREFIX}ColorConvertRGBtoHSV"
+    val methodNameHSV2RGB = "colorConvertHSVtoRGB"
+    val nMethodNameHSV2RGB = "${METHOD_JNI_PREFIX}ColorConvertHSVtoRGB"
+
     method {
         signature {
             public()
-            name("colorConvertRGBtoHSV")
+            name(methodNameRGB2HSV)
             args {
                 argFloat("rgb", isArray = true)
                 argFloat("hsv", isArray = true)
             }
         }
         body {
-            line("this.${METHOD_JNI_PREFIX}ColorConvertRGBtoHSV(rgb, hsv);")
+            line("this.$nMethodNameRGB2HSV(rgb, hsv);")
         }
         returnType {
             asVoid()
@@ -553,7 +595,7 @@ fun MethodsDsl.colorConvert() {
         signature {
             private()
             native()
-            name("${METHOD_JNI_PREFIX}ColorConvertRGBtoHSV")
+            name(nMethodNameRGB2HSV)
             args {
                 argFloat("rgb", isArray = true)
                 argFloat("hsv", isArray = true)
@@ -569,14 +611,14 @@ fun MethodsDsl.colorConvert() {
     method {
         signature {
             public()
-            name("colorConvertHSVtoRGB")
+            name(methodNameHSV2RGB)
             args {
                 argFloat("hsv", isArray = true)
                 argFloat("rgb", isArray = true)
             }
         }
         body {
-            line("this.${METHOD_JNI_PREFIX}ColorConvertHSVtoRGB(hsv, rgb);")
+            line("this.$nMethodNameHSV2RGB(hsv, rgb);")
         }
         returnType {
             asVoid()
@@ -586,7 +628,7 @@ fun MethodsDsl.colorConvert() {
         signature {
             private()
             native()
-            name("${METHOD_JNI_PREFIX}ColorConvertHSVtoRGB")
+            name(nMethodNameHSV2RGB)
             args {
                 argFloat("hsv", isArray = true)
                 argFloat("rgb", isArray = true)
@@ -602,7 +644,8 @@ fun MethodsDsl.colorConvert() {
 }
 
 private fun DefineDsl.inputText() {
-    jniBlock("""
+    jniBlock(
+        """
         jmethodID jImStringResizeInternalMID;
         jmethodID jInputTextCallbackMID;
 
@@ -658,7 +701,8 @@ private fun DefineDsl.inputText() {
 
             return 0;
         }
-    """.trimIndent())
+    """.trimIndent()
+    )
 
     methods {
         method {
@@ -668,7 +712,8 @@ private fun DefineDsl.inputText() {
                 name("${METHOD_JNI_PREFIX}InitInputTextData")
             }
             body {
-                line("""
+                line(
+                    """
                     jclass jInputDataClass = env->FindClass("imgui/type/ImString${'$'}InputData");
                     inputDataSizeID = env->GetFieldID(jInputDataClass, "size", "I");
                     inputDataIsDirtyID = env->GetFieldID(jInputDataClass, "isDirty", "Z");
@@ -679,59 +724,200 @@ private fun DefineDsl.inputText() {
                 
                     jclass jCallback = env->FindClass("imgui/callback/ImGuiInputTextCallback");
                     jInputTextCallbackMID = env->GetMethodID(jCallback, "accept", "(J)V");
-                """.trimIndent())
-            }
-            returnType {
-                asVoid()
+                """.trimIndent()
+                )
             }
         }
 
-        method {
-            signature {
-                public()
-                name("inputText")
-                args {
-                    argString("label")
-                    argString("text", isPointer = true)
+        val methodNamePreInputText = "preInputText"
+        val nMethodName = "${METHOD_JNI_PREFIX}InputText"
+
+        data class MethodTmpl(
+            val name: String,
+            val args: List<ArgsDsl.() -> Unit>,
+            val argsCall: List<String>,
+        )
+
+        fun preInputTextByTemplate(template: MethodTmpl, argsIndexes: IntArray, argsCallIndex: Int) {
+            method {
+                signature {
+                    public()
+                    name(template.name)
+                    args {
+                        argsIndexes.forEach { index ->
+                            template.args[index]()
+                        }
+                    }
+                }
+                body {
+                    line("return this.$methodNamePreInputText(${template.argsCall[argsCallIndex]});")
+                }
+                returnType {
+                    asBoolean()
                 }
             }
-            body {
-                line("return preInputText(false, label, null, text);")
-            }
-            returnType {
-                asBoolean()
-            }
         }
+
+        val inputTextTemplate = MethodTmpl(
+            "inputText",
+            listOf(
+                { argString("label") },
+                { argString("text", isPointer = true) },
+                { argInt("flags") },
+                { argStruct("imgui.callback.ImGuiInputTextCallback", "callback") },
+            ),
+            listOf(
+                "false, label, null, text, 0, 0, imgui.flag.ImGuiInputTextFlags.None, null",
+                "false, label, null, text, 0, 0, flags, null",
+                "false, label, null, text, 0, 0, flags, callback",
+            )
+        )
+
+        preInputTextByTemplate(inputTextTemplate, intArrayOf(0, 1), 0)
+        preInputTextByTemplate(inputTextTemplate, intArrayOf(0, 1, 2), 1)
+        preInputTextByTemplate(inputTextTemplate, intArrayOf(0, 1, 2, 3), 2)
+
+        val inputTextMultilineTemplate = MethodTmpl(
+            "inputTextMultiline",
+            listOf(
+                { argString("label") },
+                { argString("text", isPointer = true) },
+                { argFloat("width") },
+                { argFloat("height") },
+                { argInt("flags") },
+                { argStruct("imgui.callback.ImGuiInputTextCallback", "callback") },
+            ),
+            listOf(
+                "true, label, null, text, 0, 0, imgui.flag.ImGuiInputTextFlags.None, null",
+                "true, label, null, text, width, height, imgui.flag.ImGuiInputTextFlags.None, null",
+                "true, label, null, text, width, height, flags, null",
+                "true, label, null, text, width, height, flags, callback",
+
+                "true, label, null, text, 0, 0, flags, null",
+                "true, label, null, text, 0, 0, flags, callback",
+            )
+        )
+
+        preInputTextByTemplate(inputTextMultilineTemplate, intArrayOf(0, 1), 0)
+        preInputTextByTemplate(inputTextMultilineTemplate, intArrayOf(0, 1, 2, 3), 1)
+        preInputTextByTemplate(inputTextMultilineTemplate, intArrayOf(0, 1, 2, 3, 4), 2)
+        preInputTextByTemplate(inputTextMultilineTemplate, intArrayOf(0, 1, 2, 3, 4, 5), 3)
+        preInputTextByTemplate(inputTextMultilineTemplate, intArrayOf(0, 1, 4), 4)
+        preInputTextByTemplate(inputTextMultilineTemplate, intArrayOf(0, 1, 4, 5), 5)
+
         method {
             signature {
-                public()
-                name("inputText")
+                private()
+                name(methodNamePreInputText)
                 args {
+                    argBoolean("multiline")
                     argString("label")
+                    argString("hint")
                     argString("text", isPointer = true)
-                    argInt("flags")
-                }
-            }
-            body {
-                line("return preInputText(false, label, null, text, 0, 0, flags);")
-            }
-            returnType {
-                asBoolean()
-            }
-        }
-        method {
-            signature {
-                public()
-                name("inputText")
-                args {
-                    argString("label")
-                    argString("text", isPointer = true)
+                    argFloat("width")
+                    argFloat("height")
                     argInt("flags")
                     argStruct("imgui.callback.ImGuiInputTextCallback", "callback")
                 }
             }
             body {
-                line("return preInputText(false, label, null, text, 0, 0, flags, callback);")
+                line("""
+                    final imgui.type.ImString.InputData inputData = text.inputData;
+                    int inputFlags = flags;
+                    
+                    if (inputData.isResizable) {
+                        inputFlags |= imgui.flag.ImGuiInputTextFlags.CallbackResize;
+                    }
+            
+                    if (!inputData.allowedChars.isEmpty()) {
+                        inputFlags |= imgui.flag.ImGuiInputTextFlags.CallbackCharFilter;
+                    }
+            
+                    String hintLabel = hint;
+                    if (hintLabel == null) {
+                        hintLabel = "";
+                    }
+                    
+                    return this.$nMethodName(
+                        multiline,
+                        hint != null,
+                        label,
+                        hintLabel,
+                        text,
+                        text.getData(),
+                        text.getData().length,
+                        width,
+                        height,
+                        inputFlags,
+                        inputData,
+                        inputData.allowedChars,
+                        callback
+                    );
+                """.trimIndent())
+            }
+            returnType {
+                asBoolean()
+            }
+        }
+        method {
+            signature {
+                private()
+                native()
+                name(nMethodName)
+                args {
+                    argBoolean("multiline")
+                    argBoolean("hint")
+                    argString("label")
+                    argString("hintLabel")
+                    argString("imString", isPointer = true)
+                    argByte("buf", isArray = true)
+                    argInt("maxSize")
+                    argFloat("width")
+                    argFloat("height")
+                    argInt("flags")
+                    argObject("imgui.type.ImString.InputData", "textInputData")
+                    argString("allowedChars")
+                    argObject("imgui.callback.ImGuiInputTextCallback", "callback")
+                }
+            }
+            body {
+                line("""
+                    InputTextCallbackUserData userData;
+                    userData.imString = &imString;
+                    userData.maxSize = maxSize;
+                    userData.jResizedBuf = NULL;
+                    userData.resizedBuf = NULL;
+                    userData.textInputData = &textInputData;
+                    userData.env = env;
+                    userData.allowedChars = allowedChars;
+                    userData.handler = callback != NULL ? &callback : NULL;
+            
+                    bool valueChanged;
+            
+                    if (multiline) {
+                        valueChanged = ImGui::InputTextMultiline(label, buf, maxSize, ImVec2(width, height), flags, &TextEditCallbackStub, &userData);
+                    } else if (hint) {
+                        valueChanged = ImGui::InputTextWithHint(label, hintLabel, buf, maxSize, flags, &TextEditCallbackStub, &userData);
+                    } else {
+                        valueChanged = ImGui::InputText(label, buf, maxSize, flags, &TextEditCallbackStub, &userData);
+                    }
+            
+                    if (valueChanged) {
+                        int size;
+            
+                        if (userData.jResizedBuf != NULL) {
+                            size = strlen(userData.resizedBuf);
+                            env->ReleasePrimitiveArrayCritical(userData.jResizedBuf, userData.resizedBuf, 0);
+                        } else {
+                            size = strlen(buf);
+                        }
+            
+                        env->SetIntField(textInputData, inputDataSizeID, size);
+                        env->SetBooleanField(textInputData, inputDataIsDirtyID, true);
+                    }
+            
+                    return valueChanged;
+                """.trimIndent())
             }
             returnType {
                 asBoolean()

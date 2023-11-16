@@ -25,4 +25,8 @@ fun MethodsDsl.genMethods() {
     method("FindViewportByPlatformHandle", returnStruct("imgui.ImGuiViewport")) {
         argLong("platformHandle", jniCast = "(void*)")
     }
+
+    method("IsMousePosValid", returnBoolean()) {
+        argImVec2("mousePos")
+    }
 }

@@ -17,7 +17,11 @@ class ArgTypeDsl {
     }
 
     fun asObject() {
-        type(ArgTypeCommonInstance("Object"))
+        asObject("Object")
+    }
+
+    fun asObject(type: String) {
+        type(ArgTypeCommonInstance(type))
     }
 
     fun asString() {

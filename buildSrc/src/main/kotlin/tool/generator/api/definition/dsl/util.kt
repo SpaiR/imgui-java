@@ -98,6 +98,25 @@ private fun ArgsDsl.rawArg(
     }
 }
 
+fun ArgsDsl.argBoolean(
+    name: String,
+    optional: Boolean = false,
+    isPointer: Boolean = false,
+    isArray: Boolean = false,
+    default: String? = null,
+    jniCast: String? = null,
+) {
+    rawArg(
+        { asBoolean() },
+        name,
+        optional = optional,
+        isPointer = isPointer,
+        isArray = isArray,
+        default = default,
+        jniCast = jniCast,
+    )
+}
+
 fun ArgsDsl.argShort(
     name: String,
     optional: Boolean = false,
@@ -217,8 +236,17 @@ fun ArgsDsl.argObject(
     optional: Boolean = false,
     default: String? = null,
 ) {
+    argObject("Object", name, optional, default)
+}
+
+fun ArgsDsl.argObject(
+    type: String,
+    name: String,
+    optional: Boolean = false,
+    default: String? = null,
+) {
     rawArg(
-        { asObject() },
+        { asObject(type) },
         name,
         optional = optional,
         default = default,

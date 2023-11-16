@@ -10,7 +10,7 @@ import tool.generator.api.definition.dsl.initConstructor
 import tool.generator.api.definition.node.MethodSignature
 import tool.generator.api.definition.node.transform.method.`pre process method flags`
 import tool.generator.api.definition.node.transform.method.`remove duplicated signatures`
-import tool.generator.api.definition.node.transform.method.`set method public jvm`
+import tool.generator.api.definition.node.transform.method.`set method args to final`
 import tool.generator.api.definition.node.transform.method.`sort methods`
 import tool.generator.api.definition.node.transform.template.methodsTransformationsTemplate
 import tool.generator.ast.AstFunctionDecl
@@ -61,6 +61,7 @@ class ImGuiApi : Definition {
             "IsMousePosValid",
             "SetDragDropPayload", "AcceptDragDropPayload", "GetDragDropPayload",
             "ColorConvertRGBtoHSV", "ColorConvertHSVtoRGB",
+            "InputText", "InputTextMultiline", "InputTextWithHint",
 
             // Defined in `ImGuiApi_gen`
             "SetNextWindowSizeConstraints",
@@ -98,11 +99,6 @@ class ImGuiApi : Definition {
             "SetAllocatorFunctions", "GetAllocatorFunctions",
             "MemAlloc", "MemFree",
 
-            // FIXME
-            "InputText",
-            "InputTextMultiline",
-            "InputTextWithHint",
-
             // TODO
             "TableGetSortSpecs",
             "GetDrawListSharedData",
@@ -137,7 +133,7 @@ class ImGuiApi : Definition {
         }, defines(
             define({
                 transformation {
-                    chain(`set method public jvm`)
+                    chain(`set method args to final`)
                 }
             }) {
                 // Add them without transforms.
