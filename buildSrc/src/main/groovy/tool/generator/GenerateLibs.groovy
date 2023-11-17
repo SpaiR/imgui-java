@@ -23,7 +23,7 @@ class GenerateLibs extends DefaultTask {
     private final boolean isLocal = System.properties.containsKey('local')
     private final boolean withFreeType = Boolean.valueOf(System.properties.getProperty('freetype', 'false'))
 
-    private final String sourceDir = project.file('build/generated/api')
+    private final String sourceDir = project.file('src/generated/java')
     private final String classpath = project.file('build/classes/java/main')
     private final String jniDir = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/jni'
     private final String tmpFolder = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/tmp'

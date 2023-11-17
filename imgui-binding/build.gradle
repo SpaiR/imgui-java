@@ -29,7 +29,7 @@ compileJava {
 }
 
 sourceSets {
-    main.java.srcDirs = ['build/generated/api']
+    main.java.srcDirs = ['src/generated/java']
     raw.java.srcDirs = ['src/main/java']
 }
 

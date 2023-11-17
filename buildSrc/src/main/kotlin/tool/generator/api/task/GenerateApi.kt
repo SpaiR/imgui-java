@@ -36,7 +36,7 @@ open class GenerateApi : DefaultTask() {
     private val definitionRenderer = DefinitionRenderer()
 
     private val genSrcDir = "${project.projectDir}/src/main/java"
-    private val genDstDir = "${project.buildDir}/generated/api"
+    private val genDstDir = "${project.projectDir}/src/generated/java"
 
     @TaskAction
     fun run() {
