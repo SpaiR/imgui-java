@@ -4,6 +4,7 @@ import tool.generator.api.definition.dsl.*
 import tool.generator.api.definition.dsl.method.ArgsDsl
 import tool.generator.api.definition.dsl.method.MethodsDsl
 import tool.generator.api.definition.node.transform.method.METHOD_JNI_PREFIX
+import tool.generator.api.definition.node.transform.method.THIS_PTR_CALL_JVM
 
 fun DefineDsl.manualMethods() {
     methods {
@@ -33,7 +34,7 @@ private fun MethodsDsl.comboMethods() {
         }
         body {
             // Will be generated in other place.
-            line("return this.$methodName(label, currentItem, items, items.length);")
+            line("return $THIS_PTR_CALL_JVM$methodName(label, currentItem, items, items.length);")
         }
         returnType {
             asBoolean()
@@ -51,7 +52,7 @@ private fun MethodsDsl.comboMethods() {
             }
         }
         body {
-            line("return this.$nMethodName(label, currentItem.getData(), items, items.length, popupMaxHeightInItems);")
+            line("return $THIS_PTR_CALL_JVM$nMethodName(label, currentItem.getData(), items, items.length, popupMaxHeightInItems);")
         }
         returnType {
             asBoolean()
@@ -102,7 +103,7 @@ private fun MethodsDsl.listBoxMethods() {
         }
         body {
             // Will be generated in other place.
-            line("return this.$methodName(label, currentItem, items, items.length);")
+            line("return $THIS_PTR_CALL_JVM$methodName(label, currentItem, items, items.length);")
         }
         returnType {
             asBoolean()
@@ -120,7 +121,7 @@ private fun MethodsDsl.listBoxMethods() {
             }
         }
         body {
-            line("return this.$nMethodName(label, currentItem.getData(), items, items.length, heightInItems);")
+            line("return $THIS_PTR_CALL_JVM$nMethodName(label, currentItem.getData(), items, items.length, heightInItems);")
         }
         returnType {
             asBoolean()
@@ -215,7 +216,7 @@ private fun MethodsDsl.colorU32Method() {
             }
         }
         body {
-            line("return this.$nMethodName(col);")
+            line("return $THIS_PTR_CALL_JVM$nMethodName(col);")
         }
         returnType {
             asInt()
@@ -261,7 +262,7 @@ private fun DefineDsl.dragNDrop() {
                 }
             }
             body {
-                line("return this.$methodNameSet(dataType, payload, imgui.flag.ImGuiCond.None);")
+                line("return $THIS_PTR_CALL_JVM$methodNameSet(dataType, payload, imgui.flag.ImGuiCond.None);")
             }
             returnType {
                 asBoolean()
@@ -283,7 +284,7 @@ private fun DefineDsl.dragNDrop() {
                     if (payloadRef == null || payloadRef.get() != payload) {
                         payloadRef = new java.lang.ref.WeakReference<>(payload);
                     }
-                    return this.$nMethodNameSet(dataType, PAYLOAD_PLACEHOLDER_DATA, 1, cond);
+                    return $THIS_PTR_CALL_JVM$nMethodNameSet(dataType, PAYLOAD_PLACEHOLDER_DATA, 1, cond);
                 """.trimIndent()
                 )
             }
@@ -300,7 +301,7 @@ private fun DefineDsl.dragNDrop() {
                 }
             }
             body {
-                line("return this.$methodNameSet(payload, imgui.flag.ImGuiCond.None);")
+                line("return $THIS_PTR_CALL_JVM$methodNameSet(payload, imgui.flag.ImGuiCond.None);")
             }
             returnType {
                 asBoolean()
@@ -316,7 +317,7 @@ private fun DefineDsl.dragNDrop() {
                 }
             }
             body {
-                line("return this.$methodNameSet(String.valueOf(payload.getClass().hashCode()), payload, cond);")
+                line("return $THIS_PTR_CALL_JVM$methodNameSet(String.valueOf(payload.getClass().hashCode()), payload, cond);")
             }
             returnType {
                 asBoolean()
@@ -350,7 +351,7 @@ private fun DefineDsl.dragNDrop() {
                 }
             }
             body {
-                line("return this.$methodNameAccept(dataType, imgui.flag.ImGuiDragDropFlags.None);")
+                line("return $THIS_PTR_CALL_JVM$methodNameAccept(dataType, imgui.flag.ImGuiDragDropFlags.None);")
             }
             returnType {
                 asGenericLiteral()
@@ -366,7 +367,7 @@ private fun DefineDsl.dragNDrop() {
                 }
             }
             body {
-                line("return this.$methodNameAccept(dataType, imgui.flag.ImGuiDragDropFlags.None, aClass);")
+                line("return $THIS_PTR_CALL_JVM$methodNameAccept(dataType, imgui.flag.ImGuiDragDropFlags.None, aClass);")
             }
             returnType {
                 asGenericLiteral()
@@ -382,7 +383,7 @@ private fun DefineDsl.dragNDrop() {
                 }
             }
             body {
-                line("return this.$methodNameAccept(dataType, flags, null);")
+                line("return $THIS_PTR_CALL_JVM$methodNameAccept(dataType, flags, null);")
             }
             returnType {
                 asGenericLiteral()
@@ -401,7 +402,7 @@ private fun DefineDsl.dragNDrop() {
             body {
                 line(
                     """
-                    if (payloadRef != null && this.$nMethodNameAccept(dataType, flags)) {
+                    if (payloadRef != null && $THIS_PTR_CALL_JVM$nMethodNameAccept(dataType, flags)) {
                         final Object rawPayload = payloadRef.get();
                         if (rawPayload != null) {
                             if (aClass == null || rawPayload.getClass().isAssignableFrom(aClass)) {
@@ -426,7 +427,7 @@ private fun DefineDsl.dragNDrop() {
                 }
             }
             body {
-                line("return this.$methodNameAccept(String.valueOf(aClass.hashCode()), imgui.flag.ImGuiDragDropFlags.None, aClass);")
+                line("return $THIS_PTR_CALL_JVM$methodNameAccept(String.valueOf(aClass.hashCode()), imgui.flag.ImGuiDragDropFlags.None, aClass);")
             }
             returnType {
                 asGenericLiteral()
@@ -442,7 +443,7 @@ private fun DefineDsl.dragNDrop() {
                 }
             }
             body {
-                line("return this.$methodNameAccept(String.valueOf(aClass.hashCode()), flags, aClass);")
+                line("return $THIS_PTR_CALL_JVM$methodNameAccept(String.valueOf(aClass.hashCode()), flags, aClass);")
             }
             returnType {
                 asGenericLiteral()
@@ -473,7 +474,7 @@ private fun DefineDsl.dragNDrop() {
             body {
                 line(
                     """
-                    if (payloadRef != null && this.$nMethodNameHas()) {
+                    if (payloadRef != null && $THIS_PTR_CALL_JVM$nMethodNameHas()) {
                         final Object rawPayload = payloadRef.get();
                         if (rawPayload != null) {
                             return (T) rawPayload;
@@ -498,7 +499,7 @@ private fun DefineDsl.dragNDrop() {
             body {
                 line(
                     """
-                    if (payloadRef != null && this.$nMethodNameHas(dataType)) {
+                    if (payloadRef != null && $THIS_PTR_CALL_JVM$nMethodNameHas(dataType)) {
                         final Object rawPayload = payloadRef.get();
                         if (rawPayload != null) {
                             return (T) rawPayload;
@@ -521,7 +522,7 @@ private fun DefineDsl.dragNDrop() {
                 }
             }
             body {
-                line("return this.$methodNameGet(String.valueOf(aClass.hashCode()));")
+                line("return $THIS_PTR_CALL_JVM$methodNameGet(String.valueOf(aClass.hashCode()));")
             }
             returnType {
                 asGenericLiteral()
@@ -585,7 +586,7 @@ fun MethodsDsl.colorConvert() {
             }
         }
         body {
-            line("this.$nMethodNameRGB2HSV(rgb, hsv);")
+            line("$THIS_PTR_CALL_JVM$nMethodNameRGB2HSV(rgb, hsv);")
         }
         returnType {
             asVoid()
@@ -618,7 +619,7 @@ fun MethodsDsl.colorConvert() {
             }
         }
         body {
-            line("this.$nMethodNameHSV2RGB(hsv, rgb);")
+            line("$THIS_PTR_CALL_JVM$nMethodNameHSV2RGB(hsv, rgb);")
         }
         returnType {
             asVoid()
@@ -750,7 +751,7 @@ private fun DefineDsl.inputText() {
                     }
                 }
                 body {
-                    line("return this.$methodNamePreInputText(${template.argsCall[argsCallIndex]});")
+                    line("return $THIS_PTR_CALL_JVM$methodNamePreInputText(${template.argsCall[argsCallIndex]});")
                 }
                 returnType {
                     asBoolean()
@@ -838,7 +839,7 @@ private fun DefineDsl.inputText() {
                         hintLabel = "";
                     }
                     
-                    return this.$nMethodName(
+                    return $THIS_PTR_CALL_JVM$nMethodName(
                         multiline,
                         hint != null,
                         label,

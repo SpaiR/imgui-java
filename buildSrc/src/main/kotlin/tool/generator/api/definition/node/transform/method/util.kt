@@ -8,8 +8,11 @@ const val METHOD_JNI_PREFIX = 'n'
 
 const val MARKER_AUTO_BODY = "# AUTO BODY MARKER #"
 
-const val THIS_PTR_CALL_JNI = "THIS->"
-const val THIS_PTR_CALL_JVM = "this."
+const val THIS_PTR_JNI = "THIS"
+const val THIS_PTR_CALL_JNI = "$THIS_PTR_JNI->"
+
+const val THIS_PTR_JVM = "this"
+const val THIS_PTR_CALL_JVM = "$THIS_PTR_JVM."
 
 const val FIELD_PTR_JVM = "ptr"
 
