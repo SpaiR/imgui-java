@@ -3,10 +3,7 @@ package tool.generator.api.task
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
-import tool.generator.api.definition.Definition
-import tool.generator.api.definition.DefinitionMap
-import tool.generator.api.definition.DefinitionRenderer
-import tool.generator.api.definition.DefinitionVirtualContent
+import tool.generator.api.definition.*
 import tool.generator.api.definition._package.virtualContents
 import java.io.File
 
@@ -64,8 +61,12 @@ open class GenerateApi : DefaultTask() {
             }
 
             definitionMap[fileToPackage(sourceFile)]?.let { definition ->
-                logger.info(" - $sourceFile")
-                processSourceFile(sourceFile, definition)
+                if (definition::class.java.isAnnotationPresent(DisableDefinition::class.java)) {
+                    logger.info(" - (disabled) $sourceFile")
+                } else {
+                    logger.info(" - $sourceFile")
+                    processSourceFile(sourceFile, definition)
+                }
             }
         }
     }
