@@ -31,7 +31,7 @@ public class Extra {
         ImGui.checkbox("Show ImGui MemoryEditor Demo Window", SHOW_IMGUI_MEMORY_EDITOR_WINDOW);
         ImGui.checkbox("Show ImGui Canvas Demo Window", SHOW_IMGUI_CANVAS_EDITOR_WINDOW);
         ImGui.checkbox("Show Imgui InputText Callback Window", SHOW_IMGUI_INPUT_CALLBACK_WINDOW);
-        ImGui.checkbox("Show Imgui Knobs Demo",SHOW_IMGUI_KNOBS_DEMO);
+        ImGui.checkbox("Show Imgui Knobs Demo", SHOW_IMGUI_KNOBS_DEMO);
 
         if (SHOW_DEMO_WINDOW.get()) {
             ImGui.showDemoWindow(SHOW_DEMO_WINDOW);
