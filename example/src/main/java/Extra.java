@@ -77,7 +77,7 @@ public class Extra {
             ExampleInputTextCallback.show(SHOW_IMGUI_INPUT_CALLBACK_WINDOW);
         }
 
-        if(SHOW_IMGUI_KNOBS_DEMO.get()){
+        if (SHOW_IMGUI_KNOBS_DEMO.get()) {
             ExampleKnobs.show(SHOW_IMGUI_KNOBS_DEMO);
         }
     }
