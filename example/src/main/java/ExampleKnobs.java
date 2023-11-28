@@ -9,13 +9,13 @@ import imgui.type.ImFloat;
 
 public class ExampleKnobs {
 
-    private static final ImFloat exampleTickKnobVal = new ImFloat(0);
-    private static final ImFloat exampleDotKnobVal = new ImFloat(0);
-    private static final ImFloat exampleSpaceKnobVal = new ImFloat(0);
-    private static final ImFloat exampleWiperKnobVal = new ImFloat(0);
-    private static final ImFloat exampleWiperDotKnobVal = new ImFloat(0);
-    private static final ImFloat exampleWiperOnlyKnobVal = new ImFloat(0);
-    private static final ImFloat exampleSteppedKnobVal = new ImFloat(0);
+    private static final ImFloat EXAMPLE_TICK_KNOB_VAL = new ImFloat(0);
+    private static final ImFloat EXAMPLE_DOT_KNOB_VAL = new ImFloat(0);
+    private static final ImFloat EXAMPLE_SPACE_KNOB_VAL = new ImFloat(0);
+    private static final ImFloat EXAMPLE_WIPER_KNOB_VAL = new ImFloat(0);
+    private static final ImFloat EXAMPLE_WIPER_DOT_KNOB_VAL = new ImFloat(0);
+    private static final ImFloat EXAMPLE_WIPER_ONLY_KNOB_VAL = new ImFloat(0);
+    private static final ImFloat EXAMPLE_STEPPED_KNOB_VAL = new ImFloat(0);
 
     public static void show(final ImBoolean showKnobsWindow) {
         ImGui.setNextWindowSize(200, 400, ImGuiCond.Once);
@@ -23,19 +23,19 @@ public class ExampleKnobs {
         if (ImGui.begin("Knobs Demo Window", showKnobsWindow, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse)) {
             ImGui.textWrapped("This is a demo for dear ImGui Knobs");
             if (ImGui.beginChild("Float Knobs")) {
-                ImGuiKnobs.knobFloat("Example Tick Knob", exampleTickKnobVal, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.tick, 50.0f, ImGuiKnobFlags.none, 1);
+                ImGuiKnobs.knobFloat("Example Tick Knob", EXAMPLE_TICK_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.TICK, 50.0f, ImGuiKnobFlags.NONE, 1);
 
-                ImGuiKnobs.knobFloat("Example Dot Knob", exampleDotKnobVal, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.dot, 50.0f, ImGuiKnobFlags.none, 1);
+                ImGuiKnobs.knobFloat("Example Dot Knob", EXAMPLE_DOT_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.DOT, 50.0f, ImGuiKnobFlags.NONE, 1);
 
-                ImGuiKnobs.knobFloat("Example Space Knob", exampleSpaceKnobVal, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.space, 50.0f, ImGuiKnobFlags.none, 1);
+                ImGuiKnobs.knobFloat("Example Space Knob", EXAMPLE_SPACE_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.SPACE, 50.0f, ImGuiKnobFlags.NONE, 1);
 
-                ImGuiKnobs.knobFloat("Example Wiper Knob", exampleWiperKnobVal, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.wiper, 50.0f, ImGuiKnobFlags.none, 1);
+                ImGuiKnobs.knobFloat("Example Wiper Knob", EXAMPLE_WIPER_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.WIPER, 50.0f, ImGuiKnobFlags.NONE, 1);
 
-                ImGuiKnobs.knobFloat("Example Wiper Dot Knob", exampleWiperDotKnobVal, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.wiperDot, 50.0f, ImGuiKnobFlags.none, 1);
+                ImGuiKnobs.knobFloat("Example Wiper Dot Knob", EXAMPLE_WIPER_DOT_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.WIPER_DOT, 50.0f, ImGuiKnobFlags.NONE, 1);
 
-                ImGuiKnobs.knobFloat("Example Wiper Only Knob", exampleWiperOnlyKnobVal, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.wiperOnly, 50.0f, ImGuiKnobFlags.none, 1);
+                ImGuiKnobs.knobFloat("Example Wiper Only Knob", EXAMPLE_WIPER_ONLY_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.WIPER_ONLY, 50.0f, ImGuiKnobFlags.NONE, 1);
 
-                ImGuiKnobs.knobFloat("Example Stepped Knob", exampleSteppedKnobVal, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.stepped, 50.0f, ImGuiKnobFlags.none, 1);
+                ImGuiKnobs.knobFloat("Example Stepped Knob", EXAMPLE_STEPPED_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.STEPPED, 50.0f, ImGuiKnobFlags.NONE, 1);
                 ImGui.endChild();
             }
 

@@ -2,14 +2,13 @@ package imgui.extension.imguiknobs.flag;
 
 public final class ImGuiKnobVariant {
     private ImGuiKnobVariant() {
-        throw new UnsupportedOperationException();
     }
-    public static final int tick = 1;
-    public static final int dot = 1 << 1;
-    public static final int wiper = 1 << 2;
-    public static final int wiperOnly = 1 << 3;
-    public static final int wiperDot = 1 << 4;
-    public static final int stepped = 1 << 5;
-    public static final int space = 1 << 6;
+    public static final int TICK = 1;
+    public static final int DOT = 1 << 1;
+    public static final int WIPER = 1 << 2;
+    public static final int WIPER_ONLY = 1 << 3;
+    public static final int WIPER_DOT = 1 << 4;
+    public static final int STEPPED = 1 << 5;
+    public static final int SPACE = 1 << 6;
 
 }
