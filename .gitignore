@@ -33,5 +33,3 @@ logs/
 build/
 out/
 !gradle/wrapper/*.jar
-
-gradle.properties
