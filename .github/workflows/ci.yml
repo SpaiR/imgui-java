@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest ]
-        type: [ windows, linux, macos ]
+        type: [ windows, linux, macos, macosarm64 ]
         freetype: [ true, false ]
         include:
           - type: windows
@@ -43,9 +43,13 @@ jobs:
             expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
           - type: macos
             expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
+          - type: macosarm64
+            expected: /tmp/imgui/libsNative/macosxarm64/libimgui-javaarm64.dylib
         exclude:
           - os: ubuntu-latest
             type: macos
+          - os: ubuntu-latest
+            type: macosarm64
           - os: macos-latest
             type: windows
           - os: macos-latest
@@ -86,8 +90,22 @@ jobs:
           sudo make
           sudo make install
 
+      - name: FreeType - Install (MacOS)
+        if: matrix.os == 'macos-latest' && matrix.type == 'macosarm64' && matrix.freetype == true
+        run: |
+          sudo mkdir /opt/freetype
+          sudo tar -xzf ./vendor/freetype-2.12.1.tar.gz -C /opt/freetype --strip-components=1
+          cd /opt/freetype
+          sudo ./configure CFLAGS="-arch arm64 -arch x86_64" --with-zlib=no --with-bzip2=no --with-png=no --with-harfbuzz=no --with-brotli=no
+          sudo make
+          sudo make install
+
+
       - name: Build
         run: ./gradlew imgui-binding:generateLibs -Denvs=${{ matrix.type }} -Dfreetype=${{ matrix.freetype }}
+
+      - name: List Built Files
+        run: find /tmp/imgui/libsNative
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
@@ -168,11 +186,8 @@ jobs:
 
       - name: Publish
         env:
-          NEXUS_UPD_ID: ${{ secrets.RELEASE_NEXUS_UPD_ID }}
-          NEXUS_UPD_PASS: ${{ secrets.RELEASE_NEXUS_UPD_PASS }}
-          SIGNING_KEY_ID: ${{ secrets.RELEASE_SIGNING_KEY_ID }}
-          SIGNING_KEY: ${{ secrets.RELEASE_SIGNING_KEY }}
-          SIGNING_KEY_PASS: ${{ secrets.RELEASE_SIGNING_KEY_PASS }}
+          MAVEN_USER: ${{ secrets.RELEASE_MAVEN_USER }}
+          MAVEN_TOKEN: ${{ secrets.RELEASE_MAVEN_TOKEN }}
         run: |
           chmod +x ./buildSrc/scripts/publish.sh
           buildSrc/scripts/publish.sh
