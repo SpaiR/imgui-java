@@ -37,6 +37,9 @@ ae803d26bd4c8c5a57460147014c96013e8a77a6  imgui-binding/src/main/java/imgui/call
 6ef99d63c1734126802d96f4a71b91b329cad1d5  imgui-binding/src/main/java/imgui/extension/imguifiledialog/ImGuiFileDialog.java
 8c7f7580f327411b21c480f63c99541b85296f82  imgui-binding/src/main/java/imgui/extension/imguifiledialog/callback/ImGuiFileDialogPaneFun.java
 f2970e1840fd86fdf02419015e7994bf9c4c6f28  imgui-binding/src/main/java/imgui/extension/imguifiledialog/flag/ImGuiFileDialogFlags.java
+8614dc5b7c7a7d8bba49d2223e8ecd09586b47c2  imgui-binding/src/main/java/imgui/extension/imguiknobs/ImGuiKnobs.java
+1aa07fd6a26d3cd393e2977381afe5ec65c7d56c  imgui-binding/src/main/java/imgui/extension/imguiknobs/flag/ImGuiKnobFlags.java
+3d050335f2b5bd916b4d9ce2645af3399fee3b9f  imgui-binding/src/main/java/imgui/extension/imguiknobs/flag/ImGuiKnobVariant.java
 855f041b4629fff46861fadcf057601f2005f416  imgui-binding/src/main/java/imgui/extension/imguizmo/ImGuizmo.java
 36480ed740b50c4c66afbe8dc8c93e83a3131d82  imgui-binding/src/main/java/imgui/extension/imguizmo/flag/Mode.java
 b9e0a70b0f4cd1b080ee344f69f433bc43756237  imgui-binding/src/main/java/imgui/extension/imguizmo/flag/Operation.java
@@ -137,6 +140,7 @@ b579e269eb391ad17d827a34075d4cd7ce89e27e  imgui-binding/src/main/native/_base.h
 863e72d5a4f4b603fc5edcac81cb6614f3444100  imgui-binding/src/main/native/_binding.h
 e8e67125dea6d07f1415821397b05d2c3cbb379d  imgui-binding/src/main/native/_common.h
 fddf114936e0444b2728db97c4bf9ec197cc59e0  imgui-binding/src/main/native/_imguifiledialog.h
+a8db05defe593ce3b084d4b28a59f477e0b2d9c4  imgui-binding/src/main/native/_imguiknobs.h
 6ffad4359f5e844be5edd743edebfd622f78fc00  imgui-binding/src/main/native/_imguizmo.h
 c22f946c2a2ae7071354def7ae54ef105a0bb9b2  imgui-binding/src/main/native/_imnodes.h
 8105e2246992cf08342333d04863e33dcab257f1  imgui-binding/src/main/native/_implot.h
