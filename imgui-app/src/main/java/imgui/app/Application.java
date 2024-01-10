@@ -52,14 +52,16 @@ package imgui.app;
  * For example, large list of computations could be separated between application ticks. {@link #process()} method is called constantly.
  * Use that wisely and remember that all GUI should be in the main thread.
  */
-public abstract class Application extends Window {
+public abstract class Application {
+
+    protected abstract void init(Configuration config);
+
     /**
      * Method called before window creation. Could be used to provide basic window information, like title name etc.
      *
      * @param config configuration object with basic window information
      */
-    protected void configure(final Configuration config) {
-    }
+    protected abstract void configure(final Configuration config);
 
     /**
      * Method called once, before application run loop.
@@ -67,11 +69,15 @@ public abstract class Application extends Window {
     protected void preRun() {
     }
 
+    protected abstract void run();
+
     /**
      * Method called once, after application run loop.
      */
     protected void postRun() {
     }
+
+    protected abstract void dispose();
 
     /**
      * Entry point of any ImGui application. Use it to start the application loop.
@@ -91,4 +97,6 @@ public abstract class Application extends Window {
         app.configure(config);
         app.init(config);
     }
+
+    public abstract Color getColorBg();
 }

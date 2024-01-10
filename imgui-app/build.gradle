@@ -18,11 +18,13 @@ dependencies {
     api 'org.lwjgl:lwjgl'
     api 'org.lwjgl:lwjgl-glfw'
     api 'org.lwjgl:lwjgl-opengl'
+    api 'org.lwjgl:lwjgl-bgfx'
 
     ['natives-linux', 'natives-windows', 'natives-macos'].each {
         api "org.lwjgl:lwjgl::$it"
         api "org.lwjgl:lwjgl-glfw::$it"
         api "org.lwjgl:lwjgl-opengl::$it"
+        api "org.lwjgl:lwjgl-bgfx::$it"
     }
 
     api project(':imgui-binding')
