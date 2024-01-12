@@ -61,7 +61,7 @@ open class GenerateApi : DefaultTask() {
             }
 
             definitionMap[fileToPackage(sourceFile)]?.let { definition ->
-                if (definition::class.java.isAnnotationPresent(DisableDefinition::class.java)) {
+                if (isDefinitionDisabled(definition)) {
                     logger.info(" - (disabled) $sourceFile")
                 } else {
                     logger.info(" - $sourceFile")
@@ -76,7 +76,12 @@ open class GenerateApi : DefaultTask() {
      * This is helpful to use when a class is fully auto-generated.
      */
     private fun createVirtualContent() {
-        virtualContents.forEach { vc ->
+        for (vc in virtualContents) {
+            if (isDefinitionDisabled(definitionMap["${vc.packageName}.${vc.contentName}"])) {
+                logger.info(" - No definitions for virtual content: [${vc.packageName}.${vc.contentName}]")
+                continue
+            }
+
             val dirFile = File(genDstDir + '/' + vc.packageName.replace('.', '/'))
             dirFile.mkdirs()
 
@@ -143,5 +148,9 @@ open class GenerateApi : DefaultTask() {
         return definitionRenderer.render(definition).lineSequence().joinToString("\n") {
             if (it.isBlank()) it else it.prependIndent(BLANK_SPACE)
         }.trimEnd()
+    }
+
+    private fun isDefinitionDisabled(definition: Definition?): Boolean {
+        return definition == null || definition::class.java.isAnnotationPresent(DisableDefinition::class.java)
     }
 }
