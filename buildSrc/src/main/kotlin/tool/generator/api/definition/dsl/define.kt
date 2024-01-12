@@ -1,6 +1,7 @@
 package tool.generator.api.definition.dsl
 
 import tool.generator.api.definition.dsl.method.MethodsDsl
+import tool.generator.api.definition.dsl.struct.FieldsDsl
 import tool.generator.api.definition.node.DefinitionNode
 import tool.generator.api.definition.node.Nodes
 import tool.generator.api.definition.node.transform.TransformationChain
@@ -51,5 +52,9 @@ class DefineDsl {
 
     fun methods(action: MethodsDsl.() -> Unit) {
         data += MethodsDsl().apply(action).data
+    }
+
+    fun fields(action: FieldsDsl.() -> Unit) {
+        data += FieldsDsl().apply(action).data
     }
 }

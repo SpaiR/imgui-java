@@ -9,14 +9,14 @@ import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeGeneral
 import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeStruct
 
 @Suppress("ClassName")
-object `set body from autoBody` : TransformationChain.Transform {
+abstract class`abstract set body from autoBody jni` : TransformationChain.Transform {
     override fun process(nodes: Nodes): Nodes {
         val result = mutableListOf<DefinitionNode>()
 
         nodes.forEach { node ->
             result += node
 
-            if (node is MethodDefinitionNode) {
+            if (node is MethodDefinitionNode && node.signature.isNative) {
                 val lines = node.body.lines.toMutableList()
                 lines.toList().forEachIndexed { index, line ->
                     if (line == MARKER_AUTO_BODY) {
@@ -31,29 +31,7 @@ object `set body from autoBody` : TransformationChain.Transform {
     }
 
     private fun renderAutoBody(method: MethodDefinitionNode): String {
-        val isStruct = method.returnType.type is ReturnTypeStruct
-        val isStatic = method.returnType.hasFlag(ReturnTypeFlag.STATIC)
-        return if (isStruct && isStatic && !method.signature.isNative) {
-            renderAutoBodyForJvmWithStaticStructField(method)
-        } else {
-            renderDefaultAutoBody(method)
-        }
-    }
-
-    private fun renderAutoBodyForJvmWithStaticStructField(method: MethodDefinitionNode): String {
-        return buildString {
-            val fieldName = getStaticStructFieldName(method)
-            append(fieldName)
-            append('.')
-            append(FIELD_PTR_JVM)
-            append(" = ")
-            append(renderAutoBodyMethodCall(method))
-            append(';')
-            appendLine()
-            append("return ")
-            append(fieldName)
-            append(';')
-        }
+        return renderDefaultAutoBody(method)
     }
 
     private fun renderDefaultAutoBody(method: MethodDefinitionNode): String {
@@ -63,26 +41,19 @@ object `set body from autoBody` : TransformationChain.Transform {
                 append("return ")
             }
 
-            if (returnType == ReturnTypeGeneral.STRING && method.signature.isNative) {
+            if (returnType == ReturnTypeGeneral.STRING) {
                 append("env->NewStringUTF(")
             }
             if (returnType is ReturnTypeStruct) {
-                if (method.signature.isNative) {
-                    append("($CAST_PTR_JNI)")
-                    if (method.returnType.hasFlag(ReturnTypeFlag.REF)) {
-                        append('&')
-                    }
-                } else {
-                    append("new ${returnType.type}(")
+                append("($CAST_PTR_JNI)")
+                if (method.returnType.hasFlag(ReturnTypeFlag.REF)) {
+                    append('&')
                 }
             }
 
             append(renderAutoBodyMethodCall(method))
 
-            if (returnType == ReturnTypeGeneral.STRING && method.signature.isNative) {
-                append(')')
-            }
-            if (returnType is ReturnTypeStruct && !method.signature.isNative) {
+            if (returnType == ReturnTypeGeneral.STRING) {
                 append(')')
             }
 
@@ -90,14 +61,9 @@ object `set body from autoBody` : TransformationChain.Transform {
         }
     }
 
-    private fun renderAutoBodyMethodCall(method: MethodDefinitionNode): String {
+    open fun renderAutoBodyMethodCall(method: MethodDefinitionNode): String {
         return buildString {
             append(method.autoBody.thisPointer)
-
-            if (!method.signature.isNative) {
-                append(METHOD_JNI_PREFIX)
-            }
-
             append(method.autoBody.methodName)
             append('(')
             append(method.autoBody.argsCall.joinToString())
@@ -105,3 +71,6 @@ object `set body from autoBody` : TransformationChain.Transform {
         }
     }
 }
+
+@Suppress("ClassName")
+object `set body from autoBody jni` : `abstract set body from autoBody jni`()

@@ -7,13 +7,13 @@ package imgui.binding;
 public class ImGuiApi {
 
     // GENERATED API: BEGIN
-    public ImGuiApi() {
-        imgui.ImGui.init();
-    }
-
     /*JNI
         #include "_common.h"
     */
+
+    public ImGuiApi() {
+        imgui.ImGui.init();
+    }
 
     private static java.lang.ref.WeakReference<Object> payloadRef = null;
 

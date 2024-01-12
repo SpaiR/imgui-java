@@ -13,7 +13,7 @@ import tool.generator.api.definition.node.type.method.ext.signature
  */
 @Suppress("ClassName")
 class `sort methods`(
-    private val sortOrder: Map<String, Int>
+    private val sortOrder: Map<String, Int> = emptyMap()
 ) : TransformationChain.Transform {
     override fun process(nodes: Nodes): Nodes {
         val result = mutableListOf<DefinitionNode>()

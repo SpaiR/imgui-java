@@ -3,10 +3,11 @@ package tool.generator.api.definition._package.imgui.binding
 import tool.generator.api.definition.Definition
 import tool.generator.api.definition.dsl.decl.containsMethodName
 import tool.generator.api.definition.dsl.decl.containsMethodSignature
-import tool.generator.api.definition.dsl.decl.convertFunctionDeclsToDsl
+import tool.generator.api.definition.dsl.decl.convertMethodDeclsToDsl
 import tool.generator.api.definition.dsl.define
 import tool.generator.api.definition.dsl.defines
-import tool.generator.api.definition.dsl.initConstructor
+import tool.generator.api.definition.dsl.imGuiInitConstructor
+import tool.generator.api.definition.dsl.jniIncludeCommon
 import tool.generator.api.definition.node.MethodSignature
 import tool.generator.api.definition.node.transform.method.`pre process method flags`
 import tool.generator.api.definition.node.transform.method.`remove duplicated signatures`
@@ -20,6 +21,7 @@ import tool.generator.ast.parseAstResource
 
 class ImGuiApi : Definition {
     companion object {
+        private const val CLASS_NAME = "ImGuiApi"
         private const val THIS_POINTER_IMGUI = "ImGui::"
         private const val IMGUI_NAMESPACE = "ImGui"
 
@@ -105,29 +107,29 @@ class ImGuiApi : Definition {
         )
     }
 
-    private fun getAllAstImGuiFunctions(): Collection<AstFunctionDecl> {
+    private fun getAstFunctions(): Collection<AstFunctionDecl> {
         return parseAstResource("ast-imgui.json").decls
             .filterIsInstance<AstNamespaceDecl>()
             .first { it.name == IMGUI_NAMESPACE }.decls
             .filterIsInstance<AstFunctionDecl>()
     }
 
-    private fun getAstImGuiFunctions(): Collection<AstFunctionDecl> {
-        return getAllAstImGuiFunctions()
+    private fun getAstFunctionsFiltered(): Collection<AstFunctionDecl> {
+        return getAstFunctions()
             .filterNot(containsMethodName(ignoredMethodNames))
             .filterNot(containsMethodSignature(ignoredMethodsSignatures))
     }
 
     override fun getNodes() = defines(
         define {
-            initConstructor(ImGuiApi::class.java.simpleName)
-            jniBlock("#include \"_common.h\"")
+            jniIncludeCommon()
+            imGuiInitConstructor(CLASS_NAME)
         },
         define({
             transformation {
                 chain(
                     `remove duplicated signatures`,
-                    `sort methods`(sortOrder = getAllAstImGuiFunctions().associate { it.name.toLowerCase() to it.offset })
+                    `sort methods`(sortOrder = getAstFunctions().associate { it.name.toLowerCase() to it.offset })
                 )
             }
         }, defines(
@@ -158,7 +160,7 @@ class ImGuiApi : Definition {
                     genColorEditorAndPicker()
                     genDataPlotting()
                     genMethods()
-                    convertFunctionDeclsToDsl(getAstImGuiFunctions())
+                    convertMethodDeclsToDsl(getAstFunctionsFiltered())
                 }
             },
         )

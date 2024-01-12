@@ -1,6 +1,6 @@
 {
   "info" : {
-    "version" : "1.86.11-7-gd6ff8fc",
+    "version" : "1.86.11-24-gfee0266",
     "source" : "include/imgui/imgui.h",
     "hash" : "97ead8252e026205d9bf9540a0106e96",
     "url" : "https://github.com/ocornut/imgui",
@@ -44,6 +44,11 @@
         } ]
       } ]
     }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 19276,
+      "name" : "operator=",
+      "resultType" : "ImVec2 &"
+    }, {
       "@type" : "AstFieldDecl",
       "offset" : 19329,
       "name" : "x",
@@ -55,6 +60,30 @@
       "name" : "y",
       "qualType" : "float",
       "desugaredQualType" : "float"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 19472,
+      "name" : "operator[]",
+      "resultType" : "float",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 19491,
+        "name" : "idx",
+        "qualType" : "size_t",
+        "desugaredQualType" : "unsigned long"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 19631,
+      "name" : "operator[]",
+      "resultType" : "float &",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 19650,
+        "name" : "idx",
+        "qualType" : "size_t",
+        "desugaredQualType" : "unsigned long"
+      } ]
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -72,6 +101,11 @@
           "text" : " ImVec4: 4D vector used to store clipping rectangles, colors etc. [Compile-time configurable type]"
         } ]
       } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 20091,
+      "name" : "operator=",
+      "resultType" : "ImVec4 &"
     }, {
       "@type" : "AstFieldDecl",
       "offset" : 20152,
@@ -13154,6 +13188,18 @@
       "name" : "Colors",
       "qualType" : "ImVec4[55]",
       "desugaredQualType" : "ImVec4[55]"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 195231,
+      "name" : "ScaleAllSizes",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 195251,
+        "name" : "scale_factor",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      } ]
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -13510,6 +13556,76 @@
       "qualType" : "float[20]",
       "desugaredQualType" : "float[20]"
     }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 206307,
+      "name" : "AddInputCharacter",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 206276,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 206276,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 206276,
+            "text" : " Functions"
+          } ]
+        } ]
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 206338,
+        "name" : "c",
+        "qualType" : "unsigned int",
+        "desugaredQualType" : "unsigned int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 206400,
+      "name" : "AddInputCharacterUTF16",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 206433,
+        "name" : "c",
+        "qualType" : "ImWchar16",
+        "desugaredQualType" : "unsigned short"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 206541,
+      "name" : "AddInputCharactersUTF8",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 206576,
+        "name" : "str",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 206656,
+      "name" : "AddFocusEvent",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 206675,
+        "name" : "focused",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 206798,
+      "name" : "ClearInputCharacters",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 206913,
+      "name" : "ClearInputKeys",
+      "resultType" : "void"
+    }, {
       "@type" : "AstFieldDecl",
       "offset" : 207434,
       "name" : "WantCaptureMouse",
@@ -13864,6 +13980,64 @@
       "name" : "SelectionEnd",
       "qualType" : "int",
       "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 217330,
+      "name" : "DeleteChars",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 217346,
+        "name" : "pos",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 217355,
+        "name" : "bytes_count",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 217393,
+      "name" : "InsertChars",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 217409,
+        "name" : "pos",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 217426,
+        "name" : "text",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 217444,
+        "name" : "text_end",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 217486,
+      "name" : "SelectAll",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 217585,
+      "name" : "ClearSelection",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 217681,
+      "name" : "HasSelection",
+      "resultType" : "bool"
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -14063,6 +14237,33 @@
       "name" : "Delivery",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 221865,
+      "name" : "Clear",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 222035,
+      "name" : "IsDataType",
+      "resultType" : "bool",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 222058,
+        "name" : "type",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 222143,
+      "name" : "IsPreview",
+      "resultType" : "bool"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 222207,
+      "name" : "IsDelivery",
+      "resultType" : "bool"
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -14196,6 +14397,60 @@
         } ]
       } ]
     }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 225342,
+      "name" : "Draw",
+      "resultType" : "bool",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 225359,
+        "name" : "label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "\"Filter (inc,-exc)\""
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 225394,
+        "name" : "width",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0.0f"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 225468,
+      "name" : "PassFilter",
+      "resultType" : "bool",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 225491,
+        "name" : "text",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 225509,
+        "name" : "text_end",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 225557,
+      "name" : "Build",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 225590,
+      "name" : "Clear",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 225661,
+      "name" : "IsActive",
+      "resultType" : "bool"
+    }, {
       "@type" : "AstRecordDecl",
       "offset" : 225737,
       "name" : "ImGuiTextRange",
@@ -14223,6 +14478,29 @@
         "name" : "e",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 225987,
+        "name" : "empty",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 226062,
+        "name" : "split",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 226073,
+          "name" : "separator",
+          "qualType" : "char",
+          "desugaredQualType" : "char"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 226110,
+          "name" : "out",
+          "qualType" : "ImVector<ImGuiTextRange> *",
+          "desugaredQualType" : "ImVector<ImGuiTextRange> *"
+        } ]
       } ]
     }, {
       "@type" : "AstFieldDecl",
@@ -14269,6 +14547,121 @@
       "name" : "Buf",
       "qualType" : "ImVector<char>",
       "desugaredQualType" : "ImVector<char>"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 226531,
+      "name" : "operator[]",
+      "resultType" : "char",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 226546,
+        "name" : "i",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 226632,
+      "name" : "begin",
+      "resultType" : "const char *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 226730,
+      "name" : "end",
+      "resultType" : "const char *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 226899,
+      "name" : "size",
+      "resultType" : "int"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 226987,
+      "name" : "empty",
+      "resultType" : "bool"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 227061,
+      "name" : "clear",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 227126,
+      "name" : "reserve",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 227138,
+        "name" : "capacity",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 227201,
+      "name" : "c_str",
+      "resultType" : "const char *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 227295,
+      "name" : "append",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 227314,
+        "name" : "str",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 227331,
+        "name" : "str_end",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 227372,
+      "name" : "appendf",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 227392,
+        "name" : "fmt",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 227402,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 227441,
+      "name" : "appendfv",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 227462,
+        "name" : "fmt",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 227475,
+        "name" : "args",
+        "qualType" : "__va_list_tag *",
+        "desugaredQualType" : "__va_list_tag *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 227481,
+        "name" : "#FORMAT_ATTR_MARKER#",
+        "qualType" : "#FORMAT_ATTR_MARKER#",
+        "desugaredQualType" : "#FORMAT_ATTR_MARKER#"
+      } ]
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -14343,6 +14736,323 @@
       "name" : "Data",
       "qualType" : "ImVector<ImGuiStoragePair>",
       "desugaredQualType" : "ImVector<ImGuiStorage::ImGuiStoragePair>"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 229090,
+      "name" : "Clear",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 228799,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 228799,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 228799,
+            "text" : " - Get***() functions find pair, never add/allocate. Pairs are sorted so a query is O(log N)"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 228898,
+            "text" : " - Set***() functions find pair, insertion on demand if missing."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 228969,
+            "text" : " - Sorted insertion is costly, paid once. A typical frame shouldn't need to insert any new pair."
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 229140,
+      "name" : "GetInt",
+      "resultType" : "int",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229155,
+        "name" : "key",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229164,
+        "name" : "default_val",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 229212,
+      "name" : "SetInt",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229227,
+        "name" : "key",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229236,
+        "name" : "val",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 229266,
+      "name" : "GetBool",
+      "resultType" : "bool",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229282,
+        "name" : "key",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229292,
+        "name" : "default_val",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool",
+        "defaultValue" : "false"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 229344,
+      "name" : "SetBool",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229360,
+        "name" : "key",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229370,
+        "name" : "val",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 229400,
+      "name" : "GetFloat",
+      "resultType" : "float",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229417,
+        "name" : "key",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229428,
+        "name" : "default_val",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0.0f"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 229479,
+      "name" : "SetFloat",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229496,
+        "name" : "key",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229507,
+        "name" : "val",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 229537,
+      "name" : "GetVoidPtr",
+      "resultType" : "void *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229556,
+        "name" : "key",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 229615,
+      "name" : "SetVoidPtr",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229634,
+        "name" : "key",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 229645,
+        "name" : "val",
+        "qualType" : "void *",
+        "desugaredQualType" : "void *"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 230233,
+      "name" : "GetIntRef",
+      "resultType" : "int *",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 229658,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 229658,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 229658,
+            "text" : " - Get***Ref() functions finds pair, insert on demand if missing, return pointer. Useful if you intend to do Get+Set."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 229782,
+            "text" : " - References are only valid until a new value is added to the storage. Calling a Set***() function or a Get***Ref() function invalidates the pointer."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 229939,
+            "text" : " - A typical use case where this is convenient for quick hacking (e.g. add storage during a live Edit"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 230040,
+            "text" : "&Continue"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 230049,
+            "text" : " session if you can't modify existing struct)"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 230101,
+            "text" : "      float* pvar = ImGui::GetFloatRef(key); ImGui::SliderFloat(\"var\", pvar, 0, 100.0f); some_var += *pvar;"
+          } ]
+        } ]
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 230251,
+        "name" : "key",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 230260,
+        "name" : "default_val",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 230302,
+      "name" : "GetBoolRef",
+      "resultType" : "bool *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 230321,
+        "name" : "key",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 230331,
+        "name" : "default_val",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool",
+        "defaultValue" : "false"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 230377,
+      "name" : "GetFloatRef",
+      "resultType" : "float *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 230397,
+        "name" : "key",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 230408,
+        "name" : "default_val",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0.0f"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 230453,
+      "name" : "GetVoidPtrRef",
+      "resultType" : "void **",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 230475,
+        "name" : "key",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 230486,
+        "name" : "default_val",
+        "qualType" : "void *",
+        "desugaredQualType" : "void *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 230633,
+      "name" : "SetAllInt",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 230514,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 230514,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 230514,
+            "text" : " Use on your own storage if you know only integer are being stored (open/close all tree nodes)"
+          } ]
+        } ]
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 230647,
+        "name" : "val",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 230806,
+      "name" : "BuildSortByKey",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 230660,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 230660,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 230660,
+            "text" : " For quicker full rebuild of a storage (instead of an incremental one), you may add all your contents and then sort once."
+          } ]
+        } ]
+      } ]
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -14480,6 +15190,65 @@
       "name" : "TempData",
       "qualType" : "void *",
       "desugaredQualType" : "void *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 233342,
+      "name" : "Begin",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 233352,
+        "name" : "items_count",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 233371,
+        "name" : "items_height",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "-1.0f"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 233414,
+      "name" : "End",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 233524,
+      "name" : "Step",
+      "resultType" : "bool"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 233821,
+      "name" : "ForceDisplayRangeByIndices",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 233667,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 233667,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 233667,
+            "text" : " Call ForceDisplayRangeByIndices() before first call to Step() if you need a range of items to be displayed regardless of visibility."
+          } ]
+        } ]
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 233852,
+        "name" : "item_min",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 233866,
+        "name" : "item_max",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -14515,6 +15284,80 @@
       "name" : "Value",
       "qualType" : "ImVec4",
       "desugaredQualType" : "ImVec4"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 236857,
+      "name" : "SetHSV",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 236777,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 236777,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 236777,
+            "text" : " FIXME-OBSOLETE: May need to obsolete/cleanup those helpers."
+          } ]
+        } ]
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 236870,
+        "name" : "h",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 236879,
+        "name" : "s",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 236888,
+        "name" : "v",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 236897,
+        "name" : "a",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "1.0f"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 237007,
+      "name" : "HSV",
+      "resultType" : "ImColor",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 237017,
+        "name" : "h",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 237026,
+        "name" : "s",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 237035,
+        "name" : "v",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 237044,
+        "name" : "a",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "1.0f"
+      } ]
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -14598,6 +15441,24 @@
       "name" : "UserCallbackData",
       "qualType" : "void *",
       "desugaredQualType" : "void *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 241286,
+      "name" : "GetTexID",
+      "resultType" : "ImTextureID",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 241085,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 241085,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 241085,
+            "text" : " Since 1.83: returns ImTextureID associated with this draw call. Warning: DO NOT assume this is always same as 'TextureId' (we will change this function for an upcoming feature)"
+          } ]
+        } ]
+      } ]
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -14724,6 +15585,64 @@
       "name" : "_Channels",
       "qualType" : "ImVector<ImDrawChannel>",
       "desugaredQualType" : "ImVector<ImDrawChannel>"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 243237,
+      "name" : "Clear",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 243375,
+      "name" : "ClearFreeMemory",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 243426,
+      "name" : "Split",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 243444,
+        "name" : "draw_list",
+        "qualType" : "ImDrawList *",
+        "desugaredQualType" : "ImDrawList *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 243459,
+        "name" : "count",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 243499,
+      "name" : "Merge",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 243517,
+        "name" : "draw_list",
+        "qualType" : "ImDrawList *",
+        "desugaredQualType" : "ImDrawList *"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 243561,
+      "name" : "SetCurrentChannel",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 243591,
+        "name" : "draw_list",
+        "qualType" : "ImDrawList *",
+        "desugaredQualType" : "ImDrawList *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 243606,
+        "name" : "channel_idx",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -15057,6 +15976,1757 @@
       "name" : "_FringeScale",
       "qualType" : "float",
       "desugaredQualType" : "float"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 250296,
+      "name" : "PushClipRect",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 250316,
+        "name" : "clip_rect_min",
+        "qualType" : "ImVec2",
+        "desugaredQualType" : "ImVec2"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 250338,
+        "name" : "clip_rect_max",
+        "qualType" : "ImVec2",
+        "desugaredQualType" : "ImVec2"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 250358,
+        "name" : "intersect_with_current_clip_rect",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool",
+        "defaultValue" : "false"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 250634,
+      "name" : "PushClipRectFullScreen",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 250680,
+      "name" : "PopClipRect",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 250715,
+      "name" : "PushTextureID",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 250741,
+        "name" : "texture_id",
+        "qualType" : "ImTextureID",
+        "desugaredQualType" : "void *"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 250774,
+      "name" : "PopTextureID",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 250810,
+      "name" : "GetClipRectMin",
+      "resultType" : "ImVec2"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 250926,
+      "name" : "GetClipRectMax",
+      "resultType" : "ImVec2"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 251588,
+      "name" : "AddLine",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 251029,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 251029,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 251029,
+            "text" : " Primitives"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 251047,
+            "text" : " - For rectangular primitives, \"p_min\" and \"p_max\" represent the upper-left and lower-right corners."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 251154,
+            "text" : " - For circle primitives, use \"num_segments == 0\" to automatically calculate tessellation (preferred)."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 251263,
+            "text" : "   In older versions (until Dear ImGui 1.77) the AddCircle functions defaulted to num_segments == 12."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 251371,
+            "text" : "   In future versions we will use textures to provide cheaper and higher-quality circles."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 251467,
+            "text" : "   Use AddNgon() and AddNgonFilled() functions if you need to guaranteed a specific number of sides."
+          } ]
+        } ]
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 251610,
+        "name" : "p1",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 251628,
+        "name" : "p2",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 251638,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 251649,
+        "name" : "thickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "1.0f"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 251688,
+      "name" : "AddRect",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 251710,
+        "name" : "p_min",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 251731,
+        "name" : "p_max",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 251744,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 251755,
+        "name" : "rounding",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0.0f"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 251784,
+        "name" : "flags",
+        "qualType" : "ImDrawFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 251801,
+        "name" : "thickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "1.0f"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 251898,
+      "name" : "AddRectFilled",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 251926,
+        "name" : "p_min",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 251947,
+        "name" : "p_max",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 251960,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 251971,
+        "name" : "rounding",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0.0f"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252000,
+        "name" : "flags",
+        "qualType" : "ImDrawFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 252108,
+      "name" : "AddRectFilledMultiColor",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252146,
+        "name" : "p_min",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252167,
+        "name" : "p_max",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252180,
+        "name" : "col_upr_left",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252200,
+        "name" : "col_upr_right",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252221,
+        "name" : "col_bot_right",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252242,
+        "name" : "col_bot_left",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 252277,
+      "name" : "AddQuad",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252299,
+        "name" : "p1",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252317,
+        "name" : "p2",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252335,
+        "name" : "p3",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252353,
+        "name" : "p4",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252363,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252374,
+        "name" : "thickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "1.0f"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 252413,
+      "name" : "AddQuadFilled",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252441,
+        "name" : "p1",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252459,
+        "name" : "p2",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252477,
+        "name" : "p3",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252495,
+        "name" : "p4",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252505,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 252531,
+      "name" : "AddTriangle",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252557,
+        "name" : "p1",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252575,
+        "name" : "p2",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252593,
+        "name" : "p3",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252603,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252614,
+        "name" : "thickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "1.0f"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 252653,
+      "name" : "AddTriangleFilled",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252685,
+        "name" : "p1",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252703,
+        "name" : "p2",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252721,
+        "name" : "p3",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252731,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 252757,
+      "name" : "AddCircle",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252781,
+        "name" : "center",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252795,
+        "name" : "radius",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252809,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252818,
+        "name" : "num_segments",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252842,
+        "name" : "thickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "1.0f"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 252881,
+      "name" : "AddCircleFilled",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252911,
+        "name" : "center",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252925,
+        "name" : "radius",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252939,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 252948,
+        "name" : "num_segments",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 252987,
+      "name" : "AddNgon",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253009,
+        "name" : "center",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253023,
+        "name" : "radius",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253037,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253046,
+        "name" : "num_segments",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253066,
+        "name" : "thickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "1.0f"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 253105,
+      "name" : "AddNgonFilled",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253133,
+        "name" : "center",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253147,
+        "name" : "radius",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253161,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253170,
+        "name" : "num_segments",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 253205,
+      "name" : "AddText",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253227,
+        "name" : "pos",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253238,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253255,
+        "name" : "text_begin",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253279,
+        "name" : "text_end",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 253317,
+      "name" : "AddText",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253339,
+        "name" : "font",
+        "qualType" : "const ImFont *",
+        "desugaredQualType" : "const ImFont *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253351,
+        "name" : "font_size",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253376,
+        "name" : "pos",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253387,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253404,
+        "name" : "text_begin",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253428,
+        "name" : "text_end",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "NULL"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253451,
+        "name" : "wrap_width",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0.0f"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253484,
+        "name" : "cpu_fine_clip_rect",
+        "qualType" : "const ImVec4 *",
+        "desugaredQualType" : "const ImVec4 *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 253532,
+      "name" : "AddPolyline",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253558,
+        "name" : "points",
+        "qualType" : "const ImVec2 *",
+        "desugaredQualType" : "const ImVec2 *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253570,
+        "name" : "num_points",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253588,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253605,
+        "name" : "flags",
+        "qualType" : "ImDrawFlags",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253618,
+        "name" : "thickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 253650,
+      "name" : "AddConvexPolyFilled",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253684,
+        "name" : "points",
+        "qualType" : "const ImVec2 *",
+        "desugaredQualType" : "const ImVec2 *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253696,
+        "name" : "num_points",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253714,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 253812,
+      "name" : "AddBezierCubic",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253841,
+        "name" : "p1",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253859,
+        "name" : "p2",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253877,
+        "name" : "p3",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253895,
+        "name" : "p4",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253905,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253916,
+        "name" : "thickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 253931,
+        "name" : "num_segments",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 254005,
+      "name" : "AddBezierQuadratic",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254038,
+        "name" : "p1",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254056,
+        "name" : "p2",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254074,
+        "name" : "p3",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254084,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254095,
+        "name" : "thickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254110,
+        "name" : "num_segments",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 254560,
+      "name" : "AddImage",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 254189,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 254189,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 254189,
+            "text" : " Image primitives"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 254213,
+            "text" : " - Read FAQ to understand what ImTextureID is."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 254266,
+            "text" : " - \"p_min\" and \"p_max\" represent the upper-left and lower-right corners of the rectangle."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 254362,
+            "text" : " - \"uv_min\" and \"uv_max\" represent the normalized texture coordinates to use for those corners. Using (0,0)->(1,1) texture coordinates will generally display the entire texture."
+          } ]
+        } ]
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254581,
+        "name" : "user_texture_id",
+        "qualType" : "ImTextureID",
+        "desugaredQualType" : "void *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254612,
+        "name" : "p_min",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254633,
+        "name" : "p_max",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254654,
+        "name" : "uv_min",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &",
+        "defaultValue" : "ImVec2(0, 0)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254691,
+        "name" : "uv_max",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &",
+        "defaultValue" : "ImVec2(1, 1)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254720,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int",
+        "defaultValue" : "IM_COL32_WHITE"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 254763,
+      "name" : "AddImageQuad",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254788,
+        "name" : "user_texture_id",
+        "qualType" : "ImTextureID",
+        "desugaredQualType" : "void *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254819,
+        "name" : "p1",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254837,
+        "name" : "p2",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254855,
+        "name" : "p3",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254873,
+        "name" : "p4",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254891,
+        "name" : "uv1",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &",
+        "defaultValue" : "ImVec2(0, 0)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254925,
+        "name" : "uv2",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &",
+        "defaultValue" : "ImVec2(1, 0)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254959,
+        "name" : "uv3",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &",
+        "defaultValue" : "ImVec2(1, 1)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 254993,
+        "name" : "uv4",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &",
+        "defaultValue" : "ImVec2(0, 1)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 255019,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int",
+        "defaultValue" : "IM_COL32_WHITE"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 255062,
+      "name" : "AddImageRounded",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 255090,
+        "name" : "user_texture_id",
+        "qualType" : "ImTextureID",
+        "desugaredQualType" : "void *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 255121,
+        "name" : "p_min",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 255142,
+        "name" : "p_max",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 255163,
+        "name" : "uv_min",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 255185,
+        "name" : "uv_max",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 255199,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 255210,
+        "name" : "rounding",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 255232,
+        "name" : "flags",
+        "qualType" : "ImDrawFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 255352,
+      "name" : "PathClear",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 255251,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 255251,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 255251,
+            "text" : " Stateful path API, add points then finish with PathFillConvex() or PathStroke()"
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 255452,
+      "name" : "PathLineTo",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 255477,
+        "name" : "pos",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 255558,
+      "name" : "PathLineToMergeDuplicate",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 255597,
+        "name" : "pos",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 255738,
+      "name" : "PathFillConvex",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 255759,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 255961,
+      "name" : "PathStroke",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 255978,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 255995,
+        "name" : "flags",
+        "qualType" : "ImDrawFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256012,
+        "name" : "thickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "1.0f"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 256130,
+      "name" : "PathArcTo",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256154,
+        "name" : "center",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256168,
+        "name" : "radius",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256182,
+        "name" : "a_min",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256195,
+        "name" : "a_max",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256206,
+        "name" : "num_segments",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 256245,
+      "name" : "PathArcToFast",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256273,
+        "name" : "center",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256287,
+        "name" : "radius",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256299,
+        "name" : "a_min_of_12",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256316,
+        "name" : "a_max_of_12",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 256413,
+      "name" : "PathBezierCubicCurveTo",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256450,
+        "name" : "p2",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256468,
+        "name" : "p3",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256486,
+        "name" : "p4",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256494,
+        "name" : "num_segments",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 256568,
+      "name" : "PathBezierQuadraticCurveTo",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256609,
+        "name" : "p2",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256627,
+        "name" : "p3",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256635,
+        "name" : "num_segments",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 256727,
+      "name" : "PathRect",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256750,
+        "name" : "rect_min",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256774,
+        "name" : "rect_max",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256790,
+        "name" : "rounding",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0.0f"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256819,
+        "name" : "flags",
+        "qualType" : "ImDrawFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 256868,
+      "name" : "AddCallback",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 256838,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 256838,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 256838,
+            "text" : " Advanced"
+          } ]
+        } ]
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256895,
+        "name" : "callback",
+        "qualType" : "ImDrawCallback",
+        "desugaredQualType" : "void (*)(const ImDrawList *, const ImDrawCmd *)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 256911,
+        "name" : "callback_data",
+        "qualType" : "void *",
+        "desugaredQualType" : "void *"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 257072,
+      "name" : "AddDrawCmd",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 257348,
+      "name" : "CloneOutput",
+      "resultType" : "ImDrawList *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 258079,
+      "name" : "ChannelsSplit",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 257465,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 257465,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 257465,
+            "text" : " Advanced: Channels"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 257491,
+            "text" : " - Use to split render into layers. By switching channels to can render out-of-order (e.g. submit FG primitives before BG primitives)"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 257631,
+            "text" : " - Use to minimize draw calls (e.g. if going back-and-forth between multiple clipping rectangles, prefer to append into separate channels then merge at the end)"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 257798,
+            "text" : " - FIXME-OBSOLETE: This API shouldn't have been in ImDrawList in the first place!"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 257886,
+            "text" : "   Prefer using your own persistent instance of ImDrawListSplitter as you can stack them."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 257982,
+            "text" : "   Using the ImDrawList::ChannelsXXXX you cannot stack a split over another."
+          } ]
+        } ]
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258097,
+        "name" : "count",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 258161,
+      "name" : "ChannelsMerge",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 258236,
+      "name" : "ChannelsSetCurrent",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258259,
+        "name" : "n",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 258488,
+      "name" : "PrimReserve",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 258313,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 258313,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 258313,
+            "text" : " Advanced: Primitives allocations"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 258353,
+            "text" : " - We render triangles (three vertices)"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 258399,
+            "text" : " - All primitives needs to be reserved via PrimReserve() beforehand."
+          } ]
+        } ]
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258504,
+        "name" : "idx_count",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258519,
+        "name" : "vtx_count",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 258551,
+      "name" : "PrimUnreserve",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258569,
+        "name" : "idx_count",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258584,
+        "name" : "vtx_count",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 258616,
+      "name" : "PrimRect",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258639,
+        "name" : "a",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258656,
+        "name" : "b",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258665,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 258750,
+      "name" : "PrimRectUV",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258775,
+        "name" : "a",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258792,
+        "name" : "b",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258809,
+        "name" : "uv_a",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258829,
+        "name" : "uv_b",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258841,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 258867,
+      "name" : "PrimQuadUV",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258892,
+        "name" : "a",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258909,
+        "name" : "b",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258926,
+        "name" : "c",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258943,
+        "name" : "d",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258960,
+        "name" : "uv_a",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 258980,
+        "name" : "uv_b",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259000,
+        "name" : "uv_c",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259020,
+        "name" : "uv_d",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259032,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 259058,
+      "name" : "PrimWriteVtx",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259085,
+        "name" : "pos",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259104,
+        "name" : "uv",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259114,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 259253,
+      "name" : "PrimWriteIdx",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259276,
+        "name" : "idx",
+        "qualType" : "ImDrawIdx",
+        "desugaredQualType" : "unsigned short"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 259378,
+      "name" : "PrimVtx",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259400,
+        "name" : "pos",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259419,
+        "name" : "uv",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259429,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 259611,
+      "name" : "AddBezierCurve",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259640,
+        "name" : "p1",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259658,
+        "name" : "p2",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259676,
+        "name" : "p3",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259694,
+        "name" : "p4",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259704,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259715,
+        "name" : "thickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259730,
+        "name" : "num_segments",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 259834,
+      "name" : "PathBezierCurveTo",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259866,
+        "name" : "p2",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259884,
+        "name" : "p3",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259902,
+        "name" : "p4",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 259910,
+        "name" : "num_segments",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 260036,
+      "name" : "_ResetForNewFrame",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 259996,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 259996,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 259996,
+            "text" : " [Internal helpers]"
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 260077,
+      "name" : "_ClearFreeMemory",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 260117,
+      "name" : "_PopUnusedDrawCmd",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 260158,
+      "name" : "_TryMergeDrawCmds",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 260199,
+      "name" : "_OnChangedClipRect",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 260241,
+      "name" : "_OnChangedTextureID",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 260284,
+      "name" : "_OnChangedVtxOffset",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 260327,
+      "name" : "_CalcCircleAutoSegmentCount",
+      "resultType" : "int",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 260361,
+        "name" : "radius",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 260396,
+      "name" : "_PathArcToFastEx",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 260427,
+        "name" : "center",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 260441,
+        "name" : "radius",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 260453,
+        "name" : "a_min_sample",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 260471,
+        "name" : "a_max_sample",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 260489,
+        "name" : "a_step",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 260518,
+      "name" : "_PathArcToN",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 260544,
+        "name" : "center",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 260558,
+        "name" : "radius",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 260572,
+        "name" : "a_min",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 260585,
+        "name" : "a_max",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 260596,
+        "name" : "num_segments",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -15136,6 +17806,28 @@
       "name" : "OwnerViewport",
       "qualType" : "ImGuiViewport *",
       "desugaredQualType" : "ImGuiViewport *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 262309,
+      "name" : "Clear",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 262425,
+      "name" : "DeIndexAllBuffers",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 262672,
+      "name" : "ScaleClipRects",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 262701,
+        "name" : "fb_scale",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      } ]
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -15395,6 +18087,90 @@
       "name" : "UsedChars",
       "qualType" : "ImVector<ImU32>",
       "desugaredQualType" : "ImVector<unsigned int>"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 267402,
+      "name" : "Clear",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 267610,
+      "name" : "GetBit",
+      "resultType" : "bool",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 267624,
+        "name" : "n",
+        "qualType" : "size_t",
+        "desugaredQualType" : "unsigned long"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 267776,
+      "name" : "SetBit",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 267790,
+        "name" : "n",
+        "qualType" : "size_t",
+        "desugaredQualType" : "unsigned long"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 267942,
+      "name" : "AddChar",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 267958,
+        "name" : "c",
+        "qualType" : "ImWchar",
+        "desugaredQualType" : "unsigned short"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 268039,
+      "name" : "AddText",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 268059,
+        "name" : "text",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 268077,
+        "name" : "text_end",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 268180,
+      "name" : "AddRanges",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 268205,
+        "name" : "ranges",
+        "qualType" : "const ImWchar *",
+        "desugaredQualType" : "const ImWchar *"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 268372,
+      "name" : "BuildRanges",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 268403,
+        "name" : "out_ranges",
+        "qualType" : "ImVector<ImWchar> *",
+        "desugaredQualType" : "ImVector<ImWchar> *"
+      } ]
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -15460,6 +18236,11 @@
       "name" : "Font",
       "qualType" : "ImFont *",
       "desugaredQualType" : "ImFont *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 269235,
+      "name" : "IsPacked",
+      "resultType" : "bool"
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -15589,6 +18370,546 @@
           "offset" : 271587,
           "text" : " - This is an old API and it is currently awkward for those and and various other reasons! We will address them in the future!"
         } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 271826,
+      "name" : "AddFont",
+      "resultType" : "ImFont *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 271854,
+        "name" : "font_cfg",
+        "qualType" : "const ImFontConfig *",
+        "desugaredQualType" : "const ImFontConfig *"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 271897,
+      "name" : "AddFontDefault",
+      "resultType" : "ImFont *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 271932,
+        "name" : "font_cfg",
+        "qualType" : "const ImFontConfig *",
+        "desugaredQualType" : "const ImFontConfig *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 271982,
+      "name" : "AddFontFromFileTTF",
+      "resultType" : "ImFont *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272013,
+        "name" : "filename",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272029,
+        "name" : "size_pixels",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272062,
+        "name" : "font_cfg",
+        "qualType" : "const ImFontConfig *",
+        "desugaredQualType" : "const ImFontConfig *",
+        "defaultValue" : "NULL"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272094,
+        "name" : "glyph_ranges",
+        "qualType" : "const ImWchar *",
+        "desugaredQualType" : "const ImWchar *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 272148,
+      "name" : "AddFontFromMemoryTTF",
+      "resultType" : "ImFont *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272175,
+        "name" : "font_data",
+        "qualType" : "void *",
+        "desugaredQualType" : "void *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272190,
+        "name" : "font_size",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272207,
+        "name" : "size_pixels",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272240,
+        "name" : "font_cfg",
+        "qualType" : "const ImFontConfig *",
+        "desugaredQualType" : "const ImFontConfig *",
+        "defaultValue" : "NULL"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272272,
+        "name" : "glyph_ranges",
+        "qualType" : "const ImWchar *",
+        "desugaredQualType" : "const ImWchar *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 272527,
+      "name" : "AddFontFromMemoryCompressedTTF",
+      "resultType" : "ImFont *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272570,
+        "name" : "compressed_font_data",
+        "qualType" : "const void *",
+        "desugaredQualType" : "const void *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272596,
+        "name" : "compressed_font_size",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272624,
+        "name" : "size_pixels",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272657,
+        "name" : "font_cfg",
+        "qualType" : "const ImFontConfig *",
+        "desugaredQualType" : "const ImFontConfig *",
+        "defaultValue" : "NULL"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272689,
+        "name" : "glyph_ranges",
+        "qualType" : "const ImWchar *",
+        "desugaredQualType" : "const ImWchar *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 272834,
+      "name" : "AddFontFromMemoryCompressedBase85TTF",
+      "resultType" : "ImFont *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272883,
+        "name" : "compressed_font_data_base85",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272918,
+        "name" : "size_pixels",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272951,
+        "name" : "font_cfg",
+        "qualType" : "const ImFontConfig *",
+        "desugaredQualType" : "const ImFontConfig *",
+        "defaultValue" : "NULL"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 272983,
+        "name" : "glyph_ranges",
+        "qualType" : "const ImWchar *",
+        "desugaredQualType" : "const ImWchar *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 273171,
+      "name" : "ClearInputData",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 273379,
+      "name" : "ClearTexData",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 273543,
+      "name" : "ClearFonts",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 273663,
+      "name" : "Clear",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 274309,
+      "name" : "Build",
+      "resultType" : "bool",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 273729,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 273729,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 273729,
+            "text" : " Build atlas, retrieve pixel data."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 273770,
+            "text" : " User is in charge of copying the pixels into graphics memory (e.g. create a texture with your engine). Then store your texture handle with SetTexID()."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 273928,
+            "text" : " The pitch is always = Width * BytesPerPixels (1 or 4)"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 273989,
+            "text" : " Building in RGBA32 format is provided for convenience and compatibility, but note that unless you manually manipulate or copy color data into"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 274138,
+            "text" : " the texture (e.g. when using the AddCustomRect*** api), then the RGB pixels emitted will always be white (~75% of memory/bandwidth waste."
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 274460,
+      "name" : "GetTexDataAsAlpha8",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 274495,
+        "name" : "out_pixels",
+        "qualType" : "unsigned char **",
+        "desugaredQualType" : "unsigned char **"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 274512,
+        "name" : "out_width",
+        "qualType" : "int *",
+        "desugaredQualType" : "int *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 274528,
+        "name" : "out_height",
+        "qualType" : "int *",
+        "desugaredQualType" : "int *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 274545,
+        "name" : "out_bytes_per_pixel",
+        "qualType" : "int *",
+        "desugaredQualType" : "int *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 274627,
+      "name" : "GetTexDataAsRGBA32",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 274662,
+        "name" : "out_pixels",
+        "qualType" : "unsigned char **",
+        "desugaredQualType" : "unsigned char **"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 274679,
+        "name" : "out_width",
+        "qualType" : "int *",
+        "desugaredQualType" : "int *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 274695,
+        "name" : "out_height",
+        "qualType" : "int *",
+        "desugaredQualType" : "int *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 274712,
+        "name" : "out_bytes_per_pixel",
+        "qualType" : "int *",
+        "desugaredQualType" : "int *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 274795,
+      "name" : "IsBuilt",
+      "resultType" : "bool"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 275043,
+      "name" : "SetTexID",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 275064,
+        "name" : "id",
+        "qualType" : "ImTextureID",
+        "desugaredQualType" : "void *"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 275636,
+      "name" : "GetGlyphRangesDefault",
+      "resultType" : "const ImWchar *",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 275215,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 275215,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 275215,
+            "text" : " Helpers to retrieve list of common Unicode ranges (2 value per range, values are inclusive, zero-terminated list)"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 275336,
+            "text" : " NB: Make sure that your string are UTF-8 and NOT in your local code page. In C++11, you can create UTF-8 string literal using the u8\"Hello world\" syntax. See FAQ for details."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 275518,
+            "text" : " NB: Consider using ImFontGlyphRangesBuilder to build glyph ranges from textual data."
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 275739,
+      "name" : "GetGlyphRangesKorean",
+      "resultType" : "const ImWchar *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 275842,
+      "name" : "GetGlyphRangesJapanese",
+      "resultType" : "const ImWchar *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 275988,
+      "name" : "GetGlyphRangesChineseFull",
+      "resultType" : "const ImWchar *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 276162,
+      "name" : "GetGlyphRangesChineseSimplifiedCommon",
+      "resultType" : "const ImWchar *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 276354,
+      "name" : "GetGlyphRangesCyrillic",
+      "resultType" : "const ImWchar *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 276469,
+      "name" : "GetGlyphRangesThai",
+      "resultType" : "const ImWchar *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 276570,
+      "name" : "GetGlyphRangesVietnamese",
+      "resultType" : "const ImWchar *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 277523,
+      "name" : "AddCustomRectRegular",
+      "resultType" : "int",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 276796,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 276796,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 276796,
+            "text" : " You can request arbitrary rectangles to be packed into the atlas, for your own purposes."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 276892,
+            "text" : " - After calling Build(), you can query the rectangle position and render your pixels."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 276985,
+            "text" : " - If you render colored output, set 'atlas->TexPixelsUseColors = true' as this may help some backends decide of prefered texture format."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 277129,
+            "text" : " - You can also request your rectangles to be mapped as font glyph (given a font + Unicode point),"
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 277234,
+            "text" : "   so you can render e.g. custom colorful icons and use them as regular glyphs."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 277320,
+            "text" : " - Read docs/FONTS.md for more details about using colorful icons."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 277393,
+            "text" : " - Note: this API may be redesigned later in order to support multi-monitor varying DPI settings."
+          } ]
+        } ]
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 277548,
+        "name" : "width",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 277559,
+        "name" : "height",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 277600,
+      "name" : "AddCustomRectFontGlyph",
+      "resultType" : "int",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 277631,
+        "name" : "font",
+        "qualType" : "ImFont *",
+        "desugaredQualType" : "ImFont *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 277645,
+        "name" : "id",
+        "qualType" : "ImWchar",
+        "desugaredQualType" : "unsigned short"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 277653,
+        "name" : "width",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 277664,
+        "name" : "height",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 277678,
+        "name" : "advance_x",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 277703,
+        "name" : "offset",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &",
+        "defaultValue" : "ImVec2(0, 0)"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 277759,
+      "name" : "GetCustomRectByIndex",
+      "resultType" : "ImFontAtlasCustomRect *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 277784,
+        "name" : "index",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 277897,
+      "name" : "CalcCustomRectUV",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 277853,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 277853,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 277853,
+            "text" : " [Internal]"
+          } ]
+        } ]
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 277943,
+        "name" : "rect",
+        "qualType" : "const ImFontAtlasCustomRect *",
+        "desugaredQualType" : "const ImFontAtlasCustomRect *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 277957,
+        "name" : "out_uv_min",
+        "qualType" : "ImVec2 *",
+        "desugaredQualType" : "ImVec2 *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 277977,
+        "name" : "out_uv_max",
+        "qualType" : "ImVec2 *",
+        "desugaredQualType" : "ImVec2 *"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 278028,
+      "name" : "GetMouseCursorTexData",
+      "resultType" : "bool",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 278067,
+        "name" : "cursor",
+        "qualType" : "ImGuiMouseCursor",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 278083,
+        "name" : "out_offset",
+        "qualType" : "ImVec2 *",
+        "desugaredQualType" : "ImVec2 *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 278103,
+        "name" : "out_size",
+        "qualType" : "ImVec2 *",
+        "desugaredQualType" : "ImVec2 *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 278120,
+        "name" : "out_uv_border",
+        "qualType" : "ImVec2 *",
+        "desugaredQualType" : "ImVec2 *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 278145,
+        "name" : "out_uv_fill",
+        "qualType" : "ImVec2 *",
+        "desugaredQualType" : "ImVec2 *"
       } ]
     }, {
       "@type" : "AstFieldDecl",
@@ -15845,6 +19166,408 @@
       "name" : "Used4kPagesMap",
       "qualType" : "ImU8[2]",
       "desugaredQualType" : "ImU8[2]"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 284716,
+      "name" : "FindGlyph",
+      "resultType" : "const ImFontGlyph *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 284734,
+        "name" : "c",
+        "qualType" : "ImWchar",
+        "desugaredQualType" : "unsigned short"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 284776,
+      "name" : "FindGlyphNoFallback",
+      "resultType" : "const ImFontGlyph *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 284804,
+        "name" : "c",
+        "qualType" : "ImWchar",
+        "desugaredQualType" : "unsigned short"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 284846,
+      "name" : "GetCharAdvance",
+      "resultType" : "float",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 284869,
+        "name" : "c",
+        "qualType" : "ImWchar",
+        "desugaredQualType" : "unsigned short"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 284999,
+      "name" : "IsLoaded",
+      "resultType" : "bool"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 285102,
+      "name" : "GetDebugName",
+      "resultType" : "const char *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 285453,
+      "name" : "CalcTextSizeA",
+      "resultType" : "ImVec2",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 285201,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 285201,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 285201,
+            "text" : " 'max_width' stops rendering after a certain width (could be turned into a 2d size). FLT_MAX to disable."
+          }, {
+            "@type" : "AstTextComment",
+            "offset" : 285312,
+            "text" : " 'wrap_width' enable automatic word-wrapping across multiple lines to fit into given width. 0.0f to disable."
+          } ]
+        } ]
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285473,
+        "name" : "size",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285485,
+        "name" : "max_width",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285502,
+        "name" : "wrap_width",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285526,
+        "name" : "text_begin",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285550,
+        "name" : "text_end",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "NULL"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285580,
+        "name" : "remaining",
+        "qualType" : "const char **",
+        "desugaredQualType" : "const char **",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 285645,
+      "name" : "CalcWordWrapPositionA",
+      "resultType" : "const char *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285673,
+        "name" : "scale",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285692,
+        "name" : "text",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285710,
+        "name" : "text_end",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285726,
+        "name" : "wrap_width",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 285777,
+      "name" : "RenderChar",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285800,
+        "name" : "draw_list",
+        "qualType" : "ImDrawList *",
+        "desugaredQualType" : "ImDrawList *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285817,
+        "name" : "size",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285830,
+        "name" : "pos",
+        "qualType" : "ImVec2",
+        "desugaredQualType" : "ImVec2"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285841,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285854,
+        "name" : "c",
+        "qualType" : "ImWchar",
+        "desugaredQualType" : "unsigned short"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 285896,
+      "name" : "RenderText",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285919,
+        "name" : "draw_list",
+        "qualType" : "ImDrawList *",
+        "desugaredQualType" : "ImDrawList *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285936,
+        "name" : "size",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285949,
+        "name" : "pos",
+        "qualType" : "ImVec2",
+        "desugaredQualType" : "ImVec2"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285960,
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 285979,
+        "name" : "clip_rect",
+        "qualType" : "const ImVec4 &",
+        "desugaredQualType" : "const ImVec4 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286002,
+        "name" : "text_begin",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286026,
+        "name" : "text_end",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286042,
+        "name" : "wrap_width",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0.0f"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286066,
+        "name" : "cpu_fine_clip",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool",
+        "defaultValue" : "false"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 286158,
+      "name" : "BuildLookupTable",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 286103,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 286103,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 286103,
+            "text" : " [Internal] Don't use!"
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 286210,
+      "name" : "ClearOutputData",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 286261,
+      "name" : "GrowIndex",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286275,
+        "name" : "new_size",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 286318,
+      "name" : "AddGlyph",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286347,
+        "name" : "src_cfg",
+        "qualType" : "const ImFontConfig *",
+        "desugaredQualType" : "const ImFontConfig *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286364,
+        "name" : "c",
+        "qualType" : "ImWchar",
+        "desugaredQualType" : "unsigned short"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286373,
+        "name" : "x0",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286383,
+        "name" : "y0",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286393,
+        "name" : "x1",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286403,
+        "name" : "y1",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286413,
+        "name" : "u0",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286423,
+        "name" : "v0",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286433,
+        "name" : "u1",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286443,
+        "name" : "v1",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286453,
+        "name" : "advance_x",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 286497,
+      "name" : "AddRemapChar",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286518,
+        "name" : "dst",
+        "qualType" : "ImWchar",
+        "desugaredQualType" : "unsigned short"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286531,
+        "name" : "src",
+        "qualType" : "ImWchar",
+        "desugaredQualType" : "unsigned short"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286541,
+        "name" : "overwrite_dst",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool",
+        "defaultValue" : "true"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 286718,
+      "name" : "SetGlyphVisible",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286742,
+        "name" : "c",
+        "qualType" : "ImWchar",
+        "desugaredQualType" : "unsigned short"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286750,
+        "name" : "visible",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 286792,
+      "name" : "IsGlyphRangeUnused",
+      "resultType" : "bool",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286824,
+        "name" : "c_begin",
+        "qualType" : "unsigned int",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 286846,
+        "name" : "c_last",
+        "qualType" : "unsigned int",
+        "desugaredQualType" : "unsigned int"
+      } ]
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -16111,6 +19834,29 @@
       "name" : "PlatformRequestClose",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 293113,
+      "name" : "GetCenter",
+      "resultType" : "ImVec2",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "offset" : 293080,
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "offset" : 293080,
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "offset" : 293080,
+            "text" : " Helpers"
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 293226,
+      "name" : "GetWorkCenter",
+      "resultType" : "ImVec2"
     } ]
   }, {
     "@type" : "AstRecordDecl",

@@ -15,7 +15,7 @@ import tool.generator.api.definition.node.type.method.ext.ret.ReturnTypeVec
  * Transformation handles methods with ImVec2 as return type.
  */
 @Suppress("ClassName")
-object `handle vec2 return` : TransformationChain.Transform {
+abstract class `abstract handle vec2 return` : TransformationChain.Transform {
     override fun process(nodes: Nodes): Nodes {
         val result = mutableListOf<DefinitionNode>()
 
@@ -158,7 +158,7 @@ object `handle vec2 return` : TransformationChain.Transform {
      *
      * or methodY, depending on the provided arg.
      */
-    private fun createJniReturnFloatMethod(node: MethodDefinitionNode, float: String): MethodDefinitionNode {
+    open fun createJniReturnFloatMethod(node: MethodDefinitionNode, float: String): MethodDefinitionNode {
         val method = node.copy()
         method.signature.name += float.toUpperCase()
         method.body.lines = listOf(
@@ -177,3 +177,6 @@ object `handle vec2 return` : TransformationChain.Transform {
         return method
     }
 }
+
+@Suppress("ClassName")
+object `handle vec2 return` : `abstract handle vec2 return`()

@@ -2,8 +2,12 @@ package tool.generator.api.definition.node.transform.template
 
 import tool.generator.api.definition.dsl.TransformationDsl
 import tool.generator.api.definition.node.transform.method.*
+import tool.generator.api.definition.node.transform.struct.`handle vec2 return`
+import tool.generator.api.definition.node.transform.struct.`handle vec4 return`
+import tool.generator.api.definition.node.transform.struct.`remove get and set from autoBody jni`
+import tool.generator.api.definition.node.transform.struct.`set body from autoBody jni`
 
-fun TransformationDsl.methodsTransformationsTemplate(
+fun TransformationDsl.fieldsTransformationsTemplate(
     jvmAutoBodyThisPointer: String = THIS_PTR_CALL_JVM,
     jniAutoBodyThisPointer: String = THIS_PTR_CALL_JNI,
 ) {
@@ -24,20 +28,13 @@ fun TransformationDsl.methodsTransformationsTemplate(
     }
     transformation {
         chain(
-            `add methods for optional args`,
-            `add method for pointer with array`,
-        )
-    }
-    transformation {
-        chain(
             `set args call for auto body from jvm to jni`,
             `set args call for auto body from jni to native`,
         )
     }
     transformation {
         chain(
-            `remove null argument except jni auto body`,
-            `add methods for default jni args`,
+            `remove get and set from autoBody jni`,
         )
     }
     transformation {
@@ -60,3 +57,4 @@ fun TransformationDsl.methodsTransformationsTemplate(
         )
     }
 }
+

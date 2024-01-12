@@ -107,6 +107,12 @@ open class GenerateApi : DefaultTask() {
                         DefinitionVirtualContent.Type.ENUM -> append("enum ")
                     }
                     append(vc.contentName)
+                    if (vc.extends.isNotEmpty()) {
+                        append(" extends ${vc.extends}")
+                    }
+                    if (vc.implements.isNotEmpty()) {
+                        append(" implements ${vc.implements.joinToString()}")
+                    }
                     appendLine(" {")
                     appendLine("}")
                 }

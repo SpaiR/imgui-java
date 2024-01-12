@@ -6,6 +6,9 @@ import tool.generator.api.definition.dsl.method.MethodsDsl
 import tool.generator.api.definition.dsl.method.ReturnTypeDsl
 import tool.generator.api.definition.node.DefinitionNode
 import tool.generator.api.definition.node.Nodes
+import tool.generator.api.definition.node.transform.method.CAST_PTR_JNI
+import tool.generator.api.definition.node.transform.method.FIELD_PTR_JVM
+import tool.generator.api.definition.node.transform.method.THIS_PTR_CALL_JVM
 import tool.generator.api.definition.node.type.method.ReturnTypeDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.jniCast
 import tool.generator.api.definition.node.type.method.ext.returnType
@@ -340,12 +343,55 @@ fun ArgsDsl.argImVec4(
     )
 }
 
-fun DefineDsl.initConstructor(className: String) {
-    line(
-        """
+fun DefineDsl.jniInclude(vararg libs: String) {
+    jniBlock("""
+        ${libs.joinToString(separator = "\n", prefix = "#include \"", postfix = "\"")}
+    """.trimIndent())
+}
+
+fun DefineDsl.jniIncludeCommon() {
+    jniInclude("_common.h")
+}
+
+fun DefineDsl.jniDefineThis(className: String) {
+    jniBlock("""
+        #define THIS (($className*)STRUCT_PTR)
+    """.trimIndent())
+}
+
+fun DefineDsl.jniUndefThis() {
+    jniBlock("""
+        #undef THIS
+    """.trimIndent())
+}
+
+fun DefineDsl.imGuiInitConstructor(className: String) {
+    line("""
         public $className() {
             imgui.ImGui.init();
         }
-    """.trimIndent()
-    )
+    """.trimIndent())
+}
+
+fun DefineDsl.imGuiInitStruct(className: String) {
+    line("""
+        public $className(final long $FIELD_PTR_JVM) {
+            super($FIELD_PTR_JVM);
+        }
+    """.trimIndent())
+}
+
+fun DefineDsl.imGuiInitStructDestroyable(className: String) {
+    imGuiInitConstructor(className)
+    imGuiInitStruct(className)
+    line("""
+        @Override
+        protected long create() {
+            return ${THIS_PTR_CALL_JVM}nCreate();
+        }
+    
+        private native long nCreate(); /*
+            return ($CAST_PTR_JNI)(new $className());
+        */
+    """.trimIndent())
 }

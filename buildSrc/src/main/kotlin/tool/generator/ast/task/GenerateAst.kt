@@ -266,7 +266,7 @@ open class GenerateAst : DefaultTask() {
                     return AstTextComment(offset, text)
                 }
 
-                "FunctionDecl" -> {
+                "FunctionDecl", "CXXMethodDecl" -> {
                     val offset = declNode.getOffset()
                     val name = declNode.get("name").asText()
                     val resultType = declNode.get("type").get("qualType").asText().substringBefore("(").trim()

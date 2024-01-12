@@ -39,7 +39,7 @@ class ImGui : Definition {
 
     private fun collectImGuiApiMethods(): Collection<DefinitionNode> {
         return ImGuiApi().getNodes()
-            .filterIsInstance(MethodDefinitionNode::class.java)
+            .filterIsInstance<MethodDefinitionNode>()
             .filterNot { it.signature.isNative }
             .map { method ->
                 method.signature.isStatic = true

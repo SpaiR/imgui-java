@@ -4,11 +4,15 @@ import tool.generator.api.definition.dsl.method.ArgDsl
 import tool.generator.api.definition.dsl.method.MethodsDsl
 import tool.generator.api.definition.dsl.method.ReturnTypeDsl
 import tool.generator.api.definition.node.transform.method.CAST_PTR_JNI
+import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.jniCast
 import tool.generator.ast.AstFunctionDecl
 import tool.generator.ast.AstParmVarDecl
 
-fun MethodsDsl.convertFunctionDeclsToDsl(functionDecls: Collection<AstFunctionDecl>) {
+/**
+ * Converts declarations for functions into [MethodDefinitionNode].
+ */
+fun MethodsDsl.convertMethodDeclsToDsl(functionDecls: Collection<AstFunctionDecl>) {
     functionDecls.forEach { decl ->
         method {
             signature {

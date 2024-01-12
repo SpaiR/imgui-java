@@ -29,7 +29,7 @@ object `add static struct field` : TransformationChain.Transform {
                             append("private static final ")
                             append(returnType.type)
                             append(' ')
-                            append(getStaticStructFieldName(node))
+                            append(getUniqueMethodFieldName(node))
                             append(" = new ")
                             append(returnType.type)
                             append("(0);")
