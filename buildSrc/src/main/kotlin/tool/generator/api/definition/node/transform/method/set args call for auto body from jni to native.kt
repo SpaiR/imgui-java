@@ -7,7 +7,6 @@ import tool.generator.api.definition.node.type.method.ArgDefinitionNode
 import tool.generator.api.definition.node.type.method.MethodDefinitionNode
 import tool.generator.api.definition.node.type.method.ext.*
 import tool.generator.api.definition.node.type.method.ext.arg.ArgTypeNull
-import tool.generator.api.definition.node.type.method.ext.arg.ArgTypePrimitive
 import tool.generator.api.definition.node.type.method.ext.arg.ArgTypeStruct
 import tool.generator.api.definition.node.type.method.ext.arg.ArgTypeVec
 
@@ -37,7 +36,7 @@ object `set args call for auto body from jni to native` : TransformationChain.Tr
         var argCall = if (arg.argType.hasFlag(ArgTypeFlag.POINTER) || arg.argType.hasFlag(ArgTypeFlag.ARRAY)) {
             "&${arg.name}[0]"
         } else if (argType is ArgTypeStruct) {
-            "(${argType.value.substringAfterLast('.')}*)${arg.name}"
+            arg.name
         } else if (argType == ArgTypeVec.V2) {
             "ImVec2(${arg.name}X, ${arg.name}Y)"
         } else if (argType == ArgTypeVec.V4) {
@@ -52,8 +51,8 @@ object `set args call for auto body from jni to native` : TransformationChain.Tr
             arg.name
         }
 
-        getDefaultJniCast(arg)?.let {
-            argCall = "($it)$argCall"
+        if (argType is ArgTypeStruct && !arg.hasJniCast) {
+            arg.jniCast = "(${argType.value.substringAfterLast('.')}*)"
         }
 
         if (arg.hasJniCast) {
@@ -61,15 +60,5 @@ object `set args call for auto body from jni to native` : TransformationChain.Tr
         }
 
         return argCall
-    }
-
-    /**
-     * Default JNI cast needed to ensure native code works with types it expects.
-     */
-    private fun getDefaultJniCast(arg: ArgDefinitionNode): String? {
-        if (arg.argType.type == ArgTypePrimitive.BOOL && !arg.argType.hasFlag(ArgTypeFlag.POINTER)) {
-            return "bool"
-        }
-        return null
     }
 }

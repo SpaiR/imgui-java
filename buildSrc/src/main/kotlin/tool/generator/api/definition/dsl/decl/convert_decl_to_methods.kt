@@ -150,9 +150,11 @@ private fun declParamToDsl(decl: AstFunctionDecl, param: AstParmVarDecl, dsl: Ar
             defaultJniValue(param.defaultValue)
         }
 
+        data.jniCast = "(${param.qualType})"
+
         when (param.qualType) {
             "ImTextureID" -> {
-                data.jniCast = "(ImTextureID)($CAST_PTR_JNI)"
+                data.jniCast += "($CAST_PTR_JNI)"
             }
         }
     }

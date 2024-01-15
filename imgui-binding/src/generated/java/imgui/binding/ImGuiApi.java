@@ -4383,7 +4383,7 @@ public class ImGuiApi {
     */
 
     private native long nCreateContext(long sharedFontAtlas); /*
-        return (intptr_t)ImGui::CreateContext((ImFontAtlas*)sharedFontAtlas);
+        return (intptr_t)ImGui::CreateContext((ImFontAtlas *)sharedFontAtlas);
     */
 
     private native void nDestroyContext(); /*
@@ -4391,7 +4391,7 @@ public class ImGuiApi {
     */
 
     private native void nDestroyContext(long ctx); /*
-        ImGui::DestroyContext((ImGuiContext*)ctx);
+        ImGui::DestroyContext((ImGuiContext *)ctx);
     */
 
     private native long nGetCurrentContext(); /*
@@ -4399,7 +4399,7 @@ public class ImGuiApi {
     */
 
     private native void nSetCurrentContext(long ctx); /*
-        ImGui::SetCurrentContext((ImGuiContext*)ctx);
+        ImGui::SetCurrentContext((ImGuiContext *)ctx);
     */
 
     private native long nGetIO(); /*
@@ -4431,7 +4431,7 @@ public class ImGuiApi {
     */
 
     private native void nShowDemoWindow(boolean[] pOpen); /*
-        ImGui::ShowDemoWindow(&pOpen[0]);
+        ImGui::ShowDemoWindow((bool *)&pOpen[0]);
     */
 
     private native void nShowMetricsWindow(); /*
@@ -4439,7 +4439,7 @@ public class ImGuiApi {
     */
 
     private native void nShowMetricsWindow(boolean[] pOpen); /*
-        ImGui::ShowMetricsWindow(&pOpen[0]);
+        ImGui::ShowMetricsWindow((bool *)&pOpen[0]);
     */
 
     private native void nShowStackToolWindow(); /*
@@ -4447,7 +4447,7 @@ public class ImGuiApi {
     */
 
     private native void nShowStackToolWindow(boolean[] pOpen); /*
-        ImGui::ShowStackToolWindow(&pOpen[0]);
+        ImGui::ShowStackToolWindow((bool *)&pOpen[0]);
     */
 
     private native void nShowAboutWindow(); /*
@@ -4455,7 +4455,7 @@ public class ImGuiApi {
     */
 
     private native void nShowAboutWindow(boolean[] pOpen); /*
-        ImGui::ShowAboutWindow(&pOpen[0]);
+        ImGui::ShowAboutWindow((bool *)&pOpen[0]);
     */
 
     private native void nShowStyleEditor(); /*
@@ -4463,15 +4463,15 @@ public class ImGuiApi {
     */
 
     private native void nShowStyleEditor(long ref); /*
-        ImGui::ShowStyleEditor((ImGuiStyle*)ref);
+        ImGui::ShowStyleEditor((ImGuiStyle *)ref);
     */
 
     private native boolean nShowStyleSelector(String label); /*
-        return ImGui::ShowStyleSelector(label);
+        return ImGui::ShowStyleSelector((const char *)label);
     */
 
     private native void nShowFontSelector(String label); /*
-        ImGui::ShowFontSelector(label);
+        ImGui::ShowFontSelector((const char *)label);
     */
 
     private native void nShowUserGuide(); /*
@@ -4487,7 +4487,7 @@ public class ImGuiApi {
     */
 
     private native void nStyleColorsDark(long dst); /*
-        ImGui::StyleColorsDark((ImGuiStyle*)dst);
+        ImGui::StyleColorsDark((ImGuiStyle *)dst);
     */
 
     private native void nStyleColorsLight(); /*
@@ -4495,7 +4495,7 @@ public class ImGuiApi {
     */
 
     private native void nStyleColorsLight(long dst); /*
-        ImGui::StyleColorsLight((ImGuiStyle*)dst);
+        ImGui::StyleColorsLight((ImGuiStyle *)dst);
     */
 
     private native void nStyleColorsClassic(); /*
@@ -4503,23 +4503,23 @@ public class ImGuiApi {
     */
 
     private native void nStyleColorsClassic(long dst); /*
-        ImGui::StyleColorsClassic((ImGuiStyle*)dst);
+        ImGui::StyleColorsClassic((ImGuiStyle *)dst);
     */
 
     private native boolean nBegin(String name); /*
-        return ImGui::Begin(name);
+        return ImGui::Begin((const char *)name);
     */
 
     private native boolean nBegin(String name, boolean[] pOpen); /*
-        return ImGui::Begin(name, &pOpen[0]);
+        return ImGui::Begin((const char *)name, (bool *)&pOpen[0]);
     */
 
     private native boolean nBegin(String name, int flags); /*
-        return ImGui::Begin(name, NULL, flags);
+        return ImGui::Begin((const char *)name, NULL, (ImGuiWindowFlags)flags);
     */
 
     private native boolean nBegin(String name, boolean[] pOpen, int flags); /*
-        return ImGui::Begin(name, &pOpen[0], flags);
+        return ImGui::Begin((const char *)name, (bool *)&pOpen[0], (ImGuiWindowFlags)flags);
     */
 
     private native void nEnd(); /*
@@ -4527,59 +4527,59 @@ public class ImGuiApi {
     */
 
     private native boolean nBeginChild(String strId); /*
-        return ImGui::BeginChild(strId);
+        return ImGui::BeginChild((const char *)strId);
     */
 
     private native boolean nBeginChild(String strId, float sizeX, float sizeY); /*
-        return ImGui::BeginChild(strId, ImVec2(sizeX, sizeY));
+        return ImGui::BeginChild((const char *)strId, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native boolean nBeginChild(String strId, boolean border); /*
-        return ImGui::BeginChild(strId, ImVec2(0, 0), (bool)border);
+        return ImGui::BeginChild((const char *)strId, ImVec2(0, 0), (bool)border);
     */
 
     private native boolean nBeginChild(String strId, float sizeX, float sizeY, boolean border); /*
-        return ImGui::BeginChild(strId, ImVec2(sizeX, sizeY), (bool)border);
+        return ImGui::BeginChild((const char *)strId, (const ImVec2 &)ImVec2(sizeX, sizeY), (bool)border);
     */
 
     private native boolean nBeginChild(String strId, boolean border, int flags); /*
-        return ImGui::BeginChild(strId, ImVec2(0, 0), (bool)border, flags);
+        return ImGui::BeginChild((const char *)strId, ImVec2(0, 0), (bool)border, (ImGuiWindowFlags)flags);
     */
 
     private native boolean nBeginChild(String strId, float sizeX, float sizeY, int flags); /*
-        return ImGui::BeginChild(strId, ImVec2(sizeX, sizeY), false, flags);
+        return ImGui::BeginChild((const char *)strId, (const ImVec2 &)ImVec2(sizeX, sizeY), false, (ImGuiWindowFlags)flags);
     */
 
     private native boolean nBeginChild(String strId, float sizeX, float sizeY, boolean border, int flags); /*
-        return ImGui::BeginChild(strId, ImVec2(sizeX, sizeY), (bool)border, flags);
+        return ImGui::BeginChild((const char *)strId, (const ImVec2 &)ImVec2(sizeX, sizeY), (bool)border, (ImGuiWindowFlags)flags);
     */
 
     private native boolean nBeginChild(int id); /*
-        return ImGui::BeginChild(id);
+        return ImGui::BeginChild((ImGuiID)id);
     */
 
     private native boolean nBeginChild(int id, float sizeX, float sizeY); /*
-        return ImGui::BeginChild(id, ImVec2(sizeX, sizeY));
+        return ImGui::BeginChild((ImGuiID)id, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native boolean nBeginChild(int id, boolean border); /*
-        return ImGui::BeginChild(id, ImVec2(0, 0), (bool)border);
+        return ImGui::BeginChild((ImGuiID)id, ImVec2(0, 0), (bool)border);
     */
 
     private native boolean nBeginChild(int id, float sizeX, float sizeY, boolean border); /*
-        return ImGui::BeginChild(id, ImVec2(sizeX, sizeY), (bool)border);
+        return ImGui::BeginChild((ImGuiID)id, (const ImVec2 &)ImVec2(sizeX, sizeY), (bool)border);
     */
 
     private native boolean nBeginChild(int id, boolean border, int flags); /*
-        return ImGui::BeginChild(id, ImVec2(0, 0), (bool)border, flags);
+        return ImGui::BeginChild((ImGuiID)id, ImVec2(0, 0), (bool)border, (ImGuiWindowFlags)flags);
     */
 
     private native boolean nBeginChild(int id, float sizeX, float sizeY, int flags); /*
-        return ImGui::BeginChild(id, ImVec2(sizeX, sizeY), false, flags);
+        return ImGui::BeginChild((ImGuiID)id, (const ImVec2 &)ImVec2(sizeX, sizeY), false, (ImGuiWindowFlags)flags);
     */
 
     private native boolean nBeginChild(int id, float sizeX, float sizeY, boolean border, int flags); /*
-        return ImGui::BeginChild(id, ImVec2(sizeX, sizeY), (bool)border, flags);
+        return ImGui::BeginChild((ImGuiID)id, (const ImVec2 &)ImVec2(sizeX, sizeY), (bool)border, (ImGuiWindowFlags)flags);
     */
 
     private native void nEndChild(); /*
@@ -4599,7 +4599,7 @@ public class ImGuiApi {
     */
 
     private native boolean nIsWindowFocused(int flags); /*
-        return ImGui::IsWindowFocused(flags);
+        return ImGui::IsWindowFocused((ImGuiFocusedFlags)flags);
     */
 
     private native boolean nIsWindowHovered(); /*
@@ -4607,7 +4607,7 @@ public class ImGuiApi {
     */
 
     private native boolean nIsWindowHovered(int flags); /*
-        return ImGui::IsWindowHovered(flags);
+        return ImGui::IsWindowHovered((ImGuiHoveredFlags)flags);
     */
 
     private native long nGetWindowDrawList(); /*
@@ -4631,27 +4631,27 @@ public class ImGuiApi {
     */
 
     private native void nSetNextWindowPos(float posX, float posY); /*
-        ImGui::SetNextWindowPos(ImVec2(posX, posY));
+        ImGui::SetNextWindowPos((const ImVec2 &)ImVec2(posX, posY));
     */
 
     private native void nSetNextWindowPos(float posX, float posY, int cond); /*
-        ImGui::SetNextWindowPos(ImVec2(posX, posY), cond);
+        ImGui::SetNextWindowPos((const ImVec2 &)ImVec2(posX, posY), (ImGuiCond)cond);
     */
 
     private native void nSetNextWindowPos(float posX, float posY, float pivotX, float pivotY); /*
-        ImGui::SetNextWindowPos(ImVec2(posX, posY), 0, ImVec2(pivotX, pivotY));
+        ImGui::SetNextWindowPos((const ImVec2 &)ImVec2(posX, posY), 0, (const ImVec2 &)ImVec2(pivotX, pivotY));
     */
 
     private native void nSetNextWindowPos(float posX, float posY, int cond, float pivotX, float pivotY); /*
-        ImGui::SetNextWindowPos(ImVec2(posX, posY), cond, ImVec2(pivotX, pivotY));
+        ImGui::SetNextWindowPos((const ImVec2 &)ImVec2(posX, posY), (ImGuiCond)cond, (const ImVec2 &)ImVec2(pivotX, pivotY));
     */
 
     private native void nSetNextWindowSize(float sizeX, float sizeY); /*
-        ImGui::SetNextWindowSize(ImVec2(sizeX, sizeY));
+        ImGui::SetNextWindowSize((const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native void nSetNextWindowSize(float sizeX, float sizeY, int cond); /*
-        ImGui::SetNextWindowSize(ImVec2(sizeX, sizeY), cond);
+        ImGui::SetNextWindowSize((const ImVec2 &)ImVec2(sizeX, sizeY), (ImGuiCond)cond);
     */
 
     private native void nSetNextWindowSizeConstraints(float sizeMinX, float sizeMinY, float sizeMaxX, float sizeMaxY); /*
@@ -4659,7 +4659,7 @@ public class ImGuiApi {
     */
 
     private native void nSetNextWindowContentSize(float sizeX, float sizeY); /*
-        ImGui::SetNextWindowContentSize(ImVec2(sizeX, sizeY));
+        ImGui::SetNextWindowContentSize((const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native void nSetNextWindowCollapsed(boolean collapsed); /*
@@ -4667,7 +4667,7 @@ public class ImGuiApi {
     */
 
     private native void nSetNextWindowCollapsed(boolean collapsed, int cond); /*
-        ImGui::SetNextWindowCollapsed((bool)collapsed, cond);
+        ImGui::SetNextWindowCollapsed((bool)collapsed, (ImGuiCond)cond);
     */
 
     private native void nSetNextWindowFocus(); /*
@@ -4675,47 +4675,47 @@ public class ImGuiApi {
     */
 
     private native void nSetNextWindowBgAlpha(float alpha); /*
-        ImGui::SetNextWindowBgAlpha(alpha);
+        ImGui::SetNextWindowBgAlpha((float)alpha);
     */
 
     private native void nSetNextWindowViewport(int viewportId); /*
-        ImGui::SetNextWindowViewport(viewportId);
+        ImGui::SetNextWindowViewport((ImGuiID)viewportId);
     */
 
     private native void nSetWindowFontScale(float scale); /*
-        ImGui::SetWindowFontScale(scale);
+        ImGui::SetWindowFontScale((float)scale);
     */
 
     private native void nSetWindowPos(float posX, float posY); /*
-        ImGui::SetWindowPos(ImVec2(posX, posY));
+        ImGui::SetWindowPos((const ImVec2 &)ImVec2(posX, posY));
     */
 
     private native void nSetWindowPos(float posX, float posY, int cond); /*
-        ImGui::SetWindowPos(ImVec2(posX, posY), cond);
+        ImGui::SetWindowPos((const ImVec2 &)ImVec2(posX, posY), (ImGuiCond)cond);
     */
 
     private native void nSetWindowPos(String name, float posX, float posY); /*
-        ImGui::SetWindowPos(name, ImVec2(posX, posY));
+        ImGui::SetWindowPos((const char *)name, (const ImVec2 &)ImVec2(posX, posY));
     */
 
     private native void nSetWindowPos(String name, float posX, float posY, int cond); /*
-        ImGui::SetWindowPos(name, ImVec2(posX, posY), cond);
+        ImGui::SetWindowPos((const char *)name, (const ImVec2 &)ImVec2(posX, posY), (ImGuiCond)cond);
     */
 
     private native void nSetWindowSize(float sizeX, float sizeY); /*
-        ImGui::SetWindowSize(ImVec2(sizeX, sizeY));
+        ImGui::SetWindowSize((const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native void nSetWindowSize(float sizeX, float sizeY, int cond); /*
-        ImGui::SetWindowSize(ImVec2(sizeX, sizeY), cond);
+        ImGui::SetWindowSize((const ImVec2 &)ImVec2(sizeX, sizeY), (ImGuiCond)cond);
     */
 
     private native void nSetWindowSize(String name, float sizeX, float sizeY); /*
-        ImGui::SetWindowSize(name, ImVec2(sizeX, sizeY));
+        ImGui::SetWindowSize((const char *)name, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native void nSetWindowSize(String name, float sizeX, float sizeY, int cond); /*
-        ImGui::SetWindowSize(name, ImVec2(sizeX, sizeY), cond);
+        ImGui::SetWindowSize((const char *)name, (const ImVec2 &)ImVec2(sizeX, sizeY), (ImGuiCond)cond);
     */
 
     private native void nSetWindowCollapsed(boolean collapsed); /*
@@ -4723,15 +4723,15 @@ public class ImGuiApi {
     */
 
     private native void nSetWindowCollapsed(boolean collapsed, int cond); /*
-        ImGui::SetWindowCollapsed((bool)collapsed, cond);
+        ImGui::SetWindowCollapsed((bool)collapsed, (ImGuiCond)cond);
     */
 
     private native void nSetWindowCollapsed(String name, boolean collapsed); /*
-        ImGui::SetWindowCollapsed(name, (bool)collapsed);
+        ImGui::SetWindowCollapsed((const char *)name, (bool)collapsed);
     */
 
     private native void nSetWindowCollapsed(String name, boolean collapsed, int cond); /*
-        ImGui::SetWindowCollapsed(name, (bool)collapsed, cond);
+        ImGui::SetWindowCollapsed((const char *)name, (bool)collapsed, (ImGuiCond)cond);
     */
 
     private native void nSetWindowFocus(); /*
@@ -4739,7 +4739,7 @@ public class ImGuiApi {
     */
 
     private native void nSetWindowFocus(String name); /*
-        ImGui::SetWindowFocus(name);
+        ImGui::SetWindowFocus((const char *)name);
     */
 
     private native float nGetScrollX(); /*
@@ -4751,11 +4751,11 @@ public class ImGuiApi {
     */
 
     private native void nSetScrollX(float scrollX); /*
-        ImGui::SetScrollX(scrollX);
+        ImGui::SetScrollX((float)scrollX);
     */
 
     private native void nSetScrollY(float scrollY); /*
-        ImGui::SetScrollY(scrollY);
+        ImGui::SetScrollY((float)scrollY);
     */
 
     private native float nGetScrollMaxX(); /*
@@ -4771,7 +4771,7 @@ public class ImGuiApi {
     */
 
     private native void nSetScrollHereX(float centerXRatio); /*
-        ImGui::SetScrollHereX(centerXRatio);
+        ImGui::SetScrollHereX((float)centerXRatio);
     */
 
     private native void nSetScrollHereY(); /*
@@ -4779,27 +4779,27 @@ public class ImGuiApi {
     */
 
     private native void nSetScrollHereY(float centerYRatio); /*
-        ImGui::SetScrollHereY(centerYRatio);
+        ImGui::SetScrollHereY((float)centerYRatio);
     */
 
     private native void nSetScrollFromPosX(float localX); /*
-        ImGui::SetScrollFromPosX(localX);
+        ImGui::SetScrollFromPosX((float)localX);
     */
 
     private native void nSetScrollFromPosX(float localX, float centerXRatio); /*
-        ImGui::SetScrollFromPosX(localX, centerXRatio);
+        ImGui::SetScrollFromPosX((float)localX, (float)centerXRatio);
     */
 
     private native void nSetScrollFromPosY(float localY); /*
-        ImGui::SetScrollFromPosY(localY);
+        ImGui::SetScrollFromPosY((float)localY);
     */
 
     private native void nSetScrollFromPosY(float localY, float centerYRatio); /*
-        ImGui::SetScrollFromPosY(localY, centerYRatio);
+        ImGui::SetScrollFromPosY((float)localY, (float)centerYRatio);
     */
 
     private native void nPushFont(long font); /*
-        ImGui::PushFont((ImFont*)font);
+        ImGui::PushFont((ImFont *)font);
     */
 
     private native void nPopFont(); /*
@@ -4807,11 +4807,11 @@ public class ImGuiApi {
     */
 
     private native void nPushStyleColor(int idx, int col); /*
-        ImGui::PushStyleColor(idx, col);
+        ImGui::PushStyleColor((ImGuiCol)idx, (ImU32)col);
     */
 
     private native void nPushStyleColor(int idx, float colX, float colY, float colZ, float colW); /*
-        ImGui::PushStyleColor(idx, ImVec4(colX, colY, colZ, colW));
+        ImGui::PushStyleColor((ImGuiCol)idx, (const ImVec4 &)ImVec4(colX, colY, colZ, colW));
     */
 
     private native void nPopStyleColor(); /*
@@ -4819,15 +4819,15 @@ public class ImGuiApi {
     */
 
     private native void nPopStyleColor(int count); /*
-        ImGui::PopStyleColor(count);
+        ImGui::PopStyleColor((int)count);
     */
 
     private native void nPushStyleVar(int idx, float val); /*
-        ImGui::PushStyleVar(idx, val);
+        ImGui::PushStyleVar((ImGuiStyleVar)idx, (float)val);
     */
 
     private native void nPushStyleVar(int idx, float valX, float valY); /*
-        ImGui::PushStyleVar(idx, ImVec2(valX, valY));
+        ImGui::PushStyleVar((ImGuiStyleVar)idx, (const ImVec2 &)ImVec2(valX, valY));
     */
 
     private native void nPopStyleVar(); /*
@@ -4835,7 +4835,7 @@ public class ImGuiApi {
     */
 
     private native void nPopStyleVar(int count); /*
-        ImGui::PopStyleVar(count);
+        ImGui::PopStyleVar((int)count);
     */
 
     private native void nPushAllowKeyboardFocus(boolean allowKeyboardFocus); /*
@@ -4855,7 +4855,7 @@ public class ImGuiApi {
     */
 
     private native void nPushItemWidth(float itemWidth); /*
-        ImGui::PushItemWidth(itemWidth);
+        ImGui::PushItemWidth((float)itemWidth);
     */
 
     private native void nPopItemWidth(); /*
@@ -4863,7 +4863,7 @@ public class ImGuiApi {
     */
 
     private native void nSetNextItemWidth(float itemWidth); /*
-        ImGui::SetNextItemWidth(itemWidth);
+        ImGui::SetNextItemWidth((float)itemWidth);
     */
 
     private native float nCalcItemWidth(); /*
@@ -4875,7 +4875,7 @@ public class ImGuiApi {
     */
 
     private native void nPushTextWrapPos(float wrapLocalPosX); /*
-        ImGui::PushTextWrapPos(wrapLocalPosX);
+        ImGui::PushTextWrapPos((float)wrapLocalPosX);
     */
 
     private native void nPopTextWrapPos(); /*
@@ -4891,15 +4891,15 @@ public class ImGuiApi {
     */
 
     private native int nGetColorU32(int idx); /*
-        return ImGui::GetColorU32(idx);
+        return ImGui::GetColorU32((ImGuiCol)idx);
     */
 
     private native int nGetColorU32(int idx, float alphaMul); /*
-        return ImGui::GetColorU32(idx, alphaMul);
+        return ImGui::GetColorU32((ImGuiCol)idx, (float)alphaMul);
     */
 
     private native int nGetColorU32(float colX, float colY, float colZ, float colW); /*
-        return ImGui::GetColorU32(ImVec4(colX, colY, colZ, colW));
+        return ImGui::GetColorU32((const ImVec4 &)ImVec4(colX, colY, colZ, colW));
     */
 
     private native void nSeparator(); /*
@@ -4911,11 +4911,11 @@ public class ImGuiApi {
     */
 
     private native void nSameLine(float offsetFromStartX); /*
-        ImGui::SameLine(offsetFromStartX);
+        ImGui::SameLine((float)offsetFromStartX);
     */
 
     private native void nSameLine(float offsetFromStartX, float spacing); /*
-        ImGui::SameLine(offsetFromStartX, spacing);
+        ImGui::SameLine((float)offsetFromStartX, (float)spacing);
     */
 
     private native void nNewLine(); /*
@@ -4927,7 +4927,7 @@ public class ImGuiApi {
     */
 
     private native void nDummy(float sizeX, float sizeY); /*
-        ImGui::Dummy(ImVec2(sizeX, sizeY));
+        ImGui::Dummy((const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native void nIndent(); /*
@@ -4935,7 +4935,7 @@ public class ImGuiApi {
     */
 
     private native void nIndent(float indentW); /*
-        ImGui::Indent(indentW);
+        ImGui::Indent((float)indentW);
     */
 
     private native void nUnindent(); /*
@@ -4943,7 +4943,7 @@ public class ImGuiApi {
     */
 
     private native void nUnindent(float indentW); /*
-        ImGui::Unindent(indentW);
+        ImGui::Unindent((float)indentW);
     */
 
     private native void nBeginGroup(); /*
@@ -4963,19 +4963,19 @@ public class ImGuiApi {
     */
 
     private native void nSetCursorPos(float localPosX, float localPosY); /*
-        ImGui::SetCursorPos(ImVec2(localPosX, localPosY));
+        ImGui::SetCursorPos((const ImVec2 &)ImVec2(localPosX, localPosY));
     */
 
     private native void nSetCursorPosX(float localX); /*
-        ImGui::SetCursorPosX(localX);
+        ImGui::SetCursorPosX((float)localX);
     */
 
     private native void nSetCursorPosY(float localY); /*
-        ImGui::SetCursorPosY(localY);
+        ImGui::SetCursorPosY((float)localY);
     */
 
     private native void nSetCursorScreenPos(float posX, float posY); /*
-        ImGui::SetCursorScreenPos(ImVec2(posX, posY));
+        ImGui::SetCursorScreenPos((const ImVec2 &)ImVec2(posX, posY));
     */
 
     private native void nAlignTextToFramePadding(); /*
@@ -4999,15 +4999,15 @@ public class ImGuiApi {
     */
 
     private native void nPushID(String strId); /*
-        ImGui::PushID(strId);
+        ImGui::PushID((const char *)strId);
     */
 
     private native void nPushID(String strIdBegin, String strIdEnd); /*
-        ImGui::PushID(strIdBegin, strIdEnd);
+        ImGui::PushID((const char *)strIdBegin, (const char *)strIdEnd);
     */
 
     private native void nPushID(int intId); /*
-        ImGui::PushID(intId);
+        ImGui::PushID((int)intId);
     */
 
     private native void nPopID(); /*
@@ -5015,151 +5015,151 @@ public class ImGuiApi {
     */
 
     private native int nGetID(String strId); /*
-        return ImGui::GetID(strId);
+        return ImGui::GetID((const char *)strId);
     */
 
     private native int nGetID(String strIdBegin, String strIdEnd); /*
-        return ImGui::GetID(strIdBegin, strIdEnd);
+        return ImGui::GetID((const char *)strIdBegin, (const char *)strIdEnd);
     */
 
     private native void nTextUnformatted(String text); /*
-        ImGui::TextUnformatted(text);
+        ImGui::TextUnformatted((const char *)text);
     */
 
     private native void nTextUnformatted(String text, String textEnd); /*
-        ImGui::TextUnformatted(text, textEnd);
+        ImGui::TextUnformatted((const char *)text, (const char *)textEnd);
     */
 
     private native void nText(String fmt); /*
-        ImGui::Text(fmt, NULL);
+        ImGui::Text((const char *)fmt, NULL);
     */
 
     private native void nTextColored(float colX, float colY, float colZ, float colW, String fmt); /*
-        ImGui::TextColored(ImVec4(colX, colY, colZ, colW), fmt, NULL);
+        ImGui::TextColored((const ImVec4 &)ImVec4(colX, colY, colZ, colW), (const char *)fmt, NULL);
     */
 
     private native void nTextDisabled(String fmt); /*
-        ImGui::TextDisabled(fmt, NULL);
+        ImGui::TextDisabled((const char *)fmt, NULL);
     */
 
     private native void nTextWrapped(String fmt); /*
-        ImGui::TextWrapped(fmt, NULL);
+        ImGui::TextWrapped((const char *)fmt, NULL);
     */
 
     private native void nLabelText(String label, String fmt); /*
-        ImGui::LabelText(label, fmt, NULL);
+        ImGui::LabelText((const char *)label, (const char *)fmt, NULL);
     */
 
     private native void nBulletText(String fmt); /*
-        ImGui::BulletText(fmt, NULL);
+        ImGui::BulletText((const char *)fmt, NULL);
     */
 
     private native boolean nButton(String label); /*
-        return ImGui::Button(label);
+        return ImGui::Button((const char *)label);
     */
 
     private native boolean nButton(String label, float sizeX, float sizeY); /*
-        return ImGui::Button(label, ImVec2(sizeX, sizeY));
+        return ImGui::Button((const char *)label, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native boolean nSmallButton(String label); /*
-        return ImGui::SmallButton(label);
+        return ImGui::SmallButton((const char *)label);
     */
 
     private native boolean nInvisibleButton(String strId, float sizeX, float sizeY); /*
-        return ImGui::InvisibleButton(strId, ImVec2(sizeX, sizeY));
+        return ImGui::InvisibleButton((const char *)strId, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native boolean nInvisibleButton(String strId, float sizeX, float sizeY, int flags); /*
-        return ImGui::InvisibleButton(strId, ImVec2(sizeX, sizeY), flags);
+        return ImGui::InvisibleButton((const char *)strId, (const ImVec2 &)ImVec2(sizeX, sizeY), (ImGuiButtonFlags)flags);
     */
 
     private native boolean nArrowButton(String strId, int dir); /*
-        return ImGui::ArrowButton(strId, dir);
+        return ImGui::ArrowButton((const char *)strId, (ImGuiDir)dir);
     */
 
     private native void nImage(int userTextureId, float sizeX, float sizeY); /*
-        ImGui::Image((ImTextureID)(intptr_t)userTextureId, ImVec2(sizeX, sizeY));
+        ImGui::Image((ImTextureID)(intptr_t)userTextureId, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native void nImage(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y); /*
-        ImGui::Image((ImTextureID)(intptr_t)userTextureId, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y));
+        ImGui::Image((ImTextureID)(intptr_t)userTextureId, (const ImVec2 &)ImVec2(sizeX, sizeY), (const ImVec2 &)ImVec2(uv0X, uv0Y));
     */
 
     private native void nImage(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*
-        ImGui::Image((ImTextureID)(intptr_t)userTextureId, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y));
+        ImGui::Image((ImTextureID)(intptr_t)userTextureId, (const ImVec2 &)ImVec2(sizeX, sizeY), (const ImVec2 &)ImVec2(uv0X, uv0Y), (const ImVec2 &)ImVec2(uv1X, uv1Y));
     */
 
     private native void nImage(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColX, float tintColY, float tintColZ, float tintColW); /*
-        ImGui::Image((ImTextureID)(intptr_t)userTextureId, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), ImVec4(tintColX, tintColY, tintColZ, tintColW));
+        ImGui::Image((ImTextureID)(intptr_t)userTextureId, (const ImVec2 &)ImVec2(sizeX, sizeY), (const ImVec2 &)ImVec2(uv0X, uv0Y), (const ImVec2 &)ImVec2(uv1X, uv1Y), (const ImVec4 &)ImVec4(tintColX, tintColY, tintColZ, tintColW));
     */
 
     private native void nImage(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColX, float tintColY, float tintColZ, float tintColW, float borderColX, float borderColY, float borderColZ, float borderColW); /*
-        ImGui::Image((ImTextureID)(intptr_t)userTextureId, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), ImVec4(tintColX, tintColY, tintColZ, tintColW), ImVec4(borderColX, borderColY, borderColZ, borderColW));
+        ImGui::Image((ImTextureID)(intptr_t)userTextureId, (const ImVec2 &)ImVec2(sizeX, sizeY), (const ImVec2 &)ImVec2(uv0X, uv0Y), (const ImVec2 &)ImVec2(uv1X, uv1Y), (const ImVec4 &)ImVec4(tintColX, tintColY, tintColZ, tintColW), (const ImVec4 &)ImVec4(borderColX, borderColY, borderColZ, borderColW));
     */
 
     private native boolean nImageButton(int userTextureId, float sizeX, float sizeY); /*
-        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, ImVec2(sizeX, sizeY));
+        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y); /*
-        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y));
+        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, (const ImVec2 &)ImVec2(sizeX, sizeY), (const ImVec2 &)ImVec2(uv0X, uv0Y));
     */
 
     private native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*
-        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y));
+        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, (const ImVec2 &)ImVec2(sizeX, sizeY), (const ImVec2 &)ImVec2(uv0X, uv0Y), (const ImVec2 &)ImVec2(uv1X, uv1Y));
     */
 
     private native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding); /*
-        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), framePadding);
+        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, (const ImVec2 &)ImVec2(sizeX, sizeY), (const ImVec2 &)ImVec2(uv0X, uv0Y), (const ImVec2 &)ImVec2(uv1X, uv1Y), (int)framePadding);
     */
 
     private native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float bgColX, float bgColY, float bgColZ, float bgColW); /*
-        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), -1, ImVec4(bgColX, bgColY, bgColZ, bgColW));
+        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, (const ImVec2 &)ImVec2(sizeX, sizeY), (const ImVec2 &)ImVec2(uv0X, uv0Y), (const ImVec2 &)ImVec2(uv1X, uv1Y), -1, (const ImVec4 &)ImVec4(bgColX, bgColY, bgColZ, bgColW));
     */
 
     private native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding, float bgColX, float bgColY, float bgColZ, float bgColW); /*
-        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), framePadding, ImVec4(bgColX, bgColY, bgColZ, bgColW));
+        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, (const ImVec2 &)ImVec2(sizeX, sizeY), (const ImVec2 &)ImVec2(uv0X, uv0Y), (const ImVec2 &)ImVec2(uv1X, uv1Y), (int)framePadding, (const ImVec4 &)ImVec4(bgColX, bgColY, bgColZ, bgColW));
     */
 
     private native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float bgColX, float bgColY, float bgColZ, float bgColW, float tintColX, float tintColY, float tintColZ, float tintColW); /*
-        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), -1, ImVec4(bgColX, bgColY, bgColZ, bgColW), ImVec4(tintColX, tintColY, tintColZ, tintColW));
+        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, (const ImVec2 &)ImVec2(sizeX, sizeY), (const ImVec2 &)ImVec2(uv0X, uv0Y), (const ImVec2 &)ImVec2(uv1X, uv1Y), -1, (const ImVec4 &)ImVec4(bgColX, bgColY, bgColZ, bgColW), (const ImVec4 &)ImVec4(tintColX, tintColY, tintColZ, tintColW));
     */
 
     private native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding, float bgColX, float bgColY, float bgColZ, float bgColW, float tintColX, float tintColY, float tintColZ, float tintColW); /*
-        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, ImVec2(sizeX, sizeY), ImVec2(uv0X, uv0Y), ImVec2(uv1X, uv1Y), framePadding, ImVec4(bgColX, bgColY, bgColZ, bgColW), ImVec4(tintColX, tintColY, tintColZ, tintColW));
+        return ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, (const ImVec2 &)ImVec2(sizeX, sizeY), (const ImVec2 &)ImVec2(uv0X, uv0Y), (const ImVec2 &)ImVec2(uv1X, uv1Y), (int)framePadding, (const ImVec4 &)ImVec4(bgColX, bgColY, bgColZ, bgColW), (const ImVec4 &)ImVec4(tintColX, tintColY, tintColZ, tintColW));
     */
 
     private native boolean nCheckbox(String label, boolean[] v); /*
-        return ImGui::Checkbox(label, &v[0]);
+        return ImGui::Checkbox((const char *)label, (bool *)&v[0]);
     */
 
     private native boolean nCheckboxFlags(String label, int[] flags, int flagsValue); /*
-        return ImGui::CheckboxFlags(label, &flags[0], flagsValue);
+        return ImGui::CheckboxFlags((const char *)label, (int *)&flags[0], (int)flagsValue);
     */
 
     private native boolean nRadioButton(String label, boolean active); /*
-        return ImGui::RadioButton(label, (bool)active);
+        return ImGui::RadioButton((const char *)label, (bool)active);
     */
 
     private native boolean nRadioButton(String label, int[] v, int vButton); /*
-        return ImGui::RadioButton(label, &v[0], vButton);
+        return ImGui::RadioButton((const char *)label, (int *)&v[0], (int)vButton);
     */
 
     private native void nProgressBar(float fraction); /*
-        ImGui::ProgressBar(fraction);
+        ImGui::ProgressBar((float)fraction);
     */
 
     private native void nProgressBar(float fraction, float sizeArgX, float sizeArgY); /*
-        ImGui::ProgressBar(fraction, ImVec2(sizeArgX, sizeArgY));
+        ImGui::ProgressBar((float)fraction, (const ImVec2 &)ImVec2(sizeArgX, sizeArgY));
     */
 
     private native void nProgressBar(float fraction, String overlay); /*
-        ImGui::ProgressBar(fraction, ImVec2(-FLT_MIN, 0), overlay);
+        ImGui::ProgressBar((float)fraction, ImVec2(-FLT_MIN, 0), (const char *)overlay);
     */
 
     private native void nProgressBar(float fraction, float sizeArgX, float sizeArgY, String overlay); /*
-        ImGui::ProgressBar(fraction, ImVec2(sizeArgX, sizeArgY), overlay);
+        ImGui::ProgressBar((float)fraction, (const ImVec2 &)ImVec2(sizeArgX, sizeArgY), (const char *)overlay);
     */
 
     private native void nBullet(); /*
@@ -5167,11 +5167,11 @@ public class ImGuiApi {
     */
 
     private native boolean nBeginCombo(String label, String previewValue); /*
-        return ImGui::BeginCombo(label, previewValue);
+        return ImGui::BeginCombo((const char *)label, (const char *)previewValue);
     */
 
     private native boolean nBeginCombo(String label, String previewValue, int flags); /*
-        return ImGui::BeginCombo(label, previewValue, flags);
+        return ImGui::BeginCombo((const char *)label, (const char *)previewValue, (ImGuiComboFlags)flags);
     */
 
     private native void nEndCombo(); /*
@@ -6132,47 +6132,47 @@ public class ImGuiApi {
     */
 
     private native boolean nColorButton(String descId, float colX, float colY, float colZ, float colW); /*
-        return ImGui::ColorButton(descId, ImVec4(colX, colY, colZ, colW));
+        return ImGui::ColorButton((const char *)descId, (const ImVec4 &)ImVec4(colX, colY, colZ, colW));
     */
 
     private native boolean nColorButton(String descId, float colX, float colY, float colZ, float colW, int flags); /*
-        return ImGui::ColorButton(descId, ImVec4(colX, colY, colZ, colW), flags);
+        return ImGui::ColorButton((const char *)descId, (const ImVec4 &)ImVec4(colX, colY, colZ, colW), (ImGuiColorEditFlags)flags);
     */
 
     private native boolean nColorButton(String descId, float colX, float colY, float colZ, float colW, float sizeX, float sizeY); /*
-        return ImGui::ColorButton(descId, ImVec4(colX, colY, colZ, colW), 0, ImVec2(sizeX, sizeY));
+        return ImGui::ColorButton((const char *)descId, (const ImVec4 &)ImVec4(colX, colY, colZ, colW), 0, (ImVec2)ImVec2(sizeX, sizeY));
     */
 
     private native boolean nColorButton(String descId, float colX, float colY, float colZ, float colW, int flags, float sizeX, float sizeY); /*
-        return ImGui::ColorButton(descId, ImVec4(colX, colY, colZ, colW), flags, ImVec2(sizeX, sizeY));
+        return ImGui::ColorButton((const char *)descId, (const ImVec4 &)ImVec4(colX, colY, colZ, colW), (ImGuiColorEditFlags)flags, (ImVec2)ImVec2(sizeX, sizeY));
     */
 
     private native void nSetColorEditOptions(int flags); /*
-        ImGui::SetColorEditOptions(flags);
+        ImGui::SetColorEditOptions((ImGuiColorEditFlags)flags);
     */
 
     private native boolean nTreeNode(String label); /*
-        return ImGui::TreeNode(label);
+        return ImGui::TreeNode((const char *)label);
     */
 
     private native boolean nTreeNode(String strId, String fmt); /*
-        return ImGui::TreeNode(strId, fmt, NULL);
+        return ImGui::TreeNode((const char *)strId, (const char *)fmt, NULL);
     */
 
     private native boolean nTreeNodeEx(String label); /*
-        return ImGui::TreeNodeEx(label);
+        return ImGui::TreeNodeEx((const char *)label);
     */
 
     private native boolean nTreeNodeEx(String label, int flags); /*
-        return ImGui::TreeNodeEx(label, flags);
+        return ImGui::TreeNodeEx((const char *)label, (ImGuiTreeNodeFlags)flags);
     */
 
     private native boolean nTreeNodeEx(String strId, int flags, String fmt); /*
-        return ImGui::TreeNodeEx(strId, flags, fmt, NULL);
+        return ImGui::TreeNodeEx((const char *)strId, (ImGuiTreeNodeFlags)flags, (const char *)fmt, NULL);
     */
 
     private native void nTreePush(String strId); /*
-        ImGui::TreePush(strId);
+        ImGui::TreePush((const char *)strId);
     */
 
     private native void nTreePop(); /*
@@ -6184,19 +6184,19 @@ public class ImGuiApi {
     */
 
     private native boolean nCollapsingHeader(String label); /*
-        return ImGui::CollapsingHeader(label);
+        return ImGui::CollapsingHeader((const char *)label);
     */
 
     private native boolean nCollapsingHeader(String label, int flags); /*
-        return ImGui::CollapsingHeader(label, flags);
+        return ImGui::CollapsingHeader((const char *)label, (ImGuiTreeNodeFlags)flags);
     */
 
     private native boolean nCollapsingHeader(String label, boolean[] pVisible); /*
-        return ImGui::CollapsingHeader(label, &pVisible[0]);
+        return ImGui::CollapsingHeader((const char *)label, (bool *)&pVisible[0]);
     */
 
     private native boolean nCollapsingHeader(String label, boolean[] pVisible, int flags); /*
-        return ImGui::CollapsingHeader(label, &pVisible[0], flags);
+        return ImGui::CollapsingHeader((const char *)label, (bool *)&pVisible[0], (ImGuiTreeNodeFlags)flags);
     */
 
     private native void nSetNextItemOpen(boolean isOpen); /*
@@ -6204,59 +6204,59 @@ public class ImGuiApi {
     */
 
     private native void nSetNextItemOpen(boolean isOpen, int cond); /*
-        ImGui::SetNextItemOpen((bool)isOpen, cond);
+        ImGui::SetNextItemOpen((bool)isOpen, (ImGuiCond)cond);
     */
 
     private native boolean nSelectable(String label); /*
-        return ImGui::Selectable(label);
+        return ImGui::Selectable((const char *)label);
     */
 
     private native boolean nSelectable(String label, boolean selected); /*
-        return ImGui::Selectable(label, (bool)selected);
+        return ImGui::Selectable((const char *)label, (bool)selected);
     */
 
     private native boolean nSelectable(String label, int flags); /*
-        return ImGui::Selectable(label, false, flags);
+        return ImGui::Selectable((const char *)label, false, (ImGuiSelectableFlags)flags);
     */
 
     private native boolean nSelectable(String label, boolean selected, int flags); /*
-        return ImGui::Selectable(label, (bool)selected, flags);
+        return ImGui::Selectable((const char *)label, (bool)selected, (ImGuiSelectableFlags)flags);
     */
 
     private native boolean nSelectable(String label, int flags, float sizeX, float sizeY); /*
-        return ImGui::Selectable(label, false, flags, ImVec2(sizeX, sizeY));
+        return ImGui::Selectable((const char *)label, false, (ImGuiSelectableFlags)flags, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native boolean nSelectable(String label, boolean selected, float sizeX, float sizeY); /*
-        return ImGui::Selectable(label, (bool)selected, 0, ImVec2(sizeX, sizeY));
+        return ImGui::Selectable((const char *)label, (bool)selected, 0, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native boolean nSelectable(String label, boolean selected, int flags, float sizeX, float sizeY); /*
-        return ImGui::Selectable(label, (bool)selected, flags, ImVec2(sizeX, sizeY));
+        return ImGui::Selectable((const char *)label, (bool)selected, (ImGuiSelectableFlags)flags, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native boolean nSelectable(String label, boolean[] pSelected); /*
-        return ImGui::Selectable(label, &pSelected[0]);
+        return ImGui::Selectable((const char *)label, (bool *)&pSelected[0]);
     */
 
     private native boolean nSelectable(String label, boolean[] pSelected, int flags); /*
-        return ImGui::Selectable(label, &pSelected[0], flags);
+        return ImGui::Selectable((const char *)label, (bool *)&pSelected[0], (ImGuiSelectableFlags)flags);
     */
 
     private native boolean nSelectable(String label, boolean[] pSelected, float sizeX, float sizeY); /*
-        return ImGui::Selectable(label, &pSelected[0], 0, ImVec2(sizeX, sizeY));
+        return ImGui::Selectable((const char *)label, (bool *)&pSelected[0], 0, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native boolean nSelectable(String label, boolean[] pSelected, int flags, float sizeX, float sizeY); /*
-        return ImGui::Selectable(label, &pSelected[0], flags, ImVec2(sizeX, sizeY));
+        return ImGui::Selectable((const char *)label, (bool *)&pSelected[0], (ImGuiSelectableFlags)flags, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native boolean nBeginListBox(String label); /*
-        return ImGui::BeginListBox(label);
+        return ImGui::BeginListBox((const char *)label);
     */
 
     private native boolean nBeginListBox(String label, float sizeX, float sizeY); /*
-        return ImGui::BeginListBox(label, ImVec2(sizeX, sizeY));
+        return ImGui::BeginListBox((const char *)label, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native void nEndListBox(); /*
@@ -6359,19 +6359,19 @@ public class ImGuiApi {
     */
 
     private native void nValue(String prefix, boolean b); /*
-        ImGui::Value(prefix, (bool)b);
+        ImGui::Value((const char *)prefix, (bool)b);
     */
 
     private native void nValue(String prefix, int v); /*
-        ImGui::Value(prefix, v);
+        ImGui::Value((const char *)prefix, (int)v);
     */
 
     private native void nValue(String prefix, float v); /*
-        ImGui::Value(prefix, v);
+        ImGui::Value((const char *)prefix, (float)v);
     */
 
     private native void nValue(String prefix, float v, String floatFormat); /*
-        ImGui::Value(prefix, v, floatFormat);
+        ImGui::Value((const char *)prefix, (float)v, (const char *)floatFormat);
     */
 
     private native boolean nBeginMenuBar(); /*
@@ -6391,11 +6391,11 @@ public class ImGuiApi {
     */
 
     private native boolean nBeginMenu(String label); /*
-        return ImGui::BeginMenu(label);
+        return ImGui::BeginMenu((const char *)label);
     */
 
     private native boolean nBeginMenu(String label, boolean enabled); /*
-        return ImGui::BeginMenu(label, (bool)enabled);
+        return ImGui::BeginMenu((const char *)label, (bool)enabled);
     */
 
     private native void nEndMenu(); /*
@@ -6403,27 +6403,27 @@ public class ImGuiApi {
     */
 
     private native boolean nMenuItem(String label); /*
-        return ImGui::MenuItem(label);
+        return ImGui::MenuItem((const char *)label);
     */
 
     private native boolean nMenuItem(String label, String shortcut); /*
-        return ImGui::MenuItem(label, shortcut);
+        return ImGui::MenuItem((const char *)label, (const char *)shortcut);
     */
 
     private native boolean nMenuItem(String label, String shortcut, boolean selected); /*
-        return ImGui::MenuItem(label, shortcut, (bool)selected);
+        return ImGui::MenuItem((const char *)label, (const char *)shortcut, (bool)selected);
     */
 
     private native boolean nMenuItem(String label, String shortcut, boolean selected, boolean enabled); /*
-        return ImGui::MenuItem(label, shortcut, (bool)selected, (bool)enabled);
+        return ImGui::MenuItem((const char *)label, (const char *)shortcut, (bool)selected, (bool)enabled);
     */
 
     private native boolean nMenuItem(String label, String shortcut, boolean[] pSelected); /*
-        return ImGui::MenuItem(label, shortcut, &pSelected[0]);
+        return ImGui::MenuItem((const char *)label, (const char *)shortcut, (bool *)&pSelected[0]);
     */
 
     private native boolean nMenuItem(String label, String shortcut, boolean[] pSelected, boolean enabled); /*
-        return ImGui::MenuItem(label, shortcut, &pSelected[0], (bool)enabled);
+        return ImGui::MenuItem((const char *)label, (const char *)shortcut, (bool *)&pSelected[0], (bool)enabled);
     */
 
     private native void nBeginTooltip(); /*
@@ -6435,31 +6435,31 @@ public class ImGuiApi {
     */
 
     private native void nSetTooltip(String fmt); /*
-        ImGui::SetTooltip(fmt, NULL);
+        ImGui::SetTooltip((const char *)fmt, NULL);
     */
 
     private native boolean nBeginPopup(String strId); /*
-        return ImGui::BeginPopup(strId);
+        return ImGui::BeginPopup((const char *)strId);
     */
 
     private native boolean nBeginPopup(String strId, int flags); /*
-        return ImGui::BeginPopup(strId, flags);
+        return ImGui::BeginPopup((const char *)strId, (ImGuiWindowFlags)flags);
     */
 
     private native boolean nBeginPopupModal(String name); /*
-        return ImGui::BeginPopupModal(name);
+        return ImGui::BeginPopupModal((const char *)name);
     */
 
     private native boolean nBeginPopupModal(String name, boolean[] pOpen); /*
-        return ImGui::BeginPopupModal(name, &pOpen[0]);
+        return ImGui::BeginPopupModal((const char *)name, (bool *)&pOpen[0]);
     */
 
     private native boolean nBeginPopupModal(String name, int flags); /*
-        return ImGui::BeginPopupModal(name, NULL, flags);
+        return ImGui::BeginPopupModal((const char *)name, NULL, (ImGuiWindowFlags)flags);
     */
 
     private native boolean nBeginPopupModal(String name, boolean[] pOpen, int flags); /*
-        return ImGui::BeginPopupModal(name, &pOpen[0], flags);
+        return ImGui::BeginPopupModal((const char *)name, (bool *)&pOpen[0], (ImGuiWindowFlags)flags);
     */
 
     private native void nEndPopup(); /*
@@ -6467,19 +6467,19 @@ public class ImGuiApi {
     */
 
     private native void nOpenPopup(String strId); /*
-        ImGui::OpenPopup(strId);
+        ImGui::OpenPopup((const char *)strId);
     */
 
     private native void nOpenPopup(String strId, int popupFlags); /*
-        ImGui::OpenPopup(strId, popupFlags);
+        ImGui::OpenPopup((const char *)strId, (ImGuiPopupFlags)popupFlags);
     */
 
     private native void nOpenPopup(int id); /*
-        ImGui::OpenPopup(id);
+        ImGui::OpenPopup((ImGuiID)id);
     */
 
     private native void nOpenPopup(int id, int popupFlags); /*
-        ImGui::OpenPopup(id, popupFlags);
+        ImGui::OpenPopup((ImGuiID)id, (ImGuiPopupFlags)popupFlags);
     */
 
     private native void nOpenPopupOnItemClick(); /*
@@ -6487,15 +6487,15 @@ public class ImGuiApi {
     */
 
     private native void nOpenPopupOnItemClick(String strId); /*
-        ImGui::OpenPopupOnItemClick(strId);
+        ImGui::OpenPopupOnItemClick((const char *)strId);
     */
 
     private native void nOpenPopupOnItemClick(int popupFlags); /*
-        ImGui::OpenPopupOnItemClick(NULL, popupFlags);
+        ImGui::OpenPopupOnItemClick(NULL, (ImGuiPopupFlags)popupFlags);
     */
 
     private native void nOpenPopupOnItemClick(String strId, int popupFlags); /*
-        ImGui::OpenPopupOnItemClick(strId, popupFlags);
+        ImGui::OpenPopupOnItemClick((const char *)strId, (ImGuiPopupFlags)popupFlags);
     */
 
     private native void nCloseCurrentPopup(); /*
@@ -6507,15 +6507,15 @@ public class ImGuiApi {
     */
 
     private native boolean nBeginPopupContextItem(String strId); /*
-        return ImGui::BeginPopupContextItem(strId);
+        return ImGui::BeginPopupContextItem((const char *)strId);
     */
 
     private native boolean nBeginPopupContextItem(int popupFlags); /*
-        return ImGui::BeginPopupContextItem(NULL, popupFlags);
+        return ImGui::BeginPopupContextItem(NULL, (ImGuiPopupFlags)popupFlags);
     */
 
     private native boolean nBeginPopupContextItem(String strId, int popupFlags); /*
-        return ImGui::BeginPopupContextItem(strId, popupFlags);
+        return ImGui::BeginPopupContextItem((const char *)strId, (ImGuiPopupFlags)popupFlags);
     */
 
     private native boolean nBeginPopupContextWindow(); /*
@@ -6523,15 +6523,15 @@ public class ImGuiApi {
     */
 
     private native boolean nBeginPopupContextWindow(String strId); /*
-        return ImGui::BeginPopupContextWindow(strId);
+        return ImGui::BeginPopupContextWindow((const char *)strId);
     */
 
     private native boolean nBeginPopupContextWindow(int popupFlags); /*
-        return ImGui::BeginPopupContextWindow(NULL, popupFlags);
+        return ImGui::BeginPopupContextWindow(NULL, (ImGuiPopupFlags)popupFlags);
     */
 
     private native boolean nBeginPopupContextWindow(String strId, int popupFlags); /*
-        return ImGui::BeginPopupContextWindow(strId, popupFlags);
+        return ImGui::BeginPopupContextWindow((const char *)strId, (ImGuiPopupFlags)popupFlags);
     */
 
     private native boolean nBeginPopupContextVoid(); /*
@@ -6539,43 +6539,43 @@ public class ImGuiApi {
     */
 
     private native boolean nBeginPopupContextVoid(String strId); /*
-        return ImGui::BeginPopupContextVoid(strId);
+        return ImGui::BeginPopupContextVoid((const char *)strId);
     */
 
     private native boolean nBeginPopupContextVoid(int popupFlags); /*
-        return ImGui::BeginPopupContextVoid(NULL, popupFlags);
+        return ImGui::BeginPopupContextVoid(NULL, (ImGuiPopupFlags)popupFlags);
     */
 
     private native boolean nBeginPopupContextVoid(String strId, int popupFlags); /*
-        return ImGui::BeginPopupContextVoid(strId, popupFlags);
+        return ImGui::BeginPopupContextVoid((const char *)strId, (ImGuiPopupFlags)popupFlags);
     */
 
     private native boolean nIsPopupOpen(String strId); /*
-        return ImGui::IsPopupOpen(strId);
+        return ImGui::IsPopupOpen((const char *)strId);
     */
 
     private native boolean nIsPopupOpen(String strId, int flags); /*
-        return ImGui::IsPopupOpen(strId, flags);
+        return ImGui::IsPopupOpen((const char *)strId, (ImGuiPopupFlags)flags);
     */
 
     private native boolean nBeginTable(String strId, int column); /*
-        return ImGui::BeginTable(strId, column);
+        return ImGui::BeginTable((const char *)strId, (int)column);
     */
 
     private native boolean nBeginTable(String strId, int column, int flags); /*
-        return ImGui::BeginTable(strId, column, flags);
+        return ImGui::BeginTable((const char *)strId, (int)column, (ImGuiTableFlags)flags);
     */
 
     private native boolean nBeginTable(String strId, int column, int flags, float outerSizeX, float outerSizeY); /*
-        return ImGui::BeginTable(strId, column, flags, ImVec2(outerSizeX, outerSizeY));
+        return ImGui::BeginTable((const char *)strId, (int)column, (ImGuiTableFlags)flags, (const ImVec2 &)ImVec2(outerSizeX, outerSizeY));
     */
 
     private native boolean nBeginTable(String strId, int column, int flags, float innerWidth); /*
-        return ImGui::BeginTable(strId, column, flags, ImVec2(0.0f, 0.0f), innerWidth);
+        return ImGui::BeginTable((const char *)strId, (int)column, (ImGuiTableFlags)flags, ImVec2(0.0f, 0.0f), (float)innerWidth);
     */
 
     private native boolean nBeginTable(String strId, int column, int flags, float outerSizeX, float outerSizeY, float innerWidth); /*
-        return ImGui::BeginTable(strId, column, flags, ImVec2(outerSizeX, outerSizeY), innerWidth);
+        return ImGui::BeginTable((const char *)strId, (int)column, (ImGuiTableFlags)flags, (const ImVec2 &)ImVec2(outerSizeX, outerSizeY), (float)innerWidth);
     */
 
     private native void nEndTable(); /*
@@ -6587,15 +6587,15 @@ public class ImGuiApi {
     */
 
     private native void nTableNextRow(int rowFlags); /*
-        ImGui::TableNextRow(rowFlags);
+        ImGui::TableNextRow((ImGuiTableRowFlags)rowFlags);
     */
 
     private native void nTableNextRow(float minRowHeight); /*
-        ImGui::TableNextRow(0, minRowHeight);
+        ImGui::TableNextRow(0, (float)minRowHeight);
     */
 
     private native void nTableNextRow(int rowFlags, float minRowHeight); /*
-        ImGui::TableNextRow(rowFlags, minRowHeight);
+        ImGui::TableNextRow((ImGuiTableRowFlags)rowFlags, (float)minRowHeight);
     */
 
     private native boolean nTableNextColumn(); /*
@@ -6603,39 +6603,39 @@ public class ImGuiApi {
     */
 
     private native boolean nTableSetColumnIndex(int columnN); /*
-        return ImGui::TableSetColumnIndex(columnN);
+        return ImGui::TableSetColumnIndex((int)columnN);
     */
 
     private native void nTableSetupColumn(String label); /*
-        ImGui::TableSetupColumn(label);
+        ImGui::TableSetupColumn((const char *)label);
     */
 
     private native void nTableSetupColumn(String label, int flags); /*
-        ImGui::TableSetupColumn(label, flags);
+        ImGui::TableSetupColumn((const char *)label, (ImGuiTableColumnFlags)flags);
     */
 
     private native void nTableSetupColumn(String label, float initWidthOrWeight); /*
-        ImGui::TableSetupColumn(label, 0, initWidthOrWeight);
+        ImGui::TableSetupColumn((const char *)label, 0, (float)initWidthOrWeight);
     */
 
     private native void nTableSetupColumn(String label, int flags, float initWidthOrWeight); /*
-        ImGui::TableSetupColumn(label, flags, initWidthOrWeight);
+        ImGui::TableSetupColumn((const char *)label, (ImGuiTableColumnFlags)flags, (float)initWidthOrWeight);
     */
 
     private native void nTableSetupColumn(String label, float initWidthOrWeight, int userId); /*
-        ImGui::TableSetupColumn(label, 0, initWidthOrWeight, userId);
+        ImGui::TableSetupColumn((const char *)label, 0, (float)initWidthOrWeight, (ImGuiID)userId);
     */
 
     private native void nTableSetupColumn(String label, int flags, int userId); /*
-        ImGui::TableSetupColumn(label, flags, 0.0f, userId);
+        ImGui::TableSetupColumn((const char *)label, (ImGuiTableColumnFlags)flags, 0.0f, (ImGuiID)userId);
     */
 
     private native void nTableSetupColumn(String label, int flags, float initWidthOrWeight, int userId); /*
-        ImGui::TableSetupColumn(label, flags, initWidthOrWeight, userId);
+        ImGui::TableSetupColumn((const char *)label, (ImGuiTableColumnFlags)flags, (float)initWidthOrWeight, (ImGuiID)userId);
     */
 
     private native void nTableSetupScrollFreeze(int cols, int rows); /*
-        ImGui::TableSetupScrollFreeze(cols, rows);
+        ImGui::TableSetupScrollFreeze((int)cols, (int)rows);
     */
 
     private native void nTableHeadersRow(); /*
@@ -6643,7 +6643,7 @@ public class ImGuiApi {
     */
 
     private native void nTableHeader(String label); /*
-        ImGui::TableHeader(label);
+        ImGui::TableHeader((const char *)label);
     */
 
     private native int nTableGetColumnCount(); /*
@@ -6663,7 +6663,7 @@ public class ImGuiApi {
     */
 
     private native String nTableGetColumnName(int columnN); /*
-        return env->NewStringUTF(ImGui::TableGetColumnName(columnN));
+        return env->NewStringUTF(ImGui::TableGetColumnName((int)columnN));
     */
 
     private native int nTableGetColumnFlags(); /*
@@ -6671,19 +6671,19 @@ public class ImGuiApi {
     */
 
     private native int nTableGetColumnFlags(int columnN); /*
-        return ImGui::TableGetColumnFlags(columnN);
+        return ImGui::TableGetColumnFlags((int)columnN);
     */
 
     private native void nTableSetColumnEnabled(int columnN, boolean v); /*
-        ImGui::TableSetColumnEnabled(columnN, (bool)v);
+        ImGui::TableSetColumnEnabled((int)columnN, (bool)v);
     */
 
     private native void nTableSetBgColor(int target, int color); /*
-        ImGui::TableSetBgColor(target, color);
+        ImGui::TableSetBgColor((ImGuiTableBgTarget)target, (ImU32)color);
     */
 
     private native void nTableSetBgColor(int target, int color, int columnN); /*
-        ImGui::TableSetBgColor(target, color, columnN);
+        ImGui::TableSetBgColor((ImGuiTableBgTarget)target, (ImU32)color, (int)columnN);
     */
 
     private native void nColumns(); /*
@@ -6691,27 +6691,27 @@ public class ImGuiApi {
     */
 
     private native void nColumns(int count); /*
-        ImGui::Columns(count);
+        ImGui::Columns((int)count);
     */
 
     private native void nColumns(String id); /*
-        ImGui::Columns(1, id);
+        ImGui::Columns(1, (const char *)id);
     */
 
     private native void nColumns(int count, String id); /*
-        ImGui::Columns(count, id);
+        ImGui::Columns((int)count, (const char *)id);
     */
 
     private native void nColumns(String id, boolean border); /*
-        ImGui::Columns(1, id, (bool)border);
+        ImGui::Columns(1, (const char *)id, (bool)border);
     */
 
     private native void nColumns(int count, boolean border); /*
-        ImGui::Columns(count, NULL, (bool)border);
+        ImGui::Columns((int)count, NULL, (bool)border);
     */
 
     private native void nColumns(int count, String id, boolean border); /*
-        ImGui::Columns(count, id, (bool)border);
+        ImGui::Columns((int)count, (const char *)id, (bool)border);
     */
 
     private native void nNextColumn(); /*
@@ -6727,11 +6727,11 @@ public class ImGuiApi {
     */
 
     private native float nGetColumnWidth(int columnIndex); /*
-        return ImGui::GetColumnWidth(columnIndex);
+        return ImGui::GetColumnWidth((int)columnIndex);
     */
 
     private native void nSetColumnWidth(int columnIndex, float width); /*
-        ImGui::SetColumnWidth(columnIndex, width);
+        ImGui::SetColumnWidth((int)columnIndex, (float)width);
     */
 
     private native float nGetColumnOffset(); /*
@@ -6739,11 +6739,11 @@ public class ImGuiApi {
     */
 
     private native float nGetColumnOffset(int columnIndex); /*
-        return ImGui::GetColumnOffset(columnIndex);
+        return ImGui::GetColumnOffset((int)columnIndex);
     */
 
     private native void nSetColumnOffset(int columnIndex, float offsetX); /*
-        ImGui::SetColumnOffset(columnIndex, offsetX);
+        ImGui::SetColumnOffset((int)columnIndex, (float)offsetX);
     */
 
     private native int nGetColumnsCount(); /*
@@ -6751,11 +6751,11 @@ public class ImGuiApi {
     */
 
     private native boolean nBeginTabBar(String strId); /*
-        return ImGui::BeginTabBar(strId);
+        return ImGui::BeginTabBar((const char *)strId);
     */
 
     private native boolean nBeginTabBar(String strId, int flags); /*
-        return ImGui::BeginTabBar(strId, flags);
+        return ImGui::BeginTabBar((const char *)strId, (ImGuiTabBarFlags)flags);
     */
 
     private native void nEndTabBar(); /*
@@ -6763,19 +6763,19 @@ public class ImGuiApi {
     */
 
     private native boolean nBeginTabItem(String label); /*
-        return ImGui::BeginTabItem(label);
+        return ImGui::BeginTabItem((const char *)label);
     */
 
     private native boolean nBeginTabItem(String label, boolean[] pOpen); /*
-        return ImGui::BeginTabItem(label, &pOpen[0]);
+        return ImGui::BeginTabItem((const char *)label, (bool *)&pOpen[0]);
     */
 
     private native boolean nBeginTabItem(String label, int flags); /*
-        return ImGui::BeginTabItem(label, NULL, flags);
+        return ImGui::BeginTabItem((const char *)label, NULL, (ImGuiTabItemFlags)flags);
     */
 
     private native boolean nBeginTabItem(String label, boolean[] pOpen, int flags); /*
-        return ImGui::BeginTabItem(label, &pOpen[0], flags);
+        return ImGui::BeginTabItem((const char *)label, (bool *)&pOpen[0], (ImGuiTabItemFlags)flags);
     */
 
     private native void nEndTabItem(); /*
@@ -6783,43 +6783,43 @@ public class ImGuiApi {
     */
 
     private native boolean nTabItemButton(String label); /*
-        return ImGui::TabItemButton(label);
+        return ImGui::TabItemButton((const char *)label);
     */
 
     private native boolean nTabItemButton(String label, int flags); /*
-        return ImGui::TabItemButton(label, flags);
+        return ImGui::TabItemButton((const char *)label, (ImGuiTabItemFlags)flags);
     */
 
     private native void nSetTabItemClosed(String tabOrDockedWindowLabel); /*
-        ImGui::SetTabItemClosed(tabOrDockedWindowLabel);
+        ImGui::SetTabItemClosed((const char *)tabOrDockedWindowLabel);
     */
 
     private native int nDockSpace(int id); /*
-        return ImGui::DockSpace(id);
+        return ImGui::DockSpace((ImGuiID)id);
     */
 
     private native int nDockSpace(int id, float sizeX, float sizeY); /*
-        return ImGui::DockSpace(id, ImVec2(sizeX, sizeY));
+        return ImGui::DockSpace((ImGuiID)id, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native int nDockSpace(int id, int flags); /*
-        return ImGui::DockSpace(id, ImVec2(0, 0), flags);
+        return ImGui::DockSpace((ImGuiID)id, ImVec2(0, 0), (ImGuiDockNodeFlags)flags);
     */
 
     private native int nDockSpace(int id, float sizeX, float sizeY, int flags); /*
-        return ImGui::DockSpace(id, ImVec2(sizeX, sizeY), flags);
+        return ImGui::DockSpace((ImGuiID)id, (const ImVec2 &)ImVec2(sizeX, sizeY), (ImGuiDockNodeFlags)flags);
     */
 
     private native int nDockSpace(int id, int flags, long windowClass); /*
-        return ImGui::DockSpace(id, ImVec2(0, 0), flags, (ImGuiWindowClass*)windowClass);
+        return ImGui::DockSpace((ImGuiID)id, ImVec2(0, 0), (ImGuiDockNodeFlags)flags, (const ImGuiWindowClass *)windowClass);
     */
 
     private native int nDockSpace(int id, float sizeX, float sizeY, long windowClass); /*
-        return ImGui::DockSpace(id, ImVec2(sizeX, sizeY), 0, (ImGuiWindowClass*)windowClass);
+        return ImGui::DockSpace((ImGuiID)id, (const ImVec2 &)ImVec2(sizeX, sizeY), 0, (const ImGuiWindowClass *)windowClass);
     */
 
     private native int nDockSpace(int id, float sizeX, float sizeY, int flags, long windowClass); /*
-        return ImGui::DockSpace(id, ImVec2(sizeX, sizeY), flags, (ImGuiWindowClass*)windowClass);
+        return ImGui::DockSpace((ImGuiID)id, (const ImVec2 &)ImVec2(sizeX, sizeY), (ImGuiDockNodeFlags)flags, (const ImGuiWindowClass *)windowClass);
     */
 
     private native int nDockSpaceOverViewport(); /*
@@ -6827,39 +6827,39 @@ public class ImGuiApi {
     */
 
     private native int nDockSpaceOverViewport(long viewport); /*
-        return ImGui::DockSpaceOverViewport((ImGuiViewport*)viewport);
+        return ImGui::DockSpaceOverViewport((const ImGuiViewport *)viewport);
     */
 
     private native int nDockSpaceOverViewport(int flags); /*
-        return ImGui::DockSpaceOverViewport(NULL, flags);
+        return ImGui::DockSpaceOverViewport(NULL, (ImGuiDockNodeFlags)flags);
     */
 
     private native int nDockSpaceOverViewport(long viewport, int flags); /*
-        return ImGui::DockSpaceOverViewport((ImGuiViewport*)viewport, flags);
+        return ImGui::DockSpaceOverViewport((const ImGuiViewport *)viewport, (ImGuiDockNodeFlags)flags);
     */
 
     private native int nDockSpaceOverViewport(int flags, long windowClass); /*
-        return ImGui::DockSpaceOverViewport(NULL, flags, (ImGuiWindowClass*)windowClass);
+        return ImGui::DockSpaceOverViewport(NULL, (ImGuiDockNodeFlags)flags, (const ImGuiWindowClass *)windowClass);
     */
 
     private native int nDockSpaceOverViewport(long viewport, long windowClass); /*
-        return ImGui::DockSpaceOverViewport((ImGuiViewport*)viewport, 0, (ImGuiWindowClass*)windowClass);
+        return ImGui::DockSpaceOverViewport((const ImGuiViewport *)viewport, 0, (const ImGuiWindowClass *)windowClass);
     */
 
     private native int nDockSpaceOverViewport(long viewport, int flags, long windowClass); /*
-        return ImGui::DockSpaceOverViewport((ImGuiViewport*)viewport, flags, (ImGuiWindowClass*)windowClass);
+        return ImGui::DockSpaceOverViewport((const ImGuiViewport *)viewport, (ImGuiDockNodeFlags)flags, (const ImGuiWindowClass *)windowClass);
     */
 
     private native void nSetNextWindowDockID(int dockId); /*
-        ImGui::SetNextWindowDockID(dockId);
+        ImGui::SetNextWindowDockID((ImGuiID)dockId);
     */
 
     private native void nSetNextWindowDockID(int dockId, int cond); /*
-        ImGui::SetNextWindowDockID(dockId, cond);
+        ImGui::SetNextWindowDockID((ImGuiID)dockId, (ImGuiCond)cond);
     */
 
     private native void nSetNextWindowClass(long windowClass); /*
-        ImGui::SetNextWindowClass((ImGuiWindowClass*)windowClass);
+        ImGui::SetNextWindowClass((const ImGuiWindowClass *)windowClass);
     */
 
     private native int nGetWindowDockID(); /*
@@ -6875,7 +6875,7 @@ public class ImGuiApi {
     */
 
     private native void nLogToTTY(int autoOpenDepth); /*
-        ImGui::LogToTTY(autoOpenDepth);
+        ImGui::LogToTTY((int)autoOpenDepth);
     */
 
     private native void nLogToFile(); /*
@@ -6883,15 +6883,15 @@ public class ImGuiApi {
     */
 
     private native void nLogToFile(int autoOpenDepth); /*
-        ImGui::LogToFile(autoOpenDepth);
+        ImGui::LogToFile((int)autoOpenDepth);
     */
 
     private native void nLogToFile(String filename); /*
-        ImGui::LogToFile(-1, filename);
+        ImGui::LogToFile(-1, (const char *)filename);
     */
 
     private native void nLogToFile(int autoOpenDepth, String filename); /*
-        ImGui::LogToFile(autoOpenDepth, filename);
+        ImGui::LogToFile((int)autoOpenDepth, (const char *)filename);
     */
 
     private native void nLogToClipboard(); /*
@@ -6899,7 +6899,7 @@ public class ImGuiApi {
     */
 
     private native void nLogToClipboard(int autoOpenDepth); /*
-        ImGui::LogToClipboard(autoOpenDepth);
+        ImGui::LogToClipboard((int)autoOpenDepth);
     */
 
     private native void nLogFinish(); /*
@@ -6911,7 +6911,7 @@ public class ImGuiApi {
     */
 
     private native void nLogText(String fmt); /*
-        ImGui::LogText(fmt, NULL);
+        ImGui::LogText((const char *)fmt, NULL);
     */
 
     private native boolean nBeginDragDropSource(); /*
@@ -6919,7 +6919,7 @@ public class ImGuiApi {
     */
 
     private native boolean nBeginDragDropSource(int flags); /*
-        return ImGui::BeginDragDropSource(flags);
+        return ImGui::BeginDragDropSource((ImGuiDragDropFlags)flags);
     */
 
     private native boolean nSetDragDropPayload(String dataType, byte[] data, int sz, int cond); /*
@@ -6955,7 +6955,7 @@ public class ImGuiApi {
     */
 
     private native void nPushClipRect(float clipRectMinX, float clipRectMinY, float clipRectMaxX, float clipRectMaxY, boolean intersectWithCurrentClipRect); /*
-        ImGui::PushClipRect(ImVec2(clipRectMinX, clipRectMinY), ImVec2(clipRectMaxX, clipRectMaxY), (bool)intersectWithCurrentClipRect);
+        ImGui::PushClipRect((const ImVec2 &)ImVec2(clipRectMinX, clipRectMinY), (const ImVec2 &)ImVec2(clipRectMaxX, clipRectMaxY), (bool)intersectWithCurrentClipRect);
     */
 
     private native void nPopClipRect(); /*
@@ -6971,7 +6971,7 @@ public class ImGuiApi {
     */
 
     private native void nSetKeyboardFocusHere(int offset); /*
-        ImGui::SetKeyboardFocusHere(offset);
+        ImGui::SetKeyboardFocusHere((int)offset);
     */
 
     private native boolean nIsItemHovered(); /*
@@ -6979,7 +6979,7 @@ public class ImGuiApi {
     */
 
     private native boolean nIsItemHovered(int flags); /*
-        return ImGui::IsItemHovered(flags);
+        return ImGui::IsItemHovered((ImGuiHoveredFlags)flags);
     */
 
     private native boolean nIsItemActive(); /*
@@ -6995,7 +6995,7 @@ public class ImGuiApi {
     */
 
     private native boolean nIsItemClicked(int mouseButton); /*
-        return ImGui::IsItemClicked(mouseButton);
+        return ImGui::IsItemClicked((ImGuiMouseButton)mouseButton);
     */
 
     private native boolean nIsItemVisible(); /*
@@ -7043,11 +7043,11 @@ public class ImGuiApi {
     */
 
     private native boolean nIsRectVisible(float sizeX, float sizeY); /*
-        return ImGui::IsRectVisible(ImVec2(sizeX, sizeY));
+        return ImGui::IsRectVisible((const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native boolean nIsRectVisible(float rectMinX, float rectMinY, float rectMaxX, float rectMaxY); /*
-        return ImGui::IsRectVisible(ImVec2(rectMinX, rectMinY), ImVec2(rectMaxX, rectMaxY));
+        return ImGui::IsRectVisible((const ImVec2 &)ImVec2(rectMinX, rectMinY), (const ImVec2 &)ImVec2(rectMaxX, rectMaxY));
     */
 
     private native double nGetTime(); /*
@@ -7063,7 +7063,7 @@ public class ImGuiApi {
     */
 
     private native long nGetBackgroundDrawList(long viewport); /*
-        return (intptr_t)ImGui::GetBackgroundDrawList((ImGuiViewport*)viewport);
+        return (intptr_t)ImGui::GetBackgroundDrawList((ImGuiViewport *)viewport);
     */
 
     private native long nGetForegroundDrawList(); /*
@@ -7071,15 +7071,15 @@ public class ImGuiApi {
     */
 
     private native long nGetForegroundDrawList(long viewport); /*
-        return (intptr_t)ImGui::GetForegroundDrawList((ImGuiViewport*)viewport);
+        return (intptr_t)ImGui::GetForegroundDrawList((ImGuiViewport *)viewport);
     */
 
     private native String nGetStyleColorName(int idx); /*
-        return env->NewStringUTF(ImGui::GetStyleColorName(idx));
+        return env->NewStringUTF(ImGui::GetStyleColorName((ImGuiCol)idx));
     */
 
     private native void nSetStateStorage(long storage); /*
-        ImGui::SetStateStorage((ImGuiStorage*)storage);
+        ImGui::SetStateStorage((ImGuiStorage *)storage);
     */
 
     private native long nGetStateStorage(); /*
@@ -7087,11 +7087,11 @@ public class ImGuiApi {
     */
 
     private native boolean nBeginChildFrame(int id, float sizeX, float sizeY); /*
-        return ImGui::BeginChildFrame(id, ImVec2(sizeX, sizeY));
+        return ImGui::BeginChildFrame((ImGuiID)id, (const ImVec2 &)ImVec2(sizeX, sizeY));
     */
 
     private native boolean nBeginChildFrame(int id, float sizeX, float sizeY, int flags); /*
-        return ImGui::BeginChildFrame(id, ImVec2(sizeX, sizeY), flags);
+        return ImGui::BeginChildFrame((ImGuiID)id, (const ImVec2 &)ImVec2(sizeX, sizeY), (ImGuiWindowFlags)flags);
     */
 
     private native void nEndChildFrame(); /*
@@ -7099,7 +7099,7 @@ public class ImGuiApi {
     */
 
     private native int nColorConvertFloat4ToU32(float inX, float inY, float inZ, float inW); /*
-        return ImGui::ColorConvertFloat4ToU32(ImVec4(inX, inY, inZ, inW));
+        return ImGui::ColorConvertFloat4ToU32((const ImVec4 &)ImVec4(inX, inY, inZ, inW));
     */
 
     private native void nColorConvertRGBtoHSV(float[] rgb, float[] hsv); /*
@@ -7111,27 +7111,27 @@ public class ImGuiApi {
     */
 
     private native int nGetKeyIndex(int imguiKey); /*
-        return ImGui::GetKeyIndex(imguiKey);
+        return ImGui::GetKeyIndex((ImGuiKey)imguiKey);
     */
 
     private native boolean nIsKeyDown(int userKeyIndex); /*
-        return ImGui::IsKeyDown(userKeyIndex);
+        return ImGui::IsKeyDown((int)userKeyIndex);
     */
 
     private native boolean nIsKeyPressed(int userKeyIndex); /*
-        return ImGui::IsKeyPressed(userKeyIndex);
+        return ImGui::IsKeyPressed((int)userKeyIndex);
     */
 
     private native boolean nIsKeyPressed(int userKeyIndex, boolean repeat); /*
-        return ImGui::IsKeyPressed(userKeyIndex, (bool)repeat);
+        return ImGui::IsKeyPressed((int)userKeyIndex, (bool)repeat);
     */
 
     private native boolean nIsKeyReleased(int userKeyIndex); /*
-        return ImGui::IsKeyReleased(userKeyIndex);
+        return ImGui::IsKeyReleased((int)userKeyIndex);
     */
 
     private native int nGetKeyPressedAmount(int keyIndex, float repeatDelay, float rate); /*
-        return ImGui::GetKeyPressedAmount(keyIndex, repeatDelay, rate);
+        return ImGui::GetKeyPressedAmount((int)keyIndex, (float)repeatDelay, (float)rate);
     */
 
     private native void nCaptureKeyboardFromApp(); /*
@@ -7143,35 +7143,35 @@ public class ImGuiApi {
     */
 
     private native boolean nIsMouseDown(int button); /*
-        return ImGui::IsMouseDown(button);
+        return ImGui::IsMouseDown((ImGuiMouseButton)button);
     */
 
     private native boolean nIsMouseClicked(int button); /*
-        return ImGui::IsMouseClicked(button);
+        return ImGui::IsMouseClicked((ImGuiMouseButton)button);
     */
 
     private native boolean nIsMouseClicked(int button, boolean repeat); /*
-        return ImGui::IsMouseClicked(button, (bool)repeat);
+        return ImGui::IsMouseClicked((ImGuiMouseButton)button, (bool)repeat);
     */
 
     private native boolean nIsMouseReleased(int button); /*
-        return ImGui::IsMouseReleased(button);
+        return ImGui::IsMouseReleased((ImGuiMouseButton)button);
     */
 
     private native boolean nIsMouseDoubleClicked(int button); /*
-        return ImGui::IsMouseDoubleClicked(button);
+        return ImGui::IsMouseDoubleClicked((ImGuiMouseButton)button);
     */
 
     private native int nGetMouseClickedCount(int button); /*
-        return ImGui::GetMouseClickedCount(button);
+        return ImGui::GetMouseClickedCount((ImGuiMouseButton)button);
     */
 
     private native boolean nIsMouseHoveringRect(float rMinX, float rMinY, float rMaxX, float rMaxY); /*
-        return ImGui::IsMouseHoveringRect(ImVec2(rMinX, rMinY), ImVec2(rMaxX, rMaxY));
+        return ImGui::IsMouseHoveringRect((const ImVec2 &)ImVec2(rMinX, rMinY), (const ImVec2 &)ImVec2(rMaxX, rMaxY));
     */
 
     private native boolean nIsMouseHoveringRect(float rMinX, float rMinY, float rMaxX, float rMaxY, boolean clip); /*
-        return ImGui::IsMouseHoveringRect(ImVec2(rMinX, rMinY), ImVec2(rMaxX, rMaxY), (bool)clip);
+        return ImGui::IsMouseHoveringRect((const ImVec2 &)ImVec2(rMinX, rMinY), (const ImVec2 &)ImVec2(rMaxX, rMaxY), (bool)clip);
     */
 
     private native boolean nIsMousePosValid(float mousePosX, float mousePosY); /*
@@ -7184,11 +7184,11 @@ public class ImGuiApi {
     */
 
     private native boolean nIsMouseDragging(int button); /*
-        return ImGui::IsMouseDragging(button);
+        return ImGui::IsMouseDragging((ImGuiMouseButton)button);
     */
 
     private native boolean nIsMouseDragging(int button, float lockThreshold); /*
-        return ImGui::IsMouseDragging(button, lockThreshold);
+        return ImGui::IsMouseDragging((ImGuiMouseButton)button, (float)lockThreshold);
     */
 
     private native void nResetMouseDragDelta(); /*
@@ -7196,7 +7196,7 @@ public class ImGuiApi {
     */
 
     private native void nResetMouseDragDelta(int button); /*
-        ImGui::ResetMouseDragDelta(button);
+        ImGui::ResetMouseDragDelta((ImGuiMouseButton)button);
     */
 
     private native int nGetMouseCursor(); /*
@@ -7204,7 +7204,7 @@ public class ImGuiApi {
     */
 
     private native void nSetMouseCursor(int cursorType); /*
-        ImGui::SetMouseCursor(cursorType);
+        ImGui::SetMouseCursor((ImGuiMouseCursor)cursorType);
     */
 
     private native void nCaptureMouseFromApp(); /*
@@ -7220,23 +7220,23 @@ public class ImGuiApi {
     */
 
     private native void nSetClipboardText(String text); /*
-        ImGui::SetClipboardText(text);
+        ImGui::SetClipboardText((const char *)text);
     */
 
     private native void nLoadIniSettingsFromDisk(String iniFilename); /*
-        ImGui::LoadIniSettingsFromDisk(iniFilename);
+        ImGui::LoadIniSettingsFromDisk((const char *)iniFilename);
     */
 
     private native void nLoadIniSettingsFromMemory(String iniData); /*
-        ImGui::LoadIniSettingsFromMemory(iniData);
+        ImGui::LoadIniSettingsFromMemory((const char *)iniData);
     */
 
     private native void nLoadIniSettingsFromMemory(String iniData, long iniSize); /*
-        ImGui::LoadIniSettingsFromMemory(iniData, iniSize);
+        ImGui::LoadIniSettingsFromMemory((const char *)iniData, (size_t)iniSize);
     */
 
     private native void nSaveIniSettingsToDisk(String iniFilename); /*
-        ImGui::SaveIniSettingsToDisk(iniFilename);
+        ImGui::SaveIniSettingsToDisk((const char *)iniFilename);
     */
 
     private native void nSaveIniSettingsToMemory(); /*
@@ -7248,7 +7248,7 @@ public class ImGuiApi {
     */
 
     private native boolean nDebugCheckVersionAndDataLayout(String versionStr, long szIo, long szStyle, long szVec2, long szVec4, long szDrawvert, long szDrawidx); /*
-        return ImGui::DebugCheckVersionAndDataLayout(versionStr, szIo, szStyle, szVec2, szVec4, szDrawvert, szDrawidx);
+        return ImGui::DebugCheckVersionAndDataLayout((const char *)versionStr, (size_t)szIo, (size_t)szStyle, (size_t)szVec2, (size_t)szVec4, (size_t)szDrawvert, (size_t)szDrawidx);
     */
 
     private native long nGetPlatformIO(); /*
@@ -7268,7 +7268,7 @@ public class ImGuiApi {
     */
 
     private native long nFindViewportByID(int id); /*
-        return (intptr_t)ImGui::FindViewportByID(id);
+        return (intptr_t)ImGui::FindViewportByID((ImGuiID)id);
     */
 
     private native long nFindViewportByPlatformHandle(long platformHandle); /*
@@ -7359,19 +7359,19 @@ public class ImGuiApi {
     */
 
     private native float nGetStyleColorVec4X(int idx); /*
-        return ImGui::GetStyleColorVec4(idx).x;
+        return ImGui::GetStyleColorVec4((ImGuiCol)idx).x;
     */
 
     private native float nGetStyleColorVec4Y(int idx); /*
-        return ImGui::GetStyleColorVec4(idx).y;
+        return ImGui::GetStyleColorVec4((ImGuiCol)idx).y;
     */
 
     private native float nGetStyleColorVec4Z(int idx); /*
-        return ImGui::GetStyleColorVec4(idx).z;
+        return ImGui::GetStyleColorVec4((ImGuiCol)idx).z;
     */
 
     private native float nGetStyleColorVec4W(int idx); /*
-        return ImGui::GetStyleColorVec4(idx).w;
+        return ImGui::GetStyleColorVec4((ImGuiCol)idx).w;
     */
 
     private native float nGetCursorStartPosX(); /*
@@ -7415,59 +7415,59 @@ public class ImGuiApi {
     */
 
     private native float nCalcTextSizeX(String text); /*
-        return ImGui::CalcTextSize(text).x;
+        return ImGui::CalcTextSize((const char *)text).x;
     */
 
     private native float nCalcTextSizeY(String text); /*
-        return ImGui::CalcTextSize(text).y;
+        return ImGui::CalcTextSize((const char *)text).y;
     */
 
     private native float nCalcTextSizeX(String text, String textEnd); /*
-        return ImGui::CalcTextSize(text, textEnd).x;
+        return ImGui::CalcTextSize((const char *)text, (const char *)textEnd).x;
     */
 
     private native float nCalcTextSizeY(String text, String textEnd); /*
-        return ImGui::CalcTextSize(text, textEnd).y;
+        return ImGui::CalcTextSize((const char *)text, (const char *)textEnd).y;
     */
 
     private native float nCalcTextSizeX(String text, String textEnd, boolean hideTextAfterDoubleHash); /*
-        return ImGui::CalcTextSize(text, textEnd, (bool)hideTextAfterDoubleHash).x;
+        return ImGui::CalcTextSize((const char *)text, (const char *)textEnd, (bool)hideTextAfterDoubleHash).x;
     */
 
     private native float nCalcTextSizeY(String text, String textEnd, boolean hideTextAfterDoubleHash); /*
-        return ImGui::CalcTextSize(text, textEnd, (bool)hideTextAfterDoubleHash).y;
+        return ImGui::CalcTextSize((const char *)text, (const char *)textEnd, (bool)hideTextAfterDoubleHash).y;
     */
 
     private native float nCalcTextSizeX(String text, String textEnd, float wrapWidth); /*
-        return ImGui::CalcTextSize(text, textEnd, false, wrapWidth).x;
+        return ImGui::CalcTextSize((const char *)text, (const char *)textEnd, false, (float)wrapWidth).x;
     */
 
     private native float nCalcTextSizeY(String text, String textEnd, float wrapWidth); /*
-        return ImGui::CalcTextSize(text, textEnd, false, wrapWidth).y;
+        return ImGui::CalcTextSize((const char *)text, (const char *)textEnd, false, (float)wrapWidth).y;
     */
 
     private native float nCalcTextSizeX(String text, String textEnd, boolean hideTextAfterDoubleHash, float wrapWidth); /*
-        return ImGui::CalcTextSize(text, textEnd, (bool)hideTextAfterDoubleHash, wrapWidth).x;
+        return ImGui::CalcTextSize((const char *)text, (const char *)textEnd, (bool)hideTextAfterDoubleHash, (float)wrapWidth).x;
     */
 
     private native float nCalcTextSizeY(String text, String textEnd, boolean hideTextAfterDoubleHash, float wrapWidth); /*
-        return ImGui::CalcTextSize(text, textEnd, (bool)hideTextAfterDoubleHash, wrapWidth).y;
+        return ImGui::CalcTextSize((const char *)text, (const char *)textEnd, (bool)hideTextAfterDoubleHash, (float)wrapWidth).y;
     */
 
     private native float nColorConvertU32ToFloat4X(int in); /*
-        return ImGui::ColorConvertU32ToFloat4(in).x;
+        return ImGui::ColorConvertU32ToFloat4((ImU32)in).x;
     */
 
     private native float nColorConvertU32ToFloat4Y(int in); /*
-        return ImGui::ColorConvertU32ToFloat4(in).y;
+        return ImGui::ColorConvertU32ToFloat4((ImU32)in).y;
     */
 
     private native float nColorConvertU32ToFloat4Z(int in); /*
-        return ImGui::ColorConvertU32ToFloat4(in).z;
+        return ImGui::ColorConvertU32ToFloat4((ImU32)in).z;
     */
 
     private native float nColorConvertU32ToFloat4W(int in); /*
-        return ImGui::ColorConvertU32ToFloat4(in).w;
+        return ImGui::ColorConvertU32ToFloat4((ImU32)in).w;
     */
 
     private native float nGetMousePosX(); /*
@@ -7495,27 +7495,27 @@ public class ImGuiApi {
     */
 
     private native float nGetMouseDragDeltaX(int button); /*
-        return ImGui::GetMouseDragDelta(button).x;
+        return ImGui::GetMouseDragDelta((ImGuiMouseButton)button).x;
     */
 
     private native float nGetMouseDragDeltaY(int button); /*
-        return ImGui::GetMouseDragDelta(button).y;
+        return ImGui::GetMouseDragDelta((ImGuiMouseButton)button).y;
     */
 
     private native float nGetMouseDragDeltaX(float lockThreshold); /*
-        return ImGui::GetMouseDragDelta(0, lockThreshold).x;
+        return ImGui::GetMouseDragDelta(0, (float)lockThreshold).x;
     */
 
     private native float nGetMouseDragDeltaY(float lockThreshold); /*
-        return ImGui::GetMouseDragDelta(0, lockThreshold).y;
+        return ImGui::GetMouseDragDelta(0, (float)lockThreshold).y;
     */
 
     private native float nGetMouseDragDeltaX(int button, float lockThreshold); /*
-        return ImGui::GetMouseDragDelta(button, lockThreshold).x;
+        return ImGui::GetMouseDragDelta((ImGuiMouseButton)button, (float)lockThreshold).x;
     */
 
     private native float nGetMouseDragDeltaY(int button, float lockThreshold); /*
-        return ImGui::GetMouseDragDelta(button, lockThreshold).y;
+        return ImGui::GetMouseDragDelta((ImGuiMouseButton)button, (float)lockThreshold).y;
     */
     // GENERATED API: END
 }
