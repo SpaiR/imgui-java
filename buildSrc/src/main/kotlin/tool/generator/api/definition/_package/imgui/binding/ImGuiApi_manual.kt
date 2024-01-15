@@ -5,9 +5,11 @@ import tool.generator.api.definition.dsl.method.ArgsDsl
 import tool.generator.api.definition.dsl.method.MethodsDsl
 import tool.generator.api.definition.node.transform.method.METHOD_JNI_PREFIX
 import tool.generator.api.definition.node.transform.method.THIS_PTR_CALL_JVM
+import tool.generator.api.definition.node.transform.method.TYPE_IM_BOOL
 
 fun DefineDsl.manualMethods() {
     methods {
+        checkboxMethod()
         comboMethods()
         listBoxMethods()
         isMousePosValidMethod()
@@ -16,6 +18,25 @@ fun DefineDsl.manualMethods() {
     }
     dragNDrop()
     inputText()
+}
+
+private fun MethodsDsl.checkboxMethod() {
+    method {
+        signature {
+            public()
+            name("checkbox")
+            args {
+                argString("label")
+                argBoolean("v")
+            }
+        }
+        body {
+            line("return ${THIS_PTR_CALL_JVM}checkbox(label, new $TYPE_IM_BOOL(v));")
+        }
+        returnType {
+            asBoolean()
+        }
+    }
 }
 
 private fun MethodsDsl.comboMethods() {
@@ -704,6 +725,12 @@ private fun DefineDsl.inputText() {
         }
     """.trimIndent()
     )
+
+    line("""
+        {
+            ${THIS_PTR_CALL_JVM}${METHOD_JNI_PREFIX}InitInputTextData();
+        }
+    """.trimIndent())
 
     methods {
         method {

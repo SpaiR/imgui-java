@@ -77,6 +77,10 @@ public class ImGuiApi {
         }
     */
 
+    {
+        this.nInitInputTextData();
+    }
+
     private static final imgui.internal.ImGuiContext __gen_getCurrentContext_1 = new imgui.internal.ImGuiContext(0);
 
     private static final imgui.ImGuiIO __gen_getIO_1 = new imgui.ImGuiIO(0);
@@ -1202,6 +1206,10 @@ public class ImGuiApi {
 
     public boolean imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final int framePadding, final float bgColX, final float bgColY, final float bgColZ, final float bgColW, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
         return this.nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, framePadding, bgColX, bgColY, bgColZ, bgColW, tintColX, tintColY, tintColZ, tintColW);
+    }
+
+    public boolean checkbox(final String label, final boolean v) {
+        return this.checkbox(label, new imgui.type.ImBoolean(v));
     }
 
     public boolean checkbox(final String label, final imgui.type.ImBoolean v) {
