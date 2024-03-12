@@ -13,12 +13,14 @@
 //-----------------------------------------------------------------------------
 
 #pragma once
-#include "jni_assertion.h"
 
 //---- Define assertion handler. Defaults to calling assert().
 // If your macro uses multiple statements, make sure is enclosed in a 'do { .. } while (0)' block so it can be used as a single statement.
 //#define IM_ASSERT(_EXPR)  MyAssert(_EXPR)
 //#define IM_ASSERT(_EXPR)  ((void)(_EXPR))     // Disable asserts
+
+// imgui-java assertion handler
+#include "jni_assertion.h"
 #define IM_ASSERT(_EXPR)  do { if (!(_EXPR)) { if (Jni::ImAssertionSet()) { Jni::ImAssertToCallback(#_EXPR, __LINE__, __FILE__); } else { assert(_EXPR); } } } while (0)
 
 //---- Define attributes of all API symbols declarations, e.g. for DLL under Windows

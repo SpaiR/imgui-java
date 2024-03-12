@@ -1,3 +1,5 @@
+import tool.generator.ast.task.GenerateAst
+
 import java.text.SimpleDateFormat
 
 ext {
@@ -20,7 +22,7 @@ allprojects {
             }
 
             manifest {
-                attributes (
+                attributes(
                         'Implementation-Title': project.name,
                         'Implementation-Version': project.version,
                         'Build-Timestamp': new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(System.currentTimeMillis()),
@@ -44,4 +46,10 @@ tasks.register('buildAll') { t ->
             t.dependsOn ":imgui-$module:$task"
         }
     }
+}
+
+tasks.register('generateAst', GenerateAst) {
+    headerFiles = [
+            file('include/imgui/imgui.h'),
+    ]
 }
