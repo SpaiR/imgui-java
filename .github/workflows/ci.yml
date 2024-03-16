@@ -30,27 +30,25 @@ jobs:
             imgui-lwjgl3/build/libs/*.jar
 
   build-natives:
-    name: Build Native (${{ matrix.type }}${{ matrix.freetype && ', freetype' || ''  }})
+    name: Build Native (${{ matrix.target.type }}${{ matrix.freetype && ', freetype' || ''  }})
     strategy:
+      fail-fast: false
       matrix:
-        os: [ ubuntu-latest, macos-latest ]
-        type: [ windows, linux, macos ]
         freetype: [ true, false ]
-        include:
-          - type: windows
-            expected: /tmp/imgui/libsNative/windows64/imgui-java64.dll
-          - type: linux
-            expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
-          - type: macos
-            expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
-        exclude:
+        target:
           - os: ubuntu-latest
-            type: macos
-          - os: macos-latest
             type: windows
-          - os: macos-latest
+            expected: /tmp/imgui/libsNative/windows64/imgui-java64.dll
+          - os: ubuntu-latest
             type: linux
-    runs-on: ${{ matrix.os }}
+            expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
+          - os: macos-latest
+            type: macos
+            expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
+          - os: macos-latest
+            type: macosarm64
+            expected: /tmp/imgui/libsNative/macosxarm64/libimgui-javaarm64.dylib
+    runs-on: ${{ matrix.target.os }}
     steps:
       - name: Checkout Repository and Submodules
         uses: actions/checkout@v4
@@ -69,15 +67,15 @@ jobs:
         run: ant -version
 
       - name: Install MinGW-w64/GCC/G++ (Linux & Windows)
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.target.os == 'ubuntu-latest'
         run: sudo apt install mingw-w64
 
       - name: FreeType - Install (Linux)
-        if: matrix.os == 'ubuntu-latest' && matrix.type == 'linux' && matrix.freetype == true
+        if: matrix.target.os == 'ubuntu-latest' && matrix.target.type == 'linux' && matrix.freetype == true
         run: sudo apt install libfreetype6-dev
 
       - name: FreeType - Install (Windows)
-        if: matrix.os == 'ubuntu-latest' && matrix.type == 'windows' && matrix.freetype == true
+        if: matrix.target.os == 'ubuntu-latest' && matrix.target.type == 'windows' && matrix.freetype == true
         run: |
           sudo mkdir /freetype
           sudo tar -xzf ./vendor/freetype-2.12.1.tar.gz -C /freetype --strip-components=1
@@ -86,15 +84,25 @@ jobs:
           sudo make
           sudo make install
 
+      - name: FreeType - Install (MacOS-arm64)
+        if: matrix.target.os == 'macos-latest' && matrix.target.type == 'macosarm64' && matrix.freetype == true
+        run: |
+          sudo mkdir /opt/freetype
+          sudo tar -xzf ./vendor/freetype-2.12.1.tar.gz -C /opt/freetype --strip-components=1
+          cd /opt/freetype
+          sudo ./configure CFLAGS="-arch arm64 -arch x86_64" --with-zlib=no --with-bzip2=no --with-png=no --with-harfbuzz=no --with-brotli=no
+          sudo make
+          sudo make install
+
       - name: Build
-        run: ./gradlew imgui-binding:generateLibs -Denvs=${{ matrix.type }} -Dfreetype=${{ matrix.freetype }}
+        run: ./gradlew imgui-binding:generateLibs -Denvs=${{ matrix.target.type }} -Dfreetype=${{ matrix.freetype }}
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.freetype && 'native-libraries-with-freetype' || 'native-libraries' }}
           if-no-files-found: error
-          path: ${{ matrix.expected }}
+          path: ${{ matrix.target.expected }}
 
   update-bin:
     name: Update Binaries

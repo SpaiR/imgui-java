@@ -29,7 +29,8 @@ import java.util.Properties;
 public class ImGui {
     private static final String LIB_PATH_PROP = "imgui.library.path";
     private static final String LIB_NAME_PROP = "imgui.library.name";
-    private static final String LIB_NAME_DEFAULT = System.getProperty("os.arch").contains("64") ? "imgui-java64" : "imgui-java";
+    private static final boolean isARM = System.getProperty("os.arch").equals("arm") || System.getProperty("os.arch").startsWith("aarch64");
+    private static final String LIB_NAME_DEFAULT = "image-java" + (isARM ? "arm" : "") + "64";
     private static final String LIB_TMP_DIR_PREFIX = "imgui-java-natives";
 
     private static final ImGuiContext IMGUI_CONTEXT;

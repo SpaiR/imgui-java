@@ -171,11 +171,12 @@ You can refer to `imgui-app` module to see how things are done there.
 
 For simplicity, example of dependencies for Gradle / Maven only shows how to add natives for Windows. Feel free to add other platforms.
 
-| Native Binaries            | System  |
-|----------------------------|---------|
-| imgui-java-natives-windows | Windows |
-| imgui-java-natives-linux   | Linux   |
-| imgui-java-natives-macos   | macOS   |
+| Native Binaries                | System      |
+|--------------------------------|-------------|
+| imgui-java-natives-windows     | Windows     |
+| imgui-java-natives-linux       | Linux       |
+| imgui-java-natives-macos       | macOS       |
+| imgui-java-natives-macos-arm64 | macOS-arm64 |
 
 Take a note, that you also need to add dependencies to [LWJGL](https://www.lwjgl.org/) library. Examples below shows how to do it as well.
 
@@ -298,14 +299,15 @@ Both `imgui.library.path` and `java.library.path` are equal with the difference,
 
 If using Java 9 modules, ImGui Java has Automatic Module Names:
 
-| Package                    | Module                |
-|----------------------------|-----------------------|
-| imgui-java-app             | imgui.app             |
-| imgui-java-binding         | imgui.binding         |
-| imgui-java-lwjgl3          | imgui.lwjgl3          |
-| imgui-java-natives-windows | imgui.natives.windows |
-| imgui-java-natives-linux   | imgui.natives.linux   |
-| imgui-java-natives-macos   | imgui.natives.macos   |
+| Package                        | Module                    |
+|--------------------------------|---------------------------|
+| imgui-java-app                 | imgui.app                 |
+| imgui-java-binding             | imgui.binding             |
+| imgui-java-lwjgl3              | imgui.lwjgl3              |
+| imgui-java-natives-windows     | imgui.natives.windows     |
+| imgui-java-natives-linux       | imgui.natives.linux       |
+| imgui-java-natives-macos       | imgui.natives.macos       |
+| imgui-java-natives-macos-arm64 | imgui.natives.macos-arm64 |
 
 ## Extensions
 
@@ -382,11 +384,12 @@ Use the same native libraries as you would, but with `-ft` suffix in the end.
     ```
 </details>
 
-| Native Binaries With FreeType | System  |
-|-------------------------------|---------|
-| imgui-java-natives-windows-ft | Windows |
-| imgui-java-natives-linux-ft   | Linux   |
-| imgui-java-natives-macos-ft   | macOS   |
+| Native Binaries With FreeType     | System      |
+|-----------------------------------|-------------|
+| imgui-java-natives-windows-ft     | Windows     |
+| imgui-java-natives-linux-ft       | Linux       |
+| imgui-java-natives-macos-ft       | macOS       |
+| imgui-java-natives-macos-arm64-ft | macOS-arm64 |
 
 If you're using raw dll/so files, go to the [release page](https://github.com/SpaiR/imgui-java/releases/latest) and use libraries from the `native-libraries-with-freetype.zip` archive.
 
@@ -427,8 +430,14 @@ Ensure you've downloaded git submodules. That could be achieved:
  - Check dependencies from "Linux" section and make sure you have them installed.
  - Build with: `./gradlew imgui-binding:generateLibs -Denvs=macos -Dlocal`
  - Run with: `./gradlew example:run -PlibPath=../imgui-binding/build/libsNative/macosx64`
+ 
+### macOS-arm64
 
-In `envs` parameter next values could be used `windows`, `linux` or `macos`.<br>
+ - Check dependencies from "Linux" section and make sure you have them installed.
+ - Build with: `./gradlew imgui-binding:generateLibs -Denvs=macosarm64 -Dlocal`
+ - Run with: `./gradlew example:run -PlibPath=../imgui-binding/build/libsNative/macosxarm64`
+
+In `envs` parameter next values could be used `windows`, `linux` or `macos` or `macosarm64`.<br>
 `-Dlocal` is optional and means that natives will be built under the `./imgui-binding/build/` folder. Otherwise `/tmp/imgui` folder will be used.
 On Windows always use local build.
 
