@@ -186,8 +186,11 @@ jobs:
 
       - name: Publish
         env:
-          MAVEN_USER: ${{ secrets.RELEASE_MAVEN_USER }}
-          MAVEN_TOKEN: ${{ secrets.RELEASE_MAVEN_TOKEN }}
+          NEXUS_UPD_ID: ${{ secrets.RELEASE_NEXUS_UPD_ID }}
+          NEXUS_UPD_PASS: ${{ secrets.RELEASE_NEXUS_UPD_PASS }}
+          SIGNING_KEY_ID: ${{ secrets.RELEASE_SIGNING_KEY_ID }}
+          SIGNING_KEY: ${{ secrets.RELEASE_SIGNING_KEY }}
+          SIGNING_KEY_PASS: ${{ secrets.RELEASE_SIGNING_KEY_PASS }}
         run: |
           chmod +x ./buildSrc/scripts/publish.sh
           buildSrc/scripts/publish.sh
