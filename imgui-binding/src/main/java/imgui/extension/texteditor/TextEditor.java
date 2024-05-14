@@ -1,16 +1,17 @@
 package imgui.extension.texteditor;
 
+import imgui.ImVec2;
 import imgui.binding.ImGuiStructDestroyable;
+import imgui.binding.annotation.ArgValue;
+import imgui.binding.annotation.BindingMethod;
+import imgui.binding.annotation.BindingSource;
+import imgui.binding.annotation.OptArg;
+import imgui.binding.annotation.ReturnValue;
 
 import java.util.Map;
 
+@BindingSource
 public final class TextEditor extends ImGuiStructDestroyable {
-    /*JNI
-        #include "_texteditor.h"
-
-        #define TEXT_EDITOR ((TextEditor*)STRUCT_PTR)
-     */
-
     public TextEditor() {
     }
 
@@ -23,30 +24,31 @@ public final class TextEditor extends ImGuiStructDestroyable {
         return nCreate();
     }
 
+    /*JNI
+        #include "_texteditor.h"
+        #define THIS ((TextEditor*)STRUCT_PTR)
+        #define TextEditorLanguageDefinition TextEditor::LanguageDefinition
+     */
+
     private native long nCreate(); /*
         return (intptr_t)(new TextEditor());
     */
 
-    public void setLanguageDefinition(final TextEditorLanguageDefinition definition) {
-        nSetLanguageDefinition(definition.ptr);
-    }
+    @BindingMethod
+    public native void SetLanguageDefinition(@ArgValue(callPrefix = "*") TextEditorLanguageDefinition aLanguageDef);
 
-    public native void nSetLanguageDefinition(long ptr); /*
-        TEXT_EDITOR->SetLanguageDefinition(*((TextEditor::LanguageDefinition*)ptr));
-    */
+    @BindingMethod
+    @ReturnValue(callPrefix = "&")
+    public native TextEditorLanguageDefinition GetLanguageDefinition();
 
     public native int[] getPalette(); /*
-        const auto& palette = TEXT_EDITOR->GetPalette();
-
+        const auto& palette = THIS->GetPalette();
         jintArray res = env->NewIntArray(palette.size());
-
         jint arr[palette.size()];
         for (int i = 0; i < palette.size(); i++) {
             arr[i] = palette[i];
         }
-
         env->SetIntArrayRegion(res, 0, palette.size(), arr);
-
         return res;
     */
 
@@ -56,33 +58,28 @@ public final class TextEditor extends ImGuiStructDestroyable {
 
     public native void nSetPalette(int[] palette, int length); /*
         std::array<ImU32, (unsigned)TextEditor::PaletteIndex::Max> arr;
-
         for (int i = 0; i < length; i++) {
             arr[i] = palette[i];
         }
-
-        TEXT_EDITOR->SetPalette(arr);
+        THIS->SetPalette(arr);
     */
 
     public void setErrorMarkers(final Map<Integer, String> errorMarkers) {
         final int[] keys = errorMarkers.keySet().stream().mapToInt(i -> i).toArray();
         final String[] values = errorMarkers.values().toArray(new String[0]);
-
         nSetErrorMarkers(keys, keys.length, values, values.length);
     }
 
     private native void nSetErrorMarkers(int[] keys, int keysLen, String[] values, int valuesLen); /*
         std::map<int, std::string> markers;
-
         for (int i = 0; i < keysLen; i++) {
             int key = keys[i];
             jstring string = (jstring)env->GetObjectArrayElement(values, i);
             const char* value = env->GetStringUTFChars(string, JNI_FALSE);
-
             markers.emplace(std::pair<int, std::string>(key, std::string(value)));
+            env->ReleaseStringUTFChars(string, value);
         }
-
-        TEXT_EDITOR->SetErrorMarkers(markers);
+        THIS->SetErrorMarkers(markers);
     */
 
     public void setBreakpoints(final int[] breakpoints) {
@@ -91,25 +88,21 @@ public final class TextEditor extends ImGuiStructDestroyable {
 
     private native void nSetBreakpoints(int[] breakpoints, int length); /*
         std::unordered_set<int> set;
-
         for (int i = 0; i < length; i++) {
             set.emplace(breakpoints[i]);
         }
-
-        TEXT_EDITOR->SetBreakpoints(set);
+        THIS->SetBreakpoints(set);
     */
 
-    public native void render(String title); /*
-        TEXT_EDITOR->Render(title);
-    */
+    @BindingMethod
+    public native void Render(String title, @OptArg(callValue = "ImVec2()") ImVec2 aSize, @OptArg boolean aBorder);
 
-    public native void setText(String text); /*
-        TEXT_EDITOR->SetText(text);
-    */
+    @BindingMethod
+    public native void SetText(String text);
 
-    public native String getText(); /*
-        return env->NewStringUTF(TEXT_EDITOR->GetText().c_str());
-    */
+    @BindingMethod
+    @ReturnValue(callSuffix = ".c_str()")
+    public native String GetText();
 
     public void setTextLines(final String[] lines) {
         nSetTextLines(lines, lines.length);
@@ -118,260 +111,203 @@ public final class TextEditor extends ImGuiStructDestroyable {
     private native void nSetTextLines(String[] lines, int length); /*
         std::vector<std::string> vec;
         vec.reserve(length);
-
         for (int i = 0; i < length; i++) {
             jstring string = (jstring)env->GetObjectArrayElement(lines, i);
             const char* raw = env->GetStringUTFChars(string, JNI_FALSE);
-
             vec.emplace_back(std::string(raw));
+            env->ReleaseStringUTFChars(string, raw);
         }
-
-        TEXT_EDITOR->SetTextLines(vec);
+        THIS->SetTextLines(vec);
     */
 
     public native String[] getTextLines(); /*
-        const auto lines = TEXT_EDITOR->GetTextLines();
+        const auto lines = THIS->GetTextLines();
 
-        jobjectArray arr = (jobjectArray)env->NewObjectArray(lines.size(),
+        jobjectArray arr = env->NewObjectArray(
+            lines.size(),
             env->FindClass("java/lang/String"),
-            env->NewStringUTF(""));
+            env->NewStringUTF("")
+        );
 
         for (int i = 0; i < lines.size(); i++) {
             const auto& str = lines[i];
-
             env->SetObjectArrayElement(arr, i, env->NewStringUTF(str.c_str()));
         }
-
         return arr;
     */
 
-    public native String getSelectedText(); /*
-       return env->NewStringUTF(TEXT_EDITOR->GetSelectedText().c_str());
-    */
+    @BindingMethod
+    @ReturnValue(callSuffix = ".c_str()")
+    public native String GetSelectedText();
 
-    public native String getCurrentLineText(); /*
-       return env->NewStringUTF(TEXT_EDITOR->GetCurrentLineText().c_str());
-    */
+    @BindingMethod
+    @ReturnValue(callSuffix = ".c_str()")
+    public native String GetCurrentLineText();
 
-    public native int getTotalLines(); /*
-        return TEXT_EDITOR->GetTotalLines();
-    */
+    @BindingMethod
+    public native int GetTotalLines();
 
-    public native boolean isOverwrite(); /*
-        return TEXT_EDITOR->IsOverwrite();
-    */
+    @BindingMethod
+    public native boolean IsOverwrite();
 
-    public native void setReadOnly(boolean value); /*
-        TEXT_EDITOR->SetReadOnly(value);
-    */
+    @BindingMethod
+    public native void SetReadOnly(boolean aValue);
 
-    public native boolean isReadOnly(); /*
-        return TEXT_EDITOR->IsReadOnly();
-    */
+    @BindingMethod
+    public native boolean IsReadOnly();
 
-    public native boolean isTextChanged(); /*
-        return TEXT_EDITOR->IsTextChanged();
-    */
+    @BindingMethod
+    public native boolean IsTextChanged();
 
-    public native boolean isCursorPositionChanged(); /*
-        return TEXT_EDITOR->IsCursorPositionChanged();
-    */
+    @BindingMethod
+    public native boolean IsCursorPositionChanged();
 
-    public native boolean isColorizerEnabled(); /*
-        return TEXT_EDITOR->IsColorizerEnabled();
-    */
+    @BindingMethod
+    public native boolean IsColorizerEnabled();
 
-    public native void setColorizerEnable(boolean value); /*
-        TEXT_EDITOR->SetColorizerEnable(value);
-    */
+    @BindingMethod
+    public native void SetColorizerEnable(boolean aValue);
 
-    public native int getCursorPositionLine(); /*
-        return TEXT_EDITOR->GetCursorPosition().mLine;
-    */
+    @BindingMethod
+    public native TextEditorCoordinates GetCursorPosition();
 
-    public native int getCursorPositionColumn(); /*
-        return TEXT_EDITOR->GetCursorPosition().mColumn;
-    */
+    @BindingMethod
+    public native void SetCursorPosition(TextEditorCoordinates aPosition);
 
-    public native void setCursorPosition(int line, int column); /*
-        TEXT_EDITOR->SetCursorPosition({ line, column });
-    */
+    @BindingMethod
+    public native void SetHandleMouseInputs(boolean aValue);
 
-    public native void setHandleMouseInputs(boolean value); /*
-        TEXT_EDITOR->SetHandleMouseInputs(value);
-    */
+    @BindingMethod
+    public native boolean IsHandleMouseInputsEnabled();
 
-    public native boolean isHandleMouseInputsEnabled(); /*
-        return TEXT_EDITOR->IsHandleMouseInputsEnabled();
-    */
+    @BindingMethod
+    public native void SetHandleKeyboardInputs(boolean aValue);
 
-    public native void setHandleKeyboardInputs(boolean value); /*
-        TEXT_EDITOR->SetHandleKeyboardInputs(value);
-    */
+    @BindingMethod
+    public native boolean IsHandleKeyboardInputsEnabled();
 
-    public native boolean isHandleKeyboardInputsEnabled(); /*
-        return TEXT_EDITOR->IsHandleKeyboardInputsEnabled();
-    */
+    @BindingMethod
+    public native void SetImGuiChildIgnored(boolean aValue);
 
-    public native void setImGuiChildIgnored(boolean value); /*
-        TEXT_EDITOR->SetImGuiChildIgnored(value);
-    */
+    @BindingMethod
+    public native boolean IsImGuiChildIgnored();
 
-    public native boolean isImGuiChildIgnored(); /*
-        return TEXT_EDITOR->IsImGuiChildIgnored();
-    */
+    @BindingMethod
+    public native void SetShowWhitespaces(boolean aValue);
 
-    public native void setShowWhitespaces(boolean value); /*
-        TEXT_EDITOR->SetShowWhitespaces(value);
-    */
+    @BindingMethod
+    public native boolean IsShowingWhitespaces();
 
-    public native boolean isShowingWhitespaces(); /*
-        return TEXT_EDITOR->IsShowingWhitespaces();
-    */
+    @BindingMethod
+    public native void SetTabSize(int aValue);
 
-    public native void setTabSize(int value); /*
-        TEXT_EDITOR->SetTabSize(value);
-    */
+    @BindingMethod
+    public native int GetTabSize();
 
-    public native int getTabSize(); /*
-        return TEXT_EDITOR->GetTabSize();
-    */
+    @BindingMethod
+    public native void InsertText(String aValue);
 
-    public native void insertText(String value); /*
-        TEXT_EDITOR->InsertText(value);
-    */
+    @BindingMethod
+    public native void MoveUp(@OptArg int aAmount, @OptArg boolean aSelect);
 
-    public native void moveUp(int amount, boolean select); /*
-        TEXT_EDITOR->MoveUp(amount, select);
-    */
+    @BindingMethod
+    public native void MoveDown(@OptArg int aAmount, @OptArg boolean aSelect);
 
-    public native void moveDown(int amount, boolean select); /*
-        TEXT_EDITOR->MoveDown(amount, select);
-    */
+    @BindingMethod
+    public native void MoveLeft(@OptArg int aAmount, @OptArg boolean aSelect, @OptArg boolean aWordMode);
 
-    public native void moveLeft(int amount, boolean select, boolean wordMode); /*
-        TEXT_EDITOR->MoveLeft(amount, select, wordMode);
-    */
+    @BindingMethod
+    public native void MoveRight(@OptArg int aAmount, @OptArg boolean aSelect, @OptArg boolean aWordMode);
 
-    public native void moveRight(int amount, boolean select, boolean wordMode); /*
-        TEXT_EDITOR->MoveRight(amount, select, wordMode);
-    */
+    @BindingMethod
+    public native void MoveTop(@OptArg boolean aSelect);
 
-    public native void moveTop(boolean select); /*
-        TEXT_EDITOR->MoveTop(select);
-    */
+    @BindingMethod
+    public native void MoveBottom(@OptArg boolean aSelect);
 
-    public native void moveBottom(boolean select); /*
-        TEXT_EDITOR->MoveBottom(select);
-    */
+    @BindingMethod
+    public native void MoveHome(@OptArg boolean aSelect);
 
-    public native void moveHome(boolean select); /*
-        TEXT_EDITOR->MoveHome(select);
-    */
+    @BindingMethod
+    public native void MoveEnd(@OptArg boolean aSelect);
 
-    public native void moveEnd(boolean select); /*
-        TEXT_EDITOR->MoveEnd(select);
-    */
+    @BindingMethod
+    public native void SetSelectionStart(TextEditorCoordinates aPosition);
 
-    public native void setSelectionStart(int line, int column); /*
-        TEXT_EDITOR->SetSelectionStart({ line, column });
-    */
+    @BindingMethod
+    public native void SetSelectionEnd(TextEditorCoordinates aPosition);
 
-    public native void setSelectionEnd(int line, int column); /*
-        TEXT_EDITOR->SetSelectionEnd({ line, column });
-    */
+    @BindingMethod
+    public native void SetSelection(TextEditorCoordinates aStart, TextEditorCoordinates aEnd, @OptArg @ArgValue(staticCast = "TextEditor::SelectionMode") int aMode);
 
-    public native void setSelection(int lineStart, int columnStart, int lineEnd, int columnEnd, int selectionMode); /*
-        TEXT_EDITOR->SetSelection({ lineStart, columnStart }, { lineEnd, columnEnd },
-            static_cast<TextEditor::SelectionMode>(selectionMode));
-    */
+    @BindingMethod
+    public native void SelectWordUnderCursor();
 
-    public native void selectWordUnderCursor(); /*
-        TEXT_EDITOR->SelectWordUnderCursor();
-    */
+    @BindingMethod
+    public native void SelectAll();
 
-    public native void selectAll(); /*
-        TEXT_EDITOR->SelectAll();
-    */
+    @BindingMethod
+    public native boolean HasSelection();
 
-    public native boolean hasSelection(); /*
-        return TEXT_EDITOR->HasSelection();
-    */
+    @BindingMethod
+    public native void Copy();
 
-    public native void copy(); /*
-        TEXT_EDITOR->Copy();
-    */
+    @BindingMethod
+    public native void Cut();
 
-    public native void cut(); /*
-        TEXT_EDITOR->Cut();
-    */
+    @BindingMethod
+    public native void Paste();
 
-    public native void paste(); /*
-        TEXT_EDITOR->Paste();
-    */
+    @BindingMethod
+    public native void Delete();
 
-    public native void delete(); /*
-        TEXT_EDITOR->Delete();
-    */
+    @BindingMethod
+    public native boolean CanUndo();
 
-    public native boolean canUndo(); /*
-        return TEXT_EDITOR->CanUndo();
-    */
+    @BindingMethod
+    public native boolean CanRedo();
 
-    public native boolean canRedo(); /*
-        return TEXT_EDITOR->CanRedo();
-    */
+    @BindingMethod
+    public native void Undo(@OptArg int aSteps);
 
-    public native void undo(int steps); /*
-        TEXT_EDITOR->Undo(steps);
-    */
-
-    public native void redo(int steps); /*
-        TEXT_EDITOR->Redo(steps);
-    */
+    @BindingMethod
+    public native void Redo(@OptArg int aSteps);
 
     public native int[] getDarkPalette(); /*
-        const auto& palette = TEXT_EDITOR->GetDarkPalette();
-
+        const auto& palette = THIS->GetDarkPalette();
         jintArray res = env->NewIntArray(palette.size());
-
         jint arr[palette.size()];
         for (int i = 0; i < palette.size(); i++) {
             arr[i] = palette[i];
         }
-
         env->SetIntArrayRegion(res, 0, palette.size(), arr);
-
         return res;
     */
 
     public native int[] getLightPalette(); /*
-        const auto& palette = TEXT_EDITOR->GetLightPalette();
-
+        const auto& palette = THIS->GetLightPalette();
         jintArray res = env->NewIntArray(palette.size());
-
         jint arr[palette.size()];
         for (int i = 0; i < palette.size(); i++) {
             arr[i] = palette[i];
         }
-
         env->SetIntArrayRegion(res, 0, palette.size(), arr);
-
         return res;
     */
 
     public native int[] getRetroBluePalette(); /*
-        const auto& palette = TEXT_EDITOR->GetRetroBluePalette();
-
+        const auto& palette = THIS->GetRetroBluePalette();
         jintArray res = env->NewIntArray(palette.size());
-
         jint arr[palette.size()];
         for (int i = 0; i < palette.size(); i++) {
             arr[i] = palette[i];
         }
-
         env->SetIntArrayRegion(res, 0, palette.size(), arr);
-
         return res;
     */
+
+    /*JNI
+        #undef TextEditorLanguageDefinition
+        #undef THIS
+     */
 }

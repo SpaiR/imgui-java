@@ -1,10 +1,13 @@
 package imgui.extension.imnodes.flag;
 
+import imgui.binding.annotation.BindingAstEnum;
+import imgui.binding.annotation.BindingSource;
+
+@BindingSource
 public final class ImNodesStyleFlags {
     private ImNodesStyleFlags() {
     }
 
-    public static final int None = 0;
-    public static final int NodeOutline = 1;
-    public static final int GridLines = 1 << 2;
+    @BindingAstEnum(file = "ast-imnodes.json", qualType = "ImNodesStyleFlags_")
+    public Void __;
 }

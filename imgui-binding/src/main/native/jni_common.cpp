@@ -1,12 +1,12 @@
 #include "jni_common.h"
 
-jfieldID imVec2XID;
-jfieldID imVec2YID;
+static jfieldID imVec2XID;
+static jfieldID imVec2YID;
 
-jfieldID imVec4XID;
-jfieldID imVec4YID;
-jfieldID imVec4ZID;
-jfieldID imVec4WID;
+static jfieldID imVec4XID;
+static jfieldID imVec4YID;
+static jfieldID imVec4ZID;
+static jfieldID imVec4WID;
 
 namespace Jni
 {
@@ -49,5 +49,52 @@ namespace Jni
         env->SetFloatField(dst, imVec4YID, src.y);
         env->SetFloatField(dst, imVec4ZID, src.z);
         env->SetFloatField(dst, imVec4WID, src.w);
+    }
+
+    void ImVec4Cpy(JNIEnv* env, jobject src, ImVec4* dst) {
+        dst->x = env->GetFloatField(src, imVec4XID);
+        dst->y = env->GetFloatField(src, imVec4YID);
+        dst->z = env->GetFloatField(src, imVec4ZID);
+        dst->w = env->GetFloatField(src, imVec4WID);
+    }
+
+    jobjectArray NewImVec2Array(JNIEnv* env, ImVec2* src, int size) {
+        jclass cls = env->FindClass("imgui/ImVec2");
+        jmethodID cstr = env->GetMethodID(cls, "<init>", "(FF)V");
+        jobjectArray dst = env->NewObjectArray(size, cls, NULL);
+        for (int i = 0; i < size; ++i) {
+            jobject vec = env->NewObject(cls, cstr, src[i].x, src[i].y);
+            env->SetObjectArrayElement(dst, i, vec);
+            env->DeleteLocalRef(vec);
+        }
+        return dst;
+    }
+
+    jobjectArray NewImVec4Array(JNIEnv* env, ImVec4* src, int size) {
+        jclass cls = env->FindClass("imgui/ImVec4");
+        jmethodID cstr = env->GetMethodID(cls, "<init>", "(FFFF)V");
+        jobjectArray dst = env->NewObjectArray(size, cls, NULL);
+        for (int i = 0; i < size; ++i) {
+            jobject vec = env->NewObject(cls, cstr, src[i].x, src[i].y, src[i].z, src[i].w);
+            env->SetObjectArrayElement(dst, i, vec);
+            env->DeleteLocalRef(vec);
+        }
+        return dst;
+    }
+
+    void ImVec2ArrayCpy(JNIEnv* env, jobjectArray src, ImVec2* dst, int size) {
+        for (int i = 0; i < size; i++) {
+            jobject value = env->GetObjectArrayElement(src, i);
+            Jni::ImVec2Cpy(env, value, &dst[i]);
+            env->DeleteLocalRef(value);
+        }
+    }
+
+    void ImVec4ArrayCpy(JNIEnv* env, jobjectArray src, ImVec4* dst, int size) {
+        for (int i = 0; i < size; i++) {
+            jobject value = env->GetObjectArrayElement(src, i);
+            Jni::ImVec4Cpy(env, value, &dst[i]);
+            env->DeleteLocalRef(value);
+        }
     }
 }

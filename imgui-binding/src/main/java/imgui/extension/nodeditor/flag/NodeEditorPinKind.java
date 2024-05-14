@@ -1,9 +1,13 @@
 package imgui.extension.nodeditor.flag;
 
+import imgui.binding.annotation.BindingAstEnum;
+import imgui.binding.annotation.BindingSource;
+
+@BindingSource
 public final class NodeEditorPinKind {
     private NodeEditorPinKind() {
     }
 
-    public static final int Input = 0;
-    public static final int Output = 1;
+    @BindingAstEnum(file = "ast-imgui_node_editor.json", qualType = "ax::NodeEditor::PinKind")
+    public Void __;
 }

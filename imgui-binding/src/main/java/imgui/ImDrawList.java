@@ -1,6 +1,11 @@
 package imgui;
 
 import imgui.binding.ImGuiStruct;
+import imgui.binding.annotation.ArgValue;
+import imgui.binding.annotation.BindingField;
+import imgui.binding.annotation.BindingMethod;
+import imgui.binding.annotation.BindingSource;
+import imgui.binding.annotation.OptArg;
 
 /**
  * Draw command list
@@ -13,6 +18,7 @@ import imgui.binding.ImGuiStruct;
  * but you are totally free to apply whatever transformation matrix to want to the data (if you apply such transformation you'll want to apply it to ClipRect as well)
  * Important: Primitives are always added to the list and not culled (culling is done at higher-level by ImGui:: functions), if you use this API a lot consider coarse culling your drawn objects.
  */
+@BindingSource
 public final class ImDrawList extends ImGuiStruct {
     public ImDrawList(final long ptr) {
         super(ptr);
@@ -20,114 +26,40 @@ public final class ImDrawList extends ImGuiStruct {
 
     /*JNI
         #include "_common.h"
-
-        #define IM_DRAW_LIST ((ImDrawList*)STRUCT_PTR)
+        #define THIS ((ImDrawList*)STRUCT_PTR)
      */
 
     /**
      * Flags, you may poke into these to adjust anti-aliasing settings per-primitive.
      */
-    public native int getImDrawListFlags(); /*
-        return IM_DRAW_LIST->Flags;
-    */
-
-    /**
-     * Flags, you may poke into these to adjust anti-aliasing settings per-primitive.
-     */
-    public native void setImDrawListFlags(int imDrawListFlags); /*
-        IM_DRAW_LIST->Flags = imDrawListFlags;
-    */
-
-    /**
-     * Flags, you may poke into these to adjust anti-aliasing settings per-primitive.
-     */
-    public void addImDrawListFlags(final int flags) {
-        setImDrawListFlags(getImDrawListFlags() | flags);
-    }
-
-    /**
-     * Flags, you may poke into these to adjust anti-aliasing settings per-primitive.
-     */
-    public void removeImDrawListFlags(final int flags) {
-        setImDrawListFlags(getImDrawListFlags() & ~(flags));
-    }
-
-    /**
-     * Flags, you may poke into these to adjust anti-aliasing settings per-primitive.
-     */
-    public boolean hasImDrawListFlags(final int flags) {
-        return (getImDrawListFlags() & flags) != 0;
-    }
+    @BindingField(isFlag = true)
+    public int Flags;
 
     /**
      * Render-level scissoring.
      * This is passed down to your render function but not used for CPU-side coarse clipping.
      * Prefer using higher-level ImGui::PushClipRect() to affect logic (hit-testing and widget culling)
      */
-    public native void pushClipRect(float clipRectMinX, float clipRectMinY, float clipRectMaxX, float clipRectMaxY); /*
-        IM_DRAW_LIST->PushClipRect(ImVec2(clipRectMinX, clipRectMinY), ImVec2(clipRectMaxX, clipRectMaxY));
-    */
+    @BindingMethod
+    public native void PushClipRect(ImVec2 clipRectMin, ImVec2 clipRectMax, @OptArg boolean intersectWithCurrentClipRect);
 
-    /**
-     * Render-level scissoring.
-     * This is passed down to your render function but not used for CPU-side coarse clipping.
-     * Prefer using higher-level ImGui::PushClipRect() to affect logic (hit-testing and widget culling)
-     */
-    public native void pushClipRect(float clipRectMinX, float clipRectMinY, float clipRectMaxX, float clipRectMaxY, boolean intersectWithCurrentClipRect); /*
-        IM_DRAW_LIST->PushClipRect(ImVec2(clipRectMinX, clipRectMinY), ImVec2(clipRectMaxX, clipRectMaxY), intersectWithCurrentClipRect);
-    */
+    @BindingMethod
+    public native void PushClipRectFullScreen();
 
-    public native void pushClipRectFullScreen(); /*
-        IM_DRAW_LIST->PushClipRectFullScreen();
-    */
+    @BindingMethod
+    public native void PopClipRect();
 
-    public native void popClipRect(); /*
-        IM_DRAW_LIST->PopClipRect();
-    */
+    @BindingMethod
+    public native void PushTextureID(@ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int textureId);
 
-    public native void pushTextureId(int textureId); /*
-        IM_DRAW_LIST->PushTextureID((ImTextureID)(intptr_t)textureId);
-    */
+    @BindingMethod
+    public native void PopTextureID();
 
-    public native void popTextureId(); /*
-        IM_DRAW_LIST->PopTextureID();
-    */
+    @BindingMethod
+    public native ImVec2 GetClipRectMin();
 
-    public ImVec2 getClipRectMin() {
-        final ImVec2 value = new ImVec2();
-        getClipRectMin(value);
-        return value;
-    }
-
-    public native void getClipRectMin(ImVec2 dstImVec2); /*
-        Jni::ImVec2Cpy(env, IM_DRAW_LIST->GetClipRectMin(), dstImVec2);
-    */
-
-    public native float getClipRectMinX(); /*
-        return IM_DRAW_LIST->GetClipRectMin().x;
-    */
-
-    public native float getClipRectMinY(); /*
-        return IM_DRAW_LIST->GetClipRectMin().y;
-    */
-
-    public ImVec2 getClipRectMax() {
-        final ImVec2 value = new ImVec2();
-        getClipRectMax(value);
-        return value;
-    }
-
-    public native void getClipRectMax(ImVec2 dstImVec2); /*
-        Jni::ImVec2Cpy(env, IM_DRAW_LIST->GetClipRectMax(), dstImVec2);
-    */
-
-    public native float getClipRectMaxX(); /*
-        return IM_DRAW_LIST->GetClipRectMax().x;
-    */
-
-    public native float getClipRectMaxY(); /*
-        return IM_DRAW_LIST->GetClipRectMax().y;
-    */
+    @BindingMethod
+    public native ImVec2 GetClipRectMax();
 
     // Primitives
     // - For rectangular primitives, "pMin" and "pMax" represent the upper-left and lower-right corners.
@@ -136,318 +68,126 @@ public final class ImDrawList extends ImGuiStruct {
     //   In future versions we will use textures to provide cheaper and higher-quality circles.
     //   Use AddNgon() and AddNgonFilled() functions if you need to guaranteed a specific number of sides.
 
-    public native void addLine(float p1X, float p1Y, float p2X, float p2Y, int col); /*
-        IM_DRAW_LIST->AddLine(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), col);
-    */
+    @BindingMethod
+    public native void AddLine(ImVec2 p1, ImVec2 p2, int col, @OptArg float thickness);
 
-    public native void addLine(float p1X, float p1Y, float p2X, float p2Y, int col, float thickness); /*
-        IM_DRAW_LIST->AddLine(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), col, thickness);
-    */
+    @BindingMethod
+    public native void AddRect(ImVec2 pMin, ImVec2 pMax, int col, @OptArg(callValue = "0.0f") float rounding, @OptArg(callValue = "0") int flags, @OptArg float thickness);
 
-    public native void addRect(float pMinX, float pMinY, float pMaxX, float pMaxY, int col); /*
-        IM_DRAW_LIST->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col);
+    @BindingMethod
+    public native void AddRectFilled(ImVec2 pMin, ImVec2 pMax, int col, @OptArg(callValue = "0.0f") float rounding, @OptArg int flags);
+
+    @BindingMethod
+    public native void AddRectFilledMultiColor(ImVec2 pMin, ImVec2 pMax, int colUprLeft, int colUprRight, int colBotRight, int colBotLeft);
+
+    @BindingMethod
+    public native void AddQuad(ImVec2 p1, ImVec2 p2, ImVec2 p3, ImVec2 p4, int col, @OptArg float thickness);
+
+    @BindingMethod
+    public native void AddQuadFilled(ImVec2 p1, ImVec2 p2, ImVec2 p3, ImVec2 p4, int col);
+
+    @BindingMethod
+    public native void AddTriangle(ImVec2 p1, ImVec2 p2, ImVec2 p3, int col, @OptArg float thickness);
+
+    @BindingMethod
+    public native void AddTriangleFilled(ImVec2 p1, ImVec2 p2, ImVec2 p3, int col);
+
+    @BindingMethod
+    public native void AddCircle(ImVec2 center, float radius, int col, @OptArg(callValue = "0") int numSegments, @OptArg float thickness);
+
+    @BindingMethod
+    public native void AddCircleFilled(ImVec2 center, float radius, int col, @OptArg int numSegments);
+
+    @BindingMethod
+    public native void AddNgon(ImVec2 center, float radius, int col, int num_segments, @OptArg float thickness);
+
+    @BindingMethod
+    public native void AddNgonFilled(ImVec2 center, float radius, int col, int num_segments);
+
+    @BindingMethod
+    public native void AddText(ImVec2 pos, int col, String textBegin, @OptArg String textEnd);
+
+    @BindingMethod
+    public native void AddText(ImFont font, int fontSize, ImVec2 pos, int col, String textBegin, @OptArg(callValue = "NULL") String textEnd, @OptArg(callValue = "0.0f") float wrapWidth, @OptArg @ArgValue(callPrefix = "&") ImVec4 cpuFineClipRect);
+
+    @BindingMethod
+    public native void AddPolyline(ImVec2[] points, int numPoint, int col, int imDrawFlags, float thickness);
+
+    /**
+     * Note: Anti-aliased filling requires points to be in clockwise order.
      */
-
-    public native void addRect(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding); /*
-        IM_DRAW_LIST->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding);
-     */
-
-    public native void addRect(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding, int imDrawFlags); /*
-        IM_DRAW_LIST->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, imDrawFlags);
-     */
-
-    public native void addRect(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding, int imDrawFlags, float thickness); /*
-        IM_DRAW_LIST->AddRect(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, imDrawFlags, thickness);
-     */
-
-    public native void addRectFilled(float pMinX, float pMinY, float pMaxX, float pMaxY, int col); /*
-        IM_DRAW_LIST->AddRectFilled(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col);
-     */
-
-    public native void addRectFilled(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding); /*
-        IM_DRAW_LIST->AddRectFilled(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding);
-     */
-
-    public native void addRectFilled(float pMinX, float pMinY, float pMaxX, float pMaxY, int col, float rounding, int imDrawFlags); /*
-        IM_DRAW_LIST->AddRectFilled(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), col, rounding, imDrawFlags);
-     */
-
-    public native void addRectFilledMultiColor(float pMinX, float pMinY, float pMaxX, float pMaxY, long colUprLeft, long colUprRight, long colBotRight, long colBotLeft); /*
-        IM_DRAW_LIST->AddRectFilledMultiColor(ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), colUprLeft, colUprRight, colBotRight, colBotLeft);
-     */
-
-    public native void addQuad(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col); /*
-        IM_DRAW_LIST->AddQuad(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col);
-    */
-
-    public native void addQuad(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col, float thickness); /*
-        IM_DRAW_LIST->AddQuad(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness);
-    */
-
-    public native void addQuadFilled(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col); /*
-        IM_DRAW_LIST->AddQuadFilled(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col);
-    */
-
-    public native void addTriangle(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, int col); /*
-        IM_DRAW_LIST->AddTriangle(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), col);
-    */
-
-    public native void addTriangle(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, int col, float thickness); /*
-        IM_DRAW_LIST->AddTriangle(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), col, thickness);
-    */
-
-    public native void addTriangleFilled(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, int col); /*
-        IM_DRAW_LIST->AddTriangleFilled(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), col);
-    */
-
-    public native void addCircle(float centreX, float centreY, float radius, int col); /*
-        IM_DRAW_LIST->AddCircle(ImVec2(centreX, centreY), radius, col);
-    */
-
-    public native void addCircle(float centreX, float centreY, float radius, int col, int numSegments); /*
-        IM_DRAW_LIST->AddCircle(ImVec2(centreX, centreY), radius, col, numSegments);
-    */
-
-    public native void addCircle(float centreX, float centreY, float radius, int col, int numSegments, float thickness); /*
-        IM_DRAW_LIST->AddCircle(ImVec2(centreX, centreY), radius, col, numSegments, thickness);
-    */
-
-    public native void addCircleFilled(float centreX, float centreY, float radius, int col); /*
-        IM_DRAW_LIST->AddCircleFilled(ImVec2(centreX, centreY), radius, col);
-    */
-
-    public native void addCircleFilled(float centreX, float centreY, float radius, int col, int numSegments); /*
-        IM_DRAW_LIST->AddCircleFilled(ImVec2(centreX, centreY), radius, col, numSegments);
-    */
-
-    public native void addNgon(float centreX, float centreY, float radius, int col, int numSegments); /*
-        IM_DRAW_LIST->AddNgon(ImVec2(centreX, centreY), radius, col, numSegments);
-    */
-
-    public native void addNgon(float centreX, float centreY, float radius, int col, int numSegments, float thickness); /*
-        IM_DRAW_LIST->AddNgon(ImVec2(centreX, centreY), radius, col, numSegments, thickness);
-    */
-
-    public native void addNgonFilled(float centreX, float centreY, float radius, int col, int numSegments); /*
-        IM_DRAW_LIST->AddNgonFilled(ImVec2(centreX, centreY), radius, col, numSegments);
-    */
-
-    public native void addText(float posX, float posY, int col, String text); /*
-        IM_DRAW_LIST->AddText(ImVec2(posX, posY), col, text);
-    */
-
-    public void addText(final ImFont imFont, final float fontSize, final float posX, final float posY, final int col, final String text) {
-        nAddText(imFont.ptr, fontSize, posX, posY, col, text);
-    }
-
-    private native void nAddText(long imFontPtr, float fontSize, float posX, float posY, int col, String text); /*
-        IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, text);
-    */
-
-    public void addText(final ImFont imFont, final float fontSize, final float posX, final float posY, final int col, final String text, final float wrapWidth) {
-        nAddText(imFont.ptr, fontSize, posX, posY, col, text, wrapWidth);
-    }
-
-    private native void nAddText(long imFontPtr, float fontSize, float posX, float posY, int col, String text, float wrapWidth); /*
-        IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, text, NULL, wrapWidth);
-    */
-
-    public void addText(final ImFont imFont, final float fontSize, final float posX, final float posY, final int col, final String text, final float wrapWidth, final float cpuFineClipRectX, final float cpuFineClipRectY, final float cpuFineClipRectZ, final float cpuFineClipRectV) {
-        nAddText(imFont.ptr, fontSize, posX, posY, col, text, wrapWidth, cpuFineClipRectX, cpuFineClipRectY, cpuFineClipRectZ, cpuFineClipRectV);
-    }
-
-    private native void nAddText(long imFontPtr, float fontSize, float posX, float posY, int col, String text, float wrapWidth, float cpuFineClipRectX, float cpuFineClipRectY, float cpuFineClipRectZ, float cpuFineClipRectV); /*
-        ImVec4 cpuFineClipRect = ImVec4(cpuFineClipRectX, cpuFineClipRectY, cpuFineClipRectZ, cpuFineClipRectV);
-        IM_DRAW_LIST->AddText((ImFont*)imFontPtr, fontSize, ImVec2(posX, posY), col, text, NULL, wrapWidth, &cpuFineClipRect);
-    */
-
-    public native void addPolyline(ImVec2[] points, int numPoints, int col, int imDrawFlags, float thickness); /*
-        int points_num = env->GetArrayLength(points);
-        ImVec2 _points[points_num];
-        for (int i = 0; i < points_num; i++) {
-            jobject jImVec2 = env->GetObjectArrayElement(points, i);
-            ImVec2 dst;
-            Jni::ImVec2Cpy(env, jImVec2, &dst);
-            _points[i] = dst;
-        }
-        IM_DRAW_LIST->AddPolyline(_points, numPoints, col, imDrawFlags, thickness);
-    */
-
-    // Note: Anti-aliased filling requires points to be in clockwise order.
-    public native void addConvexPolyFilled(ImVec2[] points, int numPoints, int col); /*
-        int points_num = env->GetArrayLength(points);
-        ImVec2 _points[points_num];
-        for (int i = 0; i < points_num; i++) {
-            jobject jImVec2 = env->GetObjectArrayElement(points, i);
-            ImVec2 dst;
-            Jni::ImVec2Cpy(env, jImVec2, &dst);
-            _points[i] = dst;
-        }
-        IM_DRAW_LIST->AddConvexPolyFilled(_points, numPoints, col);
-    */
+    @BindingMethod
+    public native void AddConvexPolyFilled(ImVec2[] points, int numPoints, int col);
 
     /**
      * Cubic Bezier (4 control points)
      */
-    public native void addBezierCubic(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col, float thickness); /*
-        IM_DRAW_LIST->AddBezierCubic(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness);
-    */
-
-    /**
-     * Cubic Bezier (4 control points)
-     */
-    public native void addBezierCubic(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int col, float thickness, int numSegments); /*
-        IM_DRAW_LIST->AddBezierCubic(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), col, thickness, numSegments);
-    */
+    @BindingMethod
+    public native void AddBezierCubic(ImVec2 p1, ImVec2 p2, ImVec2 p3, ImVec2 p4, int col, float thickness, @OptArg int numSegments);
 
     /**
      * Quadratic Bezier (3 control points)
      */
-    public native void addBezierQuadratic(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, int col, float thickness); /*
-        IM_DRAW_LIST->AddBezierQuadratic(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), col, thickness);
-    */
-
-    /**
-     * Quadratic Bezier (3 control points)
-     */
-    public native void addBezierQuadratic(float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, int col, float thickness, int numSegments); /*
-        IM_DRAW_LIST->AddBezierQuadratic(ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), col, thickness, numSegments);
-    */
+    @BindingMethod
+    public native void AddBezierQuadratic(ImVec2 p1, ImVec2 p2, ImVec2 p3, int col, float thickness, @OptArg int numSegments);
 
     // Image primitives
     // - Read FAQ to understand what ImTextureID is.
     // - "pMin" and "pMax" represent the upper-left and lower-right corners of the rectangle.
     // - "uvMin" and "uvMax" represent the normalized texture coordinates to use for those corners. Using (0,0)->(1,1) texture coordinates will generally display the entire texture.
 
-    public native void addImage(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY); /*
-        IM_DRAW_LIST->AddImage((ImTextureID)(intptr_t)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY));
-    */
+    @BindingMethod
+    public native void AddImage(@ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int textureID, ImVec2 pMin, ImVec2 pMax, @OptArg ImVec2 uvMin, @OptArg ImVec2 uvMax, @OptArg int col);
 
-    public native void addImage(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY); /*
-        IM_DRAW_LIST->AddImage((ImTextureID)(intptr_t)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY));
-    */
+    @BindingMethod
+    public native void AddImageQuad(@ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int textureID, ImVec2 p1, ImVec2 p2, ImVec2 p3, ImVec2 p4, @OptArg ImVec2 uv1, @OptArg ImVec2 uv2, @OptArg ImVec2 uv3, @OptArg ImVec2 uv4, @OptArg int col);
 
-    public native void addImage(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY); /*
-        IM_DRAW_LIST->AddImage((ImTextureID)(intptr_t)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY));
-    */
-
-    public native void addImage(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY, int col); /*
-        IM_DRAW_LIST->AddImage((ImTextureID)(intptr_t)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY), col);
-    */
-
-    public native void addImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y); /*
-        IM_DRAW_LIST->AddImageQuad((ImTextureID)(intptr_t)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y));
-    */
-
-    public native void addImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y); /*
-        IM_DRAW_LIST->AddImageQuad((ImTextureID)(intptr_t)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y));
-    */
-
-    public native void addImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y); /*
-        IM_DRAW_LIST->AddImageQuad((ImTextureID)(intptr_t)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y), ImVec2(uv2X, uv2Y));
-    */
-
-    public native void addImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y, float uv3X, float uv3Y); /*
-        IM_DRAW_LIST->AddImageQuad((ImTextureID)(intptr_t)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y), ImVec2(uv2X, uv2Y), ImVec2(uv3X, uv3Y));
-    */
-
-    public native void addImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y, float uv3X, float uv3Y, float uv4X, float uv4Y); /*
-        IM_DRAW_LIST->AddImageQuad((ImTextureID)(intptr_t)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y), ImVec2(uv2X, uv2Y), ImVec2(uv3X, uv3Y), ImVec2(uv4X, uv4Y));
-    */
-
-    public native void addImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y, float uv3X, float uv3Y, float uv4X, float uv4Y, int col); /*
-        IM_DRAW_LIST->AddImageQuad((ImTextureID)(intptr_t)textureID, ImVec2(p1X, p1Y), ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), ImVec2(uv1X, uv1Y), ImVec2(uv2X, uv2Y), ImVec2(uv3X, uv3Y), ImVec2(uv4X, uv4Y), col);
-    */
-
-    public native void addImageRounded(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY, int col, float rounding); /*
-        IM_DRAW_LIST->AddImageRounded((ImTextureID)(intptr_t)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY), col, rounding);
-    */
-
-    public native void addImageRounded(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY, int col, float rounding, int imDrawFlags); /*
-        IM_DRAW_LIST->AddImageRounded((ImTextureID)(intptr_t)textureID, ImVec2(pMinX, pMinY), ImVec2(pMaxX, pMaxY), ImVec2(uvMinX, uvMinY), ImVec2(uvMaxX, uvMaxY), col, rounding, imDrawFlags);
-    */
+    @BindingMethod
+    public native void AddImageRounded(@ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int textureID, ImVec2 pMin, ImVec2 pMax, ImVec2 uvMin, ImVec2 uvMax, int col, float rounding, @OptArg int imDrawFlags);
 
     // Stateful path API, add points then finish with PathFillConvex() or PathStroke()
 
-    public native void pathClear(); /*
-        IM_DRAW_LIST->PathClear();
-    */
+    @BindingMethod
+    public native void PathClear();
 
-    public native void pathLineTo(float posX, float posY); /*
-        IM_DRAW_LIST->PathLineTo(ImVec2(posX, posY));
-    */
+    @BindingMethod
+    public native void PathLineTo(ImVec2 pos);
 
-    public native void pathLineToMergeDuplicate(float posX, float posY); /*
-        IM_DRAW_LIST->PathLineToMergeDuplicate(ImVec2(posX, posY));
-    */
+    @BindingMethod
+    public native void PathLineToMergeDuplicate(ImVec2 pos);
 
-    // Note: Anti-aliased filling requires points to be in clockwise order.
-    public native void pathFillConvex(int col); /*
-        IM_DRAW_LIST->PathFillConvex(col);
-    */
+    /**
+     * Note: Anti-aliased filling requires points to be in clockwise order.
+     */
+    @BindingMethod
+    public native void PathFillConvex(int col);
 
-    public native void pathStroke(int col, int imDrawFlags); /*
-        IM_DRAW_LIST->PathStroke(col, imDrawFlags);
-    */
+    @BindingMethod
+    public native void PathStroke(int col, @OptArg(callValue = "0") int imDrawFlags, @OptArg float thickness);
 
-    public native void pathStroke(int col, int imDrawFlags, float thickness); /*
-        IM_DRAW_LIST->PathStroke(col, imDrawFlags, thickness);
-    */
-
-    public native void pathArcTo(float centerX, float centerY, float radius, float aMin, float aMax); /*
-        IM_DRAW_LIST->PathArcTo(ImVec2(centerX, centerY), radius, aMin, aMax);
-    */
-
-    public native void pathArcTo(float centerX, float centerY, float radius, float aMin, float aMax, int numSegments); /*
-        IM_DRAW_LIST->PathArcTo(ImVec2(centerX, centerY), radius, aMin, aMax, numSegments);
-    */
+    @BindingMethod
+    public native void PathArcTo(ImVec2 center, float radius, float aMin, float aMax, @OptArg int numSegments);
 
     /**
      * Use precomputed angles for a 12 steps circle
      */
-    public native void pathArcToFast(float centerX, float centerY, float radius, int aMinOf12, int aMaxOf12); /*
-        IM_DRAW_LIST->PathArcToFast(ImVec2(centerX, centerY), radius, aMinOf12, aMaxOf12);
-    */
+    @BindingMethod
+    public native void PathArcToFast(ImVec2 center, float radius, int aMinOf12, int aMaxOf12);
 
     /**
      * Cubic Bezier (4 control points)
      */
-    public native void pathBezierCubicCurveTo(float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y); /*
-        IM_DRAW_LIST->PathBezierCubicCurveTo(ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y));
-    */
-
-    /**
-     * Cubic Bezier (4 control points)
-     */
-    public native void pathBezierCubicCurveTo(float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, int numSegments); /*
-        IM_DRAW_LIST->PathBezierCubicCurveTo(ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), ImVec2(p4X, p4Y), numSegments);
-    */
+    @BindingMethod
+    public native void PathBezierCubicCurveTo(ImVec2 p2, ImVec2 p3, ImVec2 p4, @OptArg int numSegments);
 
     /**
      * Quadratic Bezier (3 control points)
      */
-    public native void pathBezierQuadraticCurveTo(float p2X, float p2Y, float p3X, float p3Y); /*
-        IM_DRAW_LIST->PathBezierQuadraticCurveTo(ImVec2(p2X, p2Y), ImVec2(p3X, p3Y));
-    */
+    @BindingMethod
+    public native void PathBezierQuadraticCurveTo(ImVec2 p2, ImVec2 p3, @OptArg int numSegments);
 
-    /**
-     * Quadratic Bezier (3 control points)
-     */
-    public native void pathBezierQuadraticCurveTo(float p2X, float p2Y, float p3X, float p3Y, int numSegments); /*
-        IM_DRAW_LIST->PathBezierQuadraticCurveTo(ImVec2(p2X, p2Y), ImVec2(p3X, p3Y), numSegments);
-    */
-
-    public native void pathRect(float rectMinX, float rectMinY, float rectMaxX, float rectMaxY); /*
-        IM_DRAW_LIST->PathRect(ImVec2(rectMinX, rectMinY), ImVec2(rectMaxX, rectMaxY));
-    */
-
-    public native void pathRect(float rectMinX, float rectMinY, float rectMaxX, float rectMaxY, float rounding); /*
-        IM_DRAW_LIST->PathRect(ImVec2(rectMinX, rectMinY), ImVec2(rectMaxX, rectMaxY), rounding);
-    */
-
-    public native void pathRect(float rectMinX, float rectMinY, float rectMaxX, float rectMaxY, float rounding, int imDrawFlags); /*
-        IM_DRAW_LIST->PathRect(ImVec2(rectMinX, rectMinY), ImVec2(rectMaxX, rectMaxY), rounding, imDrawFlags);
-    */
+    @BindingMethod
+    public native void PathRect(ImVec2 rectMin, ImVec2 rectMax, @OptArg(callValue = "0.0f") float rounding, @OptArg int imDrawFlags);
 
     // Advanced: Channels
     // - Use to split render into layers. By switching channels to can render out-of-order (e.g. submit FG primitives before BG primitives)
@@ -455,47 +195,44 @@ public final class ImDrawList extends ImGuiStruct {
     //   Prefer using your own persistent instance of ImDrawListSplitter as you can stack them.
     //   Using the ImDrawList::ChannelsXXXX you cannot stack a split over another.
 
-    public native void channelsSplit(int count); /*
-        IM_DRAW_LIST->ChannelsSplit(count);
-    */
+    @BindingMethod
+    public native void ChannelsSplit(int count);
 
-    public native void channelsMerge(); /*
-        IM_DRAW_LIST->ChannelsMerge();
-    */
+    @BindingMethod
+    public native void ChannelsMerge();
 
-    public native void channelsSetCurrent(int n); /*
-        IM_DRAW_LIST->ChannelsSetCurrent(n);
-    */
+    @BindingMethod
+    public native void ChannelsSetCurrent(int n);
 
     // Advanced: Primitives allocations
     // - We render triangles (three vertices)
     // - All primitives needs to be reserved via PrimReserve() beforehand.
 
-    public native void primReserve(int idxCount, int vtxCount); /*
-        IM_DRAW_LIST->PrimReserve(idxCount, vtxCount);
-    */
+    @BindingMethod
+    public native void PrimReserve(int idxCount, int vtxCount);
 
-    public native void primUnreserve(int idxCount, int vtxCount); /*
-        IM_DRAW_LIST->PrimUnreserve(idxCount, vtxCount);
-    */
+    @BindingMethod
+    public native void PrimUnreserve(int idxCount, int vtxCount);
 
-    public native void primRect(float ax, float ay, float bx, float by, int col); /*
-        IM_DRAW_LIST->PrimRect(ImVec2(ax, ay), ImVec2(bx, by), col);
-    */
+    @BindingMethod
+    public native void PrimRect(ImVec2 a, ImVec2 b, int col);
 
-    public native void primRectUV(float ax, float ay, float bx, float by, float uvAx, float uvAy, float uvBx, float uvBy, int col); /*
-        IM_DRAW_LIST->PrimRectUV(ImVec2(ax, ay), ImVec2(bx, by), ImVec2(uvAx, uvAy), ImVec2(uvBx, uvBy), col);
-    */
+    @BindingMethod
+    public native void PrimRectUV(ImVec2 a, ImVec2 b, ImVec2 uvA, ImVec2 uvB, int col);
 
-    public native void primQuadUV(float ax, float ay, float bx, float by, float cx, float cy, float dx, float dy, float uvAx, float uvAy, float uvBx, float uvBy, float uvCx, float uvCy, float uvDx, float uvDy, int col); /*
-        IM_DRAW_LIST->PrimQuadUV(ImVec2(ax, ay), ImVec2(bx, by), ImVec2(cx, cy), ImVec2(dx, dy), ImVec2(uvAx, uvAy), ImVec2(uvBx, uvBy), ImVec2(uvCx, uvCy), ImVec2(uvDx, uvDy), col);
-    */
+    @BindingMethod
+    public native void PrimQuadUV(ImVec2 a, ImVec2 b, ImVec2 c, ImVec2 d, ImVec2 uvA, ImVec2 uvB, ImVec2 uvC, ImVec2 uvD, int col);
 
-    public native void primWriteVtx(float posX, float posY, float uvX, float uvY, int col); /*
-        IM_DRAW_LIST->PrimWriteVtx(ImVec2(posX, posY), ImVec2(uvX, uvY), col);
-    */
+    @BindingMethod
+    public native void PrimWriteVtx(ImVec2 pos, ImVec2 uv, int col);
 
-    public native void primVtx(float posX, float posY, float uvX, float uvY, int col); /*
-        IM_DRAW_LIST->PrimVtx(ImVec2(posX, posY), ImVec2(uvX, uvY), col);
-    */
+    @BindingMethod
+    public native void PrimWriteIdx(@ArgValue(callPrefix = "(ImDrawIdx)") int idx);
+
+    @BindingMethod
+    public native void PrimVtx(ImVec2 pos, ImVec2 uv, int col);
+
+    /*JNI
+        #undef THIS
+     */
 }

@@ -8,5 +8,8 @@
 #include <unordered_map>
 #include <map>
 #include <regex>
+
 #include "_common.h"
 #include "TextEditor.h"
+
+#include "jni_texteditor.h"

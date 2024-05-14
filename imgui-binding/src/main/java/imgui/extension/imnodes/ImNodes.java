@@ -1,7 +1,12 @@
 package imgui.extension.imnodes;
 
 import imgui.ImVec2;
-import imgui.extension.imnodes.flag.ImNodesPinShape;
+import imgui.binding.annotation.ArgValue;
+import imgui.binding.annotation.BindingMethod;
+import imgui.binding.annotation.BindingSource;
+import imgui.binding.annotation.OptArg;
+import imgui.binding.annotation.ReturnValue;
+import imgui.internal.ImGuiContext;
 import imgui.type.ImBoolean;
 import imgui.type.ImInt;
 
@@ -11,9 +16,8 @@ import imgui.type.ImInt;
  * <p>
  * Refer to the library's Github page for examples and support
  */
+@BindingSource
 public final class ImNodes {
-    private static final ImNodesStyle STYLE = new ImNodesStyle(0);
-
     private ImNodes() {
     }
 
@@ -27,123 +31,115 @@ public final class ImNodes {
     // By default, the library creates an editor context behind the scenes, so using any of the ImNodes
     // functions doesn't require you to explicitly create a context.
 
-    public static ImNodesContext editorContextCreate() {
-        return new ImNodesContext();
-    }
+    @BindingMethod
+    public static native void SetImGuiContext(ImGuiContext ctx);
 
-    public static void editorContextFree(final ImNodesContext context) {
-        context.destroy();
-    }
+    @BindingMethod
+    public static native ImNodesContext CreateContext();
 
-    public static void editorContextSet(final ImNodesContext context) {
-        nEditorContextSet(context.ptr);
-    }
+    @BindingMethod
+    public static native void DestroyContext(@OptArg ImNodesContext ctx);
 
-    private static native void nEditorContextSet(long ptr); /*
-        ImNodes::EditorContextSet((ImNodesEditorContext*)ptr);
-    */
+    @BindingMethod
+    public static native ImNodesContext GetCurrentContext();
 
-    /**
-     * Initialize the node editor system.
-     */
-    public static native void createContext(); /*
-        ImNodes::CreateContext();
-    */
+    @BindingMethod
+    public static native void SetCurrentContext(ImNodesContext ctx);
 
-    public static native void destroyContext(); /*
-        ImNodes::DestroyContext();
-    */
+    @BindingMethod
+    public static native ImNodesEditorContext EditorContextCreate();
+
+    @BindingMethod
+    public static native void EditorContextFree(ImNodesEditorContext context);
+
+    @BindingMethod
+    public static native void EditorContextSet(ImNodesEditorContext context);
+
+    @BindingMethod
+    public static native ImVec2 EditorContextGetPanning();
+
+    @BindingMethod
+    public static native void EditorContextResetPanning(ImVec2 pos);
+
+    @BindingMethod
+    public static native void EditorContextMoveToNode(int nodeId);
+
+    @BindingMethod
+    @ReturnValue(isStatic = true, callPrefix = "&")
+    public static native ImNodesIO GetIO();
 
     /**
      * Returns the global style struct. See the struct declaration for default values.
      */
-    public static ImNodesStyle getStyle() {
-        STYLE.ptr = nGetStyle();
-        return STYLE;
-    }
-
-    private static native long nGetStyle(); /*
-        return (intptr_t)&ImNodes::GetStyle();
-    */
+    @BindingMethod
+    @ReturnValue(isStatic = true, callPrefix = "&")
+    public static native ImNodesStyle GetStyle();
 
     // Style presets matching the dear imgui styles of the same name.
 
-    public static native void styleColorsDark(); /*
-        ImNodes::StyleColorsDark();
-    */
+    @BindingMethod
+    public static native void StyleColorsDark();
 
-    public static native void styleColorsClassic(); /*
-        ImNodes::StyleColorsClassic();
-    */
+    @BindingMethod
+    public static native void StyleColorsClassic();
 
-    public static native void styleColorsLight(); /*
-        ImNodes::StyleColorsLight();
-    */
-
-    /**
-     * Use PushColorStyle and PopColorStyle to modify ImNodesColorStyle mid-frame.
-     */
-    public static native void pushColorStyle(int imNodesStyleColor, int color); /*
-        ImNodes::PushColorStyle((ImNodesCol)imNodesStyleColor, color);
-    */
-
-    public static native void popColorStyle(); /*
-        ImNodes::PopColorStyle();
-    */
-
-    public static native void pushStyleVar(int imNodesStyleVar, float value); /*
-        ImNodes::PushStyleVar((ImNodesStyleVar)imNodesStyleVar, value);
-    */
-
-    public static native void pushStyleVar(int imNodesStyleVar, float x, float y); /*
-        ImNodes::PushStyleVar((ImNodesStyleVar)imNodesStyleVar, ImVec2(x, y));
-    */
-
-    public static native void popStyleVar(); /*
-        ImNodes::PopStyleVar();
-    */
+    @BindingMethod
+    public static native void StyleColorsLight();
 
     /**
      * The top-level function call. Call this before calling BeginNode/EndNode. Calling this function
      * will result the node editor grid workspace being rendered.
      */
-    public static native void beginNodeEditor(); /*
-        ImNodes::BeginNodeEditor();
-    */
+    @BindingMethod
+    public static native void BeginNodeEditor();
 
-    public static native void endNodeEditor(); /*
-        ImNodes::EndNodeEditor();
-    */
-
-    public static native void beginNode(int node); /*
-        ImNodes::BeginNode(node);
-    */
-
-    public static native void endNode(); /*
-        ImNodes::EndNode();
-    */
+    @BindingMethod
+    public static native void EndNodeEditor();
 
     /**
-     * Render a link between attributes.
-     * The attributes ids used here must match the ids used in Begin(Input|Output)Attribute function
-     * calls. The order of source and target doesn't make a difference for rendering the link.
+     * Add a navigable minimap to the editor; call before EndNodeEditor after all nodes and links have been specified
+     * // TODO: add callback
      */
-    public static native void link(int id, int source, int target); /*
-        ImNodes::Link(id, source, target);
-    */
+    @BindingMethod
+    public static native void MiniMap(@OptArg float miniMapSizeFraction, @OptArg @ArgValue(staticCast = "ImNodesMiniMapLocation") int miniMapLocation);
+
+    /**
+     * Use PushColorStyle and PopColorStyle to modify ImNodesColorStyle mid-frame.
+     */
+    @BindingMethod
+    public static native void PushColorStyle(@ArgValue(staticCast = "ImNodesCol") int item, int color);
+
+    @BindingMethod
+    public static native void PopColorStyle();
+
+    @BindingMethod
+    public static native void PushStyleVar(@ArgValue(staticCast = "ImNodesStyleVar") int styleItem, float value);
+
+    @BindingMethod
+    public static native void PushStyleVar(@ArgValue(staticCast = "ImNodesStyleVar") int styleItem, ImVec2 value);
+
+    @BindingMethod
+    public static native void PopStyleVar();
+
+    @BindingMethod
+    public static native void BeginNode(int node);
+
+    @BindingMethod
+    public static native void EndNode();
+
+    @BindingMethod
+    public static native ImVec2 GetNodeDimensions(int id);
 
     /**
      * Place your node title bar content (such as the node title, using ImGui::Text) between the
      * following function calls. These functions have to be called before adding any attributes, or the
      * layout of the node will be incorrect.
      */
-    public static native void beginNodeTitleBar(); /*
-        ImNodes::BeginNodeTitleBar();
-    */
+    @BindingMethod
+    public static native void BeginNodeTitleBar();
 
-    public static native void endNodeTitleBar(); /*
-        ImNodes::EndNodeTitleBar();
-    */
+    @BindingMethod
+    public static native void EndNodeTitleBar();
 
     // Attributes are ImGui UI elements embedded within the node. Attributes can have pin shapes
     // rendered next to them. Links are created between pins.
@@ -155,62 +151,104 @@ public final class ImNodes {
     // Each attribute id must be unique.
 
     /**
-     * Create a static attribute block. A static attribute has no pin, and therefore can't be linked to
-     * anything. However, you can still use IsAttributeActive() and IsAnyAttributeActive() to check for
-     * attribute activity.
-     */
-    public static native void beginStaticAttribute(int id); /*
-        ImNodes::BeginStaticAttribute(id);
-    */
-
-    public static native void endStaticAttribute(); /*
-        ImNodes::EndStaticAttribute();
-    */
-
-    /**
      * Create an input attribute block. The pin is rendered on left side.
      */
-    public static void beginInputAttribute(final int id) {
-        beginInputAttribute(id, ImNodesPinShape.CircleFilled);
-    }
-
-    public static native void beginInputAttribute(int id, int imNodesPinShape); /*
+    @BindingMethod
+    public static native void BeginInputAttribute(int id, @OptArg @ArgValue(staticCast = "ImNodesPinShape") int shape); /*
         ImNodes::BeginInputAttribute(id, (ImNodesPinShape)imNodesPinShape);
     */
 
-    public static native void endInputAttribute(); /*
-        ImNodes::EndInputAttribute();
-    */
+    @BindingMethod
+    public static native void EndInputAttribute();
 
     /**
      * Create an output attribute block. The pin is rendered on the right side.
      */
-    public static void beginOutputAttribute(final int id) {
-        beginOutputAttribute(id, ImNodesPinShape.CircleFilled);
-    }
+    @BindingMethod
+    public static native void BeginOutputAttribute(int id, @OptArg @ArgValue(staticCast = "ImNodesPinShape") int shape);
 
-    public static native void beginOutputAttribute(int id, int imNodesPinShape); /*
-        ImNodes::BeginOutputAttribute(id, (ImNodesPinShape)imNodesPinShape);
-    */
+    @BindingMethod
+    public static native void EndOutputAttribute();
+
+    /**
+     * Create a static attribute block. A static attribute has no pin, and therefore can't be linked to
+     * anything. However, you can still use IsAttributeActive() and IsAnyAttributeActive() to check for
+     * attribute activity.
+     */
+    @BindingMethod
+    public static native void BeginStaticAttribute(int id);
+
+    @BindingMethod
+    public static native void EndStaticAttribute();
 
     /**
      * Push a single AttributeFlags value. By default, only AttributeFlags_None is set.
      */
-    public static native void pushAttributeFlag(int imNodesAttributeFlags); /*
-        ImNodes::PushAttributeFlag((ImNodesAttributeFlags)imNodesAttributeFlags);
-    */
+    @BindingMethod
+    public static native void PushAttributeFlag(@ArgValue(staticCast = "ImNodesAttributeFlags") int flag);
 
-    public static native void endOutputAttribute(); /*
-        ImNodes::EndOutputAttribute();
-    */
+    @BindingMethod
+    public static native void PopAttributeFlag();
+
+    /**
+     * Render a link between attributes.
+     * The attributes ids used here must match the ids used in Begin(Input|Output)Attribute function
+     * calls. The order of source and target doesn't make a difference for rendering the link.
+     */
+    @BindingMethod
+    public static native void Link(int id, int source, int target);
+
+    /**
+     * Enable or disable the ability to click and drag a specific node.
+     */
+    @BindingMethod
+    public static native void SetNodeDraggable(int nodeId, boolean draggable);
+
+    // The node's position can be expressed in three coordinate systems:
+    // * screen space coordinates, -- the origin is the upper left corner of the window.
+    // * editor space coordinates -- the origin is the upper left corner of the node editor window
+    // * grid space coordinates, -- the origin is the upper left corner of the node editor window,
+    // translated by the current editor panning vector (see EditorContextGetPanning() and
+    // EditorContextResetPanning())
+    // Use the following functions to get and set the node's coordinates in these coordinate systems.
+
+    @BindingMethod
+    public static native void SetNodeScreenSpacePos(int nodeId, ImVec2 screenSpacePos);
+
+    @BindingMethod
+    public static native void SetNodeEditorSpacePos(int nodeId, ImVec2 editorSpacePos);
+
+    @BindingMethod
+    public static native void SetNodeGridSpacePos(int nodeId, ImVec2 gridPos);
+
+    @BindingMethod
+    public static native void GetNodeScreenSpacePos(int nodeId);
+
+    @BindingMethod
+    public static native void GetNodeEditorSpacePos(int nodeId);
+
+    @BindingMethod
+    public static native void GetNodeGridSpacePos(int nodeId);
 
     /**
      * Returns true if the current node editor canvas is being hovered over by the mouse, and is not
      * blocked by any other windows.
      */
-    public static native boolean isEditorHovered(); /*
-        return ImNodes::IsEditorHovered();
-    */
+    @BindingMethod
+    public static native boolean IsEditorHovered();
+
+    // The following functions return true if a UI element is being hovered over by the mouse cursor.
+    // Assigns the id of the UI element being hovered over to the function argument. Use these functions
+    // after EndNodeEditor() has been called.
+
+    @BindingMethod
+    public static native boolean IsNodeHovered(ImInt nodeId);
+
+    @BindingMethod
+    public static native boolean IsLinkHovered(ImInt linkId);
+
+    @BindingMethod
+    public static native boolean IsPinHovered(ImInt attributeId);
 
     // Binding notice: getHoveredNode(), getHoveredLink() and getHoveredPin()
     // return id of the hovered object. If there is no such object -1 will be returned.
@@ -244,6 +282,75 @@ public final class ImNodes {
     */
 
     /**
+     * Use The following two functions to query the number of selected nodes or links in the current
+     * editor. Use after calling EndNodeEditor().
+     */
+    @BindingMethod
+    public static native int NumSelectedNodes();
+
+    @BindingMethod
+    public static native int NumSelectedLinks();
+
+    /**
+     * Get the selected node/link ids. The pointer argument should point to an integer array with at
+     * least as many elements as the respective NumSelectedNodes/NumSelectedLinks function call
+     * returned.
+     */
+    @BindingMethod
+    public static native void GetSelectedNodes(int[] nodeIds);
+
+    /**
+     * Get the selected node/link ids. The pointer argument should point to an integer array with at
+     * least as many elements as the respective NumSelectedNodes/NumSelectedLinks function call
+     * returned.
+     */
+    @BindingMethod
+    public static native void GetSelectedLinks(int[] linkIds);
+
+    /**
+     * Clears the list of selected nodes/links. Useful if you want to delete a selected node or link.
+     */
+    @BindingMethod
+    public static native void ClearNodeSelection();
+
+    /**
+     * Clears the list of selected nodes/links. Useful if you want to delete a selected node or link.
+     */
+    @BindingMethod
+    public static native void ClearLinkSelection();
+
+    /**
+     * Manually select a node or link.
+     */
+    @BindingMethod
+    public static native void SelectNode(int nodeId);
+
+    @BindingMethod
+    public static native void ClearNodeSelection(int nodeId);
+
+    @BindingMethod
+    public static native boolean IsNodeSelected(int nodeId);
+
+    @BindingMethod
+    public static native void SelectLink(int linkId);
+
+    @BindingMethod
+    public static native void ClearLinkSelection(int linkId);
+
+    @BindingMethod
+    public static native boolean IsLinkSelected(int linkId);
+
+    /**
+     * Was the previous attribute active? This will continuously return true while the left mouse button
+     * is being pressed over the UI content of the attribute.
+     */
+    @BindingMethod
+    public static native boolean IsAttributeActive();
+
+    @BindingMethod
+    public static native boolean IsAnyAttributeActive(@OptArg ImInt attributeId);
+
+    /**
      * Binding notice: getActiveAttribute() returns id the active attribute. If there is no active attribute -1 will be returned.
      * <p>
      * This method implemented instead of the original bool ImNodes::IsAnyAttributeActive(int* attribute_id) for convenience.
@@ -253,27 +360,14 @@ public final class ImNodes {
         return ImNodes::IsAnyAttributeActive(&i) ? i : -1;
     */
 
-    /**
-     * Was the previous attribute active? This will continuously return true while the left mouse button
-     * is being pressed over the UI content of the attribute.
-     */
-    public static native boolean isAttributeActive(); /*
-        return ImNodes::IsAttributeActive();
-    */
-
     // Use the following functions to query a change of state for an existing link, or new link. Call
     // these after EndNodeEditor().
 
     /**
      * Did the user start dragging a new link from a pin?
      */
-    public static boolean isLinkStarted(final ImInt startAtAttributeId) {
-        return nIsLinkStarted(startAtAttributeId.getData());
-    }
-
-    private static native boolean nIsLinkStarted(int[] data); /*
-        return ImNodes::IsLinkStarted(&data[0]);
-    */
+    @BindingMethod
+    public static native boolean IsLinkStarted(ImInt startedAtAttributeId);
 
     /**
      * Did the user drop the dragged link before attaching it to a pin?
@@ -283,258 +377,52 @@ public final class ImNodes {
      * Use the including_detached_links flag to control whether this function triggers when the user
      * detaches a link and drops it.
      */
-    public static boolean isLinkDropped(final ImInt startedAtAttributeId, final boolean includingDetachedLinks) {
-        return nIsLinkDropped(startedAtAttributeId.getData(), includingDetachedLinks);
-    }
-
-    private static native boolean nIsLinkDropped(int[] data, boolean includingDetachedLinks); /*
-        return ImNodes::IsLinkDropped(&data[0], includingDetachedLinks);
-    */
+    @BindingMethod
+    public static native boolean IsLinkDropped(@OptArg(callValue = "NULL") ImInt startedAtAttributeId, @OptArg boolean includingDetachedLinks);
 
     /**
      * Did the user finish creating a new link?
      */
-    public static boolean isLinkCreated(final ImInt startedAtAttributeId, final ImInt endedAtAttributeId) {
-        return nIsLinkCreated(startedAtAttributeId.getData(), endedAtAttributeId.getData());
-    }
+    @BindingMethod
+    public static native boolean IsLinkCreated(ImInt startedAtAttributeId, ImInt endedAtAttributeId, @OptArg ImBoolean createdFromSnap);
 
-    private static native boolean nIsLinkCreated(int[] sourceAttribute, int[] targetAttribute); /*
-        return ImNodes::IsLinkCreated(&sourceAttribute[0], &targetAttribute[0]);
-    */
-
-    public static boolean isLinkCreated(final ImInt startedAtNodeId, final ImInt startedAtAttributeId,
-                                        final ImInt endedAtNodeId, final ImInt endedAtAttributeId,
-                                        final ImBoolean createdFromSnap) {
-        return nIsLinkCreated(startedAtNodeId.getData(), startedAtAttributeId.getData(), endedAtNodeId.getData(), endedAtAttributeId.getData(), createdFromSnap.getData());
-    }
-
-    private static native boolean nIsLinkCreated(int[] startedAtNodeId, int[] startedAtAttributeId, int[] endedAtNodeId, int[] endedAtAttributeId, boolean[] createdFromSnap); /*
-        return ImNodes::IsLinkCreated(&startedAtNodeId[0], &startedAtAttributeId[0], &endedAtNodeId[0], &endedAtAttributeId[0], &createdFromSnap[0]);
-    */
+    /**
+     * Did the user finish creating a new link?
+     */
+    @BindingMethod
+    public static native boolean IsLinkCreated(ImInt startedAtNodeId, ImInt startedAtAttributeId, ImInt endedAtNodeId, ImInt endedAtAttributeId, @OptArg ImBoolean createdFromSnap);
 
     /**
      * Was an existing link detached from a pin by the user? The detached link's id is assigned to the
      * output argument link_id.
      */
-    public static boolean isLinkDestroyed(final ImInt linkId) {
-        return nIsLinkDestroyed(linkId.getData());
-    }
-
-    private static native boolean nIsLinkDestroyed(int[] linkId); /*
-        return ImNodes::IsLinkDestroyed(&linkId[0]);
-    */
-
-    /**
-     * Use The following two functions to query the number of selected nodes or links in the current
-     * editor. Use after calling EndNodeEditor().
-     */
-    public static native int numSelectedNodes(); /*
-        return ImNodes::NumSelectedNodes();
-    */
-
-    public static native int numSelectedLinks(); /*
-        return ImNodes::NumSelectedLinks();
-    */
-
-    /**
-     * Get the selected node/link ids. The pointer argument should point to an integer array with at
-     * least as many elements as the respective NumSelectedNodes/NumSelectedLinks function call
-     * returned.
-     */
-    public static native void getSelectedNodes(int[] nodeIds); /*
-        ImNodes::GetSelectedNodes(&nodeIds[0]);
-    */
-
-    public static native void getSelectedLinks(int[] linkIds); /*
-        ImNodes::GetSelectedLinks(&linkIds[0]);
-    */
-
-    /**
-     * Clears the list of selected nodes/links. Useful if you want to delete a selected node or link.
-     */
-    public static native void clearNodeSelection(); /*
-        ImNodes::ClearNodeSelection();
-    */
-
-    public static native void clearNodeSelection(int node); /*
-        ImNodes::ClearNodeSelection(node);
-    */
-
-    public static native void clearLinkSelection(); /*
-        ImNodes::ClearLinkSelection();
-    */
-
-    public static native void clearLinkSelection(int link); /*
-        ImNodes::ClearLinkSelection(link);
-    */
-
-    /**
-     * Manually select a node or link.
-     */
-    public static native void selectNode(int node); /*
-        ImNodes::SelectNode(node);
-    */
-
-    public static native void selectLink(int link); /*
-        ImNodes::SelectLink(link);
-    */
-
-     /**
-     * Check if a a specified node/link is selected.
-     */
-    public static native boolean isNodeSelected(int node); /*
-        return ImNodes::IsNodeSelected(node);
-    */
-
-    public static native boolean isLinkSelected(int link); /*
-        return ImNodes::IsLinkSelected(link);
-    */
-
-    /**
-     * Enable or disable the ability to click and drag a specific node.
-     */
-    public static native void setNodeDraggable(int node, boolean isDraggable); /*
-        ImNodes::SetNodeDraggable(node, isDraggable);
-    */
-
-    public static native void getNodeDimensions(int node, ImVec2 result); /*
-        ImVec2 dst = ImNodes::GetNodeDimensions(node);
-        Jni::ImVec2Cpy(env, &dst, result);
-    */
-
-    public static native float getNodeDimensionsX(int node); /*
-        return ImNodes::GetNodeDimensions(node).x;
-    */
-
-    public static native float getNodeDimensionsY(int node); /*
-        return ImNodes::GetNodeDimensions(node).y;
-    */
-
-
-    // The node's position can be expressed in three coordinate systems:
-    // * screen space coordinates, -- the origin is the upper left corner of the window.
-    // * editor space coordinates -- the origin is the upper left corner of the node editor window
-    // * grid space coordinates, -- the origin is the upper left corner of the node editor window,
-    // translated by the current editor panning vector (see EditorContextGetPanning() and
-    // EditorContextResetPanning())
-    // Use the following functions to get and set the node's coordinates in these coordinate systems.
-
-    public static native void setNodeScreenSpacePos(int node, float x, float y); /*
-        ImNodes::SetNodeScreenSpacePos(node, ImVec2(x, y));
-    */
-
-    public static native void setNodeEditorSpacePos(int node, float x, float y); /*
-        ImNodes::SetNodeEditorSpacePos(node, ImVec2(x, y));
-    */
-
-    public static native void setNodeGridSpacePos(int node, float x, float y); /*
-        ImNodes::SetNodeGridSpacePos(node, ImVec2(x, y));
-    */
-
-    public static native void getNodeScreenSpacePos(int node, ImVec2 result); /*
-        ImVec2 dst = ImNodes::GetNodeScreenSpacePos(node);
-        Jni::ImVec2Cpy(env, &dst, result);
-    */
-
-    public static native float getNodeScreenSpacePosX(int node); /*
-        return ImNodes::GetNodeScreenSpacePos(node).x;
-    */
-
-    public static native float getNodeScreenSpacePosY(int node); /*
-        return ImNodes::GetNodeScreenSpacePos(node).y;
-    */
-
-    public static native void getNodeEditorSpacePos(int node, ImVec2 result); /*
-        ImVec2 dst = ImNodes::GetNodeEditorSpacePos(node);
-        Jni::ImVec2Cpy(env, &dst, result);
-    */
-
-    public static native float getNodeEditorSpacePosX(int node); /*
-        return ImNodes::GetNodeEditorSpacePos(node).x;
-    */
-
-    public static native float getNodeEditorSpacePosY(int node); /*
-        return ImNodes::GetNodeEditorSpacePos(node).y;
-    */
-
-    public static native void getNodeGridSpacePos(int node, ImVec2 dst); /*
-        ImVec2 result = ImNodes::GetNodeGridSpacePos(node);
-        Jni::ImVec2Cpy(env, &result, dst);
-    */
-
-    public static native float getNodeGridSpacePosX(int node); /*
-        return ImNodes::GetNodeGridSpacePos(node).x;
-    */
-
-    public static native float getNodeGridSpacePosY(int node); /*
-        return ImNodes::GetNodeGridSpacePos(node).y;
-    */
-
-    public static native void editorResetPanning(float x, float y); /*
-        ImNodes::EditorContextResetPanning(ImVec2(x, y));
-    */
-
-    public static native void editorContextGetPanning(ImVec2 result); /*
-        ImVec2 dst = ImNodes::EditorContextGetPanning();
-        Jni::ImVec2Cpy(env, &dst, result);
-    */
-
-    public static native void editorMoveToNode(int node); /*
-        ImNodes::EditorContextMoveToNode(node);
-    */
+    @BindingMethod
+    public static native boolean IsLinkDestroyed(ImInt linkId);
 
     // Use the following functions to write the editor context's state to a string, or directly to a
     // file. The editor context is serialized in the INI file format.
 
-    public static native String saveCurrentEditorStateToIniString(); /*
-        return env->NewStringUTF(ImNodes::SaveCurrentEditorStateToIniString(NULL));
-    */
+    @BindingMethod
+    public static native String SaveCurrentEditorStateToIniString();
 
-    public static String saveEditorStateToIniString(final ImNodesContext context) {
-        return nSaveEditorStateToIniString(context.ptr);
-    }
+    @BindingMethod
+    public static native String SaveEditorStateToIniString(ImNodesEditorContext editor);
 
-    private static native String nSaveEditorStateToIniString(long context); /*
-        return env->NewStringUTF(ImNodes::SaveEditorStateToIniString((ImNodesEditorContext*)context, NULL));
-    */
+    @BindingMethod
+    public static native void LoadCurrentEditorStateFromIniString(String data, int dataSize);
 
-    public static native void loadCurrentEditorStateFromIniString(String data, int dataSize); /*
-        ImNodes::LoadCurrentEditorStateFromIniString(data, dataSize);
-    */
+    @BindingMethod
+    public static native void LoadEditorStateFromIniString(ImNodesEditorContext editor, String data, int dataSize);
 
-    public static void loadEditorStateFromIniString(final ImNodesContext context, final String data, final int dataSize) {
-        nLoadEditorStateFromIniString(context.ptr, data, dataSize);
-    }
+    @BindingMethod
+    public static native void SaveCurrentEditorStateToIniFile(String fileName);
 
-    private static native void nLoadEditorStateFromIniString(long context, String data, int dataSize); /*
-        ImNodes::LoadEditorStateFromIniString((ImNodesEditorContext*)context, data, dataSize);
-    */
+    @BindingMethod
+    public static native void SaveEditorStateToIniFile(ImNodesEditorContext editor, String fileName);
 
-    public static native void saveCurrentEditorStateToIniFile(String fileName); /*
-        ImNodes::SaveCurrentEditorStateToIniFile(fileName);
-    */
+    @BindingMethod
+    public static native void LoadCurrentEditorStateFromIniFile(String fileName);
 
-    public static void saveEditorStateToIniFile(final ImNodesContext context, final String fileName) {
-        nSaveEditorStateToIniFile(context.ptr, fileName);
-    }
-
-    private static native void nSaveEditorStateToIniFile(long context, String fileName); /*
-        ImNodes::SaveEditorStateToIniFile((ImNodesEditorContext*)context, fileName);
-    */
-
-    public static native void loadCurrentEditorStateFromIniFile(String fileName); /*
-        ImNodes::LoadCurrentEditorStateFromIniFile(fileName);
-    */
-
-    public static void loadEditorStateFromIniFile(final ImNodesContext context, final String fileName) {
-        nLoadEditorStateFromIniFile(context.ptr, fileName);
-    }
-
-    private static native void nLoadEditorStateFromIniFile(long context, String fileName); /*
-        ImNodes::LoadEditorStateFromIniFile((ImNodesEditorContext*)context, fileName);
-    */
-
-    public static native void miniMap(float miniMapSizeFraction, int miniMapLocation); /*
-        ImNodes::MiniMap(miniMapSizeFraction, (ImNodesMiniMapLocation)miniMapLocation);
-    */
+    @BindingMethod
+    public static native void LoadEditorStateFromIniFile(ImNodesEditorContext editor, String fileName);
 }

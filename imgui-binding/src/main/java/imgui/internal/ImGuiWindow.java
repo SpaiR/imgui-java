@@ -1,31 +1,35 @@
 package imgui.internal;
 
 import imgui.binding.ImGuiStruct;
+import imgui.binding.annotation.BindingField;
+import imgui.binding.annotation.BindingSource;
 
+@BindingSource
 public class ImGuiWindow extends ImGuiStruct {
     public ImGuiWindow(final long ptr) {
         super(ptr);
+        ImGui.init();
     }
 
     /*JNI
         #include "_common.h"
-        #include <imgui_internal.h>
-
-        #define IMGUI_WINDOW ((ImGuiWindow*)STRUCT_PTR)
+        #include "_internal.h"
+        #define THIS ((ImGuiWindow*)STRUCT_PTR)
      */
 
     /**
      * Is scrollbar visible?
      */
-    public native boolean isScrollbarX(); /*
-       return IMGUI_WINDOW->ScrollbarX;
-    */
+    @BindingField(accessors = BindingField.Accessor.GETTER)
+    public boolean ScrollbarX;
 
     /**
      * Is scrollbar visible?
      */
-    public native boolean isScrollbarY(); /*
-       return IMGUI_WINDOW->ScrollbarY;
-    */
+    @BindingField(accessors = BindingField.Accessor.GETTER)
+    public boolean ScrollbarY;
 
+    /*JNI
+        #undef THIS
+     */
 }

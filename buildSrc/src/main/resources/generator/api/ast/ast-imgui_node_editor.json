@@ -1,0 +1,3024 @@
+{
+  "info" : {
+    "source" : "include/imgui-node-editor/imgui_node_editor.h",
+    "hash" : "0f066843f1362eeb6d7ee7b7f4fad24f",
+    "url" : "https://github.com/thedmd/imgui-node-editor",
+    "revision" : "d79ebdeb2375fa6c1f88a40e52e7d08c8d472b62"
+  },
+  "decls" : [ {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 534,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 534,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 536,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 550,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 550,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 550,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 552,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 554,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 555,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 556,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 556,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 560,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 562,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 562,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 566,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 568,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 568,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 568,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 568,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 568,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 568,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 570,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 572,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 572,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 572,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 574,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 574,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 578,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 578,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 578,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 579,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 581,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 583,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 584,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 586,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 587,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 589,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 595,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 595,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 597,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 599,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 601,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 601,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 603,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 603,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 605,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 605,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 605,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 605,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 605,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 605,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 605,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 607,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 608,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 609,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 609,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 609,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 611,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 611,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 611,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 611,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 613,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 613,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 613,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 615,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 615,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 616,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 617,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 620,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 620,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 624,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 624,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 625,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 625,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 626,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 627,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 628,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 628,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 630,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 631,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 632,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 633,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 634,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 635,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 637,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 637,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 638,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 639,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 640,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 640,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 641,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 642,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 645,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 646,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 648,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 648,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 649,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 650,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 653,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 653,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 654,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 656,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 657,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 659,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 660,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 660,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 660,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 664,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 666,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 669,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 669,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 674,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 675,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 675,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 677,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 677,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 679,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 679,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 682,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 684,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 684,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 687,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 687,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 691,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 691,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 693,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 695,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 695,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 695,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 696,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 699,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 699,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 699,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 701,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 704,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 710,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 711,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 711,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 714,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 716,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 721,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 723,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 726,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 730,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 731,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 734,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 736,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 736,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 737,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 737,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 741,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 742,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 745,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 746,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 747,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 752,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 756,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 756,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 756,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 758,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 761,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 764,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 771,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 772,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 775,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 778,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 781,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 781,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 784,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 787,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 790,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 794,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 795,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 799,
+    "name" : "ax",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "offset" : 710,
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "offset" : 710,
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "offset" : 710,
+          "text" : "------------------------------------------------------------------------------"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstNamespaceDecl",
+      "offset" : 814,
+      "name" : "NodeEditor",
+      "decls" : [ {
+        "@type" : "AstRecordDecl",
+        "offset" : 917,
+        "name" : "NodeId",
+        "decls" : [ {
+          "@type" : "AstFullComment",
+          "offset" : 831,
+          "decls" : [ {
+            "@type" : "AstParagraphComment",
+            "offset" : 831,
+            "decls" : [ {
+              "@type" : "AstTextComment",
+              "offset" : 831,
+              "text" : "------------------------------------------------------------------------------"
+            } ]
+          } ]
+        } ]
+      }, {
+        "@type" : "AstEnumDecl",
+        "offset" : 1048,
+        "name" : "SaveReasonFlags",
+        "decls" : [ {
+          "@type" : "AstFullComment",
+          "offset" : 958,
+          "decls" : [ {
+            "@type" : "AstParagraphComment",
+            "offset" : 958,
+            "decls" : [ {
+              "@type" : "AstTextComment",
+              "offset" : 958,
+              "text" : "------------------------------------------------------------------------------"
+            } ]
+          } ]
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 1080,
+          "name" : "None",
+          "qualType" : "ax::NodeEditor::SaveReasonFlags",
+          "order" : 0,
+          "value" : "0x00000000",
+          "evaluatedValue" : "0"
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 1109,
+          "name" : "Navigation",
+          "qualType" : "ax::NodeEditor::SaveReasonFlags",
+          "order" : 1,
+          "value" : "0x00000001",
+          "evaluatedValue" : "1"
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 1138,
+          "name" : "Position",
+          "qualType" : "ax::NodeEditor::SaveReasonFlags",
+          "order" : 2,
+          "value" : "0x00000002",
+          "evaluatedValue" : "2"
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 1167,
+          "name" : "Size",
+          "qualType" : "ax::NodeEditor::SaveReasonFlags",
+          "order" : 3,
+          "value" : "0x00000004",
+          "evaluatedValue" : "4"
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 1196,
+          "name" : "Selection",
+          "qualType" : "ax::NodeEditor::SaveReasonFlags",
+          "order" : 4,
+          "value" : "0x00000008",
+          "evaluatedValue" : "8"
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 1225,
+          "name" : "User",
+          "qualType" : "ax::NodeEditor::SaveReasonFlags",
+          "order" : 5,
+          "value" : "0x00000010",
+          "evaluatedValue" : "16"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 1276,
+        "name" : "operator|",
+        "resultType" : "SaveReasonFlags",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 1303,
+          "name" : "lhs",
+          "qualType" : "SaveReasonFlags",
+          "desugaredQualType" : "ax::NodeEditor::SaveReasonFlags"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 1324,
+          "name" : "rhs",
+          "qualType" : "SaveReasonFlags",
+          "desugaredQualType" : "ax::NodeEditor::SaveReasonFlags"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 1450,
+        "name" : "operator&",
+        "resultType" : "SaveReasonFlags",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 1477,
+          "name" : "lhs",
+          "qualType" : "SaveReasonFlags",
+          "desugaredQualType" : "ax::NodeEditor::SaveReasonFlags"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 1498,
+          "name" : "rhs",
+          "qualType" : "SaveReasonFlags",
+          "desugaredQualType" : "ax::NodeEditor::SaveReasonFlags"
+        } ]
+      }, {
+        "@type" : "AstRecordDecl",
+        "offset" : 2086,
+        "name" : "Config",
+        "decls" : [ {
+          "@type" : "AstFieldDecl",
+          "offset" : 2123,
+          "name" : "SettingsFile",
+          "qualType" : "const char *",
+          "desugaredQualType" : "const char *"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 2165,
+          "name" : "BeginSaveSession",
+          "qualType" : "ConfigSession",
+          "desugaredQualType" : "void (*)(void *)"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 2211,
+          "name" : "EndSaveSession",
+          "qualType" : "ConfigSession",
+          "desugaredQualType" : "void (*)(void *)"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 2255,
+          "name" : "SaveSettings",
+          "qualType" : "ConfigSaveSettings",
+          "desugaredQualType" : "bool (*)(const char *, size_t, SaveReasonFlags, void *)"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 2297,
+          "name" : "LoadSettings",
+          "qualType" : "ConfigLoadSettings",
+          "desugaredQualType" : "size_t (*)(char *, void *)"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 2339,
+          "name" : "SaveNodeSettings",
+          "qualType" : "ConfigSaveNodeSettings",
+          "desugaredQualType" : "bool (*)(NodeId, const char *, size_t, SaveReasonFlags, void *)"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 2385,
+          "name" : "LoadNodeSettings",
+          "qualType" : "ConfigLoadNodeSettings",
+          "desugaredQualType" : "size_t (*)(NodeId, char *, void *)"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 2431,
+          "name" : "UserPointer",
+          "qualType" : "void *",
+          "desugaredQualType" : "void *"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 2472,
+          "name" : "DragButtonIndex",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 2600,
+          "name" : "SelectButtonIndex",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 2730,
+          "name" : "NavigateButtonIndex",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 2862,
+          "name" : "ContextMenuButtonIndex",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        } ]
+      }, {
+        "@type" : "AstEnumDecl",
+        "offset" : 3501,
+        "name" : "PinKind",
+        "decls" : [ {
+          "@type" : "AstFullComment",
+          "offset" : 3411,
+          "decls" : [ {
+            "@type" : "AstParagraphComment",
+            "offset" : 3411,
+            "decls" : [ {
+              "@type" : "AstTextComment",
+              "offset" : 3411,
+              "text" : "------------------------------------------------------------------------------"
+            } ]
+          } ]
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3515,
+          "name" : "Input",
+          "qualType" : "ax::NodeEditor::PinKind",
+          "order" : 0
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3526,
+          "name" : "Output",
+          "qualType" : "ax::NodeEditor::PinKind",
+          "order" : 1
+        } ]
+      }, {
+        "@type" : "AstEnumDecl",
+        "offset" : 3548,
+        "name" : "FlowDirection",
+        "decls" : [ {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3568,
+          "name" : "Forward",
+          "qualType" : "ax::NodeEditor::FlowDirection",
+          "order" : 0
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3581,
+          "name" : "Backward",
+          "qualType" : "ax::NodeEditor::FlowDirection",
+          "order" : 1
+        } ]
+      }, {
+        "@type" : "AstEnumDecl",
+        "offset" : 3681,
+        "name" : "StyleColor",
+        "decls" : [ {
+          "@type" : "AstFullComment",
+          "offset" : 3597,
+          "decls" : [ {
+            "@type" : "AstParagraphComment",
+            "offset" : 3597,
+            "decls" : [ {
+              "@type" : "AstTextComment",
+              "offset" : 3597,
+              "text" : "------------------------------------------------------------------------------"
+            } ]
+          } ]
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3698,
+          "name" : "StyleColor_Bg",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 0
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3717,
+          "name" : "StyleColor_Grid",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 1
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3738,
+          "name" : "StyleColor_NodeBg",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 2
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3761,
+          "name" : "StyleColor_NodeBorder",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 3
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3788,
+          "name" : "StyleColor_HovNodeBorder",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 4
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3818,
+          "name" : "StyleColor_SelNodeBorder",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 5
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3848,
+          "name" : "StyleColor_NodeSelRect",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 6
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3876,
+          "name" : "StyleColor_NodeSelRectBorder",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 7
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3910,
+          "name" : "StyleColor_HovLinkBorder",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 8
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3940,
+          "name" : "StyleColor_SelLinkBorder",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 9
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3970,
+          "name" : "StyleColor_LinkSelRect",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 10
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 3998,
+          "name" : "StyleColor_LinkSelRectBorder",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 11
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4032,
+          "name" : "StyleColor_PinRect",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 12
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4056,
+          "name" : "StyleColor_PinRectBorder",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 13
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4086,
+          "name" : "StyleColor_Flow",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 14
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4107,
+          "name" : "StyleColor_FlowMarker",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 15
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4134,
+          "name" : "StyleColor_GroupBg",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 16
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4158,
+          "name" : "StyleColor_GroupBorder",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 17
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4187,
+          "name" : "StyleColor_Count",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 18
+        } ]
+      }, {
+        "@type" : "AstEnumDecl",
+        "offset" : 4213,
+        "name" : "StyleVar",
+        "decls" : [ {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4228,
+          "name" : "StyleVar_NodePadding",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 0
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4254,
+          "name" : "StyleVar_NodeRounding",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 1
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4281,
+          "name" : "StyleVar_NodeBorderWidth",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 2
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4311,
+          "name" : "StyleVar_HoveredNodeBorderWidth",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 3
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4348,
+          "name" : "StyleVar_SelectedNodeBorderWidth",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 4
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4386,
+          "name" : "StyleVar_PinRounding",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 5
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4412,
+          "name" : "StyleVar_PinBorderWidth",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 6
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4441,
+          "name" : "StyleVar_LinkStrength",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 7
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4468,
+          "name" : "StyleVar_SourceDirection",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 8
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4498,
+          "name" : "StyleVar_TargetDirection",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 9
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4528,
+          "name" : "StyleVar_ScrollDuration",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 10
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4557,
+          "name" : "StyleVar_FlowMarkerDistance",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 11
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4590,
+          "name" : "StyleVar_FlowSpeed",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 12
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4614,
+          "name" : "StyleVar_FlowDuration",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 13
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4641,
+          "name" : "StyleVar_PivotAlignment",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 14
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4670,
+          "name" : "StyleVar_PivotSize",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 15
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4694,
+          "name" : "StyleVar_PivotScale",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 16
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4719,
+          "name" : "StyleVar_PinCorners",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 17
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4744,
+          "name" : "StyleVar_PinRadius",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 18
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4768,
+          "name" : "StyleVar_PinArrowSize",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 19
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4795,
+          "name" : "StyleVar_PinArrowWidth",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 20
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4823,
+          "name" : "StyleVar_GroupRounding",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 21
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4851,
+          "name" : "StyleVar_GroupBorderWidth",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 22
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "offset" : 4883,
+          "name" : "StyleVar_Count",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 23
+        } ]
+      }, {
+        "@type" : "AstRecordDecl",
+        "offset" : 4909,
+        "name" : "Style",
+        "decls" : [ {
+          "@type" : "AstFieldDecl",
+          "offset" : 4929,
+          "name" : "NodePadding",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 4954,
+          "name" : "NodeRounding",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 4980,
+          "name" : "NodeBorderWidth",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5009,
+          "name" : "HoveredNodeBorderWidth",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5045,
+          "name" : "SelectedNodeBorderWidth",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5082,
+          "name" : "PinRounding",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5107,
+          "name" : "PinBorderWidth",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5135,
+          "name" : "LinkStrength",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5161,
+          "name" : "SourceDirection",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5190,
+          "name" : "TargetDirection",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5219,
+          "name" : "ScrollDuration",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5247,
+          "name" : "FlowMarkerDistance",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5279,
+          "name" : "FlowSpeed",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5302,
+          "name" : "FlowDuration",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5328,
+          "name" : "PivotAlignment",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5356,
+          "name" : "PivotSize",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5379,
+          "name" : "PivotScale",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5403,
+          "name" : "PinCorners",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5427,
+          "name" : "PinRadius",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5450,
+          "name" : "PinArrowSize",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5476,
+          "name" : "PinArrowWidth",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5503,
+          "name" : "GroupRounding",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5530,
+          "name" : "GroupBorderWidth",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "offset" : 5560,
+          "name" : "Colors",
+          "qualType" : "int[18]",
+          "desugaredQualType" : "int[18]"
+        } ]
+      }, {
+        "@type" : "AstRecordDecl",
+        "offset" : 8220,
+        "name" : "EditorContext",
+        "decls" : [ {
+          "@type" : "AstFullComment",
+          "offset" : 8134,
+          "decls" : [ {
+            "@type" : "AstParagraphComment",
+            "offset" : 8134,
+            "decls" : [ {
+              "@type" : "AstTextComment",
+              "offset" : 8134,
+              "text" : "------------------------------------------------------------------------------"
+            } ]
+          } ]
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8323,
+        "name" : "SetCurrentEditor",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstFullComment",
+          "offset" : 8239,
+          "decls" : [ {
+            "@type" : "AstParagraphComment",
+            "offset" : 8239,
+            "decls" : [ {
+              "@type" : "AstTextComment",
+              "offset" : 8239,
+              "text" : "------------------------------------------------------------------------------"
+            } ]
+          } ]
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8355,
+          "name" : "ctx",
+          "qualType" : "EditorContext *",
+          "desugaredQualType" : "EditorContext *"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8376,
+        "name" : "GetCurrentEditor",
+        "resultType" : "EditorContext *"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8411,
+        "name" : "CreateEditor",
+        "resultType" : "EditorContext *",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8438,
+          "name" : "config",
+          "qualType" : "const Config *",
+          "desugaredQualType" : "const Config *",
+          "defaultValue" : "nullptr"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8462,
+        "name" : "DestroyEditor",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8491,
+          "name" : "ctx",
+          "qualType" : "EditorContext *",
+          "desugaredQualType" : "EditorContext *"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8505,
+        "name" : "GetStyle",
+        "resultType" : "Style &"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8529,
+        "name" : "GetStyleColorName",
+        "resultType" : "const char *",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8558,
+          "name" : "colorIndex",
+          "qualType" : "StyleColor",
+          "desugaredQualType" : "ax::NodeEditor::StyleColor"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8577,
+        "name" : "PushStyleColor",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8603,
+          "name" : "colorIndex",
+          "qualType" : "StyleColor",
+          "desugaredQualType" : "ax::NodeEditor::StyleColor"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8629,
+          "name" : "color",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8642,
+        "name" : "PopStyleColor",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8660,
+          "name" : "count",
+          "qualType" : "int",
+          "desugaredQualType" : "int",
+          "defaultValue" : "1"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8678,
+        "name" : "PushStyleVar",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8700,
+          "name" : "varIndex",
+          "qualType" : "StyleVar",
+          "desugaredQualType" : "ax::NodeEditor::StyleVar"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8716,
+          "name" : "value",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8729,
+        "name" : "PushStyleVar",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8751,
+          "name" : "varIndex",
+          "qualType" : "StyleVar",
+          "desugaredQualType" : "ax::NodeEditor::StyleVar"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8775,
+          "name" : "value",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8788,
+        "name" : "PushStyleVar",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8810,
+          "name" : "varIndex",
+          "qualType" : "StyleVar",
+          "desugaredQualType" : "ax::NodeEditor::StyleVar"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8834,
+          "name" : "value",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8847,
+        "name" : "PopStyleVar",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8863,
+          "name" : "count",
+          "qualType" : "int",
+          "desugaredQualType" : "int",
+          "defaultValue" : "1"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8881,
+        "name" : "Begin",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8899,
+          "name" : "id",
+          "qualType" : "const char *",
+          "desugaredQualType" : "const char *"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8917,
+          "name" : "size",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &",
+          "defaultValue" : "ImVec2(0, 0)"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8944,
+        "name" : "End",
+        "resultType" : "void"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8957,
+        "name" : "BeginNode",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8974,
+          "name" : "id",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 8984,
+        "name" : "BeginPin",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 8999,
+          "name" : "id",
+          "qualType" : "PinId",
+          "desugaredQualType" : "ax::NodeEditor::PinId"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9011,
+          "name" : "kind",
+          "qualType" : "PinKind",
+          "desugaredQualType" : "ax::NodeEditor::PinKind"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9023,
+        "name" : "PinRect",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9045,
+          "name" : "a",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9062,
+          "name" : "b",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9071,
+        "name" : "PinPivotRect",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9098,
+          "name" : "a",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9115,
+          "name" : "b",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9124,
+        "name" : "PinPivotSize",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9151,
+          "name" : "size",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9163,
+        "name" : "PinPivotScale",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9191,
+          "name" : "scale",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9204,
+        "name" : "PinPivotAlignment",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9236,
+          "name" : "alignment",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9253,
+        "name" : "EndPin",
+        "resultType" : "void"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9268,
+        "name" : "Group",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9288,
+          "name" : "size",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9300,
+        "name" : "EndNode",
+        "resultType" : "void"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9317,
+        "name" : "BeginGroupHint",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9339,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9355,
+        "name" : "GetGroupMin",
+        "resultType" : "int"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9377,
+        "name" : "GetGroupMax",
+        "resultType" : "int"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9404,
+        "name" : "GetHintForegroundDrawList",
+        "resultType" : "int *"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9445,
+        "name" : "GetHintBackgroundDrawList",
+        "resultType" : "int *"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9479,
+        "name" : "EndGroupHint",
+        "resultType" : "void"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9562,
+        "name" : "GetNodeBackgroundDrawList",
+        "resultType" : "int *",
+        "decls" : [ {
+          "@type" : "AstFullComment",
+          "offset" : 9498,
+          "decls" : [ {
+            "@type" : "AstParagraphComment",
+            "offset" : 9498,
+            "decls" : [ {
+              "@type" : "AstTextComment",
+              "offset" : 9498,
+              "text" : " TODO: Add a way to manage node background channels"
+            } ]
+          } ]
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9595,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9610,
+        "name" : "Link",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9622,
+          "name" : "id",
+          "qualType" : "LinkId",
+          "desugaredQualType" : "ax::NodeEditor::LinkId"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9632,
+          "name" : "startPinId",
+          "qualType" : "PinId",
+          "desugaredQualType" : "ax::NodeEditor::PinId"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9650,
+          "name" : "endPinId",
+          "qualType" : "PinId",
+          "desugaredQualType" : "ax::NodeEditor::PinId"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9674,
+          "name" : "color",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &",
+          "defaultValue" : "ImVec4(1, 1, 1, 1)"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9708,
+          "name" : "thickness",
+          "qualType" : "float",
+          "desugaredQualType" : "float",
+          "defaultValue" : "1.0f"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9733,
+        "name" : "Flow",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9745,
+          "name" : "linkId",
+          "qualType" : "LinkId",
+          "desugaredQualType" : "ax::NodeEditor::LinkId"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9767,
+          "name" : "direction",
+          "qualType" : "FlowDirection",
+          "desugaredQualType" : "ax::NodeEditor::FlowDirection",
+          "defaultValue" : "FlowDirection::Forward"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9810,
+        "name" : "BeginCreate",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9836,
+          "name" : "color",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &",
+          "defaultValue" : "ImVec4(1, 1, 1, 1)"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9870,
+          "name" : "thickness",
+          "qualType" : "float",
+          "desugaredQualType" : "float",
+          "defaultValue" : "1.0f"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9894,
+        "name" : "QueryNewLink",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9914,
+          "name" : "startId",
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9930,
+          "name" : "endId",
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 9943,
+        "name" : "QueryNewLink",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9963,
+          "name" : "startId",
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 9979,
+          "name" : "endId",
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10000,
+          "name" : "color",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10013,
+          "name" : "thickness",
+          "qualType" : "float",
+          "desugaredQualType" : "float",
+          "defaultValue" : "1.0f"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10037,
+        "name" : "QueryNewNode",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10057,
+          "name" : "pinId",
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10070,
+        "name" : "QueryNewNode",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10090,
+          "name" : "pinId",
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10111,
+          "name" : "color",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10124,
+          "name" : "thickness",
+          "qualType" : "float",
+          "desugaredQualType" : "float",
+          "defaultValue" : "1.0f"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10148,
+        "name" : "AcceptNewItem",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10170,
+        "name" : "AcceptNewItem",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10198,
+          "name" : "color",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10211,
+          "name" : "thickness",
+          "qualType" : "float",
+          "desugaredQualType" : "float",
+          "defaultValue" : "1.0f"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10235,
+        "name" : "RejectNewItem",
+        "resultType" : "void"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10257,
+        "name" : "RejectNewItem",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10285,
+          "name" : "color",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10298,
+          "name" : "thickness",
+          "qualType" : "float",
+          "desugaredQualType" : "float",
+          "defaultValue" : "1.0f"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10322,
+        "name" : "EndCreate",
+        "resultType" : "void"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10341,
+        "name" : "BeginDelete",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10361,
+        "name" : "QueryDeletedLink",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10386,
+          "name" : "linkId",
+          "qualType" : "LinkId *",
+          "desugaredQualType" : "LinkId *"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10401,
+          "name" : "startId",
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *",
+          "defaultValue" : "nullptr"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10427,
+          "name" : "endId",
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *",
+          "defaultValue" : "nullptr"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10450,
+        "name" : "QueryDeletedNode",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10475,
+          "name" : "nodeId",
+          "qualType" : "NodeId *",
+          "desugaredQualType" : "NodeId *"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10489,
+        "name" : "AcceptDeletedItem",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10512,
+          "name" : "deleteDependencies",
+          "qualType" : "bool",
+          "desugaredQualType" : "bool",
+          "defaultValue" : "true"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10545,
+        "name" : "RejectDeletedItem",
+        "resultType" : "void"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10571,
+        "name" : "EndDelete",
+        "resultType" : "void"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10590,
+        "name" : "SetNodePosition",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10613,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10635,
+          "name" : "editorPosition",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10657,
+        "name" : "SetGroupSize",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10677,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10699,
+          "name" : "size",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10713,
+        "name" : "GetNodePosition",
+        "resultType" : "int",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10736,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10752,
+        "name" : "GetNodeSize",
+        "resultType" : "int",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10771,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10785,
+        "name" : "CenterNodeOnScreen",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10811,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10825,
+        "name" : "SetNodeZPosition",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10849,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10863,
+          "name" : "z",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 10960,
+        "name" : "GetNodeZPosition",
+        "resultType" : "float",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 10984,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11044,
+        "name" : "RestoreNodeState",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11068,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11083,
+        "name" : "Suspend",
+        "resultType" : "void"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11099,
+        "name" : "Resume",
+        "resultType" : "void"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11114,
+        "name" : "IsSuspended",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11135,
+        "name" : "IsActive",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11153,
+        "name" : "HasSelectionChanged",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11181,
+        "name" : "GetSelectedObjectCount",
+        "resultType" : "int"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11212,
+        "name" : "GetSelectedNodes",
+        "resultType" : "int",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11237,
+          "name" : "nodes",
+          "qualType" : "NodeId *",
+          "desugaredQualType" : "NodeId *"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11248,
+          "name" : "size",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11260,
+        "name" : "GetSelectedLinks",
+        "resultType" : "int",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11285,
+          "name" : "links",
+          "qualType" : "LinkId *",
+          "desugaredQualType" : "LinkId *"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11296,
+          "name" : "size",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11308,
+        "name" : "IsNodeSelected",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11330,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11344,
+        "name" : "IsLinkSelected",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11366,
+          "name" : "linkId",
+          "qualType" : "LinkId",
+          "desugaredQualType" : "ax::NodeEditor::LinkId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11380,
+        "name" : "ClearSelection",
+        "resultType" : "void"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11403,
+        "name" : "SelectNode",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11421,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11434,
+          "name" : "append",
+          "qualType" : "bool",
+          "desugaredQualType" : "bool",
+          "defaultValue" : "false"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11456,
+        "name" : "SelectLink",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11474,
+          "name" : "linkId",
+          "qualType" : "LinkId",
+          "desugaredQualType" : "ax::NodeEditor::LinkId"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11487,
+          "name" : "append",
+          "qualType" : "bool",
+          "desugaredQualType" : "bool",
+          "defaultValue" : "false"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11509,
+        "name" : "DeselectNode",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11529,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11543,
+        "name" : "DeselectLink",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11563,
+          "name" : "linkId",
+          "qualType" : "LinkId",
+          "desugaredQualType" : "ax::NodeEditor::LinkId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11578,
+        "name" : "DeleteNode",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11596,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11610,
+        "name" : "DeleteLink",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11628,
+          "name" : "linkId",
+          "qualType" : "LinkId",
+          "desugaredQualType" : "ax::NodeEditor::LinkId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11643,
+        "name" : "HasAnyLinks",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11662,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11723,
+        "name" : "HasAnyLinks",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11741,
+          "name" : "pinId",
+          "qualType" : "PinId",
+          "desugaredQualType" : "ax::NodeEditor::PinId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11798,
+        "name" : "BreakLinks",
+        "resultType" : "int",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11816,
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11871,
+        "name" : "BreakLinks",
+        "resultType" : "int",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11888,
+          "name" : "pinId",
+          "qualType" : "PinId",
+          "desugaredQualType" : "ax::NodeEditor::PinId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11943,
+        "name" : "NavigateToContent",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 11967,
+          "name" : "duration",
+          "qualType" : "float",
+          "desugaredQualType" : "float",
+          "defaultValue" : "-1"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 11988,
+        "name" : "NavigateToSelection",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 12013,
+          "name" : "zoomIn",
+          "qualType" : "bool",
+          "desugaredQualType" : "bool",
+          "defaultValue" : "false"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 12035,
+          "name" : "duration",
+          "qualType" : "float",
+          "desugaredQualType" : "float",
+          "defaultValue" : "-1"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12057,
+        "name" : "ShowNodeContextMenu",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 12085,
+          "name" : "nodeId",
+          "qualType" : "NodeId *",
+          "desugaredQualType" : "NodeId *"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12099,
+        "name" : "ShowPinContextMenu",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 12125,
+          "name" : "pinId",
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12138,
+        "name" : "ShowLinkContextMenu",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 12166,
+          "name" : "linkId",
+          "qualType" : "LinkId *",
+          "desugaredQualType" : "LinkId *"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12180,
+        "name" : "ShowBackgroundContextMenu",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12215,
+        "name" : "EnableShortcuts",
+        "resultType" : "void",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 12236,
+          "name" : "enable",
+          "qualType" : "bool",
+          "desugaredQualType" : "bool"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12250,
+        "name" : "AreShortcutsEnabled",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12279,
+        "name" : "BeginShortcut",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12301,
+        "name" : "AcceptCut",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12319,
+        "name" : "AcceptCopy",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12338,
+        "name" : "AcceptPaste",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12358,
+        "name" : "AcceptDuplicate",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12382,
+        "name" : "AcceptCreateNode",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12407,
+        "name" : "GetActionContextSize",
+        "resultType" : "int"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12436,
+        "name" : "GetActionContextNodes",
+        "resultType" : "int",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 12466,
+          "name" : "nodes",
+          "qualType" : "NodeId *",
+          "desugaredQualType" : "NodeId *"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 12477,
+          "name" : "size",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12489,
+        "name" : "GetActionContextLinks",
+        "resultType" : "int",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 12519,
+          "name" : "links",
+          "qualType" : "LinkId *",
+          "desugaredQualType" : "LinkId *"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 12530,
+          "name" : "size",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12542,
+        "name" : "EndShortcut",
+        "resultType" : "void"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12564,
+        "name" : "GetCurrentZoom",
+        "resultType" : "float"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12590,
+        "name" : "GetHoveredNode",
+        "resultType" : "NodeId"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12614,
+        "name" : "GetHoveredPin",
+        "resultType" : "PinId"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12638,
+        "name" : "GetHoveredLink",
+        "resultType" : "LinkId"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12663,
+        "name" : "GetDoubleClickedNode",
+        "resultType" : "NodeId"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12693,
+        "name" : "GetDoubleClickedPin",
+        "resultType" : "PinId"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12723,
+        "name" : "GetDoubleClickedLink",
+        "resultType" : "LinkId"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12752,
+        "name" : "IsBackgroundClicked",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12780,
+        "name" : "IsBackgroundDoubleClicked",
+        "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12815,
+        "name" : "GetLinkPins",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 12834,
+          "name" : "linkId",
+          "qualType" : "LinkId",
+          "desugaredQualType" : "ax::NodeEditor::LinkId"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 12849,
+          "name" : "startPinId",
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 12868,
+          "name" : "endPinId",
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12939,
+        "name" : "PinHadAnyLinks",
+        "resultType" : "bool",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 12960,
+          "name" : "pinId",
+          "qualType" : "PinId",
+          "desugaredQualType" : "ax::NodeEditor::PinId"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 12976,
+        "name" : "GetScreenSize",
+        "resultType" : "int"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 13000,
+        "name" : "ScreenToCanvas",
+        "resultType" : "int",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 13029,
+          "name" : "pos",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 13042,
+        "name" : "CanvasToScreen",
+        "resultType" : "int",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 13071,
+          "name" : "pos",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 13082,
+        "name" : "GetNodeCount",
+        "resultType" : "int"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "offset" : 13189,
+        "name" : "GetOrderedNodeIds",
+        "resultType" : "int",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "offset" : 13215,
+          "name" : "nodes",
+          "qualType" : "NodeId *",
+          "desugaredQualType" : "NodeId *"
+        }, {
+          "@type" : "AstParmVarDecl",
+          "offset" : 13226,
+          "name" : "size",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        } ]
+      }, {
+        "@type" : "AstNamespaceDecl",
+        "offset" : 13458,
+        "name" : "Details",
+        "decls" : [ {
+          "@type" : "AstFullComment",
+          "offset" : 13369,
+          "decls" : [ {
+            "@type" : "AstParagraphComment",
+            "offset" : 13369,
+            "decls" : [ {
+              "@type" : "AstTextComment",
+              "offset" : 13369,
+              "text" : "------------------------------------------------------------------------------"
+            } ]
+          } ]
+        } ]
+      }, {
+        "@type" : "AstRecordDecl",
+        "offset" : 14997,
+        "name" : "NodeId"
+      }, {
+        "@type" : "AstRecordDecl",
+        "offset" : 15101,
+        "name" : "LinkId"
+      }, {
+        "@type" : "AstRecordDecl",
+        "offset" : 15205,
+        "name" : "PinId"
+      } ]
+    } ]
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 801,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 809,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 821,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 851,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 851,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 857,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 863,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 873,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 891,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 913,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 915,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 922,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 1056,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 1083,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 1093,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 1106,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 1248,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 1409,
+    "name" : "std"
+  }, {
+    "@type" : "AstRecordDecl",
+    "offset" : 2143,
+    "name" : "__darwin_pthread_handler_rec",
+    "decls" : [ {
+      "@type" : "AstFieldDecl",
+      "offset" : 2182,
+      "name" : "__routine",
+      "qualType" : "void (*)(void *)",
+      "desugaredQualType" : "void (*)(void *)"
+    }, {
+      "@type" : "AstFieldDecl",
+      "offset" : 2228,
+      "name" : "__arg",
+      "qualType" : "void *",
+      "desugaredQualType" : "void *"
+    }, {
+      "@type" : "AstFieldDecl",
+      "offset" : 2295,
+      "name" : "__next",
+      "qualType" : "struct __darwin_pthread_handler_rec *",
+      "desugaredQualType" : "struct __darwin_pthread_handler_rec *"
+    } ]
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 2209,
+    "name" : "std"
+  }, {
+    "@type" : "AstRecordDecl",
+    "offset" : 2314,
+    "name" : "_opaque_pthread_attr_t",
+    "decls" : [ {
+      "@type" : "AstFieldDecl",
+      "offset" : 2345,
+      "name" : "__sig",
+      "qualType" : "long",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "offset" : 2358,
+      "name" : "__opaque",
+      "qualType" : "char[56]",
+      "desugaredQualType" : "char[56]"
+    } ]
+  }, {
+    "@type" : "AstRecordDecl",
+    "offset" : 2402,
+    "name" : "_opaque_pthread_cond_t",
+    "decls" : [ {
+      "@type" : "AstFieldDecl",
+      "offset" : 2433,
+      "name" : "__sig",
+      "qualType" : "long",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "offset" : 2446,
+      "name" : "__opaque",
+      "qualType" : "char[40]",
+      "desugaredQualType" : "char[40]"
+    } ]
+  }, {
+    "@type" : "AstRecordDecl",
+    "offset" : 2490,
+    "name" : "_opaque_pthread_condattr_t",
+    "decls" : [ {
+      "@type" : "AstFieldDecl",
+      "offset" : 2525,
+      "name" : "__sig",
+      "qualType" : "long",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "offset" : 2538,
+      "name" : "__opaque",
+      "qualType" : "char[8]",
+      "desugaredQualType" : "char[8]"
+    } ]
+  }, {
+    "@type" : "AstRecordDecl",
+    "offset" : 2586,
+    "name" : "_opaque_pthread_mutex_t",
+    "decls" : [ {
+      "@type" : "AstFieldDecl",
+      "offset" : 2618,
+      "name" : "__sig",
+      "qualType" : "long",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "offset" : 2631,
+      "name" : "__opaque",
+      "qualType" : "char[56]",
+      "desugaredQualType" : "char[56]"
+    } ]
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 2665,
+    "name" : "std"
+  }, {
+    "@type" : "AstRecordDecl",
+    "offset" : 2676,
+    "name" : "_opaque_pthread_mutexattr_t",
+    "decls" : [ {
+      "@type" : "AstFieldDecl",
+      "offset" : 2712,
+      "name" : "__sig",
+      "qualType" : "long",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "offset" : 2725,
+      "name" : "__opaque",
+      "qualType" : "char[8]",
+      "desugaredQualType" : "char[8]"
+    } ]
+  }, {
+    "@type" : "AstRecordDecl",
+    "offset" : 2774,
+    "name" : "_opaque_pthread_once_t",
+    "decls" : [ {
+      "@type" : "AstFieldDecl",
+      "offset" : 2805,
+      "name" : "__sig",
+      "qualType" : "long",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "offset" : 2818,
+      "name" : "__opaque",
+      "qualType" : "char[8]",
+      "desugaredQualType" : "char[8]"
+    } ]
+  }, {
+    "@type" : "AstRecordDecl",
+    "offset" : 2862,
+    "name" : "_opaque_pthread_rwlock_t",
+    "decls" : [ {
+      "@type" : "AstFieldDecl",
+      "offset" : 2895,
+      "name" : "__sig",
+      "qualType" : "long",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "offset" : 2908,
+      "name" : "__opaque",
+      "qualType" : "char[192]",
+      "desugaredQualType" : "char[192]"
+    } ]
+  }, {
+    "@type" : "AstRecordDecl",
+    "offset" : 2954,
+    "name" : "_opaque_pthread_rwlockattr_t",
+    "decls" : [ {
+      "@type" : "AstFieldDecl",
+      "offset" : 2991,
+      "name" : "__sig",
+      "qualType" : "long",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "offset" : 3004,
+      "name" : "__opaque",
+      "qualType" : "char[16]",
+      "desugaredQualType" : "char[16]"
+    } ]
+  }, {
+    "@type" : "AstRecordDecl",
+    "offset" : 3054,
+    "name" : "_opaque_pthread_t",
+    "decls" : [ {
+      "@type" : "AstFieldDecl",
+      "offset" : 3080,
+      "name" : "__sig",
+      "qualType" : "long",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "offset" : 3126,
+      "name" : "__cleanup_stack",
+      "qualType" : "struct __darwin_pthread_handler_rec *",
+      "desugaredQualType" : "struct __darwin_pthread_handler_rec *"
+    }, {
+      "@type" : "AstFieldDecl",
+      "offset" : 3149,
+      "name" : "__opaque",
+      "qualType" : "char[8176]",
+      "desugaredQualType" : "char[8176]"
+    } ]
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 3610,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 3819,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 4265,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 9934,
+    "name" : "std"
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 38828,
+    "name" : "std"
+  } ]
+}

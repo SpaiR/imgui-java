@@ -1,4 +1,5 @@
 import imgui.ImGui;
+import imgui.ImVec2;
 import imgui.extension.imguizmo.ImGuizmo;
 import imgui.extension.imguizmo.flag.Mode;
 import imgui.extension.imguizmo.flag.Operation;
@@ -58,8 +59,6 @@ public class ExampleImGuizmo {
         0.f, 0.f, 1.f, 0.f,
         0.f, 0.f, 0.f, 1.f
     };
-
-    private static final float[] VIEW_MANIPULATE_SIZE = new float[]{128f, 128f};
 
     private static final float[] EMPTY = new float[]{0};
 
@@ -166,7 +165,7 @@ public class ExampleImGuizmo {
         ImGui.inputFloat3("Sc", INPUT_MATRIX_SCALE, "%.3f", ImGuiInputTextFlags.ReadOnly);
 
         if (ImGuizmo.isUsing()) {
-            ImGuizmo.recomposeMatrixFromComponents(OBJECT_MATRICES[0], INPUT_MATRIX_TRANSLATION, INPUT_MATRIX_ROTATION, INPUT_MATRIX_SCALE);
+            ImGuizmo.recomposeMatrixFromComponents(INPUT_MATRIX_TRANSLATION, INPUT_MATRIX_ROTATION, INPUT_MATRIX_SCALE, OBJECT_MATRICES[0]);
         }
 
         if (currentGizmoOperation != Operation.SCALE) {
@@ -217,7 +216,7 @@ public class ExampleImGuizmo {
         float[] cameraProjection = perspective(27, aspect, 0.1f, 100f);
 
         ImGuizmo.setOrthographic(false);
-        ImGuizmo.setEnabled(true);
+        ImGuizmo.enable(true);
         ImGuizmo.setDrawList();
 
         float windowWidth = ImGui.getWindowWidth();
@@ -225,26 +224,26 @@ public class ExampleImGuizmo {
         ImGuizmo.setRect(ImGui.getWindowPosX(), ImGui.getWindowPosY(), windowWidth, windowHeight);
 
         ImGuizmo.drawGrid(INPUT_CAMERA_VIEW, cameraProjection, IDENTITY_MATRIX, 100);
-        ImGuizmo.setId(0);
+        ImGuizmo.setID(0);
         ImGuizmo.drawCubes(INPUT_CAMERA_VIEW, cameraProjection, OBJECT_MATRICES[0]);
 
         if (USE_SNAP.get() && BOUNDING_SIZE.get() && boundSizingSnap) {
-            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, INPUT_SNAP_VALUE, INPUT_BOUNDS, INPUT_BOUNDS_SNAP);
+            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, currentGizmoOperation, currentMode, OBJECT_MATRICES[0], null, INPUT_SNAP_VALUE, INPUT_BOUNDS, INPUT_BOUNDS_SNAP);
         } else if (USE_SNAP.get() && BOUNDING_SIZE.get()) {
-            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, INPUT_SNAP_VALUE, INPUT_BOUNDS);
+            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, currentGizmoOperation, currentMode, OBJECT_MATRICES[0], null, INPUT_SNAP_VALUE, INPUT_BOUNDS);
         } else if (BOUNDING_SIZE.get() && boundSizingSnap) {
-            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, EMPTY, INPUT_BOUNDS, INPUT_BOUNDS_SNAP);
+            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, currentGizmoOperation, currentMode, OBJECT_MATRICES[0], null, EMPTY, INPUT_BOUNDS, INPUT_BOUNDS_SNAP);
         } else if (BOUNDING_SIZE.get()) {
-            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, EMPTY, INPUT_BOUNDS);
+            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, currentGizmoOperation, currentMode, OBJECT_MATRICES[0], null, EMPTY, INPUT_BOUNDS);
         } else if (USE_SNAP.get()) {
-            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode, INPUT_SNAP_VALUE);
+            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, currentGizmoOperation, currentMode, OBJECT_MATRICES[0], null, INPUT_SNAP_VALUE);
         } else {
-            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, OBJECT_MATRICES[0], currentGizmoOperation, currentMode);
+            ImGuizmo.manipulate(INPUT_CAMERA_VIEW, cameraProjection, currentGizmoOperation, currentMode, OBJECT_MATRICES[0]);
         }
 
         float viewManipulateRight = ImGui.getWindowPosX() + windowWidth;
         float viewManipulateTop = ImGui.getWindowPosY();
-        ImGuizmo.viewManipulate(INPUT_CAMERA_VIEW, CAM_DISTANCE, new float[]{viewManipulateRight - 128, viewManipulateTop}, VIEW_MANIPULATE_SIZE, 0x10101010);
+        ImGuizmo.viewManipulate(INPUT_CAMERA_VIEW, CAM_DISTANCE, viewManipulateRight - 128, viewManipulateTop, 128, 128, 0x10101010);
 
         ImGui.endChild();
         ImGui.end();

@@ -1,17 +1,12 @@
 package imgui.extension.memedit;
 
 import imgui.binding.ImGuiStructDestroyable;
+import imgui.binding.annotation.BindingField;
+import imgui.binding.annotation.BindingSource;
 
+@BindingSource
 public final class MemoryEditorSizes extends ImGuiStructDestroyable {
-
-    /*JNI
-        #include "_memedit.h"
-
-        #define MEMORY_EDITOR_SIZES ((MemoryEditor::Sizes*)STRUCT_PTR)
-     */
-
     public MemoryEditorSizes() {
-
     }
 
     public MemoryEditorSizes(final long ptr) {
@@ -23,87 +18,46 @@ public final class MemoryEditorSizes extends ImGuiStructDestroyable {
         return nCreate();
     }
 
+    /*JNI
+        #include "_memedit.h"
+        #define THIS ((MemoryEditor::Sizes*)STRUCT_PTR)
+     */
+
     private native long nCreate(); /*
         return (intptr_t)(new MemoryEditor::Sizes());
     */
 
-    public native void setAddrDigitsCount(int addrDigitsCount); /*
-        MEMORY_EDITOR_SIZES->AddrDigitsCount = addrDigitsCount;
-    */
+    @BindingField
+    public int AddrDigitsCount;
 
-    public native int getAddrDigitsCount(); /*
-        return MEMORY_EDITOR_SIZES->AddrDigitsCount;
-    */
+    @BindingField
+    public float LineHeight;
 
-    public native void setLineHeight(float lineHeight); /*
-        MEMORY_EDITOR_SIZES->LineHeight = lineHeight;
-    */
+    @BindingField
+    public float GlyphWidth;
 
-    public native float getLineHeight(); /*
-        return MEMORY_EDITOR_SIZES->LineHeight;
-    */
+    @BindingField
+    public float HexCellWidth;
 
-    public native void setGlyphWidth(float glyphWidth); /*
-        MEMORY_EDITOR_SIZES->GlyphWidth = glyphWidth;
-    */
+    @BindingField
+    public float SpacingBetweenMidCols;
 
-    public native float getGlyphWidth(); /*
-        return MEMORY_EDITOR_SIZES->GlyphWidth;
-    */
+    @BindingField
+    public float PosHexStart;
 
-    public native void setHexCellWidth(float hexCellWidth); /*
-        MEMORY_EDITOR_SIZES->HexCellWidth = hexCellWidth;
-    */
+    @BindingField
+    public float PosHexEnd;
 
-    public native float getHexCellWidth(); /*
-        return MEMORY_EDITOR_SIZES->HexCellWidth;
-    */
+    @BindingField
+    public float PosAsciiStart;
 
-    public native void setSpacingBetweenMidCols(float spacingBetweenMidCols); /*
-        MEMORY_EDITOR_SIZES->SpacingBetweenMidCols = spacingBetweenMidCols;
-    */
+    @BindingField
+    public float PosAsciiEnd;
 
-    public native float getSpacingBetweenMidCols(); /*
-        return MEMORY_EDITOR_SIZES->SpacingBetweenMidCols;
-    */
+    @BindingField
+    public float WindowWidth;
 
-    public native void setPosHexStart(float posHexStart); /*
-        MEMORY_EDITOR_SIZES->PosHexStart = posHexStart;
-    */
-
-    public native float getPosHexStart(); /*
-        return MEMORY_EDITOR_SIZES->PosHexStart;
-    */
-
-    public native void setPosHexEnd(float posHexEnd); /*
-        MEMORY_EDITOR_SIZES->PosHexEnd = posHexEnd;
-    */
-
-    public native float getPosHexEnd(); /*
-        return MEMORY_EDITOR_SIZES->PosHexEnd;
-    */
-
-    public native void setPosAsciiStart(float posAsciiStart); /*
-        MEMORY_EDITOR_SIZES->PosAsciiStart = posAsciiStart;
-    */
-
-    public native float getPosAsciiStart(); /*
-        return MEMORY_EDITOR_SIZES->PosAsciiStart;
-    */
-
-    public native void setPosAsciiEnd(float posAsciiEnd); /*
-        MEMORY_EDITOR_SIZES->PosAsciiEnd = posAsciiEnd;
-    */
-
-    public native float getPosAsciiEnd(); /*
-        return MEMORY_EDITOR_SIZES->PosAsciiEnd;
-    */
-
-    public native void setWindowWidth(float windowWidth); /*
-        MEMORY_EDITOR_SIZES->WindowWidth = windowWidth;
-    */
-
-    public native float getWindowWidth(); /*
-        return MEMORY_EDITOR_SIZES->WindowWidth;
-    */
+    /*JNI
+        #undef THIS
+     */
 }

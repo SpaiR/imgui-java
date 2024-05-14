@@ -23,19 +23,13 @@ public class ExampleKnobs {
         if (ImGui.begin("Knobs Demo Window", showKnobsWindow, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse)) {
             ImGui.textWrapped("This is a demo for dear ImGui Knobs");
             if (ImGui.beginChild("Float Knobs")) {
-                ImGuiKnobs.knobFloat("Example Tick Knob", EXAMPLE_TICK_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.TICK, 50.0f, ImGuiKnobFlags.NONE, 1);
-
-                ImGuiKnobs.knobFloat("Example Dot Knob", EXAMPLE_DOT_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.DOT, 50.0f, ImGuiKnobFlags.NONE, 1);
-
-                ImGuiKnobs.knobFloat("Example Space Knob", EXAMPLE_SPACE_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.SPACE, 50.0f, ImGuiKnobFlags.NONE, 1);
-
-                ImGuiKnobs.knobFloat("Example Wiper Knob", EXAMPLE_WIPER_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.WIPER, 50.0f, ImGuiKnobFlags.NONE, 1);
-
-                ImGuiKnobs.knobFloat("Example Wiper Dot Knob", EXAMPLE_WIPER_DOT_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.WIPER_DOT, 50.0f, ImGuiKnobFlags.NONE, 1);
-
-                ImGuiKnobs.knobFloat("Example Wiper Only Knob", EXAMPLE_WIPER_ONLY_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.WIPER_ONLY, 50.0f, ImGuiKnobFlags.NONE, 1);
-
-                ImGuiKnobs.knobFloat("Example Stepped Knob", EXAMPLE_STEPPED_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.STEPPED, 50.0f, ImGuiKnobFlags.NONE, 1);
+                ImGuiKnobs.knob("Example Tick Knob", EXAMPLE_TICK_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.Tick, 50.0f, ImGuiKnobFlags.None, 1);
+                ImGuiKnobs.knob("Example Dot Knob", EXAMPLE_DOT_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.Dot, 50.0f, ImGuiKnobFlags.None, 1);
+                ImGuiKnobs.knob("Example Space Knob", EXAMPLE_SPACE_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.Space, 50.0f, ImGuiKnobFlags.None, 1);
+                ImGuiKnobs.knob("Example Wiper Knob", EXAMPLE_WIPER_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.Wiper, 50.0f, ImGuiKnobFlags.None, 1);
+                ImGuiKnobs.knob("Example Wiper Dot Knob", EXAMPLE_WIPER_DOT_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.WiperDot, 50.0f, ImGuiKnobFlags.None, 1);
+                ImGuiKnobs.knob("Example Wiper Only Knob", EXAMPLE_WIPER_ONLY_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.WiperOnly, 50.0f, ImGuiKnobFlags.None, 1);
+                ImGuiKnobs.knob("Example Stepped Knob", EXAMPLE_STEPPED_KNOB_VAL, 0.0f, 10.0f, 0.2f, "%.1f", ImGuiKnobVariant.Stepped, 50.0f, ImGuiKnobFlags.None, 1);
                 ImGui.endChild();
             }
 

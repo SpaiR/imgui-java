@@ -1,5 +1,8 @@
 package imgui.flag;
 
+import imgui.binding.annotation.BindingAstEnum;
+import imgui.binding.annotation.BindingSource;
+
 /**
  * Enum for ImGui::TableSetBgColor()
  * Background colors are rendering in 3 layers:
@@ -11,21 +14,11 @@ package imgui.flag;
  * If you set the color of RowBg0 target, your color will override the existing RowBg0 color.
  * If you set the color of RowBg1 or ColumnBg1 target, your color will blend over the RowBg0 color.
  */
+@BindingSource
 public final class ImGuiTableBgTarget {
     private ImGuiTableBgTarget() {
     }
 
-    public static final int None = 0;
-    /**
-     * Set row background color 0 (generally used for background, automatically set when ImGuiTableFlags_RowBg is used)
-     */
-    public static final int RowBg0 = 1;
-    /**
-     * Set row background color 1 (generally used for selection marking)
-     */
-    public static final int RowBg1 = 2;
-    /**
-     * Set cell background color (top-most color)
-     */
-    public static final int CellBg = 3;
+    @BindingAstEnum(file = "ast-imgui.json", qualType = "ImGuiTableBgTarget_")
+    public Void __;
 }

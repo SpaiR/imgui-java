@@ -1,15 +1,17 @@
 package imgui.flag;
 
+import imgui.binding.annotation.BindingAstEnum;
+import imgui.binding.annotation.BindingSource;
+
 /**
  * Identify a mouse button.
  * Those values are guaranteed to be stable and we frequently use 0/1 directly. Named enums provided for convenience.
  */
+@BindingSource
 public final class ImGuiMouseButton {
     private ImGuiMouseButton() {
     }
 
-    public static final int Left = 0;
-    public static final int Right = 1;
-    public static final int Middle = 2;
-    public static final int COUNT = 5;
+    @BindingAstEnum(file = "ast-imgui.json", qualType = "ImGuiMouseButton_")
+    public Void __;
 }

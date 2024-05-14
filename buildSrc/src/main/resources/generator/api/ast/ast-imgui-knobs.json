@@ -1,0 +1,279 @@
+{
+  "info" : {
+    "source" : "include/imgui-knobs/imgui-knobs.h",
+    "hash" : "1f637f21a158aff7116bdb283dc83d46",
+    "url" : "https://github.com/altschuler/imgui-knobs",
+    "revision" : "4f207526f9ef036a0aff7edfaad92cfbe12d987a"
+  },
+  "decls" : [ {
+    "@type" : "AstEnumDecl",
+    "offset" : 87,
+    "name" : "ImGuiKnobFlags_",
+    "decls" : [ {
+      "@type" : "AstEnumConstantDecl",
+      "offset" : 109,
+      "name" : "ImGuiKnobFlags_NoTitle",
+      "qualType" : "ImGuiKnobFlags_",
+      "order" : 0,
+      "value" : "1 << 0",
+      "evaluatedValue" : "1"
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "offset" : 146,
+      "name" : "ImGuiKnobFlags_NoInput",
+      "qualType" : "ImGuiKnobFlags_",
+      "order" : 1,
+      "value" : "1 << 1",
+      "evaluatedValue" : "2"
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "offset" : 183,
+      "name" : "ImGuiKnobFlags_ValueTooltip",
+      "qualType" : "ImGuiKnobFlags_",
+      "order" : 2,
+      "value" : "1 << 2",
+      "evaluatedValue" : "4"
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "offset" : 225,
+      "name" : "ImGuiKnobFlags_DragHorizontal",
+      "qualType" : "ImGuiKnobFlags_",
+      "order" : 3,
+      "value" : "1 << 3",
+      "evaluatedValue" : "8"
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "offset" : 305,
+    "name" : "ImGuiKnobVariant_",
+    "decls" : [ {
+      "@type" : "AstEnumConstantDecl",
+      "offset" : 329,
+      "name" : "ImGuiKnobVariant_Tick",
+      "qualType" : "ImGuiKnobVariant_",
+      "order" : 0,
+      "value" : "1 << 0",
+      "evaluatedValue" : "1"
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "offset" : 365,
+      "name" : "ImGuiKnobVariant_Dot",
+      "qualType" : "ImGuiKnobVariant_",
+      "order" : 1,
+      "value" : "1 << 1",
+      "evaluatedValue" : "2"
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "offset" : 400,
+      "name" : "ImGuiKnobVariant_Wiper",
+      "qualType" : "ImGuiKnobVariant_",
+      "order" : 2,
+      "value" : "1 << 2",
+      "evaluatedValue" : "4"
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "offset" : 437,
+      "name" : "ImGuiKnobVariant_WiperOnly",
+      "qualType" : "ImGuiKnobVariant_",
+      "order" : 3,
+      "value" : "1 << 3",
+      "evaluatedValue" : "8"
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "offset" : 478,
+      "name" : "ImGuiKnobVariant_WiperDot",
+      "qualType" : "ImGuiKnobVariant_",
+      "order" : 4,
+      "value" : "1 << 4",
+      "evaluatedValue" : "16"
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "offset" : 518,
+      "name" : "ImGuiKnobVariant_Stepped",
+      "qualType" : "ImGuiKnobVariant_",
+      "order" : 5,
+      "value" : "1 << 5",
+      "evaluatedValue" : "32"
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "offset" : 557,
+      "name" : "ImGuiKnobVariant_Space",
+      "qualType" : "ImGuiKnobVariant_",
+      "order" : 6,
+      "value" : "1 << 6",
+      "evaluatedValue" : "64"
+    } ]
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "offset" : 604,
+    "name" : "ImGuiKnobs",
+    "decls" : [ {
+      "@type" : "AstRecordDecl",
+      "offset" : 629,
+      "name" : "color_set",
+      "decls" : [ {
+        "@type" : "AstFieldDecl",
+        "offset" : 657,
+        "name" : "base",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstFieldDecl",
+        "offset" : 679,
+        "name" : "hovered",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstFieldDecl",
+        "offset" : 704,
+        "name" : "active",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 974,
+      "name" : "Knob",
+      "resultType" : "bool",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 991,
+        "name" : "label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1005,
+        "name" : "p_value",
+        "qualType" : "float *",
+        "desugaredQualType" : "float *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1020,
+        "name" : "v_min",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1033,
+        "name" : "v_max",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1046,
+        "name" : "speed",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1069,
+        "name" : "format",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "NULL"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1101,
+        "name" : "variant",
+        "qualType" : "ImGuiKnobVariant",
+        "desugaredQualType" : "int",
+        "defaultValue" : "ImGuiKnobVariant_Tick"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1140,
+        "name" : "size",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1165,
+        "name" : "flags",
+        "qualType" : "ImGuiKnobFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1180,
+        "name" : "steps",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "10"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "offset" : 1202,
+      "name" : "KnobInt",
+      "resultType" : "bool",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1222,
+        "name" : "label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1234,
+        "name" : "p_value",
+        "qualType" : "int *",
+        "desugaredQualType" : "int *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1247,
+        "name" : "v_min",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1258,
+        "name" : "v_max",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1271,
+        "name" : "speed",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1294,
+        "name" : "format",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "NULL"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1326,
+        "name" : "variant",
+        "qualType" : "ImGuiKnobVariant",
+        "desugaredQualType" : "int",
+        "defaultValue" : "ImGuiKnobVariant_Tick"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1365,
+        "name" : "size",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1390,
+        "name" : "flags",
+        "qualType" : "ImGuiKnobFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "offset" : 1405,
+        "name" : "steps",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "10"
+      } ]
+    } ]
+  } ]
+}

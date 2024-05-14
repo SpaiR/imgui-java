@@ -1,13 +1,13 @@
 package imgui.extension.implot.flag;
 
+import imgui.binding.annotation.BindingAstEnum;
+import imgui.binding.annotation.BindingSource;
+
+@BindingSource
 public final class ImPlotYAxis {
     private ImPlotYAxis() {
     }
 
-    /** left (default) */
-    public static final int YAxis_1 = 0;
-    /** first on right side */
-    public static final int YAxis_2 = 1;
-    /** second on right side */
-    public static final int YAxis_3 = 2;
+    @BindingAstEnum(file = "ast-implot.json", qualType = "ImPlotYAxis_", sanitizeName = "ImPlot")
+    public Void __;
 }

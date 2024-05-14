@@ -1,10 +1,13 @@
 package imgui.extension.texteditor.flag;
 
+import imgui.binding.annotation.BindingAstEnum;
+import imgui.binding.annotation.BindingSource;
+
+@BindingSource
 public final class TextEditorSelectionMode {
     private TextEditorSelectionMode() {
     }
 
-    public static final int Normal = 0;
-    public static final int Word = 1;
-    public static final int Line = 2;
+    @BindingAstEnum(file = "ast-TextEditor.json", qualType = "TextEditor::SelectionMode")
+    public Void __;
 }

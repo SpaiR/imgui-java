@@ -1,10 +1,15 @@
 package imgui;
 
 import imgui.binding.ImGuiStructDestroyable;
+import imgui.binding.annotation.BindingField;
+import imgui.binding.annotation.BindingMethod;
+import imgui.binding.annotation.BindingSource;
+import imgui.binding.annotation.OptArg;
 
 /**
  * Helper: Parse and apply text filters. In format "aaaaa[,bbbb][,ccccc]"
  */
+@BindingSource
 public final class ImGuiTextFilter extends ImGuiStructDestroyable {
     public ImGuiTextFilter() {
         this("");
@@ -14,58 +19,51 @@ public final class ImGuiTextFilter extends ImGuiStructDestroyable {
         ptr = nCreate(defaultFilter);
     }
 
-    ImGuiTextFilter(final long ptr) {
+    public ImGuiTextFilter(final long ptr) {
         super(ptr);
     }
-
-    /*JNI
-        #include "_common.h"
-
-        #define IMGUI_TEXT_FILTER ((ImGuiTextFilter*)STRUCT_PTR)
-     */
 
     @Override
     protected long create() {
         return nCreate("");
     }
 
+    /*JNI
+        #include "_common.h"
+        #define THIS ((ImGuiTextFilter*)STRUCT_PTR)
+     */
+
     private native long nCreate(String defaultFilter); /*
         return (intptr_t)(new ImGuiTextFilter(defaultFilter));
     */
 
-    public boolean draw() {
-        return draw("Filter (inc,-exc)");
-    }
+    @BindingMethod
+    public native boolean Draw(@OptArg(callValue = "\"Filter (inc,-exc)\"") String label, @OptArg float width);
 
-    public boolean draw(final String label) {
-        return draw(label, 0f);
-    }
+    @BindingMethod
+    public native boolean PassFilter(String text, Void NULL);
 
-    public native boolean draw(String label, float width); /*
-        return IMGUI_TEXT_FILTER->Draw(label, width);
-    */
+    @BindingMethod
+    public native void Build();
 
-    public native boolean passFilter(String text); /*
-        return IMGUI_TEXT_FILTER->PassFilter(text);
-    */
+    @BindingMethod
+    public native void Clear();
 
-    public native void build(); /*
-        IMGUI_TEXT_FILTER->Build();
-    */
-
-    public native void clear(); /*
-        IMGUI_TEXT_FILTER->Clear();
-    */
-
-    public native boolean isActive(); /*
-        return IMGUI_TEXT_FILTER->IsActive();
-    */
+    @BindingMethod
+    public native boolean IsActive();
 
     public native String getInputBuffer(); /*
-        return env->NewStringUTF(IMGUI_TEXT_FILTER->InputBuf);
+        return env->NewStringUTF(THIS->InputBuf);
     */
 
-    public native void setInputBuffer(String inputBuffer); /*
-        strncpy(IMGUI_TEXT_FILTER->InputBuf, inputBuffer, sizeof(IMGUI_TEXT_FILTER->InputBuf));
+    public native void setInputBuffer(String inputBuf); /*
+        strncpy(THIS->InputBuf, inputBuf, sizeof(THIS->InputBuf));
     */
+
+    @BindingField
+    public int CountGrep;
+
+    /*JNI
+        #undef THIS
+     */
 }

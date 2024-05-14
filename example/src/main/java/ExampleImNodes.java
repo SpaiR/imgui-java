@@ -1,5 +1,6 @@
 import imgui.extension.imnodes.ImNodes;
 import imgui.extension.imnodes.ImNodesContext;
+import imgui.extension.imnodes.ImNodesEditorContext;
 import imgui.extension.imnodes.flag.ImNodesPinShape;
 import imgui.extension.imnodes.flag.ImNodesMiniMapLocation;
 import imgui.flag.ImGuiCond;
@@ -12,14 +13,16 @@ import java.awt.Desktop;
 import java.net.URI;
 
 public class ExampleImNodes {
-    private static final ImNodesContext CONTEXT = new ImNodesContext();
     private static final String URL = "https://github.com/Nelarius/imnodes/tree/857cc86";
 
     private static final ImInt LINK_A = new ImInt();
     private static final ImInt LINK_B = new ImInt();
 
+    private static ImNodesEditorContext editorContext = null;
+
     static {
         ImNodes.createContext();
+        editorContext = ImNodes.editorContextCreate();
     }
 
     public static void show(final ImBoolean showImNodesWindow, final Graph graph) {
@@ -39,7 +42,7 @@ public class ExampleImNodes {
                 }
             }
 
-            ImNodes.editorContextSet(CONTEXT);
+            ImNodes.editorContextSet(editorContext);
             ImNodes.beginNodeEditor();
 
             for (Graph.GraphNode node : graph.nodes.values()) {
