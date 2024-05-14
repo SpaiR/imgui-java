@@ -151,7 +151,7 @@ class GenerateLibs extends DefaultTask {
             case BuildTarget.TargetOs.MacOsX:
                 target.cppFlags += ' -I/usr/local/include/freetype2'
                 if (isARM) {
-                    //For GHA
+                    // For Github actions
                     target.cppFlags += ' -I/usr/local/arm64/include/freetype2'
                 }
                 break
