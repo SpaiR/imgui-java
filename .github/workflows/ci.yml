@@ -91,7 +91,7 @@ jobs:
           sudo make install
 
       - name: FreeType - Install (MacOS)
-        if: matrix.os == 'macos-latest' && matrix.type == 'macosarm64' && matrix.freetype == true
+        if: matrix.os == 'macos-latest' && matrix.freetype == true
         run: |
           sudo mkdir /opt/freetype
           sudo tar -xzf ./vendor/freetype-2.12.1.tar.gz -C /opt/freetype --strip-components=1
