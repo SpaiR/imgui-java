@@ -1,9 +1,9 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 import tool.generator.GenerateLibs
+import tool.generator.api.task.GenerateApi
 
 plugins {
     id 'java'
-    id 'checkstyle'
     id 'maven-publish'
     id 'signing'
 }
@@ -22,6 +22,20 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+compileJava {
+    // By default we do not generate API, since we believe this should be done on purpose.
+    if (System.getProperty('build.debug.generate.api.enable')) {
+        dependsOn 'generateApi'
+    }
+}
+
+sourceSets {
+    main.java.srcDirs = ['src/generated/java']
+    raw.java.srcDirs = ['src/main/java']
+}
+
+tasks.register('generateApi', GenerateApi)
 
 tasks.register('generateLibs', GenerateLibs) {
     it.dependsOn assemble

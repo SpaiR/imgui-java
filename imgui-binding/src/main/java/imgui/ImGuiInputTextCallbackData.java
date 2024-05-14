@@ -1,6 +1,9 @@
 package imgui;
 
 import imgui.binding.ImGuiStruct;
+import imgui.binding.annotation.BindingField;
+import imgui.binding.annotation.BindingMethod;
+import imgui.binding.annotation.BindingSource;
 
 /**
  * Shared state of InputText(), passed as an argument to your callback when a ImGuiInputTextFlags_Callback* flag is used.<p>
@@ -13,6 +16,7 @@ import imgui.binding.ImGuiStruct;
  * - ImGuiInputTextFlags_CallbackCharFilter:  Callback on character inputs to replace or discard them. Modify 'EventChar' to replace or discard, or return 1 in callback to discard.<p>
  * - ImGuiInputTextFlags_CallbackResize:      Callback on buffer capacity changes request (beyond 'buf_size' parameter value), allowing the string to grow.<p>
  */
+@BindingSource
 public class ImGuiInputTextCallbackData extends ImGuiStruct {
     public ImGuiInputTextCallbackData(final long ptr) {
         super(ptr);
@@ -20,145 +24,71 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     /*JNI
         #include "_common.h"
-
-        #define IMGUI_CALLBACK_DATA ((ImGuiInputTextCallbackData*)STRUCT_PTR)
+        #define THIS ((ImGuiInputTextCallbackData*)STRUCT_PTR)
      */
 
     /**
      * One ImGuiInputTextFlags_Callback*
-     *
-     * @return ImGuiInputTextFlags
      */
-    public native int getEventFlag(); /*
-        return IMGUI_CALLBACK_DATA->EventFlag;
-    */
+    @BindingField(isFlag = true, accessors = BindingField.Accessor.GETTER)
+    public int EventFlag;
 
     /**
      * What user passed to InputText()
-     *
-     * @return ImGuiInputTextFlags
      */
-    public native int getFlags(); /*
-        return IMGUI_CALLBACK_DATA->Flags;
-    */
+    @BindingField(isFlag = true, accessors = BindingField.Accessor.GETTER)
+    public int Flags;
 
-    /**
-     * [CharFilter] Character input;
-     *
-     * @return Character input
-     */
-    public native int getEventChar(); /*
-        return IMGUI_CALLBACK_DATA->EventChar;
-    */
+    // TODO: UserData
 
     /**
      * [CharFilter] Replace character with another one, or set to zero to drop. return 1 is equivalent to setting EventChar=0;
-     *
-     * @param c Replaced characters
      */
-    public void setEventChar(final char c) {
-        setEventChar((int) c);
-    }
-
-    /**
-     * [CharFilter] Replace character with another one, or set to zero to drop. return 1 is equivalent to setting EventChar=0;
-     *
-     * @param c Replaced characters
-     */
-    public native void setEventChar(int c); /*
-        IMGUI_CALLBACK_DATA->EventChar = c;
-    */
+    @BindingField
+    public int EventChar;
 
     /**
      * [Completion,History]
-     *
-     * @return Key pressed (Up/Down/TAB)
      */
-    public native int getEventKey(); /*
-        return IMGUI_CALLBACK_DATA->EventKey;
-    */
+    @BindingField(accessors = BindingField.Accessor.GETTER)
+    public int EventKey;
 
     /**
      * [Resize] Can replace pointer <p>
      * [Completion,History,Always] Only write to pointed data, don't replace the actual pointer!
-     *
-     * @return Buf
      */
-    public native String getBuf(); /*
-        return env->NewStringUTF(IMGUI_CALLBACK_DATA->Buf);
-    */
+    @BindingField
+    public String Buf;
+
+    /**
+     * [Resize,Completion,History,Always] Exclude zero-terminator storage. In C land: == strlen(some_text), in C++ land: string.length()
+     */
+    @BindingField
+    public int BufTextLen;
 
     /**
      * Set if you modify Buf/BufTextLen!
-     *
-     * @return Dirty
      */
-    public native boolean getBufDirty(); /*
-        return IMGUI_CALLBACK_DATA->BufDirty;
-    */
-
-    /**
-     * Set if you modify Buf/BufTextLen!
-     *
-     * @param dirty Dirty
-     */
-    public native void setBufDirty(boolean dirty); /*
-        IMGUI_CALLBACK_DATA->BufDirty = dirty;
-    */
+    @BindingField
+    public boolean BufDirty;
 
     /**
      * Current cursor position
-     *
-     * @return Current cursor position
      */
-    public native int getCursorPos(); /*
-        return IMGUI_CALLBACK_DATA->CursorPos;
-    */
-
-    /**
-     * Set the current cursor position
-     *
-     * @param pos Set the current cursor position
-     */
-    public native void setCursorPos(int pos); /*
-        IMGUI_CALLBACK_DATA->CursorPos = pos;
-    */
+    @BindingField
+    public int CursorPos;
 
     /**
      * Selection Start
-     *
-     * @return Selection Start
      */
-    public native int getSelectionStart(); /*
-        return IMGUI_CALLBACK_DATA->SelectionStart;
-    */
-
-    /**
-     * Set Selection Start
-     *
-     * @param pos Selection Start
-     */
-    public native void setSelectionStart(int pos); /*
-        IMGUI_CALLBACK_DATA->SelectionStart = pos;
-    */
+    @BindingField
+    public int SelectionStart;
 
     /**
      * Selection End
-     *
-     * @return Selection End
      */
-    public native int getSelectionEnd(); /*
-        return IMGUI_CALLBACK_DATA->SelectionEnd;
-    */
-
-    /**
-     * Set Selection End
-     *
-     * @param pos Selection End
-     */
-    public native void setSelectionEnd(int pos); /*
-        IMGUI_CALLBACK_DATA->SelectionEnd = pos;
-    */
+    @BindingField
+    public int SelectionEnd;
 
     /**
      * Delete Chars
@@ -166,9 +96,8 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
      * @param pos        Start Delete Pos
      * @param bytesCount Delete Char Count
      */
-    public native void deleteChars(int pos, int bytesCount); /*
-        IMGUI_CALLBACK_DATA->DeleteChars(pos, bytesCount);
-    */
+    @BindingMethod
+    public native void DeleteChars(int pos, int bytesCount);
 
     /**
      * Insert Chars
@@ -176,7 +105,19 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
      * @param pos insert Psos
      * @param str insert String
      */
-    public native void insertChars(int pos, String str); /*
-        IMGUI_CALLBACK_DATA->InsertChars(pos, str);
-    */
+    @BindingMethod
+    public native void InsertChars(int pos, String str);
+
+    @BindingMethod
+    public native void SelectAll();
+
+    @BindingMethod
+    public native void ClearSelection();
+
+    @BindingMethod
+    public native boolean HasSelection();
+
+    /*JNI
+        #undef THIS
+     */
 }

@@ -1,13 +1,16 @@
 package imgui.internal.flag;
 
+import imgui.binding.annotation.BindingAstEnum;
+import imgui.binding.annotation.BindingSource;
+
 /**
  * Store the source authority (dock node vs window) of a field
  */
+@BindingSource
 public final class ImGuiDataAuthority {
     private ImGuiDataAuthority() {
     }
 
-    public static final int Auto = 0;
-    public static final int DockNode = 1;
-    public static final int Window = 2;
+    @BindingAstEnum(file = "ast-imgui_internal.json", qualType = "ImGuiDataAuthority_")
+    public Void __;
 }

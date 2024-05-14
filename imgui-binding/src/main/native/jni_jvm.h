@@ -1,7 +1,7 @@
 #pragma once
 
-#include <jni.h>
-#include <assert.h>
+#include "jni.h"
+#include "assert.h"
 
 namespace Jni
 {

@@ -1,3 +1,4 @@
+import imgui.ImVec2;
 import imgui.extension.nodeditor.NodeEditor;
 import imgui.extension.nodeditor.NodeEditorConfig;
 import imgui.extension.nodeditor.NodeEditorContext;
@@ -17,7 +18,7 @@ public class ExampleImGuiNodeEditor {
     static {
         NodeEditorConfig config = new NodeEditorConfig();
         config.setSettingsFile(null);
-        CONTEXT = new NodeEditorContext(config);
+        CONTEXT = NodeEditor.createEditor(config);
     }
 
     public static void show(final ImBoolean showImNodeEditorWindow, final Graph graph) {
@@ -108,9 +109,8 @@ public class ExampleImGuiNodeEditor {
             if (ImGui.beginPopup("node_editor_context")) {
                 if (ImGui.button("Create New Node")) {
                     final Graph.GraphNode node = graph.createGraphNode();
-                    final float canvasX = NodeEditor.toCanvasX(ImGui.getMousePosX());
-                    final float canvasY = NodeEditor.toCanvasY(ImGui.getMousePosY());
-                    NodeEditor.setNodePosition(node.nodeId, canvasX, canvasY);
+                    final ImVec2 canvas = NodeEditor.screenToCanvas(ImGui.getMousePos());
+                    NodeEditor.setNodePosition(node.nodeId, canvas);
                     ImGui.closeCurrentPopup();
                 }
                 ImGui.endPopup();

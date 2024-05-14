@@ -1,16 +1,16 @@
 package imgui.flag;
 
+import imgui.binding.annotation.BindingAstEnum;
+import imgui.binding.annotation.BindingSource;
+
 /**
  * A cardinal direction
  */
+@BindingSource
 public final class ImGuiDir {
     private ImGuiDir() {
     }
 
-    public static final int None = -1;
-    public static final int Left = 0;
-    public static final int Right = 1;
-    public static final int Up = 2;
-    public static final int Down = 3;
-    public static final int COUNT = 5;
+    @BindingAstEnum(file = "ast-imgui.json", qualType = "ImGuiDir_")
+    public Void __;
 }

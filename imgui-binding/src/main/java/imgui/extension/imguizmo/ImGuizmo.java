@@ -1,120 +1,90 @@
 package imgui.extension.imguizmo;
 
 import imgui.ImDrawList;
-import imgui.ImGui;
+import imgui.ImVec2;
+import imgui.binding.annotation.ArgValue;
+import imgui.binding.annotation.BindingMethod;
+import imgui.binding.annotation.BindingSource;
+import imgui.binding.annotation.OptArg;
+import imgui.internal.ImGuiContext;
 
+@BindingSource
 public final class ImGuizmo {
-    private static final float[] MATRICES = new float[4 * 16]; //for drawCubes()
-
     private ImGuizmo() {
     }
 
     /*JNI
         #include "_imguizmo.h"
-    */
-
-    private static native void nEnabled(boolean enabled); /*
-        ImGuizmo::Enable(enabled);
-    */
+     */
 
     /**
-     * Enable/Disable the gizmo.
+     * Call inside your own window and before Manipulate() in order to draw gizmo to that window.
+     * Or pass a specific ImDrawList to draw to (e.g. ImGui::GetForegroundDrawList()).
      */
-    public static void setEnabled(final boolean isEnabled) {
-        nEnabled(isEnabled);
-    }
-
-    private static native boolean nIsUsing(); /*
-        return ImGuizmo::IsUsing();
-    */
+    @BindingMethod(callName = "SetDrawlist")
+    public static native void SetDrawList(@OptArg ImDrawList drawList);
 
     /**
-     * Checks to see if we're using the Gizmo.
+     * Call BeginFrame right after ImGui_XXXX_NewFrame();
      */
-    public static boolean isUsing() {
-        return nIsUsing();
-    }
-
-    private static native boolean nIsOver(); /*
-        return ImGuizmo::IsOver();
-    */
+    @BindingMethod
+    public static native void BeginFrame();
 
     /**
-     * Checks to see if we're over the Gizmo.
+     * This is necessary because when imguizmo is compiled into a dll, and imgui into another
+     * Globals are not shared between them.
+     * More details at https://stackoverflow.com/questions/19373061/what-happens-to-global-and-static-variables-in-a-shared-library-when-it-is-dynam
+     * Expose method to set imgui context
      */
-    public static boolean isOver() {
-        return nIsOver();
-    }
-
-    private static native void nSetDrawList(long pointer); /*
-        ImGuizmo::SetDrawlist((ImDrawList*)pointer);
-    */
+    @BindingMethod
+    public static native void SetImGuiContext(ImGuiContext ctx);
 
     /**
-     * Setting the draw list of the given Gizmo.
-     *
-     * @param drawList the target drawlist
+     * Return true if mouse cursor is over any gizmo control (axis, plan or screen component)
      */
-    public static void setDrawList(final ImDrawList drawList) {
-        nSetDrawList(drawList.ptr);
-    }
+    @BindingMethod
+    public static native boolean IsOver();
 
     /**
-     * Setting the default window drawlist.
+     * Return true if mouse IsOver or if the gizmo is in moving state
      */
-    public static void setDrawList() {
-        setDrawList(ImGui.getWindowDrawList());
-    }
+    @BindingMethod
+    public static native boolean IsUsing();
 
     /**
-     * Starts the next frame for the Gizmo.
-     * Call this after you've called ImGui.beginFrame().
+     * Enable/disable the gizmo. Stay in the state until next call to Enable.
+     * Gizmo is rendered with gray half transparent color when disabled
      */
-    public static native void beginFrame(); /*
-        ImGuizmo::BeginFrame();
-    */
-
-    private static native void nDecomposeMatrixToComponents(float[] matrix, float[] translation, float[] rotation, float[] scale); /*
-        ImGuizmo::DecomposeMatrixToComponents(matrix, translation, rotation, scale);
-    */
+    @BindingMethod
+    public static native void Enable(boolean enable);
 
     /**
      * Helper function for manually editing Translation/Rotation/Scale with an input float.
      * Translation, Rotation and Scale float points to 3 floats each.
      * Angles are in degrees (more suitable for human editing).
      *
-     * @param modelMatrix the model matrix
+     * @param matrix      the model matrix
      * @param translation the model translation
      * @param rotation    the model rotation
      * @param scale       the model scale
      * @see <a target="_blank" href="https://github.com/CedricGuillemet/ImGuizmo">Reference Page</a>
      */
-    public static void decomposeMatrixToComponents(final float[] modelMatrix, final float[] translation, final float[] rotation, final float[] scale) {
-        nDecomposeMatrixToComponents(modelMatrix, translation, rotation, scale);
-    }
-
-    private static native void nRecomposeMatrixFromComponents(float[] matrix, float[] translation, float[] rotation, float[] scale); /*
-        ImGuizmo::RecomposeMatrixFromComponents(translation, rotation, scale, matrix);
-    */
+    @BindingMethod
+    public static native void DecomposeMatrixToComponents(float[] matrix, float[] translation, float[] rotation, float[] scale);
 
     /**
      * Helper function for manually editing Translation/Rotation/Scale with an input float.
      * Translation, Rotation and Scale float points to 3 floats each.
      * Angles are in degrees (more suitable for human editing).
      *
-     * @param modelMatrix the model matrix
      * @param translation the model translation
      * @param rotation    the model rotation
      * @param scale       the model scale
+     * @param matrix      the model matrix
      * @see <a target="_blank" href="https://github.com/CedricGuillemet/ImGuizmo">Reference Page</a>
      */
-    public static void recomposeMatrixFromComponents(final float[] modelMatrix, final float[] translation, final float[] rotation, final float[] scale) {
-        nRecomposeMatrixFromComponents(modelMatrix, translation, rotation, scale);
-    }
-
-    public static native void nSetRect(float x, float y, float width, float height); /*
-        ImGuizmo::SetRect(x, y, width, height);
-    */
+    @BindingMethod
+    public static native void RecomposeMatrixFromComponents(float[] translation, float[] rotation, float[] scale, float[] matrix);
 
     /**
      * This will set the rect position.
@@ -124,48 +94,56 @@ public final class ImGuizmo {
      * @param width  width of the rectangle
      * @param height height of the rectangle
      */
-    public static void setRect(final float x, final float y, final float width, final float height) {
-        nSetRect(x, y, width, height);
-    }
-
-    private static native void nSetOrthographic(boolean ortho); /*
-        ImGuizmo::SetOrthographic(ortho);
-    */
+    @BindingMethod
+    public static native void SetRect(float x, float y, float width, float height);
 
     /**
      * Making sure if we're set to ortho or not.
      */
-    public static void setOrthographic(final boolean ortho) {
-        nSetOrthographic(ortho);
-    }
-
-    private static native void nDrawCubes(float[] view, float[] projection, float[] matrices, int matrixCount); /*
-        ImGuizmo::DrawCubes(view, projection, matrices, matrixCount);
-    */
+    @BindingMethod
+    public static native void SetOrthographic(boolean isOrthographic);
 
     /**
      * Drawing an arbitrary cube in the world.
      *
-     * @param view         target camera view
-     * @param projection   target camera projection
-     * @param cubeMatrices cube matrices (max. 4 cubes allowed)
+     * @param view       target camera view
+     * @param projection target camera projection
+     * @param matrices   cube matrices (max. 4 cubes allowed)
      */
-    public static void drawCubes(final float[] view, final float[] projection, final float[]... cubeMatrices) {
-        if (cubeMatrices.length > 4) {
-            throw new IllegalArgumentException("Drawing cubes with ImGuizmo only supports up to 4 cubes because it should only be used for debugging purposes");
+    @BindingMethod
+    public static native void DrawCubes(float[] view, float[] projection, float[] matrices, @ArgValue(callValue = "(int)(env->GetArrayLength(obj_matrices)/16)") Void matrixCount);
+
+    /**
+     * Drawing an arbitrary cube in the world.
+     *
+     * @param view        target camera view
+     * @param projection  target camera projection
+     * @param matrices    cube matrices (max. 4 cubes allowed)
+     * @param matrixCount number of matrices
+     */
+    @BindingMethod
+    public static native void DrawCubes(float[] view, float[] projection, float[] matrices, int matrixCount);
+
+    /**
+     * Drawing an arbitrary cube in the world.
+     *
+     * @param view       target camera view
+     * @param projection target camera projection
+     * @param matrices   cube matrices (max. 4 cubes allowed)
+     */
+    public static void drawCubes(final float[] view, final float[] projection, final float[]... matrices) {
+        if (matrices.length > 4) {
+            throw new IllegalArgumentException("Only up to 4 cubes matrices is supported");
         }
 
-        for (int i = 0, cubeMatricesLength = cubeMatrices.length; i < cubeMatricesLength; i++) {
-            final float[] cubeMatrix = cubeMatrices[i];
-            System.arraycopy(cubeMatrix, 0, MATRICES, i * cubeMatrix.length, cubeMatrix.length);
+        final float[] cubeMatrices = new float[matrices.length * 16];
+        for (int i = 0, cubeMatricesLength = matrices.length; i < cubeMatricesLength; i++) {
+            final float[] cubeMatrix = matrices[i];
+            System.arraycopy(cubeMatrix, 0, cubeMatrices, i * cubeMatrix.length, cubeMatrix.length);
         }
 
-        nDrawCubes(view, projection, MATRICES, cubeMatrices.length);
+        drawCubes(view, projection, cubeMatrices, cubeMatrices.length);
     }
-
-    private static native void nDrawGrid(float[] view, float[] projection, float[] matrix, int gridSize); /*
-        ImGuizmo::DrawGrid(view, projection, matrix, gridSize);
-    */
 
     /**
      * Drawing a grid to the world (should only be used for debugging purposes).
@@ -175,159 +153,59 @@ public final class ImGuizmo {
      * @param matrix     grid matrix
      * @param gridSize   grid size
      */
-    public static void drawGrid(final float[] view, final float[] projection, final float[] matrix, final int gridSize) {
-        nDrawGrid(view, projection, matrix, gridSize);
-    }
-
-    private static native void nManipulate(float[] view, float[] projection, int operation, int mode, float[] matrix); /*
-        ImGuizmo::Manipulate(view, projection, (ImGuizmo::OPERATION) operation, (ImGuizmo::MODE) mode, matrix);
-    */
-
-    private static native void nManipulate(float[] view, float[] projection, int operation, int mode, float[] matrix, float[] snap); /*
-        ImGuizmo::Manipulate(view, projection, (ImGuizmo::OPERATION) operation, (ImGuizmo::MODE) mode, matrix, NULL, snap);
-    */
-
-    private static native void nManipulate(float[] view, float[] projection, int operation, int mode, float[] matrix, float[] snap, float[] bounds); /*
-        ImGuizmo::Manipulate(view, projection, (ImGuizmo::OPERATION) operation, (ImGuizmo::MODE) mode, matrix, NULL, snap, bounds, NULL);
-    */
-
-    private static native void nManipulate(float[] view, float[] projection, int operation, int mode, float[] matrix, float[] snap, float[] bounds, float[] boundsSnap); /*
-        ImGuizmo::Manipulate(view, projection, (ImGuizmo::OPERATION) operation, (ImGuizmo::MODE) mode, matrix, NULL, snap, bounds, boundsSnap);
-    */
-
-    private static native void nManipulate(float[] view, float[] projection, int operation, int mode, float[] matrix, float[] deltaMatrix, float[] snap, float[] bounds, float[] boundsSnap); /*
-        ImGuizmo::Manipulate(view, projection, (ImGuizmo::OPERATION) operation, (ImGuizmo::MODE) mode, matrix, deltaMatrix, snap, bounds, boundsSnap);
-    */
-
-    /**
-     * Manipulating the given model matrix.
-     *
-     * @param view        target camera view
-     * @param projection  target camera projection
-     * @param modelMatrix model matrix
-     * @param operation   target operation
-     * @param mode        target mode
-     */
-    public static void manipulate(final float[] view, final float[] projection, final float[] modelMatrix, final int operation, final int mode) {
-        nManipulate(view, projection, operation, mode, modelMatrix);
-    }
-
-    /**
-     * Manipulating the given model matrix with snap feature enabled!
-     *
-     * @param view        target camera view
-     * @param projection  target camera projection
-     * @param modelMatrix model matrix
-     * @param operation   target operation
-     * @param mode        target mode
-     * @param snap        snap value
-     */
-    public static void manipulate(final float[] view, final float[] projection, final float[] modelMatrix, final int operation, final int mode, final float[] snap) {
-        nManipulate(view, projection, operation, mode, modelMatrix, snap);
-    }
-
-    /**
-     * Manipulating the given model matrix with snap and bounds feature enabled!
-     *
-     * @param view        target camera view
-     * @param projection  target camera projection
-     * @param modelMatrix model matrix
-     * @param operation   target operation
-     * @param mode        target mode
-     * @param snap        snap value
-     * @param bounds      bounds value
-     */
-    public static void manipulate(final float[] view, final float[] projection, final float[] modelMatrix, final int operation, final int mode, final float[] snap, final float[] bounds) {
-        nManipulate(view, projection, operation, mode, modelMatrix, snap, bounds);
-    }
-
-    /**
-     * Manipulating the given model matrix with snap and bounds(snap) feature enabled!
-     *
-     * @param view        target camera view
-     * @param projection  target camera projection
-     * @param modelMatrix model matrix
-     * @param operation   target operation
-     * @param mode        target mode
-     * @param snap        snap value
-     * @param bounds      bounds value
-     * @param boundsSnap  bounds snap value
-     */
-    public static void manipulate(final float[] view, final float[] projection, final float[] modelMatrix, final int operation, final int mode, final float[] snap, final float[] bounds, final float[] boundsSnap) {
-        nManipulate(view, projection, operation, mode, modelMatrix, snap, bounds, boundsSnap);
-    }
+    @BindingMethod
+    public static native void DrawGrid(float[] view, float[] projection, float[] matrix, float gridSize);
 
     /**
      * Manipulating the given model matrix with delta matrix
      *
      * @param view        target camera view
      * @param projection  target camera projection
-     * @param modelMatrix model matrix
-     * @param deltaMatrix delta matrix
      * @param operation   target operation
      * @param mode        target mode
+     * @param matrix      model matrix
+     * @param deltaMatrix delta matrix
      * @param snap        snap value
-     * @param bounds      bounds value
+     * @param localBounds bounds value
      * @param boundsSnap  bounds snap value
      */
-    public static void manipulate(final float[] view, final float[] projection, final float[] modelMatrix, final float[] deltaMatrix, final int operation, final int mode, final float[] snap, final float[] bounds, final float[] boundsSnap) {
-        nManipulate(view, projection, operation, mode, modelMatrix, deltaMatrix, snap, bounds, boundsSnap);
-    }
-
-    private static native void nViewManipulate(float[] view, float length, float[] position, float[] size, int color); /*
-        ImGuizmo::ViewManipulate(view, length, ImVec2(position[0], position[1]), ImVec2(size[0], size[1]), (ImU32) color);
-    */
+    @BindingMethod
+    public static native void Manipulate(float[] view, float[] projection, @ArgValue(staticCast = "ImGuizmo::OPERATION") int operation, @ArgValue(staticCast = "ImGuizmo::MODE") int mode, float[] matrix, @OptArg float[] deltaMatrix, @OptArg float[] snap, @OptArg float[] localBounds, @OptArg float[] boundsSnap);
 
     /**
      * Manipulating the view
      *
-     * @param view     target camera view
-     * @param length   camera distance/length
-     * @param position position
-     * @param size     size
-     * @param color    color
+     * @param view            target camera view
+     * @param length          camera distance/length
+     * @param position        position
+     * @param size            size
+     * @param backgroundColor color
      */
-    public static void viewManipulate(final float[] view, final float length, final float[] position, final float[] size, final int color) {
-        nViewManipulate(view, length, position, size, color);
-    }
-
-    private static native void nSetId(int id); /*
-        ImGuizmo::SetID(id);
-    */
+    @BindingMethod
+    public static native void ViewManipulate(float[] view, float length, ImVec2 position, ImVec2 size, int backgroundColor);
 
     /**
      * This will update the current id
      */
-    public static void setId(final int id) {
-        nSetId(id);
-    }
-
-    private static native boolean nIsOver(int operation); /*
-        return ImGuizmo::IsOver((ImGuizmo::OPERATION) operation);
-    */
+    @BindingMethod
+    public static native void SetID(int id);
 
     /**
-     * Checks if we're over the current operation.
-     * One of {@link imgui.extension.imguizmo.flag.Operation}.
+     * Return true if the cursor is over the operation's gizmo
      *
      * @param operation target
      */
-    public static boolean isOver(final int operation) {
-        return nIsOver(operation);
-    }
+    @BindingMethod
+    public static native boolean IsOver(@ArgValue(staticCast = "ImGuizmo::OPERATION") int operation);
 
-    private static native void nSetGizmoSizeClipSpace(float value); /*
-        ImGuizmo::SetGizmoSizeClipSpace(value);
-    */
-
-    private static native void nAllowAxisFlip(boolean value); /*
-        ImGuizmo::AllowAxisFlip(value);
-     */
+    @BindingMethod
+    public static native void SetGizmoSizeClipSpace(float value);
 
     /**
-     * This will update the current axis flip value
+     * Allow axis to flip.
+     * When true (default), the guizmo axis flip for better visibility.
+     * When false, they always stay along the positive world/local axis.
      */
-    public static void setAllowAxisFlip(final boolean value) {
-        nAllowAxisFlip(value);
-    }
+    @BindingMethod
+    public static native void AllowAxisFlip(boolean value);
 }

@@ -1,14 +1,16 @@
 package imgui.extension.imnodes.flag;
 
+import imgui.binding.annotation.BindingAstEnum;
+import imgui.binding.annotation.BindingSource;
+
 /**
  * This enum controls the minimap's location.
  */
+@BindingSource
 public final class ImNodesMiniMapLocation {
     private ImNodesMiniMapLocation() {
     }
 
-    public static final int BottomLeft = 0;
-    public static final int BottomRight = 1;
-    public static final int TopLeft = 2;
-    public static final int TopRight = 3;
+    @BindingAstEnum(file = "ast-imnodes.json", qualType = "ImNodesMiniMapLocation_")
+    public Void __;
 }

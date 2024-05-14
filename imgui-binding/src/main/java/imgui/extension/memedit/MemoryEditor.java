@@ -1,21 +1,19 @@
 package imgui.extension.memedit;
 
 import imgui.binding.ImGuiStructDestroyable;
+import imgui.binding.annotation.ArgValue;
+import imgui.binding.annotation.BindingField;
+import imgui.binding.annotation.BindingMethod;
+import imgui.binding.annotation.BindingSource;
+import imgui.binding.annotation.OptArg;
 
 /**
  * ImGui Club Memory Editor extension for ImGui
- * Repo: https://github.com/ocornut/imgui_club
+ * Repo: <a href="https://github.com/ocornut/imgui_club">https://github.com/ocornut/imgui_club</a>
  */
+@BindingSource
 public final class MemoryEditor extends ImGuiStructDestroyable {
-
-     /*JNI
-        #include "_memedit.h"
-
-        #define MEMORY_EDITOR ((MemoryEditor*)STRUCT_PTR)
-      */
-
     public MemoryEditor() {
-
     }
 
     public MemoryEditor(final long ptr) {
@@ -27,51 +25,75 @@ public final class MemoryEditor extends ImGuiStructDestroyable {
         return nCreate();
     }
 
+    /*JNI
+        #include "_memedit.h"
+        #define THIS ((MemoryEditor*)STRUCT_PTR)
+        #define MemoryEditorSizes MemoryEditor::Sizes
+     */
+
     private native long nCreate(); /*
         return (intptr_t)(new MemoryEditor());
     */
 
-    public native void gotoAddrAndHighlight(long addrMin, long addrMax); /*
-        MEMORY_EDITOR->GotoAddrAndHighlight(addrMin, addrMax);
-    */
+    @BindingField
+    public boolean Open;
 
-    public void calcSizes(final MemoryEditorSizes s, final long memSize, final long baseDisplayAddr) {
-        nCalcSizes(s.ptr, memSize, baseDisplayAddr);
-    }
+    @BindingField
+    public boolean ReadOnly;
 
-    public native void nCalcSizes(long ptr, long memSize, long baseDisplayAddr); /*
-        MEMORY_EDITOR->CalcSizes(*((MemoryEditor::Sizes*)ptr), static_cast<size_t>(memSize), static_cast<size_t>(baseDisplayAddr));
-    */
+    @BindingField
+    public int Cols;
 
-    public void drawWindow(final String title, final long memData, final long memSize) {
-        drawWindow(title, memData, memSize, 0x000);
-    }
+    @BindingField
+    public boolean OptShowOptions;
 
-    public native void drawWindow(String title, long memData, long memSize, long baseDisplayAddr); /*
-        MEMORY_EDITOR->DrawWindow(title, reinterpret_cast<void*>(memData), static_cast<size_t>(memSize), static_cast<size_t>(baseDisplayAddr));
-    */
+    @BindingField
+    public boolean OptShowDataPreview;
 
-    public void drawContents(final long memData, final long memSize) {
-        drawContents(memData, memSize, 0x0000);
-    }
+    @BindingField
+    public boolean OptShowHexII;
 
-    public native void drawContents(long memData, long memSize, long baseDisplayAddr); /*
-        MEMORY_EDITOR->DrawContents(reinterpret_cast<void*>(memData), static_cast<size_t>(memSize), static_cast<size_t>(baseDisplayAddr));
-    */
+    @BindingField
+    public boolean OptShowAscii;
 
-    public void drawOptionsLine(final MemoryEditorSizes s, final long memData, final long memSize, final long baseDisplayAddr) {
-        nDrawOptionsLine(s.ptr, memData, memSize, baseDisplayAddr);
-    }
+    @BindingField
+    public boolean OptGreyOutZeroes;
 
-    public native void nDrawOptionsLine(long ptr, long memData, long memSize, long baseDisplayAddr); /*
-        MEMORY_EDITOR->DrawOptionsLine(*((MemoryEditor::Sizes*)ptr), reinterpret_cast<void*>(memData), static_cast<size_t>(memSize), static_cast<size_t>(baseDisplayAddr));
-    */
+    @BindingField
+    public boolean OptUpperCaseHex;
 
-    public void drawPreviewLine(final MemoryEditorSizes s, final long memDataVoid, final long memSize, final long baseDisplayAddr) {
-        nDrawPreviewLine(s.ptr, memDataVoid, memSize, baseDisplayAddr);
-    }
+    @BindingField
+    public int OptMidColsCount;
 
-    public native void nDrawPreviewLine(long ptr, long memDataVoid, long memSize, long baseDisplayAddr); /*
-        MEMORY_EDITOR->DrawPreviewLine(*((MemoryEditor::Sizes*)ptr), reinterpret_cast<void*>(memDataVoid), static_cast<size_t>(memSize), static_cast<size_t>(baseDisplayAddr));
-    */
+    @BindingField
+    public int OptAddrDigitsCount;
+
+    @BindingField
+    public float OptFooterExtraHeight;
+
+    @BindingField
+    public int HighlightColor;
+
+    @BindingMethod
+    public native void GotoAddrAndHighlight(long addrMin, long addrMax);
+
+    @BindingMethod
+    public native void CalcSizes(@ArgValue(callPrefix = "*") MemoryEditorSizes s, long memSize, long baseDisplayAddr);
+
+    @BindingMethod
+    public native void DrawWindow(String title, @ArgValue(reinterpretCast = "void*") long memData, long memSize, @OptArg long baseDisplayAddr);
+
+    @BindingMethod
+    public native void DrawContents(@ArgValue(reinterpretCast = "void*") long memData, long memSize, @OptArg long baseDisplayAddr);
+
+    @BindingMethod
+    public native void DrawOptionsLine(@ArgValue(callPrefix = "*") MemoryEditorSizes s, @ArgValue(reinterpretCast = "void*") long memData, long memSize, long baseDisplayAddr);
+
+    @BindingMethod
+    public native void DrawPreviewLine(@ArgValue(callPrefix = "*") MemoryEditorSizes s, @ArgValue(reinterpretCast = "void*") long memDataVoid, long memSize, long baseDisplayAddr);
+
+    /*JNI
+        #undef MemoryEditorSizes
+        #undef THIS
+     */
 }

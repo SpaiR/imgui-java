@@ -1,4 +1,5 @@
 import imgui.extension.implot.ImPlot;
+import imgui.extension.implot.ImPlotPoint;
 import imgui.flag.ImGuiCond;
 import imgui.internal.ImGui;
 import imgui.type.ImBoolean;
@@ -10,10 +11,10 @@ public class ExampleImPlot {
     private static final String URL = "https://github.com/epezent/implot/tree/555ff68";
     private static final ImBoolean showDemo = new ImBoolean(false);
 
-    private static final Integer[] xs = {0, 1, 2, 3, 4, 5};
-    private static final Integer[] ys = {0, 1, 2, 3, 4, 5};
-    private static final Integer[] ys1 = {0, 0, 1, 2, 3, 4};
-    private static final Integer[] ys2 = {1, 2, 3, 4, 5, 6};
+    private static final int[] xs = {0, 1, 2, 3, 4, 5};
+    private static final int[] ys = {0, 1, 2, 3, 4, 5};
+    private static final int[] ys1 = {0, 0, 1, 2, 3, 4};
+    private static final int[] ys2 = {1, 2, 3, 4, 5, 6};
 
     static {
         ImPlot.createContext();
@@ -38,20 +39,30 @@ public class ExampleImPlot {
 
             ImGui.checkbox("Show ImPlot Built-In Demo", showDemo);
 
-            if (ImPlot.beginPlot("Example Plot")) {
-                ImPlot.plotShaded("Shaded", xs, ys1, ys2);
-                ImPlot.plotLine("Line", xs, ys);
-                ImPlot.plotBars("Bars", xs, ys);
-                ImPlot.endPlot();
-            }
-
-            if (ImPlot.beginPlot("Example Scatterplot")) {
-                ImPlot.plotScatter("Scatter", xs, ys);
-                ImPlot.endPlot();
-            }
-
             if (showDemo.get()) {
                 ImPlot.showDemoWindow(showDemo);
+            } else {
+                if (ImPlot.beginPlot("Example Plot")) {
+                    ImPlot.plotShaded("Shaded", xs, ys1, ys2);
+                    ImPlot.plotLine("Line", xs, ys);
+                    ImPlot.plotBars("Bars", xs, ys);
+                    ImPlot.endPlot();
+                }
+
+                if (ImPlot.beginPlot("Example Scatterplot")) {
+                    ImPlot.plotScatter("Scatter", xs, ys);
+                    ImPlot.endPlot();
+                }
+
+                if (ImPlot.beginPlot("Example Piechart")) {
+                    ImPlot.plotPieChart(new String[]{"1", "2", "3", "4", "5", "6"}, xs, .5, .5, .4);
+                    ImPlot.endPlot();
+                }
+
+                if (ImPlot.beginPlot("Example Heatmap")) {
+                    ImPlot.plotHeatmap("Heatmap", new int[]{1, 3, 6, 2, 8, 5, 4, 3}, 2, 4, 0, 0, "%d", new ImPlotPoint(0, 0), new ImPlotPoint(10, 10));
+                    ImPlot.endPlot();
+                }
             }
         }
 

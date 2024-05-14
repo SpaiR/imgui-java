@@ -1,41 +1,43 @@
 package imgui.extension.imguifiledialog;
 
+import imgui.ImVec2;
+import imgui.binding.annotation.ArgValue;
+import imgui.binding.annotation.BindingMethod;
+import imgui.binding.annotation.BindingSource;
+import imgui.binding.annotation.OptArg;
+import imgui.binding.annotation.ReturnValue;
 import imgui.extension.imguifiledialog.callback.ImGuiFileDialogPaneFun;
 
 import java.util.HashMap;
 
 /**
  * ImGuiFileDialog extension for ImGui
- * Repo: https://github.com/aiekick/ImGuiFileDialog
+ * Repo: <a href="https://github.com/aiekick/ImGuiFileDialog">https://github.com/aiekick/ImGuiFileDialog</a>
  */
+@BindingSource(callPtr = "ImGuiFileDialog::Instance()", callOperator = "->")
 public final class ImGuiFileDialog {
-
     private ImGuiFileDialog() {
-
     }
 
     /*JNI
         #include "_imguifiledialog.h"
 
-        jobject imgfdPaneFunCallback = NULL;
-        const void paneFunCallback(const char* filter, void* user_data, bool* can_we_continue) {
-            if (imgfdPaneFunCallback != NULL) {
-                JNIEnv* env = Jni::GetEnv();
-                std::string vKey = ImGuiFileDialog::Instance()->GetOpenedKey();
-                jlong ret_user_datas = reinterpret_cast<jlong>(user_data);
-                Jni::CallImGuiFileDialogPaneFun(env, imgfdPaneFunCallback, filter, ret_user_datas, *can_we_continue);
+        static auto PaneFunCallback(JNIEnv* env, jobject fn) {
+            static jobject cb = NULL;
+            if (cb != NULL) {
+                env->DeleteGlobalRef(cb);
             }
+            cb = env->NewGlobalRef(fn);
+            return [](const char* filter, void* userData, bool* canWeContinue) {
+                if (cb != NULL) {
+                    Jni::CallImGuiFileDialogPaneFun(Jni::GetEnv(), cb, filter, reinterpret_cast<jlong>(userData), *canWeContinue);
+                }
+            };
         }
-
-        #define IMGFD_PANE_FUN_METHOD_TMPL()\
-            if (imgfdPaneFunCallback != NULL) {\
-                env->DeleteGlobalRef(imgfdPaneFunCallback);\
-            }\
-            imgfdPaneFunCallback = env->NewGlobalRef(vSidePane);
     */
 
     /**
-     * open simple dialog (path and fileName can be specified)
+     * Open simple dialog (path and fileName can be specified)
      *
      * @param vKey               key dialog
      * @param vTitle             title
@@ -46,31 +48,57 @@ public final class ImGuiFileDialog {
      * @param vUserDatas         user datas (can be retrieved in pane)
      * @param vFlags             ImGuiFileDialogFlags
      */
-    public static native void openDialog(String vKey, String vTitle, String vFilters, String vPath, String vFileName,
-                                         int vCountSelectionMax, long vUserDatas, int vFlags); /*MANUAL
+    @BindingMethod
+    public static native void OpenDialog(String vKey, String vTitle, String vFilters, String vPath, String vFileName, @OptArg int vCountSelectionMax, @OptArg @ArgValue(reinterpretCast = "void*") long vUserDatas, @OptArg int vFlags);
 
-        char* vKey = (char*)env->GetStringUTFChars(obj_vKey, 0);
-        char* vTitle = (char*)env->GetStringUTFChars(obj_vTitle, 0);
-        char* vPath = (char*)env->GetStringUTFChars(obj_vPath, 0);
-        char* vFileName = (char*)env->GetStringUTFChars(obj_vFileName, 0);
+    /**
+     * Open simple dialog (path and filename are obtained from filePathName)
+     *
+     * @param vKey               key dialog
+     * @param vTitle             title
+     * @param vFilters           filters (in comma separated form i.e. ".png,.jpg" or ".*") or null for directories
+     * @param vFilePathName      file path name (will be decompsoed in path and fileName)
+     * @param vCountSelectionMax count selection max
+     * @param vUserDatas         user datas (can be retrieved in pane)
+     * @param vFlags             ImGuiFileDialogFlags
+     */
+    @BindingMethod
+    public static native void OpenDialog(String vKey, String vTitle, String vFilters, String vFilePathName, @OptArg int vCountSelectionMax, @OptArg @ArgValue(reinterpretCast = "void*") long vUserDatas, @OptArg int vFlags);
 
-        if (env->IsSameObject(obj_vFilters, NULL)) {
-            ImGuiFileDialog::Instance()->OpenDialog(vKey, vTitle, nullptr, vPath, vFileName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
-        } else {
-            char* vFilters = (char*)env->GetStringUTFChars(obj_vFilters, JNI_FALSE);
-            ImGuiFileDialog::Instance()->OpenDialog(vKey, vTitle, vFilters, vPath, vFileName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
-            env->ReleaseStringUTFChars(obj_vFilters, vFilters);
-        }
+    /**
+     * Open dialog with custom right pane (path and fileName can be specified)
+     *
+     * @param vKey               key dialog
+     * @param vTitle             title
+     * @param vFilters           filters (in comma separated form i.e. ".png,.jpg" or ".*") or null for directories
+     * @param vPath              path
+     * @param vFileName          default file name
+     * @param vSidePane          side pane
+     * @param vCountSelectionMax count selection max
+     * @param vUserDatas         user datas (can be retrieved in pane)
+     * @param vFlags             ImGuiFileDialogFlags
+     */
+    @BindingMethod
+    public static native void OpenDialog(String vKey, String vTitle, String vFilters, String vPath, String vFileName, @ArgValue(callValue = "PaneFunCallback(env, vSidePane)") ImGuiFileDialogPaneFun vSidePane, @OptArg(callValue = "250.0f") float vSidePaneWidth, @OptArg int vCountSelectionMax, @OptArg @ArgValue(reinterpretCast = "void*") long vUserDatas, @OptArg int vFlags);
 
-        env->ReleaseStringUTFChars(obj_vKey, vKey);
-        env->ReleaseStringUTFChars(obj_vTitle, vTitle);
-        env->ReleaseStringUTFChars(obj_vPath, vPath);
-        env->ReleaseStringUTFChars(obj_vFileName, vFileName);
-    */
+    /**
+     * Open dialog with custom right pane (path and filename are obtained from filePathName)
+     *
+     * @param vKey               key dialog
+     * @param vTitle             title
+     * @param vFilters           filters (in comma separated form i.e. ".png,.jpg" or ".*") or null for directories
+     * @param vFilePathName      file path name (will be decompsoed in path and fileName)
+     * @param vSidePane          side pane
+     * @param vCountSelectionMax count selection max
+     * @param vUserDatas         user datas (can be retrieved in pane)
+     * @param vFlags             ImGuiFileDialogFlags
+     */
+    @BindingMethod
+    public static native void OpenDialog(String vKey, String vTitle, String vFilters, String vFilePathName, @ArgValue(callValue = "PaneFunCallback(env, vSidePane)") ImGuiFileDialogPaneFun vSidePane, @OptArg(callValue = "250.0f") float vSidePaneWidth, @OptArg int vCountSelectionMax, @OptArg @ArgValue(reinterpretCast = "void*") long vUserDatas, @OptArg int vFlags);
 
 
     /**
-     * open simple modal (path and fileName can be specified)
+     * Open simple modal (path and fileName can be specified)
      *
      * @param vKey               key dialog
      * @param vTitle             title
@@ -81,27 +109,8 @@ public final class ImGuiFileDialog {
      * @param vUserDatas         user datas (can be retrieved in pane)
      * @param vFlags             ImGuiFileDialogFlags
      */
-    public static native void openModal(String vKey, String vTitle, String vFilters, String vPath, String vFileName,
-                                        int vCountSelectionMax, long vUserDatas, int vFlags);  /*MANUAL
-        char* vKey = (char*)env->GetStringUTFChars(obj_vKey, 0);
-        char* vTitle = (char*)env->GetStringUTFChars(obj_vTitle, 0);
-        char* vPath = (char*)env->GetStringUTFChars(obj_vPath, 0);
-        char* vFileName = (char*)env->GetStringUTFChars(obj_vFileName, 0);
-
-        if (env->IsSameObject(obj_vFilters, NULL)) {
-            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, nullptr, vPath, vFileName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
-        } else {
-            char* vFilters = (char*)env->GetStringUTFChars(obj_vFilters, JNI_FALSE);
-            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vPath, vFileName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
-            env->ReleaseStringUTFChars(obj_vFilters, vFilters);
-        }
-
-        env->ReleaseStringUTFChars(obj_vKey, vKey);
-        env->ReleaseStringUTFChars(obj_vTitle, vTitle);
-        env->ReleaseStringUTFChars(obj_vPath, vPath);
-        env->ReleaseStringUTFChars(obj_vFileName, vFileName);
-    */
-
+    @BindingMethod
+    public static native void OpenModal(String vKey, String vTitle, String vFilters, String vPath, String vFileName, @OptArg int vCountSelectionMax, @OptArg @ArgValue(reinterpretCast = "void*") long vUserDatas, @OptArg int vFlags);
 
     /**
      * open simple modal (path and filename are obtained from filePathName)
@@ -114,28 +123,13 @@ public final class ImGuiFileDialog {
      * @param vUserDatas         user datas (can be retrieved in pane)
      * @param vFlags             ImGuiFileDialogFlags
      */
-    public static native void openModal(String vKey, String vTitle, String vFilters, String vFilePathName,
-                                        int vCountSelectionMax, long vUserDatas, int vFlags);  /*MANUAL
-        char* vKey = (char*)env->GetStringUTFChars(obj_vKey, 0);
-        char* vTitle = (char*)env->GetStringUTFChars(obj_vTitle, 0);
-        char* vFilePathName = (char*)env->GetStringUTFChars(obj_vFilePathName, 0);
+    @BindingMethod
+    public static native void OpenModal(String vKey, String vTitle, String vFilters, String vFilePathName, @OptArg int vCountSelectionMax, @OptArg @ArgValue(reinterpretCast = "void*") long vUserDatas, @OptArg int vFlags);
 
-        if (env->IsSameObject(obj_vFilters, NULL)) {
-            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, nullptr, vFilePathName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
-        } else {
-            char* vFilters = (char*)env->GetStringUTFChars(obj_vFilters, JNI_FALSE);
-            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vFilePathName, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
-            env->ReleaseStringUTFChars(obj_vFilters, vFilters);
-        }
-
-        env->ReleaseStringUTFChars(obj_vKey, vKey);
-        env->ReleaseStringUTFChars(obj_vTitle, vTitle);
-        env->ReleaseStringUTFChars(obj_vFilePathName, vFilePathName);
-    */
-
+    //, @ArgValue(callValue = "PaneFunCallback(env, vSidePane)") ImGuiFileDialogPaneFun vSidePane, @OptArg(callValue = "250.0f") float vSidePaneWidth
 
     /**
-     * open modal with custom right pane (path and fileName can be specified)
+     * Open modal with custom right pane (path and fileName can be specified)
      *
      * @param vKey               key dialog
      * @param vTitle             title
@@ -148,32 +142,11 @@ public final class ImGuiFileDialog {
      * @param vUserDatas         user datas (can be retrieved in pane)
      * @param vFlags             ImGuiFileDialogFlags
      */
-    public static native void openModal(String vKey, String vTitle, String vFilters, String vPath, String vFileName, ImGuiFileDialogPaneFun vSidePane,
-                                        float vSidePaneWidth, int vCountSelectionMax, long vUserDatas, int vFlags); /*MANUAL
-        IMGFD_PANE_FUN_METHOD_TMPL()
-
-        char* vKey = (char*)env->GetStringUTFChars(obj_vKey, 0);
-        char* vTitle = (char*)env->GetStringUTFChars(obj_vTitle, 0);
-        char* vPath = (char*)env->GetStringUTFChars(obj_vPath, 0);
-        char* vFileName = (char*)env->GetStringUTFChars(obj_vFileName, 0);
-
-        if (env->IsSameObject(obj_vFilters, NULL)) {
-            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, nullptr, vPath, vFileName, paneFunCallback, vSidePaneWidth, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
-        } else {
-            char* vFilters = (char*)env->GetStringUTFChars(obj_vFilters, JNI_FALSE);
-            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vPath, vFileName, paneFunCallback, vSidePaneWidth, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
-            env->ReleaseStringUTFChars(obj_vFilters, vFilters);
-        }
-
-        env->ReleaseStringUTFChars(obj_vKey, vKey);
-        env->ReleaseStringUTFChars(obj_vTitle, vTitle);
-        env->ReleaseStringUTFChars(obj_vPath, vPath);
-        env->ReleaseStringUTFChars(obj_vFileName, vFileName);
-     */
-
+    @BindingMethod
+    public static native void OpenModal(String vKey, String vTitle, String vFilters, String vPath, String vFileName, @ArgValue(callValue = "PaneFunCallback(env, vSidePane)") ImGuiFileDialogPaneFun vSidePane, @OptArg(callValue = "250.0f") float vSidePaneWidth, @OptArg int vCountSelectionMax, @OptArg @ArgValue(reinterpretCast = "void*") long vUserDatas, @OptArg int vFlags);
 
     /**
-     * open modal with custom right pane (path and filename are obtained from filePathName)
+     * Open modal with custom right pane (path and filename are obtained from filePathName)
      *
      * @param vKey               key dialog
      * @param vTitle             title
@@ -185,102 +158,56 @@ public final class ImGuiFileDialog {
      * @param vUserDatas         user datas (can be retrieved in pane)
      * @param vFlags             ImGuiFileDialogFlags
      */
-    public static native void openModal(String vKey, String vTitle, String vFilters, String vFilePathName, ImGuiFileDialogPaneFun vSidePane,
-                                        float vSidePaneWidth, int vCountSelectionMax, long vUserDatas, int vFlags); /*MANUAL
-        IMGFD_PANE_FUN_METHOD_TMPL()
-
-        char* vKey = (char*)env->GetStringUTFChars(obj_vKey, 0);
-        char* vTitle = (char*)env->GetStringUTFChars(obj_vTitle, 0);
-        char* vFilePathName = (char*)env->GetStringUTFChars(obj_vFilePathName, 0);
-
-        if (env->IsSameObject(obj_vFilters, NULL)) {
-            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, nullptr, vFilePathName, paneFunCallback, vSidePaneWidth, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
-        } else {
-            char* vFilters = (char*)env->GetStringUTFChars(obj_vFilters, JNI_FALSE);
-            ImGuiFileDialog::Instance()->OpenModal(vKey, vTitle, vFilters, vFilePathName, paneFunCallback, vSidePaneWidth, vCountSelectionMax, reinterpret_cast<void*>(vUserDatas), vFlags);
-            env->ReleaseStringUTFChars(obj_vFilters, vFilters);
-        }
-
-        env->ReleaseStringUTFChars(obj_vKey, vKey);
-        env->ReleaseStringUTFChars(obj_vTitle, vTitle);
-        env->ReleaseStringUTFChars(obj_vFilePathName, vFilePathName);
-     */
+    @BindingMethod
+    public static native void OpenModal(String vKey, String vTitle, String vFilters, String vFilePathName, @ArgValue(callValue = "PaneFunCallback(env, vSidePane)") ImGuiFileDialogPaneFun vSidePane, @OptArg(callValue = "250.0f") float vSidePaneWidth, @OptArg int vCountSelectionMax, @OptArg @ArgValue(reinterpretCast = "void*") long vUserDatas, @OptArg int vFlags);
 
     /**
      * Display / Close dialog form
      * Display the dialog. return true if a result was obtained (Ok or not)
      *
-     * @param vKey      key dialog to display (if not the same key as defined by OpenDialog/Modal =&gt; no opening)
-     * @param vFlags    ImGuiWindowFlags
-     * @param vMinSizeX minimal size constraint for the ImGuiWindow
-     * @param vMinSizeY minimal size constraint for the ImGuiWindow
-     * @param vMaxSizeX maximal size constraint for the ImGuiWindow
-     * @param vMaxSizeY maximal size constraint for the ImGuiWindow
+     * @param vKey     key dialog to display (if not the same key as defined by OpenDialog/Modal =&gt; no opening)
+     * @param vFlags   ImGuiWindowFlags
+     * @param vMinSize minimal size constraint for the ImGuiWindow
+     * @param vMaxSize maximal size constraint for the ImGuiWindow
      * @return true if a result was obtained (Ok or not)
      */
-    public static native boolean display(String vKey, int vFlags, float vMinSizeX, float vMinSizeY, float vMaxSizeX, float vMaxSizeY); /*
-        return ImGuiFileDialog::Instance()->Display(vKey, vFlags, ImVec2(vMinSizeX, vMinSizeY), ImVec2(vMaxSizeX, vMaxSizeY));
-    */
+    @BindingMethod
+    public static native boolean Display(String vKey, @OptArg int vFlags, @OptArg ImVec2 vMinSize, @OptArg ImVec2 vMaxSize);
 
 
     /**
-     * close dialog
+     * Close dialog
      */
-    public static native void close(); /*
-         ImGuiFileDialog::Instance()->Close();
-    */
+    @BindingMethod
+    public static native void Close();
 
 
     /**
-     * say if the dialog key was already opened this frame
+     * Say if the dialog key was already opened this frame
      *
      * @param vKey key dialog
      * @return if the dialog key was already opened this frame
      */
-    public static native boolean wasOpenedThisFrame(String vKey); /*
-        return ImGuiFileDialog::Instance()->WasOpenedThisFrame(vKey);
-     */
-
+    @BindingMethod
+    public static native boolean WasOpenedThisFrame(@OptArg String vKey);
 
     /**
-     * say if the dialog was already opened this frame
-     *
-     * @return if the dialog was already opened this frame
-     */
-    public static native boolean wasOpenedThisFrame(); /*
-        return ImGuiFileDialog::Instance()->WasOpenedThisFrame();
-    */
-
-
-    /**
-     * say if the key is opened
+     * Say if the key is opened
      *
      * @param vKey key dialog
      * @return if the key is opened
      */
-    public static native boolean isOpened(String vKey); /*
-        return ImGuiFileDialog::Instance()->IsOpened(vKey);
-    */
-
+    @BindingMethod
+    public static native boolean IsOpened(@OptArg String vKey);
 
     /**
-     * say if the dialog is opened somewhere
-     *
-     * @return if the dialog is opened somewhere
-     */
-    public static native boolean isOpened(); /*
-        return ImGuiFileDialog::Instance()->IsOpened();
-    */
-
-
-    /**
-     * return the dialog key who is opened, return nothing if not opened
+     * Return the dialog key who is opened, return nothing if not opened
      *
      * @return the dialog key who is opened or nothing is not opened
      */
-    public static native String getOpenedKey(); /*
-        return env->NewStringUTF(ImGuiFileDialog::Instance()->GetOpenedKey().c_str());
-    */
+    @BindingMethod
+    @ReturnValue(callSuffix = ".c_str()")
+    public static native String GetOpenedKey();
 
 
     /**
@@ -288,9 +215,8 @@ public final class ImGuiFileDialog {
      *
      * @return True if the dialog closed with Ok result, or false with cancel result
      */
-    public static native boolean isOk(); /*
-        return ImGuiFileDialog::Instance()->IsOk();
-    */
+    @BindingMethod
+    public static native boolean IsOk();
 
 
     /**
@@ -301,29 +227,31 @@ public final class ImGuiFileDialog {
      *
      * @return Map of FileName to FilePathName in key,value pair
      */
-    public static native HashMap<String, String> getSelection(); /*
-        //Get the map from ImGuiFileDialog
+    public static HashMap<String, String> getSelection() {
+        return nGetSelection();
+    }
+
+    private static native HashMap<String, String> nGetSelection(); /*
+        // Get the map from ImGuiFileDialog
         std::map<std::string, std::string> mMap = ImGuiFileDialog::Instance()->GetSelection();
 
         env->PushLocalFrame(mMap.size() * 2); // Expands stack size to not overflow
 
-        //Get reference to java's HashMap
+        // Get reference to java's HashMap
         jclass hashMapClass = env->FindClass("java/util/HashMap");
         jmethodID hashMapInit = env->GetMethodID(hashMapClass, "<init>", "(I)V");
         jobject hashMapObj = env->NewObject(hashMapClass, hashMapInit, mMap.size());
-        jmethodID hashMapPut = env->GetMethodID(hashMapClass, "put",
-                    "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
+        jmethodID hashMapPut = env->GetMethodID(hashMapClass, "put", "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
 
         //Copy key,value pairs from map to hashmap
-        for (auto it : mMap)
-        {
+        for (auto it : mMap) {
             env->CallObjectMethod(hashMapObj, hashMapPut,
                  env->NewStringUTF(it.first.c_str()),
                  env->NewStringUTF(it.second.c_str())
-             );
+            );
         }
 
-        env->PopLocalFrame(hashMapObj); //Cleanup stack
+        env->PopLocalFrame(hashMapObj); // Cleanup stack
 
         return hashMapObj;
     */
@@ -332,50 +260,47 @@ public final class ImGuiFileDialog {
     /**
      * Save File behavior : will always return the content of the field with current filter extention and current path
      */
-    public static native String getFilePathName(); /*
-        return env->NewStringUTF(ImGuiFileDialog::Instance()->GetFilePathName().c_str());
-    */
-
+    @BindingMethod
+    @ReturnValue(callSuffix = ".c_str()")
+    public static native String GetFilePathName();
 
     /**
      * Save File behavior : will always return the content of the field with current filter extension
      *
      * @return the content of the field with current filter extension
      */
-    public static native String getCurrentFileName(); /*
-        return env->NewStringUTF(ImGuiFileDialog::Instance()->GetCurrentFileName().c_str());
-    */
-
+    @BindingMethod
+    @ReturnValue(callSuffix = ".c_str()")
+    public static native String GetCurrentFileName();
 
     /**
-     * will return current path
+     * Will return current path
      *
      * @return the current path
      */
-    public static native String getCurrentPath(); /*
-        return env->NewStringUTF(ImGuiFileDialog::Instance()->GetCurrentPath().c_str());
-    */
-
+    @BindingMethod
+    @ReturnValue(callSuffix = ".c_str()")
+    public static native String GetCurrentPath();
 
     /**
-     * will return selected filter
+     * Will return selected filter
      *
      * @return the selected filter
      */
-    public static native String getCurrentFilter(); /*
-        return env->NewStringUTF(ImGuiFileDialog::Instance()->GetCurrentFilter().c_str());
-    */
+    @BindingMethod
+    @ReturnValue(callSuffix = ".c_str()")
+    public static native String GetCurrentFilter();
 
 
     /**
-     * will return user datas sent with Open Dialog/Modal
+     * Will return user datas sent with Open Dialog/Modal
      * <p>
      * Can be used to pass a long value to the dialog and get the value back.
      * This long value can be a pointer to a native data structure.
      *
      * @return user datas sent with Open Dialog/Modal
      */
-    public static native long getUserDatas(); /*
-        return reinterpret_cast<jlong>(ImGuiFileDialog::Instance()->GetUserDatas());
-    */
+    @BindingMethod
+    @ReturnValue(callPrefix = "(intptr_t)")
+    public static native long GetUserDatas();
 }

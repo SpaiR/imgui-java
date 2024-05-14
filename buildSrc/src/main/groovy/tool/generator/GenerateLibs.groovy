@@ -36,7 +36,7 @@ class GenerateLibs extends DefaultTask {
     private final boolean isLocal = System.properties.containsKey('local')
     private final boolean withFreeType = Boolean.valueOf(System.properties.getProperty('freetype', 'false'))
 
-    private final String sourceDir = project.file('src/main/java')
+    private final String sourceDir = project.file('src/generated/java')
     private final String classpath = project.file('build/classes/java/main')
     private final String rootDir = (isLocal ? project.buildDir.path : '/tmp/imgui')
     private final String jniDir = "$rootDir/jni"

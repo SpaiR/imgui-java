@@ -1,5 +1,6 @@
 import imgui.ImGui;
 import imgui.extension.texteditor.TextEditor;
+import imgui.extension.texteditor.TextEditorCoordinates;
 import imgui.extension.texteditor.TextEditorLanguageDefinition;
 import imgui.flag.ImGuiWindowFlags;
 import imgui.type.ImBoolean;
@@ -11,7 +12,7 @@ public class ExampleImGuiColorTextEdit {
     private static final TextEditor EDITOR = new TextEditor();
 
     static {
-        TextEditorLanguageDefinition lang = TextEditorLanguageDefinition.c();
+        TextEditorLanguageDefinition lang = TextEditorLanguageDefinition.C();
 
         String[] ppnames = {
             "NULL", "PM_REMOVE",
@@ -122,13 +123,12 @@ public class ExampleImGuiColorTextEdit {
                 ImGui.endMenuBar();
             }
 
-            int cposX = EDITOR.getCursorPositionLine();
-            int cposY = EDITOR.getCursorPositionColumn();
+            TextEditorCoordinates cpos = EDITOR.getCursorPosition();
 
             String overwrite = EDITOR.isOverwrite() ? "Ovr" : "Ins";
             String canUndo = EDITOR.canUndo() ? "*" : " ";
 
-            ImGui.text(cposX + "/" + cposY + " " + EDITOR.getTotalLines() + " lines | " + overwrite + " | " + canUndo);
+            ImGui.text(cpos.mLine + "/" + cpos.mColumn + " " + EDITOR.getTotalLines() + " lines | " + overwrite + " | " + canUndo);
 
             EDITOR.render("TextEditor");
 

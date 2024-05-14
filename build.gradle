@@ -1,3 +1,5 @@
+import tool.generator.ast.task.GenerateAst
+
 import java.text.SimpleDateFormat
 
 ext {
@@ -44,4 +46,22 @@ tasks.register('buildAll') { t ->
             t.dependsOn ":imgui-$module:$task"
         }
     }
+}
+
+tasks.register('generateAst', GenerateAst) {
+    headerFiles = [
+            (file('include/imgui/imgui.h')): [],
+            (file('include/imgui/imgui_internal.h')): [
+                    "#define IMGUI_HAS_TABLE",
+                    "#define IMGUI_HAS_VIEWPORT",
+                    "#define IMGUI_HAS_DOCK",
+            ],
+            (file('include/ImGuiFileDialog/ImGuiFileDialog.h')): [],
+            (file('include/imgui-knobs/imgui-knobs.h')): [],
+            (file('include/imguizmo/ImGuizmo.h')): [],
+            (file('include/imnodes/imnodes.h')): [],
+            (file('include/implot/implot.h')): [],
+            (file('include/imgui-node-editor/imgui_node_editor.h')): [],
+            (file('include/ImGuiColorTextEdit/TextEditor.h')): [],
+    ]
 }

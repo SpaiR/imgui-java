@@ -1,6 +1,6 @@
 #pragma once
 
-#include <jni.h>
+#include "jni.h"
 
 #ifndef STRUCT_PTR
 #define STRUCT_PTR env->GetLongField(object, Jni::GetBindingStructPtrID())
