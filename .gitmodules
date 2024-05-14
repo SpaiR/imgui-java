@@ -22,3 +22,6 @@
 [submodule "include/imgui_club"]
 	path = include/imgui_club
 	url = https://github.com/ocornut/imgui_club
+[submodule "include/imgui-knobs"]
+	path = include/imgui-knobs
+	url = https://github.com/altschuler/imgui-knobs
