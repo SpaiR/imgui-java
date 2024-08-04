@@ -24,3 +24,7 @@ echo '>> Natives: [macOS, freetype]'
 ./gradlew imgui-binding-natives:publishImguiPublicationToMavenCentralRepository -PdeployType=macos -Pfreetype=true
 echo '>> Natives: [macOS]'
 ./gradlew imgui-binding-natives:publishImguiPublicationToMavenCentralRepository -PdeployType=macos -Pfreetype=false
+echo '>> Natives: [macOS-arm64, freetype]'
+./gradlew imgui-binding-natives:publishImguiPublicationToMavenCentralRepository -PdeployType=macosarm64 -Pfreetype=true
+echo '>> Natives: [macOS-arm64]'
+./gradlew imgui-binding-natives:publishImguiPublicationToMavenCentralRepository -PdeployType=macosarm64 -Pfreetype=false
