@@ -33,7 +33,7 @@ To understand how to use ImGui Java - read official [documentation](https://gith
 Binding adopts C++ API for Java, but almost everything can be used in the same manner. 
 
 ImGui Java has a ready to use implementation for GLFW and OpenGL API using [LWJGL3](https://www.lwjgl.org/) library. See `imgui-lwjgl3` module.<br>
-Implementation is optional, yet optional to use. Advantage of Dear ImGui is total portability, so feel free to copy-paste classes or write your own implementations.
+Implementation is optional to use. Advantage of Dear ImGui is total portability, so feel free to copy-paste classes or write your own implementations.
 
 Additionally, there is an `imgui-app` module, which provides **a high abstraction layer**.<br>
 It hides all low-level code under one class to extend. With it, you can build your GUI application instantly.
@@ -69,6 +69,10 @@ Gradle and Maven dependencies could be used for this purpose as well.
 
 Take a note, that integration itself is a very flexible process. It could be done in one way or another. If you just need a framework for your GUI - use [Application](#application) module. 
 Otherwise, if you need more control, the best way is not just to repeat steps, but to understand what each step does.
+
+### For macOS M-chip users
+
+The macOS version of the binding is compiled as a universal binary. This means you can use it on both x86_64 and aarch64 platforms without any additional actions.
 
 ## Application
 
@@ -176,7 +180,6 @@ For simplicity, example of dependencies for Gradle / Maven only shows how to add
 | imgui-java-natives-windows     | Windows     |
 | imgui-java-natives-linux       | Linux       |
 | imgui-java-natives-macos       | macOS       |
-| imgui-java-natives-macos-arm64 | macOS-arm64 |
 
 Take a note, that you also need to add dependencies to [LWJGL](https://www.lwjgl.org/) library. Examples below shows how to do it as well.
 
@@ -307,7 +310,6 @@ If using Java 9 modules, ImGui Java has Automatic Module Names:
 | imgui-java-natives-windows     | imgui.natives.windows     |
 | imgui-java-natives-linux       | imgui.natives.linux       |
 | imgui-java-natives-macos       | imgui.natives.macos       |
-| imgui-java-natives-macos-arm64 | imgui.natives.macos-arm64 |
 
 ## Extensions
 
@@ -331,67 +333,14 @@ See examples in the `example` module for more information about how to use them.
 
 ## Freetype
 
-By default, Dear ImGui uses stb-truetype to render fonts. Yet there is an option to use FreeType font renderer. 
-Go to the [imgui_freetype](https://github.com/ocornut/imgui/tree/256594575d95d56dda616c544c509740e74906b4/misc/freetype) to read about the difference.
-Binding has this option too. Freetype especially useful when you use custom font with small (~<16px) size. 
-If you use the default font or a large font, stb will be fine for you.
+By default, Dear ImGui uses stb-truetype to render fonts. However, there is an option to use the FreeType font renderer.
+To learn about the differences, visit the [imgui_freetype](https://github.com/ocornut/imgui/tree/256594575d95d56dda616c544c509740e74906b4/misc/freetype) page.
 
-There are two types of precompiled binaries: 1. with stb (the default one) 2. with freetype.
-You can decide by yourself, which kind of libraries for any system you want to use.
+This binding also supports the FreeType option. 
+FreeType is statically pre-compiled into the library, meaning it is **enabled by default** and there is no option to disable it. 
+Therefore, you can freely use `ImGuiFreeTypeBuilderFlags` in your font configuration.
 
-Take a note, that for Linux and macOS users using of freetype will add a dependency to the `libfreetype` itself.
-This is not the case for Windows users, since `dll` binaries are compiled fully statically and already include freetype in themselves.
-
-**For fully portable application** use default binaries.<br>
-You can still use freetype binaries for Windows builds without worry though.
-
-**For better fonts** use freetype binaries.<br>
-Don't forget to make clear for your Linux/Mac users, that they will need to install freetype on their systems as well.
-
-### Dependencies
-
-![Maven Central](https://img.shields.io/maven-central/v/io.github.spair/imgui-java-binding?color=green&label=version&style=flat-square)
-
-Use the same native libraries as you would, but with `-ft` suffix in the end.
-
-<details>
-    <summary><b>Modified Gradle Example</b></summary>
-
-    ```
-    repositories {
-        mavenCentral()
-    }
-    
-    ext {
-        lwjglVersion = '3.3.3'
-        imguiVersion = "${version}"
-    }
-    
-    dependencies {
-        implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
-    
-        ['', '-opengl', '-glfw'].each {
-            implementation "org.lwjgl:lwjgl$it:$lwjglVersion"
-            implementation "org.lwjgl:lwjgl$it::natives-windows"
-        }
-        
-        implementation "io.github.spair:imgui-java-binding:$imguiVersion"
-        implementation "io.github.spair:imgui-java-lwjgl3:$imguiVersion"
-        
-        // This is the main difference
-        implementation "io.github.spair:imgui-java-natives-windows-ft:$imguiVersion"
-    }
-    ```
-</details>
-
-| Native Binaries With FreeType     | System      |
-|-----------------------------------|-------------|
-| imgui-java-natives-windows-ft     | Windows     |
-| imgui-java-natives-linux-ft       | Linux       |
-| imgui-java-natives-macos-ft       | macOS       |
-| imgui-java-natives-macos-arm64-ft | macOS-arm64 |
-
-If you're using raw dll/so files, go to the [release page](https://github.com/SpaiR/imgui-java/releases/latest) and use libraries from the `native-libraries-with-freetype.zip` archive.
+If you prefer not to use the FreeType font renderer, you will need to build your own binaries and use them instead.
 
 # Binding Notice
 
@@ -408,7 +357,7 @@ Read [javadoc](https://javadoc.io/doc/io.github.spair/imgui-java-binding) and so
 
 Ensure you've downloaded git submodules. That could be achieved:
 - When cloning the repository: `git clone --recurse-submodules https://github.com/SpaiR/imgui-java.git`
-- When the repository cloned: `git submodule init` + `git submodule update`
+- When the repository cloned: `git submodule init` and `git submodule update`
 
 ### Windows
 
@@ -418,6 +367,7 @@ Ensure you've downloaded git submodules. That could be achieved:
     * Mingw-w64 (recommended way: use [MSYS2](https://www.msys2.org/) and install [mingw-w64-x86_64-toolchain](https://packages.msys2.org/group/mingw-w64-x86_64-toolchain) group)
  - Build with: `./gradlew imgui-binding:generateLibs -Denvs=windows -Dlocal`
  - Run with: `./gradlew example:run -PlibPath="../imgui-binding/build/libsNative/windows64"`
+ - Always use `-Dlocal` flag.
  
 ### Linux
 
@@ -431,15 +381,20 @@ Ensure you've downloaded git submodules. That could be achieved:
  - Build with: `./gradlew imgui-binding:generateLibs -Denvs=macos -Dlocal`
  - Run with: `./gradlew example:run -PlibPath=../imgui-binding/build/libsNative/macosx64`
  
-### macOS-arm64
+### macOS (arm64)
 
  - Check dependencies from "Linux" section and make sure you have them installed.
  - Build with: `./gradlew imgui-binding:generateLibs -Denvs=macosarm64 -Dlocal`
  - Run with: `./gradlew example:run -PlibPath=../imgui-binding/build/libsNative/macosxarm64`
 
-In `envs` parameter next values could be used `windows`, `linux` or `macos` or `macosarm64`.<br>
+In `envs` parameter next values could be used `windows`, `linux` or `macos` or `macosarm64`.
+
 `-Dlocal` is optional and means that natives will be built under the `./imgui-binding/build/` folder. Otherwise `/tmp/imgui` folder will be used.
-On Windows always use local build.
+
+## Freetype
+
+To build a version of the libraries with FreeType, you need to run the `buildSrc/scripts/vendor_freetype.sh` script first. 
+This script configures the FreeType library to be statically compiled into your project.
 
 # License
 

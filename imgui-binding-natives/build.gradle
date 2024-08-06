@@ -31,7 +31,7 @@ switch (findProperty('deployType')) {
         break
     case 'macos':
         packageName = 'imgui-java-natives-macos'
-        packageDesc = 'Native binaries for imgui-java binding for MacOS'
+        packageDesc = 'Native binaries for imgui-java binding for macOS'
         moduleName = 'imgui.natives.macos'
         libName = 'libimgui-java64.dylib'
         break

@@ -1,10 +1,25 @@
-Folder contains libraries used by the binding and `binding.sha1` sum of the `imgui-binding/src/main` directory libraries has been built upon.
+### Overview
 
-Provide `imgui.library.path` (or `java.library.path`) VM option to the folder with one of those file (ex: `-Dimgui.library.path=./folder/path`).
-In the same way you can use 'java.library.path' option instead.
+The folder contains libraries used by the binding and the `binding.sha1` checksum for the `imgui-binding/src/main` directory that the libraries are built upon. These libraries are utilized during the release process.
 
-By default, binding expects `imgui-java64` file name.
-You can change that by using `imgui.library.name` VM option (ex: `-Dimgui.library.name=custom-lib-name.dll`).
+### Specifying the Library Path
+
+To specify the folder containing these files, provide the `imgui.library.path` (or `java.library.path`) VM option. For example:
+```
+-Dimgui.library.path=./folder/path
+```
+You can also use the `java.library.path` option in the same manner.
+
+### Changing the Library Name
+
+By default, the binding expects the file name `imgui-java64`. You can change this by using the `imgui.library.name` VM option. For example:
+```
+-Dimgui.library.name=custom-lib-name.dll
+```
+
+### Expected Library File Names
+
+The expected library file names for different operating systems are:
 
 | OS      | Library               |
 |---------|-----------------------|
@@ -12,6 +27,11 @@ You can change that by using `imgui.library.name` VM option (ex: `-Dimgui.librar
 | Linux   | libimgui-java64.so    |
 | macOS   | libimgui-java64.dylib |
 
-Freetype directory contains same libraries, but with Freetype support.
+### Additional Information
 
-Hash sum in the `binding.sha1` file is used in CI to see, if there is a need to update native binaries.
+- All libraries include statically compiled **FreeType**.
+- The macOS version is a universal library and support x86_64 and arm64 architectures.
+
+### Continuous Integration
+
+The hash sum in the `binding.sha1` file is used in continuous integration (CI) to determine if there is a need to update the native binaries.
