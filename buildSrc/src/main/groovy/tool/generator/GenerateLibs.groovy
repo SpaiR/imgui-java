@@ -10,6 +10,18 @@ import org.gradle.api.tasks.TaskAction
 
 @CompileStatic
 class GenerateLibs extends DefaultTask {
+    private static final String[] INCLUDES = [
+        'include/imgui',
+        'include/imnodes',
+        'include/imgui-node-editor',
+        'include/imguizmo',
+        'include/implot',
+        'include/ImGuiColorTextEdit',
+        'include/ImGuiFileDialog',
+        'include/imgui_club/imgui_memory_editor',
+        'include/imgui-knobs'
+    ]
+
     @Internal
     String group = 'build'
     @Internal
@@ -26,9 +38,10 @@ class GenerateLibs extends DefaultTask {
 
     private final String sourceDir = project.file('src/main/java')
     private final String classpath = project.file('build/classes/java/main')
-    private final String jniDir = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/jni'
-    private final String tmpFolder = (isLocal ? project.buildDir.path : '/tmp/imgui') + '/tmp'
-    private final String libsFolder = 'libsNative'
+    private final String rootDir = (isLocal ? project.buildDir.path : '/tmp/imgui')
+    private final String jniDir = "$rootDir/jni"
+    private final String tmpDir = "$rootDir/tmp"
+    private final String libsDirName = 'libsNative'
 
     @TaskAction
     void generate() {
@@ -42,33 +55,27 @@ class GenerateLibs extends DefaultTask {
             throw new IllegalStateException('No build targets')
         }
 
+        new File(jniDir).deleteDir()
+        new File(tmpDir).deleteDir()
+        new File("$rootDir/$libsDirName").deleteDir()
+
         // Generate h/cpp files for JNI
         new NativeCodeGenerator().generate(sourceDir, classpath, jniDir)
 
         // Copy ImGui h/cpp files
         project.copy { CopySpec spec ->
-            ['include/imgui', 'include/imnodes', 'include/imgui-node-editor',
-             'include/imguizmo', 'include/implot', 'include/ImGuiColorTextEdit',
-             'include/ImGuiFileDialog', 'include/imgui_club/imgui_memory_editor', 'include/imgui-knobs'].each {
+            INCLUDES.each {
                 spec.from(project.rootProject.file(it)) { CopySpec s -> s.include('*.h', '*.cpp', '*.inl') }
             }
             spec.from(project.rootProject.file('imgui-binding/src/main/native'))
             spec.into(jniDir)
-            spec.duplicatesStrategy = DuplicatesStrategy.INCLUDE //Allows for duplicate imconfig.h, we ensure the correct one is copied below
+            spec.duplicatesStrategy = DuplicatesStrategy.INCLUDE // Allows for duplicate imconfig.h, we ensure the correct one is copied below
         }
 
-        //Ensure we overwrite imconfig.h with our own
+        // Ensure we overwrite imconfig.h with our own
         project.copy { CopySpec spec ->
             spec.from(project.rootProject.file('imgui-binding/src/main/native/imconfig.h'))
             spec.into(jniDir)
-        }
-
-        //Copy dirent for ImGuiFileDialog
-        project.copy { CopySpec spec ->
-            ['include/ImGuiFileDialog/dirent'].each {
-                spec.from(project.rootProject.file(it)) { CopySpec s -> s.include('*.h', '*.cpp', '*.inl') }
-            }
-            spec.into(jniDir + '/dirent')
         }
 
         if (withFreeType) {
@@ -76,13 +83,18 @@ class GenerateLibs extends DefaultTask {
                 spec.from(project.rootProject.file('include/imgui/misc/freetype')) { CopySpec it -> it.include('*.h', '*.cpp') }
                 spec.into("$jniDir/misc/freetype")
             }
-
             enableDefine('IMGUI_ENABLE_FREETYPE')
         }
 
+        // Copy dirent for ImGuiFileDialog
+        project.copy { CopySpec spec ->
+            spec.from(project.rootProject.file('include/ImGuiFileDialog/dirent')) { CopySpec s -> s.include('*.h', '*.cpp', '*.inl') }
+            spec.into(jniDir + '/dirent')
+        }
+
         // Generate platform dependant ant configs and header files
-        def buildConfig = new BuildConfig('imgui-java', tmpFolder, libsFolder, jniDir)
-        def buildTargets = [] as BuildTarget[]
+        def buildConfig = new BuildConfig('imgui-java', tmpDir, libsDirName, jniDir)
+        BuildTarget[] buildTargets = []
 
         if (forWindows) {
             def win64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, true)
@@ -97,23 +109,11 @@ class GenerateLibs extends DefaultTask {
         }
 
         if (forMac) {
-            def minMacOsVersion = '10.15'
-            def mac64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true)
-            mac64.cppFlags += ' -std=c++14'
-            mac64.cppFlags = mac64.cppFlags.replace('10.7', minMacOsVersion)
-            mac64.linkerFlags = mac64.linkerFlags.replace('10.7', minMacOsVersion)
-            addFreeTypeIfEnabled(mac64)
-            buildTargets += mac64
+            buildTargets += createMacTarget(false)
         }
 
         if (forMacArm64) {
-            def minMacOsVersion = '10.15'
-            def macArm64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true, true)
-            macArm64.cppFlags += ' -std=c++14'
-            macArm64.cppFlags = macArm64.cppFlags.replace('10.7', minMacOsVersion)
-            macArm64.linkerFlags = macArm64.linkerFlags.replace('10.7', minMacOsVersion)
-            addFreeTypeIfEnabled(macArm64)
-            buildTargets += macArm64
+            buildTargets += createMacTarget(true)
         }
 
         new AntScriptGenerator().generate(buildConfig, buildTargets)
@@ -135,27 +135,34 @@ class GenerateLibs extends DefaultTask {
         BuildExecutor.executeAnt(jniDir + '/build.xml', '-v', 'pack-natives')
     }
 
+    BuildTarget createMacTarget(Boolean isArm) {
+        def minMacOsVersion = '10.15'
+        def macTarget = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true, isArm)
+        macTarget.libName = "libimgui-java64.dylib" // Lib for arm64 will be named the same for consistency.
+        macTarget.cppFlags += ' -std=c++14'
+        macTarget.cppFlags = macTarget.cppFlags.replace('10.7', minMacOsVersion)
+        macTarget.linkerFlags = macTarget.linkerFlags.replace('10.7', minMacOsVersion)
+        addFreeTypeIfEnabled(macTarget)
+        return macTarget
+    }
+
     void addFreeTypeIfEnabled(BuildTarget target) {
         if (!withFreeType) {
             return
         }
 
-        switch (target.os) {
-            case BuildTarget.TargetOs.Windows:
-                target.cppFlags += ' -I/usr/x86_64-w64-mingw32/include/freetype2'
-                break
-            case BuildTarget.TargetOs.Linux:
-                target.cppFlags += ' -I/usr/include/freetype2'
-                break
-            case BuildTarget.TargetOs.MacOsX:
-                target.cppFlags += ' -I/usr/local/include/freetype2'
-                break
+        def freetypeVendorDir = project.rootProject.file('build/vendor/freetype')
+        if (!freetypeVendorDir.exists()) {
+            logger.error("$freetypeVendorDir doesn't exist! Run 'buildSrc/scripts/vendor_freetype.sh' for your platform beforehand!")
+            throw new IllegalStateException("Unable to build library for FreeType")
         }
 
+        target.cppFlags += " -I$freetypeVendorDir/include"
+        target.linkerFlags += " -L${project.rootProject.file("$freetypeVendorDir/lib")}"
         target.libraries += ' -lfreetype'
     }
 
     void enableDefine(String define) {
-        project.file("$jniDir/imconfig.h").text += "#define $define"
+        new File("$jniDir/imconfig.h").text += "#define $define"
     }
 }
