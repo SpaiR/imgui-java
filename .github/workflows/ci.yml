@@ -64,10 +64,6 @@ jobs:
           distribution: liberica
           cache: gradle
 
-      - name: Install Dependencies (Ubuntu)
-        if: matrix.target.os == 'ubuntu-latest'
-        run: sudo apt install build-essential libfreetype6-dev
-
       - name: Install Dependencies (for Windows build)
         if: matrix.target.type == 'windows'
         run: sudo apt install mingw-w64
@@ -75,7 +71,7 @@ jobs:
       - name: Build
         run: |
           chmod +x buildSrc/scripts/build.sh
-          buildSrc/scripts/build.sh ${{ matrix.target.type }}
+          sudo buildSrc/scripts/build.sh ${{ matrix.target.type }}
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
