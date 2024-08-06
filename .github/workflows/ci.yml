@@ -28,17 +28,23 @@ jobs:
       - name: Build
         run: ./gradlew buildAll
 
+      # This helps to upload only jar files into the build artifact
+      - name: Copy Build Results to Temp
+        run: |
+          mkdir -p tmp/
+          cp imgui-app/build/libs/*.jar tmp/
+          cp imgui-binding/build/libs/*.jar tmp/
+          cp imgui-lwjgl3/build/libs/*.jar tmp/
+
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: java-libraries
-          path: |
-            imgui-app/build/libs/**
-            imgui-binding/build/libs/**
-            imgui-lwjgl3/build/libs/**
+          path: tmp/*.jar
 
   build-natives:
     name: Build Native (${{ matrix.target.os }} - ${{ matrix.target.type }})
+    needs: build-java
     strategy:
       fail-fast: false
       matrix:
