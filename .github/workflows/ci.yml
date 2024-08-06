@@ -71,7 +71,7 @@ jobs:
       - name: Build
         run: |
           chmod +x buildSrc/scripts/build.sh
-          sudo buildSrc/scripts/build.sh ${{ matrix.target.type }}
+          buildSrc/scripts/build.sh ${{ matrix.target.type }}
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

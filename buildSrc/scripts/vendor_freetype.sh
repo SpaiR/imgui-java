@@ -15,8 +15,6 @@ fi
 VTYPE=$1
 echo "Vendor type set to '$VTYPE'"
 
-echo "Making FreeType for '$VTYPE'"
-
 # Define library directory and version
 LIBDIR=build/vendor/freetype
 VERSION=2.12.1
@@ -26,6 +24,10 @@ echo "Cleaning and creating library directory, then extracting FreeType source..
 rm -rf $LIBDIR
 mkdir -p $LIBDIR
 tar -xzf ./vendor/freetype-$VERSION.tar.gz -C $LIBDIR --strip-components=1
+if [ $? -ne 0 ]; then
+    echo "Failed to extract FreeType source"
+    exit 1
+fi
 cd $LIBDIR || exit 1
 echo "FreeType unzipped to $LIBDIR"
 
@@ -40,10 +42,24 @@ build_freetype() {
 
     echo "Cleaning previous builds..."
     make clean
+    if [ $? -ne 0 ]; then
+        echo "Failed to clean previous builds"
+        exit 1
+    fi
+
     echo "Configuring FreeType with CFLAGS='$cflags' and PREFIX='$prefix'..."
     ./configure CFLAGS="$cflags" $COMMON_FLAGS $prefix
+    if [ $? -ne 0 ]; then
+        echo "Failed to configure FreeType"
+        exit 1
+    fi
+
     echo "Building FreeType..."
     make
+    if [ $? -ne 0 ]; then
+        echo "Failed to build FreeType"
+        exit 1
+    fi
 
     echo "Checking if the generated library exists..."
     if [ ! -f objs/.libs/libfreetype.a ]; then
@@ -53,6 +69,10 @@ build_freetype() {
 
     echo "Copying the generated library to $output_dir..."
     cp objs/.libs/libfreetype.a "$output_dir"
+    if [ $? -ne 0 ]; then
+        echo "Failed to copy library to $output_dir"
+        exit 1
+    fi
     echo "Library copied to $output_dir"
 }
 
@@ -63,10 +83,10 @@ mkdir -p lib tmp
 # Determine build process based on vendor type
 case "$VTYPE" in
     windows)
-        build_freetype "-arch x86_64" "--host=x86_64-w64-mingw32 --prefix=/usr/x86_64-w64-mingw32" "lib/libfreetype.a"
+        build_freetype "" "--host=x86_64-w64-mingw32 --prefix=/usr/x86_64-w64-mingw32" "lib/libfreetype.a"
         ;;
     linux)
-        build_freetype "-arch x86_64" "" "lib/libfreetype.a"
+        build_freetype "-fPIC" "" "lib/libfreetype.a"
         ;;
     macos)
         MACOS_VERSION=10.15
@@ -76,6 +96,10 @@ case "$VTYPE" in
 
         echo "Creating universal library using lipo..."
         lipo -create -output lib/libfreetype.a tmp/libfreetype-x86_64.a tmp/libfreetype-arm64.a
+        if [ $? -ne 0 ]; then
+            echo "Failed to create universal library with lipo"
+            exit 1
+        fi
         echo "Universal library created at lib/libfreetype.a"
         ;;
     *)

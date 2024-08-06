@@ -133,6 +133,23 @@ class GenerateLibs extends DefaultTask {
             BuildExecutor.executeAnt(jniDir + '/build-macosxarm64.xml', commonParams)
 
         BuildExecutor.executeAnt(jniDir + '/build.xml', '-v', 'pack-natives')
+
+        if (forWindows)
+            checkLibExist("windows64/imgui-java64.dll")
+        if (forLinux)
+            checkLibExist("linux64/libimgui-java64.so")
+        if (forMac)
+            checkLibExist("macosx64/libimgui-java64.dylib")
+        if (forMacArm64)
+            checkLibExist("macosxarm64/libimgui-java64.dylib")
+    }
+
+    void checkLibExist(String libName) {
+        def path = new File("$rootDir/$libsDirName/$libName")
+        if (!path.exists()) {
+            logger.error("Failed to build $libName!")
+            throw new IllegalStateException("$path does not exist")
+        }
     }
 
     BuildTarget createMacTarget(Boolean isArm) {
