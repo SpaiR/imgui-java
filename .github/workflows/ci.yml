@@ -33,9 +33,9 @@ jobs:
         with:
           name: java-libraries
           path: |
-            imgui-app/build/libs/*.jar
-            imgui-binding/build/libs/*.jar
-            imgui-lwjgl3/build/libs/*.jar
+            imgui-app/build/libs/**
+            imgui-binding/build/libs/**
+            imgui-lwjgl3/build/libs/**
 
   build-natives:
     name: Build Native (${{ matrix.target.os }} - ${{ matrix.target.type }})
