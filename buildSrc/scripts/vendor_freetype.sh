@@ -42,10 +42,6 @@ build_freetype() {
 
     echo "Cleaning previous builds..."
     make clean
-    if [ $? -ne 0 ]; then
-        echo "Failed to clean previous builds"
-        exit 1
-    fi
 
     echo "Configuring FreeType with CFLAGS='$cflags' and PREFIX='$prefix'..."
     ./configure CFLAGS="$cflags" $COMMON_FLAGS $prefix
