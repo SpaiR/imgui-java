@@ -64,14 +64,11 @@ The `<type>` and `<summary>` fields are mandatory, the `(<scope>)` field is opti
 
 Must be one of the following:
 
-* **build**: Changes that affect the build system or external dependencies
-* **ci**: Changes to our CI configuration files and scripts
-* **docs**: Documentation only changes
 * **feat**: A new feature
 * **fix**: A bug fix
-* **perf**: A code change that improves performance
-* **refactor**: A code change that neither fixes a bug nor adds a feature
-* **test**: Adding missing tests or correcting existing tests
+* **build**: Changes that affect the build system, CI or external dependencies
+* **chore**: Routine tasks, refactoring, updates, minor improvements
+* **docs**: Documentation only changes
 
 
 ##### Scope
@@ -80,6 +77,7 @@ The following is the list of supported scopes:
 * `binding` - changes to the binding code (ex. changes in `imgui.binding` package or library loading in `imgui.ImGui` class)
 * `api` - changes to the API (ex. adding binding for another extension or new supported native methods)
 * `generator` - changes to the API generator (ex. improved generation code etc.)
+* `ci` - changes to the project CI (ex. adding a new CI job)
 
 ##### Summary
 
