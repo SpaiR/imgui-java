@@ -285,10 +285,10 @@ dependencies {
         <summary><b>Raw Jars</b></summary>
 
 1. Go to the [release page](https://github.com/SpaiR/imgui-java/releases/latest);
-2. Download `java-libraries.zip` and `native-libraries.zip` (`native-libraries-with-freetype.zip` for FreeType font rendering);
+2. Download `java-libraries.zip` and `native-libraries.zip`;
 3. Get `imgui-binding-${version}.jar` and `imgui-lwjgl3-${version}.jar` from `java-libraries`, and binary libraries for required OS from `native-libraries` archive;
 4. Add jars to your classpath;
-5. Provide a VM option with location of files from the `native-libraries` (or `native-libraries-with-freetype`) archive.
+5. Provide a VM option with location of files from the `native-libraries` archive.
 
 VM option example:
 - **-Dimgui.library.path=_${path}_**
