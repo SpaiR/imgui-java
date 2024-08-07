@@ -1,5 +1,15 @@
 name: CI
-on: [ push, pull_request ]
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+  pull_request:
+    branches:
+      - main
+
 jobs:
   build-java:
     name: Build Java
@@ -20,34 +30,33 @@ jobs:
       - name: Build
         run: ./gradlew buildAll
 
+      # This helps to upload only jar files into the build artifact
+      - name: Copy Build Results to Temp
+        run: |
+          mkdir -p tmp/
+          cp imgui-app/build/libs/*.jar tmp/
+          cp imgui-binding/build/libs/*.jar tmp/
+          cp imgui-lwjgl3/build/libs/*.jar tmp/
+
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: java-libraries
-          path: |
-            imgui-app/build/libs/*.jar
-            imgui-binding/build/libs/*.jar
-            imgui-lwjgl3/build/libs/*.jar
+          path: tmp/*.jar
 
   build-natives:
-    name: Build Native (${{ matrix.target.type }}${{ matrix.freetype && ', freetype' || ''  }})
+    name: Build Native (${{ matrix.target.os }} - ${{ matrix.target.type }})
+    needs: build-java
     strategy:
       fail-fast: false
       matrix:
-        freetype: [ true, false ]
         target:
           - os: ubuntu-latest
-            type: windows
-            expected: /tmp/imgui/libsNative/windows64/imgui-java64.dll
-          - os: ubuntu-latest
             type: linux
-            expected: /tmp/imgui/libsNative/linux64/libimgui-java64.so
+          - os: ubuntu-latest
+            type: windows
           - os: macos-latest
             type: macos
-            expected: /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib
-          - os: macos-latest
-            type: macosarm64
-            expected: /tmp/imgui/libsNative/macosxarm64/libimgui-javaarm64.dylib
     runs-on: ${{ matrix.target.os }}
     steps:
       - name: Checkout Repository and Submodules
@@ -63,58 +72,44 @@ jobs:
           distribution: liberica
           cache: gradle
 
-      - name: Ant Version
-        run: ant -version
-
-      - name: Install MinGW-w64/GCC/G++ (Linux & Windows)
-        if: matrix.target.os == 'ubuntu-latest'
+      - name: Install Dependencies (for Windows build)
+        if: matrix.target.type == 'windows'
         run: sudo apt install mingw-w64
 
-      - name: FreeType - Install (Linux)
-        if: matrix.target.os == 'ubuntu-latest' && matrix.target.type == 'linux' && matrix.freetype == true
-        run: sudo apt install libfreetype6-dev
-
-      - name: FreeType - Install (Windows)
-        if: matrix.target.os == 'ubuntu-latest' && matrix.target.type == 'windows' && matrix.freetype == true
-        run: |
-          sudo mkdir /freetype
-          sudo tar -xzf ./vendor/freetype-2.12.1.tar.gz -C /freetype --strip-components=1
-          cd /freetype
-          sudo ./configure --with-zlib=no --with-bzip2=no --with-png=no --with-harfbuzz=no --with-brotli=no --host=x86_64-w64-mingw32 --prefix=/usr/x86_64-w64-mingw32
-          sudo make
-          sudo make install
-
-      - name: FreeType - Install (MacOS)
-        if: matrix.target.os == 'macos-latest' && matrix.freetype == true
-        run: |
-          sudo mkdir /opt/freetype
-          sudo tar -xzf ./vendor/freetype-2.12.1.tar.gz -C /opt/freetype --strip-components=1
-          cd /opt/freetype
-          sudo ./configure CFLAGS="-arch arm64 -arch x86_64" --with-zlib=no --with-bzip2=no --with-png=no --with-harfbuzz=no --with-brotli=no
-          sudo make
-          sudo make install
-
       - name: Build
-        run: ./gradlew imgui-binding:generateLibs -Denvs=${{ matrix.target.type }} -Dfreetype=${{ matrix.freetype }}
+        run: |
+          chmod +x buildSrc/scripts/build.sh
+          buildSrc/scripts/build.sh ${{ matrix.target.type }}
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.freetype && 'native-libraries-with-freetype' || 'native-libraries' }}
-          if-no-files-found: error
-          path: ${{ matrix.target.expected }}
+          name: native-library-${{ matrix.target.type }}
+          path: /tmp/imgui/dst/
+
+  # This required to pack all native libraries into single archive
+  archive-natives:
+    name: Archive Natives
+    runs-on: ubuntu-latest
+    needs: build-natives
+    steps:
+      - name: Merge Artifacts
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: native-libraries
+          pattern: native-library-*
 
   update-bin:
     name: Update Binaries
     if: github.ref == 'refs/heads/main' && !github.event.repository.fork # runs only on the main branch and not forks (sometimes people do PRs from the main branch)
     runs-on: ubuntu-latest
-    needs: build-natives
+    needs: archive-natives
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Download Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: /tmp/artifacts
 
@@ -133,9 +128,7 @@ jobs:
 
       - name: Update
         if: steps.cmp-binding-hash.outcome != 'success'
-        run: |
-          mv /tmp/artifacts/native-libraries/* bin/
-          mv /tmp/artifacts/native-libraries-with-freetype/* bin/freetype/
+        run: mv /tmp/artifacts/native-libraries/* bin/
 
       - name: Commit
         if: steps.cmp-binding-hash.outcome != 'success'
@@ -148,7 +141,7 @@ jobs:
     name: Release
     if: startsWith(github.ref, 'refs/tags/v') # if tag starts with "v"
     runs-on: ubuntu-latest
-    needs: [ build-java, build-natives ]
+    needs: [ build-java, archive-natives ]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -163,7 +156,7 @@ jobs:
           cache: gradle
 
       - name: Download Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: out/artifacts
 
@@ -171,7 +164,6 @@ jobs:
         run: |
           mkdir out/archives
           zip -rj out/archives/native-libraries out/artifacts/native-libraries
-          zip -rj out/archives/native-libraries-with-freetype out/artifacts/native-libraries-with-freetype
           zip -rj out/archives/java-libraries out/artifacts/java-libraries
 
       - name: Publish

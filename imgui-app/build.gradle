@@ -31,13 +31,9 @@ dependencies {
 
 jar {
     from('../bin') {
+        include 'imgui-java64.dll'
         include 'libimgui-java64.so'
         include 'libimgui-java64.dylib'
-        include 'libimgui-javaarm64.dylib'
-        into 'io/imgui/java/native-bin/'
-    }
-    from('../bin/freetype') {
-        include 'imgui-java64.dll'
         into 'io/imgui/java/native-bin/'
     }
     manifest {
