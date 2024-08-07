@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - v*
   pull_request:
     branches:
       - main
@@ -162,7 +164,6 @@ jobs:
         run: |
           mkdir out/archives
           zip -rj out/archives/native-libraries out/artifacts/native-libraries
-          zip -rj out/archives/native-libraries-with-freetype out/artifacts/native-libraries-with-freetype
           zip -rj out/archives/java-libraries out/artifacts/java-libraries
 
       - name: Publish
