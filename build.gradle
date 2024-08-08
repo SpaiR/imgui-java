@@ -28,6 +28,8 @@ allprojects {
                         'Build-Timestamp': new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(System.currentTimeMillis()),
                         'Build-Revision': 'git rev-parse HEAD'.execute().text.trim(),
                         'Build-Jdk': "${System.getProperty('java.version')} (${System.getProperty('java.vendor')})",
+                        'Source-Compatibility': tasks.withType(JavaCompile).find().sourceCompatibility,
+                        'Target-Compatibility': tasks.withType(JavaCompile).find().targetCompatibility,
                         'Created-By': "Gradle ${gradle.gradleVersion}"
                 )
             }
