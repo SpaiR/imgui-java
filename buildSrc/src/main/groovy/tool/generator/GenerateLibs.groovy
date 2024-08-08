@@ -1,6 +1,8 @@
 package tool.generator
 
 import com.badlogic.gdx.jnigen.*
+import com.badlogic.gdx.utils.Architecture
+import com.badlogic.gdx.utils.Os
 import groovy.transform.CompileStatic
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.CopySpec
@@ -97,23 +99,23 @@ class GenerateLibs extends DefaultTask {
         BuildTarget[] buildTargets = []
 
         if (forWindows) {
-            def win64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Windows, true)
+            def win64 = BuildTarget.newDefaultTarget(Os.Windows, Architecture.Bitness._64)
             addFreeTypeIfEnabled(win64)
             buildTargets += win64
         }
 
         if (forLinux) {
-            def linux64 = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.Linux, true)
+            def linux64 = BuildTarget.newDefaultTarget(Os.Linux, Architecture.Bitness._64)
             addFreeTypeIfEnabled(linux64)
             buildTargets += linux64
         }
 
         if (forMac) {
-            buildTargets += createMacTarget(false)
+            buildTargets += createMacTarget(Architecture.x86)
         }
 
         if (forMacArm64) {
-            buildTargets += createMacTarget(true)
+            buildTargets += createMacTarget(Architecture.ARM)
         }
 
         new AntScriptGenerator().generate(buildConfig, buildTargets)
@@ -152,9 +154,9 @@ class GenerateLibs extends DefaultTask {
         }
     }
 
-    BuildTarget createMacTarget(Boolean isArm) {
+    BuildTarget createMacTarget(Architecture arch) {
         def minMacOsVersion = '10.15'
-        def macTarget = BuildTarget.newDefaultTarget(BuildTarget.TargetOs.MacOsX, true, isArm)
+        def macTarget = BuildTarget.newDefaultTarget(Os.MacOsX, Architecture.Bitness._64, arch)
         macTarget.libName = "libimgui-java64.dylib" // Lib for arm64 will be named the same for consistency.
         macTarget.cppFlags += ' -std=c++14'
         macTarget.cppFlags = macTarget.cppFlags.replace('10.7', minMacOsVersion)
