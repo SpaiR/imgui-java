@@ -74,7 +74,7 @@ open class GenerateAst : DefaultTask() {
             // We create a unique folder to store files generated for the header.
             // This is necessary because when we store all headers in the same directory,
             // their AST dump can overlap with each other.
-            val astBuildDir = File("${project.buildDir}/generated/ast/$headerHash")
+            val astBuildDir = File("${project.layout.buildDirectory}/generated/ast/$headerHash")
             astBuildDir.mkdirs()
 
             // Move the header content to the temp file to make an ast-dump of it.

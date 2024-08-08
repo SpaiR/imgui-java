@@ -9,10 +9,6 @@ java {
     }
 }
 
-kotlinDslPluginOptions {
-    jvmTarget.set("11") // TODO: remove when migrating to Gradle 8
-}
-
 repositories {
     mavenCentral()
 }
