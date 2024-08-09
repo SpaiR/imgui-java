@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.lordcodes.turtle.shellRun
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import tool.generator.ast.*
@@ -23,7 +23,7 @@ open class GenerateAst : DefaultTask() {
     @Internal
     override fun getDescription() = "Generate AST tree for declared header files."
 
-    @InputFiles
+    @Input
     lateinit var headerFiles: Map<File, Collection<String>>
 
     private val dstDir: File = File("${project.rootDir}/buildSrc/src/main/resources/${AstParser.RESOURCE_PATH}")
@@ -74,8 +74,9 @@ open class GenerateAst : DefaultTask() {
             // We create a unique folder to store files generated for the header.
             // This is necessary because when we store all headers in the same directory,
             // their AST dump can overlap with each other.
-            val astBuildDir = File("${project.layout.buildDirectory}/generated/ast/$headerHash")
-            astBuildDir.mkdirs()
+            val astBuildDir = project.layout.buildDirectory.dir("generated/ast/$headerHash").get().asFile.apply {
+                mkdirs()
+            }
 
             // Move the header content to the temp file to make an ast-dump of it.
             val headerName = header.nameWithoutExtension
