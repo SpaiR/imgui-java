@@ -7,32 +7,25 @@
   },
   "decls" : [ {
     "@type" : "AstNamespaceDecl",
-    "offset" : 4983,
     "name" : "ImGuizmo",
     "decls" : [ {
       "@type" : "AstFunctionDecl",
-      "offset" : 5199,
       "name" : "SetDrawlist",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 5001,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 5001,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 5001,
             "text" : " call inside your own window and before Manipulate() in order to draw gizmo to that window."
           }, {
             "@type" : "AstTextComment",
-            "offset" : 5099,
             "text" : " Or pass a specific ImDrawList to draw to (e.g. ImGui::GetForegroundDrawList())."
           } ]
         } ]
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 5223,
         "name" : "drawlist",
         "qualType" : "int *",
         "desugaredQualType" : "int *",
@@ -40,395 +33,314 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5323,
       "name" : "BeginFrame",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 5252,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 5252,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 5252,
             "text" : " call BeginFrame right after ImGui_XXXX_NewFrame();"
           } ]
         } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5687,
       "name" : "SetImGuiContext",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 5345,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 5345,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 5345,
             "text" : " this is necessary because when imguizmo is compiled into a dll, and imgui into another"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 5439,
             "text" : " globals are not shared between them."
           }, {
             "@type" : "AstTextComment",
-            "offset" : 5483,
             "text" : " More details at https://stackoverflow.com/questions/19373061/what-happens-to-global-and-static-variables-in-a-shared-library-when-it-is-dynam"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 5632,
             "text" : " expose method to set imgui context"
           } ]
         } ]
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 5717,
         "name" : "ctx",
         "qualType" : "int *",
         "desugaredQualType" : "int *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5838,
       "name" : "IsOver",
       "resultType" : "bool",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 5731,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 5731,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 5731,
             "text" : " return true if mouse cursor is over any gizmo control (axis, plan or screen component)"
           } ]
         } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5939,
       "name" : "IsUsing",
       "resultType" : "bool",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 5856,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 5856,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 5856,
             "text" : " return true if mouse IsOver or if the gizmo is in moving state"
           } ]
         } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6121,
       "name" : "Enable",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 5958,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 5958,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 5958,
             "text" : " enable/disable the gizmo. Stay in the state until next call to Enable."
           }, {
             "@type" : "AstTextComment",
-            "offset" : 6036,
             "text" : " gizmo is rendered with gray half transparent color when disabled"
           } ]
         } ]
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 6133,
         "name" : "enable",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6946,
       "name" : "DecomposeMatrixToComponents",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 6150,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 6150,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 6150,
             "text" : " helper functions for manualy editing translation/rotation/scale with an input float"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 6241,
             "text" : " translation, rotation and scale float points to 3 floats each"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 6310,
             "text" : " Angles are in degrees (more suitable for human editing)"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 6373,
             "text" : " example:"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 6389,
             "text" : " float matrixTranslation[3], matrixRotation[3], matrixScale[3];"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 6459,
             "text" : " ImGuizmo::DecomposeMatrixToComponents(gizmoMatrix.m16, matrixTranslation, matrixRotation, matrixScale);"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 6570,
             "text" : " ImGui::InputFloat3(\"Tr\", matrixTranslation, 3);"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 6625,
             "text" : " ImGui::InputFloat3(\"Rt\", matrixRotation, 3);"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 6677,
             "text" : " ImGui::InputFloat3(\"Sc\", matrixScale, 3);"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 6726,
             "text" : " ImGuizmo::RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, gizmoMatrix.m16);"
           } ]
         }, {
           "@type" : "AstParagraphComment",
-          "offset" : 6846,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 6846,
             "text" : " These functions have some numerical stability issues for now. Use with caution."
           } ]
         } ]
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 6987,
         "name" : "matrix",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7002,
         "name" : "translation",
         "qualType" : "float *",
         "desugaredQualType" : "float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7022,
         "name" : "rotation",
         "qualType" : "float *",
         "desugaredQualType" : "float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7039,
         "name" : "scale",
         "qualType" : "float *",
         "desugaredQualType" : "float *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7066,
       "name" : "RecomposeMatrixFromComponents",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 7109,
         "name" : "translation",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7135,
         "name" : "rotation",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7158,
         "name" : "scale",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7172,
         "name" : "matrix",
         "qualType" : "float *",
         "desugaredQualType" : "float *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7202,
       "name" : "SetRect",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 7216,
         "name" : "x",
         "qualType" : "float",
         "desugaredQualType" : "float"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7225,
         "name" : "y",
         "qualType" : "float",
         "desugaredQualType" : "float"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7234,
         "name" : "width",
         "qualType" : "float",
         "desugaredQualType" : "float"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7247,
         "name" : "height",
         "qualType" : "float",
         "desugaredQualType" : "float"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7299,
       "name" : "SetOrthographic",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 7262,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 7262,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 7262,
             "text" : " default is false"
           } ]
         } ]
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7320,
         "name" : "isOrthographic",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7449,
       "name" : "DrawCubes",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 7345,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 7345,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 7345,
             "text" : " Render a cube with face color corresponding to face normal. Usefull for debug/tests"
           } ]
         } ]
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7472,
         "name" : "view",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7491,
         "name" : "projection",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7516,
         "name" : "matrices",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7530,
         "name" : "matrixCount",
         "qualType" : "int",
         "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7563,
       "name" : "DrawGrid",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 7585,
         "name" : "view",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7604,
         "name" : "projection",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7629,
         "name" : "matrix",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7649,
         "name" : "gridSize",
         "qualType" : "const float",
         "desugaredQualType" : "const float"
       } ]
     }, {
       "@type" : "AstEnumDecl",
-      "offset" : 7946,
       "name" : "OPERATION",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 7668,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 7668,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 7668,
             "text" : " call it when you want a gizmo"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 7705,
             "text" : " Needs view and projection matrices. "
           }, {
             "@type" : "AstTextComment",
-            "offset" : 7749,
             "text" : " matrix parameter is the source matrix (where will be gizmo be drawn) and might be transformed by the function. Return deltaMatrix is optional"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 7898,
             "text" : " translation is applied in world space"
           } ]
         } ]
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 7969,
         "name" : "TRANSLATE_X",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 0,
@@ -436,7 +348,6 @@
         "evaluatedValue" : "1"
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8006,
         "name" : "TRANSLATE_Y",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 1,
@@ -444,7 +355,6 @@
         "evaluatedValue" : "2"
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8043,
         "name" : "TRANSLATE_Z",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 2,
@@ -452,7 +362,6 @@
         "evaluatedValue" : "4"
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8080,
         "name" : "ROTATE_X",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 3,
@@ -460,7 +369,6 @@
         "evaluatedValue" : "8"
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8117,
         "name" : "ROTATE_Y",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 4,
@@ -468,7 +376,6 @@
         "evaluatedValue" : "16"
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8154,
         "name" : "ROTATE_Z",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 5,
@@ -476,7 +383,6 @@
         "evaluatedValue" : "32"
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8191,
         "name" : "ROTATE_SCREEN",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 6,
@@ -484,7 +390,6 @@
         "evaluatedValue" : "64"
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8228,
         "name" : "SCALE_X",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 7,
@@ -492,7 +397,6 @@
         "evaluatedValue" : "128"
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8265,
         "name" : "SCALE_Y",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 8,
@@ -500,7 +404,6 @@
         "evaluatedValue" : "256"
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8302,
         "name" : "SCALE_Z",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 9,
@@ -508,7 +411,6 @@
         "evaluatedValue" : "512"
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8339,
         "name" : "BOUNDS",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 10,
@@ -516,7 +418,6 @@
         "evaluatedValue" : "1024"
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8377,
         "name" : "TRANSLATE",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 11,
@@ -524,7 +425,6 @@
         "evaluatedValue" : "7"
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8437,
         "name" : "ROTATE",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 12,
@@ -532,7 +432,6 @@
         "evaluatedValue" : "120"
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8501,
         "name" : "SCALE",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 13,
@@ -541,98 +440,82 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 8567,
       "name" : "operator|",
       "resultType" : "OPERATION",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 8587,
         "name" : "lhs",
         "qualType" : "OPERATION",
         "desugaredQualType" : "ImGuizmo::OPERATION"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 8602,
         "name" : "rhs",
         "qualType" : "OPERATION",
         "desugaredQualType" : "ImGuizmo::OPERATION"
       } ]
     }, {
       "@type" : "AstEnumDecl",
-      "offset" : 8714,
       "name" : "MODE",
       "decls" : [ {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8732,
         "name" : "LOCAL",
         "qualType" : "ImGuizmo::MODE",
         "order" : 0
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 8746,
         "name" : "WORLD",
         "qualType" : "ImGuizmo::MODE",
         "order" : 1
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 8780,
       "name" : "Manipulate",
       "resultType" : "bool",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 8804,
         "name" : "view",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 8823,
         "name" : "projection",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 8845,
         "name" : "operation",
         "qualType" : "OPERATION",
         "desugaredQualType" : "ImGuizmo::OPERATION"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 8861,
         "name" : "mode",
         "qualType" : "MODE",
         "desugaredQualType" : "ImGuizmo::MODE"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 8874,
         "name" : "matrix",
         "qualType" : "float *",
         "desugaredQualType" : "float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 8889,
         "name" : "deltaMatrix",
         "qualType" : "float *",
         "desugaredQualType" : "float *",
         "defaultValue" : "="
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 8922,
         "name" : "snap",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *",
         "defaultValue" : "="
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 8948,
         "name" : "localBounds",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *",
         "defaultValue" : "="
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 8981,
         "name" : "boundsSnap",
         "qualType" : "const float *",
         "desugaredQualType" : "const float *",
@@ -640,136 +523,109 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9338,
       "name" : "ViewManipulate",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 9014,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 9014,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 9014,
             "text" : " Please note that this cubeview is patented by Autodesk : https://patents.google.com/patent/US7782319B2/en"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 9127,
             "text" : " It seems to be a defensive patent in the US. I don't think it will bring troubles using it as"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 9228,
             "text" : " other software are using the same mechanics. But just in case, you are now warned!"
           } ]
         } ]
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 9360,
         "name" : "view",
         "qualType" : "float *",
         "desugaredQualType" : "float *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 9372,
         "name" : "length",
         "qualType" : "float",
         "desugaredQualType" : "float"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 9387,
         "name" : "position",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 9404,
         "name" : "size",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 9416,
         "name" : "backgroundColor",
         "qualType" : "int",
         "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9455,
       "name" : "SetID",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9465,
         "name" : "id",
         "qualType" : "int",
         "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9554,
       "name" : "IsOver",
       "resultType" : "bool",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 9478,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 9478,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 9478,
             "text" : " return true if the cursor is over the operation's gizmo"
           } ]
         } ]
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 9571,
         "name" : "op",
         "qualType" : "OPERATION",
         "desugaredQualType" : "ImGuizmo::OPERATION"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9595,
       "name" : "SetGizmoSizeClipSpace",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9623,
         "name" : "value",
         "qualType" : "float",
         "desugaredQualType" : "float"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9821,
       "name" : "AllowAxisFlip",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 9639,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 9639,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 9639,
             "text" : " Allow axis to flip"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 9665,
             "text" : " When true (default), the guizmo axis flip for better visibility"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 9736,
             "text" : " When false, they always stay along the positive world/local axis"
           } ]
         } ]
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 9840,
         "name" : "value",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
