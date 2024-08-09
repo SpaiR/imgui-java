@@ -7,331 +7,271 @@
   },
   "decls" : [ {
     "@type" : "AstRecordDecl",
-    "offset" : 205,
     "name" : "TextEditor",
     "decls" : [ {
       "@type" : "AstFunctionDecl",
-      "offset" : 205,
       "name" : "operator=",
       "resultType" : "TextEditor &"
     }, {
       "@type" : "AstEnumDecl",
-      "offset" : 241,
       "name" : "PaletteIndex",
       "decls" : [ {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 261,
         "name" : "Default",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 0
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 273,
         "name" : "Keyword",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 1
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 285,
         "name" : "Number",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 2
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 296,
         "name" : "String",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 3
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 307,
         "name" : "CharLiteral",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 4
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 323,
         "name" : "Punctuation",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 5
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 339,
         "name" : "Preprocessor",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 6
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 356,
         "name" : "Identifier",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 7
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 371,
         "name" : "KnownIdentifier",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 8
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 391,
         "name" : "PreprocIdentifier",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 9
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 413,
         "name" : "Comment",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 10
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 425,
         "name" : "MultiLineComment",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 11
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 446,
         "name" : "Background",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 12
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 461,
         "name" : "Cursor",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 13
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 472,
         "name" : "Selection",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 14
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 486,
         "name" : "ErrorMarker",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 15
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 502,
         "name" : "Breakpoint",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 16
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 517,
         "name" : "LineNumber",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 17
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 532,
         "name" : "CurrentLineFill",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 18
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 552,
         "name" : "CurrentLineFillInactive",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 19
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 580,
         "name" : "CurrentLineEdge",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 20
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 600,
         "name" : "Max",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 21
       } ]
     }, {
       "@type" : "AstEnumDecl",
-      "offset" : 624,
       "name" : "SelectionMode",
       "decls" : [ {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 645,
         "name" : "Normal",
         "qualType" : "TextEditor::SelectionMode",
         "order" : 0
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 656,
         "name" : "Word",
         "qualType" : "TextEditor::SelectionMode",
         "order" : 1
       }, {
         "@type" : "AstEnumConstantDecl",
-        "offset" : 665,
         "name" : "Line",
         "qualType" : "TextEditor::SelectionMode",
         "order" : 2
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 686,
       "name" : "Breakpoint",
       "decls" : [ {
         "@type" : "AstFunctionDecl",
-        "offset" : 686,
         "name" : "operator=",
         "resultType" : "TextEditor::Breakpoint &"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 708,
         "name" : "mLine",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 723,
         "name" : "mEnabled",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 748,
         "name" : "mCondition",
         "qualType" : "std::string",
         "desugaredQualType" : "std::string"
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 1357,
       "name" : "Coordinates",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 833,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 833,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 833,
             "text" : " Represents a character coordinate from the user's point of view,"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 903,
             "text" : " i. e. consider an uniform grid (assuming fixed-width font) on the"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 974,
             "text" : " screen as it is rendered, and each cell has its own coordinate, starting from 0."
           }, {
             "@type" : "AstTextComment",
-            "offset" : 1060,
             "text" : " Tabs are counted as [1..mTabSize] count empty spaces, depending on"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 1132,
             "text" : " how many space is necessary to reach the next tab stop."
           }, {
             "@type" : "AstTextComment",
-            "offset" : 1193,
             "text" : " For example, coordinate (1, 5) represents the character 'B' in a line \"\\tABC\", when mTabSize = 4,"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 1296,
             "text" : " because it is rendered as \"    ABC\" on the screen."
           } ]
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 1357,
         "name" : "operator=",
         "resultType" : "TextEditor::Coordinates &"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 1380,
         "name" : "mLine",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 1387,
         "name" : "mColumn",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 1593,
         "name" : "Invalid",
         "resultType" : "Coordinates"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 1669,
         "name" : "operator==",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 1700,
           "name" : "o",
           "qualType" : "const Coordinates &",
           "desugaredQualType" : "const Coordinates &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 1792,
         "name" : "operator!=",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 1823,
           "name" : "o",
           "qualType" : "const Coordinates &",
           "desugaredQualType" : "const Coordinates &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 1915,
         "name" : "operator<",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 1945,
           "name" : "o",
           "qualType" : "const Coordinates &",
           "desugaredQualType" : "const Coordinates &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 2061,
         "name" : "operator>",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 2091,
           "name" : "o",
           "qualType" : "const Coordinates &",
           "desugaredQualType" : "const Coordinates &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 2207,
         "name" : "operator<=",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 2238,
           "name" : "o",
           "qualType" : "const Coordinates &",
           "desugaredQualType" : "const Coordinates &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 2355,
         "name" : "operator>=",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 2386,
           "name" : "o",
           "qualType" : "const Coordinates &",
           "desugaredQualType" : "const Coordinates &"
@@ -339,257 +279,212 @@
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 2509,
       "name" : "Identifier",
       "decls" : [ {
         "@type" : "AstFunctionDecl",
-        "offset" : 2509,
         "name" : "operator=",
         "resultType" : "TextEditor::Identifier &"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 2539,
         "name" : "mLocation",
         "qualType" : "Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 2565,
         "name" : "mDeclaration",
         "qualType" : "std::string",
         "desugaredQualType" : "std::string"
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 2934,
       "name" : "Glyph",
       "decls" : [ {
         "@type" : "AstFieldDecl",
-        "offset" : 2952,
         "name" : "mChar",
         "qualType" : "Char",
         "desugaredQualType" : "unsigned char"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 2975,
         "name" : "mColorIndex",
         "qualType" : "PaletteIndex",
         "desugaredQualType" : "TextEditor::PaletteIndex"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3020,
         "name" : "mComment",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3042,
         "name" : "mMultiLineComment",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3073,
         "name" : "mPreprocessor",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 3342,
       "name" : "LanguageDefinition",
       "decls" : [ {
         "@type" : "AstFunctionDecl",
-        "offset" : 3342,
         "name" : "operator=",
         "resultType" : "TextEditor::LanguageDefinition &"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3665,
         "name" : "mName",
         "qualType" : "std::string",
         "desugaredQualType" : "std::string"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3684,
         "name" : "mKeywords",
         "qualType" : "Keywords",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3710,
         "name" : "mIdentifiers",
         "qualType" : "Identifiers",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3739,
         "name" : "mPreprocIdentifiers",
         "qualType" : "Identifiers",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3775,
         "name" : "mCommentStart",
         "qualType" : "std::string",
         "desugaredQualType" : "std::string"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3790,
         "name" : "mCommentEnd",
         "qualType" : "std::string",
         "desugaredQualType" : "std::string"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3803,
         "name" : "mSingleLineComment",
         "qualType" : "std::string",
         "desugaredQualType" : "std::string"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3831,
         "name" : "mPreprocChar",
         "qualType" : "char",
         "desugaredQualType" : "char"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3853,
         "name" : "mAutoIndentation",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3893,
         "name" : "mTokenize",
         "qualType" : "TokenizeCallback",
         "desugaredQualType" : "bool (*)(const char *, const char *, const char *&, const char *&, PaletteIndex &)"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3927,
         "name" : "mTokenRegexStrings",
         "qualType" : "TokenRegexStrings",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 3957,
         "name" : "mCaseSensitive",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 4137,
         "name" : "CPlusPlus",
         "resultType" : "const LanguageDefinition &"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 4186,
         "name" : "HLSL",
         "resultType" : "const LanguageDefinition &"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 4230,
         "name" : "GLSL",
         "resultType" : "const LanguageDefinition &"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 4274,
         "name" : "C",
         "resultType" : "const LanguageDefinition &"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 4315,
         "name" : "SQL",
         "resultType" : "const LanguageDefinition &"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 4358,
         "name" : "AngelScript",
         "resultType" : "const LanguageDefinition &"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 4409,
         "name" : "Lua",
         "resultType" : "const LanguageDefinition &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 4465,
       "name" : "SetLanguageDefinition",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 4513,
         "name" : "aLanguageDef",
         "qualType" : "const LanguageDefinition &",
         "desugaredQualType" : "const LanguageDefinition &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 4556,
       "name" : "GetLanguageDefinition",
       "resultType" : "const LanguageDefinition &"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 4637,
       "name" : "GetPalette",
       "resultType" : "const Palette &"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 4688,
       "name" : "SetPalette",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 4714,
         "name" : "aValue",
         "qualType" : "const Palette &",
         "desugaredQualType" : "const Palette &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 4732,
       "name" : "SetErrorMarkers",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 4768,
         "name" : "aMarkers",
         "qualType" : "const ErrorMarkers &",
         "desugaredQualType" : "const ErrorMarkers &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 4815,
       "name" : "SetBreakpoints",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 4849,
         "name" : "aMarkers",
         "qualType" : "const Breakpoints &",
         "desugaredQualType" : "const Breakpoints &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 4897,
       "name" : "Render",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 4916,
         "name" : "aTitle",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 4938,
         "name" : "aSize",
         "qualType" : "const int &",
         "desugaredQualType" : "const int &",
         "defaultValue" : "ImVec2()"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 4961,
         "name" : "aBorder",
         "qualType" : "bool",
         "desugaredQualType" : "bool",
@@ -597,243 +492,200 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 4986,
       "name" : "SetText",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 5013,
         "name" : "aText",
         "qualType" : "const std::string &",
         "desugaredQualType" : "const std::string &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5035,
       "name" : "GetText",
       "resultType" : "std::string"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5061,
       "name" : "SetTextLines",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 5106,
         "name" : "aLines",
         "qualType" : "const int &",
         "desugaredQualType" : "const int &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5142,
       "name" : "GetTextLines",
       "resultType" : "int"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5180,
       "name" : "GetSelectedText",
       "resultType" : "std::string"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5219,
       "name" : "GetCurrentLineText",
       "resultType" : "std::string"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5254,
       "name" : "GetTotalLines",
       "resultType" : "int"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5314,
       "name" : "IsOverwrite",
       "resultType" : "bool"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5366,
       "name" : "SetReadOnly",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 5383,
         "name" : "aValue",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5399,
       "name" : "IsReadOnly",
       "resultType" : "bool"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5447,
       "name" : "IsTextChanged",
       "resultType" : "bool"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5501,
       "name" : "IsCursorPositionChanged",
       "resultType" : "bool"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5577,
       "name" : "IsColorizerEnabled",
       "resultType" : "bool"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5641,
       "name" : "SetColorizerEnable",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 5665,
         "name" : "aValue",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5690,
       "name" : "GetCursorPosition",
       "resultType" : "Coordinates"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5764,
       "name" : "SetCursorPosition",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 5801,
         "name" : "aPosition",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5829,
       "name" : "SetHandleMouseInputs",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 5859,
         "name" : "aValue",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 5915,
       "name" : "IsHandleMouseInputsEnabled",
       "resultType" : "bool"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6000,
       "name" : "SetHandleKeyboardInputs",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 6030,
         "name" : "aValue",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6086,
       "name" : "IsHandleKeyboardInputsEnabled",
       "resultType" : "bool"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6174,
       "name" : "SetImGuiChildIgnored",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 6204,
         "name" : "aValue",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6260,
       "name" : "IsImGuiChildIgnored",
       "resultType" : "bool"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6334,
       "name" : "SetShowWhitespaces",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 6358,
         "name" : "aValue",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6411,
       "name" : "IsShowingWhitespaces",
       "resultType" : "bool"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6478,
       "name" : "SetTabSize",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 6493,
         "name" : "aValue",
         "qualType" : "int",
         "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6515,
       "name" : "GetTabSize",
       "resultType" : "int"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6564,
       "name" : "InsertText",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 6594,
         "name" : "aValue",
         "qualType" : "const std::string &",
         "desugaredQualType" : "const std::string &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6610,
       "name" : "InsertText",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 6633,
         "name" : "aValue",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6651,
       "name" : "MoveUp",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 6662,
         "name" : "aAmount",
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "1"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 6680,
         "name" : "aSelect",
         "qualType" : "bool",
         "desugaredQualType" : "bool",
@@ -841,19 +693,16 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6705,
       "name" : "MoveDown",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 6718,
         "name" : "aAmount",
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "1"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 6736,
         "name" : "aSelect",
         "qualType" : "bool",
         "desugaredQualType" : "bool",
@@ -861,26 +710,22 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6761,
       "name" : "MoveLeft",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 6774,
         "name" : "aAmount",
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "1"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 6792,
         "name" : "aSelect",
         "qualType" : "bool",
         "desugaredQualType" : "bool",
         "defaultValue" : "false"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 6814,
         "name" : "aWordMode",
         "qualType" : "bool",
         "desugaredQualType" : "bool",
@@ -888,26 +733,22 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6841,
       "name" : "MoveRight",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 6855,
         "name" : "aAmount",
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "1"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 6873,
         "name" : "aSelect",
         "qualType" : "bool",
         "desugaredQualType" : "bool",
         "defaultValue" : "false"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 6895,
         "name" : "aWordMode",
         "qualType" : "bool",
         "desugaredQualType" : "bool",
@@ -915,12 +756,10 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6922,
       "name" : "MoveTop",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 6935,
         "name" : "aSelect",
         "qualType" : "bool",
         "desugaredQualType" : "bool",
@@ -928,12 +767,10 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 6960,
       "name" : "MoveBottom",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 6976,
         "name" : "aSelect",
         "qualType" : "bool",
         "desugaredQualType" : "bool",
@@ -941,12 +778,10 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7001,
       "name" : "MoveHome",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 7015,
         "name" : "aSelect",
         "qualType" : "bool",
         "desugaredQualType" : "bool",
@@ -954,12 +789,10 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7040,
       "name" : "MoveEnd",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 7053,
         "name" : "aSelect",
         "qualType" : "bool",
         "desugaredQualType" : "bool",
@@ -967,48 +800,40 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7080,
       "name" : "SetSelectionStart",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 7117,
         "name" : "aPosition",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7136,
       "name" : "SetSelectionEnd",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 7171,
         "name" : "aPosition",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7190,
       "name" : "SetSelection",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 7222,
         "name" : "aStart",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7249,
         "name" : "aEnd",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 7269,
         "name" : "aMode",
         "qualType" : "SelectionMode",
         "desugaredQualType" : "TextEditor::SelectionMode",
@@ -1016,57 +841,46 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7308,
       "name" : "SelectWordUnderCursor",
       "resultType" : "void"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7340,
       "name" : "SelectAll",
       "resultType" : "void"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7360,
       "name" : "HasSelection",
       "resultType" : "bool"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7391,
       "name" : "Copy",
       "resultType" : "void"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7406,
       "name" : "Cut",
       "resultType" : "void"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7420,
       "name" : "Paste",
       "resultType" : "void"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7436,
       "name" : "Delete",
       "resultType" : "void"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7455,
       "name" : "CanUndo",
       "resultType" : "bool"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7479,
       "name" : "CanRedo",
       "resultType" : "bool"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7503,
       "name" : "Undo",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 7512,
         "name" : "aSteps",
         "qualType" : "int",
         "desugaredQualType" : "int",
@@ -1074,12 +888,10 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7532,
       "name" : "Redo",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 7541,
         "name" : "aSteps",
         "qualType" : "int",
         "desugaredQualType" : "int",
@@ -1087,149 +899,123 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7580,
       "name" : "GetDarkPalette",
       "resultType" : "const Palette &"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7622,
       "name" : "GetLightPalette",
       "resultType" : "const Palette &"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 7665,
       "name" : "GetRetroBluePalette",
       "resultType" : "const Palette &"
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 7781,
       "name" : "EditorState",
       "decls" : [ {
         "@type" : "AstFunctionDecl",
-        "offset" : 7781,
         "name" : "operator=",
         "resultType" : "TextEditor::EditorState &"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 7812,
         "name" : "mSelectionStart",
         "qualType" : "Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 7844,
         "name" : "mSelectionEnd",
         "qualType" : "Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 7874,
         "name" : "mCursorPosition",
         "qualType" : "Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 7906,
       "name" : "UndoRecord",
       "decls" : [ {
         "@type" : "AstFunctionDecl",
-        "offset" : 7906,
         "name" : "operator=",
         "resultType" : "TextEditor::UndoRecord &"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 8329,
         "name" : "Undo",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 8346,
           "name" : "aEditor",
           "qualType" : "TextEditor *",
           "desugaredQualType" : "TextEditor *"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 8364,
         "name" : "Redo",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 8381,
           "name" : "aEditor",
           "qualType" : "TextEditor *",
           "desugaredQualType" : "TextEditor *"
         } ]
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 8408,
         "name" : "mAdded",
         "qualType" : "std::string",
         "desugaredQualType" : "std::string"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 8431,
         "name" : "mAddedStart",
         "qualType" : "Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 8459,
         "name" : "mAddedEnd",
         "qualType" : "Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 8487,
         "name" : "mRemoved",
         "qualType" : "std::string",
         "desugaredQualType" : "std::string"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 8512,
         "name" : "mRemovedStart",
         "qualType" : "Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 8542,
         "name" : "mRemovedEnd",
         "qualType" : "Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 8572,
         "name" : "mBefore",
         "qualType" : "EditorState",
         "desugaredQualType" : "TextEditor::EditorState"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 8596,
         "name" : "mAfter",
         "qualType" : "EditorState",
         "desugaredQualType" : "TextEditor::EditorState"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 8666,
       "name" : "ProcessInputs",
       "resultType" : "void"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 8690,
       "name" : "Colorize",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 8703,
         "name" : "aFromLine",
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "0"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 8722,
         "name" : "aCount",
         "qualType" : "int",
         "desugaredQualType" : "int",
@@ -1237,19 +1023,16 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 8743,
       "name" : "ColorizeRange",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 8761,
         "name" : "aFromLine",
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "0"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 8780,
         "name" : "aToLine",
         "qualType" : "int",
         "desugaredQualType" : "int",
@@ -1257,567 +1040,471 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 8801,
       "name" : "ColorizeInternal",
       "resultType" : "void"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 8829,
       "name" : "TextDistanceToLineStart",
       "resultType" : "float",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 8872,
         "name" : "aFrom",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 8893,
       "name" : "EnsureCursorVisible",
       "resultType" : "void"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 8922,
       "name" : "GetPageSize",
       "resultType" : "int"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 8957,
       "name" : "GetText",
       "resultType" : "std::string",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 8984,
         "name" : "aStart",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 9011,
         "name" : "aEnd",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9038,
       "name" : "GetActualCursorCoordinates",
       "resultType" : "Coordinates"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9088,
       "name" : "SanitizeCoordinates",
       "resultType" : "Coordinates",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9127,
         "name" : "aValue",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9149,
       "name" : "Advance",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9170,
         "name" : "aCoordinates",
         "qualType" : "Coordinates &",
         "desugaredQualType" : "Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9198,
       "name" : "DeleteRange",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9229,
         "name" : "aStart",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 9256,
         "name" : "aEnd",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9269,
       "name" : "InsertTextAt",
       "resultType" : "int",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9295,
         "name" : "aWhere",
         "qualType" : "Coordinates &",
         "desugaredQualType" : "Coordinates &"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 9315,
         "name" : "aValue",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9331,
       "name" : "AddUndo",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9351,
         "name" : "aValue",
         "qualType" : "UndoRecord &",
         "desugaredQualType" : "UndoRecord &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9374,
       "name" : "ScreenPosToCoordinates",
       "resultType" : "Coordinates",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9411,
         "name" : "aPosition",
         "qualType" : "const int &",
         "desugaredQualType" : "const int &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9443,
       "name" : "FindWordStart",
       "resultType" : "Coordinates",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9476,
         "name" : "aFrom",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9504,
       "name" : "FindWordEnd",
       "resultType" : "Coordinates",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9535,
         "name" : "aFrom",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9563,
       "name" : "FindNextWord",
       "resultType" : "Coordinates",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9595,
         "name" : "aFrom",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9615,
       "name" : "GetCharacterIndex",
       "resultType" : "int",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9652,
         "name" : "aCoordinates",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9679,
       "name" : "GetCharacterColumn",
       "resultType" : "int",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9702,
         "name" : "aLine",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 9713,
         "name" : "aIndex",
         "qualType" : "int",
         "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9734,
       "name" : "GetLineCharacterCount",
       "resultType" : "int",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9760,
         "name" : "aLine",
         "qualType" : "int",
         "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9780,
       "name" : "GetLineMaxColumn",
       "resultType" : "int",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9801,
         "name" : "aLine",
         "qualType" : "int",
         "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9822,
       "name" : "IsOnWordBoundary",
       "resultType" : "bool",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9858,
         "name" : "aAt",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9877,
       "name" : "RemoveLine",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9892,
         "name" : "aStart",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 9904,
         "name" : "aEnd",
         "qualType" : "int",
         "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9918,
       "name" : "RemoveLine",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9933,
         "name" : "aIndex",
         "qualType" : "int",
         "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9950,
       "name" : "InsertLine",
       "resultType" : "Line &",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 9965,
         "name" : "aIndex",
         "qualType" : "int",
         "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 9981,
       "name" : "EnterCharacter",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 10004,
         "name" : "aChar",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstParmVarDecl",
-        "offset" : 10016,
         "name" : "aShift",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 10032,
       "name" : "Backspace",
       "resultType" : "void"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 10052,
       "name" : "DeleteSelection",
       "resultType" : "void"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 10085,
       "name" : "GetWordUnderCursor",
       "resultType" : "std::string"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 10127,
       "name" : "GetWordAt",
       "resultType" : "std::string",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 10156,
         "name" : "aCoords",
         "qualType" : "const Coordinates &",
         "desugaredQualType" : "const Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 10180,
       "name" : "GetGlyphColor",
       "resultType" : "int",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "offset" : 10207,
         "name" : "aGlyph",
         "qualType" : "const Glyph &",
         "desugaredQualType" : "const Glyph &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 10231,
       "name" : "HandleKeyboardInputs",
       "resultType" : "void"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 10262,
       "name" : "HandleMouseInputs",
       "resultType" : "void"
     }, {
       "@type" : "AstFunctionDecl",
-      "offset" : 10290,
       "name" : "Render",
       "resultType" : "void"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10310,
       "name" : "mLineSpacing",
       "qualType" : "float",
       "desugaredQualType" : "float"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10332,
       "name" : "mLines",
       "qualType" : "Lines",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10354,
       "name" : "mState",
       "qualType" : "EditorState",
       "desugaredQualType" : "TextEditor::EditorState"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10375,
       "name" : "mUndoBuffer",
       "qualType" : "UndoBuffer",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10394,
       "name" : "mUndoIndex",
       "qualType" : "int",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10414,
       "name" : "mTabSize",
       "qualType" : "int",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10431,
       "name" : "mOverwrite",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10450,
       "name" : "mReadOnly",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10468,
       "name" : "mWithinRender",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10490,
       "name" : "mScrollToCursor",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10514,
       "name" : "mScrollToTop",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10535,
       "name" : "mTextChanged",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10556,
       "name" : "mColorizerEnabled",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10583,
       "name" : "mTextStart",
       "qualType" : "float",
       "desugaredQualType" : "float"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10709,
       "name" : "mLeftMargin",
       "qualType" : "int",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10729,
       "name" : "mCursorPositionChanged",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10759,
       "name" : "mColorRangeMin",
       "qualType" : "int",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10775,
       "name" : "mColorRangeMax",
       "qualType" : "int",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10807,
       "name" : "mSelectionMode",
       "qualType" : "SelectionMode",
       "desugaredQualType" : "TextEditor::SelectionMode"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10830,
       "name" : "mHandleKeyboardInputs",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10860,
       "name" : "mHandleMouseInputs",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10887,
       "name" : "mIgnoreImGuiChild",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10913,
       "name" : "mShowWhitespaces",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10943,
       "name" : "mPaletteBase",
       "qualType" : "Palette",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10967,
       "name" : "mPalette",
       "qualType" : "Palette",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 10998,
       "name" : "mLanguageDefinition",
       "qualType" : "LanguageDefinition",
       "desugaredQualType" : "TextEditor::LanguageDefinition"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 11031,
       "name" : "mRegexList",
       "qualType" : "RegexList",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 11052,
       "name" : "mCheckComments",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 11082,
       "name" : "mBreakpoints",
       "qualType" : "Breakpoints",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 11111,
       "name" : "mErrorMarkers",
       "qualType" : "ErrorMarkers",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 11135,
       "name" : "mCharAdvance",
       "qualType" : "int",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 11163,
       "name" : "mInteractiveStart",
       "qualType" : "Coordinates",
       "desugaredQualType" : "TextEditor::Coordinates"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 11182,
       "name" : "mInteractiveEnd",
       "qualType" : "Coordinates",
       "desugaredQualType" : "TextEditor::Coordinates"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 11213,
       "name" : "mLineBuffer",
       "qualType" : "std::string",
       "desugaredQualType" : "std::string"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 11237,
       "name" : "mStartTime",
       "qualType" : "uint64_t",
       "desugaredQualType" : "unsigned long long"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 11259,
       "name" : "mLastClick",
       "qualType" : "float",
       "desugaredQualType" : "float"

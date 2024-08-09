@@ -1,6 +1,7 @@
 package tool.generator.ast
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 
@@ -17,7 +18,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo
     JsonSubTypes.Type(AstRecordDecl::class),
     JsonSubTypes.Type(AstFieldDecl::class),
 )
+@JsonIgnoreProperties(value = ["offset"])
 interface Decl {
+    // Offset property is necessary only for maintaining the correct relative order during parsing.
+    // We should avoid storing it in a JSON file as it significantly increases the file differences,
+    // making version control more challenging.
     val offset: Int
 }
 

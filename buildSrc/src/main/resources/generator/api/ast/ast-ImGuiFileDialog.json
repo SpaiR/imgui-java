@@ -7,11 +7,9 @@
   },
   "decls" : [ {
     "@type" : "AstEnumDecl",
-    "offset" : 27717,
     "name" : "IGFD_FileStyleFlags_",
     "decls" : [ {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 27775,
       "name" : "IGFD_FileStyle_None",
       "docComment" : "define none style",
       "qualType" : "IGFD_FileStyleFlags_",
@@ -20,7 +18,6 @@
       "evaluatedValue" : "0"
     }, {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 27827,
       "name" : "IGFD_FileStyleByTypeFile",
       "docComment" : "define style for all files",
       "qualType" : "IGFD_FileStyleFlags_",
@@ -29,7 +26,6 @@
       "evaluatedValue" : "1"
     }, {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 27898,
       "name" : "IGFD_FileStyleByTypeDir",
       "docComment" : "define style for all dir",
       "qualType" : "IGFD_FileStyleFlags_",
@@ -38,7 +34,6 @@
       "evaluatedValue" : "2"
     }, {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 27967,
       "name" : "IGFD_FileStyleByTypeLink",
       "docComment" : "define style for all link",
       "qualType" : "IGFD_FileStyleFlags_",
@@ -47,7 +42,6 @@
       "evaluatedValue" : "4"
     }, {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 28037,
       "name" : "IGFD_FileStyleByExtention",
       "docComment" : "define style by extention, for files or links",
       "qualType" : "IGFD_FileStyleFlags_",
@@ -56,7 +50,6 @@
       "evaluatedValue" : "8"
     }, {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 28127,
       "name" : "IGFD_FileStyleByFullName",
       "docComment" : "define style for particular file/dir/link full name (filename + extention)",
       "qualType" : "IGFD_FileStyleFlags_",
@@ -65,7 +58,6 @@
       "evaluatedValue" : "16"
     }, {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 28245,
       "name" : "IGFD_FileStyleByContainedInFullName",
       "docComment" : "define style for file/dir/link when criteria is contained in full name",
       "qualType" : "IGFD_FileStyleFlags_",
@@ -75,11 +67,9 @@
     } ]
   }, {
     "@type" : "AstEnumDecl",
-    "offset" : 28443,
     "name" : "ImGuiFileDialogFlags_",
     "decls" : [ {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 28468,
       "name" : "ImGuiFileDialogFlags_None",
       "qualType" : "ImGuiFileDialogFlags_",
       "order" : 0,
@@ -87,7 +77,6 @@
       "evaluatedValue" : "0"
     }, {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 28500,
       "name" : "ImGuiFileDialogFlags_ConfirmOverwrite",
       "docComment" : "show confirm to overwrite dialog",
       "qualType" : "ImGuiFileDialogFlags_",
@@ -96,7 +85,6 @@
       "evaluatedValue" : "1"
     }, {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 28593,
       "name" : "ImGuiFileDialogFlags_DontShowHiddenFiles",
       "docComment" : "dont show hidden file (file starting with a .)",
       "qualType" : "ImGuiFileDialogFlags_",
@@ -105,7 +93,6 @@
       "evaluatedValue" : "2"
     }, {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 28702,
       "name" : "ImGuiFileDialogFlags_DisableCreateDirectoryButton",
       "docComment" : "disable the create directory button",
       "qualType" : "ImGuiFileDialogFlags_",
@@ -114,7 +101,6 @@
       "evaluatedValue" : "4"
     }, {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 28807,
       "name" : "ImGuiFileDialogFlags_HideColumnType",
       "docComment" : "hide column file type",
       "qualType" : "ImGuiFileDialogFlags_",
@@ -123,7 +109,6 @@
       "evaluatedValue" : "8"
     }, {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 28888,
       "name" : "ImGuiFileDialogFlags_HideColumnSize",
       "docComment" : "hide column file size",
       "qualType" : "ImGuiFileDialogFlags_",
@@ -132,7 +117,6 @@
       "evaluatedValue" : "16"
     }, {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 28969,
       "name" : "ImGuiFileDialogFlags_HideColumnDate",
       "docComment" : "hide column file date",
       "qualType" : "ImGuiFileDialogFlags_",
@@ -141,7 +125,6 @@
       "evaluatedValue" : "32"
     }, {
       "@type" : "AstEnumConstantDecl",
-      "offset" : 29169,
       "name" : "ImGuiFileDialogFlags_Default",
       "qualType" : "ImGuiFileDialogFlags_",
       "order" : 7,
@@ -150,88 +133,69 @@
     } ]
   }, {
     "@type" : "AstNamespaceDecl",
-    "offset" : 30274,
     "name" : "IGFD",
     "decls" : [ {
       "@type" : "AstRecordDecl",
-      "offset" : 30864,
       "name" : "FileDialogInternal",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 30497,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 30497,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 30497,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 30618,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 30739,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           } ]
         } ]
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 31256,
       "name" : "SearchManager",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 30889,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 30889,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 30889,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 31010,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 31131,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           } ]
         } ]
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 31296,
         "name" : "puSearchTag",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 31316,
         "name" : "puSearchBuffer",
         "qualType" : "char[1024]",
         "desugaredQualType" : "char[1024]"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 31373,
         "name" : "puSearchInputIsActive",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 31421,
         "name" : "Clear",
         "resultType" : "void"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 31474,
         "name" : "DrawSearchBar",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 31508,
           "name" : "vFileDialogInternal",
           "qualType" : "FileDialogInternal &",
           "desugaredQualType" : "FileDialogInternal &"
@@ -239,101 +203,82 @@
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 31939,
       "name" : "Utils",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 31572,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 31572,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 31572,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 31693,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 31814,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           } ]
         } ]
       }, {
         "@type" : "AstRecordDecl",
-        "offset" : 31966,
         "name" : "PathStruct",
         "decls" : [ {
           "@type" : "AstFieldDecl",
-          "offset" : 31996,
           "name" : "path",
           "qualType" : "int",
           "desugaredQualType" : "int"
         }, {
           "@type" : "AstFieldDecl",
-          "offset" : 32017,
           "name" : "name",
           "qualType" : "int",
           "desugaredQualType" : "int"
         }, {
           "@type" : "AstFieldDecl",
-          "offset" : 32038,
           "name" : "ext",
           "qualType" : "int",
           "desugaredQualType" : "int"
         }, {
           "@type" : "AstFieldDecl",
-          "offset" : 32051,
           "name" : "isOk",
           "qualType" : "bool",
           "desugaredQualType" : "bool"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 32094,
         "name" : "Splitter",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 32108,
           "name" : "split_vertically",
           "qualType" : "bool",
           "desugaredQualType" : "bool"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 32132,
           "name" : "thickness",
           "qualType" : "float",
           "desugaredQualType" : "float"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 32150,
           "name" : "size1",
           "qualType" : "float *",
           "desugaredQualType" : "float *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 32164,
           "name" : "size2",
           "qualType" : "float *",
           "desugaredQualType" : "float *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 32177,
           "name" : "min_size1",
           "qualType" : "float",
           "desugaredQualType" : "float"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 32194,
           "name" : "min_size2",
           "qualType" : "float",
           "desugaredQualType" : "float"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 32211,
           "name" : "splitter_long_axis_size",
           "qualType" : "float",
           "desugaredQualType" : "float",
@@ -341,266 +286,217 @@
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 32259,
         "name" : "ReplaceString",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 32286,
           "name" : "str",
           "qualType" : "int &",
           "desugaredQualType" : "int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 32310,
           "name" : "oldStr",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 32337,
           "name" : "newStr",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 32360,
         "name" : "IsDirectoryExist",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 32396,
           "name" : "name",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 32417,
         "name" : "CreateDirectoryIfNotExist",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 32462,
           "name" : "name",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 32489,
         "name" : "ParsePathFileName",
         "resultType" : "PathStruct",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 32526,
           "name" : "vPathFileName",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 32556,
         "name" : "AppendToBuffer",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 32577,
           "name" : "vBuffer",
           "qualType" : "char *",
           "desugaredQualType" : "char *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 32593,
           "name" : "vBufferLen",
           "qualType" : "size_t",
           "desugaredQualType" : "unsigned long"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 32624,
           "name" : "vStr",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 32645,
         "name" : "ResetBuffer",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 32663,
           "name" : "vBuffer",
           "qualType" : "char *",
           "desugaredQualType" : "char *"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 32687,
         "name" : "SetBuffer",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 32703,
           "name" : "vBuffer",
           "qualType" : "char *",
           "desugaredQualType" : "char *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 32719,
           "name" : "vBufferLen",
           "qualType" : "size_t",
           "desugaredQualType" : "unsigned long"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 32750,
           "name" : "vStr",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 33164,
         "name" : "SplitStringToVector",
         "resultType" : "int",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 33203,
           "name" : "text",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 33214,
           "name" : "delimiter",
           "qualType" : "char",
           "desugaredQualType" : "char"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 33230,
           "name" : "pushEmpty",
           "qualType" : "bool",
           "desugaredQualType" : "bool"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 33276,
         "name" : "GetDrivesList",
         "resultType" : "int"
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 33669,
       "name" : "FileStyle",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 33302,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 33302,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 33302,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 33423,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 33544,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           } ]
         } ]
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 33700,
         "name" : "color",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 33742,
         "name" : "icon",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 33758,
         "name" : "font",
         "qualType" : "int *",
         "desugaredQualType" : "int *"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 33796,
         "name" : "flags",
         "qualType" : "IGFD_FileStyleFlags",
         "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 34337,
       "name" : "FileInfos",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 33970,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 33970,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 33970,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 34091,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 34212,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           } ]
         } ]
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 34355,
       "name" : "FilterManager",
       "decls" : [ {
         "@type" : "AstRecordDecl",
-        "offset" : 34389,
         "name" : "FilterInfos",
         "decls" : [ {
           "@type" : "AstFieldDecl",
-          "offset" : 34430,
           "name" : "filter",
           "qualType" : "int",
           "desugaredQualType" : "int"
         }, {
           "@type" : "AstFieldDecl",
-          "offset" : 34463,
           "name" : "collectionfilters",
           "qualType" : "int",
           "desugaredQualType" : "int"
         }, {
           "@type" : "AstFunctionDecl",
-          "offset" : 34501,
           "name" : "clear",
           "resultType" : "void"
         }, {
           "@type" : "AstFunctionDecl",
-          "offset" : 34557,
           "name" : "empty",
           "resultType" : "bool"
         }, {
           "@type" : "AstFunctionDecl",
-          "offset" : 34618,
           "name" : "exist",
           "resultType" : "bool",
           "decls" : [ {
             "@type" : "AstParmVarDecl",
-            "offset" : 34643,
             "name" : "vFilter",
             "qualType" : "const int &",
             "desugaredQualType" : "const int &"
@@ -608,298 +504,246 @@
         } ]
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 34733,
         "name" : "prParsedFilters",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 34920,
         "name" : "prSelectedFilter",
         "qualType" : "FilterInfos",
         "desugaredQualType" : "IGFD::FilterManager::FilterInfos"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 34962,
         "name" : "puDLGFilters",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 34990,
         "name" : "puDLGdefaultExt",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 35024,
         "name" : "ParseFilters",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 35049,
           "name" : "vFilters",
           "qualType" : "const char *",
           "desugaredQualType" : "const char *"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 35140,
         "name" : "SetSelectedFilterWithExt",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 35184,
           "name" : "vFilter",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 35231,
         "name" : "prFillFileStyle",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 35274,
           "name" : "vFileInfos",
           "qualType" : "std::shared_ptr<FileInfos>",
           "desugaredQualType" : "std::shared_ptr<IGFD::FileInfos>"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 35340,
         "name" : "SetFileStyle",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 35384,
           "name" : "vFlags",
           "qualType" : "const IGFD_FileStyleFlags &",
           "desugaredQualType" : "const IGFD_FileStyleFlags &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 35407,
           "name" : "vCriteria",
           "qualType" : "const char *",
           "desugaredQualType" : "const char *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 35438,
           "name" : "vInfos",
           "qualType" : "const FileStyle &",
           "desugaredQualType" : "const FileStyle &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 35488,
         "name" : "SetFileStyle",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 35532,
           "name" : "vFlags",
           "qualType" : "const IGFD_FileStyleFlags &",
           "desugaredQualType" : "const IGFD_FileStyleFlags &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 35555,
           "name" : "vCriteria",
           "qualType" : "const char *",
           "desugaredQualType" : "const char *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 35583,
           "name" : "vColor",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 35613,
           "name" : "vIcon",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 35631,
           "name" : "vFont",
           "qualType" : "int *",
           "desugaredQualType" : "int *"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 35712,
         "name" : "GetFileStyle",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 35756,
           "name" : "vFlags",
           "qualType" : "const IGFD_FileStyleFlags &",
           "desugaredQualType" : "const IGFD_FileStyleFlags &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 35786,
           "name" : "vCriteria",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 35808,
           "name" : "vOutColor",
           "qualType" : "int *",
           "desugaredQualType" : "int *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 35835,
           "name" : "vOutIcon",
           "qualType" : "int *",
           "desugaredQualType" : "int *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 35857,
           "name" : "vOutFont",
           "qualType" : "int **",
           "desugaredQualType" : "int **"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 35927,
         "name" : "ClearFilesStyle",
         "resultType" : "void"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 35994,
         "name" : "IsCoveredByFilters",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 36032,
           "name" : "vTag",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 36135,
         "name" : "DrawFilterComboBox",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 36174,
           "name" : "vFileDialogInternal",
           "qualType" : "FileDialogInternal &",
           "desugaredQualType" : "FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 36247,
         "name" : "GetSelectedFilter",
         "resultType" : "FilterInfos"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 36333,
         "name" : "ReplaceExtentionWithCurrentFilter",
         "resultType" : "int",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 36386,
           "name" : "vFile",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 36481,
         "name" : "SetDefaultFilterIfNotDefined",
         "resultType" : "void"
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 36957,
       "name" : "FileInfos",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 36590,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 36590,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 36590,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 36711,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 36832,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           } ]
         } ]
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 36986,
         "name" : "fileType",
         "qualType" : "char",
         "desugaredQualType" : "char"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 37076,
         "name" : "filePath",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 37127,
         "name" : "fileNameExt",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 37222,
         "name" : "fileNameExt_optimized",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 37306,
         "name" : "fileExt",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 37356,
         "name" : "fileSize",
         "qualType" : "size_t",
         "desugaredQualType" : "unsigned long"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 37417,
         "name" : "formatedFileSize",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 37504,
         "name" : "fileModifDate",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 37619,
         "name" : "fileStyle",
         "qualType" : "std::shared_ptr<FileStyle>",
         "desugaredQualType" : "std::shared_ptr<IGFD::FileStyle>"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 37815,
         "name" : "IsTagFound",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 37845,
           "name" : "vTag",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
@@ -907,35 +751,27 @@
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 38234,
       "name" : "FileManager",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 37867,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 37867,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 37867,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 37988,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 38109,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           } ]
         } ]
       }, {
         "@type" : "AstEnumDecl",
-        "offset" : 38280,
         "name" : "SortingFieldEnum",
         "decls" : [ {
           "@type" : "AstEnumConstantDecl",
-          "offset" : 38348,
           "name" : "FIELD_NONE",
           "docComment" : "no sorting preference, result indetermined haha..",
           "qualType" : "IGFD::FileManager::SortingFieldEnum",
@@ -944,28 +780,24 @@
           "evaluatedValue" : "0"
         }, {
           "@type" : "AstEnumConstantDecl",
-          "offset" : 38423,
           "name" : "FIELD_FILENAME",
           "docComment" : "sorted by filename",
           "qualType" : "IGFD::FileManager::SortingFieldEnum",
           "order" : 1
         }, {
           "@type" : "AstEnumConstantDecl",
-          "offset" : 38467,
           "name" : "FIELD_TYPE",
           "docComment" : "sorted by filetype",
           "qualType" : "IGFD::FileManager::SortingFieldEnum",
           "order" : 2
         }, {
           "@type" : "AstEnumConstantDecl",
-          "offset" : 38508,
           "name" : "FIELD_SIZE",
           "docComment" : "sorted by filesize (formated file size)",
           "qualType" : "IGFD::FileManager::SortingFieldEnum",
           "order" : 3
         }, {
           "@type" : "AstEnumConstantDecl",
-          "offset" : 38570,
           "name" : "FIELD_DATE",
           "docComment" : "sorted by filedate",
           "qualType" : "IGFD::FileManager::SortingFieldEnum",
@@ -973,609 +805,504 @@
         } ]
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 38770,
         "name" : "prCurrentPath",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 38886,
         "name" : "prCurrentPathDecomposition",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 38973,
         "name" : "prFileList",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 39049,
         "name" : "prFilteredFileList",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 39132,
         "name" : "prLastSelectedFileName",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 39217,
         "name" : "prSelectedFileNames",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 39290,
         "name" : "prCreateDirectoryMode",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 39377,
         "name" : "puVariadicBuffer",
         "qualType" : "char[1024]",
         "desugaredQualType" : "char[1024]"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 39468,
         "name" : "puInputPathActivated",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 39544,
         "name" : "puDrivesClicked",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 39625,
         "name" : "puPathClicked",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 39705,
         "name" : "puInputPathBuffer",
         "qualType" : "char[1024]",
         "desugaredQualType" : "char[1024]"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 39844,
         "name" : "puFileNameBuffer",
         "qualType" : "char[1024]",
         "desugaredQualType" : "char[1024]"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 39963,
         "name" : "puDirectoryNameBuffer",
         "qualType" : "char[1024]",
         "desugaredQualType" : "char[1024]"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 40123,
         "name" : "puHeaderFileName",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 40199,
         "name" : "puHeaderFileType",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 40275,
         "name" : "puHeaderFileSize",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 40351,
         "name" : "puHeaderFileDate",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 40665,
         "name" : "puSortingDirection",
         "qualType" : "bool[4]",
         "desugaredQualType" : "bool[4]"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 40802,
         "name" : "puSortingField",
         "qualType" : "SortingFieldEnum",
         "desugaredQualType" : "IGFD::FileManager::SortingFieldEnum"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 40890,
         "name" : "puShowDrives",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 40978,
         "name" : "puDLGpath",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 41076,
         "name" : "puDLGDefaultFileName",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 41195,
         "name" : "puDLGcountSelectionMax",
         "qualType" : "size_t",
         "desugaredQualType" : "unsigned long"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 41329,
         "name" : "puDLGDirectoryMode",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 41457,
         "name" : "puFsRoot",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 41499,
         "name" : "prRoundNumber",
         "resultType" : "int",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 41520,
           "name" : "vvalue",
           "qualType" : "double",
           "desugaredQualType" : "double"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 41532,
           "name" : "n",
           "qualType" : "int",
           "desugaredQualType" : "int"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 41593,
         "name" : "prFormatFileSize",
         "resultType" : "int",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 41617,
           "name" : "vByteSize",
           "qualType" : "size_t",
           "desugaredQualType" : "unsigned long"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 41686,
         "name" : "prOptimizeFilenameForSearchOperations",
         "resultType" : "int",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 41743,
           "name" : "vFileNameExt",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 41825,
         "name" : "prCompleteFileInfos",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 41879,
           "name" : "FileInfos",
           "qualType" : "const std::shared_ptr<FileInfos> &",
           "desugaredQualType" : "const std::shared_ptr<FileInfos> &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 41958,
         "name" : "prRemoveFileNameInSelection",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 42005,
           "name" : "vFileName",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42066,
         "name" : "prAddFileNameInSelection",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 42110,
           "name" : "vFileName",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 42126,
           "name" : "vSetLastSelectionFileName",
           "qualType" : "bool",
           "desugaredQualType" : "bool"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42192,
         "name" : "AddFile",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 42226,
           "name" : "vFileDialogInternal",
           "qualType" : "const FileDialogInternal &",
           "desugaredQualType" : "const FileDialogInternal &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 42270,
           "name" : "vPath",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 42296,
           "name" : "vFileName",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 42319,
           "name" : "vFileType",
           "qualType" : "const char &",
           "desugaredQualType" : "const char &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42398,
         "name" : "IsComposerEmpty",
         "resultType" : "bool"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42426,
         "name" : "GetComposerSize",
         "resultType" : "size_t"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42452,
         "name" : "IsFileListEmpty",
         "resultType" : "bool"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42478,
         "name" : "IsFilteredListEmpty",
         "resultType" : "bool"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42510,
         "name" : "GetFullFileListSize",
         "resultType" : "size_t"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42562,
         "name" : "GetFullFileAt",
         "resultType" : "std::shared_ptr<FileInfos>",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 42583,
           "name" : "vIdx",
           "qualType" : "size_t",
           "desugaredQualType" : "unsigned long"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42599,
         "name" : "GetFilteredListSize",
         "resultType" : "size_t"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42651,
         "name" : "GetFilteredFileAt",
         "resultType" : "std::shared_ptr<FileInfos>",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 42676,
           "name" : "vIdx",
           "qualType" : "size_t",
           "desugaredQualType" : "unsigned long"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42690,
         "name" : "IsFileNameSelected",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 42728,
           "name" : "vFileName",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42754,
         "name" : "GetBack",
         "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42772,
         "name" : "ClearComposer",
         "resultType" : "void"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42796,
         "name" : "ClearFileLists",
         "resultType" : "void"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42891,
         "name" : "ClearAll",
         "resultType" : "void"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42910,
         "name" : "ApplyFilteringOnFileList",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 42961,
           "name" : "vFileDialogInternal",
           "qualType" : "const FileDialogInternal &",
           "desugaredQualType" : "const FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 42990,
         "name" : "OpenCurrentPath",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 43032,
           "name" : "vFileDialogInternal",
           "qualType" : "const FileDialogInternal &",
           "desugaredQualType" : "const FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 43160,
         "name" : "SortFields",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 43197,
           "name" : "vFileDialogInternal",
           "qualType" : "const FileDialogInternal &",
           "desugaredQualType" : "const FileDialogInternal &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 43246,
           "name" : "vSortingField",
           "qualType" : "const SortingFieldEnum &",
           "desugaredQualType" : "const SortingFieldEnum &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 43273,
           "name" : "vCanChangeOrder",
           "qualType" : "const bool &",
           "desugaredQualType" : "const bool &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 43325,
         "name" : "GetDrives",
         "resultType" : "bool"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 43399,
         "name" : "CreateDir",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 43428,
           "name" : "vPath",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 43497,
         "name" : "ComposeNewPath",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 43547,
           "name" : "vIter",
           "qualType" : "int",
           "desugaredQualType" : "int"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 43617,
         "name" : "SetPathOnParentDirectoryIfAny",
         "resultType" : "bool"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 43714,
         "name" : "GetCurrentPath",
         "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 43779,
         "name" : "SetCurrentPath",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 43813,
           "name" : "vCurrentPath",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 43876,
         "name" : "IsFileExist",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 43907,
           "name" : "vFile",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 43922,
         "name" : "SetDefaultFileName",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 43960,
           "name" : "vFileName",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 43979,
         "name" : "SelectDirectory",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 44029,
           "name" : "vInfos",
           "qualType" : "const std::shared_ptr<FileInfos> &",
           "desugaredQualType" : "const std::shared_ptr<FileInfos> &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 44073,
         "name" : "SelectFileName",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 44114,
           "name" : "vFileDialogInternal",
           "qualType" : "const FileDialogInternal &",
           "desugaredQualType" : "const FileDialogInternal &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 44173,
           "name" : "vInfos",
           "qualType" : "const std::shared_ptr<FileInfos> &",
           "desugaredQualType" : "const std::shared_ptr<FileInfos> &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 44248,
         "name" : "SetCurrentDir",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstFullComment",
-          "offset" : 44222,
           "decls" : [ {
             "@type" : "AstParagraphComment",
-            "offset" : 44222,
             "decls" : [ {
               "@type" : "AstTextComment",
-              "offset" : 44222,
               "text" : "depend of dirent.h"
             } ]
           } ]
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 44281,
           "name" : "vPath",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 44345,
         "name" : "ScanDir",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 44379,
           "name" : "vFileDialogInternal",
           "qualType" : "const FileDialogInternal &",
           "desugaredQualType" : "const FileDialogInternal &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 44419,
           "name" : "vPath",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 44502,
         "name" : "GetResultingPath",
         "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 44536,
         "name" : "GetResultingFileName",
         "resultType" : "int",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 44577,
           "name" : "vFileDialogInternal",
           "qualType" : "FileDialogInternal &",
           "desugaredQualType" : "FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 44613,
         "name" : "GetResultingFilePathName",
         "resultType" : "int",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 44658,
           "name" : "vFileDialogInternal",
           "qualType" : "FileDialogInternal &",
           "desugaredQualType" : "FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 44717,
         "name" : "GetResultingSelection",
         "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 44759,
         "name" : "DrawDirectoryCreation",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 44807,
           "name" : "vFileDialogInternal",
           "qualType" : "const FileDialogInternal &",
           "desugaredQualType" : "const FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 44875,
         "name" : "DrawPathComposer",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 44918,
           "name" : "vFileDialogInternal",
           "qualType" : "const FileDialogInternal &",
           "desugaredQualType" : "const FileDialogInternal &"
@@ -1583,40 +1310,33 @@
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 45602,
       "name" : "ThumbnailFeature",
       "decls" : [ {
         "@type" : "AstFunctionDecl",
-        "offset" : 45687,
         "name" : "NewThumbnailFrame",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 45725,
           "name" : "vFileDialogInternal",
           "qualType" : "FileDialogInternal &",
           "desugaredQualType" : "FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 45754,
         "name" : "EndThumbnailFrame",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 45792,
           "name" : "vFileDialogInternal",
           "qualType" : "FileDialogInternal &",
           "desugaredQualType" : "FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 45821,
         "name" : "QuitThumbnailFrame",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 45860,
           "name" : "vFileDialogInternal",
           "qualType" : "FileDialogInternal &",
           "desugaredQualType" : "FileDialogInternal &"
@@ -1624,332 +1344,270 @@
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 48470,
       "name" : "BookMarkFeature",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 48103,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 48103,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 48103,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 48224,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 48345,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           } ]
         } ]
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 50052,
       "name" : "KeyExplorerFeature",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 49993,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 49993,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 49993,
             "text" : " file localization by input chat // widget flashing"
           } ]
         } ]
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 52396,
       "name" : "FileDialogInternal",
       "decls" : [ {
         "@type" : "AstFieldDecl",
-        "offset" : 52441,
         "name" : "puFileManager",
         "qualType" : "FileManager",
         "desugaredQualType" : "IGFD::FileManager"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 52472,
         "name" : "puFilterManager",
         "qualType" : "FilterManager",
         "desugaredQualType" : "IGFD::FilterManager"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 52505,
         "name" : "puSearchManager",
         "qualType" : "SearchManager",
         "desugaredQualType" : "IGFD::SearchManager"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 52546,
         "name" : "puName",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 52561,
         "name" : "puShowDialog",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 52592,
         "name" : "puDialogCenterPos",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 52698,
         "name" : "puLastImGuiFrameCount",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 52802,
         "name" : "puFooterHeight",
         "qualType" : "float",
         "desugaredQualType" : "float"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 52832,
         "name" : "puCanWeContinue",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 52887,
         "name" : "puOkResultToConfirm",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 52969,
         "name" : "puIsOk",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 52992,
         "name" : "puFileInputIsActive",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 53092,
         "name" : "puFileListViewIsActive",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 53178,
         "name" : "puDLGkey",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 53202,
         "name" : "puDLGtitle",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 53237,
         "name" : "puDLGflags",
         "qualType" : "ImGuiFileDialogFlags",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 53289,
         "name" : "puDLGuserDatas",
         "qualType" : "UserDatas",
         "desugaredQualType" : "void *"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 53325,
         "name" : "puDLGoptionsPane",
         "qualType" : "PaneFun",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 53361,
         "name" : "puDLGoptionsPaneWidth",
         "qualType" : "float",
         "desugaredQualType" : "float"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 53398,
         "name" : "puDLGmodal",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 53425,
         "name" : "puNeedToExitDialog",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 53461,
         "name" : "puUseCustomLocale",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 53494,
         "name" : "puLocaleCategory",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 53561,
         "name" : "puLocaleBegin",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 53655,
         "name" : "puLocaleEnd",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 53749,
         "name" : "NewFrame",
         "resultType" : "void"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 53835,
         "name" : "EndFrame",
         "resultType" : "void"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 53912,
         "name" : "ResetForNewDialog",
         "resultType" : "void"
       } ]
     }, {
       "@type" : "AstRecordDecl",
-      "offset" : 54375,
       "name" : "FileDialog",
       "decls" : [ {
         "@type" : "AstFullComment",
-        "offset" : 54008,
         "decls" : [ {
           "@type" : "AstParagraphComment",
-          "offset" : 54008,
           "decls" : [ {
             "@type" : "AstTextComment",
-            "offset" : 54008,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 54129,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           }, {
             "@type" : "AstTextComment",
-            "offset" : 54250,
             "text" : "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
           } ]
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 54375,
         "name" : "operator=",
         "resultType" : "IGFD::FileDialog &"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 54506,
         "name" : "prFileDialogInternal",
         "qualType" : "FileDialogInternal",
         "desugaredQualType" : "IGFD::FileDialogInternal"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 54547,
         "name" : "prFileListClipper",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "offset" : 54583,
         "name" : "puAnyWindowsHovered",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 54710,
         "name" : "Instance",
         "resultType" : "FileDialog *"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 55103,
         "name" : "OpenDialog",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstFullComment",
-          "offset" : 55079,
           "decls" : [ {
             "@type" : "AstParagraphComment",
-            "offset" : 55079,
             "decls" : [ {
               "@type" : "AstTextComment",
-              "offset" : 55079,
               "text" : " standard dialog"
             } ]
           } ]
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 55206,
           "name" : "vKey",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 55255,
           "name" : "vTitle",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 55294,
           "name" : "vFilters",
           "qualType" : "const char *",
           "desugaredQualType" : "const char *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 55345,
           "name" : "vPath",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 55389,
           "name" : "vFileName",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 55440,
           "name" : "vCountSelectionMax",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &",
           "defaultValue" : "1"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 55505,
           "name" : "vUserDatas",
           "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 55598,
           "name" : "vFlags",
           "qualType" : "ImGuiFileDialogFlags",
           "desugaredQualType" : "int",
@@ -1957,50 +1615,42 @@
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 55649,
         "name" : "OpenDialog",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 55766,
           "name" : "vKey",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 55815,
           "name" : "vTitle",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 55854,
           "name" : "vFilters",
           "qualType" : "const char *",
           "desugaredQualType" : "const char *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 55905,
           "name" : "vFilePathName",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 55999,
           "name" : "vCountSelectionMax",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &",
           "defaultValue" : "1"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 56064,
           "name" : "vUserDatas",
           "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 56157,
           "name" : "vFlags",
           "qualType" : "ImGuiFileDialogFlags",
           "desugaredQualType" : "int",
@@ -2008,81 +1658,67 @@
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 56223,
         "name" : "OpenDialog",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstFullComment",
-          "offset" : 56205,
           "decls" : [ {
             "@type" : "AstParagraphComment",
-            "offset" : 56205,
             "decls" : [ {
               "@type" : "AstTextComment",
-              "offset" : 56205,
               "text" : " with pane"
             } ]
           } ]
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 56342,
           "name" : "vKey",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 56391,
           "name" : "vTitle",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 56430,
           "name" : "vFilters",
           "qualType" : "const char *",
           "desugaredQualType" : "const char *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 56481,
           "name" : "vPath",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 56525,
           "name" : "vFileName",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 56580,
           "name" : "vSidePane",
           "qualType" : "const PaneFun &",
           "desugaredQualType" : "const PaneFun &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 56627,
           "name" : "vSidePaneWidth",
           "qualType" : "const float &",
           "desugaredQualType" : "const float &",
           "defaultValue" : "250.0f"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 56689,
           "name" : "vCountSelectionMax",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &",
           "defaultValue" : "1"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 56754,
           "name" : "vUserDatas",
           "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 56847,
           "name" : "vFlags",
           "qualType" : "ImGuiFileDialogFlags",
           "desugaredQualType" : "int",
@@ -2090,63 +1726,53 @@
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 56898,
         "name" : "OpenDialog",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 57031,
           "name" : "vKey",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 57080,
           "name" : "vTitle",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 57119,
           "name" : "vFilters",
           "qualType" : "const char *",
           "desugaredQualType" : "const char *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 57170,
           "name" : "vFilePathName",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 57268,
           "name" : "vSidePane",
           "qualType" : "const PaneFun &",
           "desugaredQualType" : "const PaneFun &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 57315,
           "name" : "vSidePaneWidth",
           "qualType" : "const float &",
           "desugaredQualType" : "const float &",
           "defaultValue" : "250.0f"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 57377,
           "name" : "vCountSelectionMax",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &",
           "defaultValue" : "1"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 57442,
           "name" : "vUserDatas",
           "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 57535,
           "name" : "vFlags",
           "qualType" : "ImGuiFileDialogFlags",
           "desugaredQualType" : "int",
@@ -2154,68 +1780,56 @@
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 57604,
         "name" : "OpenModal",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstFullComment",
-          "offset" : 57583,
           "decls" : [ {
             "@type" : "AstParagraphComment",
-            "offset" : 57583,
             "decls" : [ {
               "@type" : "AstTextComment",
-              "offset" : 57583,
               "text" : " modal dialog"
             } ]
           } ]
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 57706,
           "name" : "vKey",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 57755,
           "name" : "vTitle",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 57794,
           "name" : "vFilters",
           "qualType" : "const char *",
           "desugaredQualType" : "const char *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 57845,
           "name" : "vPath",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 57889,
           "name" : "vFileName",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 57940,
           "name" : "vCountSelectionMax",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &",
           "defaultValue" : "1"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 58005,
           "name" : "vUserDatas",
           "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 58098,
           "name" : "vFlags",
           "qualType" : "ImGuiFileDialogFlags",
           "desugaredQualType" : "int",
@@ -2223,50 +1837,42 @@
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 58149,
         "name" : "OpenModal",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 58265,
           "name" : "vKey",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 58314,
           "name" : "vTitle",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 58353,
           "name" : "vFilters",
           "qualType" : "const char *",
           "desugaredQualType" : "const char *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 58404,
           "name" : "vFilePathName",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 58498,
           "name" : "vCountSelectionMax",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &",
           "defaultValue" : "1"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 58563,
           "name" : "vUserDatas",
           "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 58656,
           "name" : "vFlags",
           "qualType" : "ImGuiFileDialogFlags",
           "desugaredQualType" : "int",
@@ -2274,81 +1880,67 @@
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 58722,
         "name" : "OpenModal",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstFullComment",
-          "offset" : 58704,
           "decls" : [ {
             "@type" : "AstParagraphComment",
-            "offset" : 58704,
             "decls" : [ {
               "@type" : "AstTextComment",
-              "offset" : 58704,
               "text" : " with pane"
             } ]
           } ]
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 58854,
           "name" : "vKey",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 58903,
           "name" : "vTitle",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 58942,
           "name" : "vFilters",
           "qualType" : "const char *",
           "desugaredQualType" : "const char *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 58993,
           "name" : "vPath",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 59037,
           "name" : "vFileName",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 59092,
           "name" : "vSidePane",
           "qualType" : "const PaneFun &",
           "desugaredQualType" : "const PaneFun &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 59139,
           "name" : "vSidePaneWidth",
           "qualType" : "const float &",
           "desugaredQualType" : "const float &",
           "defaultValue" : "250.0f"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 59201,
           "name" : "vCountSelectionMax",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &",
           "defaultValue" : "1"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 59266,
           "name" : "vUserDatas",
           "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 59359,
           "name" : "vFlags",
           "qualType" : "ImGuiFileDialogFlags",
           "desugaredQualType" : "int",
@@ -2356,63 +1948,53 @@
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 59410,
         "name" : "OpenModal",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 59542,
           "name" : "vKey",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 59591,
           "name" : "vTitle",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 59630,
           "name" : "vFilters",
           "qualType" : "const char *",
           "desugaredQualType" : "const char *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 59681,
           "name" : "vFilePathName",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 59779,
           "name" : "vSidePane",
           "qualType" : "const PaneFun &",
           "desugaredQualType" : "const PaneFun &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 59826,
           "name" : "vSidePaneWidth",
           "qualType" : "const float &",
           "desugaredQualType" : "const float &",
           "defaultValue" : "250.0f"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 59888,
           "name" : "vCountSelectionMax",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &",
           "defaultValue" : "1"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 59953,
           "name" : "vUserDatas",
           "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 60046,
           "name" : "vFlags",
           "qualType" : "ImGuiFileDialogFlags",
           "desugaredQualType" : "int",
@@ -2420,44 +2002,36 @@
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 60130,
         "name" : "Display",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstFullComment",
-          "offset" : 60094,
           "decls" : [ {
             "@type" : "AstParagraphComment",
-            "offset" : 60094,
             "decls" : [ {
               "@type" : "AstTextComment",
-              "offset" : 60094,
               "text" : " Display / Close dialog form"
             } ]
           } ]
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 60244,
           "name" : "vKey",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 60369,
           "name" : "vFlags",
           "qualType" : "int",
           "desugaredQualType" : "int",
           "defaultValue" : "="
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 60437,
           "name" : "vMinSize",
           "qualType" : "int",
           "desugaredQualType" : "int",
           "defaultValue" : "ImVec2(0, 0)"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 60525,
           "name" : "vMaxSize",
           "qualType" : "int",
           "desugaredQualType" : "int",
@@ -2465,177 +2039,143 @@
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 60618,
         "name" : "Close",
         "resultType" : "void"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 60675,
         "name" : "WasOpenedThisFrame",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstFullComment",
-          "offset" : 60659,
           "decls" : [ {
             "@type" : "AstParagraphComment",
-            "offset" : 60659,
             "decls" : [ {
               "@type" : "AstTextComment",
-              "offset" : 60659,
               "text" : " queries"
             } ]
           } ]
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 60713,
           "name" : "vKey",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 60789,
         "name" : "WasOpenedThisFrame",
         "resultType" : "bool"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 60881,
         "name" : "IsOpened",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 60909,
           "name" : "vKey",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 60960,
         "name" : "IsOpened",
         "resultType" : "bool"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 61042,
         "name" : "GetOpenedKey",
         "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 61163,
         "name" : "IsOk",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstFullComment",
-          "offset" : 61144,
           "decls" : [ {
             "@type" : "AstParagraphComment",
-            "offset" : 61144,
             "decls" : [ {
               "@type" : "AstTextComment",
-              "offset" : 61144,
               "text" : " get result"
             } ]
           } ]
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 61307,
         "name" : "GetSelection",
         "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 61419,
         "name" : "GetFilePathName",
         "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 61574,
         "name" : "GetCurrentFileName",
         "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 61714,
         "name" : "GetCurrentPath",
         "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 61781,
         "name" : "GetCurrentFilter",
         "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 61851,
         "name" : "GetUserDatas",
         "resultType" : "UserDatas"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 61972,
         "name" : "SetFileStyle",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstFullComment",
-          "offset" : 61939,
           "decls" : [ {
             "@type" : "AstParagraphComment",
-            "offset" : 61939,
             "decls" : [ {
               "@type" : "AstTextComment",
-              "offset" : 61939,
               "text" : " file style by extentions"
             } ]
           } ]
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 62096,
           "name" : "vFlags",
           "qualType" : "const IGFD_FileStyleFlags &",
           "desugaredQualType" : "const IGFD_FileStyleFlags &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 62138,
           "name" : "vCriteria",
           "qualType" : "const char *",
           "desugaredQualType" : "const char *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 62205,
           "name" : "vInfos",
           "qualType" : "const FileStyle &",
           "desugaredQualType" : "const FileStyle &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 62337,
         "name" : "SetFileStyle",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 62461,
           "name" : "vFlags",
           "qualType" : "const IGFD_FileStyleFlags &",
           "desugaredQualType" : "const IGFD_FileStyleFlags &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 62504,
           "name" : "vCriteria",
           "qualType" : "const char *",
           "desugaredQualType" : "const char *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 62568,
           "name" : "vColor",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 62672,
           "name" : "vIcon",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &",
           "defaultValue" : "="
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 62758,
           "name" : "vFont",
           "qualType" : "int *",
           "desugaredQualType" : "int *",
@@ -2643,37 +2183,31 @@
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 62828,
         "name" : "GetFileStyle",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 62936,
           "name" : "vFlags",
           "qualType" : "const IGFD_FileStyleFlags &",
           "desugaredQualType" : "const IGFD_FileStyleFlags &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 62986,
           "name" : "vCriteria",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 63072,
           "name" : "vOutColor",
           "qualType" : "int *",
           "desugaredQualType" : "int *"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 63129,
           "name" : "vOutIcon",
           "qualType" : "int *",
           "desugaredQualType" : "int *",
           "defaultValue" : "nullptr"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 63203,
           "name" : "vOutFont",
           "qualType" : "int **",
           "desugaredQualType" : "int **",
@@ -2681,240 +2215,194 @@
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 63277,
         "name" : "ClearFilesStyle",
         "resultType" : "void"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 63343,
         "name" : "SetLocales",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 63437,
           "name" : "vLocaleCategory",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 63505,
           "name" : "vLocaleBegin",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 63597,
           "name" : "vLocaleEnd",
           "qualType" : "const int &",
           "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 63686,
         "name" : "NewFrame",
         "resultType" : "void"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 63756,
         "name" : "EndFrame",
         "resultType" : "void"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 63821,
         "name" : "QuitFrame",
         "resultType" : "void"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 63903,
         "name" : "prConfirm_Or_OpenOverWriteFileDialog_IfNeeded",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstFullComment",
-          "offset" : 63888,
           "decls" : [ {
             "@type" : "AstParagraphComment",
-            "offset" : 63888,
             "decls" : [ {
               "@type" : "AstTextComment",
-              "offset" : 63888,
               "text" : " others"
             } ]
           } ]
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 63958,
           "name" : "vLastAction",
           "qualType" : "bool",
           "desugaredQualType" : "bool"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 63988,
           "name" : "vFlags",
           "qualType" : "int",
           "desugaredQualType" : "int"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 64143,
         "name" : "prDrawHeader",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstFullComment",
-          "offset" : 64114,
           "decls" : [ {
             "@type" : "AstParagraphComment",
-            "offset" : 64114,
             "decls" : [ {
               "@type" : "AstTextComment",
-              "offset" : 64114,
               "text" : " dialog parts"
             } ]
           } ]
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 64271,
         "name" : "prDrawContent",
         "resultType" : "void"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 64383,
         "name" : "prDrawFooter",
         "resultType" : "bool"
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 64527,
         "name" : "prDrawSidePane",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstFullComment",
-          "offset" : 64492,
           "decls" : [ {
             "@type" : "AstParagraphComment",
-            "offset" : 64492,
             "decls" : [ {
               "@type" : "AstTextComment",
-              "offset" : 64492,
               "text" : " widgets components"
             } ]
           } ]
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 64548,
           "name" : "vHeight",
           "qualType" : "float",
           "desugaredQualType" : "float"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 64595,
         "name" : "prSelectableItem",
         "resultType" : "bool",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 64616,
           "name" : "vidx",
           "qualType" : "int",
           "desugaredQualType" : "int"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 64653,
           "name" : "vInfos",
           "qualType" : "std::shared_ptr<FileInfos>",
           "desugaredQualType" : "std::shared_ptr<IGFD::FileInfos>"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 64670,
           "name" : "vSelected",
           "qualType" : "bool",
           "desugaredQualType" : "bool"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 64693,
           "name" : "vFmt",
           "qualType" : "const char *",
           "desugaredQualType" : "const char *"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 64766,
         "name" : "prDrawFileListView",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 64792,
           "name" : "vSize",
           "qualType" : "int",
           "desugaredQualType" : "int"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 65240,
         "name" : "prBeginFileColorIconStyle",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstFullComment",
-          "offset" : 65085,
           "decls" : [ {
             "@type" : "AstParagraphComment",
-            "offset" : 65085,
             "decls" : [ {
               "@type" : "AstTextComment",
-              "offset" : 65085,
               "text" : " to be called only by these function and theirs overrides"
             }, {
               "@type" : "AstTextComment",
-              "offset" : 65147,
               "text" : " - prDrawFileListView"
             }, {
               "@type" : "AstTextComment",
-              "offset" : 65173,
               "text" : " - prDrawThumbnailsListView"
             }, {
               "@type" : "AstTextComment",
-              "offset" : 65205,
               "text" : " - prDrawThumbnailsGridView"
             } ]
           } ]
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 65297,
           "name" : "vFileInfos",
           "qualType" : "std::shared_ptr<FileInfos>",
           "desugaredQualType" : "std::shared_ptr<IGFD::FileInfos>"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 65319,
           "name" : "vOutShowColor",
           "qualType" : "bool &",
           "desugaredQualType" : "bool &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 65351,
           "name" : "vOutStr",
           "qualType" : "int &",
           "desugaredQualType" : "int &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 65373,
           "name" : "vOutFont",
           "qualType" : "int **",
           "desugaredQualType" : "int **"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
-        "offset" : 65457,
         "name" : "prEndFileColorIconStyle",
         "resultType" : "void",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
-          "offset" : 65497,
           "name" : "vShowColor",
           "qualType" : "const bool &",
           "desugaredQualType" : "const bool &"
         }, {
           "@type" : "AstParmVarDecl",
-          "offset" : 65520,
           "name" : "vFont",
           "qualType" : "int *",
           "desugaredQualType" : "int *"
@@ -2923,54 +2411,43 @@
     } ]
   }, {
     "@type" : "AstRecordDecl",
-    "offset" : 66917,
     "name" : "IGFD_Selection_Pair",
     "decls" : [ {
       "@type" : "AstFullComment",
-      "offset" : 66465,
       "decls" : [ {
         "@type" : "AstParagraphComment",
-        "offset" : 66465,
         "decls" : [ {
           "@type" : "AstTextComment",
-          "offset" : 66465,
           "text" : "/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
         }, {
           "@type" : "AstTextComment",
-          "offset" : 66614,
           "text" : "// C API ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
         }, {
           "@type" : "AstTextComment",
-          "offset" : 66763,
           "text" : "/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
         } ]
       } ]
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 66946,
       "name" : "fileName",
       "qualType" : "char *",
       "desugaredQualType" : "char *"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 66963,
       "name" : "filePathName",
       "qualType" : "char *",
       "desugaredQualType" : "char *"
     } ]
   }, {
     "@type" : "AstRecordDecl",
-    "offset" : 67261,
     "name" : "IGFD_Selection",
     "decls" : [ {
       "@type" : "AstFieldDecl",
-      "offset" : 67300,
       "name" : "table",
       "qualType" : "IGFD_Selection_Pair *",
       "desugaredQualType" : "IGFD_Selection_Pair *"
     }, {
       "@type" : "AstFieldDecl",
-      "offset" : 67320,
       "name" : "count",
       "qualType" : "size_t",
       "desugaredQualType" : "unsigned long"
