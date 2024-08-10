@@ -10,7 +10,6 @@ fun astEnumContent(markerAnnotation: CtAnnotation<*>): List<String> {
 
     val file = markerAnnotation.getValueAsString(A_VALUE_FILE)!!
     val qualType = markerAnnotation.getValueAsString(A_VALUE_QUAL_TYPE)!!
-    val sanitizeName = markerAnnotation.getValueAsString(A_VALUE_SANITIZE_NAME)?.takeIf(String::isNotEmpty) ?: qualType
     val astRoot = AstParser.readFromResource(file)
 
     val enums = astRoot.decls.filterDecls0 {
@@ -24,7 +23,7 @@ fun astEnumContent(markerAnnotation: CtAnnotation<*>): List<String> {
 
         f.setModifiers<Nothing>(setOf(ModifierKind.PUBLIC, ModifierKind.STATIC, ModifierKind.FINAL))
         f.setType<Nothing>(factory.createTypeParam("int"))
-        f.setSimpleName<Nothing>(e.name.replace(sanitizeName, ""))
+        f.setSimpleName<Nothing>(sanitizeName(markerAnnotation.getValueSanitizeName(qualType), e.name))
         buildString {
             if (e.docComment != null) {
                 appendLine(e.docComment)
@@ -46,6 +45,18 @@ fun astEnumContent(markerAnnotation: CtAnnotation<*>): List<String> {
         result += f.prettyprint()
     }
 
+    return result
+}
+
+private fun CtAnnotation<*>.getValueSanitizeName(default: String): String {
+    return getValueAsString(A_VALUE_SANITIZE_NAME)?.takeIf(String::isNotEmpty) ?: default
+}
+
+private fun sanitizeName(aValueSanitizeName: String, name: String): String {
+    var result =  name.replace(aValueSanitizeName, "").trim()
+    if (result.toIntOrNull() != null) {
+        result = "_$result"
+    }
     return result
 }
 
