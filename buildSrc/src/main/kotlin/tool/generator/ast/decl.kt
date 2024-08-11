@@ -115,7 +115,7 @@ data class AstEnumConstantDecl(
     val qualType: String = "",
     val order: Int = -1,
     val value: String? = null,
-    val evaluatedValue: String? = null,
+    val evaluatedValue: Int? = null,
 ) : Decl
 
 data class AstRecordDecl(

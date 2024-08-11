@@ -16,133 +16,133 @@
         "name" : "Default",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 0,
-        "evaluatedValue" : "0"
+        "evaluatedValue" : 0
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "Keyword",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 1,
-        "evaluatedValue" : "1"
+        "evaluatedValue" : 1
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "Number",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 2,
-        "evaluatedValue" : "2"
+        "evaluatedValue" : 2
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "String",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 3,
-        "evaluatedValue" : "3"
+        "evaluatedValue" : 3
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "CharLiteral",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 4,
-        "evaluatedValue" : "4"
+        "evaluatedValue" : 4
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "Punctuation",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 5,
-        "evaluatedValue" : "5"
+        "evaluatedValue" : 5
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "Preprocessor",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 6,
-        "evaluatedValue" : "6"
+        "evaluatedValue" : 6
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "Identifier",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 7,
-        "evaluatedValue" : "7"
+        "evaluatedValue" : 7
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "KnownIdentifier",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 8,
-        "evaluatedValue" : "8"
+        "evaluatedValue" : 8
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "PreprocIdentifier",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 9,
-        "evaluatedValue" : "9"
+        "evaluatedValue" : 9
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "Comment",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 10,
-        "evaluatedValue" : "10"
+        "evaluatedValue" : 10
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "MultiLineComment",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 11,
-        "evaluatedValue" : "11"
+        "evaluatedValue" : 11
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "Background",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 12,
-        "evaluatedValue" : "12"
+        "evaluatedValue" : 12
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "Cursor",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 13,
-        "evaluatedValue" : "13"
+        "evaluatedValue" : 13
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "Selection",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 14,
-        "evaluatedValue" : "14"
+        "evaluatedValue" : 14
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "ErrorMarker",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 15,
-        "evaluatedValue" : "15"
+        "evaluatedValue" : 15
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "Breakpoint",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 16,
-        "evaluatedValue" : "16"
+        "evaluatedValue" : 16
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "LineNumber",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 17,
-        "evaluatedValue" : "17"
+        "evaluatedValue" : 17
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "CurrentLineFill",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 18,
-        "evaluatedValue" : "18"
+        "evaluatedValue" : 18
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "CurrentLineFillInactive",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 19,
-        "evaluatedValue" : "19"
+        "evaluatedValue" : 19
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "CurrentLineEdge",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 20,
-        "evaluatedValue" : "20"
+        "evaluatedValue" : 20
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "Max",
         "qualType" : "TextEditor::PaletteIndex",
         "order" : 21,
-        "evaluatedValue" : "21"
+        "evaluatedValue" : 21
       } ]
     }, {
       "@type" : "AstEnumDecl",
@@ -152,19 +152,19 @@
         "name" : "Normal",
         "qualType" : "TextEditor::SelectionMode",
         "order" : 0,
-        "evaluatedValue" : "0"
+        "evaluatedValue" : 0
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "Word",
         "qualType" : "TextEditor::SelectionMode",
         "order" : 1,
-        "evaluatedValue" : "1"
+        "evaluatedValue" : 1
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "Line",
         "qualType" : "TextEditor::SelectionMode",
         "order" : 2,
-        "evaluatedValue" : "2"
+        "evaluatedValue" : 2
       } ]
     }, {
       "@type" : "AstRecordDecl",

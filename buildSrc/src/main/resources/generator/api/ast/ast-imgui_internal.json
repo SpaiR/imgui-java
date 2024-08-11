@@ -9127,7 +9127,7 @@
       "qualType" : "ImGuiItemFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemFlags_NoTabStop",
@@ -9135,7 +9135,7 @@
       "qualType" : "ImGuiItemFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemFlags_ButtonRepeat",
@@ -9143,7 +9143,7 @@
       "qualType" : "ImGuiItemFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemFlags_Disabled",
@@ -9151,7 +9151,7 @@
       "qualType" : "ImGuiItemFlags_",
       "order" : 3,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemFlags_NoNav",
@@ -9159,7 +9159,7 @@
       "qualType" : "ImGuiItemFlags_",
       "order" : 4,
       "value" : "1 << 3",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemFlags_NoNavDefaultFocus",
@@ -9167,7 +9167,7 @@
       "qualType" : "ImGuiItemFlags_",
       "order" : 5,
       "value" : "1 << 4",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemFlags_SelectableDontClosePopup",
@@ -9175,7 +9175,7 @@
       "qualType" : "ImGuiItemFlags_",
       "order" : 6,
       "value" : "1 << 5",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemFlags_MixedValue",
@@ -9183,7 +9183,7 @@
       "qualType" : "ImGuiItemFlags_",
       "order" : 7,
       "value" : "1 << 6",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemFlags_ReadOnly",
@@ -9191,7 +9191,7 @@
       "qualType" : "ImGuiItemFlags_",
       "order" : 8,
       "value" : "1 << 7",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemFlags_Inputable",
@@ -9199,7 +9199,7 @@
       "qualType" : "ImGuiItemFlags_",
       "order" : 9,
       "value" : "1 << 8",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9219,7 +9219,7 @@
       "qualType" : "ImGuiItemStatusFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemStatusFlags_HoveredRect",
@@ -9227,7 +9227,7 @@
       "qualType" : "ImGuiItemStatusFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemStatusFlags_HasDisplayRect",
@@ -9235,7 +9235,7 @@
       "qualType" : "ImGuiItemStatusFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemStatusFlags_Edited",
@@ -9243,7 +9243,7 @@
       "qualType" : "ImGuiItemStatusFlags_",
       "order" : 3,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemStatusFlags_ToggledSelection",
@@ -9251,7 +9251,7 @@
       "qualType" : "ImGuiItemStatusFlags_",
       "order" : 4,
       "value" : "1 << 3",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemStatusFlags_ToggledOpen",
@@ -9259,7 +9259,7 @@
       "qualType" : "ImGuiItemStatusFlags_",
       "order" : 5,
       "value" : "1 << 4",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemStatusFlags_HasDeactivated",
@@ -9267,7 +9267,7 @@
       "qualType" : "ImGuiItemStatusFlags_",
       "order" : 6,
       "value" : "1 << 5",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemStatusFlags_Deactivated",
@@ -9275,7 +9275,7 @@
       "qualType" : "ImGuiItemStatusFlags_",
       "order" : 7,
       "value" : "1 << 6",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemStatusFlags_HoveredWindow",
@@ -9283,7 +9283,7 @@
       "qualType" : "ImGuiItemStatusFlags_",
       "order" : 8,
       "value" : "1 << 7",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiItemStatusFlags_FocusedByTabbing",
@@ -9291,7 +9291,7 @@
       "qualType" : "ImGuiItemStatusFlags_",
       "order" : 9,
       "value" : "1 << 8",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9312,7 +9312,7 @@
       "qualType" : "ImGuiInputTextFlagsPrivate_",
       "order" : 0,
       "value" : "1 << 26",
-      "evaluatedValue" : "67108864"
+      "evaluatedValue" : 67108864
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_NoMarkEdited",
@@ -9320,7 +9320,7 @@
       "qualType" : "ImGuiInputTextFlagsPrivate_",
       "order" : 1,
       "value" : "1 << 27",
-      "evaluatedValue" : "134217728"
+      "evaluatedValue" : 134217728
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_MergedItem",
@@ -9328,7 +9328,7 @@
       "qualType" : "ImGuiInputTextFlagsPrivate_",
       "order" : 2,
       "value" : "1 << 28",
-      "evaluatedValue" : "268435456"
+      "evaluatedValue" : 268435456
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9349,7 +9349,7 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 0,
       "value" : "1 << 4",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_PressedOnClickRelease",
@@ -9357,7 +9357,7 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 1,
       "value" : "1 << 5",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_PressedOnClickReleaseAnywhere",
@@ -9365,7 +9365,7 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 2,
       "value" : "1 << 6",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_PressedOnRelease",
@@ -9373,7 +9373,7 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 3,
       "value" : "1 << 7",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_PressedOnDoubleClick",
@@ -9381,7 +9381,7 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 4,
       "value" : "1 << 8",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_PressedOnDragDropHold",
@@ -9389,7 +9389,7 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 5,
       "value" : "1 << 9",
-      "evaluatedValue" : "512"
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_Repeat",
@@ -9397,7 +9397,7 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 6,
       "value" : "1 << 10",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_FlattenChildren",
@@ -9405,7 +9405,7 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 7,
       "value" : "1 << 11",
-      "evaluatedValue" : "2048"
+      "evaluatedValue" : 2048
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_AllowItemOverlap",
@@ -9413,7 +9413,7 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 8,
       "value" : "1 << 12",
-      "evaluatedValue" : "4096"
+      "evaluatedValue" : 4096
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_DontClosePopups",
@@ -9421,7 +9421,7 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 9,
       "value" : "1 << 13",
-      "evaluatedValue" : "8192"
+      "evaluatedValue" : 8192
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_AlignTextBaseLine",
@@ -9429,7 +9429,7 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 10,
       "value" : "1 << 15",
-      "evaluatedValue" : "32768"
+      "evaluatedValue" : 32768
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_NoKeyModifiers",
@@ -9437,7 +9437,7 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 11,
       "value" : "1 << 16",
-      "evaluatedValue" : "65536"
+      "evaluatedValue" : 65536
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_NoHoldingActiveId",
@@ -9445,7 +9445,7 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 12,
       "value" : "1 << 17",
-      "evaluatedValue" : "131072"
+      "evaluatedValue" : 131072
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_NoNavFocus",
@@ -9453,7 +9453,7 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 13,
       "value" : "1 << 18",
-      "evaluatedValue" : "262144"
+      "evaluatedValue" : 262144
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_NoHoveredOnFocus",
@@ -9461,21 +9461,21 @@
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 14,
       "value" : "1 << 19",
-      "evaluatedValue" : "524288"
+      "evaluatedValue" : 524288
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_PressedOnMask_",
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 15,
       "value" : "ImGuiButtonFlags_PressedOnClick | ImGuiButtonFlags_PressedOnClickRelease | ImGuiButtonFlags_PressedOnClickReleaseAnywhere | ImGuiButtonFlags_PressedOnRelease | ImGuiButtonFlags_PressedOnDoubleClick | ImGuiButtonFlags_PressedOnDragDropHold",
-      "evaluatedValue" : "1008"
+      "evaluatedValue" : 1008
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_PressedOnDefault_",
       "qualType" : "ImGuiButtonFlagsPrivate_",
       "order" : 16,
       "value" : "ImGuiButtonFlags_PressedOnClickRelease",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9496,7 +9496,7 @@
       "qualType" : "ImGuiComboFlagsPrivate_",
       "order" : 0,
       "value" : "1 << 20",
-      "evaluatedValue" : "1048576"
+      "evaluatedValue" : 1048576
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9517,14 +9517,14 @@
       "qualType" : "ImGuiSliderFlagsPrivate_",
       "order" : 0,
       "value" : "1 << 20",
-      "evaluatedValue" : "1048576"
+      "evaluatedValue" : 1048576
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSliderFlags_ReadOnly",
       "qualType" : "ImGuiSliderFlagsPrivate_",
       "order" : 1,
       "value" : "1 << 21",
-      "evaluatedValue" : "2097152"
+      "evaluatedValue" : 2097152
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9545,7 +9545,7 @@
       "qualType" : "ImGuiSelectableFlagsPrivate_",
       "order" : 0,
       "value" : "1 << 20",
-      "evaluatedValue" : "1048576"
+      "evaluatedValue" : 1048576
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSelectableFlags_SelectOnNav",
@@ -9553,7 +9553,7 @@
       "qualType" : "ImGuiSelectableFlagsPrivate_",
       "order" : 1,
       "value" : "1 << 21",
-      "evaluatedValue" : "2097152"
+      "evaluatedValue" : 2097152
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSelectableFlags_SelectOnClick",
@@ -9561,7 +9561,7 @@
       "qualType" : "ImGuiSelectableFlagsPrivate_",
       "order" : 2,
       "value" : "1 << 22",
-      "evaluatedValue" : "4194304"
+      "evaluatedValue" : 4194304
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSelectableFlags_SelectOnRelease",
@@ -9569,7 +9569,7 @@
       "qualType" : "ImGuiSelectableFlagsPrivate_",
       "order" : 3,
       "value" : "1 << 23",
-      "evaluatedValue" : "8388608"
+      "evaluatedValue" : 8388608
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSelectableFlags_SpanAvailWidth",
@@ -9577,7 +9577,7 @@
       "qualType" : "ImGuiSelectableFlagsPrivate_",
       "order" : 4,
       "value" : "1 << 24",
-      "evaluatedValue" : "16777216"
+      "evaluatedValue" : 16777216
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSelectableFlags_DrawHoveredWhenHeld",
@@ -9585,7 +9585,7 @@
       "qualType" : "ImGuiSelectableFlagsPrivate_",
       "order" : 5,
       "value" : "1 << 25",
-      "evaluatedValue" : "33554432"
+      "evaluatedValue" : 33554432
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSelectableFlags_SetNavIdOnHover",
@@ -9593,7 +9593,7 @@
       "qualType" : "ImGuiSelectableFlagsPrivate_",
       "order" : 6,
       "value" : "1 << 26",
-      "evaluatedValue" : "67108864"
+      "evaluatedValue" : 67108864
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSelectableFlags_NoPadWithHalfSpacing",
@@ -9601,7 +9601,7 @@
       "qualType" : "ImGuiSelectableFlagsPrivate_",
       "order" : 7,
       "value" : "1 << 27",
-      "evaluatedValue" : "134217728"
+      "evaluatedValue" : 134217728
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9621,7 +9621,7 @@
       "qualType" : "ImGuiTreeNodeFlagsPrivate_",
       "order" : 0,
       "value" : "1 << 20",
-      "evaluatedValue" : "1048576"
+      "evaluatedValue" : 1048576
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9632,7 +9632,7 @@
       "qualType" : "ImGuiSeparatorFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSeparatorFlags_Horizontal",
@@ -9640,21 +9640,21 @@
       "qualType" : "ImGuiSeparatorFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSeparatorFlags_Vertical",
       "qualType" : "ImGuiSeparatorFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSeparatorFlags_SpanAllColumns",
       "qualType" : "ImGuiSeparatorFlags_",
       "order" : 3,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9665,14 +9665,14 @@
       "qualType" : "ImGuiTextFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTextFlags_NoWidthForLargeClippedText",
       "qualType" : "ImGuiTextFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9683,7 +9683,7 @@
       "qualType" : "ImGuiTooltipFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTooltipFlags_OverridePreviousTooltip",
@@ -9691,7 +9691,7 @@
       "qualType" : "ImGuiTooltipFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9714,14 +9714,14 @@
       "qualType" : "ImGuiLayoutType_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiLayoutType_Vertical",
       "qualType" : "ImGuiLayoutType_",
       "order" : 1,
       "value" : "1",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9732,31 +9732,31 @@
       "qualType" : "ImGuiLogType",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiLogType_TTY",
       "qualType" : "ImGuiLogType",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiLogType_File",
       "qualType" : "ImGuiLogType",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiLogType_Buffer",
       "qualType" : "ImGuiLogType",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiLogType_Clipboard",
       "qualType" : "ImGuiLogType",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9776,21 +9776,21 @@
       "qualType" : "ImGuiAxis",
       "order" : 0,
       "value" : "-1",
-      "evaluatedValue" : "-1"
+      "evaluatedValue" : -1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiAxis_X",
       "qualType" : "ImGuiAxis",
       "order" : 1,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiAxis_Y",
       "qualType" : "ImGuiAxis",
       "order" : 2,
       "value" : "1",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9800,13 +9800,13 @@
       "name" : "ImGuiPlotType_Lines",
       "qualType" : "ImGuiPlotType",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiPlotType_Histogram",
       "qualType" : "ImGuiPlotType",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9817,45 +9817,45 @@
       "qualType" : "ImGuiInputSource",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputSource_Mouse",
       "qualType" : "ImGuiInputSource",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputSource_Keyboard",
       "qualType" : "ImGuiInputSource",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputSource_Gamepad",
       "qualType" : "ImGuiInputSource",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputSource_Nav",
       "docComment" : "Stored in g.ActiveIdSource only",
       "qualType" : "ImGuiInputSource",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputSource_Clipboard",
       "docComment" : "Currently only used by InputText()",
       "qualType" : "ImGuiInputSource",
       "order" : 5,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputSource_COUNT",
       "qualType" : "ImGuiInputSource",
       "order" : 6,
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9874,37 +9874,37 @@
       "name" : "ImGuiInputReadMode_Down",
       "qualType" : "ImGuiInputReadMode",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputReadMode_Pressed",
       "qualType" : "ImGuiInputReadMode",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputReadMode_Released",
       "qualType" : "ImGuiInputReadMode",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputReadMode_Repeat",
       "qualType" : "ImGuiInputReadMode",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputReadMode_RepeatSlow",
       "qualType" : "ImGuiInputReadMode",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputReadMode_RepeatFast",
       "qualType" : "ImGuiInputReadMode",
       "order" : 5,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9914,19 +9914,19 @@
       "name" : "ImGuiPopupPositionPolicy_Default",
       "qualType" : "ImGuiPopupPositionPolicy",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiPopupPositionPolicy_ComboBox",
       "qualType" : "ImGuiPopupPositionPolicy",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiPopupPositionPolicy_Tooltip",
       "qualType" : "ImGuiPopupPositionPolicy",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -9988,19 +9988,19 @@
       "qualType" : "ImGuiDataTypePrivate_",
       "order" : 0,
       "value" : "ImGuiDataType_COUNT + 1",
-      "evaluatedValue" : "11"
+      "evaluatedValue" : 11
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_Pointer",
       "qualType" : "ImGuiDataTypePrivate_",
       "order" : 1,
-      "evaluatedValue" : "12"
+      "evaluatedValue" : 12
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_ID",
       "qualType" : "ImGuiDataTypePrivate_",
       "order" : 2,
-      "evaluatedValue" : "13"
+      "evaluatedValue" : 13
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -10479,84 +10479,84 @@
       "qualType" : "ImGuiNextWindowDataFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNextWindowDataFlags_HasPos",
       "qualType" : "ImGuiNextWindowDataFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNextWindowDataFlags_HasSize",
       "qualType" : "ImGuiNextWindowDataFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNextWindowDataFlags_HasContentSize",
       "qualType" : "ImGuiNextWindowDataFlags_",
       "order" : 3,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNextWindowDataFlags_HasCollapsed",
       "qualType" : "ImGuiNextWindowDataFlags_",
       "order" : 4,
       "value" : "1 << 3",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNextWindowDataFlags_HasSizeConstraint",
       "qualType" : "ImGuiNextWindowDataFlags_",
       "order" : 5,
       "value" : "1 << 4",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNextWindowDataFlags_HasFocus",
       "qualType" : "ImGuiNextWindowDataFlags_",
       "order" : 6,
       "value" : "1 << 5",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNextWindowDataFlags_HasBgAlpha",
       "qualType" : "ImGuiNextWindowDataFlags_",
       "order" : 7,
       "value" : "1 << 6",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNextWindowDataFlags_HasScroll",
       "qualType" : "ImGuiNextWindowDataFlags_",
       "order" : 8,
       "value" : "1 << 7",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNextWindowDataFlags_HasViewport",
       "qualType" : "ImGuiNextWindowDataFlags_",
       "order" : 9,
       "value" : "1 << 8",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNextWindowDataFlags_HasDock",
       "qualType" : "ImGuiNextWindowDataFlags_",
       "order" : 10,
       "value" : "1 << 9",
-      "evaluatedValue" : "512"
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNextWindowDataFlags_HasWindowClass",
       "qualType" : "ImGuiNextWindowDataFlags_",
       "order" : 11,
       "value" : "1 << 10",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -10684,21 +10684,21 @@
       "qualType" : "ImGuiNextItemDataFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNextItemDataFlags_HasWidth",
       "qualType" : "ImGuiNextItemDataFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNextItemDataFlags_HasOpen",
       "qualType" : "ImGuiNextItemDataFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -11045,7 +11045,7 @@
       "qualType" : "ImGuiActivateFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiActivateFlags_PreferInput",
@@ -11053,7 +11053,7 @@
       "qualType" : "ImGuiActivateFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiActivateFlags_PreferTweak",
@@ -11061,7 +11061,7 @@
       "qualType" : "ImGuiActivateFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiActivateFlags_TryToPreserveState",
@@ -11069,7 +11069,7 @@
       "qualType" : "ImGuiActivateFlags_",
       "order" : 3,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -11089,7 +11089,7 @@
       "qualType" : "ImGuiScrollFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiScrollFlags_KeepVisibleEdgeX",
@@ -11097,7 +11097,7 @@
       "qualType" : "ImGuiScrollFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiScrollFlags_KeepVisibleEdgeY",
@@ -11105,7 +11105,7 @@
       "qualType" : "ImGuiScrollFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiScrollFlags_KeepVisibleCenterX",
@@ -11113,7 +11113,7 @@
       "qualType" : "ImGuiScrollFlags_",
       "order" : 3,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiScrollFlags_KeepVisibleCenterY",
@@ -11121,7 +11121,7 @@
       "qualType" : "ImGuiScrollFlags_",
       "order" : 4,
       "value" : "1 << 3",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiScrollFlags_AlwaysCenterX",
@@ -11129,7 +11129,7 @@
       "qualType" : "ImGuiScrollFlags_",
       "order" : 5,
       "value" : "1 << 4",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiScrollFlags_AlwaysCenterY",
@@ -11137,7 +11137,7 @@
       "qualType" : "ImGuiScrollFlags_",
       "order" : 6,
       "value" : "1 << 5",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiScrollFlags_NoScrollParent",
@@ -11145,21 +11145,21 @@
       "qualType" : "ImGuiScrollFlags_",
       "order" : 7,
       "value" : "1 << 6",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiScrollFlags_MaskX_",
       "qualType" : "ImGuiScrollFlags_",
       "order" : 8,
       "value" : "ImGuiScrollFlags_KeepVisibleEdgeX | ImGuiScrollFlags_KeepVisibleCenterX | ImGuiScrollFlags_AlwaysCenterX",
-      "evaluatedValue" : "21"
+      "evaluatedValue" : 21
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiScrollFlags_MaskY_",
       "qualType" : "ImGuiScrollFlags_",
       "order" : 9,
       "value" : "ImGuiScrollFlags_KeepVisibleEdgeY | ImGuiScrollFlags_KeepVisibleCenterY | ImGuiScrollFlags_AlwaysCenterY",
-      "evaluatedValue" : "42"
+      "evaluatedValue" : 42
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -11170,21 +11170,21 @@
       "qualType" : "ImGuiNavHighlightFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavHighlightFlags_TypeDefault",
       "qualType" : "ImGuiNavHighlightFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavHighlightFlags_TypeThin",
       "qualType" : "ImGuiNavHighlightFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavHighlightFlags_AlwaysDraw",
@@ -11192,14 +11192,14 @@
       "qualType" : "ImGuiNavHighlightFlags_",
       "order" : 3,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavHighlightFlags_NoRounding",
       "qualType" : "ImGuiNavHighlightFlags_",
       "order" : 4,
       "value" : "1 << 3",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -11210,7 +11210,7 @@
       "qualType" : "ImGuiNavDirSourceFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavDirSourceFlags_RawKeyboard",
@@ -11218,28 +11218,28 @@
       "qualType" : "ImGuiNavDirSourceFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavDirSourceFlags_Keyboard",
       "qualType" : "ImGuiNavDirSourceFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavDirSourceFlags_PadDPad",
       "qualType" : "ImGuiNavDirSourceFlags_",
       "order" : 3,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavDirSourceFlags_PadLStick",
       "qualType" : "ImGuiNavDirSourceFlags_",
       "order" : 4,
       "value" : "1 << 3",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -11250,7 +11250,7 @@
       "qualType" : "ImGuiNavMoveFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavMoveFlags_LoopX",
@@ -11258,14 +11258,14 @@
       "qualType" : "ImGuiNavMoveFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavMoveFlags_LoopY",
       "qualType" : "ImGuiNavMoveFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavMoveFlags_WrapX",
@@ -11273,7 +11273,7 @@
       "qualType" : "ImGuiNavMoveFlags_",
       "order" : 3,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavMoveFlags_WrapY",
@@ -11281,7 +11281,7 @@
       "qualType" : "ImGuiNavMoveFlags_",
       "order" : 4,
       "value" : "1 << 3",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavMoveFlags_AllowCurrentNavId",
@@ -11289,7 +11289,7 @@
       "qualType" : "ImGuiNavMoveFlags_",
       "order" : 5,
       "value" : "1 << 4",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavMoveFlags_AlsoScoreVisibleSet",
@@ -11297,7 +11297,7 @@
       "qualType" : "ImGuiNavMoveFlags_",
       "order" : 6,
       "value" : "1 << 5",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavMoveFlags_ScrollToEdgeY",
@@ -11305,14 +11305,14 @@
       "qualType" : "ImGuiNavMoveFlags_",
       "order" : 7,
       "value" : "1 << 6",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavMoveFlags_Forwarded",
       "qualType" : "ImGuiNavMoveFlags_",
       "order" : 8,
       "value" : "1 << 7",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavMoveFlags_DebugNoResult",
@@ -11320,14 +11320,14 @@
       "qualType" : "ImGuiNavMoveFlags_",
       "order" : 9,
       "value" : "1 << 8",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavMoveFlags_FocusApi",
       "qualType" : "ImGuiNavMoveFlags_",
       "order" : 10,
       "value" : "1 << 9",
-      "evaluatedValue" : "512"
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavMoveFlags_Tabbing",
@@ -11335,14 +11335,14 @@
       "qualType" : "ImGuiNavMoveFlags_",
       "order" : 11,
       "value" : "1 << 10",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavMoveFlags_Activate",
       "qualType" : "ImGuiNavMoveFlags_",
       "order" : 12,
       "value" : "1 << 11",
-      "evaluatedValue" : "2048"
+      "evaluatedValue" : 2048
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavMoveFlags_DontSetNavHighlight",
@@ -11350,7 +11350,7 @@
       "qualType" : "ImGuiNavMoveFlags_",
       "order" : 13,
       "value" : "1 << 12",
-      "evaluatedValue" : "4096"
+      "evaluatedValue" : 4096
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -11362,7 +11362,7 @@
       "qualType" : "ImGuiNavLayer",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavLayer_Menu",
@@ -11370,13 +11370,13 @@
       "qualType" : "ImGuiNavLayer",
       "order" : 1,
       "value" : "1",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavLayer_COUNT",
       "qualType" : "ImGuiNavLayer",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -11444,7 +11444,7 @@
       "qualType" : "ImGuiOldColumnFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiOldColumnFlags_NoBorder",
@@ -11452,7 +11452,7 @@
       "qualType" : "ImGuiOldColumnFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiOldColumnFlags_NoResize",
@@ -11460,7 +11460,7 @@
       "qualType" : "ImGuiOldColumnFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiOldColumnFlags_NoPreserveWidths",
@@ -11468,7 +11468,7 @@
       "qualType" : "ImGuiOldColumnFlags_",
       "order" : 3,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiOldColumnFlags_NoForceWithinWindow",
@@ -11476,7 +11476,7 @@
       "qualType" : "ImGuiOldColumnFlags_",
       "order" : 4,
       "value" : "1 << 3",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiOldColumnFlags_GrowParentContentsSize",
@@ -11484,49 +11484,49 @@
       "qualType" : "ImGuiOldColumnFlags_",
       "order" : 5,
       "value" : "1 << 4",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColumnsFlags_None",
       "qualType" : "ImGuiOldColumnFlags_",
       "order" : 6,
       "value" : "ImGuiOldColumnFlags_None",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColumnsFlags_NoBorder",
       "qualType" : "ImGuiOldColumnFlags_",
       "order" : 7,
       "value" : "ImGuiOldColumnFlags_NoBorder",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColumnsFlags_NoResize",
       "qualType" : "ImGuiOldColumnFlags_",
       "order" : 8,
       "value" : "ImGuiOldColumnFlags_NoResize",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColumnsFlags_NoPreserveWidths",
       "qualType" : "ImGuiOldColumnFlags_",
       "order" : 9,
       "value" : "ImGuiOldColumnFlags_NoPreserveWidths",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColumnsFlags_NoForceWithinWindow",
       "qualType" : "ImGuiOldColumnFlags_",
       "order" : 10,
       "value" : "ImGuiOldColumnFlags_NoForceWithinWindow",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColumnsFlags_GrowParentContentsSize",
       "qualType" : "ImGuiOldColumnFlags_",
       "order" : 11,
       "value" : "ImGuiOldColumnFlags_GrowParentContentsSize",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -11660,7 +11660,7 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 0,
       "value" : "1 << 10",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_CentralNode",
@@ -11668,7 +11668,7 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 1,
       "value" : "1 << 11",
-      "evaluatedValue" : "2048"
+      "evaluatedValue" : 2048
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoTabBar",
@@ -11676,7 +11676,7 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 2,
       "value" : "1 << 12",
-      "evaluatedValue" : "4096"
+      "evaluatedValue" : 4096
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_HiddenTabBar",
@@ -11684,7 +11684,7 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 3,
       "value" : "1 << 13",
-      "evaluatedValue" : "8192"
+      "evaluatedValue" : 8192
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoWindowMenuButton",
@@ -11692,7 +11692,7 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 4,
       "value" : "1 << 14",
-      "evaluatedValue" : "16384"
+      "evaluatedValue" : 16384
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoCloseButton",
@@ -11700,7 +11700,7 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 5,
       "value" : "1 << 15",
-      "evaluatedValue" : "32768"
+      "evaluatedValue" : 32768
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoDocking",
@@ -11708,7 +11708,7 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 6,
       "value" : "1 << 16",
-      "evaluatedValue" : "65536"
+      "evaluatedValue" : 65536
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoDockingSplitMe",
@@ -11716,7 +11716,7 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 7,
       "value" : "1 << 17",
-      "evaluatedValue" : "131072"
+      "evaluatedValue" : 131072
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoDockingSplitOther",
@@ -11724,7 +11724,7 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 8,
       "value" : "1 << 18",
-      "evaluatedValue" : "262144"
+      "evaluatedValue" : 262144
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoDockingOverMe",
@@ -11732,7 +11732,7 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 9,
       "value" : "1 << 19",
-      "evaluatedValue" : "524288"
+      "evaluatedValue" : 524288
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoDockingOverOther",
@@ -11740,7 +11740,7 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 10,
       "value" : "1 << 20",
-      "evaluatedValue" : "1048576"
+      "evaluatedValue" : 1048576
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoDockingOverEmpty",
@@ -11748,7 +11748,7 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 11,
       "value" : "1 << 21",
-      "evaluatedValue" : "2097152"
+      "evaluatedValue" : 2097152
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoResizeX",
@@ -11756,7 +11756,7 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 12,
       "value" : "1 << 22",
-      "evaluatedValue" : "4194304"
+      "evaluatedValue" : 4194304
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoResizeY",
@@ -11764,28 +11764,28 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 13,
       "value" : "1 << 23",
-      "evaluatedValue" : "8388608"
+      "evaluatedValue" : 8388608
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_SharedFlagsInheritMask_",
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 14,
       "value" : "~0",
-      "evaluatedValue" : "-1"
+      "evaluatedValue" : -1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoResizeFlagsMask_",
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 15,
       "value" : "ImGuiDockNodeFlags_NoResize | ImGuiDockNodeFlags_NoResizeX | ImGuiDockNodeFlags_NoResizeY",
-      "evaluatedValue" : "12582944"
+      "evaluatedValue" : 12582944
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_LocalFlagsMask_",
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 16,
       "value" : "ImGuiDockNodeFlags_NoSplit | ImGuiDockNodeFlags_NoResizeFlagsMask_ | ImGuiDockNodeFlags_AutoHideTabBar | ImGuiDockNodeFlags_DockSpace | ImGuiDockNodeFlags_CentralNode | ImGuiDockNodeFlags_NoTabBar | ImGuiDockNodeFlags_HiddenTabBar | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton | ImGuiDockNodeFlags_NoDocking",
-      "evaluatedValue" : "12713072"
+      "evaluatedValue" : 12713072
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_LocalFlagsTransferMask_",
@@ -11793,14 +11793,14 @@
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 17,
       "value" : "ImGuiDockNodeFlags_LocalFlagsMask_ & ~ImGuiDockNodeFlags_DockSpace",
-      "evaluatedValue" : "12712048"
+      "evaluatedValue" : 12712048
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_SavedFlagsMask_",
       "qualType" : "ImGuiDockNodeFlagsPrivate_",
       "order" : 18,
       "value" : "ImGuiDockNodeFlags_NoResizeFlagsMask_ | ImGuiDockNodeFlags_DockSpace | ImGuiDockNodeFlags_CentralNode | ImGuiDockNodeFlags_NoTabBar | ImGuiDockNodeFlags_HiddenTabBar | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton | ImGuiDockNodeFlags_NoDocking",
-      "evaluatedValue" : "12712992"
+      "evaluatedValue" : 12712992
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -11819,19 +11819,19 @@
       "name" : "ImGuiDataAuthority_Auto",
       "qualType" : "ImGuiDataAuthority_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataAuthority_DockNode",
       "qualType" : "ImGuiDataAuthority_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataAuthority_Window",
       "qualType" : "ImGuiDataAuthority_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -11841,25 +11841,25 @@
       "name" : "ImGuiDockNodeState_Unknown",
       "qualType" : "ImGuiDockNodeState",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeState_HostWindowHiddenBecauseSingleWindow",
       "qualType" : "ImGuiDockNodeState",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeState_HostWindowHiddenBecauseWindowsAreResizing",
       "qualType" : "ImGuiDockNodeState",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeState_HostWindowVisible",
       "qualType" : "ImGuiDockNodeState",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -12159,43 +12159,43 @@
       "name" : "ImGuiWindowDockStyleCol_Text",
       "qualType" : "ImGuiWindowDockStyleCol",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowDockStyleCol_Tab",
       "qualType" : "ImGuiWindowDockStyleCol",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowDockStyleCol_TabHovered",
       "qualType" : "ImGuiWindowDockStyleCol",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowDockStyleCol_TabActive",
       "qualType" : "ImGuiWindowDockStyleCol",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowDockStyleCol_TabUnfocused",
       "qualType" : "ImGuiWindowDockStyleCol",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowDockStyleCol_TabUnfocusedActive",
       "qualType" : "ImGuiWindowDockStyleCol",
       "order" : 5,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowDockStyleCol_COUNT",
       "qualType" : "ImGuiWindowDockStyleCol",
       "order" : 6,
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -12666,49 +12666,49 @@
       "name" : "ImGuiContextHookType_NewFramePre",
       "qualType" : "ImGuiContextHookType",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiContextHookType_NewFramePost",
       "qualType" : "ImGuiContextHookType",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiContextHookType_EndFramePre",
       "qualType" : "ImGuiContextHookType",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiContextHookType_EndFramePost",
       "qualType" : "ImGuiContextHookType",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiContextHookType_RenderPre",
       "qualType" : "ImGuiContextHookType",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiContextHookType_RenderPost",
       "qualType" : "ImGuiContextHookType",
       "order" : 5,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiContextHookType_Shutdown",
       "qualType" : "ImGuiContextHookType",
       "order" : 6,
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiContextHookType_PendingRemoval_",
       "qualType" : "ImGuiContextHookType",
       "order" : 7,
-      "evaluatedValue" : "7"
+      "evaluatedValue" : 7
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -13911,7 +13911,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 0,
       "value" : "a",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoTitleBar",
@@ -13919,7 +13919,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 1,
       "value" : "emFlag",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoResize",
@@ -13927,7 +13927,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 2,
       "value" : "upStac",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoMove",
@@ -13935,7 +13935,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 3,
       "value" : "or<ImG",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoScrollbar",
@@ -13943,7 +13943,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 4,
       "value" : ")\n    ",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoScrollWithMouse",
@@ -13951,7 +13951,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 5,
       "value" : "      ",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoCollapse",
@@ -13959,7 +13959,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 6,
       "value" : "ach vi",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_AlwaysAutoResize",
@@ -13967,7 +13967,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 7,
       "value" : "      ",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoBackground",
@@ -13975,7 +13975,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 8,
       "value" : "Viewpo",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoSavedSettings",
@@ -13983,7 +13983,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 9,
       "value" : "f we a",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoMouseInputs",
@@ -13991,7 +13991,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 10,
       "value" : "      ",
-      "evaluatedValue" : "512"
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_MenuBar",
@@ -13999,7 +13999,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 11,
       "value" : "itor us",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_HorizontalScrollbar",
@@ -14007,7 +14007,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 12,
       "value" : "int    ",
-      "evaluatedValue" : "2048"
+      "evaluatedValue" : 2048
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoFocusOnAppearing",
@@ -14015,7 +14015,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 13,
       "value" : "navigat",
-      "evaluatedValue" : "4096"
+      "evaluatedValue" : 4096
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoBringToFrontOnFocus",
@@ -14023,7 +14023,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 14,
       "value" : "vigatio",
-      "evaluatedValue" : "8192"
+      "evaluatedValue" : 8192
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_AlwaysVerticalScrollbar",
@@ -14031,7 +14031,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 15,
       "value" : "n an it",
-      "evaluatedValue" : "16384"
+      "evaluatedValue" : 16384
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_AlwaysHorizontalScrollbar",
@@ -14039,7 +14039,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 16,
       "value" : "sNavIn",
-      "evaluatedValue" : "32768"
+      "evaluatedValue" : 32768
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_AlwaysUseWindowPadding",
@@ -14047,7 +14047,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 17,
       "value" : "tivateD",
-      "evaluatedValue" : "65536"
+      "evaluatedValue" : 65536
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoNavInputs",
@@ -14055,7 +14055,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 18,
       "value" : "e) ? Na",
-      "evaluatedValue" : "262144"
+      "evaluatedValue" : 262144
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoNavFocus",
@@ -14063,7 +14063,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 19,
       "value" : "NavInpu",
-      "evaluatedValue" : "524288"
+      "evaluatedValue" : 524288
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_UnsavedDocument",
@@ -14071,7 +14071,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 20,
       "value" : " ImGuiI",
-      "evaluatedValue" : "1048576"
+      "evaluatedValue" : 1048576
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoDocking",
@@ -14079,28 +14079,28 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 21,
       "value" : "NavNext",
-      "evaluatedValue" : "2097152"
+      "evaluatedValue" : 2097152
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoNav",
       "qualType" : "ImGuiWindowFlags_",
       "order" : 22,
       "value" : "ImGuiActivateFlags      NavNextActivateFlags;\n    ImGuiInp",
-      "evaluatedValue" : "786432"
+      "evaluatedValue" : 786432
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoDecoration",
       "qualType" : "ImGuiWindowFlags_",
       "order" : 23,
       "value" : "    // Keyboard or Gamepad mode? THIS WILL ONLY BE None or NavGamepad or NavKeyboard.\n    ImGuiNavLayer           Na",
-      "evaluatedValue" : "43"
+      "evaluatedValue" : 43
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NoInputs",
       "qualType" : "ImGuiWindowFlags_",
       "order" : 24,
       "value" : "e navigating on. For now the system is hard-coded for 0=main contents and 1=menu/title bar,",
-      "evaluatedValue" : "786944"
+      "evaluatedValue" : 786944
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_NavFlattened",
@@ -14108,7 +14108,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 25,
       "value" : "       ",
-      "evaluatedValue" : "8388608"
+      "evaluatedValue" : 8388608
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_ChildWindow",
@@ -14116,7 +14116,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 26,
       "value" : " (io.Co",
-      "evaluatedValue" : "16777216"
+      "evaluatedValue" : 16777216
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_Tooltip",
@@ -14124,7 +14124,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 27,
       "value" : "bool   ",
-      "evaluatedValue" : "33554432"
+      "evaluatedValue" : 33554432
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_Popup",
@@ -14132,7 +14132,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 28,
       "value" : "pad/key",
-      "evaluatedValue" : "67108864"
+      "evaluatedValue" : 67108864
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_Modal",
@@ -14140,7 +14140,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 29,
       "value" : " != Nav",
-      "evaluatedValue" : "134217728"
+      "evaluatedValue" : 134217728
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_ChildMenu",
@@ -14148,7 +14148,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 30,
       "value" : "s using",
-      "evaluatedValue" : "268435456"
+      "evaluatedValue" : 268435456
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiWindowFlags_DockNodeHost",
@@ -14156,7 +14156,7 @@
       "qualType" : "ImGuiWindowFlags_",
       "order" : 31,
       "value" : "ation: ",
-      "evaluatedValue" : "536870912"
+      "evaluatedValue" : 536870912
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -14176,7 +14176,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 0,
       "value" : " ",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_CharsDecimal",
@@ -14184,7 +14184,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 1,
       "value" : " windo",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_CharsHexadecimal",
@@ -14192,7 +14192,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 2,
       "value" : "      ",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_CharsUppercase",
@@ -14200,7 +14200,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 3,
       "value" : " paren",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_CharsNoBlank",
@@ -14208,7 +14208,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 4,
       "value" : " // Mo",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_AutoSelectAll",
@@ -14216,7 +14216,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 5,
       "value" : "      ",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_EnterReturnsTrue",
@@ -14224,7 +14224,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 6,
       "value" : "bool  ",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_CallbackCompletion",
@@ -14232,7 +14232,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 7,
       "value" : "    Na",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_CallbackHistory",
@@ -14240,7 +14240,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 8,
       "value" : "      ",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_CallbackAlways",
@@ -14248,7 +14248,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 9,
       "value" : " the p",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_CallbackCharFilter",
@@ -14256,7 +14256,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 10,
       "value" : ", in s",
-      "evaluatedValue" : "512"
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_AllowTabInput",
@@ -14264,7 +14264,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 11,
       "value" : "eUp/Pag",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_CtrlEnterForNewLine",
@@ -14272,7 +14272,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 12,
       "value" : "coringD",
-      "evaluatedValue" : "2048"
+      "evaluatedValue" : 2048
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_NoHorizontalScroll",
@@ -14280,7 +14280,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 13,
       "value" : "       ",
-      "evaluatedValue" : "4096"
+      "evaluatedValue" : 4096
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_AlwaysOverwrite",
@@ -14288,7 +14288,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 14,
       "value" : "       ",
-      "evaluatedValue" : "8192"
+      "evaluatedValue" : 8192
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_ReadOnly",
@@ -14296,7 +14296,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 15,
       "value" : " within",
-      "evaluatedValue" : "16384"
+      "evaluatedValue" : 16384
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_Password",
@@ -14304,7 +14304,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 16,
       "value" : "       ",
-      "evaluatedValue" : "32768"
+      "evaluatedValue" : 32768
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_NoUndoRedo",
@@ -14312,7 +14312,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 17,
       "value" : "Flags_A",
-      "evaluatedValue" : "65536"
+      "evaluatedValue" : 65536
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_CharsScientific",
@@ -14320,7 +14320,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 18,
       "value" : "mGuiNav",
-      "evaluatedValue" : "131072"
+      "evaluatedValue" : 131072
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_CallbackResize",
@@ -14328,7 +14328,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 19,
       "value" : "and fla",
-      "evaluatedValue" : "262144"
+      "evaluatedValue" : 262144
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_CallbackEdit",
@@ -14336,7 +14336,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 20,
       "value" : "id NavW",
-      "evaluatedValue" : "524288"
+      "evaluatedValue" : 524288
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiInputTextFlags_AlwaysInsertMode",
@@ -14344,7 +14344,7 @@
       "qualType" : "ImGuiInputTextFlags_",
       "order" : 21,
       "value" : "  NavWindowingHighlightAlpha;\n    b",
-      "evaluatedValue" : "8192"
+      "evaluatedValue" : 8192
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -14364,7 +14364,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 0,
       "value" : "o",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_Selected",
@@ -14372,7 +14372,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 1,
       "value" : " Mouse",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_Framed",
@@ -14380,7 +14380,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 2,
       "value" : "ve;\n  ",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_AllowItemOverlap",
@@ -14388,7 +14388,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 3,
       "value" : "ropXXX",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_NoTreePushOnOpen",
@@ -14396,7 +14396,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 4,
       "value" : "ginDra",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_NoAutoOpenOnLog",
@@ -14404,7 +14404,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 5,
       "value" : " int  ",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_DefaultOpen",
@@ -14412,7 +14412,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 6,
       "value" : " targe",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_OpenOnDoubleClick",
@@ -14420,7 +14420,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 7,
       "value" : "     D",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_OpenOnArrow",
@@ -14428,7 +14428,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 8,
       "value" : "      ",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_Leaf",
@@ -14436,7 +14436,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 9,
       "value" : "rget i",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_Bullet",
@@ -14444,7 +14444,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 10,
       "value" : " Targe",
-      "evaluatedValue" : "512"
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_FramePadding",
@@ -14452,7 +14452,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 11,
       "value" : "drop ta",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_SpanAvailWidth",
@@ -14460,7 +14460,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 12,
       "value" : "lding a",
-      "evaluatedValue" : "2048"
+      "evaluatedValue" : 2048
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_SpanFullWidth",
@@ -14468,7 +14468,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 13,
       "value" : "       ",
-      "evaluatedValue" : "4096"
+      "evaluatedValue" : 4096
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_NavLeftJumpsBackHere",
@@ -14476,7 +14476,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 14,
       "value" : "       ",
-      "evaluatedValue" : "8192"
+      "evaluatedValue" : 8192
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTreeNodeFlags_CollapsingHeader",
@@ -14484,7 +14484,7 @@
       "qualType" : "ImGuiTreeNodeFlags_",
       "order" : 15,
       "value" : "es, support nesting)\n    ImPool<ImGuiTable>              Tables;                     // Persistent t",
-      "evaluatedValue" : "26"
+      "evaluatedValue" : 26
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -14525,7 +14525,7 @@
       "qualType" : "ImGuiPopupFlags_",
       "order" : 0,
       "value" : ",",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiPopupFlags_MouseButtonLeft",
@@ -14533,7 +14533,7 @@
       "qualType" : "ImGuiPopupFlags_",
       "order" : 1,
       "value" : "r",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiPopupFlags_MouseButtonRight",
@@ -14541,7 +14541,7 @@
       "qualType" : "ImGuiPopupFlags_",
       "order" : 2,
       "value" : "d",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiPopupFlags_MouseButtonMiddle",
@@ -14549,21 +14549,21 @@
       "qualType" : "ImGuiPopupFlags_",
       "order" : 3,
       "value" : "t",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiPopupFlags_MouseButtonMask_",
       "qualType" : "ImGuiPopupFlags_",
       "order" : 4,
       "value" : "umul",
-      "evaluatedValue" : "31"
+      "evaluatedValue" : 31
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiPopupFlags_MouseButtonDefault_",
       "qualType" : "ImGuiPopupFlags_",
       "order" : 5,
       "value" : ".",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiPopupFlags_NoOpenOverExistingPopup",
@@ -14571,7 +14571,7 @@
       "qualType" : "ImGuiPopupFlags_",
       "order" : 6,
       "value" : "irty; ",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiPopupFlags_NoOpenOverItems",
@@ -14579,7 +14579,7 @@
       "qualType" : "ImGuiPopupFlags_",
       "order" : 7,
       "value" : "    Dr",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiPopupFlags_AnyPopupId",
@@ -14587,7 +14587,7 @@
       "qualType" : "ImGuiPopupFlags_",
       "order" : 8,
       "value" : "      ",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiPopupFlags_AnyPopupLevel",
@@ -14595,14 +14595,14 @@
       "qualType" : "ImGuiPopupFlags_",
       "order" : 9,
       "value" : "      ",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiPopupFlags_AnyPopup",
       "qualType" : "ImGuiPopupFlags_",
       "order" : 10,
       "value" : "      DisabledAlphaBackup;                // Backup for st",
-      "evaluatedValue" : "384"
+      "evaluatedValue" : 384
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -14622,7 +14622,7 @@
       "qualType" : "ImGuiSelectableFlags_",
       "order" : 0,
       "value" : "v",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSelectableFlags_DontClosePopups",
@@ -14630,7 +14630,7 @@
       "qualType" : "ImGuiSelectableFlags_",
       "order" : 1,
       "value" : "SlowDe",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSelectableFlags_SpanAllColumns",
@@ -14638,7 +14638,7 @@
       "qualType" : "ImGuiSelectableFlags_",
       "order" : 2,
       "value" : "e in t",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSelectableFlags_AllowDoubleClick",
@@ -14646,7 +14646,7 @@
       "qualType" : "ImGuiSelectableFlags_",
       "order" : 3,
       "value" : "fined\n",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSelectableFlags_Disabled",
@@ -14654,7 +14654,7 @@
       "qualType" : "ImGuiSelectableFlags_",
       "order" : 4,
       "value" : "render",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSelectableFlags_AllowItemOverlap",
@@ -14662,7 +14662,7 @@
       "qualType" : "ImGuiSelectableFlags_",
       "order" : 5,
       "value" : "      ",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -14682,7 +14682,7 @@
       "qualType" : "ImGuiComboFlags_",
       "order" : 0,
       "value" : "a",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiComboFlags_PopupAlignLeft",
@@ -14690,7 +14690,7 @@
       "qualType" : "ImGuiComboFlags_",
       "order" : 1,
       "value" : "      ",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiComboFlags_HeightSmall",
@@ -14698,7 +14698,7 @@
       "qualType" : "ImGuiComboFlags_",
       "order" : 2,
       "value" : "PI to ",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiComboFlags_HeightRegular",
@@ -14706,7 +14706,7 @@
       "qualType" : "ImGuiComboFlags_",
       "order" : 3,
       "value" : "      ",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiComboFlags_HeightLarge",
@@ -14714,7 +14714,7 @@
       "qualType" : "ImGuiComboFlags_",
       "order" : 4,
       "value" : "      ",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiComboFlags_HeightLargest",
@@ -14722,7 +14722,7 @@
       "qualType" : "ImGuiComboFlags_",
       "order" : 5,
       "value" : "r<ImGu",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiComboFlags_NoArrowButton",
@@ -14730,7 +14730,7 @@
       "qualType" : "ImGuiComboFlags_",
       "order" : 6,
       "value" : "ChunkS",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiComboFlags_NoPreview",
@@ -14738,14 +14738,14 @@
       "qualType" : "ImGuiComboFlags_",
       "order" : 7,
       "value" : "TableS",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiComboFlags_HeightMask_",
       "qualType" : "ImGuiComboFlags_",
       "order" : 8,
       "value" : "iContextHook>          Hooks;                  // Hooks for extensions (e.g. test engine)\n    ImGuiID                    ",
-      "evaluatedValue" : "30"
+      "evaluatedValue" : 30
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -14765,7 +14765,7 @@
       "qualType" : "ImGuiTabBarFlags_",
       "order" : 0,
       "value" : "e",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabBarFlags_Reorderable",
@@ -14773,7 +14773,7 @@
       "qualType" : "ImGuiTabBarFlags_",
       "order" : 1,
       "value" : "GuiLog",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabBarFlags_AutoSelectNewTabs",
@@ -14781,7 +14781,7 @@
       "qualType" : "ImGuiTabBarFlags_",
       "order" : 2,
       "value" : "g to s",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabBarFlags_TabListPopupButton",
@@ -14789,7 +14789,7 @@
       "qualType" : "ImGuiTabBarFlags_",
       "order" : 3,
       "value" : "to cli",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabBarFlags_NoCloseWithMiddleMouseButton",
@@ -14797,7 +14797,7 @@
       "qualType" : "ImGuiTabBarFlags_",
       "order" : 4,
       "value" : "      ",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabBarFlags_NoTabListScrollingButtons",
@@ -14805,7 +14805,7 @@
       "qualType" : "ImGuiTabBarFlags_",
       "order" : 5,
       "value" : "oExpan",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabBarFlags_NoTooltip",
@@ -14813,7 +14813,7 @@
       "qualType" : "ImGuiTabBarFlags_",
       "order" : 6,
       "value" : "      ",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabBarFlags_FittingPolicyResizeDown",
@@ -14821,7 +14821,7 @@
       "qualType" : "ImGuiTabBarFlags_",
       "order" : 7,
       "value" : "\n    I",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabBarFlags_FittingPolicyScroll",
@@ -14829,21 +14829,21 @@
       "qualType" : "ImGuiTabBarFlags_",
       "order" : 8,
       "value" : " encou",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabBarFlags_FittingPolicyMask_",
       "qualType" : "ImGuiTabBarFlags_",
       "order" : 9,
       "value" : "ckTool;\n\n    // Misc\n    float                   FramerateSecPerFrame[120];    ",
-      "evaluatedValue" : "192"
+      "evaluatedValue" : 192
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabBarFlags_FittingPolicyDefault_",
       "qualType" : "ImGuiTabBarFlags_",
       "order" : 10,
       "value" : "he last 2 seconds.\n    int              ",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -14863,7 +14863,7 @@
       "qualType" : "ImGuiTabItemFlags_",
       "order" : 0,
       "value" : "r",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabItemFlags_UnsavedDocument",
@@ -14871,7 +14871,7 @@
       "qualType" : "ImGuiTabItemFlags_",
       "order" : 1,
       "value" : "tureMo",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabItemFlags_SetSelected",
@@ -14879,7 +14879,7 @@
       "qualType" : "ImGuiTabItemFlags_",
       "order" : 2,
       "value" : "ontext",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabItemFlags_NoCloseWithMiddleMouseButton",
@@ -14887,7 +14887,7 @@
       "qualType" : "ImGuiTabItemFlags_",
       "order" : 3,
       "value" : "\n     ",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabItemFlags_NoPushId",
@@ -14895,7 +14895,7 @@
       "qualType" : "ImGuiTabItemFlags_",
       "order" : 4,
       "value" : " = Fra",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabItemFlags_NoTooltip",
@@ -14903,7 +14903,7 @@
       "qualType" : "ImGuiTabItemFlags_",
       "order" : 5,
       "value" : "= fals",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabItemFlags_NoReorder",
@@ -14911,7 +14911,7 @@
       "qualType" : "ImGuiTabItemFlags_",
       "order" : 6,
       "value" : ";\n\n   ",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabItemFlags_Leading",
@@ -14919,7 +14919,7 @@
       "qualType" : "ImGuiTabItemFlags_",
       "order" : 7,
       "value" : "ULL;\n ",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabItemFlags_Trailing",
@@ -14927,7 +14927,7 @@
       "qualType" : "ImGuiTabItemFlags_",
       "order" : 8,
       "value" : "Info =",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -15014,7 +15014,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 0,
       "value" : "d",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_Resizable",
@@ -15022,7 +15022,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 1,
       "value" : "MoveDi",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_Reorderable",
@@ -15030,7 +15030,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 2,
       "value" : "     N",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_Hideable",
@@ -15038,7 +15038,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 3,
       "value" : "dowing",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_Sortable",
@@ -15046,7 +15046,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 4,
       "value" : "Cursor",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_NoSavedSettings",
@@ -15054,7 +15054,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 5,
       "value" : "Count ",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_ContextMenuInBody",
@@ -15062,7 +15062,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 6,
       "value" : " DragD",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_RowBg",
@@ -15070,7 +15070,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 7,
       "value" : "ayload",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_BordersInnerH",
@@ -15078,7 +15078,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 8,
       "value" : "ditOpt",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_BordersOuterH",
@@ -15086,7 +15086,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 9,
       "value" : ";\n    ",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_BordersInnerV",
@@ -15094,7 +15094,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 10,
       "value" : "\n     ",
-      "evaluatedValue" : "512"
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_BordersOuterV",
@@ -15102,7 +15102,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 11,
       "value" : "o = 1.0",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_BordersH",
@@ -15110,7 +15110,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 12,
       "value" : "ToGrabCenter = 0.0f;\n        TooltipOverrideCount = 0;\n      ",
-      "evaluatedValue" : "384"
+      "evaluatedValue" : 384
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_BordersV",
@@ -15118,7 +15118,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 13,
       "value" : "c2(FLT_MAX, FLT_MAX);\n        PlatformImePosViewport = 0;\n   ",
-      "evaluatedValue" : "1536"
+      "evaluatedValue" : 1536
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_BordersInner",
@@ -15126,7 +15126,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 14,
       "value" : "   SettingsDirtyTimer = 0.0f;\n        HookIdNext = 0;\n\n      ",
-      "evaluatedValue" : "640"
+      "evaluatedValue" : 640
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_BordersOuter",
@@ -15134,7 +15134,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 15,
       "value" : "Prefix = LogNextSuffix = NULL;\n        LogFile = NULL;\n      ",
-      "evaluatedValue" : "1280"
+      "evaluatedValue" : 1280
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_Borders",
@@ -15142,7 +15142,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 16,
       "value" : "hRef = 0;\n        LogDepthToExpand = LogDepthToExpandDefaul",
-      "evaluatedValue" : "1920"
+      "evaluatedValue" : 1920
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_NoBordersInBody",
@@ -15150,7 +15150,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 17,
       "value" : "kId = 0",
-      "evaluatedValue" : "2048"
+      "evaluatedValue" : 2048
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_NoBordersInBodyUntilResize",
@@ -15158,7 +15158,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 18,
       "value" : "Accum =",
-      "evaluatedValue" : "4096"
+      "evaluatedValue" : 4096
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_SizingFixedFit",
@@ -15166,7 +15166,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 19,
       "value" : "----\n//",
-      "evaluatedValue" : "8192"
+      "evaluatedValue" : 8192
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_SizingFixedSame",
@@ -15174,7 +15174,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 20,
       "value" : "et at t",
-      "evaluatedValue" : "16384"
+      "evaluatedValue" : 16384
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_SizingStretchProp",
@@ -15182,7 +15182,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 21,
       "value" : "ered..)",
-      "evaluatedValue" : "24576"
+      "evaluatedValue" : 24576
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_SizingStretchSame",
@@ -15190,7 +15190,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 22,
       "value" : "iWindow",
-      "evaluatedValue" : "32768"
+      "evaluatedValue" : 32768
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_NoHostExtendX",
@@ -15198,7 +15198,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 23,
       "value" : "       ",
-      "evaluatedValue" : "65536"
+      "evaluatedValue" : 65536
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_NoHostExtendY",
@@ -15206,7 +15206,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 24,
       "value" : "ize at ",
-      "evaluatedValue" : "131072"
+      "evaluatedValue" : 131072
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_NoKeepColumnsVisible",
@@ -15214,7 +15214,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 25,
       "value" : " Always",
-      "evaluatedValue" : "262144"
+      "evaluatedValue" : 262144
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_PreciseWidths",
@@ -15222,7 +15222,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 26,
       "value" : "default",
-      "evaluatedValue" : "524288"
+      "evaluatedValue" : 524288
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_NoClip",
@@ -15230,7 +15230,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 27,
       "value" : "lumnsOf",
-      "evaluatedValue" : "1048576"
+      "evaluatedValue" : 1048576
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_PadOuterX",
@@ -15238,7 +15238,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 28,
       "value" : "StartPo",
-      "evaluatedValue" : "2097152"
+      "evaluatedValue" : 2097152
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_NoPadOuterX",
@@ -15246,7 +15246,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 29,
       "value" : "t commo",
-      "evaluatedValue" : "4194304"
+      "evaluatedValue" : 4194304
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_NoPadInnerX",
@@ -15254,7 +15254,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 30,
       "value" : "     //",
-      "evaluatedValue" : "8388608"
+      "evaluatedValue" : 8388608
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_ScrollX",
@@ -15262,7 +15262,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 31,
       "value" : "ersActi",
-      "evaluatedValue" : "16777216"
+      "evaluatedValue" : 16777216
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_ScrollY",
@@ -15270,7 +15270,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 32,
       "value" : "scrolli",
-      "evaluatedValue" : "33554432"
+      "evaluatedValue" : 33554432
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_SortMulti",
@@ -15278,7 +15278,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 33,
       "value" : "       ",
-      "evaluatedValue" : "67108864"
+      "evaluatedValue" : 67108864
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_SortTristate",
@@ -15286,7 +15286,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 34,
       "value" : "aPaddin",
-      "evaluatedValue" : "134217728"
+      "evaluatedValue" : 134217728
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableFlags_SizingMask_",
@@ -15294,7 +15294,7 @@
       "qualType" : "ImGuiTableFlags_",
       "order" : 35,
       "value" : " // Current tree depth.\n    ImU32                   TreeJumpToParentOnPopMask; // Store a copy of !g.NavIdIsAlive for TreeDepth 0..31.. ",
-      "evaluatedValue" : "57344"
+      "evaluatedValue" : 57344
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -15504,7 +15504,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 0,
       "value" : "i",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_Disabled",
@@ -15512,7 +15512,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 1,
       "value" : "ty (re",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_DefaultHide",
@@ -15520,7 +15520,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 2,
       "value" : " item ",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_DefaultSort",
@@ -15528,7 +15528,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 3,
       "value" : "      ",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_WidthStretch",
@@ -15536,7 +15536,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 4,
       "value" : "mWidth",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_WidthFixed",
@@ -15544,7 +15544,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 5,
       "value" : "= Text",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_NoResize",
@@ -15552,7 +15552,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 6,
       "value" : "      ",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_NoReorder",
@@ -15560,7 +15560,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 7,
       "value" : " Flags",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_NoHide",
@@ -15568,7 +15568,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 8,
       "value" : "lass()",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_NoClip",
@@ -15576,7 +15576,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 9,
       "value" : "ve win",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_NoSort",
@@ -15584,7 +15584,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 10,
       "value" : "y disa",
-      "evaluatedValue" : "512"
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_NoSortAscending",
@@ -15592,7 +15592,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 11,
       "value" : " (since",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_NoSortDescending",
@@ -15600,7 +15600,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 12,
       "value" : "ortAllo",
-      "evaluatedValue" : "2048"
+      "evaluatedValue" : 2048
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_NoHeaderLabel",
@@ -15608,7 +15608,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 13,
       "value" : "e), onl",
-      "evaluatedValue" : "4096"
+      "evaluatedValue" : 4096
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_NoHeaderWidth",
@@ -15616,7 +15616,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 14,
       "value" : "arest p",
-      "evaluatedValue" : "8192"
+      "evaluatedValue" : 8192
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_PreferSortAscending",
@@ -15624,7 +15624,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 15,
       "value" : "ize)\n  ",
-      "evaluatedValue" : "16384"
+      "evaluatedValue" : 16384
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_PreferSortDescending",
@@ -15632,7 +15632,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 16,
       "value" : "       ",
-      "evaluatedValue" : "32768"
+      "evaluatedValue" : 32768
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_IndentEnable",
@@ -15640,7 +15640,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 17,
       "value" : "window ",
-      "evaluatedValue" : "65536"
+      "evaluatedValue" : 65536
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_IndentDisable",
@@ -15648,7 +15648,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 18,
       "value" : "       ",
-      "evaluatedValue" : "131072"
+      "evaluatedValue" : 131072
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_IsEnabled",
@@ -15656,7 +15656,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 19,
       "value" : "ounding",
-      "evaluatedValue" : "16777216"
+      "evaluatedValue" : 16777216
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_IsVisible",
@@ -15664,7 +15664,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 20,
       "value" : "       ",
-      "evaluatedValue" : "33554432"
+      "evaluatedValue" : 33554432
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_IsSorted",
@@ -15672,7 +15672,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 21,
       "value" : "eBufLen",
-      "evaluatedValue" : "67108864"
+      "evaluatedValue" : 67108864
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_IsHovered",
@@ -15680,7 +15680,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 22,
       "value" : "ID     ",
-      "evaluatedValue" : "134217728"
+      "evaluatedValue" : 134217728
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_WidthMask_",
@@ -15688,7 +15688,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 23,
       "value" : "               // ID of corresponding item in parent window (for navi",
-      "evaluatedValue" : "24"
+      "evaluatedValue" : 24
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_IndentMask_",
@@ -15696,7 +15696,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 24,
       "value" : "\n    ImVec2                  Scroll;\n    ImVec2                  ScrollM",
-      "evaluatedValue" : "196608"
+      "evaluatedValue" : 196608
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_StatusMask_",
@@ -15704,7 +15704,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 25,
       "value" : "                // target scroll position. stored as cursor position with scrolling canceled out, so the highest point is always 0.0",
-      "evaluatedValue" : "251658240"
+      "evaluatedValue" : 251658240
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableColumnFlags_NoDirectResize_",
@@ -15712,7 +15712,7 @@
       "qualType" : "ImGuiTableColumnFlags_",
       "order" : 26,
       "value" : "   Scro",
-      "evaluatedValue" : "1073741824"
+      "evaluatedValue" : 1073741824
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -16401,7 +16401,7 @@
       "qualType" : "ImGuiTableRowFlags_",
       "order" : 0,
       "value" : "b",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableRowFlags_Headers",
@@ -16409,7 +16409,7 @@
       "qualType" : "ImGuiTableRowFlags_",
       "order" : 1,
       "value" : "    bo",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -16453,7 +16453,7 @@
       "qualType" : "ImGuiTableBgTarget_",
       "order" : 0,
       "value" : " ",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableBgTarget_RowBg0",
@@ -16461,7 +16461,7 @@
       "qualType" : "ImGuiTableBgTarget_",
       "order" : 1,
       "value" : " ",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableBgTarget_RowBg1",
@@ -16469,7 +16469,7 @@
       "qualType" : "ImGuiTableBgTarget_",
       "order" : 2,
       "value" : "o",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableBgTarget_CellBg",
@@ -16477,7 +16477,7 @@
       "qualType" : "ImGuiTableBgTarget_",
       "order" : 3,
       "value" : "r",
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -16497,7 +16497,7 @@
       "qualType" : "ImGuiFocusedFlags_",
       "order" : 0,
       "value" : " ",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiFocusedFlags_ChildWindows",
@@ -16505,7 +16505,7 @@
       "qualType" : "ImGuiFocusedFlags_",
       "order" : 1,
       "value" : "t;    ",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiFocusedFlags_RootWindow",
@@ -16513,7 +16513,7 @@
       "qualType" : "ImGuiFocusedFlags_",
       "order" : 2,
       "value" : "      ",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiFocusedFlags_AnyWindow",
@@ -16521,7 +16521,7 @@
       "qualType" : "ImGuiFocusedFlags_",
       "order" : 3,
       "value" : "ssion ",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiFocusedFlags_NoPopupHierarchy",
@@ -16529,7 +16529,7 @@
       "qualType" : "ImGuiFocusedFlags_",
       "order" : 4,
       "value" : "en thi",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiFocusedFlags_DockHierarchy",
@@ -16537,14 +16537,14 @@
       "qualType" : "ImGuiFocusedFlags_",
       "order" : 5,
       "value" : "\n    b",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiFocusedFlags_RootAndChildWindows",
       "qualType" : "ImGuiFocusedFlags_",
       "order" : 6,
       "value" : "es\n    ImS8                    HiddenFramesCannotSkipItems;  ",
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -16571,7 +16571,7 @@
       "qualType" : "ImGuiHoveredFlags_",
       "order" : 0,
       "value" : "n",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiHoveredFlags_ChildWindows",
@@ -16579,7 +16579,7 @@
       "qualType" : "ImGuiHoveredFlags_",
       "order" : 1,
       "value" : "llowFl",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiHoveredFlags_RootWindow",
@@ -16587,7 +16587,7 @@
       "qualType" : "ImGuiHoveredFlags_",
       "order" : 2,
       "value" : "      ",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiHoveredFlags_AnyWindow",
@@ -16595,7 +16595,7 @@
       "qualType" : "ImGuiHoveredFlags_",
       "order" : 3,
       "value" : "tion w",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiHoveredFlags_NoPopupHierarchy",
@@ -16603,7 +16603,7 @@
       "qualType" : "ImGuiHoveredFlags_",
       "order" : 4,
       "value" : "etWind",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiHoveredFlags_DockHierarchy",
@@ -16611,7 +16611,7 @@
       "qualType" : "ImGuiHoveredFlags_",
       "order" : 5,
       "value" : "   IDS",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiHoveredFlags_AllowWhenBlockedByPopup",
@@ -16619,7 +16619,7 @@
       "qualType" : "ImGuiHoveredFlags_",
       "order" : 6,
       "value" : "      ",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiHoveredFlags_AllowWhenBlockedByActiveItem",
@@ -16627,7 +16627,7 @@
       "qualType" : "ImGuiHoveredFlags_",
       "order" : 7,
       "value" : "w->Rec",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiHoveredFlags_AllowWhenOverlapped",
@@ -16635,7 +16635,7 @@
       "qualType" : "ImGuiHoveredFlags_",
       "order" : 8,
       "value" : "      ",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiHoveredFlags_AllowWhenDisabled",
@@ -16643,21 +16643,21 @@
       "qualType" : "ImGuiHoveredFlags_",
       "order" : 9,
       "value" : " // ==",
-      "evaluatedValue" : "512"
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiHoveredFlags_RectOnly",
       "qualType" : "ImGuiHoveredFlags_",
       "order" : 10,
       "value" : "   WorkRect;                           // Initially covers the whole scrolling region. Reduced by containers e.g columns/tables wh",
-      "evaluatedValue" : "416"
+      "evaluatedValue" : 416
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiHoveredFlags_RootAndChildWindows",
       "qualType" : "ImGuiHoveredFlags_",
       "order" : 11,
       "value" : "is is meant to replace ContentRegionRect over time (from 1.71",
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -16683,7 +16683,7 @@
       "qualType" : "ImGuiDockNodeFlags_",
       "order" : 0,
       "value" : " ",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_KeepAliveOnly",
@@ -16691,7 +16691,7 @@
       "qualType" : "ImGuiDockNodeFlags_",
       "order" : 1,
       "value" : "/sciss",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoDockingInCentralNode",
@@ -16699,7 +16699,7 @@
       "qualType" : "ImGuiDockNodeFlags_",
       "order" : 2,
       "value" : " opera",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_PassthruCentralNode",
@@ -16707,7 +16707,7 @@
       "qualType" : "ImGuiDockNodeFlags_",
       "order" : 3,
       "value" : " pass-",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoSplit",
@@ -16715,7 +16715,7 @@
       "qualType" : "ImGuiDockNodeFlags_",
       "order" : 4,
       "value" : "   flo",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_NoResize",
@@ -16723,7 +16723,7 @@
       "qualType" : "ImGuiDockNodeFlags_",
       "order" : 5,
       "value" : "      ",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDockNodeFlags_AutoHideTabBar",
@@ -16731,7 +16731,7 @@
       "qualType" : "ImGuiDockNodeFlags_",
       "order" : 6,
       "value" : "DrawLi",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -16751,7 +16751,7 @@
       "qualType" : "ImGuiDragDropFlags_",
       "order" : 0,
       "value" : " ",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDragDropFlags_SourceNoPreviewTooltip",
@@ -16759,7 +16759,7 @@
       "qualType" : "ImGuiDragDropFlags_",
       "order" : 1,
       "value" : "GuiWin",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDragDropFlags_SourceNoDisableHover",
@@ -16767,7 +16767,7 @@
       "qualType" : "ImGuiDragDropFlags_",
       "order" : 2,
       "value" : "      ",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDragDropFlags_SourceNoHoldToOpenOthers",
@@ -16775,7 +16775,7 @@
       "qualType" : "ImGuiDragDropFlags_",
       "order" : 3,
       "value" : " dock ",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDragDropFlags_SourceAllowNullID",
@@ -16783,7 +16783,7 @@
       "qualType" : "ImGuiDragDropFlags_",
       "order" : 4,
       "value" : "indow*",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDragDropFlags_SourceExtern",
@@ -16791,7 +16791,7 @@
       "qualType" : "ImGuiDragDropFlags_",
       "order" : 5,
       "value" : "ows so",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDragDropFlags_SourceAutoExpirePayload",
@@ -16799,7 +16799,7 @@
       "qualType" : "ImGuiDragDropFlags_",
       "order" : 6,
       "value" : "erence",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDragDropFlags_AcceptBeforeDelivery",
@@ -16807,7 +16807,7 @@
       "qualType" : "ImGuiDragDropFlags_",
       "order" : 7,
       "value" : "       ",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDragDropFlags_AcceptNoDrawDefaultRect",
@@ -16815,7 +16815,7 @@
       "qualType" : "ImGuiDragDropFlags_",
       "order" : 8,
       "value" : "e      ",
-      "evaluatedValue" : "2048"
+      "evaluatedValue" : 2048
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDragDropFlags_AcceptNoPreviewTooltip",
@@ -16823,7 +16823,7 @@
       "qualType" : "ImGuiDragDropFlags_",
       "order" : 9,
       "value" : "ode != ",
-      "evaluatedValue" : "4096"
+      "evaluatedValue" : 4096
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDragDropFlags_AcceptPeekOnly",
@@ -16831,7 +16831,7 @@
       "qualType" : "ImGuiDragDropFlags_",
       "order" : 10,
       "value" : "             // Is our window visible this frame? ~~ is the corresponding tab select",
-      "evaluatedValue" : "3072"
+      "evaluatedValue" : 3072
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -16851,76 +16851,76 @@
       "docComment" : "signed char / char (with sensible compilers)",
       "qualType" : "ImGuiDataType_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_U8",
       "docComment" : "unsigned char",
       "qualType" : "ImGuiDataType_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_S16",
       "docComment" : "short",
       "qualType" : "ImGuiDataType_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_U16",
       "docComment" : "unsigned short",
       "qualType" : "ImGuiDataType_",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_S32",
       "docComment" : "int",
       "qualType" : "ImGuiDataType_",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_U32",
       "docComment" : "unsigned int",
       "qualType" : "ImGuiDataType_",
       "order" : 5,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_S64",
       "docComment" : "long long / __int64",
       "qualType" : "ImGuiDataType_",
       "order" : 6,
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_U64",
       "docComment" : "unsigned long long / unsigned __int64",
       "qualType" : "ImGuiDataType_",
       "order" : 7,
-      "evaluatedValue" : "7"
+      "evaluatedValue" : 7
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_Float",
       "docComment" : "float",
       "qualType" : "ImGuiDataType_",
       "order" : 8,
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_Double",
       "docComment" : "double",
       "qualType" : "ImGuiDataType_",
       "order" : 9,
-      "evaluatedValue" : "9"
+      "evaluatedValue" : 9
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_COUNT",
       "qualType" : "ImGuiDataType_",
       "order" : 10,
-      "evaluatedValue" : "10"
+      "evaluatedValue" : 10
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -16940,41 +16940,41 @@
       "qualType" : "ImGuiDir_",
       "order" : 0,
       "value" : "Ge",
-      "evaluatedValue" : "-1"
+      "evaluatedValue" : -1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDir_Left",
       "qualType" : "ImGuiDir_",
       "order" : 1,
       "value" : "t",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDir_Right",
       "qualType" : "ImGuiDir_",
       "order" : 2,
       "value" : " ",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDir_Up",
       "qualType" : "ImGuiDir_",
       "order" : 3,
       "value" : " ",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDir_Down",
       "qualType" : "ImGuiDir_",
       "order" : 4,
       "value" : " ",
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDir_COUNT",
       "qualType" : "ImGuiDir_",
       "order" : 5,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -16994,7 +16994,7 @@
       "qualType" : "ImGuiSortDirection_",
       "order" : 0,
       "value" : "t",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSortDirection_Ascending",
@@ -17002,7 +17002,7 @@
       "qualType" : "ImGuiSortDirection_",
       "order" : 1,
       "value" : "i",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSortDirection_Descending",
@@ -17010,7 +17010,7 @@
       "qualType" : "ImGuiSortDirection_",
       "order" : 2,
       "value" : "m",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -17029,145 +17029,145 @@
       "name" : "ImGuiKey_Tab",
       "qualType" : "ImGuiKey_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_LeftArrow",
       "qualType" : "ImGuiKey_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_RightArrow",
       "qualType" : "ImGuiKey_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_UpArrow",
       "qualType" : "ImGuiKey_",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_DownArrow",
       "qualType" : "ImGuiKey_",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_PageUp",
       "qualType" : "ImGuiKey_",
       "order" : 5,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_PageDown",
       "qualType" : "ImGuiKey_",
       "order" : 6,
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Home",
       "qualType" : "ImGuiKey_",
       "order" : 7,
-      "evaluatedValue" : "7"
+      "evaluatedValue" : 7
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_End",
       "qualType" : "ImGuiKey_",
       "order" : 8,
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Insert",
       "qualType" : "ImGuiKey_",
       "order" : 9,
-      "evaluatedValue" : "9"
+      "evaluatedValue" : 9
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Delete",
       "qualType" : "ImGuiKey_",
       "order" : 10,
-      "evaluatedValue" : "10"
+      "evaluatedValue" : 10
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Backspace",
       "qualType" : "ImGuiKey_",
       "order" : 11,
-      "evaluatedValue" : "11"
+      "evaluatedValue" : 11
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Space",
       "qualType" : "ImGuiKey_",
       "order" : 12,
-      "evaluatedValue" : "12"
+      "evaluatedValue" : 12
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Enter",
       "qualType" : "ImGuiKey_",
       "order" : 13,
-      "evaluatedValue" : "13"
+      "evaluatedValue" : 13
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Escape",
       "qualType" : "ImGuiKey_",
       "order" : 14,
-      "evaluatedValue" : "14"
+      "evaluatedValue" : 14
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_KeyPadEnter",
       "qualType" : "ImGuiKey_",
       "order" : 15,
-      "evaluatedValue" : "15"
+      "evaluatedValue" : 15
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_A",
       "docComment" : "for text edit CTRL+A: select all",
       "qualType" : "ImGuiKey_",
       "order" : 16,
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_C",
       "docComment" : "for text edit CTRL+C: copy",
       "qualType" : "ImGuiKey_",
       "order" : 17,
-      "evaluatedValue" : "17"
+      "evaluatedValue" : 17
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_V",
       "docComment" : "for text edit CTRL+V: paste",
       "qualType" : "ImGuiKey_",
       "order" : 18,
-      "evaluatedValue" : "18"
+      "evaluatedValue" : 18
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_X",
       "docComment" : "for text edit CTRL+X: cut",
       "qualType" : "ImGuiKey_",
       "order" : 19,
-      "evaluatedValue" : "19"
+      "evaluatedValue" : 19
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Y",
       "docComment" : "for text edit CTRL+Y: redo",
       "qualType" : "ImGuiKey_",
       "order" : 20,
-      "evaluatedValue" : "20"
+      "evaluatedValue" : 20
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Z",
       "docComment" : "for text edit CTRL+Z: undo",
       "qualType" : "ImGuiKey_",
       "order" : 21,
-      "evaluatedValue" : "21"
+      "evaluatedValue" : 21
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_COUNT",
       "qualType" : "ImGuiKey_",
       "order" : 22,
-      "evaluatedValue" : "22"
+      "evaluatedValue" : 22
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -17187,35 +17187,35 @@
       "qualType" : "ImGuiKeyModFlags_",
       "order" : 0,
       "value" : "-",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKeyModFlags_Ctrl",
       "qualType" : "ImGuiKeyModFlags_",
       "order" : 1,
       "value" : "-----\n",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKeyModFlags_Shift",
       "qualType" : "ImGuiKeyModFlags_",
       "order" : 2,
       "value" : "rt\n//-",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKeyModFlags_Alt",
       "qualType" : "ImGuiKeyModFlags_",
       "order" : 3,
       "value" : "------",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKeyModFlags_Super",
       "qualType" : "ImGuiKeyModFlags_",
       "order" : 4,
       "value" : "// Ext",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -17236,14 +17236,14 @@
       "qualType" : "ImGuiTabBarFlagsPrivate_",
       "order" : 0,
       "value" : "1 << 20",
-      "evaluatedValue" : "1048576"
+      "evaluatedValue" : 1048576
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabBarFlags_IsFocused",
       "qualType" : "ImGuiTabBarFlagsPrivate_",
       "order" : 1,
       "value" : "1 << 21",
-      "evaluatedValue" : "2097152"
+      "evaluatedValue" : 2097152
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabBarFlags_SaveSettings",
@@ -17251,7 +17251,7 @@
       "qualType" : "ImGuiTabBarFlagsPrivate_",
       "order" : 2,
       "value" : "1 << 22",
-      "evaluatedValue" : "4194304"
+      "evaluatedValue" : 4194304
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -17271,7 +17271,7 @@
       "qualType" : "ImGuiTabItemFlagsPrivate_",
       "order" : 0,
       "value" : "ImGuiTabItemFlags_Leading | ImGuiTabItemFlags_Trailing",
-      "evaluatedValue" : "192"
+      "evaluatedValue" : 192
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabItemFlags_NoCloseButton",
@@ -17279,7 +17279,7 @@
       "qualType" : "ImGuiTabItemFlagsPrivate_",
       "order" : 1,
       "value" : "1 << 20",
-      "evaluatedValue" : "1048576"
+      "evaluatedValue" : 1048576
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabItemFlags_Button",
@@ -17287,7 +17287,7 @@
       "qualType" : "ImGuiTabItemFlagsPrivate_",
       "order" : 2,
       "value" : "1 << 21",
-      "evaluatedValue" : "2097152"
+      "evaluatedValue" : 2097152
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabItemFlags_Unsorted",
@@ -17295,7 +17295,7 @@
       "qualType" : "ImGuiTabItemFlagsPrivate_",
       "order" : 3,
       "value" : "1 << 22",
-      "evaluatedValue" : "4194304"
+      "evaluatedValue" : 4194304
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTabItemFlags_Preview",
@@ -17303,7 +17303,7 @@
       "qualType" : "ImGuiTabItemFlagsPrivate_",
       "order" : 4,
       "value" : "1 << 23",
-      "evaluatedValue" : "8388608"
+      "evaluatedValue" : 8388608
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -17332,147 +17332,147 @@
       "docComment" : "activate / open / toggle / tweak value       // e.g. Cross  (PS4), A (Xbox), A (Switch), Space (Keyboard)",
       "qualType" : "ImGuiNavInput_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_Cancel",
       "docComment" : "cancel / close / exit                        // e.g. Circle (PS4), B (Xbox), B (Switch), Escape (Keyboard)",
       "qualType" : "ImGuiNavInput_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_Input",
       "docComment" : "text input / on-screen keyboard              // e.g. Triang.(PS4), Y (Xbox), X (Switch), Return (Keyboard)",
       "qualType" : "ImGuiNavInput_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_Menu",
       "docComment" : "tap: toggle menu / hold: focus, move, resize // e.g. Square (PS4), X (Xbox), Y (Switch), Alt (Keyboard)",
       "qualType" : "ImGuiNavInput_",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_DpadLeft",
       "docComment" : "move / tweak / resize window (w/ PadMenu)    // e.g. D-pad Left/Right/Up/Down (Gamepads), Arrow keys (Keyboard)",
       "qualType" : "ImGuiNavInput_",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_DpadRight",
       "qualType" : "ImGuiNavInput_",
       "order" : 5,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_DpadUp",
       "qualType" : "ImGuiNavInput_",
       "order" : 6,
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_DpadDown",
       "qualType" : "ImGuiNavInput_",
       "order" : 7,
-      "evaluatedValue" : "7"
+      "evaluatedValue" : 7
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_LStickLeft",
       "docComment" : "scroll / move window (w/ PadMenu)            // e.g. Left Analog Stick Left/Right/Up/Down",
       "qualType" : "ImGuiNavInput_",
       "order" : 8,
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_LStickRight",
       "qualType" : "ImGuiNavInput_",
       "order" : 9,
-      "evaluatedValue" : "9"
+      "evaluatedValue" : 9
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_LStickUp",
       "qualType" : "ImGuiNavInput_",
       "order" : 10,
-      "evaluatedValue" : "10"
+      "evaluatedValue" : 10
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_LStickDown",
       "qualType" : "ImGuiNavInput_",
       "order" : 11,
-      "evaluatedValue" : "11"
+      "evaluatedValue" : 11
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_FocusPrev",
       "docComment" : "next window (w/ PadMenu)                     // e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)",
       "qualType" : "ImGuiNavInput_",
       "order" : 12,
-      "evaluatedValue" : "12"
+      "evaluatedValue" : 12
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_FocusNext",
       "docComment" : "prev window (w/ PadMenu)                     // e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)",
       "qualType" : "ImGuiNavInput_",
       "order" : 13,
-      "evaluatedValue" : "13"
+      "evaluatedValue" : 13
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_TweakSlow",
       "docComment" : "slower tweaks                                // e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)",
       "qualType" : "ImGuiNavInput_",
       "order" : 14,
-      "evaluatedValue" : "14"
+      "evaluatedValue" : 14
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_TweakFast",
       "docComment" : "faster tweaks                                // e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)",
       "qualType" : "ImGuiNavInput_",
       "order" : 15,
-      "evaluatedValue" : "15"
+      "evaluatedValue" : 15
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_KeyLeft_",
       "docComment" : "move left                                    // = Arrow keys",
       "qualType" : "ImGuiNavInput_",
       "order" : 16,
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_KeyRight_",
       "docComment" : "move right",
       "qualType" : "ImGuiNavInput_",
       "order" : 17,
-      "evaluatedValue" : "17"
+      "evaluatedValue" : 17
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_KeyUp_",
       "docComment" : "move up",
       "qualType" : "ImGuiNavInput_",
       "order" : 18,
-      "evaluatedValue" : "18"
+      "evaluatedValue" : 18
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_KeyDown_",
       "docComment" : "move down",
       "qualType" : "ImGuiNavInput_",
       "order" : 19,
-      "evaluatedValue" : "19"
+      "evaluatedValue" : 19
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_COUNT",
       "qualType" : "ImGuiNavInput_",
       "order" : 20,
-      "evaluatedValue" : "20"
+      "evaluatedValue" : 20
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_InternalStart_",
       "qualType" : "ImGuiNavInput_",
       "order" : 21,
       "value" : "-bars used by docking\n",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -17753,7 +17753,7 @@
       "qualType" : "ImGuiConfigFlags_",
       "order" : 0,
       "value" : "l",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiConfigFlags_NavEnableKeyboard",
@@ -17761,7 +17761,7 @@
       "qualType" : "ImGuiConfigFlags_",
       "order" : 1,
       "value" : "      ",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiConfigFlags_NavEnableGamepad",
@@ -17769,7 +17769,7 @@
       "qualType" : "ImGuiConfigFlags_",
       "order" : 2,
       "value" : "   int",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiConfigFlags_NavEnableSetMousePos",
@@ -17777,7 +17777,7 @@
       "qualType" : "ImGuiConfigFlags_",
       "order" : 3,
       "value" : "ab bar",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiConfigFlags_NavNoCaptureKeyboard",
@@ -17785,7 +17785,7 @@
       "qualType" : "ImGuiConfigFlags_",
       "order" : 4,
       "value" : "    fl",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiConfigFlags_NoMouse",
@@ -17793,7 +17793,7 @@
       "qualType" : "ImGuiConfigFlags_",
       "order" : 5,
       "value" : "      ",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiConfigFlags_NoMouseCursorChange",
@@ -17801,7 +17801,7 @@
       "qualType" : "ImGuiConfigFlags_",
       "order" : 6,
       "value" : "w;    ",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiConfigFlags_DockingEnable",
@@ -17809,7 +17809,7 @@
       "qualType" : "ImGuiConfigFlags_",
       "order" : 7,
       "value" : " Frame",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiConfigFlags_ViewportsEnable",
@@ -17817,7 +17817,7 @@
       "qualType" : "ImGuiConfigFlags_",
       "order" : 8,
       "value" : "       ",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiConfigFlags_DpiEnableScaleViewports",
@@ -17825,7 +17825,7 @@
       "qualType" : "ImGuiConfigFlags_",
       "order" : 9,
       "value" : "return ",
-      "evaluatedValue" : "16384"
+      "evaluatedValue" : 16384
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiConfigFlags_DpiEnableScaleFonts",
@@ -17833,7 +17833,7 @@
       "qualType" : "ImGuiConfigFlags_",
       "order" : 10,
       "value" : "-------",
-      "evaluatedValue" : "32768"
+      "evaluatedValue" : 32768
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiConfigFlags_IsSRGB",
@@ -17841,7 +17841,7 @@
       "qualType" : "ImGuiConfigFlags_",
       "order" : 11,
       "value" : "ture.\nt",
-      "evaluatedValue" : "1048576"
+      "evaluatedValue" : 1048576
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiConfigFlags_IsTouchScreen",
@@ -17849,7 +17849,7 @@
       "qualType" : "ImGuiConfigFlags_",
       "order" : 12,
       "value" : "ternal]",
-      "evaluatedValue" : "2097152"
+      "evaluatedValue" : 2097152
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -17869,7 +17869,7 @@
       "qualType" : "ImGuiBackendFlags_",
       "order" : 0,
       "value" : " ",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiBackendFlags_HasGamepad",
@@ -17877,7 +17877,7 @@
       "qualType" : "ImGuiBackendFlags_",
       "order" : 1,
       "value" : ") / Is",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiBackendFlags_HasMouseCursors",
@@ -17885,7 +17885,7 @@
       "qualType" : "ImGuiBackendFlags_",
       "order" : 2,
       "value" : "      ",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiBackendFlags_HasSetMousePos",
@@ -17893,7 +17893,7 @@
       "qualType" : "ImGuiBackendFlags_",
       "order" : 3,
       "value" : "WidthG",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiBackendFlags_RendererHasVtxOffset",
@@ -17901,7 +17901,7 @@
       "qualType" : "ImGuiBackendFlags_",
       "order" : 4,
       "value" : " in ti",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiBackendFlags_PlatformHasViewports",
@@ -17909,7 +17909,7 @@
       "qualType" : "ImGuiBackendFlags_",
       "order" : 5,
       "value" : "value w",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiBackendFlags_HasMouseHoveredViewport",
@@ -17917,7 +17917,7 @@
       "qualType" : "ImGuiBackendFlags_",
       "order" : 6,
       "value" : "UpdateL",
-      "evaluatedValue" : "2048"
+      "evaluatedValue" : 2048
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiBackendFlags_RendererHasViewports",
@@ -17925,7 +17925,7 @@
       "qualType" : "ImGuiBackendFlags_",
       "order" : 7,
       "value" : "  ImGui",
-      "evaluatedValue" : "4096"
+      "evaluatedValue" : 4096
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -18171,353 +18171,353 @@
       "name" : "ImGuiCol_Text",
       "qualType" : "ImGuiCol_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TextDisabled",
       "qualType" : "ImGuiCol_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_WindowBg",
       "docComment" : "Background of normal windows",
       "qualType" : "ImGuiCol_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ChildBg",
       "docComment" : "Background of child windows",
       "qualType" : "ImGuiCol_",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_PopupBg",
       "docComment" : "Background of popups, menus, tooltips windows",
       "qualType" : "ImGuiCol_",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_Border",
       "qualType" : "ImGuiCol_",
       "order" : 5,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_BorderShadow",
       "qualType" : "ImGuiCol_",
       "order" : 6,
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_FrameBg",
       "docComment" : "Background of checkbox, radio button, plot, slider, text input",
       "qualType" : "ImGuiCol_",
       "order" : 7,
-      "evaluatedValue" : "7"
+      "evaluatedValue" : 7
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_FrameBgHovered",
       "qualType" : "ImGuiCol_",
       "order" : 8,
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_FrameBgActive",
       "qualType" : "ImGuiCol_",
       "order" : 9,
-      "evaluatedValue" : "9"
+      "evaluatedValue" : 9
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TitleBg",
       "qualType" : "ImGuiCol_",
       "order" : 10,
-      "evaluatedValue" : "10"
+      "evaluatedValue" : 10
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TitleBgActive",
       "qualType" : "ImGuiCol_",
       "order" : 11,
-      "evaluatedValue" : "11"
+      "evaluatedValue" : 11
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TitleBgCollapsed",
       "qualType" : "ImGuiCol_",
       "order" : 12,
-      "evaluatedValue" : "12"
+      "evaluatedValue" : 12
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_MenuBarBg",
       "qualType" : "ImGuiCol_",
       "order" : 13,
-      "evaluatedValue" : "13"
+      "evaluatedValue" : 13
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ScrollbarBg",
       "qualType" : "ImGuiCol_",
       "order" : 14,
-      "evaluatedValue" : "14"
+      "evaluatedValue" : 14
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ScrollbarGrab",
       "qualType" : "ImGuiCol_",
       "order" : 15,
-      "evaluatedValue" : "15"
+      "evaluatedValue" : 15
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ScrollbarGrabHovered",
       "qualType" : "ImGuiCol_",
       "order" : 16,
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ScrollbarGrabActive",
       "qualType" : "ImGuiCol_",
       "order" : 17,
-      "evaluatedValue" : "17"
+      "evaluatedValue" : 17
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_CheckMark",
       "qualType" : "ImGuiCol_",
       "order" : 18,
-      "evaluatedValue" : "18"
+      "evaluatedValue" : 18
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_SliderGrab",
       "qualType" : "ImGuiCol_",
       "order" : 19,
-      "evaluatedValue" : "19"
+      "evaluatedValue" : 19
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_SliderGrabActive",
       "qualType" : "ImGuiCol_",
       "order" : 20,
-      "evaluatedValue" : "20"
+      "evaluatedValue" : 20
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_Button",
       "qualType" : "ImGuiCol_",
       "order" : 21,
-      "evaluatedValue" : "21"
+      "evaluatedValue" : 21
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ButtonHovered",
       "qualType" : "ImGuiCol_",
       "order" : 22,
-      "evaluatedValue" : "22"
+      "evaluatedValue" : 22
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ButtonActive",
       "qualType" : "ImGuiCol_",
       "order" : 23,
-      "evaluatedValue" : "23"
+      "evaluatedValue" : 23
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_Header",
       "docComment" : "Header* colors are used for CollapsingHeader, TreeNode, Selectable, MenuItem",
       "qualType" : "ImGuiCol_",
       "order" : 24,
-      "evaluatedValue" : "24"
+      "evaluatedValue" : 24
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_HeaderHovered",
       "qualType" : "ImGuiCol_",
       "order" : 25,
-      "evaluatedValue" : "25"
+      "evaluatedValue" : 25
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_HeaderActive",
       "qualType" : "ImGuiCol_",
       "order" : 26,
-      "evaluatedValue" : "26"
+      "evaluatedValue" : 26
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_Separator",
       "qualType" : "ImGuiCol_",
       "order" : 27,
-      "evaluatedValue" : "27"
+      "evaluatedValue" : 27
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_SeparatorHovered",
       "qualType" : "ImGuiCol_",
       "order" : 28,
-      "evaluatedValue" : "28"
+      "evaluatedValue" : 28
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_SeparatorActive",
       "qualType" : "ImGuiCol_",
       "order" : 29,
-      "evaluatedValue" : "29"
+      "evaluatedValue" : 29
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ResizeGrip",
       "qualType" : "ImGuiCol_",
       "order" : 30,
-      "evaluatedValue" : "30"
+      "evaluatedValue" : 30
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ResizeGripHovered",
       "qualType" : "ImGuiCol_",
       "order" : 31,
-      "evaluatedValue" : "31"
+      "evaluatedValue" : 31
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ResizeGripActive",
       "qualType" : "ImGuiCol_",
       "order" : 32,
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_Tab",
       "qualType" : "ImGuiCol_",
       "order" : 33,
-      "evaluatedValue" : "33"
+      "evaluatedValue" : 33
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TabHovered",
       "qualType" : "ImGuiCol_",
       "order" : 34,
-      "evaluatedValue" : "34"
+      "evaluatedValue" : 34
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TabActive",
       "qualType" : "ImGuiCol_",
       "order" : 35,
-      "evaluatedValue" : "35"
+      "evaluatedValue" : 35
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TabUnfocused",
       "qualType" : "ImGuiCol_",
       "order" : 36,
-      "evaluatedValue" : "36"
+      "evaluatedValue" : 36
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TabUnfocusedActive",
       "qualType" : "ImGuiCol_",
       "order" : 37,
-      "evaluatedValue" : "37"
+      "evaluatedValue" : 37
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_DockingPreview",
       "docComment" : "Preview overlay color when about to docking something",
       "qualType" : "ImGuiCol_",
       "order" : 38,
-      "evaluatedValue" : "38"
+      "evaluatedValue" : 38
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_DockingEmptyBg",
       "docComment" : "Background color for empty node (e.g. CentralNode with no window docked into it)",
       "qualType" : "ImGuiCol_",
       "order" : 39,
-      "evaluatedValue" : "39"
+      "evaluatedValue" : 39
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_PlotLines",
       "qualType" : "ImGuiCol_",
       "order" : 40,
-      "evaluatedValue" : "40"
+      "evaluatedValue" : 40
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_PlotLinesHovered",
       "qualType" : "ImGuiCol_",
       "order" : 41,
-      "evaluatedValue" : "41"
+      "evaluatedValue" : 41
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_PlotHistogram",
       "qualType" : "ImGuiCol_",
       "order" : 42,
-      "evaluatedValue" : "42"
+      "evaluatedValue" : 42
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_PlotHistogramHovered",
       "qualType" : "ImGuiCol_",
       "order" : 43,
-      "evaluatedValue" : "43"
+      "evaluatedValue" : 43
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TableHeaderBg",
       "docComment" : "Table header background",
       "qualType" : "ImGuiCol_",
       "order" : 44,
-      "evaluatedValue" : "44"
+      "evaluatedValue" : 44
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TableBorderStrong",
       "docComment" : "Table outer and header borders (prefer using Alpha=1.0 here)",
       "qualType" : "ImGuiCol_",
       "order" : 45,
-      "evaluatedValue" : "45"
+      "evaluatedValue" : 45
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TableBorderLight",
       "docComment" : "Table inner borders (prefer using Alpha=1.0 here)",
       "qualType" : "ImGuiCol_",
       "order" : 46,
-      "evaluatedValue" : "46"
+      "evaluatedValue" : 46
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TableRowBg",
       "docComment" : "Table row background (even rows)",
       "qualType" : "ImGuiCol_",
       "order" : 47,
-      "evaluatedValue" : "47"
+      "evaluatedValue" : 47
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TableRowBgAlt",
       "docComment" : "Table row background (odd rows)",
       "qualType" : "ImGuiCol_",
       "order" : 48,
-      "evaluatedValue" : "48"
+      "evaluatedValue" : 48
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TextSelectedBg",
       "qualType" : "ImGuiCol_",
       "order" : 49,
-      "evaluatedValue" : "49"
+      "evaluatedValue" : 49
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_DragDropTarget",
       "qualType" : "ImGuiCol_",
       "order" : 50,
-      "evaluatedValue" : "50"
+      "evaluatedValue" : 50
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_NavHighlight",
       "docComment" : "Gamepad/keyboard: current highlighted item",
       "qualType" : "ImGuiCol_",
       "order" : 51,
-      "evaluatedValue" : "51"
+      "evaluatedValue" : 51
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_NavWindowingHighlight",
       "docComment" : "Highlight window when using CTRL+TAB",
       "qualType" : "ImGuiCol_",
       "order" : 52,
-      "evaluatedValue" : "52"
+      "evaluatedValue" : 52
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_NavWindowingDimBg",
       "docComment" : "Darken/colorize entire screen behind the CTRL+TAB window list, when active",
       "qualType" : "ImGuiCol_",
       "order" : 53,
-      "evaluatedValue" : "53"
+      "evaluatedValue" : 53
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ModalWindowDimBg",
       "docComment" : "Darken/colorize entire screen behind a modal window, when one is active",
       "qualType" : "ImGuiCol_",
       "order" : 54,
-      "evaluatedValue" : "54"
+      "evaluatedValue" : 54
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_COUNT",
       "qualType" : "ImGuiCol_",
       "order" : 55,
-      "evaluatedValue" : "55"
+      "evaluatedValue" : 55
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -18555,181 +18555,181 @@
       "docComment" : "float     Alpha",
       "qualType" : "ImGuiStyleVar_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_DisabledAlpha",
       "docComment" : "float     DisabledAlpha",
       "qualType" : "ImGuiStyleVar_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_WindowPadding",
       "docComment" : "ImVec2    WindowPadding",
       "qualType" : "ImGuiStyleVar_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_WindowRounding",
       "docComment" : "float     WindowRounding",
       "qualType" : "ImGuiStyleVar_",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_WindowBorderSize",
       "docComment" : "float     WindowBorderSize",
       "qualType" : "ImGuiStyleVar_",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_WindowMinSize",
       "docComment" : "ImVec2    WindowMinSize",
       "qualType" : "ImGuiStyleVar_",
       "order" : 5,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_WindowTitleAlign",
       "docComment" : "ImVec2    WindowTitleAlign",
       "qualType" : "ImGuiStyleVar_",
       "order" : 6,
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_ChildRounding",
       "docComment" : "float     ChildRounding",
       "qualType" : "ImGuiStyleVar_",
       "order" : 7,
-      "evaluatedValue" : "7"
+      "evaluatedValue" : 7
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_ChildBorderSize",
       "docComment" : "float     ChildBorderSize",
       "qualType" : "ImGuiStyleVar_",
       "order" : 8,
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_PopupRounding",
       "docComment" : "float     PopupRounding",
       "qualType" : "ImGuiStyleVar_",
       "order" : 9,
-      "evaluatedValue" : "9"
+      "evaluatedValue" : 9
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_PopupBorderSize",
       "docComment" : "float     PopupBorderSize",
       "qualType" : "ImGuiStyleVar_",
       "order" : 10,
-      "evaluatedValue" : "10"
+      "evaluatedValue" : 10
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_FramePadding",
       "docComment" : "ImVec2    FramePadding",
       "qualType" : "ImGuiStyleVar_",
       "order" : 11,
-      "evaluatedValue" : "11"
+      "evaluatedValue" : 11
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_FrameRounding",
       "docComment" : "float     FrameRounding",
       "qualType" : "ImGuiStyleVar_",
       "order" : 12,
-      "evaluatedValue" : "12"
+      "evaluatedValue" : 12
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_FrameBorderSize",
       "docComment" : "float     FrameBorderSize",
       "qualType" : "ImGuiStyleVar_",
       "order" : 13,
-      "evaluatedValue" : "13"
+      "evaluatedValue" : 13
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_ItemSpacing",
       "docComment" : "ImVec2    ItemSpacing",
       "qualType" : "ImGuiStyleVar_",
       "order" : 14,
-      "evaluatedValue" : "14"
+      "evaluatedValue" : 14
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_ItemInnerSpacing",
       "docComment" : "ImVec2    ItemInnerSpacing",
       "qualType" : "ImGuiStyleVar_",
       "order" : 15,
-      "evaluatedValue" : "15"
+      "evaluatedValue" : 15
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_IndentSpacing",
       "docComment" : "float     IndentSpacing",
       "qualType" : "ImGuiStyleVar_",
       "order" : 16,
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_CellPadding",
       "docComment" : "ImVec2    CellPadding",
       "qualType" : "ImGuiStyleVar_",
       "order" : 17,
-      "evaluatedValue" : "17"
+      "evaluatedValue" : 17
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_ScrollbarSize",
       "docComment" : "float     ScrollbarSize",
       "qualType" : "ImGuiStyleVar_",
       "order" : 18,
-      "evaluatedValue" : "18"
+      "evaluatedValue" : 18
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_ScrollbarRounding",
       "docComment" : "float     ScrollbarRounding",
       "qualType" : "ImGuiStyleVar_",
       "order" : 19,
-      "evaluatedValue" : "19"
+      "evaluatedValue" : 19
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_GrabMinSize",
       "docComment" : "float     GrabMinSize",
       "qualType" : "ImGuiStyleVar_",
       "order" : 20,
-      "evaluatedValue" : "20"
+      "evaluatedValue" : 20
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_GrabRounding",
       "docComment" : "float     GrabRounding",
       "qualType" : "ImGuiStyleVar_",
       "order" : 21,
-      "evaluatedValue" : "21"
+      "evaluatedValue" : 21
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_TabRounding",
       "docComment" : "float     TabRounding",
       "qualType" : "ImGuiStyleVar_",
       "order" : 22,
-      "evaluatedValue" : "22"
+      "evaluatedValue" : 22
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_ButtonTextAlign",
       "docComment" : "ImVec2    ButtonTextAlign",
       "qualType" : "ImGuiStyleVar_",
       "order" : 23,
-      "evaluatedValue" : "23"
+      "evaluatedValue" : 23
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_SelectableTextAlign",
       "docComment" : "ImVec2    SelectableTextAlign",
       "qualType" : "ImGuiStyleVar_",
       "order" : 24,
-      "evaluatedValue" : "24"
+      "evaluatedValue" : 24
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_COUNT",
       "qualType" : "ImGuiStyleVar_",
       "order" : 25,
-      "evaluatedValue" : "25"
+      "evaluatedValue" : 25
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -19303,7 +19303,7 @@
       "qualType" : "ImGuiButtonFlags_",
       "order" : 0,
       "value" : "C",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_MouseButtonLeft",
@@ -19311,7 +19311,7 @@
       "qualType" : "ImGuiButtonFlags_",
       "order" : 1,
       "value" : "      ",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_MouseButtonRight",
@@ -19319,7 +19319,7 @@
       "qualType" : "ImGuiButtonFlags_",
       "order" : 2,
       "value" : "by use",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_MouseButtonMiddle",
@@ -19327,7 +19327,7 @@
       "qualType" : "ImGuiButtonFlags_",
       "order" : 3,
       "value" : "mU64  ",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_MouseButtonMask_",
@@ -19335,7 +19335,7 @@
       "qualType" : "ImGuiButtonFlags_",
       "order" : 4,
       "value" : " hidden by user/api && not hidden by scrolling/cliprect)\n    ImU64                       RequestOutputMas",
-      "evaluatedValue" : "7"
+      "evaluatedValue" : 7
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiButtonFlags_MouseButtonDefault_",
@@ -19343,7 +19343,7 @@
       "qualType" : "ImGuiButtonFlags_",
       "order" : 5,
       "value" : "Fit (== expect user to submit it",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -19363,7 +19363,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 0,
       "value" : " ",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_NoAlpha",
@@ -19371,7 +19371,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 1,
       "value" : "      ",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_NoPicker",
@@ -19379,7 +19379,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 2,
       "value" : "eginTa",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_NoOptions",
@@ -19387,7 +19387,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 3,
       "value" : "      ",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_NoSmallPreview",
@@ -19395,7 +19395,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 4,
       "value" : "r a wi",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_NoInputs",
@@ -19403,7 +19403,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 5,
       "value" : " (gene",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_NoTooltip",
@@ -19411,7 +19411,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 6,
       "value" : ";     ",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_NoLabel",
@@ -19419,7 +19419,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 7,
       "value" : ";\n    ",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_NoSidePreview",
@@ -19427,7 +19427,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 8,
       "value" : " RowBg",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_NoDragDrop",
@@ -19435,7 +19435,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 9,
       "value" : "this.\n",
-      "evaluatedValue" : "512"
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_NoBorder",
@@ -19443,7 +19443,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 10,
       "value" : "Strong;",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_AlphaBar",
@@ -19451,7 +19451,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 11,
       "value" : "       ",
-      "evaluatedValue" : "65536"
+      "evaluatedValue" : 65536
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_AlphaPreview",
@@ -19459,7 +19459,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 12,
       "value" : "    // ",
-      "evaluatedValue" : "131072"
+      "evaluatedValue" : 131072
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_AlphaPreviewHalf",
@@ -19467,7 +19467,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 13,
       "value" : "       ",
-      "evaluatedValue" : "262144"
+      "evaluatedValue" : 262144
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_HDR",
@@ -19475,7 +19475,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 14,
       "value" : "stRowHe",
-      "evaluatedValue" : "524288"
+      "evaluatedValue" : 524288
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_DisplayRGB",
@@ -19483,7 +19483,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 15,
       "value" : "at     ",
-      "evaluatedValue" : "1048576"
+      "evaluatedValue" : 1048576
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_DisplayHSV",
@@ -19491,7 +19491,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 16,
       "value" : " clippe",
-      "evaluatedValue" : "2097152"
+      "evaluatedValue" : 2097152
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_DisplayHex",
@@ -19499,7 +19499,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 17,
       "value" : "dow\n   ",
-      "evaluatedValue" : "4194304"
+      "evaluatedValue" : 4194304
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_Uint8",
@@ -19507,7 +19507,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 18,
       "value" : "       ",
-      "evaluatedValue" : "8388608"
+      "evaluatedValue" : 8388608
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_Float",
@@ -19515,7 +19515,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 19,
       "value" : "low gro",
-      "evaluatedValue" : "16777216"
+      "evaluatedValue" : 16777216
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_PickerHueBar",
@@ -19523,7 +19523,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 20,
       "value" : " for no",
-      "evaluatedValue" : "33554432"
+      "evaluatedValue" : 33554432
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_PickerHueWheel",
@@ -19531,7 +19531,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 21,
       "value" : "ble().\n",
-      "evaluatedValue" : "67108864"
+      "evaluatedValue" : 67108864
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_InputRGB",
@@ -19539,7 +19539,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 22,
       "value" : "for non",
-      "evaluatedValue" : "134217728"
+      "evaluatedValue" : 134217728
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_InputHSV",
@@ -19547,7 +19547,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 23,
       "value" : ";\n    I",
-      "evaluatedValue" : "268435456"
+      "evaluatedValue" : 268435456
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_DefaultOptions_",
@@ -19555,7 +19555,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 24,
       "value" : "lip rect for BG2 channel. This tends to be a correct, tight-fit, because output to BG2 are done by widgets relying on regula",
-      "evaluatedValue" : "177209344"
+      "evaluatedValue" : 177209344
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_DisplayMask_",
@@ -19563,7 +19563,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 25,
       "value" : "   // This is used to check if we can eventually merge our columns draw calls into the current d",
-      "evaluatedValue" : "7340032"
+      "evaluatedValue" : 7340032
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_DataTypeMask_",
@@ -19571,7 +19571,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 26,
       "value" : "                    HostBackupInnerClipRect;    // Ba",
-      "evaluatedValue" : "25165824"
+      "evaluatedValue" : 25165824
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_PickerMask_",
@@ -19579,7 +19579,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 27,
       "value" : "leBackground()/PopTableBackground()\n    ImGuiWindow*                O",
-      "evaluatedValue" : "100663296"
+      "evaluatedValue" : 100663296
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_InputMask_",
@@ -19587,7 +19587,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 28,
       "value" : "for the table\n    ImGuiWindow*                InnerWindow; ",
-      "evaluatedValue" : "402653184"
+      "evaluatedValue" : 402653184
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_RGB",
@@ -19595,7 +19595,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 29,
       "value" : "ColumnsNames;               //",
-      "evaluatedValue" : "1048576"
+      "evaluatedValue" : 1048576
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_HSV",
@@ -19603,7 +19603,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 30,
       "value" : "olumns names\n    ImDrawListSpl",
-      "evaluatedValue" : "2097152"
+      "evaluatedValue" : 2097152
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiColorEditFlags_HEX",
@@ -19611,7 +19611,7 @@
       "qualType" : "ImGuiColorEditFlags_",
       "order" : 31,
       "value" : "               // Shortcut to ",
-      "evaluatedValue" : "4194304"
+      "evaluatedValue" : 4194304
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -19634,7 +19634,7 @@
       "qualType" : "ImGuiSliderFlags_",
       "order" : 0,
       "value" : "o",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSliderFlags_AlwaysClamp",
@@ -19642,7 +19642,7 @@
       "qualType" : "ImGuiSliderFlags_",
       "order" : 1,
       "value" : " specs",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSliderFlags_Logarithmic",
@@ -19650,7 +19650,7 @@
       "qualType" : "ImGuiSliderFlags_",
       "order" : 2,
       "value" : "ed col",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSliderFlags_NoRoundToFormat",
@@ -19658,7 +19658,7 @@
       "qualType" : "ImGuiSliderFlags_",
       "order" : 3,
       "value" : "pColum",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSliderFlags_NoInput",
@@ -19666,7 +19666,7 @@
       "qualType" : "ImGuiSliderFlags_",
       "order" : 4,
       "value" : "ght-mo",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSliderFlags_InvalidMask_",
@@ -19674,7 +19674,7 @@
       "qualType" : "ImGuiSliderFlags_",
       "order" : 5,
       "value" : "ng).\n    I",
-      "evaluatedValue" : "1879048207"
+      "evaluatedValue" : 1879048207
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiSliderFlags_ClampOnInput",
@@ -19682,7 +19682,7 @@
       "qualType" : "ImGuiSliderFlags_",
       "order" : 6,
       "value" : " being resized from previous",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -19705,28 +19705,28 @@
       "qualType" : "ImGuiMouseButton_",
       "order" : 0,
       "value" : "l",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseButton_Right",
       "qualType" : "ImGuiMouseButton_",
       "order" : 1,
       "value" : ";",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseButton_Middle",
       "qualType" : "ImGuiMouseButton_",
       "order" : 2,
       "value" : "T",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseButton_COUNT",
       "qualType" : "ImGuiMouseButton_",
       "order" : 3,
       "value" : "n",
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -19749,76 +19749,76 @@
       "qualType" : "ImGuiMouseCursor_",
       "order" : 0,
       "value" : " s",
-      "evaluatedValue" : "-1"
+      "evaluatedValue" : -1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_Arrow",
       "qualType" : "ImGuiMouseCursor_",
       "order" : 1,
       "value" : "C",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_TextInput",
       "docComment" : "When hovering over InputText, etc.",
       "qualType" : "ImGuiMouseCursor_",
       "order" : 2,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_ResizeAll",
       "docComment" : "(Unused by Dear ImGui functions)",
       "qualType" : "ImGuiMouseCursor_",
       "order" : 3,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_ResizeNS",
       "docComment" : "When hovering over an horizontal border",
       "qualType" : "ImGuiMouseCursor_",
       "order" : 4,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_ResizeEW",
       "docComment" : "When hovering over a vertical border or a column",
       "qualType" : "ImGuiMouseCursor_",
       "order" : 5,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_ResizeNESW",
       "docComment" : "When hovering over the bottom-left corner of a window",
       "qualType" : "ImGuiMouseCursor_",
       "order" : 6,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_ResizeNWSE",
       "docComment" : "When hovering over the bottom-right corner of a window",
       "qualType" : "ImGuiMouseCursor_",
       "order" : 7,
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_Hand",
       "docComment" : "(Unused by Dear ImGui functions. Use for e.g. hyperlinks)",
       "qualType" : "ImGuiMouseCursor_",
       "order" : 8,
-      "evaluatedValue" : "7"
+      "evaluatedValue" : 7
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_NotAllowed",
       "docComment" : "When hovering something with disallowed interaction. Usually a crossed circle.",
       "qualType" : "ImGuiMouseCursor_",
       "order" : 9,
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_COUNT",
       "qualType" : "ImGuiMouseCursor_",
       "order" : 10,
-      "evaluatedValue" : "9"
+      "evaluatedValue" : 9
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -19845,7 +19845,7 @@
       "qualType" : "ImGuiCond_",
       "order" : 0,
       "value" : "]",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCond_Always",
@@ -19853,7 +19853,7 @@
       "qualType" : "ImGuiCond_",
       "order" : 1,
       "value" : "ocked;",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCond_Once",
@@ -19861,7 +19861,7 @@
       "qualType" : "ImGuiCond_",
       "order" : 2,
       "value" : "e firs",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCond_FirstUseEver",
@@ -19869,7 +19869,7 @@
       "qualType" : "ImGuiCond_",
       "order" : 3,
       "value" : ").\n   ",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCond_Appearing",
@@ -19877,7 +19877,7 @@
       "qualType" : "ImGuiCond_",
       "order" : 4,
       "value" : "singHe",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -28249,92 +28249,92 @@
       "name" : "ImDrawFlags_None",
       "qualType" : "ImDrawFlags_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawFlags_Closed",
       "docComment" : "PathStroke(), AddPolyline(): specify that shape should be closed (Important: this is always == 1 for legacy reason)",
       "qualType" : "ImDrawFlags_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawFlags_RoundCornersTopLeft",
       "docComment" : "AddRect(), AddRectFilled(), PathRect(): enable rounding top-left corner only (when rounding > 0.0f, we default to all corners). Was 0x01.",
       "qualType" : "ImDrawFlags_",
       "order" : 2,
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawFlags_RoundCornersTopRight",
       "docComment" : "AddRect(), AddRectFilled(), PathRect(): enable rounding top-right corner only (when rounding > 0.0f, we default to all corners). Was 0x02.",
       "qualType" : "ImDrawFlags_",
       "order" : 3,
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawFlags_RoundCornersBottomLeft",
       "docComment" : "AddRect(), AddRectFilled(), PathRect(): enable rounding bottom-left corner only (when rounding > 0.0f, we default to all corners). Was 0x04.",
       "qualType" : "ImDrawFlags_",
       "order" : 4,
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawFlags_RoundCornersBottomRight",
       "docComment" : "AddRect(), AddRectFilled(), PathRect(): enable rounding bottom-right corner only (when rounding > 0.0f, we default to all corners). Wax 0x08.",
       "qualType" : "ImDrawFlags_",
       "order" : 5,
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawFlags_RoundCornersNone",
       "docComment" : "AddRect(), AddRectFilled(), PathRect(): disable rounding on all corners (when rounding > 0.0f). This is NOT zero, NOT an implicit flag!",
       "qualType" : "ImDrawFlags_",
       "order" : 6,
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawFlags_RoundCornersTop",
       "qualType" : "ImDrawFlags_",
       "order" : 7,
-      "evaluatedValue" : "48"
+      "evaluatedValue" : 48
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawFlags_RoundCornersBottom",
       "qualType" : "ImDrawFlags_",
       "order" : 8,
-      "evaluatedValue" : "192"
+      "evaluatedValue" : 192
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawFlags_RoundCornersLeft",
       "qualType" : "ImDrawFlags_",
       "order" : 9,
-      "evaluatedValue" : "80"
+      "evaluatedValue" : 80
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawFlags_RoundCornersRight",
       "qualType" : "ImDrawFlags_",
       "order" : 10,
-      "evaluatedValue" : "160"
+      "evaluatedValue" : 160
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawFlags_RoundCornersAll",
       "qualType" : "ImDrawFlags_",
       "order" : 11,
-      "evaluatedValue" : "240"
+      "evaluatedValue" : 240
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawFlags_RoundCornersDefault_",
       "docComment" : "Default to ALL corners if none of the _RoundCornersXX flags are specified.",
       "qualType" : "ImDrawFlags_",
       "order" : 12,
-      "evaluatedValue" : "240"
+      "evaluatedValue" : 240
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawFlags_RoundCornersMask_",
       "qualType" : "ImDrawFlags_",
       "order" : 13,
-      "evaluatedValue" : "496"
+      "evaluatedValue" : 496
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -28356,35 +28356,35 @@
       "name" : "ImDrawListFlags_None",
       "qualType" : "ImDrawListFlags_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawListFlags_AntiAliasedLines",
       "docComment" : "Enable anti-aliased lines/borders (*2 the number of triangles for 1.0f wide line or lines thin enough to be drawn using textures, otherwise *3 the number of triangles)",
       "qualType" : "ImDrawListFlags_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawListFlags_AntiAliasedLinesUseTex",
       "docComment" : "Enable anti-aliased lines/borders using textures when possible. Require backend to render with bilinear filtering.",
       "qualType" : "ImDrawListFlags_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawListFlags_AntiAliasedFill",
       "docComment" : "Enable anti-aliased edge around filled shapes (rounded rectangles, circles).",
       "qualType" : "ImDrawListFlags_",
       "order" : 3,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawListFlags_AllowVtxOffset",
       "docComment" : "Can emit 'VtxOffset > 0' to allow large meshes. Set when 'ImGuiBackendFlags_RendererHasVtxOffset' is enabled.",
       "qualType" : "ImDrawListFlags_",
       "order" : 4,
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -30185,28 +30185,28 @@
       "name" : "ImFontAtlasFlags_None",
       "qualType" : "ImFontAtlasFlags_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImFontAtlasFlags_NoPowerOfTwoHeight",
       "docComment" : "Don't round the height to next power of two",
       "qualType" : "ImFontAtlasFlags_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImFontAtlasFlags_NoMouseCursors",
       "docComment" : "Don't build software mouse cursors into the atlas (save a little texture memory)",
       "qualType" : "ImFontAtlasFlags_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImFontAtlasFlags_NoBakedLines",
       "docComment" : "Don't build thick line textures into the atlas (save a little texture memory). The AntiAliasedLinesUseTex features uses them, otherwise they will be rendered using polygons (more expensive for CPU/GPU).",
       "qualType" : "ImFontAtlasFlags_",
       "order" : 3,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -31255,98 +31255,98 @@
       "name" : "ImGuiViewportFlags_None",
       "qualType" : "ImGuiViewportFlags_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiViewportFlags_IsPlatformWindow",
       "docComment" : "Represent a Platform Window",
       "qualType" : "ImGuiViewportFlags_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiViewportFlags_IsPlatformMonitor",
       "docComment" : "Represent a Platform Monitor (unused yet)",
       "qualType" : "ImGuiViewportFlags_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiViewportFlags_OwnedByApp",
       "docComment" : "Platform Window: is created/managed by the application (rather than a dear imgui backend)",
       "qualType" : "ImGuiViewportFlags_",
       "order" : 3,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiViewportFlags_NoDecoration",
       "docComment" : "Platform Window: Disable platform decorations: title bar, borders, etc. (generally set all windows, but if ImGuiConfigFlags_ViewportsDecoration is set we only set this on popups/tooltips)",
       "qualType" : "ImGuiViewportFlags_",
       "order" : 4,
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiViewportFlags_NoTaskBarIcon",
       "docComment" : "Platform Window: Disable platform task bar icon (generally set on popups/tooltips, or all windows if ImGuiConfigFlags_ViewportsNoTaskBarIcon is set)",
       "qualType" : "ImGuiViewportFlags_",
       "order" : 5,
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiViewportFlags_NoFocusOnAppearing",
       "docComment" : "Platform Window: Don't take focus when created.",
       "qualType" : "ImGuiViewportFlags_",
       "order" : 6,
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiViewportFlags_NoFocusOnClick",
       "docComment" : "Platform Window: Don't take focus when clicked on.",
       "qualType" : "ImGuiViewportFlags_",
       "order" : 7,
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiViewportFlags_NoInputs",
       "docComment" : "Platform Window: Make mouse pass through so we can drag this window while peaking behind it.",
       "qualType" : "ImGuiViewportFlags_",
       "order" : 8,
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiViewportFlags_NoRendererClear",
       "docComment" : "Platform Window: Renderer doesn't need to clear the framebuffer ahead (because we will fill it entirely).",
       "qualType" : "ImGuiViewportFlags_",
       "order" : 9,
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiViewportFlags_TopMost",
       "docComment" : "Platform Window: Display on top (for tooltips only).",
       "qualType" : "ImGuiViewportFlags_",
       "order" : 10,
-      "evaluatedValue" : "512"
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiViewportFlags_Minimized",
       "docComment" : "Platform Window: Window is minimized, can skip render. When minimized we tend to avoid using the viewport pos/size for clipping window or testing if they are contained in the viewport.",
       "qualType" : "ImGuiViewportFlags_",
       "order" : 11,
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiViewportFlags_NoAutoMerge",
       "docComment" : "Platform Window: Avoid merging this window into another host window. This can only be set via ImGuiWindowClass viewport flags override (because we need to now ahead if we are going to create a viewport in the first place!).",
       "qualType" : "ImGuiViewportFlags_",
       "order" : 12,
-      "evaluatedValue" : "2048"
+      "evaluatedValue" : 2048
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiViewportFlags_CanHostOtherWindows",
       "docComment" : "Main viewport: can host multiple imgui windows (secondary viewports are associated to a single window).",
       "qualType" : "ImGuiViewportFlags_",
       "order" : 13,
-      "evaluatedValue" : "4096"
+      "evaluatedValue" : 4096
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -32370,66 +32370,66 @@
       "docComment" : "Was == 0 prior to 1.82, this is now == ImDrawFlags_RoundCornersNone which is != 0 and not implicit",
       "qualType" : "ImDrawCornerFlags_",
       "order" : 0,
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawCornerFlags_TopLeft",
       "docComment" : "Was == 0x01 (1 < < 0) prior to 1.82. Order matches ImDrawFlags_NoRoundCorner* flag (we exploit this internally).",
       "qualType" : "ImDrawCornerFlags_",
       "order" : 1,
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawCornerFlags_TopRight",
       "docComment" : "Was == 0x02 (1 < < 1) prior to 1.82.",
       "qualType" : "ImDrawCornerFlags_",
       "order" : 2,
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawCornerFlags_BotLeft",
       "docComment" : "Was == 0x04 (1 < < 2) prior to 1.82.",
       "qualType" : "ImDrawCornerFlags_",
       "order" : 3,
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawCornerFlags_BotRight",
       "docComment" : "Was == 0x08 (1 < < 3) prior to 1.82.",
       "qualType" : "ImDrawCornerFlags_",
       "order" : 4,
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawCornerFlags_All",
       "docComment" : "Was == 0x0F prior to 1.82",
       "qualType" : "ImDrawCornerFlags_",
       "order" : 5,
-      "evaluatedValue" : "240"
+      "evaluatedValue" : 240
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawCornerFlags_Top",
       "qualType" : "ImDrawCornerFlags_",
       "order" : 6,
-      "evaluatedValue" : "48"
+      "evaluatedValue" : 48
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawCornerFlags_Bot",
       "qualType" : "ImDrawCornerFlags_",
       "order" : 7,
-      "evaluatedValue" : "192"
+      "evaluatedValue" : 192
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawCornerFlags_Left",
       "qualType" : "ImDrawCornerFlags_",
       "order" : 8,
-      "evaluatedValue" : "80"
+      "evaluatedValue" : 80
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawCornerFlags_Right",
       "qualType" : "ImDrawCornerFlags_",
       "order" : 9,
-      "evaluatedValue" : "160"
+      "evaluatedValue" : 160
     } ]
   } ]
 }

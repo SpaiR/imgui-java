@@ -314,7 +314,7 @@ open class GenerateAst : DefaultTask() {
                             decl.qualType,
                             order++,
                             decl.value,
-                            lookupEnumEvaluatedValue0(enumDecls, idx).toString(),
+                            lookupEnumEvaluatedValue0(enumDecls, idx),
                         )
                     }
 
@@ -349,7 +349,7 @@ open class GenerateAst : DefaultTask() {
                         // We provide a proper order in EnumDecl, after sorting all enums by their offset.
                         -1,
                         declValue,
-                        evaluatedValue.toString()
+                        evaluatedValue
                     )
                 }
 
@@ -431,9 +431,7 @@ open class GenerateAst : DefaultTask() {
         val decl = decls[idx]
 
         if (decl.evaluatedValue != null) {
-            decl.evaluatedValue.toIntOrNull()?.let {
-                return it
-            }
+            return decl.evaluatedValue
         }
 
         if (decl.value != null) {

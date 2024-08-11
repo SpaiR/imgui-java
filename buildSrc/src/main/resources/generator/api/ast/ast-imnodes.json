@@ -14,175 +14,175 @@
       "qualType" : "ImNodesCol_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_NodeBackgroundHovered",
       "qualType" : "ImNodesCol_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_NodeBackgroundSelected",
       "qualType" : "ImNodesCol_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_NodeOutline",
       "qualType" : "ImNodesCol_",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_TitleBar",
       "qualType" : "ImNodesCol_",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_TitleBarHovered",
       "qualType" : "ImNodesCol_",
       "order" : 5,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_TitleBarSelected",
       "qualType" : "ImNodesCol_",
       "order" : 6,
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_Link",
       "qualType" : "ImNodesCol_",
       "order" : 7,
-      "evaluatedValue" : "7"
+      "evaluatedValue" : 7
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_LinkHovered",
       "qualType" : "ImNodesCol_",
       "order" : 8,
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_LinkSelected",
       "qualType" : "ImNodesCol_",
       "order" : 9,
-      "evaluatedValue" : "9"
+      "evaluatedValue" : 9
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_Pin",
       "qualType" : "ImNodesCol_",
       "order" : 10,
-      "evaluatedValue" : "10"
+      "evaluatedValue" : 10
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_PinHovered",
       "qualType" : "ImNodesCol_",
       "order" : 11,
-      "evaluatedValue" : "11"
+      "evaluatedValue" : 11
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_BoxSelector",
       "qualType" : "ImNodesCol_",
       "order" : 12,
-      "evaluatedValue" : "12"
+      "evaluatedValue" : 12
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_BoxSelectorOutline",
       "qualType" : "ImNodesCol_",
       "order" : 13,
-      "evaluatedValue" : "13"
+      "evaluatedValue" : 13
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_GridBackground",
       "qualType" : "ImNodesCol_",
       "order" : 14,
-      "evaluatedValue" : "14"
+      "evaluatedValue" : 14
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_GridLine",
       "qualType" : "ImNodesCol_",
       "order" : 15,
-      "evaluatedValue" : "15"
+      "evaluatedValue" : 15
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_MiniMapBackground",
       "qualType" : "ImNodesCol_",
       "order" : 16,
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_MiniMapBackgroundHovered",
       "qualType" : "ImNodesCol_",
       "order" : 17,
-      "evaluatedValue" : "17"
+      "evaluatedValue" : 17
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_MiniMapOutline",
       "qualType" : "ImNodesCol_",
       "order" : 18,
-      "evaluatedValue" : "18"
+      "evaluatedValue" : 18
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_MiniMapOutlineHovered",
       "qualType" : "ImNodesCol_",
       "order" : 19,
-      "evaluatedValue" : "19"
+      "evaluatedValue" : 19
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_MiniMapNodeBackground",
       "qualType" : "ImNodesCol_",
       "order" : 20,
-      "evaluatedValue" : "20"
+      "evaluatedValue" : 20
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_MiniMapNodeBackgroundHovered",
       "qualType" : "ImNodesCol_",
       "order" : 21,
-      "evaluatedValue" : "21"
+      "evaluatedValue" : 21
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_MiniMapNodeBackgroundSelected",
       "qualType" : "ImNodesCol_",
       "order" : 22,
-      "evaluatedValue" : "22"
+      "evaluatedValue" : 22
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_MiniMapNodeOutline",
       "qualType" : "ImNodesCol_",
       "order" : 23,
-      "evaluatedValue" : "23"
+      "evaluatedValue" : 23
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_MiniMapLink",
       "qualType" : "ImNodesCol_",
       "order" : 24,
-      "evaluatedValue" : "24"
+      "evaluatedValue" : 24
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_MiniMapLinkSelected",
       "qualType" : "ImNodesCol_",
       "order" : 25,
-      "evaluatedValue" : "25"
+      "evaluatedValue" : 25
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_MiniMapCanvas",
       "qualType" : "ImNodesCol_",
       "order" : 26,
-      "evaluatedValue" : "26"
+      "evaluatedValue" : 26
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_MiniMapCanvasOutline",
       "qualType" : "ImNodesCol_",
       "order" : 27,
-      "evaluatedValue" : "27"
+      "evaluatedValue" : 27
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesCol_COUNT",
       "qualType" : "ImNodesCol_",
       "order" : 28,
-      "evaluatedValue" : "28"
+      "evaluatedValue" : 28
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -193,97 +193,97 @@
       "qualType" : "ImNodesStyleVar_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_NodeCornerRounding",
       "qualType" : "ImNodesStyleVar_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_NodePadding",
       "qualType" : "ImNodesStyleVar_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_NodeBorderThickness",
       "qualType" : "ImNodesStyleVar_",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_LinkThickness",
       "qualType" : "ImNodesStyleVar_",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_LinkLineSegmentsPerLength",
       "qualType" : "ImNodesStyleVar_",
       "order" : 5,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_LinkHoverDistance",
       "qualType" : "ImNodesStyleVar_",
       "order" : 6,
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_PinCircleRadius",
       "qualType" : "ImNodesStyleVar_",
       "order" : 7,
-      "evaluatedValue" : "7"
+      "evaluatedValue" : 7
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_PinQuadSideLength",
       "qualType" : "ImNodesStyleVar_",
       "order" : 8,
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_PinTriangleSideLength",
       "qualType" : "ImNodesStyleVar_",
       "order" : 9,
-      "evaluatedValue" : "9"
+      "evaluatedValue" : 9
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_PinLineThickness",
       "qualType" : "ImNodesStyleVar_",
       "order" : 10,
-      "evaluatedValue" : "10"
+      "evaluatedValue" : 10
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_PinHoverRadius",
       "qualType" : "ImNodesStyleVar_",
       "order" : 11,
-      "evaluatedValue" : "11"
+      "evaluatedValue" : 11
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_PinOffset",
       "qualType" : "ImNodesStyleVar_",
       "order" : 12,
-      "evaluatedValue" : "12"
+      "evaluatedValue" : 12
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_MiniMapPadding",
       "qualType" : "ImNodesStyleVar_",
       "order" : 13,
-      "evaluatedValue" : "13"
+      "evaluatedValue" : 13
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_MiniMapOffset",
       "qualType" : "ImNodesStyleVar_",
       "order" : 14,
-      "evaluatedValue" : "14"
+      "evaluatedValue" : 14
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleVar_COUNT",
       "qualType" : "ImNodesStyleVar_",
       "order" : 15,
-      "evaluatedValue" : "15"
+      "evaluatedValue" : 15
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -294,21 +294,21 @@
       "qualType" : "ImNodesStyleFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleFlags_NodeOutline",
       "qualType" : "ImNodesStyleFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesStyleFlags_GridLines",
       "qualType" : "ImNodesStyleFlags_",
       "order" : 2,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -318,37 +318,37 @@
       "name" : "ImNodesPinShape_Circle",
       "qualType" : "ImNodesPinShape_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesPinShape_CircleFilled",
       "qualType" : "ImNodesPinShape_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesPinShape_Triangle",
       "qualType" : "ImNodesPinShape_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesPinShape_TriangleFilled",
       "qualType" : "ImNodesPinShape_",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesPinShape_Quad",
       "qualType" : "ImNodesPinShape_",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesPinShape_QuadFilled",
       "qualType" : "ImNodesPinShape_",
       "order" : 5,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -368,7 +368,7 @@
       "qualType" : "ImNodesAttributeFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesAttributeFlags_EnableLinkDetachWithDragClick",
@@ -376,7 +376,7 @@
       "qualType" : "ImNodesAttributeFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesAttributeFlags_EnableLinkCreationOnSnap",
@@ -384,7 +384,7 @@
       "qualType" : "ImNodesAttributeFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -525,25 +525,25 @@
       "name" : "ImNodesMiniMapLocation_BottomLeft",
       "qualType" : "ImNodesMiniMapLocation_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesMiniMapLocation_BottomRight",
       "qualType" : "ImNodesMiniMapLocation_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesMiniMapLocation_TopLeft",
       "qualType" : "ImNodesMiniMapLocation_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImNodesMiniMapLocation_TopRight",
       "qualType" : "ImNodesMiniMapLocation_",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     } ]
   }, {
     "@type" : "AstRecordDecl",
