@@ -1563,6 +1563,9 @@ public class ImGui {
     public static native boolean TreeNode(@ArgValue(callPrefix = "(void*)") long ptrId, String label, Void NULL);
 
     @BindingMethod
+    public static native boolean TreeNodeEx(String label, int imGuiTreeNodeFlags);
+
+    @BindingMethod
     public static native boolean TreeNodeEx(String strId, int imGuiTreeNodeFlags, String label, Void NULL);
 
     @BindingMethod
