@@ -1931,7 +1931,8 @@ public class ImGui {
     //   wastefully sort your data every frame!
     // - Lifetime: don't hold on this pointer over multiple frames or past any subsequent call to BeginTable().
 
-    // TODO: TableGetSortSpecs()
+    @BindingMethod
+    public static native ImGuiTableSortSpecs TableGetSortSpecs();
 
     // Tables: Miscellaneous functions
     // - Functions args 'int column_n' treat the default value of -1 as the same as passing the current column index.
