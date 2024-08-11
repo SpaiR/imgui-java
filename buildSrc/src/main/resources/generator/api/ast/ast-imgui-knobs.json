@@ -14,28 +14,28 @@
       "qualType" : "ImGuiKnobFlags_",
       "order" : 0,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKnobFlags_NoInput",
       "qualType" : "ImGuiKnobFlags_",
       "order" : 1,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKnobFlags_ValueTooltip",
       "qualType" : "ImGuiKnobFlags_",
       "order" : 2,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKnobFlags_DragHorizontal",
       "qualType" : "ImGuiKnobFlags_",
       "order" : 3,
       "value" : "1 << 3",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -46,49 +46,49 @@
       "qualType" : "ImGuiKnobVariant_",
       "order" : 0,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKnobVariant_Dot",
       "qualType" : "ImGuiKnobVariant_",
       "order" : 1,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKnobVariant_Wiper",
       "qualType" : "ImGuiKnobVariant_",
       "order" : 2,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKnobVariant_WiperOnly",
       "qualType" : "ImGuiKnobVariant_",
       "order" : 3,
       "value" : "1 << 3",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKnobVariant_WiperDot",
       "qualType" : "ImGuiKnobVariant_",
       "order" : 4,
       "value" : "1 << 4",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKnobVariant_Stepped",
       "qualType" : "ImGuiKnobVariant_",
       "order" : 5,
       "value" : "1 << 5",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKnobVariant_Space",
       "qualType" : "ImGuiKnobVariant_",
       "order" : 6,
       "value" : "1 << 6",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     } ]
   }, {
     "@type" : "AstNamespaceDecl",

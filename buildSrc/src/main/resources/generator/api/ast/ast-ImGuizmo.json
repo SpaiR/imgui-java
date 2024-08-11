@@ -345,98 +345,98 @@
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 0,
         "value" : "(1u << 0)",
-        "evaluatedValue" : "1"
+        "evaluatedValue" : 1
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "TRANSLATE_Y",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 1,
         "value" : "(1u << 1)",
-        "evaluatedValue" : "2"
+        "evaluatedValue" : 2
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "TRANSLATE_Z",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 2,
         "value" : "(1u << 2)",
-        "evaluatedValue" : "4"
+        "evaluatedValue" : 4
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "ROTATE_X",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 3,
         "value" : "(1u << 3)",
-        "evaluatedValue" : "8"
+        "evaluatedValue" : 8
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "ROTATE_Y",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 4,
         "value" : "(1u << 4)",
-        "evaluatedValue" : "16"
+        "evaluatedValue" : 16
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "ROTATE_Z",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 5,
         "value" : "(1u << 5)",
-        "evaluatedValue" : "32"
+        "evaluatedValue" : 32
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "ROTATE_SCREEN",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 6,
         "value" : "(1u << 6)",
-        "evaluatedValue" : "64"
+        "evaluatedValue" : 64
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "SCALE_X",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 7,
         "value" : "(1u << 7)",
-        "evaluatedValue" : "128"
+        "evaluatedValue" : 128
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "SCALE_Y",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 8,
         "value" : "(1u << 8)",
-        "evaluatedValue" : "256"
+        "evaluatedValue" : 256
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "SCALE_Z",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 9,
         "value" : "(1u << 9)",
-        "evaluatedValue" : "512"
+        "evaluatedValue" : 512
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "BOUNDS",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 10,
         "value" : "(1u << 10)",
-        "evaluatedValue" : "1024"
+        "evaluatedValue" : 1024
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "TRANSLATE",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 11,
         "value" : "TRANSLATE_X | TRANSLATE_Y | TRANSLATE_Z",
-        "evaluatedValue" : "7"
+        "evaluatedValue" : 7
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "ROTATE",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 12,
         "value" : "ROTATE_X | ROTATE_Y | ROTATE_Z | ROTATE_SCREEN",
-        "evaluatedValue" : "120"
+        "evaluatedValue" : 120
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "SCALE",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 13,
         "value" : "SCALE_X | SCALE_Y | SCALE_Z",
-        "evaluatedValue" : "896"
+        "evaluatedValue" : 896
       } ]
     }, {
       "@type" : "AstEnumDecl",
@@ -446,13 +446,13 @@
         "name" : "LOCAL",
         "qualType" : "ImGuizmo::MODE",
         "order" : 0,
-        "evaluatedValue" : "0"
+        "evaluatedValue" : 0
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "WORLD",
         "qualType" : "ImGuizmo::MODE",
         "order" : 1,
-        "evaluatedValue" : "1"
+        "evaluatedValue" : 1
       } ]
     }, {
       "@type" : "AstFunctionDecl",

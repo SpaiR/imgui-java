@@ -37,7 +37,7 @@
       "qualType" : "ImPlotFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_NoTitle",
@@ -45,7 +45,7 @@
       "qualType" : "ImPlotFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_NoLegend",
@@ -53,7 +53,7 @@
       "qualType" : "ImPlotFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_NoMenus",
@@ -61,7 +61,7 @@
       "qualType" : "ImPlotFlags_",
       "order" : 3,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_NoBoxSelect",
@@ -69,7 +69,7 @@
       "qualType" : "ImPlotFlags_",
       "order" : 4,
       "value" : "1 << 3",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_NoMousePos",
@@ -77,7 +77,7 @@
       "qualType" : "ImPlotFlags_",
       "order" : 5,
       "value" : "1 << 4",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_NoHighlight",
@@ -85,7 +85,7 @@
       "qualType" : "ImPlotFlags_",
       "order" : 6,
       "value" : "1 << 5",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_NoChild",
@@ -93,7 +93,7 @@
       "qualType" : "ImPlotFlags_",
       "order" : 7,
       "value" : "1 << 6",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_Equal",
@@ -101,7 +101,7 @@
       "qualType" : "ImPlotFlags_",
       "order" : 8,
       "value" : "1 << 7",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_YAxis2",
@@ -109,7 +109,7 @@
       "qualType" : "ImPlotFlags_",
       "order" : 9,
       "value" : "1 << 8",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_YAxis3",
@@ -117,7 +117,7 @@
       "qualType" : "ImPlotFlags_",
       "order" : 10,
       "value" : "1 << 9",
-      "evaluatedValue" : "512"
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_Query",
@@ -125,7 +125,7 @@
       "qualType" : "ImPlotFlags_",
       "order" : 11,
       "value" : "1 << 10",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_Crosshairs",
@@ -133,7 +133,7 @@
       "qualType" : "ImPlotFlags_",
       "order" : 12,
       "value" : "1 << 11",
-      "evaluatedValue" : "2048"
+      "evaluatedValue" : 2048
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_AntiAliased",
@@ -141,14 +141,14 @@
       "qualType" : "ImPlotFlags_",
       "order" : 13,
       "value" : "1 << 12",
-      "evaluatedValue" : "4096"
+      "evaluatedValue" : 4096
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_CanvasOnly",
       "qualType" : "ImPlotFlags_",
       "order" : 14,
       "value" : "ImPlotFlags_NoTitle | ImPlotFlags_NoLegend | ImPlotFlags_NoMenus | ImPlotFlags_NoBoxSelect | ImPlotFlags_NoMousePos",
-      "evaluatedValue" : "31"
+      "evaluatedValue" : 31
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -169,7 +169,7 @@
       "qualType" : "ImPlotAxisFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_NoLabel",
@@ -177,7 +177,7 @@
       "qualType" : "ImPlotAxisFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_NoGridLines",
@@ -185,7 +185,7 @@
       "qualType" : "ImPlotAxisFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_NoTickMarks",
@@ -193,7 +193,7 @@
       "qualType" : "ImPlotAxisFlags_",
       "order" : 3,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_NoTickLabels",
@@ -201,7 +201,7 @@
       "qualType" : "ImPlotAxisFlags_",
       "order" : 4,
       "value" : "1 << 3",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_Foreground",
@@ -209,7 +209,7 @@
       "qualType" : "ImPlotAxisFlags_",
       "order" : 5,
       "value" : "1 << 4",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_LogScale",
@@ -217,7 +217,7 @@
       "qualType" : "ImPlotAxisFlags_",
       "order" : 6,
       "value" : "1 << 5",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_Time",
@@ -225,7 +225,7 @@
       "qualType" : "ImPlotAxisFlags_",
       "order" : 7,
       "value" : "1 << 6",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_Invert",
@@ -233,7 +233,7 @@
       "qualType" : "ImPlotAxisFlags_",
       "order" : 8,
       "value" : "1 << 7",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_NoInitialFit",
@@ -241,7 +241,7 @@
       "qualType" : "ImPlotAxisFlags_",
       "order" : 9,
       "value" : "1 << 8",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_AutoFit",
@@ -249,7 +249,7 @@
       "qualType" : "ImPlotAxisFlags_",
       "order" : 10,
       "value" : "1 << 9",
-      "evaluatedValue" : "512"
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_RangeFit",
@@ -257,7 +257,7 @@
       "qualType" : "ImPlotAxisFlags_",
       "order" : 11,
       "value" : "1 << 10",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_LockMin",
@@ -265,7 +265,7 @@
       "qualType" : "ImPlotAxisFlags_",
       "order" : 12,
       "value" : "1 << 11",
-      "evaluatedValue" : "2048"
+      "evaluatedValue" : 2048
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_LockMax",
@@ -273,21 +273,21 @@
       "qualType" : "ImPlotAxisFlags_",
       "order" : 13,
       "value" : "1 << 12",
-      "evaluatedValue" : "4096"
+      "evaluatedValue" : 4096
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_Lock",
       "qualType" : "ImPlotAxisFlags_",
       "order" : 14,
       "value" : "ImPlotAxisFlags_LockMin | ImPlotAxisFlags_LockMax",
-      "evaluatedValue" : "6144"
+      "evaluatedValue" : 6144
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_NoDecorations",
       "qualType" : "ImPlotAxisFlags_",
       "order" : 15,
       "value" : "ImPlotAxisFlags_NoLabel | ImPlotAxisFlags_NoGridLines | ImPlotAxisFlags_NoTickMarks | ImPlotAxisFlags_NoTickLabels",
-      "evaluatedValue" : "15"
+      "evaluatedValue" : 15
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -308,7 +308,7 @@
       "qualType" : "ImPlotSubplotFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotSubplotFlags_NoTitle",
@@ -316,7 +316,7 @@
       "qualType" : "ImPlotSubplotFlags_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotSubplotFlags_NoLegend",
@@ -324,7 +324,7 @@
       "qualType" : "ImPlotSubplotFlags_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotSubplotFlags_NoMenus",
@@ -332,7 +332,7 @@
       "qualType" : "ImPlotSubplotFlags_",
       "order" : 3,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotSubplotFlags_NoResize",
@@ -340,7 +340,7 @@
       "qualType" : "ImPlotSubplotFlags_",
       "order" : 4,
       "value" : "1 << 3",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotSubplotFlags_NoAlign",
@@ -348,7 +348,7 @@
       "qualType" : "ImPlotSubplotFlags_",
       "order" : 5,
       "value" : "1 << 4",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotSubplotFlags_ShareItems",
@@ -356,7 +356,7 @@
       "qualType" : "ImPlotSubplotFlags_",
       "order" : 6,
       "value" : "1 << 5",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotSubplotFlags_LinkRows",
@@ -364,7 +364,7 @@
       "qualType" : "ImPlotSubplotFlags_",
       "order" : 7,
       "value" : "1 << 6",
-      "evaluatedValue" : "64"
+      "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotSubplotFlags_LinkCols",
@@ -372,7 +372,7 @@
       "qualType" : "ImPlotSubplotFlags_",
       "order" : 8,
       "value" : "1 << 7",
-      "evaluatedValue" : "128"
+      "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotSubplotFlags_LinkAllX",
@@ -380,7 +380,7 @@
       "qualType" : "ImPlotSubplotFlags_",
       "order" : 9,
       "value" : "1 << 8",
-      "evaluatedValue" : "256"
+      "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotSubplotFlags_LinkAllY",
@@ -388,7 +388,7 @@
       "qualType" : "ImPlotSubplotFlags_",
       "order" : 10,
       "value" : "1 << 9",
-      "evaluatedValue" : "512"
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotSubplotFlags_ColMajor",
@@ -396,7 +396,7 @@
       "qualType" : "ImPlotSubplotFlags_",
       "order" : 11,
       "value" : "1 << 10",
-      "evaluatedValue" : "1024"
+      "evaluatedValue" : 1024
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -416,174 +416,174 @@
       "docComment" : "plot line/outline color (defaults to next unused color in current colormap)",
       "qualType" : "ImPlotCol_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_Fill",
       "docComment" : "plot fill color for bars (defaults to the current line color)",
       "qualType" : "ImPlotCol_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_MarkerOutline",
       "docComment" : "marker outline color (defaults to the current line color)",
       "qualType" : "ImPlotCol_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_MarkerFill",
       "docComment" : "marker fill color (defaults to the current line color)",
       "qualType" : "ImPlotCol_",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_ErrorBar",
       "docComment" : "error bar color (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_FrameBg",
       "docComment" : "plot frame background color (defaults to ImGuiCol_FrameBg)",
       "qualType" : "ImPlotCol_",
       "order" : 5,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_PlotBg",
       "docComment" : "plot area background color (defaults to ImGuiCol_WindowBg)",
       "qualType" : "ImPlotCol_",
       "order" : 6,
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_PlotBorder",
       "docComment" : "plot area border color (defaults to ImGuiCol_Border)",
       "qualType" : "ImPlotCol_",
       "order" : 7,
-      "evaluatedValue" : "7"
+      "evaluatedValue" : 7
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_LegendBg",
       "docComment" : "legend background color (defaults to ImGuiCol_PopupBg)",
       "qualType" : "ImPlotCol_",
       "order" : 8,
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_LegendBorder",
       "docComment" : "legend border color (defaults to ImPlotCol_PlotBorder)",
       "qualType" : "ImPlotCol_",
       "order" : 9,
-      "evaluatedValue" : "9"
+      "evaluatedValue" : 9
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_LegendText",
       "docComment" : "legend text color (defaults to ImPlotCol_InlayText)",
       "qualType" : "ImPlotCol_",
       "order" : 10,
-      "evaluatedValue" : "10"
+      "evaluatedValue" : 10
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_TitleText",
       "docComment" : "plot title text color (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
       "order" : 11,
-      "evaluatedValue" : "11"
+      "evaluatedValue" : 11
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_InlayText",
       "docComment" : "color of text appearing inside of plots (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
       "order" : 12,
-      "evaluatedValue" : "12"
+      "evaluatedValue" : 12
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_XAxis",
       "docComment" : "x-axis label and tick lables color (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
       "order" : 13,
-      "evaluatedValue" : "13"
+      "evaluatedValue" : 13
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_XAxisGrid",
       "docComment" : "x-axis grid color (defaults to 25% ImPlotCol_XAxis)",
       "qualType" : "ImPlotCol_",
       "order" : 14,
-      "evaluatedValue" : "14"
+      "evaluatedValue" : 14
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_YAxis",
       "docComment" : "y-axis label and tick labels color (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
       "order" : 15,
-      "evaluatedValue" : "15"
+      "evaluatedValue" : 15
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_YAxisGrid",
       "docComment" : "y-axis grid color (defaults to 25% ImPlotCol_YAxis)",
       "qualType" : "ImPlotCol_",
       "order" : 16,
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_YAxis2",
       "docComment" : "2nd y-axis label and tick labels color (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
       "order" : 17,
-      "evaluatedValue" : "17"
+      "evaluatedValue" : 17
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_YAxisGrid2",
       "docComment" : "2nd y-axis grid/label color (defaults to 25% ImPlotCol_YAxis2)",
       "qualType" : "ImPlotCol_",
       "order" : 18,
-      "evaluatedValue" : "18"
+      "evaluatedValue" : 18
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_YAxis3",
       "docComment" : "3rd y-axis label and tick labels color (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
       "order" : 19,
-      "evaluatedValue" : "19"
+      "evaluatedValue" : 19
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_YAxisGrid3",
       "docComment" : "3rd y-axis grid/label color (defaults to 25% ImPlotCol_YAxis3)",
       "qualType" : "ImPlotCol_",
       "order" : 20,
-      "evaluatedValue" : "20"
+      "evaluatedValue" : 20
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_Selection",
       "docComment" : "box-selection color (defaults to yellow)",
       "qualType" : "ImPlotCol_",
       "order" : 21,
-      "evaluatedValue" : "21"
+      "evaluatedValue" : 21
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_Query",
       "docComment" : "box-query color (defaults to green)",
       "qualType" : "ImPlotCol_",
       "order" : 22,
-      "evaluatedValue" : "22"
+      "evaluatedValue" : 22
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_Crosshairs",
       "docComment" : "crosshairs color (defaults to ImPlotCol_PlotBorder)",
       "qualType" : "ImPlotCol_",
       "order" : 23,
-      "evaluatedValue" : "23"
+      "evaluatedValue" : 23
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_COUNT",
       "qualType" : "ImPlotCol_",
       "order" : 24,
-      "evaluatedValue" : "24"
+      "evaluatedValue" : 24
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -603,195 +603,195 @@
       "docComment" : "float,  plot item line weight in pixels",
       "qualType" : "ImPlotStyleVar_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_Marker",
       "docComment" : "int,    marker specification",
       "qualType" : "ImPlotStyleVar_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MarkerSize",
       "docComment" : "float,  marker size in pixels (roughly the marker's \"radius\")",
       "qualType" : "ImPlotStyleVar_",
       "order" : 2,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MarkerWeight",
       "docComment" : "float,  plot outline weight of markers in pixels",
       "qualType" : "ImPlotStyleVar_",
       "order" : 3,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_FillAlpha",
       "docComment" : "float,  alpha modifier applied to all plot item fills",
       "qualType" : "ImPlotStyleVar_",
       "order" : 4,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_ErrorBarSize",
       "docComment" : "float,  error bar whisker width in pixels",
       "qualType" : "ImPlotStyleVar_",
       "order" : 5,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_ErrorBarWeight",
       "docComment" : "float,  error bar whisker weight in pixels",
       "qualType" : "ImPlotStyleVar_",
       "order" : 6,
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_DigitalBitHeight",
       "docComment" : "float,  digital channels bit height (at 1) in pixels",
       "qualType" : "ImPlotStyleVar_",
       "order" : 7,
-      "evaluatedValue" : "7"
+      "evaluatedValue" : 7
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_DigitalBitGap",
       "docComment" : "float,  digital channels bit padding gap in pixels",
       "qualType" : "ImPlotStyleVar_",
       "order" : 8,
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_PlotBorderSize",
       "docComment" : "float,  thickness of border around plot area",
       "qualType" : "ImPlotStyleVar_",
       "order" : 9,
-      "evaluatedValue" : "9"
+      "evaluatedValue" : 9
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MinorAlpha",
       "docComment" : "float,  alpha multiplier applied to minor axis grid lines",
       "qualType" : "ImPlotStyleVar_",
       "order" : 10,
-      "evaluatedValue" : "10"
+      "evaluatedValue" : 10
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MajorTickLen",
       "docComment" : "ImVec2, major tick lengths for X and Y axes",
       "qualType" : "ImPlotStyleVar_",
       "order" : 11,
-      "evaluatedValue" : "11"
+      "evaluatedValue" : 11
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MinorTickLen",
       "docComment" : "ImVec2, minor tick lengths for X and Y axes",
       "qualType" : "ImPlotStyleVar_",
       "order" : 12,
-      "evaluatedValue" : "12"
+      "evaluatedValue" : 12
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MajorTickSize",
       "docComment" : "ImVec2, line thickness of major ticks",
       "qualType" : "ImPlotStyleVar_",
       "order" : 13,
-      "evaluatedValue" : "13"
+      "evaluatedValue" : 13
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MinorTickSize",
       "docComment" : "ImVec2, line thickness of minor ticks",
       "qualType" : "ImPlotStyleVar_",
       "order" : 14,
-      "evaluatedValue" : "14"
+      "evaluatedValue" : 14
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MajorGridSize",
       "docComment" : "ImVec2, line thickness of major grid lines",
       "qualType" : "ImPlotStyleVar_",
       "order" : 15,
-      "evaluatedValue" : "15"
+      "evaluatedValue" : 15
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MinorGridSize",
       "docComment" : "ImVec2, line thickness of minor grid lines",
       "qualType" : "ImPlotStyleVar_",
       "order" : 16,
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_PlotPadding",
       "docComment" : "ImVec2, padding between widget frame and plot area, labels, or outside legends (i.e. main padding)",
       "qualType" : "ImPlotStyleVar_",
       "order" : 17,
-      "evaluatedValue" : "17"
+      "evaluatedValue" : 17
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_LabelPadding",
       "docComment" : "ImVec2, padding between axes labels, tick labels, and plot edge",
       "qualType" : "ImPlotStyleVar_",
       "order" : 18,
-      "evaluatedValue" : "18"
+      "evaluatedValue" : 18
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_LegendPadding",
       "docComment" : "ImVec2, legend padding from plot edges",
       "qualType" : "ImPlotStyleVar_",
       "order" : 19,
-      "evaluatedValue" : "19"
+      "evaluatedValue" : 19
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_LegendInnerPadding",
       "docComment" : "ImVec2, legend inner padding from legend edges",
       "qualType" : "ImPlotStyleVar_",
       "order" : 20,
-      "evaluatedValue" : "20"
+      "evaluatedValue" : 20
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_LegendSpacing",
       "docComment" : "ImVec2, spacing between legend entries",
       "qualType" : "ImPlotStyleVar_",
       "order" : 21,
-      "evaluatedValue" : "21"
+      "evaluatedValue" : 21
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MousePosPadding",
       "docComment" : "ImVec2, padding between plot edge and interior info text",
       "qualType" : "ImPlotStyleVar_",
       "order" : 22,
-      "evaluatedValue" : "22"
+      "evaluatedValue" : 22
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_AnnotationPadding",
       "docComment" : "ImVec2, text padding around annotation labels",
       "qualType" : "ImPlotStyleVar_",
       "order" : 23,
-      "evaluatedValue" : "23"
+      "evaluatedValue" : 23
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_FitPadding",
       "docComment" : "ImVec2, additional fit padding as a percentage of the fit extents (e.g. ImVec2(0.1f,0.1f) adds 10% to the fit extents of X and Y)",
       "qualType" : "ImPlotStyleVar_",
       "order" : 24,
-      "evaluatedValue" : "24"
+      "evaluatedValue" : 24
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_PlotDefaultSize",
       "docComment" : "ImVec2, default size used when ImVec2(0,0) is passed to BeginPlot",
       "qualType" : "ImPlotStyleVar_",
       "order" : 25,
-      "evaluatedValue" : "25"
+      "evaluatedValue" : 25
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_PlotMinSize",
       "docComment" : "ImVec2, minimum size plot frame can be when shrunk",
       "qualType" : "ImPlotStyleVar_",
       "order" : 26,
-      "evaluatedValue" : "26"
+      "evaluatedValue" : 26
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_COUNT",
       "qualType" : "ImPlotStyleVar_",
       "order" : 27,
-      "evaluatedValue" : "27"
+      "evaluatedValue" : 27
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -812,83 +812,83 @@
       "qualType" : "ImPlotMarker_",
       "order" : 0,
       "value" : "-1",
-      "evaluatedValue" : "-1"
+      "evaluatedValue" : -1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Circle",
       "docComment" : "a circle marker",
       "qualType" : "ImPlotMarker_",
       "order" : 1,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Square",
       "docComment" : "a square maker",
       "qualType" : "ImPlotMarker_",
       "order" : 2,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Diamond",
       "docComment" : "a diamond marker",
       "qualType" : "ImPlotMarker_",
       "order" : 3,
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Up",
       "docComment" : "an upward-pointing triangle marker",
       "qualType" : "ImPlotMarker_",
       "order" : 4,
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Down",
       "docComment" : "an downward-pointing triangle marker",
       "qualType" : "ImPlotMarker_",
       "order" : 5,
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Left",
       "docComment" : "an leftward-pointing triangle marker",
       "qualType" : "ImPlotMarker_",
       "order" : 6,
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Right",
       "docComment" : "an rightward-pointing triangle marker",
       "qualType" : "ImPlotMarker_",
       "order" : 7,
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Cross",
       "docComment" : "a cross marker (not fillable)",
       "qualType" : "ImPlotMarker_",
       "order" : 8,
-      "evaluatedValue" : "7"
+      "evaluatedValue" : 7
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Plus",
       "docComment" : "a plus marker (not fillable)",
       "qualType" : "ImPlotMarker_",
       "order" : 9,
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Asterisk",
       "docComment" : "a asterisk marker (not fillable)",
       "qualType" : "ImPlotMarker_",
       "order" : 10,
-      "evaluatedValue" : "9"
+      "evaluatedValue" : 9
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_COUNT",
       "qualType" : "ImPlotMarker_",
       "order" : 11,
-      "evaluatedValue" : "10"
+      "evaluatedValue" : 10
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -909,7 +909,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_Dark",
@@ -917,7 +917,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 1,
       "value" : "1",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_Pastel",
@@ -925,7 +925,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 2,
       "value" : "2",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_Paired",
@@ -933,7 +933,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 3,
       "value" : "3",
-      "evaluatedValue" : "3"
+      "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_Viridis",
@@ -941,7 +941,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 4,
       "value" : "4",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_Plasma",
@@ -949,7 +949,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 5,
       "value" : "5",
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_Hot",
@@ -957,7 +957,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 6,
       "value" : "6",
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_Cool",
@@ -965,7 +965,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 7,
       "value" : "7",
-      "evaluatedValue" : "7"
+      "evaluatedValue" : 7
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_Pink",
@@ -973,7 +973,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 8,
       "value" : "8",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_Jet",
@@ -981,7 +981,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 9,
       "value" : "9",
-      "evaluatedValue" : "9"
+      "evaluatedValue" : 9
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_Twilight",
@@ -989,7 +989,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 10,
       "value" : "10",
-      "evaluatedValue" : "10"
+      "evaluatedValue" : 10
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_RdBu",
@@ -997,7 +997,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 11,
       "value" : "11",
-      "evaluatedValue" : "11"
+      "evaluatedValue" : 11
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_BrBG",
@@ -1005,7 +1005,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 12,
       "value" : "12",
-      "evaluatedValue" : "12"
+      "evaluatedValue" : 12
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_PiYG",
@@ -1013,7 +1013,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 13,
       "value" : "13",
-      "evaluatedValue" : "13"
+      "evaluatedValue" : 13
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_Spectral",
@@ -1021,7 +1021,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 14,
       "value" : "14",
-      "evaluatedValue" : "14"
+      "evaluatedValue" : 14
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotColormap_Greys",
@@ -1029,7 +1029,7 @@
       "qualType" : "ImPlotColormap_",
       "order" : 15,
       "value" : "15",
-      "evaluatedValue" : "15"
+      "evaluatedValue" : 15
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -1050,7 +1050,7 @@
       "qualType" : "ImPlotLocation_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotLocation_North",
@@ -1058,7 +1058,7 @@
       "qualType" : "ImPlotLocation_",
       "order" : 1,
       "value" : "1 << 0",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotLocation_South",
@@ -1066,7 +1066,7 @@
       "qualType" : "ImPlotLocation_",
       "order" : 2,
       "value" : "1 << 1",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotLocation_West",
@@ -1074,7 +1074,7 @@
       "qualType" : "ImPlotLocation_",
       "order" : 3,
       "value" : "1 << 2",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotLocation_East",
@@ -1082,7 +1082,7 @@
       "qualType" : "ImPlotLocation_",
       "order" : 4,
       "value" : "1 << 3",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotLocation_NorthWest",
@@ -1090,7 +1090,7 @@
       "qualType" : "ImPlotLocation_",
       "order" : 5,
       "value" : "ImPlotLocation_North | ImPlotLocation_West",
-      "evaluatedValue" : "5"
+      "evaluatedValue" : 5
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotLocation_NorthEast",
@@ -1098,7 +1098,7 @@
       "qualType" : "ImPlotLocation_",
       "order" : 6,
       "value" : "ImPlotLocation_North | ImPlotLocation_East",
-      "evaluatedValue" : "9"
+      "evaluatedValue" : 9
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotLocation_SouthWest",
@@ -1106,7 +1106,7 @@
       "qualType" : "ImPlotLocation_",
       "order" : 7,
       "value" : "ImPlotLocation_South | ImPlotLocation_West",
-      "evaluatedValue" : "6"
+      "evaluatedValue" : 6
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotLocation_SouthEast",
@@ -1114,7 +1114,7 @@
       "qualType" : "ImPlotLocation_",
       "order" : 8,
       "value" : "ImPlotLocation_South | ImPlotLocation_East",
-      "evaluatedValue" : "10"
+      "evaluatedValue" : 10
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -1134,14 +1134,14 @@
       "docComment" : "left/right",
       "qualType" : "ImPlotOrientation_",
       "order" : 0,
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotOrientation_Vertical",
       "docComment" : "up/down",
       "qualType" : "ImPlotOrientation_",
       "order" : 1,
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -1162,7 +1162,7 @@
       "qualType" : "ImPlotYAxis_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotYAxis_2",
@@ -1170,7 +1170,7 @@
       "qualType" : "ImPlotYAxis_",
       "order" : 1,
       "value" : "1",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotYAxis_3",
@@ -1178,7 +1178,7 @@
       "qualType" : "ImPlotYAxis_",
       "order" : 2,
       "value" : "2",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -1199,7 +1199,7 @@
       "qualType" : "ImPlotBin_",
       "order" : 0,
       "value" : "-1",
-      "evaluatedValue" : "-1"
+      "evaluatedValue" : -1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotBin_Sturges",
@@ -1207,7 +1207,7 @@
       "qualType" : "ImPlotBin_",
       "order" : 1,
       "value" : "-2",
-      "evaluatedValue" : "-2"
+      "evaluatedValue" : -2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotBin_Rice",
@@ -1215,7 +1215,7 @@
       "qualType" : "ImPlotBin_",
       "order" : 2,
       "value" : "-3",
-      "evaluatedValue" : "-3"
+      "evaluatedValue" : -3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotBin_Scott",
@@ -1223,7 +1223,7 @@
       "qualType" : "ImPlotBin_",
       "order" : 3,
       "value" : "-4",
-      "evaluatedValue" : "-4"
+      "evaluatedValue" : -4
     } ]
   }, {
     "@type" : "AstRecordDecl",

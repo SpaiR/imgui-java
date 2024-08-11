@@ -803,7 +803,7 @@
       "qualType" : "IGFD_FileStyleFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "IGFD_FileStyleByTypeFile",
@@ -811,7 +811,7 @@
       "qualType" : "IGFD_FileStyleFlags_",
       "order" : 1,
       "value" : "(1 << 0)",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "IGFD_FileStyleByTypeDir",
@@ -819,7 +819,7 @@
       "qualType" : "IGFD_FileStyleFlags_",
       "order" : 2,
       "value" : "(1 << 1)",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "IGFD_FileStyleByTypeLink",
@@ -827,7 +827,7 @@
       "qualType" : "IGFD_FileStyleFlags_",
       "order" : 3,
       "value" : "(1 << 2)",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "IGFD_FileStyleByExtention",
@@ -835,7 +835,7 @@
       "qualType" : "IGFD_FileStyleFlags_",
       "order" : 4,
       "value" : "(1 << 3)",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "IGFD_FileStyleByFullName",
@@ -843,7 +843,7 @@
       "qualType" : "IGFD_FileStyleFlags_",
       "order" : 5,
       "value" : "(1 << 4)",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "IGFD_FileStyleByContainedInFullName",
@@ -851,7 +851,7 @@
       "qualType" : "IGFD_FileStyleFlags_",
       "order" : 6,
       "value" : "(1 << 5)",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -862,7 +862,7 @@
       "qualType" : "ImGuiFileDialogFlags_",
       "order" : 0,
       "value" : "0",
-      "evaluatedValue" : "0"
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiFileDialogFlags_ConfirmOverwrite",
@@ -870,7 +870,7 @@
       "qualType" : "ImGuiFileDialogFlags_",
       "order" : 1,
       "value" : "(1 << 0)",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiFileDialogFlags_DontShowHiddenFiles",
@@ -878,7 +878,7 @@
       "qualType" : "ImGuiFileDialogFlags_",
       "order" : 2,
       "value" : "(1 << 1)",
-      "evaluatedValue" : "2"
+      "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiFileDialogFlags_DisableCreateDirectoryButton",
@@ -886,7 +886,7 @@
       "qualType" : "ImGuiFileDialogFlags_",
       "order" : 3,
       "value" : "(1 << 2)",
-      "evaluatedValue" : "4"
+      "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiFileDialogFlags_HideColumnType",
@@ -894,7 +894,7 @@
       "qualType" : "ImGuiFileDialogFlags_",
       "order" : 4,
       "value" : "(1 << 3)",
-      "evaluatedValue" : "8"
+      "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiFileDialogFlags_HideColumnSize",
@@ -902,7 +902,7 @@
       "qualType" : "ImGuiFileDialogFlags_",
       "order" : 5,
       "value" : "(1 << 4)",
-      "evaluatedValue" : "16"
+      "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiFileDialogFlags_HideColumnDate",
@@ -910,14 +910,14 @@
       "qualType" : "ImGuiFileDialogFlags_",
       "order" : 6,
       "value" : "(1 << 5)",
-      "evaluatedValue" : "32"
+      "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiFileDialogFlags_Default",
       "qualType" : "ImGuiFileDialogFlags_",
       "order" : 7,
       "value" : "ImGuiFileDialogFlags_ConfirmOverwrite",
-      "evaluatedValue" : "1"
+      "evaluatedValue" : 1
     } ]
   }, {
     "@type" : "AstNamespaceDecl",
@@ -1565,35 +1565,35 @@
           "qualType" : "IGFD::FileManager::SortingFieldEnum",
           "order" : 0,
           "value" : "0",
-          "evaluatedValue" : "0"
+          "evaluatedValue" : 0
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "FIELD_FILENAME",
           "docComment" : "sorted by filename",
           "qualType" : "IGFD::FileManager::SortingFieldEnum",
           "order" : 1,
-          "evaluatedValue" : "1"
+          "evaluatedValue" : 1
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "FIELD_TYPE",
           "docComment" : "sorted by filetype",
           "qualType" : "IGFD::FileManager::SortingFieldEnum",
           "order" : 2,
-          "evaluatedValue" : "2"
+          "evaluatedValue" : 2
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "FIELD_SIZE",
           "docComment" : "sorted by filesize (formated file size)",
           "qualType" : "IGFD::FileManager::SortingFieldEnum",
           "order" : 3,
-          "evaluatedValue" : "3"
+          "evaluatedValue" : 3
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "FIELD_DATE",
           "docComment" : "sorted by filedate",
           "qualType" : "IGFD::FileManager::SortingFieldEnum",
           "order" : 4,
-          "evaluatedValue" : "4"
+          "evaluatedValue" : 4
         } ]
       }, {
         "@type" : "AstFieldDecl",
