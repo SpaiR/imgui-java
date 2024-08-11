@@ -308,7 +308,7 @@ c81bca7a3ec9b099dc5dd90a99da499157728063  imgui-binding/src/generated/java/imgui
 bf1afb6aa23db2a7127d3eba30d0098f06c5449d  imgui-binding/src/generated/java/imgui/internal/ImRect.java
 4d13c7ede2c8737d5a9e684efda9141313d555c2  imgui-binding/src/generated/java/imgui/internal/flag/ImGuiAxis.java
 0868ff0b24c80714072bbcfd70fb833f916e0767  imgui-binding/src/generated/java/imgui/internal/flag/ImGuiDataAuthority.java
-26abf4330c875ef6b1eab09aca62af57dd78901c  imgui-binding/src/generated/java/imgui/internal/flag/ImGuiDockNodeFlags.java
+7705837bbf56823d3d1966a3eec7427a5f1fdeff  imgui-binding/src/generated/java/imgui/internal/flag/ImGuiDockNodeFlags.java
 94c82c186d8d87f37017606d036c4e07cef3adc4  imgui-binding/src/generated/java/imgui/internal/flag/ImGuiDockNodeState.java
 4343af2b071ef4d63d14e3df57ee96598d760f7f  imgui-binding/src/generated/java/imgui/internal/flag/ImGuiItemFlags.java
 c765e6eadf81568364ece65bdc87541130ebc57f  imgui-binding/src/generated/java/imgui/lwjgl3/glfw/ImGuiImplGlfwNative.java
