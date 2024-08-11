@@ -8351,6 +8351,17 @@ public class ImGui {
         return _result;
     */
 
+    public static boolean treeNodeEx(final String label, final int imGuiTreeNodeFlags) {
+        return nTreeNodeEx(label, imGuiTreeNodeFlags);
+    }
+
+    private static native boolean nTreeNodeEx(String obj_label, int imGuiTreeNodeFlags); /*MANUAL
+        auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
+        auto _result = ImGui::TreeNodeEx(label, imGuiTreeNodeFlags);
+        if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
+        return _result;
+    */
+
     public static boolean treeNodeEx(final String strId, final int imGuiTreeNodeFlags, final String label) {
         return nTreeNodeEx(strId, imGuiTreeNodeFlags, label);
     }
@@ -10110,7 +10121,13 @@ public class ImGui {
     //   wastefully sort your data every frame!
     // - Lifetime: don't hold on this pointer over multiple frames or past any subsequent call to BeginTable().
 
-    // TODO: TableGetSortSpecs()
+    public static ImGuiTableSortSpecs tableGetSortSpecs() {
+        return new ImGuiTableSortSpecs(nTableGetSortSpecs());
+    }
+
+    private static native long nTableGetSortSpecs(); /*
+        return (intptr_t)ImGui::TableGetSortSpecs();
+    */
 
     // Tables: Miscellaneous functions
     // - Functions args 'int column_n' treat the default value of -1 as the same as passing the current column index.
