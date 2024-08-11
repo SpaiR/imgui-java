@@ -34,10 +34,6 @@
         } ]
       } ]
     }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "operator=",
-      "resultType" : "ImVec2 &"
-    }, {
       "@type" : "AstFieldDecl",
       "name" : "x",
       "qualType" : "float",
@@ -47,26 +43,6 @@
       "name" : "y",
       "qualType" : "float",
       "desugaredQualType" : "float"
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "operator[]",
-      "resultType" : "float",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "idx",
-        "qualType" : "size_t",
-        "desugaredQualType" : "unsigned long"
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "operator[]",
-      "resultType" : "float &",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "idx",
-        "qualType" : "size_t",
-        "desugaredQualType" : "unsigned long"
-      } ]
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -80,10 +56,6 @@
           "text" : " ImVec4: 4D vector used to store clipping rectangles, colors etc. [Compile-time configurable type]"
         } ]
       } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "operator=",
-      "resultType" : "ImVec4 &"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "x",
@@ -131,6 +103,12 @@
       "name" : "CreateContext",
       "resultType" : "ImGuiContext *",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "shared_font_atlas",
+        "qualType" : "ImFontAtlas *",
+        "desugaredQualType" : "ImFontAtlas *",
+        "defaultValue" : "NULL"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -148,12 +126,6 @@
             "text" : "   for each static/DLL boundary you are calling from. Read \"Context and Memory Allocators\" section of imgui.cpp for details."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "shared_font_atlas",
-        "qualType" : "ImFontAtlas *",
-        "desugaredQualType" : "ImFontAtlas *",
-        "defaultValue" : "NULL"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -219,6 +191,12 @@
       "name" : "ShowDemoWindow",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "p_open",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "NULL"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -227,12 +205,6 @@
             "text" : " Demo, Debug, Information"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "p_open",
-        "qualType" : "bool *",
-        "desugaredQualType" : "bool *",
-        "defaultValue" : "NULL"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -311,6 +283,12 @@
       "name" : "StyleColorsDark",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "dst",
+        "qualType" : "ImGuiStyle *",
+        "desugaredQualType" : "ImGuiStyle *",
+        "defaultValue" : "NULL"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -319,12 +297,6 @@
             "text" : " Styles"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "dst",
-        "qualType" : "ImGuiStyle *",
-        "desugaredQualType" : "ImGuiStyle *",
-        "defaultValue" : "NULL"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -353,6 +325,23 @@
       "name" : "Begin",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "name",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "p_open",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "NULL"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImGuiWindowFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -394,23 +383,6 @@
             "text" : " - Note that the bottom of window stack always contains a window called \"Debug\"."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "name",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "p_open",
-        "qualType" : "bool *",
-        "desugaredQualType" : "bool *",
-        "defaultValue" : "NULL"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "ImGuiWindowFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -421,6 +393,29 @@
       "name" : "BeginChild",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "str_id",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "size",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &",
+        "defaultValue" : "ImVec2(0, 0)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "border",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool",
+        "defaultValue" : "false"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImGuiWindowFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -456,29 +451,6 @@
             "text" : "    returned true. Begin and BeginChild are the only odd ones out. Will be fixed in a future update.]"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "str_id",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "size",
-        "qualType" : "const ImVec2 &",
-        "desugaredQualType" : "const ImVec2 &",
-        "defaultValue" : "ImVec2(0, 0)"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "border",
-        "qualType" : "bool",
-        "desugaredQualType" : "bool",
-        "defaultValue" : "false"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "ImGuiWindowFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -588,18 +560,6 @@
       "name" : "SetNextWindowPos",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Window manipulation"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin)."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "pos",
         "qualType" : "const ImVec2 &",
@@ -616,6 +576,18 @@
         "qualType" : "const ImVec2 &",
         "desugaredQualType" : "const ImVec2 &",
         "defaultValue" : "ImVec2(0, 0)"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Window manipulation"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin)."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -982,6 +954,11 @@
       "name" : "PushFont",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "font",
+        "qualType" : "ImFont *",
+        "desugaredQualType" : "ImFont *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -990,11 +967,6 @@
             "text" : " Parameters stacks (shared)"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "font",
-        "qualType" : "ImFont *",
-        "desugaredQualType" : "ImFont *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1115,6 +1087,11 @@
       "name" : "PushItemWidth",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "item_width",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -1123,11 +1100,6 @@
             "text" : " Parameters stacks (current window)"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "item_width",
-        "qualType" : "float",
-        "desugaredQualType" : "float"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1415,6 +1387,11 @@
       "name" : "PushID",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "str_id",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -1453,11 +1430,6 @@
             "text" : "   whereas \"str_id\" denote a string that is only used as an ID and not normally displayed."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "str_id",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1538,15 +1510,6 @@
       "name" : "TextUnformatted",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Widgets: Text"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "text",
         "qualType" : "const char *",
@@ -1557,6 +1520,15 @@
         "qualType" : "const char *",
         "desugaredQualType" : "const char *",
         "defaultValue" : "NULL"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Widgets: Text"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1793,6 +1765,17 @@
       "name" : "Button",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "size",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &",
+        "defaultValue" : "ImVec2(0, 0)"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -1807,17 +1790,6 @@
             "text" : " - You may also use one of the many IsItemXXX functions (e.g. IsItemActive, IsItemHovered, etc.) to query widget state."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "label",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "size",
-        "qualType" : "const ImVec2 &",
-        "desugaredQualType" : "const ImVec2 &",
-        "defaultValue" : "ImVec2(0, 0)"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2070,21 +2042,6 @@
       "name" : "BeginCombo",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Widgets: Combo Box"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - The BeginCombo()/EndCombo() api allows you to manage your contents and selection state however you want it, by creating e.g. Selectable() items."
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - The old Combo() api are helpers over BeginCombo()/EndCombo() which are kept available for convenience purpose. This is analogous to how ListBox are created."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "label",
         "qualType" : "const char *",
@@ -2100,6 +2057,21 @@
         "qualType" : "ImGuiComboFlags",
         "desugaredQualType" : "int",
         "defaultValue" : "0"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Widgets: Combo Box"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - The BeginCombo()/EndCombo() api allows you to manage your contents and selection state however you want it, by creating e.g. Selectable() items."
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - The old Combo() api are helpers over BeginCombo()/EndCombo() which are kept available for convenience purpose. This is analogous to how ListBox are created."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2203,6 +2175,46 @@
       "name" : "DragFloat",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "v",
+        "qualType" : "float *",
+        "desugaredQualType" : "float *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "v_speed",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "1.0f"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "v_min",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0.0f"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "v_max",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0.0f"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "format",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "\"%.3f\""
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImGuiSliderFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -2253,46 +2265,6 @@
             "text" : "   If you get a warning converting a float to ImGuiSliderFlags, read https://github.com/ocornut/imgui/issues/3361"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "label",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "v",
-        "qualType" : "float *",
-        "desugaredQualType" : "float *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "v_speed",
-        "qualType" : "float",
-        "desugaredQualType" : "float",
-        "defaultValue" : "1.0f"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "v_min",
-        "qualType" : "float",
-        "desugaredQualType" : "float",
-        "defaultValue" : "0.0f"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "v_max",
-        "qualType" : "float",
-        "desugaredQualType" : "float",
-        "defaultValue" : "0.0f"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "format",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *",
-        "defaultValue" : "\"%.3f\""
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "ImGuiSliderFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2831,30 +2803,6 @@
       "name" : "SliderFloat",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Widgets: Regular Sliders"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - CTRL+Click on any slider to turn them into an input box. Manually input values aren't clamped by default and can go off-bounds. Use ImGuiSliderFlags_AlwaysClamp to always clamp."
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - Adjust format string to decorate the value with a prefix, a suffix, or adapt the editing and display precision e.g. \"%.3f\" -> 1.234; \"%5.2f secs\" -> 01.23 secs; \"Biscuit: %.0f\" -> Biscuit: 1; etc."
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - Format string may also be set to NULL or use the default format (\"%f\" or \"%d\")."
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - Legacy: Pre-1.78 there are SliderXXX() function signatures that takes a final `float power=1.0f' argument instead of the `ImGuiSliderFlags flags=0' argument."
-          }, {
-            "@type" : "AstTextComment",
-            "text" : "   If you get a warning converting a float to ImGuiSliderFlags, read https://github.com/ocornut/imgui/issues/3361"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "label",
         "qualType" : "const char *",
@@ -2886,6 +2834,30 @@
         "qualType" : "ImGuiSliderFlags",
         "desugaredQualType" : "int",
         "defaultValue" : "0"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Widgets: Regular Sliders"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - CTRL+Click on any slider to turn them into an input box. Manually input values aren't clamped by default and can go off-bounds. Use ImGuiSliderFlags_AlwaysClamp to always clamp."
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - Adjust format string to decorate the value with a prefix, a suffix, or adapt the editing and display precision e.g. \"%.3f\" -> 1.234; \"%5.2f secs\" -> 01.23 secs; \"Biscuit: %.0f\" -> Biscuit: 1; etc."
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - Format string may also be set to NULL or use the default format (\"%f\" or \"%d\")."
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - Legacy: Pre-1.78 there are SliderXXX() function signatures that takes a final `float power=1.0f' argument instead of the `ImGuiSliderFlags flags=0' argument."
+          }, {
+            "@type" : "AstTextComment",
+            "text" : "   If you get a warning converting a float to ImGuiSliderFlags, read https://github.com/ocornut/imgui/issues/3361"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -3410,21 +3382,6 @@
       "name" : "InputText",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Widgets: Input with Keyboard"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - If you want to use InputText() with std::string or any custom dynamic string type, see misc/cpp/imgui_stdlib.h and comments in imgui_demo.cpp."
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - Most of the ImGuiInputTextFlags flags are only useful for InputText() and not for InputFloatX, InputIntX, InputDouble etc."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "label",
         "qualType" : "const char *",
@@ -3457,6 +3414,21 @@
         "qualType" : "void *",
         "desugaredQualType" : "void *",
         "defaultValue" : "NULL"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Widgets: Input with Keyboard"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - If you want to use InputText() with std::string or any custom dynamic string type, see misc/cpp/imgui_stdlib.h and comments in imgui_demo.cpp."
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - Most of the ImGuiInputTextFlags flags are only useful for InputText() and not for InputFloatX, InputIntX, InputDouble etc."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -3898,6 +3870,22 @@
       "name" : "ColorEdit3",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "col",
+        "qualType" : "float *",
+        "desugaredQualType" : "float *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImGuiColorEditFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3918,22 +3906,6 @@
             "text" : ".x"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "label",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "col",
-        "qualType" : "float *",
-        "desugaredQualType" : "float *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "ImGuiColorEditFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -4046,6 +4018,11 @@
       "name" : "TreeNode",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4057,11 +4034,6 @@
             "text" : " - TreeNode functions return true when the node is open, in which case you need to also call TreePop() when you are finished displaying the tree node contents."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "label",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -4366,21 +4338,6 @@
       "name" : "Selectable",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Widgets: Selectables"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - A selectable highlights when hovered, and can display another color when selected."
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - Neighbors selectable extend their highlight bounds in order to leave no gap between them. This is so a series of selected Selectable appear contiguous."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "label",
         "qualType" : "const char *",
@@ -4403,6 +4360,21 @@
         "qualType" : "const ImVec2 &",
         "desugaredQualType" : "const ImVec2 &",
         "defaultValue" : "ImVec2(0, 0)"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Widgets: Selectables"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - A selectable highlights when hovered, and can display another color when selected."
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - Neighbors selectable extend their highlight bounds in order to leave no gap between them. This is so a series of selected Selectable appear contiguous."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -4436,6 +4408,17 @@
       "name" : "BeginListBox",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "size",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &",
+        "defaultValue" : "ImVec2(0, 0)"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4471,17 +4454,6 @@
             "text" : " 0.0f or -FLT_MIN: bottom-align  /  size.y = 0.0f (default): arbitrary default height which can fit ~7 items"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "label",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "size",
-        "qualType" : "const ImVec2 &",
-        "desugaredQualType" : "const ImVec2 &",
-        "defaultValue" : "ImVec2(0, 0)"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -4559,18 +4531,6 @@
       "name" : "PlotLines",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Widgets: Data Plotting"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - Consider using ImPlot (https://github.com/epezent/implot) which is much better!"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "label",
         "qualType" : "const char *",
@@ -4621,6 +4581,18 @@
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "sizeof(float)"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Widgets: Data Plotting"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - Consider using ImPlot (https://github.com/epezent/implot) which is much better!"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -4793,6 +4765,16 @@
       "name" : "Value",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "prefix",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "b",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4804,16 +4786,6 @@
             "text" : " - Those are merely shortcut to calling Text() with a format string. Output single value in \"name: value\" format (tip: freely declare more in your code to handle your types. you can add functions to the ImGui namespace)"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "prefix",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "b",
-        "qualType" : "bool",
-        "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -5039,6 +5011,17 @@
       "name" : "BeginPopup",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "str_id",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImGuiWindowFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -5053,17 +5036,6 @@
             "text" : "  - BeginPopupModal(): block every interactions behind the window, cannot be closed by user, add a dimming background, has a title bar."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "str_id",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "ImGuiWindowFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -5096,6 +5068,17 @@
       "name" : "OpenPopup",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "str_id",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "popup_flags",
+        "qualType" : "ImGuiPopupFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -5122,17 +5105,6 @@
             "text" : "  - Use IsWindowAppearing() after BeginPopup() to tell if a window just opened."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "str_id",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "popup_flags",
-        "qualType" : "ImGuiPopupFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -5176,6 +5148,18 @@
       "name" : "BeginPopupContextItem",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "str_id",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "NULL"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "popup_flags",
+        "qualType" : "ImGuiPopupFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "1"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -5196,18 +5180,6 @@
             "text" : "  - IMPORTANT: we exceptionally default their flags to 1 (== ImGuiPopupFlags_MouseButtonRight) for backward compatibility with older API taking 'int mouse_button = 1' parameter, so if you add other flags remember to re-add the ImGuiPopupFlags_MouseButtonRight."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "str_id",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *",
-        "defaultValue" : "NULL"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "popup_flags",
-        "qualType" : "ImGuiPopupFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "1"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -5248,6 +5220,17 @@
       "name" : "IsPopupOpen",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "str_id",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImGuiPopupFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -5265,23 +5248,40 @@
             "text" : "  - IsPopupOpen() with ImGuiPopupFlags_AnyPopupId + ImGuiPopupFlags_AnyPopupLevel: return true if any popup is open."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "str_id",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "ImGuiPopupFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "BeginTable",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "str_id",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "column",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImGuiTableFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "outer_size",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &",
+        "defaultValue" : "ImVec2(0.0f, 0.0f)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "inner_width",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0.0f"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -5362,34 +5362,6 @@
             "text" : " - 5. Call EndTable()"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "str_id",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "column",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "ImGuiTableFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "outer_size",
-        "qualType" : "const ImVec2 &",
-        "desugaredQualType" : "const ImVec2 &",
-        "defaultValue" : "ImVec2(0.0f, 0.0f)"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "inner_width",
-        "qualType" : "float",
-        "desugaredQualType" : "float",
-        "defaultValue" : "0.0f"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -5431,6 +5403,29 @@
       "name" : "TableSetupColumn",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImGuiTableColumnFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "init_width_or_weight",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0.0f"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "user_id",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -5466,29 +5461,6 @@
             "text" : " - Use TableSetupScrollFreeze() to lock columns/rows so they stay visible when scrolled."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "label",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "ImGuiTableColumnFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "init_width_or_weight",
-        "qualType" : "float",
-        "desugaredQualType" : "float",
-        "defaultValue" : "0.0f"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "user_id",
-        "qualType" : "ImGuiID",
-        "desugaredQualType" : "unsigned int",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -5636,18 +5608,6 @@
       "name" : "Columns",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Legacy Columns API (prefer using Tables!)"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - You can also use SameLine(pos_x) to mimic simplified columns."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "count",
         "qualType" : "int",
@@ -5665,6 +5625,18 @@
         "qualType" : "bool",
         "desugaredQualType" : "bool",
         "defaultValue" : "true"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Legacy Columns API (prefer using Tables!)"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - You can also use SameLine(pos_x) to mimic simplified columns."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -5735,6 +5707,17 @@
       "name" : "BeginTabBar",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "str_id",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImGuiTabBarFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -5746,17 +5729,6 @@
             "text" : " Note: Tabs are automatically created by the docking system. Use this to create tab bars/tabs yourself without docking being involved."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "str_id",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "ImGuiTabBarFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -5819,6 +5791,29 @@
       "name" : "DockSpace",
       "resultType" : "ImGuiID",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "id",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "size",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &",
+        "defaultValue" : "ImVec2(0, 0)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImGuiDockNodeFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "window_class",
+        "qualType" : "const ImGuiWindowClass *",
+        "desugaredQualType" : "const ImGuiWindowClass *",
+        "defaultValue" : "NULL"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -5863,29 +5858,6 @@
             "text" : "   e.g. if you have multiple tabs with a dockspace inside each tab: submit the non-visible dockspaces with ImGuiDockNodeFlags_KeepAliveOnly."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "id",
-        "qualType" : "ImGuiID",
-        "desugaredQualType" : "unsigned int"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "size",
-        "qualType" : "const ImVec2 &",
-        "desugaredQualType" : "const ImVec2 &",
-        "defaultValue" : "ImVec2(0, 0)"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "ImGuiDockNodeFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "window_class",
-        "qualType" : "const ImGuiWindowClass *",
-        "desugaredQualType" : "const ImGuiWindowClass *",
-        "defaultValue" : "NULL"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -5949,6 +5921,12 @@
       "name" : "LogToTTY",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "auto_open_depth",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "-1"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -5960,12 +5938,6 @@
             "text" : " - All text output from the interface can be captured into tty/file/clipboard. By default, tree nodes are automatically opened during logging."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "auto_open_depth",
-        "qualType" : "int",
-        "desugaredQualType" : "int",
-        "defaultValue" : "-1"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6043,6 +6015,12 @@
       "name" : "BeginDragDropSource",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImGuiDragDropFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -6063,12 +6041,6 @@
             "text" : " - An item can be both drag source and drop target."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "ImGuiDragDropFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6133,6 +6105,12 @@
       "name" : "BeginDisabled",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "disabled",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool",
+        "defaultValue" : "true"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -6150,12 +6128,6 @@
             "text" : " - BeginDisabled(false) essentially does nothing useful but is provided to facilitate use of boolean expressions. If you can avoid calling BeginDisabled(False)/EndDisabled() best to avoid it."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "disabled",
-        "qualType" : "bool",
-        "desugaredQualType" : "bool",
-        "defaultValue" : "true"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6166,18 +6138,6 @@
       "name" : "PushClipRect",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Clipping"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - Mouse hovering is affected by ImGui::PushClipRect() calls, unlike direct calls to ImDrawList::PushClipRect() which are render only."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "clip_rect_min",
         "qualType" : "const ImVec2 &",
@@ -6192,6 +6152,18 @@
         "name" : "intersect_with_current_clip_rect",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Clipping"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - Mouse hovering is affected by ImGui::PushClipRect() calls, unlike direct calls to ImDrawList::PushClipRect() which are render only."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6230,6 +6202,12 @@
       "name" : "IsItemHovered",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImGuiHoveredFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -6244,12 +6222,6 @@
             "text" : " - See Demo Window under \"Widgets->Querying Status\" for an interactive visualization of most of those functions."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "ImGuiHoveredFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6350,6 +6322,11 @@
       "name" : "IsRectVisible",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "size",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -6358,11 +6335,6 @@
             "text" : " Miscellaneous Utilities"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "size",
-        "qualType" : "const ImVec2 &",
-        "desugaredQualType" : "const ImVec2 &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6473,15 +6445,6 @@
       "name" : "CalcTextSize",
       "resultType" : "ImVec2",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Text Utilities"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "text",
         "qualType" : "const char *",
@@ -6504,12 +6467,26 @@
         "qualType" : "float",
         "desugaredQualType" : "float",
         "defaultValue" : "-1.0f"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Text Utilities"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "ColorConvertU32ToFloat4",
       "resultType" : "ImVec4",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "in",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -6518,11 +6495,6 @@
             "text" : " Color Utilities"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "in",
-        "qualType" : "ImU32",
-        "desugaredQualType" : "unsigned int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6609,6 +6581,11 @@
       "name" : "GetKeyIndex",
       "resultType" : "int",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "imgui_key",
+        "qualType" : "ImGuiKey",
+        "desugaredQualType" : "int"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -6623,11 +6600,6 @@
             "text" : " - We don't know the meaning of those value. You can use GetKeyIndex() to map a ImGuiKey_ value into the user index."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "imgui_key",
-        "qualType" : "ImGuiKey",
-        "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6701,6 +6673,11 @@
       "name" : "IsMouseDown",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "button",
+        "qualType" : "ImGuiMouseButton",
+        "desugaredQualType" : "int"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -6718,11 +6695,6 @@
             "text" : " - Dragging operations are only reported after mouse has moved a certain distance away from the initial clicking position (see 'lock_threshold' and 'io.MouseDraggingThreshold')"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "button",
-        "qualType" : "ImGuiMouseButton",
-        "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6915,6 +6887,11 @@
       "name" : "LoadIniSettingsFromDisk",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "ini_filename",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -6932,11 +6909,6 @@
             "text" : " - Important: default value \"imgui.ini\" is relative to current working dir! Most apps will want to lock this to an absolute path (e.g. same path as executables)."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "ini_filename",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6980,18 +6952,6 @@
       "name" : "DebugCheckVersionAndDataLayout",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Debug Utilities"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - This is used by the IMGUI_CHECKVERSION() macro."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "version_str",
         "qualType" : "const char *",
@@ -7026,12 +6986,40 @@
         "name" : "sz_drawidx",
         "qualType" : "size_t",
         "desugaredQualType" : "unsigned long"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Debug Utilities"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - This is used by the IMGUI_CHECKVERSION() macro."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetAllocatorFunctions",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "alloc_func",
+        "qualType" : "ImGuiMemAllocFunc",
+        "desugaredQualType" : "void *(*)(size_t, void *)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "free_func",
+        "qualType" : "ImGuiMemFreeFunc",
+        "desugaredQualType" : "void (*)(void *, void *)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "user_data",
+        "qualType" : "void *",
+        "desugaredQualType" : "void *",
+        "defaultValue" : "NULL"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -7049,22 +7037,6 @@
             "text" : "   for each static/DLL boundary you are calling from. Read \"Context and Memory Allocators\" section of imgui.cpp for more details."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "alloc_func",
-        "qualType" : "ImGuiMemAllocFunc",
-        "desugaredQualType" : "void *(*)(size_t, void *)"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "free_func",
-        "qualType" : "ImGuiMemFreeFunc",
-        "desugaredQualType" : "void (*)(void *, void *)"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "user_data",
-        "qualType" : "void *",
-        "desugaredQualType" : "void *",
-        "defaultValue" : "NULL"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -9271,66 +9243,77 @@
       "name" : "ImGuiDataType_S8",
       "docComment" : "signed char / char (with sensible compilers)",
       "qualType" : "ImGuiDataType_",
-      "order" : 0
+      "order" : 0,
+      "evaluatedValue" : "0"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_U8",
       "docComment" : "unsigned char",
       "qualType" : "ImGuiDataType_",
-      "order" : 1
+      "order" : 1,
+      "evaluatedValue" : "1"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_S16",
       "docComment" : "short",
       "qualType" : "ImGuiDataType_",
-      "order" : 2
+      "order" : 2,
+      "evaluatedValue" : "2"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_U16",
       "docComment" : "unsigned short",
       "qualType" : "ImGuiDataType_",
-      "order" : 3
+      "order" : 3,
+      "evaluatedValue" : "3"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_S32",
       "docComment" : "int",
       "qualType" : "ImGuiDataType_",
-      "order" : 4
+      "order" : 4,
+      "evaluatedValue" : "4"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_U32",
       "docComment" : "unsigned int",
       "qualType" : "ImGuiDataType_",
-      "order" : 5
+      "order" : 5,
+      "evaluatedValue" : "5"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_S64",
       "docComment" : "long long / __int64",
       "qualType" : "ImGuiDataType_",
-      "order" : 6
+      "order" : 6,
+      "evaluatedValue" : "6"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_U64",
       "docComment" : "unsigned long long / unsigned __int64",
       "qualType" : "ImGuiDataType_",
-      "order" : 7
+      "order" : 7,
+      "evaluatedValue" : "7"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_Float",
       "docComment" : "float",
       "qualType" : "ImGuiDataType_",
-      "order" : 8
+      "order" : 8,
+      "evaluatedValue" : "8"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_Double",
       "docComment" : "double",
       "qualType" : "ImGuiDataType_",
-      "order" : 9
+      "order" : 9,
+      "evaluatedValue" : "9"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDataType_COUNT",
       "qualType" : "ImGuiDataType_",
-      "order" : 10
+      "order" : 10,
+      "evaluatedValue" : "10"
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9348,42 +9331,43 @@
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDir_None",
       "qualType" : "ImGuiDir_",
-      "order" : -1,
+      "order" : 0,
       "value" : "-1",
       "evaluatedValue" : "-1"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDir_Left",
       "qualType" : "ImGuiDir_",
-      "order" : 0,
+      "order" : 1,
       "value" : "0",
       "evaluatedValue" : "0"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDir_Right",
       "qualType" : "ImGuiDir_",
-      "order" : 1,
+      "order" : 2,
       "value" : "1",
       "evaluatedValue" : "1"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDir_Up",
       "qualType" : "ImGuiDir_",
-      "order" : 2,
+      "order" : 3,
       "value" : "2",
       "evaluatedValue" : "2"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDir_Down",
       "qualType" : "ImGuiDir_",
-      "order" : 3,
+      "order" : 4,
       "value" : "3",
       "evaluatedValue" : "3"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiDir_COUNT",
       "qualType" : "ImGuiDir_",
-      "order" : 4
+      "order" : 5,
+      "evaluatedValue" : "4"
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9437,123 +9421,146 @@
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Tab",
       "qualType" : "ImGuiKey_",
-      "order" : 0
+      "order" : 0,
+      "evaluatedValue" : "0"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_LeftArrow",
       "qualType" : "ImGuiKey_",
-      "order" : 1
+      "order" : 1,
+      "evaluatedValue" : "1"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_RightArrow",
       "qualType" : "ImGuiKey_",
-      "order" : 2
+      "order" : 2,
+      "evaluatedValue" : "2"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_UpArrow",
       "qualType" : "ImGuiKey_",
-      "order" : 3
+      "order" : 3,
+      "evaluatedValue" : "3"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_DownArrow",
       "qualType" : "ImGuiKey_",
-      "order" : 4
+      "order" : 4,
+      "evaluatedValue" : "4"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_PageUp",
       "qualType" : "ImGuiKey_",
-      "order" : 5
+      "order" : 5,
+      "evaluatedValue" : "5"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_PageDown",
       "qualType" : "ImGuiKey_",
-      "order" : 6
+      "order" : 6,
+      "evaluatedValue" : "6"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Home",
       "qualType" : "ImGuiKey_",
-      "order" : 7
+      "order" : 7,
+      "evaluatedValue" : "7"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_End",
       "qualType" : "ImGuiKey_",
-      "order" : 8
+      "order" : 8,
+      "evaluatedValue" : "8"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Insert",
       "qualType" : "ImGuiKey_",
-      "order" : 9
+      "order" : 9,
+      "evaluatedValue" : "9"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Delete",
       "qualType" : "ImGuiKey_",
-      "order" : 10
+      "order" : 10,
+      "evaluatedValue" : "10"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Backspace",
       "qualType" : "ImGuiKey_",
-      "order" : 11
+      "order" : 11,
+      "evaluatedValue" : "11"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Space",
       "qualType" : "ImGuiKey_",
-      "order" : 12
+      "order" : 12,
+      "evaluatedValue" : "12"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Enter",
       "qualType" : "ImGuiKey_",
-      "order" : 13
+      "order" : 13,
+      "evaluatedValue" : "13"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Escape",
       "qualType" : "ImGuiKey_",
-      "order" : 14
+      "order" : 14,
+      "evaluatedValue" : "14"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_KeyPadEnter",
       "qualType" : "ImGuiKey_",
-      "order" : 15
+      "order" : 15,
+      "evaluatedValue" : "15"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_A",
       "docComment" : "for text edit CTRL+A: select all",
       "qualType" : "ImGuiKey_",
-      "order" : 16
+      "order" : 16,
+      "evaluatedValue" : "16"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_C",
       "docComment" : "for text edit CTRL+C: copy",
       "qualType" : "ImGuiKey_",
-      "order" : 17
+      "order" : 17,
+      "evaluatedValue" : "17"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_V",
       "docComment" : "for text edit CTRL+V: paste",
       "qualType" : "ImGuiKey_",
-      "order" : 18
+      "order" : 18,
+      "evaluatedValue" : "18"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_X",
       "docComment" : "for text edit CTRL+X: cut",
       "qualType" : "ImGuiKey_",
-      "order" : 19
+      "order" : 19,
+      "evaluatedValue" : "19"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Y",
       "docComment" : "for text edit CTRL+Y: redo",
       "qualType" : "ImGuiKey_",
-      "order" : 20
+      "order" : 20,
+      "evaluatedValue" : "20"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Z",
       "docComment" : "for text edit CTRL+Z: undo",
       "qualType" : "ImGuiKey_",
-      "order" : 21
+      "order" : 21,
+      "evaluatedValue" : "21"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_COUNT",
       "qualType" : "ImGuiKey_",
-      "order" : 22
+      "order" : 22,
+      "evaluatedValue" : "22"
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9629,120 +9636,141 @@
       "name" : "ImGuiNavInput_Activate",
       "docComment" : "activate / open / toggle / tweak value       // e.g. Cross  (PS4), A (Xbox), A (Switch), Space (Keyboard)",
       "qualType" : "ImGuiNavInput_",
-      "order" : 0
+      "order" : 0,
+      "evaluatedValue" : "0"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_Cancel",
       "docComment" : "cancel / close / exit                        // e.g. Circle (PS4), B (Xbox), B (Switch), Escape (Keyboard)",
       "qualType" : "ImGuiNavInput_",
-      "order" : 1
+      "order" : 1,
+      "evaluatedValue" : "1"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_Input",
       "docComment" : "text input / on-screen keyboard              // e.g. Triang.(PS4), Y (Xbox), X (Switch), Return (Keyboard)",
       "qualType" : "ImGuiNavInput_",
-      "order" : 2
+      "order" : 2,
+      "evaluatedValue" : "2"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_Menu",
       "docComment" : "tap: toggle menu / hold: focus, move, resize // e.g. Square (PS4), X (Xbox), Y (Switch), Alt (Keyboard)",
       "qualType" : "ImGuiNavInput_",
-      "order" : 3
+      "order" : 3,
+      "evaluatedValue" : "3"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_DpadLeft",
       "docComment" : "move / tweak / resize window (w/ PadMenu)    // e.g. D-pad Left/Right/Up/Down (Gamepads), Arrow keys (Keyboard)",
       "qualType" : "ImGuiNavInput_",
-      "order" : 4
+      "order" : 4,
+      "evaluatedValue" : "4"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_DpadRight",
       "qualType" : "ImGuiNavInput_",
-      "order" : 5
+      "order" : 5,
+      "evaluatedValue" : "5"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_DpadUp",
       "qualType" : "ImGuiNavInput_",
-      "order" : 6
+      "order" : 6,
+      "evaluatedValue" : "6"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_DpadDown",
       "qualType" : "ImGuiNavInput_",
-      "order" : 7
+      "order" : 7,
+      "evaluatedValue" : "7"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_LStickLeft",
       "docComment" : "scroll / move window (w/ PadMenu)            // e.g. Left Analog Stick Left/Right/Up/Down",
       "qualType" : "ImGuiNavInput_",
-      "order" : 8
+      "order" : 8,
+      "evaluatedValue" : "8"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_LStickRight",
       "qualType" : "ImGuiNavInput_",
-      "order" : 9
+      "order" : 9,
+      "evaluatedValue" : "9"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_LStickUp",
       "qualType" : "ImGuiNavInput_",
-      "order" : 10
+      "order" : 10,
+      "evaluatedValue" : "10"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_LStickDown",
       "qualType" : "ImGuiNavInput_",
-      "order" : 11
+      "order" : 11,
+      "evaluatedValue" : "11"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_FocusPrev",
       "docComment" : "next window (w/ PadMenu)                     // e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)",
       "qualType" : "ImGuiNavInput_",
-      "order" : 12
+      "order" : 12,
+      "evaluatedValue" : "12"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_FocusNext",
       "docComment" : "prev window (w/ PadMenu)                     // e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)",
       "qualType" : "ImGuiNavInput_",
-      "order" : 13
+      "order" : 13,
+      "evaluatedValue" : "13"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_TweakSlow",
       "docComment" : "slower tweaks                                // e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)",
       "qualType" : "ImGuiNavInput_",
-      "order" : 14
+      "order" : 14,
+      "evaluatedValue" : "14"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_TweakFast",
       "docComment" : "faster tweaks                                // e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)",
       "qualType" : "ImGuiNavInput_",
-      "order" : 15
+      "order" : 15,
+      "evaluatedValue" : "15"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_KeyLeft_",
       "docComment" : "move left                                    // = Arrow keys",
       "qualType" : "ImGuiNavInput_",
-      "order" : 16
+      "order" : 16,
+      "evaluatedValue" : "16"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_KeyRight_",
       "docComment" : "move right",
       "qualType" : "ImGuiNavInput_",
-      "order" : 17
+      "order" : 17,
+      "evaluatedValue" : "17"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_KeyUp_",
       "docComment" : "move up",
       "qualType" : "ImGuiNavInput_",
-      "order" : 18
+      "order" : 18,
+      "evaluatedValue" : "18"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_KeyDown_",
       "docComment" : "move down",
       "qualType" : "ImGuiNavInput_",
-      "order" : 19
+      "order" : 19,
+      "evaluatedValue" : "19"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_COUNT",
       "qualType" : "ImGuiNavInput_",
-      "order" : 20
+      "order" : 20,
+      "evaluatedValue" : "20"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_InternalStart_",
@@ -9959,298 +9987,354 @@
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_Text",
       "qualType" : "ImGuiCol_",
-      "order" : 0
+      "order" : 0,
+      "evaluatedValue" : "0"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TextDisabled",
       "qualType" : "ImGuiCol_",
-      "order" : 1
+      "order" : 1,
+      "evaluatedValue" : "1"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_WindowBg",
       "docComment" : "Background of normal windows",
       "qualType" : "ImGuiCol_",
-      "order" : 2
+      "order" : 2,
+      "evaluatedValue" : "2"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ChildBg",
       "docComment" : "Background of child windows",
       "qualType" : "ImGuiCol_",
-      "order" : 3
+      "order" : 3,
+      "evaluatedValue" : "3"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_PopupBg",
       "docComment" : "Background of popups, menus, tooltips windows",
       "qualType" : "ImGuiCol_",
-      "order" : 4
+      "order" : 4,
+      "evaluatedValue" : "4"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_Border",
       "qualType" : "ImGuiCol_",
-      "order" : 5
+      "order" : 5,
+      "evaluatedValue" : "5"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_BorderShadow",
       "qualType" : "ImGuiCol_",
-      "order" : 6
+      "order" : 6,
+      "evaluatedValue" : "6"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_FrameBg",
       "docComment" : "Background of checkbox, radio button, plot, slider, text input",
       "qualType" : "ImGuiCol_",
-      "order" : 7
+      "order" : 7,
+      "evaluatedValue" : "7"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_FrameBgHovered",
       "qualType" : "ImGuiCol_",
-      "order" : 8
+      "order" : 8,
+      "evaluatedValue" : "8"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_FrameBgActive",
       "qualType" : "ImGuiCol_",
-      "order" : 9
+      "order" : 9,
+      "evaluatedValue" : "9"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TitleBg",
       "qualType" : "ImGuiCol_",
-      "order" : 10
+      "order" : 10,
+      "evaluatedValue" : "10"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TitleBgActive",
       "qualType" : "ImGuiCol_",
-      "order" : 11
+      "order" : 11,
+      "evaluatedValue" : "11"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TitleBgCollapsed",
       "qualType" : "ImGuiCol_",
-      "order" : 12
+      "order" : 12,
+      "evaluatedValue" : "12"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_MenuBarBg",
       "qualType" : "ImGuiCol_",
-      "order" : 13
+      "order" : 13,
+      "evaluatedValue" : "13"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ScrollbarBg",
       "qualType" : "ImGuiCol_",
-      "order" : 14
+      "order" : 14,
+      "evaluatedValue" : "14"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ScrollbarGrab",
       "qualType" : "ImGuiCol_",
-      "order" : 15
+      "order" : 15,
+      "evaluatedValue" : "15"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ScrollbarGrabHovered",
       "qualType" : "ImGuiCol_",
-      "order" : 16
+      "order" : 16,
+      "evaluatedValue" : "16"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ScrollbarGrabActive",
       "qualType" : "ImGuiCol_",
-      "order" : 17
+      "order" : 17,
+      "evaluatedValue" : "17"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_CheckMark",
       "qualType" : "ImGuiCol_",
-      "order" : 18
+      "order" : 18,
+      "evaluatedValue" : "18"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_SliderGrab",
       "qualType" : "ImGuiCol_",
-      "order" : 19
+      "order" : 19,
+      "evaluatedValue" : "19"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_SliderGrabActive",
       "qualType" : "ImGuiCol_",
-      "order" : 20
+      "order" : 20,
+      "evaluatedValue" : "20"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_Button",
       "qualType" : "ImGuiCol_",
-      "order" : 21
+      "order" : 21,
+      "evaluatedValue" : "21"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ButtonHovered",
       "qualType" : "ImGuiCol_",
-      "order" : 22
+      "order" : 22,
+      "evaluatedValue" : "22"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ButtonActive",
       "qualType" : "ImGuiCol_",
-      "order" : 23
+      "order" : 23,
+      "evaluatedValue" : "23"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_Header",
       "docComment" : "Header* colors are used for CollapsingHeader, TreeNode, Selectable, MenuItem",
       "qualType" : "ImGuiCol_",
-      "order" : 24
+      "order" : 24,
+      "evaluatedValue" : "24"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_HeaderHovered",
       "qualType" : "ImGuiCol_",
-      "order" : 25
+      "order" : 25,
+      "evaluatedValue" : "25"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_HeaderActive",
       "qualType" : "ImGuiCol_",
-      "order" : 26
+      "order" : 26,
+      "evaluatedValue" : "26"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_Separator",
       "qualType" : "ImGuiCol_",
-      "order" : 27
+      "order" : 27,
+      "evaluatedValue" : "27"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_SeparatorHovered",
       "qualType" : "ImGuiCol_",
-      "order" : 28
+      "order" : 28,
+      "evaluatedValue" : "28"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_SeparatorActive",
       "qualType" : "ImGuiCol_",
-      "order" : 29
+      "order" : 29,
+      "evaluatedValue" : "29"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ResizeGrip",
       "qualType" : "ImGuiCol_",
-      "order" : 30
+      "order" : 30,
+      "evaluatedValue" : "30"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ResizeGripHovered",
       "qualType" : "ImGuiCol_",
-      "order" : 31
+      "order" : 31,
+      "evaluatedValue" : "31"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ResizeGripActive",
       "qualType" : "ImGuiCol_",
-      "order" : 32
+      "order" : 32,
+      "evaluatedValue" : "32"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_Tab",
       "qualType" : "ImGuiCol_",
-      "order" : 33
+      "order" : 33,
+      "evaluatedValue" : "33"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TabHovered",
       "qualType" : "ImGuiCol_",
-      "order" : 34
+      "order" : 34,
+      "evaluatedValue" : "34"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TabActive",
       "qualType" : "ImGuiCol_",
-      "order" : 35
+      "order" : 35,
+      "evaluatedValue" : "35"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TabUnfocused",
       "qualType" : "ImGuiCol_",
-      "order" : 36
+      "order" : 36,
+      "evaluatedValue" : "36"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TabUnfocusedActive",
       "qualType" : "ImGuiCol_",
-      "order" : 37
+      "order" : 37,
+      "evaluatedValue" : "37"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_DockingPreview",
       "docComment" : "Preview overlay color when about to docking something",
       "qualType" : "ImGuiCol_",
-      "order" : 38
+      "order" : 38,
+      "evaluatedValue" : "38"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_DockingEmptyBg",
       "docComment" : "Background color for empty node (e.g. CentralNode with no window docked into it)",
       "qualType" : "ImGuiCol_",
-      "order" : 39
+      "order" : 39,
+      "evaluatedValue" : "39"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_PlotLines",
       "qualType" : "ImGuiCol_",
-      "order" : 40
+      "order" : 40,
+      "evaluatedValue" : "40"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_PlotLinesHovered",
       "qualType" : "ImGuiCol_",
-      "order" : 41
+      "order" : 41,
+      "evaluatedValue" : "41"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_PlotHistogram",
       "qualType" : "ImGuiCol_",
-      "order" : 42
+      "order" : 42,
+      "evaluatedValue" : "42"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_PlotHistogramHovered",
       "qualType" : "ImGuiCol_",
-      "order" : 43
+      "order" : 43,
+      "evaluatedValue" : "43"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TableHeaderBg",
       "docComment" : "Table header background",
       "qualType" : "ImGuiCol_",
-      "order" : 44
+      "order" : 44,
+      "evaluatedValue" : "44"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TableBorderStrong",
       "docComment" : "Table outer and header borders (prefer using Alpha=1.0 here)",
       "qualType" : "ImGuiCol_",
-      "order" : 45
+      "order" : 45,
+      "evaluatedValue" : "45"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TableBorderLight",
       "docComment" : "Table inner borders (prefer using Alpha=1.0 here)",
       "qualType" : "ImGuiCol_",
-      "order" : 46
+      "order" : 46,
+      "evaluatedValue" : "46"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TableRowBg",
       "docComment" : "Table row background (even rows)",
       "qualType" : "ImGuiCol_",
-      "order" : 47
+      "order" : 47,
+      "evaluatedValue" : "47"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TableRowBgAlt",
       "docComment" : "Table row background (odd rows)",
       "qualType" : "ImGuiCol_",
-      "order" : 48
+      "order" : 48,
+      "evaluatedValue" : "48"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_TextSelectedBg",
       "qualType" : "ImGuiCol_",
-      "order" : 49
+      "order" : 49,
+      "evaluatedValue" : "49"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_DragDropTarget",
       "qualType" : "ImGuiCol_",
-      "order" : 50
+      "order" : 50,
+      "evaluatedValue" : "50"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_NavHighlight",
       "docComment" : "Gamepad/keyboard: current highlighted item",
       "qualType" : "ImGuiCol_",
-      "order" : 51
+      "order" : 51,
+      "evaluatedValue" : "51"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_NavWindowingHighlight",
       "docComment" : "Highlight window when using CTRL+TAB",
       "qualType" : "ImGuiCol_",
-      "order" : 52
+      "order" : 52,
+      "evaluatedValue" : "52"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_NavWindowingDimBg",
       "docComment" : "Darken/colorize entire screen behind the CTRL+TAB window list, when active",
       "qualType" : "ImGuiCol_",
-      "order" : 53
+      "order" : 53,
+      "evaluatedValue" : "53"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ModalWindowDimBg",
       "docComment" : "Darken/colorize entire screen behind a modal window, when one is active",
       "qualType" : "ImGuiCol_",
-      "order" : 54
+      "order" : 54,
+      "evaluatedValue" : "54"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_COUNT",
       "qualType" : "ImGuiCol_",
-      "order" : 55
+      "order" : 55,
+      "evaluatedValue" : "55"
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -10287,156 +10371,182 @@
       "name" : "ImGuiStyleVar_Alpha",
       "docComment" : "float     Alpha",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 0
+      "order" : 0,
+      "evaluatedValue" : "0"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_DisabledAlpha",
       "docComment" : "float     DisabledAlpha",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 1
+      "order" : 1,
+      "evaluatedValue" : "1"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_WindowPadding",
       "docComment" : "ImVec2    WindowPadding",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 2
+      "order" : 2,
+      "evaluatedValue" : "2"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_WindowRounding",
       "docComment" : "float     WindowRounding",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 3
+      "order" : 3,
+      "evaluatedValue" : "3"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_WindowBorderSize",
       "docComment" : "float     WindowBorderSize",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 4
+      "order" : 4,
+      "evaluatedValue" : "4"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_WindowMinSize",
       "docComment" : "ImVec2    WindowMinSize",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 5
+      "order" : 5,
+      "evaluatedValue" : "5"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_WindowTitleAlign",
       "docComment" : "ImVec2    WindowTitleAlign",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 6
+      "order" : 6,
+      "evaluatedValue" : "6"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_ChildRounding",
       "docComment" : "float     ChildRounding",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 7
+      "order" : 7,
+      "evaluatedValue" : "7"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_ChildBorderSize",
       "docComment" : "float     ChildBorderSize",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 8
+      "order" : 8,
+      "evaluatedValue" : "8"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_PopupRounding",
       "docComment" : "float     PopupRounding",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 9
+      "order" : 9,
+      "evaluatedValue" : "9"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_PopupBorderSize",
       "docComment" : "float     PopupBorderSize",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 10
+      "order" : 10,
+      "evaluatedValue" : "10"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_FramePadding",
       "docComment" : "ImVec2    FramePadding",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 11
+      "order" : 11,
+      "evaluatedValue" : "11"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_FrameRounding",
       "docComment" : "float     FrameRounding",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 12
+      "order" : 12,
+      "evaluatedValue" : "12"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_FrameBorderSize",
       "docComment" : "float     FrameBorderSize",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 13
+      "order" : 13,
+      "evaluatedValue" : "13"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_ItemSpacing",
       "docComment" : "ImVec2    ItemSpacing",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 14
+      "order" : 14,
+      "evaluatedValue" : "14"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_ItemInnerSpacing",
       "docComment" : "ImVec2    ItemInnerSpacing",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 15
+      "order" : 15,
+      "evaluatedValue" : "15"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_IndentSpacing",
       "docComment" : "float     IndentSpacing",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 16
+      "order" : 16,
+      "evaluatedValue" : "16"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_CellPadding",
       "docComment" : "ImVec2    CellPadding",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 17
+      "order" : 17,
+      "evaluatedValue" : "17"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_ScrollbarSize",
       "docComment" : "float     ScrollbarSize",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 18
+      "order" : 18,
+      "evaluatedValue" : "18"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_ScrollbarRounding",
       "docComment" : "float     ScrollbarRounding",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 19
+      "order" : 19,
+      "evaluatedValue" : "19"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_GrabMinSize",
       "docComment" : "float     GrabMinSize",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 20
+      "order" : 20,
+      "evaluatedValue" : "20"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_GrabRounding",
       "docComment" : "float     GrabRounding",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 21
+      "order" : 21,
+      "evaluatedValue" : "21"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_TabRounding",
       "docComment" : "float     TabRounding",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 22
+      "order" : 22,
+      "evaluatedValue" : "22"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_ButtonTextAlign",
       "docComment" : "ImVec2    ButtonTextAlign",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 23
+      "order" : 23,
+      "evaluatedValue" : "23"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_SelectableTextAlign",
       "docComment" : "ImVec2    SelectableTextAlign",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 24
+      "order" : 24,
+      "evaluatedValue" : "24"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiStyleVar_COUNT",
       "qualType" : "ImGuiStyleVar_",
-      "order" : 25
+      "order" : 25,
+      "evaluatedValue" : "25"
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -10900,14 +11010,14 @@
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_None",
       "qualType" : "ImGuiMouseCursor_",
-      "order" : -1,
+      "order" : 0,
       "value" : "-1",
       "evaluatedValue" : "-1"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_Arrow",
       "qualType" : "ImGuiMouseCursor_",
-      "order" : 0,
+      "order" : 1,
       "value" : "0",
       "evaluatedValue" : "0"
     }, {
@@ -10915,54 +11025,63 @@
       "name" : "ImGuiMouseCursor_TextInput",
       "docComment" : "When hovering over InputText, etc.",
       "qualType" : "ImGuiMouseCursor_",
-      "order" : 1
+      "order" : 2,
+      "evaluatedValue" : "1"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_ResizeAll",
       "docComment" : "(Unused by Dear ImGui functions)",
       "qualType" : "ImGuiMouseCursor_",
-      "order" : 2
+      "order" : 3,
+      "evaluatedValue" : "2"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_ResizeNS",
       "docComment" : "When hovering over an horizontal border",
       "qualType" : "ImGuiMouseCursor_",
-      "order" : 3
+      "order" : 4,
+      "evaluatedValue" : "3"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_ResizeEW",
       "docComment" : "When hovering over a vertical border or a column",
       "qualType" : "ImGuiMouseCursor_",
-      "order" : 4
+      "order" : 5,
+      "evaluatedValue" : "4"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_ResizeNESW",
       "docComment" : "When hovering over the bottom-left corner of a window",
       "qualType" : "ImGuiMouseCursor_",
-      "order" : 5
+      "order" : 6,
+      "evaluatedValue" : "5"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_ResizeNWSE",
       "docComment" : "When hovering over the bottom-right corner of a window",
       "qualType" : "ImGuiMouseCursor_",
-      "order" : 6
+      "order" : 7,
+      "evaluatedValue" : "6"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_Hand",
       "docComment" : "(Unused by Dear ImGui functions. Use for e.g. hyperlinks)",
       "qualType" : "ImGuiMouseCursor_",
-      "order" : 7
+      "order" : 8,
+      "evaluatedValue" : "7"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_NotAllowed",
       "docComment" : "When hovering something with disallowed interaction. Usually a crossed circle.",
       "qualType" : "ImGuiMouseCursor_",
-      "order" : 8
+      "order" : 9,
+      "evaluatedValue" : "8"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiMouseCursor_COUNT",
       "qualType" : "ImGuiMouseCursor_",
-      "order" : 9
+      "order" : 10,
+      "evaluatedValue" : "9"
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -11597,6 +11716,11 @@
       "name" : "AddInputCharacter",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "c",
+        "qualType" : "unsigned int",
+        "desugaredQualType" : "unsigned int"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -11605,11 +11729,6 @@
             "text" : " Functions"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "c",
-        "qualType" : "unsigned int",
-        "desugaredQualType" : "unsigned int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -12400,16 +12519,6 @@
       "desugaredQualType" : "ImVector<char>"
     }, {
       "@type" : "AstFunctionDecl",
-      "name" : "operator[]",
-      "resultType" : "char",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "i",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
       "name" : "begin",
       "resultType" : "const char *"
     }, {
@@ -12693,6 +12802,17 @@
       "name" : "GetIntRef",
       "resultType" : "int *",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "key",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "default_val",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -12716,17 +12836,6 @@
             "text" : "      float* pvar = ImGui::GetFloatRef(key); ImGui::SliderFloat(\"var\", pvar, 0, 100.0f); some_var += *pvar;"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "key",
-        "qualType" : "ImGuiID",
-        "desugaredQualType" : "unsigned int"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "default_val",
-        "qualType" : "int",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -12781,6 +12890,11 @@
       "name" : "SetAllInt",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "val",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -12789,11 +12903,6 @@
             "text" : " Use on your own storage if you know only integer are being stored (open/close all tree nodes)"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "val",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -12944,15 +13053,6 @@
       "name" : "ForceDisplayRangeByIndices",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Call ForceDisplayRangeByIndices() before first call to Step() if you need a range of items to be displayed regardless of visibility."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "item_min",
         "qualType" : "int",
@@ -12962,6 +13062,15 @@
         "name" : "item_max",
         "qualType" : "int",
         "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Call ForceDisplayRangeByIndices() before first call to Step() if you need a range of items to be displayed regardless of visibility."
+          } ]
+        } ]
       } ]
     } ]
   }, {
@@ -12995,15 +13104,6 @@
       "name" : "SetHSV",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " FIXME-OBSOLETE: May need to obsolete/cleanup those helpers."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "h",
         "qualType" : "float",
@@ -13024,6 +13124,15 @@
         "qualType" : "float",
         "desugaredQualType" : "float",
         "defaultValue" : "1.0f"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " FIXME-OBSOLETE: May need to obsolete/cleanup those helpers."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -13191,16 +13300,6 @@
           "text" : " [Internal] For use by ImDrawListSplitter"
         } ]
       } ]
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_CmdBuffer",
-      "qualType" : "ImVector<ImDrawCmd>",
-      "desugaredQualType" : "ImVector<ImDrawCmd>"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_IdxBuffer",
-      "qualType" : "ImVector<ImDrawIdx>",
-      "desugaredQualType" : "ImVector<unsigned short>"
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -13217,21 +13316,6 @@
           "text" : " This is used by the Columns/Tables API, so items of each column can be batched together in a same draw call."
         } ]
       } ]
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_Current",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_Count",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_Channels",
-      "qualType" : "ImVector<ImDrawChannel>",
-      "desugaredQualType" : "ImVector<ImDrawChannel>"
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "Clear",
@@ -13514,61 +13598,6 @@
       "qualType" : "ImDrawListFlags",
       "desugaredQualType" : "int"
     }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_VtxCurrentIdx",
-      "qualType" : "unsigned int",
-      "desugaredQualType" : "unsigned int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_Data",
-      "qualType" : "const ImDrawListSharedData *",
-      "desugaredQualType" : "const ImDrawListSharedData *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_OwnerName",
-      "qualType" : "const char *",
-      "desugaredQualType" : "const char *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_VtxWritePtr",
-      "qualType" : "ImDrawVert *",
-      "desugaredQualType" : "ImDrawVert *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_IdxWritePtr",
-      "qualType" : "ImDrawIdx *",
-      "desugaredQualType" : "ImDrawIdx *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_ClipRectStack",
-      "qualType" : "ImVector<ImVec4>",
-      "desugaredQualType" : "ImVector<ImVec4>"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_TextureIdStack",
-      "qualType" : "ImVector<ImTextureID>",
-      "desugaredQualType" : "ImVector<void *>"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_Path",
-      "qualType" : "ImVector<ImVec2>",
-      "desugaredQualType" : "ImVector<ImVec2>"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_CmdHeader",
-      "qualType" : "ImDrawCmdHeader",
-      "desugaredQualType" : "ImDrawCmdHeader"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_Splitter",
-      "qualType" : "ImDrawListSplitter",
-      "desugaredQualType" : "ImDrawListSplitter"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "_FringeScale",
-      "qualType" : "float",
-      "desugaredQualType" : "float"
-    }, {
       "@type" : "AstFunctionDecl",
       "name" : "PushClipRect",
       "resultType" : "void",
@@ -13624,6 +13653,27 @@
       "name" : "AddLine",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "p1",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "p2",
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "col",
+        "qualType" : "ImU32",
+        "desugaredQualType" : "unsigned int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "thickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "1.0f"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -13647,27 +13697,6 @@
             "text" : "   Use AddNgon() and AddNgonFilled() functions if you need to guaranteed a specific number of sides."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "p1",
-        "qualType" : "const ImVec2 &",
-        "desugaredQualType" : "const ImVec2 &"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "p2",
-        "qualType" : "const ImVec2 &",
-        "desugaredQualType" : "const ImVec2 &"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "col",
-        "qualType" : "ImU32",
-        "desugaredQualType" : "unsigned int"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "thickness",
-        "qualType" : "float",
-        "desugaredQualType" : "float",
-        "defaultValue" : "1.0f"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -14216,24 +14245,6 @@
       "name" : "AddImage",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Image primitives"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - Read FAQ to understand what ImTextureID is."
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - \"p_min\" and \"p_max\" represent the upper-left and lower-right corners of the rectangle."
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - \"uv_min\" and \"uv_max\" represent the normalized texture coordinates to use for those corners. Using (0,0)->(1,1) texture coordinates will generally display the entire texture."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "user_texture_id",
         "qualType" : "ImTextureID",
@@ -14266,6 +14277,24 @@
         "qualType" : "ImU32",
         "desugaredQualType" : "unsigned int",
         "defaultValue" : "IM_COL32_WHITE"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Image primitives"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - Read FAQ to understand what ImTextureID is."
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - \"p_min\" and \"p_max\" represent the upper-left and lower-right corners of the rectangle."
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - \"uv_min\" and \"uv_max\" represent the normalized texture coordinates to use for those corners. Using (0,0)->(1,1) texture coordinates will generally display the entire texture."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -14574,15 +14603,6 @@
       "name" : "AddCallback",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Advanced"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "callback",
         "qualType" : "ImDrawCallback",
@@ -14592,6 +14612,15 @@
         "name" : "callback_data",
         "qualType" : "void *",
         "desugaredQualType" : "void *"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Advanced"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -14606,6 +14635,11 @@
       "name" : "ChannelsSplit",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "count",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -14629,11 +14663,6 @@
             "text" : "   Using the ImDrawList::ChannelsXXXX you cannot stack a split over another."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "count",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -14654,6 +14683,16 @@
       "name" : "PrimReserve",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "idx_count",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "vtx_count",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -14668,16 +14707,6 @@
             "text" : " - All primitives needs to be reserved via PrimReserve() beforehand."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "idx_count",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "vtx_count",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -14910,114 +14939,6 @@
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "0"
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "_ResetForNewFrame",
-      "resultType" : "void",
-      "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " [Internal helpers]"
-          } ]
-        } ]
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "_ClearFreeMemory",
-      "resultType" : "void"
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "_PopUnusedDrawCmd",
-      "resultType" : "void"
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "_TryMergeDrawCmds",
-      "resultType" : "void"
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "_OnChangedClipRect",
-      "resultType" : "void"
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "_OnChangedTextureID",
-      "resultType" : "void"
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "_OnChangedVtxOffset",
-      "resultType" : "void"
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "_CalcCircleAutoSegmentCount",
-      "resultType" : "int",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "radius",
-        "qualType" : "float",
-        "desugaredQualType" : "float"
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "_PathArcToFastEx",
-      "resultType" : "void",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "center",
-        "qualType" : "const ImVec2 &",
-        "desugaredQualType" : "const ImVec2 &"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "radius",
-        "qualType" : "float",
-        "desugaredQualType" : "float"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "a_min_sample",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "a_max_sample",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "a_step",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "_PathArcToN",
-      "resultType" : "void",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "center",
-        "qualType" : "const ImVec2 &",
-        "desugaredQualType" : "const ImVec2 &"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "radius",
-        "qualType" : "float",
-        "desugaredQualType" : "float"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "a_min",
-        "qualType" : "float",
-        "desugaredQualType" : "float"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "a_max",
-        "qualType" : "float",
-        "desugaredQualType" : "float"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "num_segments",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
       } ]
     } ]
   }, {
@@ -15844,6 +15765,16 @@
       "name" : "AddCustomRectRegular",
       "resultType" : "int",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "width",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "height",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -15870,16 +15801,6 @@
             "text" : " - Note: this API may be redesigned later in order to support multi-monitor varying DPI settings."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "width",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "height",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -15932,15 +15853,6 @@
       "name" : "CalcCustomRectUV",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " [Internal]"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "rect",
         "qualType" : "const ImFontAtlasCustomRect *",
@@ -15955,6 +15867,15 @@
         "name" : "out_uv_max",
         "qualType" : "ImVec2 *",
         "desugaredQualType" : "ImVec2 *"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " [Internal]"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -16240,18 +16161,6 @@
       "name" : "CalcTextSizeA",
       "resultType" : "ImVec2",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " 'max_width' stops rendering after a certain width (could be turned into a 2d size). FLT_MAX to disable."
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " 'wrap_width' enable automatic word-wrapping across multiple lines to fit into given width. 0.0f to disable."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "size",
         "qualType" : "float",
@@ -16283,6 +16192,18 @@
         "qualType" : "const char **",
         "desugaredQualType" : "const char **",
         "defaultValue" : "NULL"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " 'max_width' stops rendering after a certain width (could be turned into a 2d size). FLT_MAX to disable."
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " 'wrap_width' enable automatic word-wrapping across multiple lines to fit into given width. 0.0f to disable."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -16976,15 +16897,6 @@
       "name" : "CalcListClipping",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " OBSOLETED in 1.86 (from November 2021)"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "items_count",
         "qualType" : "int",
@@ -17004,6 +16916,15 @@
         "name" : "out_items_display_end",
         "qualType" : "int *",
         "desugaredQualType" : "int *"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " OBSOLETED in 1.86 (from November 2021)"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -17024,15 +16945,6 @@
       "name" : "ListBoxHeader",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " OBSOLETED in 1.81 (from February 2021)"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "label",
         "qualType" : "const char *",
@@ -17048,6 +16960,15 @@
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "-1"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " OBSOLETED in 1.81 (from February 2021)"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -17074,15 +16995,6 @@
       "name" : "OpenPopupContextItem",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " OBSOLETED in 1.79 (from August 2020)"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "str_id",
         "qualType" : "const char *",
@@ -17094,27 +17006,21 @@
         "qualType" : "ImGuiMouseButton",
         "desugaredQualType" : "int",
         "defaultValue" : "1"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " OBSOLETED in 1.79 (from August 2020)"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "DragScalar",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " OBSOLETED in 1.78 (from June 2020)"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " Old drag/sliders functions that took a 'float power = 1.0' argument instead of flags."
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " For shared code, you can version check at compile-time with `#if IMGUI_VERSION_NUM >= 17704`."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "label",
         "qualType" : "const char *",
@@ -17154,6 +17060,21 @@
         "name" : "power",
         "qualType" : "float",
         "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " OBSOLETED in 1.78 (from June 2020)"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " Old drag/sliders functions that took a 'float power = 1.0' argument instead of flags."
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " For shared code, you can version check at compile-time with `#if IMGUI_VERSION_NUM >= 17704`."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -17595,15 +17516,6 @@
       "name" : "BeginPopupContextWindow",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " OBSOLETED in 1.77 (from June 2020)"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "str_id",
         "qualType" : "const char *",
@@ -17618,6 +17530,15 @@
         "name" : "over_items",
         "qualType" : "bool",
         "desugaredQualType" : "bool"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " OBSOLETED in 1.77 (from June 2020)"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -17638,15 +17559,6 @@
       "name" : "SetNextTreeNodeOpen",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " OBSOLETED in 1.71 (from June 2019)"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "open",
         "qualType" : "bool",
@@ -17657,6 +17569,15 @@
         "qualType" : "ImGuiCond",
         "desugaredQualType" : "int",
         "defaultValue" : "0"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " OBSOLETED in 1.71 (from June 2019)"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",

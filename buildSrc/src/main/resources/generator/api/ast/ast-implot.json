@@ -415,150 +415,175 @@
       "name" : "ImPlotCol_Line",
       "docComment" : "plot line/outline color (defaults to next unused color in current colormap)",
       "qualType" : "ImPlotCol_",
-      "order" : 0
+      "order" : 0,
+      "evaluatedValue" : "0"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_Fill",
       "docComment" : "plot fill color for bars (defaults to the current line color)",
       "qualType" : "ImPlotCol_",
-      "order" : 1
+      "order" : 1,
+      "evaluatedValue" : "1"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_MarkerOutline",
       "docComment" : "marker outline color (defaults to the current line color)",
       "qualType" : "ImPlotCol_",
-      "order" : 2
+      "order" : 2,
+      "evaluatedValue" : "2"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_MarkerFill",
       "docComment" : "marker fill color (defaults to the current line color)",
       "qualType" : "ImPlotCol_",
-      "order" : 3
+      "order" : 3,
+      "evaluatedValue" : "3"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_ErrorBar",
       "docComment" : "error bar color (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
-      "order" : 4
+      "order" : 4,
+      "evaluatedValue" : "4"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_FrameBg",
       "docComment" : "plot frame background color (defaults to ImGuiCol_FrameBg)",
       "qualType" : "ImPlotCol_",
-      "order" : 5
+      "order" : 5,
+      "evaluatedValue" : "5"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_PlotBg",
       "docComment" : "plot area background color (defaults to ImGuiCol_WindowBg)",
       "qualType" : "ImPlotCol_",
-      "order" : 6
+      "order" : 6,
+      "evaluatedValue" : "6"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_PlotBorder",
       "docComment" : "plot area border color (defaults to ImGuiCol_Border)",
       "qualType" : "ImPlotCol_",
-      "order" : 7
+      "order" : 7,
+      "evaluatedValue" : "7"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_LegendBg",
       "docComment" : "legend background color (defaults to ImGuiCol_PopupBg)",
       "qualType" : "ImPlotCol_",
-      "order" : 8
+      "order" : 8,
+      "evaluatedValue" : "8"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_LegendBorder",
       "docComment" : "legend border color (defaults to ImPlotCol_PlotBorder)",
       "qualType" : "ImPlotCol_",
-      "order" : 9
+      "order" : 9,
+      "evaluatedValue" : "9"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_LegendText",
       "docComment" : "legend text color (defaults to ImPlotCol_InlayText)",
       "qualType" : "ImPlotCol_",
-      "order" : 10
+      "order" : 10,
+      "evaluatedValue" : "10"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_TitleText",
       "docComment" : "plot title text color (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
-      "order" : 11
+      "order" : 11,
+      "evaluatedValue" : "11"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_InlayText",
       "docComment" : "color of text appearing inside of plots (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
-      "order" : 12
+      "order" : 12,
+      "evaluatedValue" : "12"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_XAxis",
       "docComment" : "x-axis label and tick lables color (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
-      "order" : 13
+      "order" : 13,
+      "evaluatedValue" : "13"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_XAxisGrid",
       "docComment" : "x-axis grid color (defaults to 25% ImPlotCol_XAxis)",
       "qualType" : "ImPlotCol_",
-      "order" : 14
+      "order" : 14,
+      "evaluatedValue" : "14"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_YAxis",
       "docComment" : "y-axis label and tick labels color (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
-      "order" : 15
+      "order" : 15,
+      "evaluatedValue" : "15"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_YAxisGrid",
       "docComment" : "y-axis grid color (defaults to 25% ImPlotCol_YAxis)",
       "qualType" : "ImPlotCol_",
-      "order" : 16
+      "order" : 16,
+      "evaluatedValue" : "16"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_YAxis2",
       "docComment" : "2nd y-axis label and tick labels color (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
-      "order" : 17
+      "order" : 17,
+      "evaluatedValue" : "17"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_YAxisGrid2",
       "docComment" : "2nd y-axis grid/label color (defaults to 25% ImPlotCol_YAxis2)",
       "qualType" : "ImPlotCol_",
-      "order" : 18
+      "order" : 18,
+      "evaluatedValue" : "18"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_YAxis3",
       "docComment" : "3rd y-axis label and tick labels color (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
-      "order" : 19
+      "order" : 19,
+      "evaluatedValue" : "19"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_YAxisGrid3",
       "docComment" : "3rd y-axis grid/label color (defaults to 25% ImPlotCol_YAxis3)",
       "qualType" : "ImPlotCol_",
-      "order" : 20
+      "order" : 20,
+      "evaluatedValue" : "20"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_Selection",
       "docComment" : "box-selection color (defaults to yellow)",
       "qualType" : "ImPlotCol_",
-      "order" : 21
+      "order" : 21,
+      "evaluatedValue" : "21"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_Query",
       "docComment" : "box-query color (defaults to green)",
       "qualType" : "ImPlotCol_",
-      "order" : 22
+      "order" : 22,
+      "evaluatedValue" : "22"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_Crosshairs",
       "docComment" : "crosshairs color (defaults to ImPlotCol_PlotBorder)",
       "qualType" : "ImPlotCol_",
-      "order" : 23
+      "order" : 23,
+      "evaluatedValue" : "23"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_COUNT",
       "qualType" : "ImPlotCol_",
-      "order" : 24
+      "order" : 24,
+      "evaluatedValue" : "24"
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -577,168 +602,196 @@
       "name" : "ImPlotStyleVar_LineWeight",
       "docComment" : "float,  plot item line weight in pixels",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 0
+      "order" : 0,
+      "evaluatedValue" : "0"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_Marker",
       "docComment" : "int,    marker specification",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 1
+      "order" : 1,
+      "evaluatedValue" : "1"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MarkerSize",
       "docComment" : "float,  marker size in pixels (roughly the marker's \"radius\")",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 2
+      "order" : 2,
+      "evaluatedValue" : "2"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MarkerWeight",
       "docComment" : "float,  plot outline weight of markers in pixels",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 3
+      "order" : 3,
+      "evaluatedValue" : "3"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_FillAlpha",
       "docComment" : "float,  alpha modifier applied to all plot item fills",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 4
+      "order" : 4,
+      "evaluatedValue" : "4"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_ErrorBarSize",
       "docComment" : "float,  error bar whisker width in pixels",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 5
+      "order" : 5,
+      "evaluatedValue" : "5"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_ErrorBarWeight",
       "docComment" : "float,  error bar whisker weight in pixels",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 6
+      "order" : 6,
+      "evaluatedValue" : "6"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_DigitalBitHeight",
       "docComment" : "float,  digital channels bit height (at 1) in pixels",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 7
+      "order" : 7,
+      "evaluatedValue" : "7"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_DigitalBitGap",
       "docComment" : "float,  digital channels bit padding gap in pixels",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 8
+      "order" : 8,
+      "evaluatedValue" : "8"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_PlotBorderSize",
       "docComment" : "float,  thickness of border around plot area",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 9
+      "order" : 9,
+      "evaluatedValue" : "9"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MinorAlpha",
       "docComment" : "float,  alpha multiplier applied to minor axis grid lines",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 10
+      "order" : 10,
+      "evaluatedValue" : "10"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MajorTickLen",
       "docComment" : "ImVec2, major tick lengths for X and Y axes",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 11
+      "order" : 11,
+      "evaluatedValue" : "11"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MinorTickLen",
       "docComment" : "ImVec2, minor tick lengths for X and Y axes",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 12
+      "order" : 12,
+      "evaluatedValue" : "12"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MajorTickSize",
       "docComment" : "ImVec2, line thickness of major ticks",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 13
+      "order" : 13,
+      "evaluatedValue" : "13"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MinorTickSize",
       "docComment" : "ImVec2, line thickness of minor ticks",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 14
+      "order" : 14,
+      "evaluatedValue" : "14"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MajorGridSize",
       "docComment" : "ImVec2, line thickness of major grid lines",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 15
+      "order" : 15,
+      "evaluatedValue" : "15"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MinorGridSize",
       "docComment" : "ImVec2, line thickness of minor grid lines",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 16
+      "order" : 16,
+      "evaluatedValue" : "16"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_PlotPadding",
       "docComment" : "ImVec2, padding between widget frame and plot area, labels, or outside legends (i.e. main padding)",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 17
+      "order" : 17,
+      "evaluatedValue" : "17"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_LabelPadding",
       "docComment" : "ImVec2, padding between axes labels, tick labels, and plot edge",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 18
+      "order" : 18,
+      "evaluatedValue" : "18"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_LegendPadding",
       "docComment" : "ImVec2, legend padding from plot edges",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 19
+      "order" : 19,
+      "evaluatedValue" : "19"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_LegendInnerPadding",
       "docComment" : "ImVec2, legend inner padding from legend edges",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 20
+      "order" : 20,
+      "evaluatedValue" : "20"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_LegendSpacing",
       "docComment" : "ImVec2, spacing between legend entries",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 21
+      "order" : 21,
+      "evaluatedValue" : "21"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_MousePosPadding",
       "docComment" : "ImVec2, padding between plot edge and interior info text",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 22
+      "order" : 22,
+      "evaluatedValue" : "22"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_AnnotationPadding",
       "docComment" : "ImVec2, text padding around annotation labels",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 23
+      "order" : 23,
+      "evaluatedValue" : "23"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_FitPadding",
       "docComment" : "ImVec2, additional fit padding as a percentage of the fit extents (e.g. ImVec2(0.1f,0.1f) adds 10% to the fit extents of X and Y)",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 24
+      "order" : 24,
+      "evaluatedValue" : "24"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_PlotDefaultSize",
       "docComment" : "ImVec2, default size used when ImVec2(0,0) is passed to BeginPlot",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 25
+      "order" : 25,
+      "evaluatedValue" : "25"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_PlotMinSize",
       "docComment" : "ImVec2, minimum size plot frame can be when shrunk",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 26
+      "order" : 26,
+      "evaluatedValue" : "26"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotStyleVar_COUNT",
       "qualType" : "ImPlotStyleVar_",
-      "order" : 27
+      "order" : 27,
+      "evaluatedValue" : "27"
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -757,7 +810,7 @@
       "name" : "ImPlotMarker_None",
       "docComment" : "no marker",
       "qualType" : "ImPlotMarker_",
-      "order" : -1,
+      "order" : 0,
       "value" : "-1",
       "evaluatedValue" : "-1"
     }, {
@@ -765,66 +818,77 @@
       "name" : "ImPlotMarker_Circle",
       "docComment" : "a circle marker",
       "qualType" : "ImPlotMarker_",
-      "order" : 0
+      "order" : 1,
+      "evaluatedValue" : "0"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Square",
       "docComment" : "a square maker",
       "qualType" : "ImPlotMarker_",
-      "order" : 1
+      "order" : 2,
+      "evaluatedValue" : "1"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Diamond",
       "docComment" : "a diamond marker",
       "qualType" : "ImPlotMarker_",
-      "order" : 2
+      "order" : 3,
+      "evaluatedValue" : "2"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Up",
       "docComment" : "an upward-pointing triangle marker",
       "qualType" : "ImPlotMarker_",
-      "order" : 3
+      "order" : 4,
+      "evaluatedValue" : "3"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Down",
       "docComment" : "an downward-pointing triangle marker",
       "qualType" : "ImPlotMarker_",
-      "order" : 4
+      "order" : 5,
+      "evaluatedValue" : "4"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Left",
       "docComment" : "an leftward-pointing triangle marker",
       "qualType" : "ImPlotMarker_",
-      "order" : 5
+      "order" : 6,
+      "evaluatedValue" : "5"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Right",
       "docComment" : "an rightward-pointing triangle marker",
       "qualType" : "ImPlotMarker_",
-      "order" : 6
+      "order" : 7,
+      "evaluatedValue" : "6"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Cross",
       "docComment" : "a cross marker (not fillable)",
       "qualType" : "ImPlotMarker_",
-      "order" : 7
+      "order" : 8,
+      "evaluatedValue" : "7"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Plus",
       "docComment" : "a plus marker (not fillable)",
       "qualType" : "ImPlotMarker_",
-      "order" : 8
+      "order" : 9,
+      "evaluatedValue" : "8"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Asterisk",
       "docComment" : "a asterisk marker (not fillable)",
       "qualType" : "ImPlotMarker_",
-      "order" : 9
+      "order" : 10,
+      "evaluatedValue" : "9"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_COUNT",
       "qualType" : "ImPlotMarker_",
-      "order" : 10
+      "order" : 11,
+      "evaluatedValue" : "10"
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -1069,13 +1133,15 @@
       "name" : "ImPlotOrientation_Horizontal",
       "docComment" : "left/right",
       "qualType" : "ImPlotOrientation_",
-      "order" : 0
+      "order" : 0,
+      "evaluatedValue" : "0"
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotOrientation_Vertical",
       "docComment" : "up/down",
       "qualType" : "ImPlotOrientation_",
-      "order" : 1
+      "order" : 1,
+      "evaluatedValue" : "1"
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -1131,7 +1197,7 @@
       "name" : "ImPlotBin_Sqrt",
       "docComment" : "k = sqrt(n)",
       "qualType" : "ImPlotBin_",
-      "order" : -1,
+      "order" : 0,
       "value" : "-1",
       "evaluatedValue" : "-1"
     }, {
@@ -1139,7 +1205,7 @@
       "name" : "ImPlotBin_Sturges",
       "docComment" : "k = 1 + log2(n)",
       "qualType" : "ImPlotBin_",
-      "order" : -2,
+      "order" : 1,
       "value" : "-2",
       "evaluatedValue" : "-2"
     }, {
@@ -1147,7 +1213,7 @@
       "name" : "ImPlotBin_Rice",
       "docComment" : "k = 2 * cbrt(n)",
       "qualType" : "ImPlotBin_",
-      "order" : -1,
+      "order" : 2,
       "value" : "-3",
       "evaluatedValue" : "-3"
     }, {
@@ -1155,7 +1221,7 @@
       "name" : "ImPlotBin_Scott",
       "docComment" : "w = 3.49 * sigma / cbrt(n)",
       "qualType" : "ImPlotBin_",
-      "order" : -4,
+      "order" : 3,
       "value" : "-4",
       "evaluatedValue" : "-4"
     } ]
@@ -1181,26 +1247,6 @@
       "name" : "y",
       "qualType" : "double",
       "desugaredQualType" : "double"
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "operator[]",
-      "resultType" : "double",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "idx",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "operator[]",
-      "resultType" : "double &",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "idx",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
-      } ]
     } ]
   }, {
     "@type" : "AstRecordDecl",
@@ -1510,6 +1556,12 @@
       "name" : "DestroyContext",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "ctx",
+        "qualType" : "ImPlotContext *",
+        "desugaredQualType" : "ImPlotContext *",
+        "defaultValue" : "="
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -1518,12 +1570,6 @@
             "text" : " Destroys an ImPlot context. Call this before ImGui::DestroyContext. NULL = destroy current context."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "ctx",
-        "qualType" : "ImPlotContext *",
-        "desugaredQualType" : "ImPlotContext *",
-        "defaultValue" : "="
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1544,6 +1590,11 @@
       "name" : "SetCurrentContext",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "ctx",
+        "qualType" : "ImPlotContext *",
+        "desugaredQualType" : "ImPlotContext *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -1552,17 +1603,17 @@
             "text" : " Sets the current ImPlot context."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "ctx",
-        "qualType" : "ImPlotContext *",
-        "desugaredQualType" : "ImPlotContext *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetImGuiContext",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "ctx",
+        "qualType" : "int *",
+        "desugaredQualType" : "int *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -1580,17 +1631,77 @@
             "text" : " See GImGui documentation in imgui.cpp for more details."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "ctx",
-        "qualType" : "int *",
-        "desugaredQualType" : "int *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "BeginPlot",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "title_id",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "x_label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "y_label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "size",
+        "qualType" : "const int &",
+        "desugaredQualType" : "const int &",
+        "defaultValue" : "ImVec2(-1,0)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImPlotFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "ImPlotFlags_None"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "x_flags",
+        "qualType" : "ImPlotAxisFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "ImPlotAxisFlags_None"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "y_flags",
+        "qualType" : "ImPlotAxisFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "ImPlotAxisFlags_None"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "y2_flags",
+        "qualType" : "ImPlotAxisFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "ImPlotAxisFlags_NoGridLines"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "y3_flags",
+        "qualType" : "ImPlotAxisFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "ImPlotAxisFlags_NoGridLines"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "y2_label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "y3_label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "="
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -1656,71 +1767,6 @@
             "text" : " - See ImPlotFlags and ImPlotAxisFlags for more available options."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "title_id",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "x_label",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *",
-        "defaultValue" : "="
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "y_label",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *",
-        "defaultValue" : "="
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "size",
-        "qualType" : "const int &",
-        "desugaredQualType" : "const int &",
-        "defaultValue" : "ImVec2(-1,0)"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "ImPlotFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotFlags_None"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "x_flags",
-        "qualType" : "ImPlotAxisFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotAxisFlags_None"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "y_flags",
-        "qualType" : "ImPlotAxisFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotAxisFlags_None"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "y2_flags",
-        "qualType" : "ImPlotAxisFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotAxisFlags_NoGridLines"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "y3_flags",
-        "qualType" : "ImPlotAxisFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotAxisFlags_NoGridLines"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "y2_label",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *",
-        "defaultValue" : "="
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "y3_label",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *",
-        "defaultValue" : "="
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1744,6 +1790,44 @@
       "name" : "BeginSubplots",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "title_id",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "rows",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "cols",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "size",
+        "qualType" : "const int &",
+        "desugaredQualType" : "const int &"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImPlotSubplotFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "ImPlotSubplotFlags_None"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "row_ratios",
+        "qualType" : "float *",
+        "desugaredQualType" : "float *",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "col_ratios",
+        "qualType" : "float *",
+        "desugaredQualType" : "float *",
+        "defaultValue" : "="
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -1887,44 +1971,6 @@
             "text" : "   #size value you pass to _BeginSubplots_ and #row/#col_ratios if provided."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "title_id",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "rows",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "cols",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "size",
-        "qualType" : "const int &",
-        "desugaredQualType" : "const int &"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "ImPlotSubplotFlags",
-        "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotSubplotFlags_None"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "row_ratios",
-        "qualType" : "float *",
-        "desugaredQualType" : "float *",
-        "defaultValue" : "="
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "col_ratios",
-        "qualType" : "float *",
-        "desugaredQualType" : "float *",
-        "defaultValue" : "="
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2143,15 +2189,6 @@
       "name" : "PlotImage",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down)."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "label_id",
         "qualType" : "const char *",
@@ -2189,21 +2226,21 @@
         "qualType" : "const int &",
         "desugaredQualType" : "const int &",
         "defaultValue" : "ImVec4(1,1,1,1)"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down)."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "PlotText",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Plots a centered text label at point x,y with an optional pixel offset. Text color can be changed with ImPlot::PushStyleColor(ImPlotCol_InlayText, ...)."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "text",
         "qualType" : "const char *",
@@ -2230,12 +2267,26 @@
         "qualType" : "const int &",
         "desugaredQualType" : "const int &",
         "defaultValue" : "ImVec2(0,0)"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Plots a centered text label at point x,y with an optional pixel offset. Text color can be changed with ImPlot::PushStyleColor(ImPlotCol_InlayText, ...)."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "PlotDummy",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "label_id",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -2244,26 +2295,12 @@
             "text" : " Plots a dummy item (i.e. adds a legend entry colored by ImPlotCol_Line)"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "label_id",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetNextPlotLimits",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Set the axes range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the axes limits will be locked."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "xmin",
         "qualType" : "double",
@@ -2289,21 +2326,21 @@
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "="
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Set the axes range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the axes limits will be locked."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetNextPlotLimitsX",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Set the X axis range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the X axis limits will be locked."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "xmin",
         "qualType" : "double",
@@ -2319,21 +2356,21 @@
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "="
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Set the X axis range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the X axis limits will be locked."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetNextPlotLimitsY",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Set the Y axis range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the Y axis limits will be locked."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "ymin",
         "qualType" : "double",
@@ -2355,21 +2392,21 @@
         "qualType" : "ImPlotYAxis",
         "desugaredQualType" : "int",
         "defaultValue" : "ImPlotYAxis_1"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Set the Y axis range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the Y axis limits will be locked."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "LinkNextPlotLimits",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Links the next plot limits to external values. Set to NULL for no linkage. The pointer data must remain valid until the matching call to EndPlot."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "xmin",
         "qualType" : "double *",
@@ -2413,21 +2450,21 @@
         "qualType" : "double *",
         "desugaredQualType" : "double *",
         "defaultValue" : "="
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Links the next plot limits to external values. Set to NULL for no linkage. The pointer data must remain valid until the matching call to EndPlot."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "FitNextPlotAxes",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Fits the next plot axes to all plotted data if they are unlocked (equivalent to double-clicks)."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "x",
         "qualType" : "bool",
@@ -2451,21 +2488,21 @@
         "qualType" : "bool",
         "desugaredQualType" : "bool",
         "defaultValue" : "true"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Fits the next plot axes to all plotted data if they are unlocked (equivalent to double-clicks)."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetNextPlotTicksX",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "values",
         "qualType" : "const double *",
@@ -2487,6 +2524,15 @@
         "qualType" : "bool",
         "desugaredQualType" : "bool",
         "defaultValue" : "false"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2525,15 +2571,6 @@
       "name" : "SetNextPlotTicksY",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "values",
         "qualType" : "const double *",
@@ -2561,6 +2598,15 @@
         "qualType" : "ImPlotYAxis",
         "desugaredQualType" : "int",
         "defaultValue" : "ImPlotYAxis_1"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2605,6 +2651,11 @@
       "name" : "SetNextPlotFormatX",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "fmt",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -2613,26 +2664,12 @@
             "text" : " Set the format for numeric X axis labels (default=\"%g\"). Formated values will be doubles (i.e. don't supply %d, %i, etc.). Not applicable if ImPlotAxisFlags_Time enabled."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "fmt",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetNextPlotFormatY",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Set the format for numeric Y axis labels (default=\"%g\"). Formated values will be doubles (i.e. don't supply %d, %i, etc.)."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "fmt",
         "qualType" : "const char *",
@@ -2643,12 +2680,26 @@
         "qualType" : "ImPlotYAxis",
         "desugaredQualType" : "int",
         "defaultValue" : "ImPlotYAxis_1"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Set the format for numeric Y axis labels (default=\"%g\"). Formated values will be doubles (i.e. don't supply %d, %i, etc.)."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetPlotYAxis",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "y_axis",
+        "qualType" : "ImPlotYAxis",
+        "desugaredQualType" : "int"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -2657,26 +2708,12 @@
             "text" : " Select which Y axis will be used for subsequent plot elements. The default is ImPlotYAxis_1, or the first (left) Y axis. Enable 2nd and 3rd axes with ImPlotFlags_YAxisX."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "y_axis",
-        "qualType" : "ImPlotYAxis",
-        "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "HideNextItem",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Hides or shows the next plot item (i.e. as if it were toggled from the legend). Use ImGuiCond_Always if you need to forcefully set this every frame."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "hidden",
         "qualType" : "bool",
@@ -2688,21 +2725,21 @@
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "="
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Hides or shows the next plot item (i.e. as if it were toggled from the legend). Use ImGuiCond_Always if you need to forcefully set this every frame."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "PixelsToPlot",
       "resultType" : "ImPlotPoint",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Convert pixels to a position in the current plot's coordinate system. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially)."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "pix",
         "qualType" : "const int &",
@@ -2713,6 +2750,15 @@
         "qualType" : "ImPlotYAxis",
         "desugaredQualType" : "int",
         "defaultValue" : "IMPLOT_AUTO"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Convert pixels to a position in the current plot's coordinate system. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially)."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2740,15 +2786,6 @@
       "name" : "PlotToPixels",
       "resultType" : "int",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Convert a position in the current plot's coordinate system to pixels. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially)."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "plt",
         "qualType" : "const ImPlotPoint &",
@@ -2759,6 +2796,15 @@
         "qualType" : "ImPlotYAxis",
         "desugaredQualType" : "int",
         "defaultValue" : "IMPLOT_AUTO"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Convert a position in the current plot's coordinate system to pixels. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially)."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2842,6 +2888,12 @@
       "name" : "IsPlotYAxisHovered",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "y_axis",
+        "qualType" : "ImPlotYAxis",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -2850,18 +2902,18 @@
             "text" : " Returns true if the YAxis[n] plot area in the current plot is hovered."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "y_axis",
-        "qualType" : "ImPlotYAxis",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "GetPlotMousePos",
       "resultType" : "ImPlotPoint",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "y_axis",
+        "qualType" : "ImPlotYAxis",
+        "desugaredQualType" : "int",
+        "defaultValue" : "IMPLOT_AUTO"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -2870,18 +2922,18 @@
             "text" : " Returns the mouse position in x,y coordinates of the current plot. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially)."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "y_axis",
-        "qualType" : "ImPlotYAxis",
-        "desugaredQualType" : "int",
-        "defaultValue" : "IMPLOT_AUTO"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "GetPlotLimits",
       "resultType" : "ImPlotLimits",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "y_axis",
+        "qualType" : "ImPlotYAxis",
+        "desugaredQualType" : "int",
+        "defaultValue" : "IMPLOT_AUTO"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -2890,12 +2942,6 @@
             "text" : " Returns the current plot axis range. A negative y_axis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially)."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "y_axis",
-        "qualType" : "ImPlotYAxis",
-        "desugaredQualType" : "int",
-        "defaultValue" : "IMPLOT_AUTO"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2916,6 +2962,12 @@
       "name" : "GetPlotSelection",
       "resultType" : "ImPlotLimits",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "y_axis",
+        "qualType" : "ImPlotYAxis",
+        "desugaredQualType" : "int",
+        "defaultValue" : "IMPLOT_AUTO"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -2924,12 +2976,6 @@
             "text" : " Returns the current plot box selection bounds."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "y_axis",
-        "qualType" : "ImPlotYAxis",
-        "desugaredQualType" : "int",
-        "defaultValue" : "IMPLOT_AUTO"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2950,6 +2996,12 @@
       "name" : "GetPlotQuery",
       "resultType" : "ImPlotLimits",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "y_axis",
+        "qualType" : "ImPlotYAxis",
+        "desugaredQualType" : "int",
+        "defaultValue" : "IMPLOT_AUTO"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -2958,27 +3010,12 @@
             "text" : " Returns the current plot query bounds. Query must be enabled with ImPlotFlags_Query."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "y_axis",
-        "qualType" : "ImPlotYAxis",
-        "desugaredQualType" : "int",
-        "defaultValue" : "IMPLOT_AUTO"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetPlotQuery",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Set the current plot query bounds. Query must be enabled with ImPlotFlags_Query."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "query",
         "qualType" : "const ImPlotLimits &",
@@ -2989,6 +3026,15 @@
         "qualType" : "ImPlotYAxis",
         "desugaredQualType" : "int",
         "defaultValue" : "IMPLOT_AUTO"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Set the current plot query bounds. Query must be enabled with ImPlotFlags_Query."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -3009,15 +3055,6 @@
       "name" : "BeginAlignedPlots",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Align axis padding over multiple plots in a single row or column. If this function returns true, EndAlignedPlots() must be called. #group_id must be unique."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "group_id",
         "qualType" : "const char *",
@@ -3028,6 +3065,15 @@
         "qualType" : "ImPlotOrientation",
         "desugaredQualType" : "int",
         "defaultValue" : "ImPlotOrientation_Vertical"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Align axis padding over multiple plots in a single row or column. If this function returns true, EndAlignedPlots() must be called. #group_id must be unique."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -3048,15 +3094,6 @@
       "name" : "DragLineX",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "id",
         "qualType" : "const char *",
@@ -3084,21 +3121,21 @@
         "qualType" : "float",
         "desugaredQualType" : "float",
         "defaultValue" : "1"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "DragLineY",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "id",
         "qualType" : "const char *",
@@ -3126,21 +3163,21 @@
         "qualType" : "float",
         "desugaredQualType" : "float",
         "defaultValue" : "1"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "DragPoint",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Shows a draggable point at x,y. #col defaults to ImGuiCol_Text."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "id",
         "qualType" : "const char *",
@@ -3173,21 +3210,21 @@
         "qualType" : "float",
         "desugaredQualType" : "float",
         "defaultValue" : "4"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Shows a draggable point at x,y. #col defaults to ImGuiCol_Text."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetLegendLocation",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Set the location of the current plot's (or subplot's) legend."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "location",
         "qualType" : "ImPlotLocation",
@@ -3204,12 +3241,26 @@
         "qualType" : "bool",
         "desugaredQualType" : "bool",
         "defaultValue" : "false"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Set the location of the current plot's (or subplot's) legend."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetMousePosLocation",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "location",
+        "qualType" : "ImPlotLocation",
+        "desugaredQualType" : "int"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3218,17 +3269,17 @@
             "text" : " Set the location of the current plot's mouse position text (default = South|East)."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "location",
-        "qualType" : "ImPlotLocation",
-        "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "IsLegendEntryHovered",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "label_id",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3237,26 +3288,12 @@
             "text" : " Returns true if a plot item legend entry is hovered."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "label_id",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "BeginLegendPopup",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Begin a popup for a legend entry."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "label_id",
         "qualType" : "const char *",
@@ -3267,6 +3304,15 @@
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "1"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Begin a popup for a legend entry."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -3315,6 +3361,12 @@
       "name" : "BeginDragDropTargetY",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "axis",
+        "qualType" : "ImPlotYAxis",
+        "desugaredQualType" : "int",
+        "defaultValue" : "ImPlotYAxis_1"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3323,12 +3375,6 @@
             "text" : " Turns the current plot's Y-Axis into a drag and drop target. Don't forget to call EndDragDropTarget!"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "axis",
-        "qualType" : "ImPlotYAxis",
-        "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotYAxis_1"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -3363,6 +3409,18 @@
       "name" : "BeginDragDropSource",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "key_mods",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3371,7 +3429,12 @@
             "text" : " Turns the current plot's plotting area into a drag and drop source. Don't forget to call EndDragDropSource!"
           } ]
         } ]
-      }, {
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "BeginDragDropSourceX",
+      "resultType" : "bool",
+      "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "key_mods",
         "qualType" : "int",
@@ -3383,12 +3446,7 @@
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "0"
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "BeginDragDropSourceX",
-      "resultType" : "bool",
-      "decls" : [ {
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3397,33 +3455,12 @@
             "text" : " Turns the current plot's X-axis into a drag and drop source. Don't forget to call EndDragDropSource!"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "key_mods",
-        "qualType" : "int",
-        "desugaredQualType" : "int",
-        "defaultValue" : "="
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "flags",
-        "qualType" : "int",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "BeginDragDropSourceY",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Turns the current plot's Y-axis into a drag and drop source. Don't forget to call EndDragDropSource!"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "axis",
         "qualType" : "ImPlotYAxis",
@@ -3441,21 +3478,21 @@
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "0"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Turns the current plot's Y-axis into a drag and drop source. Don't forget to call EndDragDropSource!"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "BeginDragDropSourceItem",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Turns an item in the current plot's legend into drag and drop source. Don't forget to call EndDragDropSource!"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "label_id",
         "qualType" : "const char *",
@@ -3466,6 +3503,15 @@
         "qualType" : "int",
         "desugaredQualType" : "int",
         "defaultValue" : "0"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Turns an item in the current plot's legend into drag and drop source. Don't forget to call EndDragDropSource!"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -3500,6 +3546,12 @@
       "name" : "StyleColorsAuto",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "dst",
+        "qualType" : "ImPlotStyle *",
+        "desugaredQualType" : "ImPlotStyle *",
+        "defaultValue" : "="
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3508,18 +3560,18 @@
             "text" : " Style plot colors for current ImGui style (default)."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "dst",
-        "qualType" : "ImPlotStyle *",
-        "desugaredQualType" : "ImPlotStyle *",
-        "defaultValue" : "="
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "StyleColorsClassic",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "dst",
+        "qualType" : "ImPlotStyle *",
+        "desugaredQualType" : "ImPlotStyle *",
+        "defaultValue" : "="
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3528,18 +3580,18 @@
             "text" : " Style plot colors for ImGui \"Classic\"."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "dst",
-        "qualType" : "ImPlotStyle *",
-        "desugaredQualType" : "ImPlotStyle *",
-        "defaultValue" : "="
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "StyleColorsDark",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "dst",
+        "qualType" : "ImPlotStyle *",
+        "desugaredQualType" : "ImPlotStyle *",
+        "defaultValue" : "="
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3548,18 +3600,18 @@
             "text" : " Style plot colors for ImGui \"Dark\"."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "dst",
-        "qualType" : "ImPlotStyle *",
-        "desugaredQualType" : "ImPlotStyle *",
-        "defaultValue" : "="
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "StyleColorsLight",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "dst",
+        "qualType" : "ImPlotStyle *",
+        "desugaredQualType" : "ImPlotStyle *",
+        "defaultValue" : "="
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3568,27 +3620,12 @@
             "text" : " Style plot colors for ImGui \"Light\"."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "dst",
-        "qualType" : "ImPlotStyle *",
-        "desugaredQualType" : "ImPlotStyle *",
-        "defaultValue" : "="
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "PushStyleColor",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Temporarily modify a style color. Don't forget to call PopStyleColor!"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "idx",
         "qualType" : "ImPlotCol",
@@ -3598,6 +3635,15 @@
         "name" : "col",
         "qualType" : "int",
         "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Temporarily modify a style color. Don't forget to call PopStyleColor!"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -3619,6 +3665,12 @@
       "name" : "PopStyleColor",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "count",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "1"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3627,27 +3679,12 @@
             "text" : " Undo temporary style color modification(s). Undo multiple pushes at once by increasing count."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "count",
-        "qualType" : "int",
-        "desugaredQualType" : "int",
-        "defaultValue" : "1"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "PushStyleVar",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Temporarily modify a style variable of float type. Don't forget to call PopStyleVar!"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "idx",
         "qualType" : "ImPlotStyleVar",
@@ -3657,21 +3694,21 @@
         "name" : "val",
         "qualType" : "float",
         "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Temporarily modify a style variable of float type. Don't forget to call PopStyleVar!"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "PushStyleVar",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Temporarily modify a style variable of int type. Don't forget to call PopStyleVar!"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "idx",
         "qualType" : "ImPlotStyleVar",
@@ -3681,21 +3718,21 @@
         "name" : "val",
         "qualType" : "int",
         "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Temporarily modify a style variable of int type. Don't forget to call PopStyleVar!"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "PushStyleVar",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Temporarily modify a style variable of ImVec2 type. Don't forget to call PopStyleVar!"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "idx",
         "qualType" : "ImPlotStyleVar",
@@ -3705,12 +3742,27 @@
         "name" : "val",
         "qualType" : "const int &",
         "desugaredQualType" : "const int &"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Temporarily modify a style variable of ImVec2 type. Don't forget to call PopStyleVar!"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "PopStyleVar",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "count",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "1"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3719,27 +3771,12 @@
             "text" : " Undo temporary style variable modification(s). Undo multiple pushes at once by increasing count."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "count",
-        "qualType" : "int",
-        "desugaredQualType" : "int",
-        "defaultValue" : "1"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetNextLineStyle",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Set the line color and weight for the next item only."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "col",
         "qualType" : "const int &",
@@ -3751,21 +3788,21 @@
         "qualType" : "float",
         "desugaredQualType" : "float",
         "defaultValue" : "IMPLOT_AUTO"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Set the line color and weight for the next item only."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetNextFillStyle",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Set the fill color for the next item only."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "col",
         "qualType" : "const int &",
@@ -3777,21 +3814,21 @@
         "qualType" : "float",
         "desugaredQualType" : "float",
         "defaultValue" : "IMPLOT_AUTO"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Set the fill color for the next item only."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetNextMarkerStyle",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Set the marker style for the next item only."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "marker",
         "qualType" : "ImPlotMarker",
@@ -3821,21 +3858,21 @@
         "qualType" : "const int &",
         "desugaredQualType" : "const int &",
         "defaultValue" : "IMPLOT_AUTO_COL"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Set the marker style for the next item only."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetNextErrorBarStyle",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Set the error bar style for the next item only."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "col",
         "qualType" : "const int &",
@@ -3853,6 +3890,15 @@
         "qualType" : "float",
         "desugaredQualType" : "float",
         "defaultValue" : "IMPLOT_AUTO"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Set the error bar style for the next item only."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -3873,6 +3919,11 @@
       "name" : "GetStyleColorName",
       "resultType" : "const char *",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "idx",
+        "qualType" : "ImPlotCol",
+        "desugaredQualType" : "int"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3881,17 +3932,17 @@
             "text" : " Returns the null terminated string name for an ImPlotCol."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "idx",
-        "qualType" : "ImPlotCol",
-        "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "GetMarkerName",
       "resultType" : "const char *",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "idx",
+        "qualType" : "ImPlotMarker",
+        "desugaredQualType" : "int"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3900,38 +3951,12 @@
             "text" : " Returns the null terminated string name for an ImPlotMarker."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "idx",
-        "qualType" : "ImPlotMarker",
-        "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "AddColormap",
       "resultType" : "ImPlotColormap",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Add a new colormap. The color data will be copied. The colormap can be used by pushing either the returned index or the"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " string name with PushColormap. The colormap name must be unique and the size must be greater than 1. You will receive"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " an assert otherwise! By default colormaps are considered to be qualitative (i.e. discrete). If you want to create a"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " continuous colormap, set #qual=false. This will treat the colors you provide as keys, and ImPlot will build a linearly"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " interpolated lookup table. The memory footprint of this table will be exactly ((size-1)*255+1)*4 bytes."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "name",
         "qualType" : "const char *",
@@ -3952,6 +3977,27 @@
         "qualType" : "bool",
         "desugaredQualType" : "bool",
         "defaultValue" : "true"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Add a new colormap. The color data will be copied. The colormap can be used by pushing either the returned index or the"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " string name with PushColormap. The colormap name must be unique and the size must be greater than 1. You will receive"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " an assert otherwise! By default colormaps are considered to be qualitative (i.e. discrete). If you want to create a"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " continuous colormap, set #qual=false. This will treat the colors you provide as keys, and ImPlot will build a linearly"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " interpolated lookup table. The memory footprint of this table will be exactly ((size-1)*255+1)*4 bytes."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -3998,6 +4044,11 @@
       "name" : "GetColormapName",
       "resultType" : "const char *",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "cmap",
+        "qualType" : "ImPlotColormap",
+        "desugaredQualType" : "int"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4006,17 +4057,17 @@
             "text" : " Returns a null terminated string name for a colormap given an index. Returns NULL if index is invalid."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "cmap",
-        "qualType" : "ImPlotColormap",
-        "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "GetColormapIndex",
       "resultType" : "ImPlotColormap",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "name",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4025,17 +4076,17 @@
             "text" : " Returns an index number for a colormap given a valid string name. Returns -1 if name is invalid."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "name",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "PushColormap",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "cmap",
+        "qualType" : "ImPlotColormap",
+        "desugaredQualType" : "int"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4044,17 +4095,17 @@
             "text" : " Temporarily switch to one of the built-in (i.e. ImPlotColormap_XXX) or user-added colormaps (i.e. a return value of AddColormap). Don't forget to call PopColormap!"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "cmap",
-        "qualType" : "ImPlotColormap",
-        "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "PushColormap",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "name",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4063,17 +4114,18 @@
             "text" : " Push a colormap by string name. Use built-in names such as \"Default\", \"Deep\", \"Jet\", etc. or a string you provided to AddColormap. Don't forget to call PopColormap!"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "name",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "PopColormap",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "count",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "1"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4082,12 +4134,6 @@
             "text" : " Undo temporary colormap modification(s). Undo multiple pushes at once by increasing count."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "count",
-        "qualType" : "int",
-        "desugaredQualType" : "int",
-        "defaultValue" : "1"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -4111,6 +4157,12 @@
       "name" : "GetColormapSize",
       "resultType" : "int",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "cmap",
+        "qualType" : "ImPlotColormap",
+        "desugaredQualType" : "int",
+        "defaultValue" : "IMPLOT_AUTO"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4119,27 +4171,12 @@
             "text" : " Returns the size of a colormap."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "cmap",
-        "qualType" : "ImPlotColormap",
-        "desugaredQualType" : "int",
-        "defaultValue" : "IMPLOT_AUTO"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "GetColormapColor",
       "resultType" : "int",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Returns a color from a colormap given an index >= 0 (modulo will be performed)."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "idx",
         "qualType" : "int",
@@ -4150,21 +4187,21 @@
         "qualType" : "ImPlotColormap",
         "desugaredQualType" : "int",
         "defaultValue" : "IMPLOT_AUTO"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Returns a color from a colormap given an index >= 0 (modulo will be performed)."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SampleColormap",
       "resultType" : "int",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Sample a color from the current colormap given t between 0 and 1."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "t",
         "qualType" : "float",
@@ -4175,21 +4212,21 @@
         "qualType" : "ImPlotColormap",
         "desugaredQualType" : "int",
         "defaultValue" : "IMPLOT_AUTO"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Sample a color from the current colormap given t between 0 and 1."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "ColormapScale",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Shows a vertical color scale with linear spaced ticks using the specified color map. Use double hashes to hide label (e.g. \"##NoLabel\")."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "label",
         "qualType" : "const char *",
@@ -4222,21 +4259,21 @@
         "qualType" : "const char *",
         "desugaredQualType" : "const char *",
         "defaultValue" : "\"%g\""
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Shows a vertical color scale with linear spaced ticks using the specified color map. Use double hashes to hide label (e.g. \"##NoLabel\")."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "ColormapSlider",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Shows a horizontal slider with a colormap gradient background. Optionally returns the color sampled at t in [0 1]."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "label",
         "qualType" : "const char *",
@@ -4264,21 +4301,21 @@
         "qualType" : "ImPlotColormap",
         "desugaredQualType" : "int",
         "defaultValue" : "IMPLOT_AUTO"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Shows a horizontal slider with a colormap gradient background. Optionally returns the color sampled at t in [0 1]."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "ColormapButton",
       "resultType" : "bool",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Shows a button with a colormap gradient brackground."
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "label",
         "qualType" : "const char *",
@@ -4295,12 +4332,27 @@
         "qualType" : "ImPlotColormap",
         "desugaredQualType" : "int",
         "defaultValue" : "IMPLOT_AUTO"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Shows a button with a colormap gradient brackground."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "BustColorCache",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "plot_title_id",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *",
+        "defaultValue" : "="
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4327,18 +4379,17 @@
             "text" : " need this function, but it is available for applications that require runtime colormap swaps (e.g. Heatmaps demo)."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "plot_title_id",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *",
-        "defaultValue" : "="
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "ItemIcon",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "col",
+        "qualType" : "const int &",
+        "desugaredQualType" : "const int &"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4347,11 +4398,6 @@
             "text" : " Render icons similar to those that appear in legends (nifty for data lists)."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "col",
-        "qualType" : "const int &",
-        "desugaredQualType" : "const int &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -4392,6 +4438,12 @@
       "name" : "PushPlotClipRect",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "expand",
+        "qualType" : "float",
+        "desugaredQualType" : "float",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4400,12 +4452,6 @@
             "text" : " Push clip rect for rendering to current plot area. The rect can be expanded or contracted by #expand pixels. Call between Begin/EndPlot."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "expand",
-        "qualType" : "float",
-        "desugaredQualType" : "float",
-        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -4426,6 +4472,11 @@
       "name" : "ShowStyleSelector",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4434,17 +4485,17 @@
             "text" : " Shows ImPlot style selector dropdown menu."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "label",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "ShowColormapSelector",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "label",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4453,17 +4504,18 @@
             "text" : " Shows ImPlot colormap selector dropdown menu."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "label",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "ShowStyleEditor",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "ref",
+        "qualType" : "ImPlotStyle *",
+        "desugaredQualType" : "ImPlotStyle *",
+        "defaultValue" : "="
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4472,12 +4524,6 @@
             "text" : " Shows ImPlot style editor block (not a window)."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "ref",
-        "qualType" : "ImPlotStyle *",
-        "desugaredQualType" : "ImPlotStyle *",
-        "defaultValue" : "="
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -4498,6 +4544,12 @@
       "name" : "ShowMetricsWindow",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "p_popen",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "="
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4506,18 +4558,18 @@
             "text" : " Shows ImPlot metrics/debug information window."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "p_popen",
-        "qualType" : "bool *",
-        "desugaredQualType" : "bool *",
-        "defaultValue" : "="
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "ShowDemoWindow",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "p_open",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "="
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -4526,12 +4578,6 @@
             "text" : " Shows the ImPlot demo window."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "p_open",
-        "qualType" : "bool *",
-        "desugaredQualType" : "bool *",
-        "defaultValue" : "="
       } ]
     } ]
   } ]

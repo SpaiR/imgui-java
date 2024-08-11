@@ -4,17 +4,15 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.databind.node.ObjectNode
 import com.lordcodes.turtle.shellRun
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import tool.generator.ast.*
 import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
-import java.util.*
 
 open class GenerateAst : DefaultTask() {
     @Internal
@@ -23,23 +21,14 @@ open class GenerateAst : DefaultTask() {
     @Internal
     override fun getDescription() = "Generate AST tree for declared header files."
 
-    @Input
-    lateinit var headerFiles: Map<File, Collection<String>>
+    @InputFiles
+    lateinit var headerFiles: Collection<File>
 
     private val dstDir: File = File("${project.rootDir}/buildSrc/src/main/resources/${AstParser.RESOURCE_PATH}")
-
     private val objectMapper: ObjectMapper = ObjectMapper()
 
-    /**
-     * During the parsing of ast-dump we need to access an initial header file content.
-     * Required for cases like: get the content of the file (comment or default param value) by offset pos in file.
-     */
-    private var currentParsingHeaderContent: String = ""
-
-    /**
-     * This is used only to log stuff properly.
-     */
-    private var currentParsingIndent: Int = 0
+    // Content of the currently parsed header file. Can be used during parsing to extract additional information.
+    private lateinit var currentParsingHeaderContent: String
 
     init {
         objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true)
@@ -57,19 +46,16 @@ open class GenerateAst : DefaultTask() {
 
         logger.info("Processing headers...")
 
-        headerFiles.forEach { (header, defines) ->
+        headerFiles.forEach { header ->
             System.gc()
 
             logger.info("| $header")
 
-            // Store the header content in the field, so we can access it when parsing.
+            // Read the header.
             currentParsingHeaderContent = header.readText()
 
             // Header hash content to create a unique path for generated content.
             val headerHash = md5Hash(currentParsingHeaderContent)
-
-            // Append additional defines if provided.
-            currentParsingHeaderContent = defines.joinToString("\n") + currentParsingHeaderContent
 
             // We create a unique folder to store files generated for the header.
             // This is necessary because when we store all headers in the same directory,
@@ -78,21 +64,16 @@ open class GenerateAst : DefaultTask() {
                 mkdirs()
             }
 
-            // Move the header content to the temp file to make an ast-dump of it.
-            val headerName = header.nameWithoutExtension
-            val tmpHeaderFile = File("$astBuildDir/$headerName.h")
-            tmpHeaderFile.createNewFile()
-            tmpHeaderFile.writeText(currentParsingHeaderContent)
-
             logger.info("  | Making an ast-dump...")
 
             // Destination for ast-dump.
+            val headerName = header.nameWithoutExtension
             val astBumpJson = File("$astBuildDir/$headerName.json")
 
             // Call clang++ with the script.
             // During the process of making an ast-dump there could be errors/warnings.
             // Thus making a call like that can help to ignore them.
-            callClangAstBump(scriptPath, tmpHeaderFile, astBumpJson)
+            callClangAstBump(scriptPath, header, astBumpJson)
 
             logger.info("  | Processing an ast-dump result: $astBumpJson...")
 
@@ -103,36 +84,8 @@ open class GenerateAst : DefaultTask() {
                 parseDeclNode0(topDecl)?.let(fullDeclsList::add)
             }
 
-            //////////////
-            // After parsing the entire header file, we need to remove unnecessary information from it.
-            // So we pre-process the initial content and parse it again.
-            // This way, we can compare the initial result with the trimmed version
-            // to remove types and declarations that represent compiler information.
-
-
-            // Remove all includes and typedefs.
-            // They are not needed to process the AST, but they add extra information to the final dump.
-            // And since we want to have an ast-dump as minimal as possible we remove that information.
-            currentParsingHeaderContent = currentParsingHeaderContent
-                .replace("#include .*".toRegex(), "")
-                .replace("typedef .*".toRegex(), "")
-
-            // Re-write with pre-processed content.
-            tmpHeaderFile.writeText(currentParsingHeaderContent)
-
-            callClangAstBump(scriptPath, tmpHeaderFile, astBumpJson)
-
-            // As its said - we do the parsing once again, but now the final result won't contain std types.
-            val strippedDeclsList = mutableListOf<Decl>()
-            objectMapper.readTree(astBumpJson).get("inner").forEach { topDecl ->
-                parseDeclNode0(topDecl)?.let(strippedDeclsList::add)
-            }
-
-            logger.info("  | Removing an ast-decls diff...")
-            val resultDeclsList = removeAstDiff(fullDeclsList, strippedDeclsList)
-
             logger.info("  | Sorting an ast-decls...")
-            sortDecls0(resultDeclsList)
+            sortDecls0(fullDeclsList)
 
             ///////////////
             // In the end we write down the ast-decls result to the file.
@@ -154,7 +107,7 @@ open class GenerateAst : DefaultTask() {
                             command("git", listOf("rev-parse", "HEAD"))
                         },
                     ),
-                    decls = resultDeclsList
+                    decls = fullDeclsList
                 )
             )
         }
@@ -162,11 +115,11 @@ open class GenerateAst : DefaultTask() {
 
     private fun parseDeclNode0(declNode: JsonNode): Decl? {
         fun logParsingDecl(name: String) {
-            logger.info("    ${" ".repeat(currentParsingIndent)}| Parsing $name...")
+            logger.info("| Parsing $name...")
         }
 
         fun logParsingInner(name: String) {
-            logger.info("    ${" ".repeat(currentParsingIndent)}| $name")
+            logger.info(" | $name")
         }
 
         fun JsonNode.hasNoName(): Boolean {
@@ -188,7 +141,7 @@ open class GenerateAst : DefaultTask() {
             return loc.get("offset")?.asInt() ?: -1
         }
 
-        fun JsonNode.getDefaultParamValue(): String {
+        fun JsonNode.getDefaultParamValue(): String? {
             fun getOffset(jsonNode: JsonNode): Pair<Int, Int> {
                 val loc = if (jsonNode.has("expansionLoc")) {
                     jsonNode.get("expansionLoc")
@@ -197,10 +150,31 @@ open class GenerateAst : DefaultTask() {
                 }
                 return loc.get("offset").asInt() to loc.get("tokLen").asInt()
             }
-            return get("inner").get(0).get("range").let { range ->
+            return findValue("inner").findValue("range").let { range ->
                 val (beginOffset, _) = getOffset(range.get("begin"))
                 val (endOffset, endTokLoc) = getOffset(range.get("end"))
-                currentParsingHeaderContent.substring(beginOffset, endOffset + endTokLoc)
+                if (endOffset + endTokLoc < currentParsingHeaderContent.length) {
+                    currentParsingHeaderContent.substring(beginOffset, endOffset + endTokLoc)
+                } else {
+                    null
+                }
+            }
+        }
+
+        // Ignore declaration nodes with technical information.
+        // This information can be specific for the OS where the script was called.
+        declNode.findValue("name")?.asText()?.let {
+            if (it.startsWith("_")
+                || it.startsWith("operator")
+                || it.startsWith("rus")
+                || it.startsWith("sig")
+                || it.startsWith("proc_")
+            ) {
+                return null
+            }
+            when (it) {
+                "std", "timeval", "wait", "rlimit" -> return null
+                else -> null // do nothing
             }
         }
 
@@ -221,11 +195,9 @@ open class GenerateAst : DefaultTask() {
 
                     logParsingDecl("namespace $name")
 
-                    currentParsingIndent++
                     declNode.get("inner").forEach { innerDecl ->
                         parseDeclNode0(innerDecl)?.let(decls::add)
                     }
-                    currentParsingIndent--
 
                     return AstNamespaceDecl(offset, name, decls)
                 }
@@ -240,11 +212,9 @@ open class GenerateAst : DefaultTask() {
 
                     logParsingDecl("full comment")
 
-                    currentParsingIndent++
                     declNode.get("inner").forEach { innerDecl ->
                         parseDeclNode0(innerDecl)?.let(decls::add)
                     }
-                    currentParsingIndent--
 
                     return AstFullComment(offset, decls)
                 }
@@ -259,11 +229,9 @@ open class GenerateAst : DefaultTask() {
 
                     logParsingDecl("paragraph comment")
 
-                    currentParsingIndent++
                     declNode.get("inner").forEach { innerDecl ->
                         parseDeclNode0(innerDecl)?.let(decls::add)
                     }
-                    currentParsingIndent--
 
                     return AstParagraphComment(offset, decls)
                 }
@@ -283,11 +251,9 @@ open class GenerateAst : DefaultTask() {
 
                     logParsingDecl("function $name")
 
-                    currentParsingIndent++
                     declNode.get("inner")?.forEach { innerDecl ->
                         parseDeclNode0(innerDecl)?.let(decls::add)
                     }
-                    currentParsingIndent--
 
                     return AstFunctionDecl(offset, name, resultType, decls)
                 }
@@ -329,37 +295,30 @@ open class GenerateAst : DefaultTask() {
 
                     logParsingDecl("enum $name")
 
-                    currentParsingIndent++
                     declNode.get("inner").forEach { innerDecl ->
                         parseDeclNode0(innerDecl)?.let(decls::add)
                     }
-                    currentParsingIndent
 
                     // Sort enums by their real pos in the header file.
                     sortDecls0(decls)
 
-                    var order = 0
-                    val sortedDecls = decls.map { decl ->
-                        if (decl is AstEnumConstantDecl) {
-                            if (order == 0 && decl.value != null) {
-                                order = decl.value.toIntOrNull() ?: 0
-                            }
+                    var enumDecls = decls.filterIsInstance<AstEnumConstantDecl>()
+                    val otherDecls = decls - enumDecls.toSet()
 
-                            AstEnumConstantDecl(
-                                decl.offset,
-                                decl.name,
-                                decl.docComment,
-                                decl.qualType,
-                                order++,
-                                decl.value,
-                                decl.evaluatedValue
-                            )
-                        } else {
-                            decl
-                        }
+                    var order = 0
+                    enumDecls = enumDecls.mapIndexed { idx, decl ->
+                        AstEnumConstantDecl(
+                            decl.offset,
+                            decl.name,
+                            decl.docComment,
+                            decl.qualType,
+                            order++,
+                            decl.value,
+                            lookupEnumEvaluatedValue0(enumDecls, idx).toString(),
+                        )
                     }
 
-                    return AstEnumDecl(offset, name, sortedDecls)
+                    return AstEnumDecl(offset, name, otherDecls + enumDecls)
                 }
 
                 "EnumConstantDecl" -> {
@@ -377,7 +336,7 @@ open class GenerateAst : DefaultTask() {
                         }
                     }
 
-                    val evaluatedValue: String? = findNode0(declNode, "kind", "ConstantExpr")?.get("value")?.asText()
+                    val evaluatedValue: Int? = declNode.findValue("value")?.asInt()
                     val docComment: String? = declNode.findValuesAsText("text")?.joinToString(" ") { it.trim() }
 
                     logParsingInner("enum value $name")
@@ -390,7 +349,7 @@ open class GenerateAst : DefaultTask() {
                         // We provide a proper order in EnumDecl, after sorting all enums by their offset.
                         -1,
                         declValue,
-                        evaluatedValue
+                        evaluatedValue.toString()
                     )
                 }
 
@@ -405,11 +364,9 @@ open class GenerateAst : DefaultTask() {
 
                     logParsingDecl("record $name")
 
-                    currentParsingIndent++
                     declNode.get("inner").forEach { innerDecl ->
                         parseDeclNode0(innerDecl)?.let(decls::add)
                     }
-                    currentParsingIndent--
 
                     return AstRecordDecl(offset, name, decls)
                 }
@@ -453,79 +410,43 @@ open class GenerateAst : DefaultTask() {
     }
 
     /**
-     * Function removes difference between ast-trees.
-     * Basically, it returns the list which contains only types with the same name.
-     */
-    private fun removeAstDiff(fullDeclsList: List<Decl>, strippedDeclsList: List<Decl>): List<Decl> {
-        fun isSameNamespaceName(d1: Decl, d2: Decl): Boolean {
-            return d1 is AstNamespaceDecl && d2 is AstNamespaceDecl && d1.name == d2.name
-        }
-
-        fun isSameRecordName(d1: Decl, d2: Decl): Boolean {
-            return d1 is AstRecordDecl && d2 is AstRecordDecl && d1.name == d2.name
-        }
-
-        fun isSameEnumName(d1: Decl, d2: Decl): Boolean {
-            return d1 is AstEnumDecl && d2 is AstEnumDecl && d1.name == d2.name
-        }
-
-        fun isSameFunctionName(d1: Decl, d2: Decl): Boolean {
-            return d1 is AstFunctionDecl && d2 is AstFunctionDecl && d1.name == d2.name
-        }
-
-        return fullDeclsList
-            .filter { d1 ->
-                strippedDeclsList
-                    .find { d2 ->
-                        d1 == d2
-                                || isSameRecordName(d1, d2)
-                                || isSameNamespaceName(d1, d2)
-                                || isSameEnumName(d1, d2)
-                                || isSameFunctionName(d1, d2)
-                    } != null
-            }
-            .filterNot { it is AstFunctionDecl && it.name.startsWith("operator") }
-            .toMutableList() // Ensure final list will be mutable for later sorting.
-    }
-
-    /**
      * Sort decls in the provided list recursively using offset value.
      */
-    @Suppress("JavaCollectionsStaticMethodOnImmutableList")
-    private fun sortDecls0(decls: List<Decl>) {
-        Collections.sort(decls) { d1, d2 ->
+    private fun sortDecls0(decls: MutableList<Decl>) {
+        decls.sortWith { d1, d2 ->
             d1.offset.compareTo(d2.offset)
         }
         decls.forEach {
             if (it is DeclContainer) {
-                sortDecls0(it.decls)
+                sortDecls0(it.decls.toMutableList())
             }
         }
     }
 
-    private fun findNode0(root: JsonNode, field: String, value: String): JsonNode? {
-        if (root.isObject) {
-            val objectNode = root as ObjectNode
-            val fields = objectNode.fields()
-            while (fields.hasNext()) {
-                val entry = fields.next()
-                if (entry.key == field && entry.value.asText() == value) {
-                    return root
-                } else {
-                    val foundNode = findNode0(entry.value, field, value)
-                    if (foundNode != null) {
-                        return foundNode
-                    }
-                }
-            }
-        } else if (root.isArray) {
-            for (node in root) {
-                val foundNode = findNode0(node, field, value)
-                if (foundNode != null) {
-                    return foundNode
-                }
+    /**
+     * This method helps to find the value of the enum constant.
+     * It relies on C++ behaviour, when the value is something defined or the order of the enum itself.
+     */
+    private fun lookupEnumEvaluatedValue0(decls: List<AstEnumConstantDecl>, idx: Int): Int {
+        val decl = decls[idx]
+
+        if (decl.evaluatedValue != null) {
+            decl.evaluatedValue.toIntOrNull()?.let {
+                return it
             }
         }
-        return null
+
+        if (decl.value != null) {
+            decl.value.toIntOrNull()?.let {
+                return it
+            }
+        }
+
+        if (idx == 0) {
+            return 0
+        }
+
+        // This will behave like if we're using an order of the enum as the value.
+        return lookupEnumEvaluatedValue0(decls, idx - 1) + 1
     }
 }

@@ -158,19 +158,25 @@ public final class ImGuiDockNodeFlags {
      */
     public static final int SharedFlagsInheritMask_ = -1;
 
-    public static final int NoResizeFlagsMask_ = 15;
+    /**
+     * Definition: {@code ImGuiDockNodeFlags_NoResize | ImGuiDockNodeFlags_NoResizeX | ImGuiDockNodeFlags_NoResizeY}
+     */
+    public static final int NoResizeFlagsMask_ = 12582944;
 
-    public static final int LocalFlagsMask_ = 16;
+    /**
+     * Definition: {@code ImGuiDockNodeFlags_NoSplit | ImGuiDockNodeFlags_NoResizeFlagsMask_ | ImGuiDockNodeFlags_AutoHideTabBar | ImGuiDockNodeFlags_DockSpace | ImGuiDockNodeFlags_CentralNode | ImGuiDockNodeFlags_NoTabBar | ImGuiDockNodeFlags_HiddenTabBar | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton | ImGuiDockNodeFlags_NoDocking}
+     */
+    public static final int LocalFlagsMask_ = 12713072;
 
     /**
      * When splitting those flags are moved to the inheriting child, never duplicated
      *
      * <p>Definition: {@code ImGuiDockNodeFlags_LocalFlagsMask_ {@code &} ~ImGuiDockNodeFlags_DockSpace}
      */
-    public static final int LocalFlagsTransferMask_ = 1;
+    public static final int LocalFlagsTransferMask_ = 12712048;
 
     /**
      * Definition: {@code ImGuiDockNodeFlags_NoResizeFlagsMask_ | ImGuiDockNodeFlags_DockSpace | ImGuiDockNodeFlags_CentralNode | ImGuiDockNodeFlags_NoTabBar | ImGuiDockNodeFlags_HiddenTabBar | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton | ImGuiDockNodeFlags_NoDocking}
      */
-    public static final int SavedFlagsMask_ = 130048;
+    public static final int SavedFlagsMask_ = 12712992;
 }

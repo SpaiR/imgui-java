@@ -7,525 +7,6 @@
   },
   "decls" : [ {
     "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
     "name" : "ax",
     "decls" : [ {
       "@type" : "AstFullComment",
@@ -608,36 +89,6 @@
           "evaluatedValue" : "16"
         } ]
       }, {
-        "@type" : "AstFunctionDecl",
-        "name" : "operator|",
-        "resultType" : "SaveReasonFlags",
-        "decls" : [ {
-          "@type" : "AstParmVarDecl",
-          "name" : "lhs",
-          "qualType" : "SaveReasonFlags",
-          "desugaredQualType" : "ax::NodeEditor::SaveReasonFlags"
-        }, {
-          "@type" : "AstParmVarDecl",
-          "name" : "rhs",
-          "qualType" : "SaveReasonFlags",
-          "desugaredQualType" : "ax::NodeEditor::SaveReasonFlags"
-        } ]
-      }, {
-        "@type" : "AstFunctionDecl",
-        "name" : "operator&",
-        "resultType" : "SaveReasonFlags",
-        "decls" : [ {
-          "@type" : "AstParmVarDecl",
-          "name" : "lhs",
-          "qualType" : "SaveReasonFlags",
-          "desugaredQualType" : "ax::NodeEditor::SaveReasonFlags"
-        }, {
-          "@type" : "AstParmVarDecl",
-          "name" : "rhs",
-          "qualType" : "SaveReasonFlags",
-          "desugaredQualType" : "ax::NodeEditor::SaveReasonFlags"
-        } ]
-      }, {
         "@type" : "AstRecordDecl",
         "name" : "Config",
         "decls" : [ {
@@ -717,12 +168,14 @@
           "@type" : "AstEnumConstantDecl",
           "name" : "Input",
           "qualType" : "ax::NodeEditor::PinKind",
-          "order" : 0
+          "order" : 0,
+          "evaluatedValue" : "0"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "Output",
           "qualType" : "ax::NodeEditor::PinKind",
-          "order" : 1
+          "order" : 1,
+          "evaluatedValue" : "1"
         } ]
       }, {
         "@type" : "AstEnumDecl",
@@ -731,12 +184,14 @@
           "@type" : "AstEnumConstantDecl",
           "name" : "Forward",
           "qualType" : "ax::NodeEditor::FlowDirection",
-          "order" : 0
+          "order" : 0,
+          "evaluatedValue" : "0"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "Backward",
           "qualType" : "ax::NodeEditor::FlowDirection",
-          "order" : 1
+          "order" : 1,
+          "evaluatedValue" : "1"
         } ]
       }, {
         "@type" : "AstEnumDecl",
@@ -754,97 +209,116 @@
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_Bg",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 0
+          "order" : 0,
+          "evaluatedValue" : "0"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_Grid",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 1
+          "order" : 1,
+          "evaluatedValue" : "1"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_NodeBg",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 2
+          "order" : 2,
+          "evaluatedValue" : "2"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_NodeBorder",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 3
+          "order" : 3,
+          "evaluatedValue" : "3"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_HovNodeBorder",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 4
+          "order" : 4,
+          "evaluatedValue" : "4"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_SelNodeBorder",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 5
+          "order" : 5,
+          "evaluatedValue" : "5"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_NodeSelRect",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 6
+          "order" : 6,
+          "evaluatedValue" : "6"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_NodeSelRectBorder",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 7
+          "order" : 7,
+          "evaluatedValue" : "7"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_HovLinkBorder",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 8
+          "order" : 8,
+          "evaluatedValue" : "8"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_SelLinkBorder",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 9
+          "order" : 9,
+          "evaluatedValue" : "9"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_LinkSelRect",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 10
+          "order" : 10,
+          "evaluatedValue" : "10"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_LinkSelRectBorder",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 11
+          "order" : 11,
+          "evaluatedValue" : "11"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_PinRect",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 12
+          "order" : 12,
+          "evaluatedValue" : "12"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_PinRectBorder",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 13
+          "order" : 13,
+          "evaluatedValue" : "13"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_Flow",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 14
+          "order" : 14,
+          "evaluatedValue" : "14"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_FlowMarker",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 15
+          "order" : 15,
+          "evaluatedValue" : "15"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_GroupBg",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 16
+          "order" : 16,
+          "evaluatedValue" : "16"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_GroupBorder",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 17
+          "order" : 17,
+          "evaluatedValue" : "17"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleColor_Count",
           "qualType" : "ax::NodeEditor::StyleColor",
-          "order" : 18
+          "order" : 18,
+          "evaluatedValue" : "18"
         } ]
       }, {
         "@type" : "AstEnumDecl",
@@ -853,122 +327,146 @@
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_NodePadding",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 0
+          "order" : 0,
+          "evaluatedValue" : "0"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_NodeRounding",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 1
+          "order" : 1,
+          "evaluatedValue" : "1"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_NodeBorderWidth",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 2
+          "order" : 2,
+          "evaluatedValue" : "2"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_HoveredNodeBorderWidth",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 3
+          "order" : 3,
+          "evaluatedValue" : "3"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_SelectedNodeBorderWidth",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 4
+          "order" : 4,
+          "evaluatedValue" : "4"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_PinRounding",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 5
+          "order" : 5,
+          "evaluatedValue" : "5"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_PinBorderWidth",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 6
+          "order" : 6,
+          "evaluatedValue" : "6"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_LinkStrength",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 7
+          "order" : 7,
+          "evaluatedValue" : "7"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_SourceDirection",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 8
+          "order" : 8,
+          "evaluatedValue" : "8"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_TargetDirection",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 9
+          "order" : 9,
+          "evaluatedValue" : "9"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_ScrollDuration",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 10
+          "order" : 10,
+          "evaluatedValue" : "10"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_FlowMarkerDistance",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 11
+          "order" : 11,
+          "evaluatedValue" : "11"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_FlowSpeed",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 12
+          "order" : 12,
+          "evaluatedValue" : "12"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_FlowDuration",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 13
+          "order" : 13,
+          "evaluatedValue" : "13"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_PivotAlignment",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 14
+          "order" : 14,
+          "evaluatedValue" : "14"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_PivotSize",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 15
+          "order" : 15,
+          "evaluatedValue" : "15"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_PivotScale",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 16
+          "order" : 16,
+          "evaluatedValue" : "16"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_PinCorners",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 17
+          "order" : 17,
+          "evaluatedValue" : "17"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_PinRadius",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 18
+          "order" : 18,
+          "evaluatedValue" : "18"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_PinArrowSize",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 19
+          "order" : 19,
+          "evaluatedValue" : "19"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_PinArrowWidth",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 20
+          "order" : 20,
+          "evaluatedValue" : "20"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_GroupRounding",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 21
+          "order" : 21,
+          "evaluatedValue" : "21"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_GroupBorderWidth",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 22
+          "order" : 22,
+          "evaluatedValue" : "22"
         }, {
           "@type" : "AstEnumConstantDecl",
           "name" : "StyleVar_Count",
           "qualType" : "ax::NodeEditor::StyleVar",
-          "order" : 23
+          "order" : 23,
+          "evaluatedValue" : "23"
         } ]
       }, {
         "@type" : "AstRecordDecl",
@@ -1112,6 +610,11 @@
         "name" : "SetCurrentEditor",
         "resultType" : "void",
         "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "name" : "ctx",
+          "qualType" : "EditorContext *",
+          "desugaredQualType" : "EditorContext *"
+        }, {
           "@type" : "AstFullComment",
           "decls" : [ {
             "@type" : "AstParagraphComment",
@@ -1120,11 +623,6 @@
               "text" : "------------------------------------------------------------------------------"
             } ]
           } ]
-        }, {
-          "@type" : "AstParmVarDecl",
-          "name" : "ctx",
-          "qualType" : "EditorContext *",
-          "desugaredQualType" : "EditorContext *"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1405,6 +903,11 @@
         "name" : "GetNodeBackgroundDrawList",
         "resultType" : "int *",
         "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "name" : "nodeId",
+          "qualType" : "NodeId",
+          "desugaredQualType" : "ax::NodeEditor::NodeId"
+        }, {
           "@type" : "AstFullComment",
           "decls" : [ {
             "@type" : "AstParagraphComment",
@@ -1413,11 +916,6 @@
               "text" : " TODO: Add a way to manage node background channels"
             } ]
           } ]
-        }, {
-          "@type" : "AstParmVarDecl",
-          "name" : "nodeId",
-          "qualType" : "NodeId",
-          "desugaredQualType" : "ax::NodeEditor::NodeId"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -2211,230 +1709,5 @@
         "name" : "PinId"
       } ]
     } ]
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstRecordDecl",
-    "name" : "__darwin_pthread_handler_rec",
-    "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "__routine",
-      "qualType" : "void (*)(void *)",
-      "desugaredQualType" : "void (*)(void *)"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "__arg",
-      "qualType" : "void *",
-      "desugaredQualType" : "void *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "__next",
-      "qualType" : "struct __darwin_pthread_handler_rec *",
-      "desugaredQualType" : "struct __darwin_pthread_handler_rec *"
-    } ]
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstRecordDecl",
-    "name" : "_opaque_pthread_attr_t",
-    "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "__sig",
-      "qualType" : "long",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "__opaque",
-      "qualType" : "char[56]",
-      "desugaredQualType" : "char[56]"
-    } ]
-  }, {
-    "@type" : "AstRecordDecl",
-    "name" : "_opaque_pthread_cond_t",
-    "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "__sig",
-      "qualType" : "long",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "__opaque",
-      "qualType" : "char[40]",
-      "desugaredQualType" : "char[40]"
-    } ]
-  }, {
-    "@type" : "AstRecordDecl",
-    "name" : "_opaque_pthread_condattr_t",
-    "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "__sig",
-      "qualType" : "long",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "__opaque",
-      "qualType" : "char[8]",
-      "desugaredQualType" : "char[8]"
-    } ]
-  }, {
-    "@type" : "AstRecordDecl",
-    "name" : "_opaque_pthread_mutex_t",
-    "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "__sig",
-      "qualType" : "long",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "__opaque",
-      "qualType" : "char[56]",
-      "desugaredQualType" : "char[56]"
-    } ]
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstRecordDecl",
-    "name" : "_opaque_pthread_mutexattr_t",
-    "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "__sig",
-      "qualType" : "long",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "__opaque",
-      "qualType" : "char[8]",
-      "desugaredQualType" : "char[8]"
-    } ]
-  }, {
-    "@type" : "AstRecordDecl",
-    "name" : "_opaque_pthread_once_t",
-    "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "__sig",
-      "qualType" : "long",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "__opaque",
-      "qualType" : "char[8]",
-      "desugaredQualType" : "char[8]"
-    } ]
-  }, {
-    "@type" : "AstRecordDecl",
-    "name" : "_opaque_pthread_rwlock_t",
-    "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "__sig",
-      "qualType" : "long",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "__opaque",
-      "qualType" : "char[192]",
-      "desugaredQualType" : "char[192]"
-    } ]
-  }, {
-    "@type" : "AstRecordDecl",
-    "name" : "_opaque_pthread_rwlockattr_t",
-    "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "__sig",
-      "qualType" : "long",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "__opaque",
-      "qualType" : "char[16]",
-      "desugaredQualType" : "char[16]"
-    } ]
-  }, {
-    "@type" : "AstRecordDecl",
-    "name" : "_opaque_pthread_t",
-    "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "__sig",
-      "qualType" : "long",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "__cleanup_stack",
-      "qualType" : "struct __darwin_pthread_handler_rec *",
-      "desugaredQualType" : "struct __darwin_pthread_handler_rec *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "__opaque",
-      "qualType" : "char[8176]",
-      "desugaredQualType" : "char[8176]"
-    } ]
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
-  }, {
-    "@type" : "AstNamespaceDecl",
-    "name" : "std"
   } ]
 }

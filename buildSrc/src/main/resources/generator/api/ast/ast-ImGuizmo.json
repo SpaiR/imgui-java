@@ -13,6 +13,12 @@
       "name" : "SetDrawlist",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "drawlist",
+        "qualType" : "int *",
+        "desugaredQualType" : "int *",
+        "defaultValue" : "="
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -24,12 +30,6 @@
             "text" : " Or pass a specific ImDrawList to draw to (e.g. ImGui::GetForegroundDrawList())."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "drawlist",
-        "qualType" : "int *",
-        "desugaredQualType" : "int *",
-        "defaultValue" : "="
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -50,6 +50,11 @@
       "name" : "SetImGuiContext",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "ctx",
+        "qualType" : "int *",
+        "desugaredQualType" : "int *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -67,11 +72,6 @@
             "text" : " expose method to set imgui context"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "ctx",
-        "qualType" : "int *",
-        "desugaredQualType" : "int *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -106,6 +106,11 @@
       "name" : "Enable",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "enable",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -117,17 +122,32 @@
             "text" : " gizmo is rendered with gray half transparent color when disabled"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "enable",
-        "qualType" : "bool",
-        "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "DecomposeMatrixToComponents",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "matrix",
+        "qualType" : "const float *",
+        "desugaredQualType" : "const float *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "translation",
+        "qualType" : "float *",
+        "desugaredQualType" : "float *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "rotation",
+        "qualType" : "float *",
+        "desugaredQualType" : "float *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "scale",
+        "qualType" : "float *",
+        "desugaredQualType" : "float *"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -169,26 +189,6 @@
             "text" : " These functions have some numerical stability issues for now. Use with caution."
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "matrix",
-        "qualType" : "const float *",
-        "desugaredQualType" : "const float *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "translation",
-        "qualType" : "float *",
-        "desugaredQualType" : "float *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "rotation",
-        "qualType" : "float *",
-        "desugaredQualType" : "float *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "scale",
-        "qualType" : "float *",
-        "desugaredQualType" : "float *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -245,6 +245,11 @@
       "name" : "SetOrthographic",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "isOrthographic",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -253,26 +258,12 @@
             "text" : " default is false"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "isOrthographic",
-        "qualType" : "bool",
-        "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "DrawCubes",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Render a cube with face color corresponding to face normal. Usefull for debug/tests"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "view",
         "qualType" : "const float *",
@@ -292,6 +283,15 @@
         "name" : "matrixCount",
         "qualType" : "int",
         "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Render a cube with face color corresponding to face normal. Usefull for debug/tests"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -439,33 +439,20 @@
         "evaluatedValue" : "896"
       } ]
     }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "operator|",
-      "resultType" : "OPERATION",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "lhs",
-        "qualType" : "OPERATION",
-        "desugaredQualType" : "ImGuizmo::OPERATION"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "rhs",
-        "qualType" : "OPERATION",
-        "desugaredQualType" : "ImGuizmo::OPERATION"
-      } ]
-    }, {
       "@type" : "AstEnumDecl",
       "name" : "MODE",
       "decls" : [ {
         "@type" : "AstEnumConstantDecl",
         "name" : "LOCAL",
         "qualType" : "ImGuizmo::MODE",
-        "order" : 0
+        "order" : 0,
+        "evaluatedValue" : "0"
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "WORLD",
         "qualType" : "ImGuizmo::MODE",
-        "order" : 1
+        "order" : 1,
+        "evaluatedValue" : "1"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -526,21 +513,6 @@
       "name" : "ViewManipulate",
       "resultType" : "void",
       "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Please note that this cubeview is patented by Autodesk : https://patents.google.com/patent/US7782319B2/en"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " It seems to be a defensive patent in the US. I don't think it will bring troubles using it as"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " other software are using the same mechanics. But just in case, you are now warned!"
-          } ]
-        } ]
-      }, {
         "@type" : "AstParmVarDecl",
         "name" : "view",
         "qualType" : "float *",
@@ -565,6 +537,21 @@
         "name" : "backgroundColor",
         "qualType" : "int",
         "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Please note that this cubeview is patented by Autodesk : https://patents.google.com/patent/US7782319B2/en"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " It seems to be a defensive patent in the US. I don't think it will bring troubles using it as"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " other software are using the same mechanics. But just in case, you are now warned!"
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -581,6 +568,11 @@
       "name" : "IsOver",
       "resultType" : "bool",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "op",
+        "qualType" : "OPERATION",
+        "desugaredQualType" : "ImGuizmo::OPERATION"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -589,11 +581,6 @@
             "text" : " return true if the cursor is over the operation's gizmo"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "op",
-        "qualType" : "OPERATION",
-        "desugaredQualType" : "ImGuizmo::OPERATION"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -610,6 +597,11 @@
       "name" : "AllowAxisFlip",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "value",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -624,11 +616,6 @@
             "text" : " When false, they always stay along the positive world/local axis"
           } ]
         } ]
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "value",
-        "qualType" : "bool",
-        "desugaredQualType" : "bool"
       } ]
     } ]
   } ]
