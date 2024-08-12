@@ -328,55 +328,6 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
-     */
-    public int[] getKeyMap() {
-        return nGetKeyMap();
-    }
-
-    /**
-     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
-     */
-    public int getKeyMap(final int idx) {
-        return nGetKeyMap(idx);
-    }
-
-    /**
-     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
-     */
-    public void setKeyMap(final int[] value) {
-        nSetKeyMap(value);
-    }
-
-    /**
-     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
-     */
-    public void setKeyMap(final int idx, final int value) {
-        nSetKeyMap(idx, value);
-    }
-
-    private native int[] nGetKeyMap(); /*
-        jint jBuf[ImGuiKey_COUNT];
-        for (int i = 0; i < ImGuiKey_COUNT; i++)
-            jBuf[i] = THIS->KeyMap[i];
-        jintArray result = env->NewIntArray(ImGuiKey_COUNT);
-        env->SetIntArrayRegion(result, 0, ImGuiKey_COUNT, jBuf);
-        return result;
-    */
-
-    private native int nGetKeyMap(int idx); /*
-        return THIS->KeyMap[idx];
-    */
-
-    private native void nSetKeyMap(int[] value); /*
-        for (int i = 0; i < ImGuiKey_COUNT; i++)
-            THIS->KeyMap[i] = value[i];
-    */
-
-    private native int nSetKeyMap(int idx, int value); /*
-        THIS->KeyMap[idx] = value;
-    */
-
     /**
      * When holding a key/button, time before it starts repeating, in seconds (for buttons in Repeat mode, etc.).
      */
@@ -800,6 +751,28 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
+     * Enable input queue trickling: some types of events submitted during the same frame (e.g. button down + up) will be spread over multiple frames, improving interactions with low framerates.
+     */
+    public boolean getConfigInputTrickleEventQueue() {
+        return nGetConfigInputTrickleEventQueue();
+    }
+
+    /**
+     * Enable input queue trickling: some types of events submitted during the same frame (e.g. button down + up) will be spread over multiple frames, improving interactions with low framerates.
+     */
+    public void setConfigInputTrickleEventQueue(final boolean value) {
+        nSetConfigInputTrickleEventQueue(value);
+    }
+
+    private native boolean nGetConfigInputTrickleEventQueue(); /*
+        return THIS->ConfigInputTrickleEventQueue;
+    */
+
+    private native void nSetConfigInputTrickleEventQueue(boolean value); /*
+        THIS->ConfigInputTrickleEventQueue = value;
+    */
+
+    /**
      * Set to false to disable blinking cursor, for users who consider it distracting.
      */
     public boolean getConfigInputTextCursorBlink() {
@@ -994,383 +967,87 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     //------------------------------------------------------------------
-    // Input - Fill before calling NewFrame()
+    // Input - Call before calling NewFrame()
     //------------------------------------------------------------------
 
-    /**
-     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
-     */
-    public ImVec2 getMousePos() {
-        final ImVec2 dst = new ImVec2();
-        nGetMousePos(dst);
-        return dst;
-    }
+    // Input Functions
 
     /**
-     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
+     * Queue a new key down/up event. Key should be "translated" (as in, generally ImGuiKey_A matches the key end-user would use to emit an 'A' character)
      */
-    public float getMousePosX() {
-        return nGetMousePosX();
+    public void addKeyEvent(final int key, final boolean down) {
+        nAddKeyEvent(key, down);
     }
 
-    /**
-     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
-     */
-    public float getMousePosY() {
-        return nGetMousePosY();
-    }
-
-    /**
-     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
-     */
-    public void getMousePos(final ImVec2 dst) {
-        nGetMousePos(dst);
-    }
-
-    /**
-     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
-     */
-    public void setMousePos(final ImVec2 value) {
-        nSetMousePos(value.x, value.y);
-    }
-
-    /**
-     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
-     */
-    public void setMousePos(final float valueX, final float valueY) {
-        nSetMousePos(valueX, valueY);
-    }
-
-    private native void nGetMousePos(ImVec2 dst); /*
-        Jni::ImVec2Cpy(env, THIS->MousePos, dst);
-    */
-
-    private native float nGetMousePosX(); /*
-        return THIS->MousePos.x;
-    */
-
-    private native float nGetMousePosY(); /*
-        return THIS->MousePos.y;
-    */
-
-    private native void nSetMousePos(float valueX, float valueY); /*MANUAL
-        ImVec2 value = ImVec2(valueX, valueY);
-        THIS->MousePos = value;
+    private native void nAddKeyEvent(int key, boolean down); /*
+        THIS->AddKeyEvent(static_cast<ImGuiKey>(key), down);
     */
 
     /**
-     * Mouse buttons: 0=left, 1=right, 2=middle + extras (ImGuiMouseButton_COUNT == 5). Dear ImGui mostly uses left and right buttons.
-     * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
+     * Queue a new key down/up event for analog values (e.g. ImGuiKey_Gamepad_ values). Dead-zones should be handled by the backend.
      */
-    public boolean[] getMouseDown() {
-        return nGetMouseDown();
+    public void addKeyAnalogEvent(final int key, final boolean down, final float v) {
+        nAddKeyAnalogEvent(key, down, v);
     }
 
-    /**
-     * Mouse buttons: 0=left, 1=right, 2=middle + extras (ImGuiMouseButton_COUNT == 5). Dear ImGui mostly uses left and right buttons.
-     * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
-     */
-    public boolean getMouseDown(final int idx) {
-        return nGetMouseDown(idx);
-    }
-
-    /**
-     * Mouse buttons: 0=left, 1=right, 2=middle + extras (ImGuiMouseButton_COUNT == 5). Dear ImGui mostly uses left and right buttons.
-     * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
-     */
-    public void setMouseDown(final boolean[] value) {
-        nSetMouseDown(value);
-    }
-
-    /**
-     * Mouse buttons: 0=left, 1=right, 2=middle + extras (ImGuiMouseButton_COUNT == 5). Dear ImGui mostly uses left and right buttons.
-     * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
-     */
-    public void setMouseDown(final int idx, final boolean value) {
-        nSetMouseDown(idx, value);
-    }
-
-    private native boolean[] nGetMouseDown(); /*
-        jboolean jBuf[5];
-        for (int i = 0; i < 5; i++)
-            jBuf[i] = THIS->MouseDown[i];
-        jbooleanArray result = env->NewBooleanArray(5);
-        env->SetBooleanArrayRegion(result, 0, 5, jBuf);
-        return result;
-    */
-
-    private native boolean nGetMouseDown(int idx); /*
-        return THIS->MouseDown[idx];
-    */
-
-    private native void nSetMouseDown(boolean[] value); /*
-        for (int i = 0; i < 5; i++)
-            THIS->MouseDown[i] = value[i];
-    */
-
-    private native boolean nSetMouseDown(int idx, boolean value); /*
-        THIS->MouseDown[idx] = value;
+    private native void nAddKeyAnalogEvent(int key, boolean down, float v); /*
+        THIS->AddKeyAnalogEvent(static_cast<ImGuiKey>(key), down, v);
     */
 
     /**
-     * Mouse wheel Vertical: 1 unit scrolls about 5 lines text.
+     * Queue a mouse position update. Use -FLT_MAX,-FLT_MAX to signify no mouse (e.g. app not focused and not hovered)
      */
-    public float getMouseWheel() {
-        return nGetMouseWheel();
+    public void addMousePosEvent(final float x, final float y) {
+        nAddMousePosEvent(x, y);
     }
 
-    /**
-     * Mouse wheel Vertical: 1 unit scrolls about 5 lines text.
-     */
-    public void setMouseWheel(final float value) {
-        nSetMouseWheel(value);
-    }
-
-    private native float nGetMouseWheel(); /*
-        return THIS->MouseWheel;
-    */
-
-    private native void nSetMouseWheel(float value); /*
-        THIS->MouseWheel = value;
+    private native void nAddMousePosEvent(float x, float y); /*
+        THIS->AddMousePosEvent(x, y);
     */
 
     /**
-     * Mouse wheel Horizontal. Most users don't have a mouse with an horizontal wheel, may not be filled by all backends.
+     * Queue a mouse button change
      */
-    public float getMouseWheelH() {
-        return nGetMouseWheelH();
+    public void addMouseButtonEvent(final int button, final boolean down) {
+        nAddMouseButtonEvent(button, down);
     }
 
-    /**
-     * Mouse wheel Horizontal. Most users don't have a mouse with an horizontal wheel, may not be filled by all backends.
-     */
-    public void setMouseWheelH(final float value) {
-        nSetMouseWheelH(value);
-    }
-
-    private native float nGetMouseWheelH(); /*
-        return THIS->MouseWheelH;
-    */
-
-    private native void nSetMouseWheelH(float value); /*
-        THIS->MouseWheelH = value;
+    private native void nAddMouseButtonEvent(int button, boolean down); /*
+        THIS->AddMouseButtonEvent(button, down);
     */
 
     /**
-     * (Optional) When using multiple viewports: viewport the OS mouse cursor is hovering _IGNORING_ viewports with the ImGuiViewportFlags_NoInputs flag,
-     * and _REGARDLESS_ of whether another viewport is focused. Set io.BackendFlags |= ImGuiBackendFlags_HasMouseHoveredViewport if you can provide this info.
-     * If you don't imgui will infer the value using the rectangles and last focused time of the viewports it knows about (ignoring other OS windows).
+     * Queue a mouse wheel update
      */
-    public int getMouseHoveredViewport() {
-        return nGetMouseHoveredViewport();
+    public void addMouseWheelEvent(final float whX, final float whY) {
+        nAddMouseWheelEvent(whX, whY);
     }
 
-    /**
-     * (Optional) When using multiple viewports: viewport the OS mouse cursor is hovering _IGNORING_ viewports with the ImGuiViewportFlags_NoInputs flag,
-     * and _REGARDLESS_ of whether another viewport is focused. Set io.BackendFlags |= ImGuiBackendFlags_HasMouseHoveredViewport if you can provide this info.
-     * If you don't imgui will infer the value using the rectangles and last focused time of the viewports it knows about (ignoring other OS windows).
-     */
-    public void setMouseHoveredViewport(final int value) {
-        nSetMouseHoveredViewport(value);
-    }
-
-    private native int nGetMouseHoveredViewport(); /*
-        return THIS->MouseHoveredViewport;
-    */
-
-    private native void nSetMouseHoveredViewport(int value); /*
-        THIS->MouseHoveredViewport = value;
+    private native void nAddMouseWheelEvent(float whX, float whY); /*
+        THIS->AddMouseWheelEvent(whX, whY);
     */
 
     /**
-     * Keyboard modifier pressed: Control
+     * Queue a mouse hovered viewport. Requires backend to set ImGuiBackendFlags_HasMouseHoveredViewport to call this (for multi-viewport support).
      */
-    public boolean getKeyCtrl() {
-        return nGetKeyCtrl();
+    public void addMouseViewportEvent(final int id) {
+        nAddMouseViewportEvent(id);
     }
 
-    /**
-     * Keyboard modifier pressed: Control
-     */
-    public void setKeyCtrl(final boolean value) {
-        nSetKeyCtrl(value);
-    }
-
-    private native boolean nGetKeyCtrl(); /*
-        return THIS->KeyCtrl;
-    */
-
-    private native void nSetKeyCtrl(boolean value); /*
-        THIS->KeyCtrl = value;
+    private native void nAddMouseViewportEvent(int id); /*
+        THIS->AddMouseViewportEvent(static_cast<ImGuiID>(id));
     */
 
     /**
-     * Keyboard modifier pressed: Shift
+     * Queue a gain/loss of focus for the application (generally based on OS/platform focus of your window)
      */
-    public boolean getKeyShift() {
-        return nGetKeyShift();
+    public void addFocusEvent(final boolean focused) {
+        nAddFocusEvent(focused);
     }
 
-    /**
-     * Keyboard modifier pressed: Shift
-     */
-    public void setKeyShift(final boolean value) {
-        nSetKeyShift(value);
-    }
-
-    private native boolean nGetKeyShift(); /*
-        return THIS->KeyShift;
+    private native void nAddFocusEvent(boolean focused); /*
+        THIS->AddFocusEvent(focused);
     */
-
-    private native void nSetKeyShift(boolean value); /*
-        THIS->KeyShift = value;
-    */
-
-    /**
-     * Keyboard modifier pressed: Alt
-     */
-    public boolean getKeyAlt() {
-        return nGetKeyAlt();
-    }
-
-    /**
-     * Keyboard modifier pressed: Alt
-     */
-    public void setKeyAlt(final boolean value) {
-        nSetKeyAlt(value);
-    }
-
-    private native boolean nGetKeyAlt(); /*
-        return THIS->KeyAlt;
-    */
-
-    private native void nSetKeyAlt(boolean value); /*
-        THIS->KeyAlt = value;
-    */
-
-    /**
-     * Keyboard modifier pressed: Cmd/Super/Windows
-     */
-    public boolean getKeySuper() {
-        return nGetKeySuper();
-    }
-
-    /**
-     * Keyboard modifier pressed: Cmd/Super/Windows
-     */
-    public void setKeySuper(final boolean value) {
-        nSetKeySuper(value);
-    }
-
-    private native boolean nGetKeySuper(); /*
-        return THIS->KeySuper;
-    */
-
-    private native void nSetKeySuper(boolean value); /*
-        THIS->KeySuper = value;
-    */
-
-    /**
-     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
-     */
-    public boolean[] getKeysDown() {
-        return nGetKeysDown();
-    }
-
-    /**
-     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
-     */
-    public boolean getKeysDown(final int idx) {
-        return nGetKeysDown(idx);
-    }
-
-    /**
-     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
-     */
-    public void setKeysDown(final boolean[] value) {
-        nSetKeysDown(value);
-    }
-
-    /**
-     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
-     */
-    public void setKeysDown(final int idx, final boolean value) {
-        nSetKeysDown(idx, value);
-    }
-
-    private native boolean[] nGetKeysDown(); /*
-        jboolean jBuf[512];
-        for (int i = 0; i < 512; i++)
-            jBuf[i] = THIS->KeysDown[i];
-        jbooleanArray result = env->NewBooleanArray(512);
-        env->SetBooleanArrayRegion(result, 0, 512, jBuf);
-        return result;
-    */
-
-    private native boolean nGetKeysDown(int idx); /*
-        return THIS->KeysDown[idx];
-    */
-
-    private native void nSetKeysDown(boolean[] value); /*
-        for (int i = 0; i < 512; i++)
-            THIS->KeysDown[i] = value[i];
-    */
-
-    private native boolean nSetKeysDown(int idx, boolean value); /*
-        THIS->KeysDown[idx] = value;
-    */
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    public float[] getNavInputs() {
-        return nGetNavInputs();
-    }
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    public float getNavInputs(final int idx) {
-        return nGetNavInputs(idx);
-    }
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    public void setNavInputs(final float[] value) {
-        nSetNavInputs(value);
-    }
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    public void setNavInputs(final int idx, final float value) {
-        nSetNavInputs(idx, value);
-    }
-
-    private native float[] nGetNavInputs(); /*
-        jfloat jBuf[512];
-        for (int i = 0; i < 512; i++)
-            jBuf[i] = THIS->NavInputs[i];
-        jfloatArray result = env->NewFloatArray(512);
-        env->SetFloatArrayRegion(result, 0, 512, jBuf);
-        return result;
-    */
-
-    private native float nGetNavInputs(int idx); /*
-        return THIS->NavInputs[idx];
-    */
-
-    private native void nSetNavInputs(float[] value); /*
-        for (int i = 0; i < 512; i++)
-            THIS->NavInputs[i] = value[i];
-    */
-
-    private native float nSetNavInputs(int idx, float value); /*
-        THIS->NavInputs[idx] = value;
-    */
-
-    // Functions
 
     /**
      * Queue new character input.
@@ -1408,17 +1085,6 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-     * Notifies Dear ImGui when hosting platform windows lose or gain input focus
-     */
-    public void addFocusEvent(final boolean focused) {
-        nAddFocusEvent(focused);
-    }
-
-    private native void nAddFocusEvent(boolean focused); /*
-        THIS->AddFocusEvent(focused);
-    */
-
-    /**
      * [Internal] Clear the text input buffer manually
      */
     public void clearInputCharacters() {
@@ -1438,6 +1104,28 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nClearInputKeys(); /*
         THIS->ClearInputKeys();
+    */
+
+    /**
+     * [Optional] Specify index for legacy <1.87 IsKeyXXX() functions with native indices + specify native keycode, scancode.
+     */
+    public void setKeyEventNativeData(final int key, final int nativeKeycode, final int nativeScancode) {
+        nSetKeyEventNativeData(key, nativeKeycode, nativeScancode);
+    }
+
+    /**
+     * [Optional] Specify index for legacy <1.87 IsKeyXXX() functions with native indices + specify native keycode, scancode.
+     */
+    public void setKeyEventNativeData(final int key, final int nativeKeycode, final int nativeScancode, final int nativeLegacyIndex) {
+        nSetKeyEventNativeData(key, nativeKeycode, nativeScancode, nativeLegacyIndex);
+    }
+
+    private native void nSetKeyEventNativeData(int key, int nativeKeycode, int nativeScancode); /*
+        THIS->SetKeyEventNativeData(static_cast<ImGuiKey>(key), nativeKeycode, nativeScancode);
+    */
+
+    private native void nSetKeyEventNativeData(int key, int nativeKeycode, int nativeScancode, int nativeLegacyIndex); /*
+        THIS->SetKeyEventNativeData(static_cast<ImGuiKey>(key), nativeKeycode, nativeScancode, nativeLegacyIndex);
     */
 
     //------------------------------------------------------------------
@@ -1809,31 +1497,450 @@ public final class ImGuiIO extends ImGuiStruct {
         THIS->MouseDelta = value;
     */
 
+    /**
+     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
+     */
+    @Deprecated
+    public int[] getKeyMap() {
+        return nGetKeyMap();
+    }
+
+    /**
+     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
+     */
+    @Deprecated
+    public int getKeyMap(final int idx) {
+        return nGetKeyMap(idx);
+    }
+
+    /**
+     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
+     */
+    @Deprecated
+    public void setKeyMap(final int[] value) {
+        nSetKeyMap(value);
+    }
+
+    /**
+     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
+     */
+    @Deprecated
+    public void setKeyMap(final int idx, final int value) {
+        nSetKeyMap(idx, value);
+    }
+
+    @Deprecated
+    private native int[] nGetKeyMap(); /*
+        jint jBuf[ImGuiKey_COUNT];
+        for (int i = 0; i < ImGuiKey_COUNT; i++)
+            jBuf[i] = THIS->KeyMap[i];
+        jintArray result = env->NewIntArray(ImGuiKey_COUNT);
+        env->SetIntArrayRegion(result, 0, ImGuiKey_COUNT, jBuf);
+        return result;
+    */
+
+    @Deprecated
+    private native int nGetKeyMap(int idx); /*
+        return THIS->KeyMap[idx];
+    */
+
+    @Deprecated
+    private native void nSetKeyMap(int[] value); /*
+        for (int i = 0; i < ImGuiKey_COUNT; i++)
+            THIS->KeyMap[i] = value[i];
+    */
+
+    @Deprecated
+    private native int nSetKeyMap(int idx, int value); /*
+        THIS->KeyMap[idx] = value;
+    */
+
+    /**
+     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
+     */
+    @Deprecated
+    public boolean[] getKeysDown() {
+        return nGetKeysDown();
+    }
+
+    /**
+     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
+     */
+    @Deprecated
+    public boolean getKeysDown(final int idx) {
+        return nGetKeysDown(idx);
+    }
+
+    /**
+     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
+     */
+    @Deprecated
+    public void setKeysDown(final boolean[] value) {
+        nSetKeysDown(value);
+    }
+
+    /**
+     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
+     */
+    @Deprecated
+    public void setKeysDown(final int idx, final boolean value) {
+        nSetKeysDown(idx, value);
+    }
+
+    @Deprecated
+    private native boolean[] nGetKeysDown(); /*
+        jboolean jBuf[512];
+        for (int i = 0; i < 512; i++)
+            jBuf[i] = THIS->KeysDown[i];
+        jbooleanArray result = env->NewBooleanArray(512);
+        env->SetBooleanArrayRegion(result, 0, 512, jBuf);
+        return result;
+    */
+
+    @Deprecated
+    private native boolean nGetKeysDown(int idx); /*
+        return THIS->KeysDown[idx];
+    */
+
+    @Deprecated
+    private native void nSetKeysDown(boolean[] value); /*
+        for (int i = 0; i < 512; i++)
+            THIS->KeysDown[i] = value[i];
+    */
+
+    @Deprecated
+    private native boolean nSetKeysDown(int idx, boolean value); /*
+        THIS->KeysDown[idx] = value;
+    */
+
     //------------------------------------------------------------------
     // [Internal] Dear ImGui will maintain those fields. Forward compatibility not guaranteed!
     //------------------------------------------------------------------
 
     /**
-     * Alternative to WantCaptureMouse: (WantCaptureMouse == true {@code &&} WantCaptureMouseUnlessPopupClose == false) when a click over void is expected to close a popup.
+     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
      */
-    public boolean getWantCaptureMouseUnlessPopupClose() {
-        return nGetWantCaptureMouseUnlessPopupClose();
+    public ImVec2 getMousePos() {
+        final ImVec2 dst = new ImVec2();
+        nGetMousePos(dst);
+        return dst;
     }
 
     /**
-     * Alternative to WantCaptureMouse: (WantCaptureMouse == true {@code &&} WantCaptureMouseUnlessPopupClose == false) when a click over void is expected to close a popup.
+     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
      */
-    public void setWantCaptureMouseUnlessPopupClose(final boolean value) {
-        nSetWantCaptureMouseUnlessPopupClose(value);
+    public float getMousePosX() {
+        return nGetMousePosX();
     }
 
-    private native boolean nGetWantCaptureMouseUnlessPopupClose(); /*
-        return THIS->WantCaptureMouseUnlessPopupClose;
+    /**
+     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
+     */
+    public float getMousePosY() {
+        return nGetMousePosY();
+    }
+
+    /**
+     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
+     */
+    public void getMousePos(final ImVec2 dst) {
+        nGetMousePos(dst);
+    }
+
+    /**
+     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
+     */
+    public void setMousePos(final ImVec2 value) {
+        nSetMousePos(value.x, value.y);
+    }
+
+    /**
+     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
+     */
+    public void setMousePos(final float valueX, final float valueY) {
+        nSetMousePos(valueX, valueY);
+    }
+
+    private native void nGetMousePos(ImVec2 dst); /*
+        Jni::ImVec2Cpy(env, THIS->MousePos, dst);
     */
 
-    private native void nSetWantCaptureMouseUnlessPopupClose(boolean value); /*
-        THIS->WantCaptureMouseUnlessPopupClose = value;
+    private native float nGetMousePosX(); /*
+        return THIS->MousePos.x;
     */
+
+    private native float nGetMousePosY(); /*
+        return THIS->MousePos.y;
+    */
+
+    private native void nSetMousePos(float valueX, float valueY); /*MANUAL
+        ImVec2 value = ImVec2(valueX, valueY);
+        THIS->MousePos = value;
+    */
+
+    /**
+     * Mouse buttons: 0=left, 1=right, 2=middle + extras (ImGuiMouseButton_COUNT == 5). Dear ImGui mostly uses left and right buttons.
+     * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
+     */
+    public boolean[] getMouseDown() {
+        return nGetMouseDown();
+    }
+
+    /**
+     * Mouse buttons: 0=left, 1=right, 2=middle + extras (ImGuiMouseButton_COUNT == 5). Dear ImGui mostly uses left and right buttons.
+     * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
+     */
+    public boolean getMouseDown(final int idx) {
+        return nGetMouseDown(idx);
+    }
+
+    /**
+     * Mouse buttons: 0=left, 1=right, 2=middle + extras (ImGuiMouseButton_COUNT == 5). Dear ImGui mostly uses left and right buttons.
+     * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
+     */
+    public void setMouseDown(final boolean[] value) {
+        nSetMouseDown(value);
+    }
+
+    /**
+     * Mouse buttons: 0=left, 1=right, 2=middle + extras (ImGuiMouseButton_COUNT == 5). Dear ImGui mostly uses left and right buttons.
+     * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
+     */
+    public void setMouseDown(final int idx, final boolean value) {
+        nSetMouseDown(idx, value);
+    }
+
+    private native boolean[] nGetMouseDown(); /*
+        jboolean jBuf[5];
+        for (int i = 0; i < 5; i++)
+            jBuf[i] = THIS->MouseDown[i];
+        jbooleanArray result = env->NewBooleanArray(5);
+        env->SetBooleanArrayRegion(result, 0, 5, jBuf);
+        return result;
+    */
+
+    private native boolean nGetMouseDown(int idx); /*
+        return THIS->MouseDown[idx];
+    */
+
+    private native void nSetMouseDown(boolean[] value); /*
+        for (int i = 0; i < 5; i++)
+            THIS->MouseDown[i] = value[i];
+    */
+
+    private native boolean nSetMouseDown(int idx, boolean value); /*
+        THIS->MouseDown[idx] = value;
+    */
+
+    /**
+     * Mouse wheel Vertical: 1 unit scrolls about 5 lines text.
+     */
+    public float getMouseWheel() {
+        return nGetMouseWheel();
+    }
+
+    /**
+     * Mouse wheel Vertical: 1 unit scrolls about 5 lines text.
+     */
+    public void setMouseWheel(final float value) {
+        nSetMouseWheel(value);
+    }
+
+    private native float nGetMouseWheel(); /*
+        return THIS->MouseWheel;
+    */
+
+    private native void nSetMouseWheel(float value); /*
+        THIS->MouseWheel = value;
+    */
+
+    /**
+     * Mouse wheel Horizontal. Most users don't have a mouse with an horizontal wheel, may not be filled by all backends.
+     */
+    public float getMouseWheelH() {
+        return nGetMouseWheelH();
+    }
+
+    /**
+     * Mouse wheel Horizontal. Most users don't have a mouse with an horizontal wheel, may not be filled by all backends.
+     */
+    public void setMouseWheelH(final float value) {
+        nSetMouseWheelH(value);
+    }
+
+    private native float nGetMouseWheelH(); /*
+        return THIS->MouseWheelH;
+    */
+
+    private native void nSetMouseWheelH(float value); /*
+        THIS->MouseWheelH = value;
+    */
+
+    /**
+     * (Optional) When using multiple viewports: viewport the OS mouse cursor is hovering _IGNORING_ viewports with the ImGuiViewportFlags_NoInputs flag,
+     * and _REGARDLESS_ of whether another viewport is focused. Set io.BackendFlags |= ImGuiBackendFlags_HasMouseHoveredViewport if you can provide this info.
+     * If you don't imgui will infer the value using the rectangles and last focused time of the viewports it knows about (ignoring other OS windows).
+     */
+    public int getMouseHoveredViewport() {
+        return nGetMouseHoveredViewport();
+    }
+
+    /**
+     * (Optional) When using multiple viewports: viewport the OS mouse cursor is hovering _IGNORING_ viewports with the ImGuiViewportFlags_NoInputs flag,
+     * and _REGARDLESS_ of whether another viewport is focused. Set io.BackendFlags |= ImGuiBackendFlags_HasMouseHoveredViewport if you can provide this info.
+     * If you don't imgui will infer the value using the rectangles and last focused time of the viewports it knows about (ignoring other OS windows).
+     */
+    public void setMouseHoveredViewport(final int value) {
+        nSetMouseHoveredViewport(value);
+    }
+
+    private native int nGetMouseHoveredViewport(); /*
+        return THIS->MouseHoveredViewport;
+    */
+
+    private native void nSetMouseHoveredViewport(int value); /*
+        THIS->MouseHoveredViewport = value;
+    */
+
+    /**
+     * Keyboard modifier pressed: Control
+     */
+    public boolean getKeyCtrl() {
+        return nGetKeyCtrl();
+    }
+
+    /**
+     * Keyboard modifier pressed: Control
+     */
+    public void setKeyCtrl(final boolean value) {
+        nSetKeyCtrl(value);
+    }
+
+    private native boolean nGetKeyCtrl(); /*
+        return THIS->KeyCtrl;
+    */
+
+    private native void nSetKeyCtrl(boolean value); /*
+        THIS->KeyCtrl = value;
+    */
+
+    /**
+     * Keyboard modifier pressed: Shift
+     */
+    public boolean getKeyShift() {
+        return nGetKeyShift();
+    }
+
+    /**
+     * Keyboard modifier pressed: Shift
+     */
+    public void setKeyShift(final boolean value) {
+        nSetKeyShift(value);
+    }
+
+    private native boolean nGetKeyShift(); /*
+        return THIS->KeyShift;
+    */
+
+    private native void nSetKeyShift(boolean value); /*
+        THIS->KeyShift = value;
+    */
+
+    /**
+     * Keyboard modifier pressed: Alt
+     */
+    public boolean getKeyAlt() {
+        return nGetKeyAlt();
+    }
+
+    /**
+     * Keyboard modifier pressed: Alt
+     */
+    public void setKeyAlt(final boolean value) {
+        nSetKeyAlt(value);
+    }
+
+    private native boolean nGetKeyAlt(); /*
+        return THIS->KeyAlt;
+    */
+
+    private native void nSetKeyAlt(boolean value); /*
+        THIS->KeyAlt = value;
+    */
+
+    /**
+     * Keyboard modifier pressed: Cmd/Super/Windows
+     */
+    public boolean getKeySuper() {
+        return nGetKeySuper();
+    }
+
+    /**
+     * Keyboard modifier pressed: Cmd/Super/Windows
+     */
+    public void setKeySuper(final boolean value) {
+        nSetKeySuper(value);
+    }
+
+    private native boolean nGetKeySuper(); /*
+        return THIS->KeySuper;
+    */
+
+    private native void nSetKeySuper(boolean value); /*
+        THIS->KeySuper = value;
+    */
+
+    /**
+     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
+     */
+    public float[] getNavInputs() {
+        return nGetNavInputs();
+    }
+
+    /**
+     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
+     */
+    public float getNavInputs(final int idx) {
+        return nGetNavInputs(idx);
+    }
+
+    /**
+     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
+     */
+    public void setNavInputs(final float[] value) {
+        nSetNavInputs(value);
+    }
+
+    /**
+     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
+     */
+    public void setNavInputs(final int idx, final float value) {
+        nSetNavInputs(idx, value);
+    }
+
+    private native float[] nGetNavInputs(); /*
+        jfloat jBuf[512];
+        for (int i = 0; i < 512; i++)
+            jBuf[i] = THIS->NavInputs[i];
+        jfloatArray result = env->NewFloatArray(512);
+        env->SetFloatArrayRegion(result, 0, 512, jBuf);
+        return result;
+    */
+
+    private native float nGetNavInputs(int idx); /*
+        return THIS->NavInputs[idx];
+    */
+
+    private native void nSetNavInputs(float[] value); /*
+        for (int i = 0; i < 512; i++)
+            THIS->NavInputs[i] = value[i];
+    */
+
+    private native float nSetNavInputs(int idx, float value); /*
+        THIS->NavInputs[idx] = value;
+    */
+
+    // Other state maintained from data above + IO function calls
 
     /**
      * Key mods flags (same as io.KeyCtrl/KeyShift/KeyAlt/KeySuper but merged into flags), updated by NewFrame()
@@ -1858,14 +1965,14 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-     * Previous key mods
+     * Key mods flags (from previous frame)
      */
     public int getKeyModsPrev() {
         return nGetKeyModsPrev();
     }
 
     /**
-     * Previous key mods
+     * Key mods flags (from previous frame)
      */
     public void setKeyModsPrev(final int value) {
         nSetKeyModsPrev(value);
@@ -1877,6 +1984,50 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nSetKeyModsPrev(int value); /*
         THIS->KeyModsPrev = value;
+    */
+
+    /**
+     * Key state for all known keys. Use IsKeyXXX() functions to access this.
+     */
+    public ImGuiKeyData[] getKeysData() {
+        return nGetKeysData();
+    }
+
+    /**
+     * Key state for all known keys. Use IsKeyXXX() functions to access this.
+     */
+    public void setKeysData(final ImGuiKeyData[] value) {
+        nSetKeysData(value);
+    }
+
+    private native ImGuiKeyData[] nGetKeysData(); /*
+        return Jni::NewImGuiKeyDataArray(env, THIS->KeysData, ImGuiKey_KeysData_SIZE);
+    */
+
+    private native void nSetKeysData(ImGuiKeyData[] value); /*
+        Jni::ImGuiKeyDataArrayCpy(env, value, THIS->KeysData, ImGuiKey_KeysData_SIZE);
+    */
+
+    /**
+     * Alternative to WantCaptureMouse: (WantCaptureMouse == true {@code &&} WantCaptureMouseUnlessPopupClose == false) when a click over void is expected to close a popup.
+     */
+    public boolean getWantCaptureMouseUnlessPopupClose() {
+        return nGetWantCaptureMouseUnlessPopupClose();
+    }
+
+    /**
+     * Alternative to WantCaptureMouse: (WantCaptureMouse == true {@code &&} WantCaptureMouseUnlessPopupClose == false) when a click over void is expected to close a popup.
+     */
+    public void setWantCaptureMouseUnlessPopupClose(final boolean value) {
+        nSetWantCaptureMouseUnlessPopupClose(value);
+    }
+
+    private native boolean nGetWantCaptureMouseUnlessPopupClose(); /*
+        return THIS->WantCaptureMouseUnlessPopupClose;
+    */
+
+    private native void nSetWantCaptureMouseUnlessPopupClose(boolean value); /*
+        THIS->WantCaptureMouseUnlessPopupClose = value;
     */
 
     /**
@@ -2534,106 +2685,6 @@ public final class ImGuiIO extends ImGuiStruct {
         THIS->MouseDragMaxDistanceSqr[idx] = value;
     */
 
-    /**
-     * Duration the keyboard key has been down (0.0f == just pressed)
-     */
-    public float[] getKeysDownDuration() {
-        return nGetKeysDownDuration();
-    }
-
-    /**
-     * Duration the keyboard key has been down (0.0f == just pressed)
-     */
-    public float getKeysDownDuration(final int idx) {
-        return nGetKeysDownDuration(idx);
-    }
-
-    /**
-     * Duration the keyboard key has been down (0.0f == just pressed)
-     */
-    public void setKeysDownDuration(final float[] value) {
-        nSetKeysDownDuration(value);
-    }
-
-    /**
-     * Duration the keyboard key has been down (0.0f == just pressed)
-     */
-    public void setKeysDownDuration(final int idx, final float value) {
-        nSetKeysDownDuration(idx, value);
-    }
-
-    private native float[] nGetKeysDownDuration(); /*
-        jfloat jBuf[512];
-        for (int i = 0; i < 512; i++)
-            jBuf[i] = THIS->KeysDownDuration[i];
-        jfloatArray result = env->NewFloatArray(512);
-        env->SetFloatArrayRegion(result, 0, 512, jBuf);
-        return result;
-    */
-
-    private native float nGetKeysDownDuration(int idx); /*
-        return THIS->KeysDownDuration[idx];
-    */
-
-    private native void nSetKeysDownDuration(float[] value); /*
-        for (int i = 0; i < 512; i++)
-            THIS->KeysDownDuration[i] = value[i];
-    */
-
-    private native float nSetKeysDownDuration(int idx, float value); /*
-        THIS->KeysDownDuration[idx] = value;
-    */
-
-    /**
-     * Previous duration the key has been down
-     */
-    public float[] getKeysDownDurationPrev() {
-        return nGetKeysDownDurationPrev();
-    }
-
-    /**
-     * Previous duration the key has been down
-     */
-    public float getKeysDownDurationPrev(final int idx) {
-        return nGetKeysDownDurationPrev(idx);
-    }
-
-    /**
-     * Previous duration the key has been down
-     */
-    public void setKeysDownDurationPrev(final float[] value) {
-        nSetKeysDownDurationPrev(value);
-    }
-
-    /**
-     * Previous duration the key has been down
-     */
-    public void setKeysDownDurationPrev(final int idx, final float value) {
-        nSetKeysDownDurationPrev(idx, value);
-    }
-
-    private native float[] nGetKeysDownDurationPrev(); /*
-        jfloat jBuf[512];
-        for (int i = 0; i < 512; i++)
-            jBuf[i] = THIS->KeysDownDurationPrev[i];
-        jfloatArray result = env->NewFloatArray(512);
-        env->SetFloatArrayRegion(result, 0, 512, jBuf);
-        return result;
-    */
-
-    private native float nGetKeysDownDurationPrev(int idx); /*
-        return THIS->KeysDownDurationPrev[idx];
-    */
-
-    private native void nSetKeysDownDurationPrev(float[] value); /*
-        for (int i = 0; i < 512; i++)
-            THIS->KeysDownDurationPrev[i] = value[i];
-    */
-
-    private native float nSetKeysDownDurationPrev(int idx, float value); /*
-        THIS->KeysDownDurationPrev[idx] = value;
-    */
-
     public float[] getNavInputsDownDuration() {
         return nGetNavInputsDownDuration();
     }
@@ -2746,6 +2797,50 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nSetAppFocusLost(boolean value); /*
         THIS->AppFocusLost = value;
+    */
+
+    /**
+     * -1: unknown, 0: using AddKeyEvent(), 1: using legacy io.KeysDown[]
+     */
+    public short getBackendUsingLegacyKeyArrays() {
+        return nGetBackendUsingLegacyKeyArrays();
+    }
+
+    /**
+     * -1: unknown, 0: using AddKeyEvent(), 1: using legacy io.KeysDown[]
+     */
+    public void setBackendUsingLegacyKeyArrays(final short value) {
+        nSetBackendUsingLegacyKeyArrays(value);
+    }
+
+    private native short nGetBackendUsingLegacyKeyArrays(); /*
+        return THIS->BackendUsingLegacyKeyArrays;
+    */
+
+    private native void nSetBackendUsingLegacyKeyArrays(short value); /*
+        THIS->BackendUsingLegacyKeyArrays = value;
+    */
+
+    /**
+     * 0: using AddKeyAnalogEvent(), 1: writing to legacy io.NavInputs[] directly
+     */
+    public boolean getBackendUsingLegacyNavInputArray() {
+        return nGetBackendUsingLegacyNavInputArray();
+    }
+
+    /**
+     * 0: using AddKeyAnalogEvent(), 1: writing to legacy io.NavInputs[] directly
+     */
+    public void setBackendUsingLegacyNavInputArray(final boolean value) {
+        nSetBackendUsingLegacyNavInputArray(value);
+    }
+
+    private native boolean nGetBackendUsingLegacyNavInputArray(); /*
+        return THIS->BackendUsingLegacyNavInputArray;
+    */
+
+    private native void nSetBackendUsingLegacyNavInputArray(boolean value); /*
+        THIS->BackendUsingLegacyNavInputArray = value;
     */
 
     /**

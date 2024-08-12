@@ -15,27 +15,27 @@ public final class ImGuiNavInput {
     }
 
     /**
-     * activate / open / toggle / tweak value       // e.g. Cross  (PS4), A (Xbox), A (Switch), Space (Keyboard)
+     * Activate / Open / Toggle / Tweak value       // e.g. Cross  (PS4), A (Xbox), A (Switch), Space (Keyboard)
      */
     public static final int Activate = 0;
 
     /**
-     * cancel / close / exit                        // e.g. Circle (PS4), B (Xbox), B (Switch), Escape (Keyboard)
+     * Cancel / Close / Exit                        // e.g. Circle (PS4), B (Xbox), B (Switch), Escape (Keyboard)
      */
     public static final int Cancel = 1;
 
     /**
-     * text input / on-screen keyboard              // e.g. Triang.(PS4), Y (Xbox), X (Switch), Return (Keyboard)
+     * Text input / On-Screen keyboard              // e.g. Triang.(PS4), Y (Xbox), X (Switch), Return (Keyboard)
      */
     public static final int Input = 2;
 
     /**
-     * tap: toggle menu / hold: focus, move, resize // e.g. Square (PS4), X (Xbox), Y (Switch), Alt (Keyboard)
+     * Tap: Toggle menu / Hold: Focus, Move, Resize // e.g. Square (PS4), X (Xbox), Y (Switch), Alt (Keyboard)
      */
     public static final int Menu = 3;
 
     /**
-     * move / tweak / resize window (w/ PadMenu)    // e.g. D-pad Left/Right/Up/Down (Gamepads), Arrow keys (Keyboard)
+     * Move / Tweak / Resize window (w/ PadMenu)    // e.g. D-pad Left/Right/Up/Down (Gamepads), Arrow keys (Keyboard)
      */
     public static final int DpadLeft = 4;
 
@@ -46,7 +46,7 @@ public final class ImGuiNavInput {
     public static final int DpadDown = 7;
 
     /**
-     * scroll / move window (w/ PadMenu)            // e.g. Left Analog Stick Left/Right/Up/Down
+     * Scroll / Move window (w/ PadMenu)            // e.g. Left Analog Stick Left/Right/Up/Down
      */
     public static final int LStickLeft = 8;
 
@@ -57,49 +57,44 @@ public final class ImGuiNavInput {
     public static final int LStickDown = 11;
 
     /**
-     * next window (w/ PadMenu)                     // e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)
+     * Focus Next window (w/ PadMenu)               // e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)
      */
     public static final int FocusPrev = 12;
 
     /**
-     * prev window (w/ PadMenu)                     // e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)
+     * Focus Prev window (w/ PadMenu)               // e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)
      */
     public static final int FocusNext = 13;
 
     /**
-     * slower tweaks                                // e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)
+     * Slower tweaks                                // e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)
      */
     public static final int TweakSlow = 14;
 
     /**
-     * faster tweaks                                // e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)
+     * Faster tweaks                                // e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)
      */
     public static final int TweakFast = 15;
 
     /**
-     * move left                                    // = Arrow keys
+     * Move left                                    // = Arrow keys
      */
     public static final int KeyLeft_ = 16;
 
     /**
-     * move right
+     * Move right
      */
     public static final int KeyRight_ = 17;
 
     /**
-     * move up
+     * Move up
      */
     public static final int KeyUp_ = 18;
 
     /**
-     * move down
+     * Move down
      */
     public static final int KeyDown_ = 19;
 
     public static final int COUNT = 20;
-
-    /**
-     * Definition: {@code ImGuiNavInput_KeyLeft_}
-     */
-    public static final int InternalStart_ = 16;
 }

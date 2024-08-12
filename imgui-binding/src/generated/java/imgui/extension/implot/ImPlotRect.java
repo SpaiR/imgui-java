@@ -4,22 +4,22 @@ import imgui.ImVec2;
 
 import java.util.Objects;
 
-public final class ImPlotLimits implements Cloneable {
+public final class ImPlotRect implements Cloneable {
     public final ImPlotRange x = new ImPlotRange();
     public final ImPlotRange y = new ImPlotRange();
 
-    public ImPlotLimits() {
+    public ImPlotRect() {
     }
 
-    public ImPlotLimits(final double xMin, final double yMin, final double xMax, final double yMax) {
+    public ImPlotRect(final double xMin, final double yMin, final double xMax, final double yMax) {
         set(xMin, yMin, xMax, yMax);
     }
 
-    public ImPlotLimits(final ImVec2 min, final ImVec2 max) {
+    public ImPlotRect(final ImVec2 min, final ImVec2 max) {
         set(min, max);
     }
 
-    public ImPlotLimits(final ImPlotLimits value) {
+    public ImPlotRect(final ImPlotRect value) {
         set(value);
     }
 
@@ -29,6 +29,18 @@ public final class ImPlotLimits implements Cloneable {
 
     public boolean contains(final ImPlotPoint value) {
         return contains(value.x, value.y);
+    }
+
+    public ImPlotPoint size() {
+        return new ImPlotPoint(x.size(), y.size());
+    }
+
+    public ImPlotPoint clamp(final double x, final double y) {
+        return new ImPlotPoint(this.x.clamp(x), this.y.clamp(y));
+    }
+
+    public ImPlotPoint clamp(ImPlotPoint p) {
+        return clamp(p.x, p.y);
     }
 
     public ImPlotPoint min() {
@@ -54,13 +66,13 @@ public final class ImPlotLimits implements Cloneable {
         set(x.min, y.min, x.max, y.max);
     }
 
-    public void set(final ImPlotLimits value) {
+    public void set(final ImPlotRect value) {
         set(value.x, value.y);
     }
 
     @Override
     public String toString() {
-        return "ImPlotLimits{"
+        return "ImPlotRect{"
             + "x=" + x
             + ", y=" + y
             + '}';
@@ -76,8 +88,8 @@ public final class ImPlotLimits implements Cloneable {
             return false;
         }
 
-        final ImPlotLimits imPlotLimits = (ImPlotLimits) o;
-        return Objects.equals(x, imPlotLimits.x) && Objects.equals(y, imPlotLimits.y);
+        final ImPlotRect imPlotRect = (ImPlotRect) o;
+        return Objects.equals(x, imPlotRect.x) && Objects.equals(y, imPlotRect.y);
     }
 
     @Override
@@ -87,7 +99,7 @@ public final class ImPlotLimits implements Cloneable {
 
     @Override
     @SuppressWarnings("MethodDoesntCallSuperMethod")
-    public ImPlotLimits clone() {
-        return new ImPlotLimits(this);
+    public ImPlotRect clone() {
+        return new ImPlotRect(this);
     }
 }

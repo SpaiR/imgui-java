@@ -6,6 +6,7 @@ import imgui.binding.ImGuiStructDestroyable;
 
 public final class ImPlotStyle extends ImGuiStructDestroyable {
     public ImPlotStyle() {
+        super();
     }
 
     public ImPlotStyle(final long ptr) {

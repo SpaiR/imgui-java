@@ -11927,73 +11927,89 @@ public class ImGui {
     */
 
     // Inputs Utilities: Keyboard
-    // - For 'int user_key_index' you can use your own indices/enums according to how your backend/engine stored them in io.KeysDown[].
-    // - We don't know the meaning of those value. You can use GetKeyIndex() to map a ImGuiKey_ value into the user index.
+    // Without IMGUI_DISABLE_OBSOLETE_KEYIO: (legacy support)
+    //   - For 'ImGuiKey key' you can still use your legacy native/user indices according to how your backend/engine stored them in io.KeysDown[].
+    // With IMGUI_DISABLE_OBSOLETE_KEYIO: (this is the way forward)
+    //   - Any use of 'ImGuiKey' will assert when key < 512 will be passed, previously reserved as native/user keys indices
+    //   - GetKeyIndex() is pass-through and therefore deprecated (gone if IMGUI_DISABLE_OBSOLETE_KEYIO is defined)
 
     /**
      * Map ImGuiKey_* values into user's key index. == io.KeyMap[key]
      */
-    public static int getKeyIndex(final int imguiKey) {
-        return nGetKeyIndex(imguiKey);
+    @Deprecated
+    public static int getKeyIndex(final int key) {
+        return nGetKeyIndex(key);
     }
 
-    private static native int nGetKeyIndex(int imguiKey); /*
-        return ImGui::GetKeyIndex(imguiKey);
+    private static native int nGetKeyIndex(int key); /*
+        return ImGui::GetKeyIndex(static_cast<ImGuiKey>(key));
     */
+
     /**
      * Is key being held. == io.KeysDown[user_key_index].
      */
-    public static boolean isKeyDown(final int userKeyIndex) {
-        return nIsKeyDown(userKeyIndex);
+    public static boolean isKeyDown(final int key) {
+        return nIsKeyDown(key);
     }
 
-    private static native boolean nIsKeyDown(int userKeyIndex); /*
-        return ImGui::IsKeyDown(userKeyIndex);
+    private static native boolean nIsKeyDown(int key); /*
+        return ImGui::IsKeyDown(static_cast<ImGuiKey>(key));
     */
 
     /**
      * Was key pressed (went from !Down to Down)? if repeat=true, uses io.KeyRepeatDelay / KeyRepeatRate
      */
-    public static boolean isKeyPressed(final int userKeyIndex) {
-        return nIsKeyPressed(userKeyIndex);
+    public static boolean isKeyPressed(final int key) {
+        return nIsKeyPressed(key);
     }
 
     /**
      * Was key pressed (went from !Down to Down)? if repeat=true, uses io.KeyRepeatDelay / KeyRepeatRate
      */
-    public static boolean isKeyPressed(final int userKeyIndex, final boolean repeat) {
-        return nIsKeyPressed(userKeyIndex, repeat);
+    public static boolean isKeyPressed(final int key, final boolean repeat) {
+        return nIsKeyPressed(key, repeat);
     }
 
-    private static native boolean nIsKeyPressed(int userKeyIndex); /*
-        return ImGui::IsKeyPressed(userKeyIndex);
+    private static native boolean nIsKeyPressed(int key); /*
+        return ImGui::IsKeyPressed(static_cast<ImGuiKey>(key));
     */
 
-    private static native boolean nIsKeyPressed(int userKeyIndex, boolean repeat); /*
-        return ImGui::IsKeyPressed(userKeyIndex, repeat);
+    private static native boolean nIsKeyPressed(int key, boolean repeat); /*
+        return ImGui::IsKeyPressed(static_cast<ImGuiKey>(key), repeat);
     */
 
     /**
-     * Was key released (went from Down to !Down)..
+     * Was key released (went from Down to !Down)
      */
-    public static boolean isKeyReleased(final int userKeyIndex) {
-        return nIsKeyReleased(userKeyIndex);
+    public static boolean isKeyReleased(final int key) {
+        return nIsKeyReleased(key);
     }
 
-    private static native boolean nIsKeyReleased(int userKeyIndex); /*
-        return ImGui::IsKeyReleased(userKeyIndex);
+    private static native boolean nIsKeyReleased(int key); /*
+        return ImGui::IsKeyReleased(static_cast<ImGuiKey>(key));
     */
 
     /**
      * Uses provided repeat rate/delay.
      * Return a count, most often 0 or 1 but might be {@code >1} if RepeatRate is small enough that {@code DeltaTime > RepeatRate}
      */
-    public static boolean getKeyPressedAmount(final int keyIndex, final float repeatDelay, final float rate) {
-        return nGetKeyPressedAmount(keyIndex, repeatDelay, rate);
+    public static boolean getKeyPressedAmount(final int key, final float repeatDelay, final float rate) {
+        return nGetKeyPressedAmount(key, repeatDelay, rate);
     }
 
-    private static native boolean nGetKeyPressedAmount(int keyIndex, float repeatDelay, float rate); /*
-        return ImGui::GetKeyPressedAmount(keyIndex, repeatDelay, rate);
+    private static native boolean nGetKeyPressedAmount(int key, float repeatDelay, float rate); /*
+        return ImGui::GetKeyPressedAmount(static_cast<ImGuiKey>(key), repeatDelay, rate);
+    */
+
+    /**
+     * [DEBUG] returns English name of the key. Those names a provided for debugging purpose and are not meant to be saved persistently not compared.
+     */
+    public static String getKeyName(final int key) {
+        return nGetKeyName(key);
+    }
+
+    private static native String nGetKeyName(int key); /*
+        return env->NewStringUTF(ImGui::GetKeyName(static_cast<ImGuiKey>(key)));
     */
 
     /**

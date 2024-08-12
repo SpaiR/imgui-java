@@ -17,7 +17,7 @@ public final class ImPlot {
      */
 
     //-----------------------------------------------------------------------------
-    // ImPlot Context
+    // [SECTION] Contexts
     //-----------------------------------------------------------------------------
 
     /**
@@ -84,251 +84,77 @@ public final class ImPlot {
     */
 
     //-----------------------------------------------------------------------------
-    // Begin/End Plot
+    // [SECTION] Begin/End Plot
     //-----------------------------------------------------------------------------
 
     // Starts a 2D plotting context. If this function returns true, EndPlot() MUST
     // be called! You are encouraged to use the following convention:
     //
-    // if (ImPlot.beginPlot(...)) {
-    //     ImPlot.plotLine(...);
+    // if (BeginPlot(...)) {
+    //     PlotLine(...);
     //     ...
-    //     ImPlot.endPlot();
+    //     EndPlot();
     // }
     //
     // Important notes:
     //
-    // - #titleID must be unique to the current ImGui ID scope. If you need to avoid ID
+    // - #title_id must be unique to the current ImGui ID scope. If you need to avoid ID
     //   collisions or don't want to display a title in the plot, use double hashes
     //   (e.g. "MyPlot##HiddenIdText" or "##NoTitle").
-    // - If #xLabel and/or #yLabel are provided, axes labels will be displayed.
     // - #size is the **frame** size of the plot widget, not the plot area. The default
-    //   size of plots (i.e. when ImVec2(0,0)) can be modified in your ImPlotStyle
-    //   (default is 400x300 px).
-    // - Auxiliary y-axes must be enabled with ImPlotFlags_YAxis2/3 to be displayed.
-    // - See ImPlotFlags and ImPlotAxisFlags for more available options.
+    //   size of plots (i.e. when ImVec2(0,0)) can be modified in your ImPlotStyle.
 
-    public static boolean beginPlot(final String titleID) {
-        return nBeginPlot(titleID);
+    public static boolean beginPlot(final String titleId) {
+        return nBeginPlot(titleId);
     }
 
-    public static boolean beginPlot(final String titleID, final String xLabel) {
-        return nBeginPlot(titleID, xLabel);
+    public static boolean beginPlot(final String titleId, final ImVec2 size) {
+        return nBeginPlot(titleId, size.x, size.y);
     }
 
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel) {
-        return nBeginPlot(titleID, xLabel, yLabel);
+    public static boolean beginPlot(final String titleId, final float sizeX, final float sizeY) {
+        return nBeginPlot(titleId, sizeX, sizeY);
     }
 
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final ImVec2 size) {
-        return nBeginPlot(titleID, xLabel, yLabel, size.x, size.y);
+    public static boolean beginPlot(final String titleId, final ImVec2 size, final int flags) {
+        return nBeginPlot(titleId, size.x, size.y, flags);
     }
 
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final float sizeX, final float sizeY) {
-        return nBeginPlot(titleID, xLabel, yLabel, sizeX, sizeY);
+    public static boolean beginPlot(final String titleId, final float sizeX, final float sizeY, final int flags) {
+        return nBeginPlot(titleId, sizeX, sizeY, flags);
     }
 
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final ImVec2 size, final int flags) {
-        return nBeginPlot(titleID, xLabel, yLabel, size.x, size.y, flags);
+    public static boolean beginPlot(final String titleId, final int flags) {
+        return nBeginPlot(titleId, flags);
     }
 
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final float sizeX, final float sizeY, final int flags) {
-        return nBeginPlot(titleID, xLabel, yLabel, sizeX, sizeY, flags);
-    }
-
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final ImVec2 size, final int flags, final int xFlags) {
-        return nBeginPlot(titleID, xLabel, yLabel, size.x, size.y, flags, xFlags);
-    }
-
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final float sizeX, final float sizeY, final int flags, final int xFlags) {
-        return nBeginPlot(titleID, xLabel, yLabel, sizeX, sizeY, flags, xFlags);
-    }
-
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final ImVec2 size, final int flags, final int xFlags, final int yFlags) {
-        return nBeginPlot(titleID, xLabel, yLabel, size.x, size.y, flags, xFlags, yFlags);
-    }
-
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final float sizeX, final float sizeY, final int flags, final int xFlags, final int yFlags) {
-        return nBeginPlot(titleID, xLabel, yLabel, sizeX, sizeY, flags, xFlags, yFlags);
-    }
-
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final ImVec2 size, final int flags, final int xFlags, final int yFlags, final int y2Flags) {
-        return nBeginPlot(titleID, xLabel, yLabel, size.x, size.y, flags, xFlags, yFlags, y2Flags);
-    }
-
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final float sizeX, final float sizeY, final int flags, final int xFlags, final int yFlags, final int y2Flags) {
-        return nBeginPlot(titleID, xLabel, yLabel, sizeX, sizeY, flags, xFlags, yFlags, y2Flags);
-    }
-
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final ImVec2 size, final int flags, final int xFlags, final int yFlags, final int y2Flags, final int y3Flags) {
-        return nBeginPlot(titleID, xLabel, yLabel, size.x, size.y, flags, xFlags, yFlags, y2Flags, y3Flags);
-    }
-
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final float sizeX, final float sizeY, final int flags, final int xFlags, final int yFlags, final int y2Flags, final int y3Flags) {
-        return nBeginPlot(titleID, xLabel, yLabel, sizeX, sizeY, flags, xFlags, yFlags, y2Flags, y3Flags);
-    }
-
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final ImVec2 size, final int flags, final int xFlags, final int yFlags, final int y2Flags, final int y3Flags, final String y2Label) {
-        return nBeginPlot(titleID, xLabel, yLabel, size.x, size.y, flags, xFlags, yFlags, y2Flags, y3Flags, y2Label);
-    }
-
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final float sizeX, final float sizeY, final int flags, final int xFlags, final int yFlags, final int y2Flags, final int y3Flags, final String y2Label) {
-        return nBeginPlot(titleID, xLabel, yLabel, sizeX, sizeY, flags, xFlags, yFlags, y2Flags, y3Flags, y2Label);
-    }
-
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final ImVec2 size, final int flags, final int xFlags, final int yFlags, final int y2Flags, final int y3Flags, final String y2Label, final String y3Label) {
-        return nBeginPlot(titleID, xLabel, yLabel, size.x, size.y, flags, xFlags, yFlags, y2Flags, y3Flags, y2Label, y3Label);
-    }
-
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final float sizeX, final float sizeY, final int flags, final int xFlags, final int yFlags, final int y2Flags, final int y3Flags, final String y2Label, final String y3Label) {
-        return nBeginPlot(titleID, xLabel, yLabel, sizeX, sizeY, flags, xFlags, yFlags, y2Flags, y3Flags, y2Label, y3Label);
-    }
-
-    public static boolean beginPlot(final String titleID, final String xLabel, final String yLabel, final int flags, final int xFlags, final int yFlags, final int y2Flags, final int y3Flags, final String y2Label, final String y3Label) {
-        return nBeginPlot(titleID, xLabel, yLabel, flags, xFlags, yFlags, y2Flags, y3Flags, y2Label, y3Label);
-    }
-
-    private static native boolean nBeginPlot(String obj_titleID); /*MANUAL
-        auto titleID = obj_titleID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleID, JNI_FALSE);
-        auto _result = ImPlot::BeginPlot(titleID);
-        if (titleID != NULL) env->ReleaseStringUTFChars(obj_titleID, titleID);
+    private static native boolean nBeginPlot(String obj_titleId); /*MANUAL
+        auto titleId = obj_titleId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleId, JNI_FALSE);
+        auto _result = ImPlot::BeginPlot(titleId);
+        if (titleId != NULL) env->ReleaseStringUTFChars(obj_titleId, titleId);
         return _result;
     */
 
-    private static native boolean nBeginPlot(String obj_titleID, String obj_xLabel); /*MANUAL
-        auto titleID = obj_titleID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleID, JNI_FALSE);
-        auto xLabel = obj_xLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_xLabel, JNI_FALSE);
-        auto _result = ImPlot::BeginPlot(titleID, xLabel);
-        if (titleID != NULL) env->ReleaseStringUTFChars(obj_titleID, titleID);
-        if (xLabel != NULL) env->ReleaseStringUTFChars(obj_xLabel, xLabel);
-        return _result;
-    */
-
-    private static native boolean nBeginPlot(String obj_titleID, String obj_xLabel, String obj_yLabel); /*MANUAL
-        auto titleID = obj_titleID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleID, JNI_FALSE);
-        auto xLabel = obj_xLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_xLabel, JNI_FALSE);
-        auto yLabel = obj_yLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_yLabel, JNI_FALSE);
-        auto _result = ImPlot::BeginPlot(titleID, xLabel, yLabel);
-        if (titleID != NULL) env->ReleaseStringUTFChars(obj_titleID, titleID);
-        if (xLabel != NULL) env->ReleaseStringUTFChars(obj_xLabel, xLabel);
-        if (yLabel != NULL) env->ReleaseStringUTFChars(obj_yLabel, yLabel);
-        return _result;
-    */
-
-    private static native boolean nBeginPlot(String obj_titleID, String obj_xLabel, String obj_yLabel, float sizeX, float sizeY); /*MANUAL
-        auto titleID = obj_titleID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleID, JNI_FALSE);
-        auto xLabel = obj_xLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_xLabel, JNI_FALSE);
-        auto yLabel = obj_yLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_yLabel, JNI_FALSE);
+    private static native boolean nBeginPlot(String obj_titleId, float sizeX, float sizeY); /*MANUAL
+        auto titleId = obj_titleId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleId, JNI_FALSE);
         ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImPlot::BeginPlot(titleID, xLabel, yLabel, size);
-        if (titleID != NULL) env->ReleaseStringUTFChars(obj_titleID, titleID);
-        if (xLabel != NULL) env->ReleaseStringUTFChars(obj_xLabel, xLabel);
-        if (yLabel != NULL) env->ReleaseStringUTFChars(obj_yLabel, yLabel);
+        auto _result = ImPlot::BeginPlot(titleId, size);
+        if (titleId != NULL) env->ReleaseStringUTFChars(obj_titleId, titleId);
         return _result;
     */
 
-    private static native boolean nBeginPlot(String obj_titleID, String obj_xLabel, String obj_yLabel, float sizeX, float sizeY, int flags); /*MANUAL
-        auto titleID = obj_titleID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleID, JNI_FALSE);
-        auto xLabel = obj_xLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_xLabel, JNI_FALSE);
-        auto yLabel = obj_yLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_yLabel, JNI_FALSE);
+    private static native boolean nBeginPlot(String obj_titleId, float sizeX, float sizeY, int flags); /*MANUAL
+        auto titleId = obj_titleId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleId, JNI_FALSE);
         ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImPlot::BeginPlot(titleID, xLabel, yLabel, size, flags);
-        if (titleID != NULL) env->ReleaseStringUTFChars(obj_titleID, titleID);
-        if (xLabel != NULL) env->ReleaseStringUTFChars(obj_xLabel, xLabel);
-        if (yLabel != NULL) env->ReleaseStringUTFChars(obj_yLabel, yLabel);
+        auto _result = ImPlot::BeginPlot(titleId, size, flags);
+        if (titleId != NULL) env->ReleaseStringUTFChars(obj_titleId, titleId);
         return _result;
     */
 
-    private static native boolean nBeginPlot(String obj_titleID, String obj_xLabel, String obj_yLabel, float sizeX, float sizeY, int flags, int xFlags); /*MANUAL
-        auto titleID = obj_titleID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleID, JNI_FALSE);
-        auto xLabel = obj_xLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_xLabel, JNI_FALSE);
-        auto yLabel = obj_yLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_yLabel, JNI_FALSE);
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImPlot::BeginPlot(titleID, xLabel, yLabel, size, flags, xFlags);
-        if (titleID != NULL) env->ReleaseStringUTFChars(obj_titleID, titleID);
-        if (xLabel != NULL) env->ReleaseStringUTFChars(obj_xLabel, xLabel);
-        if (yLabel != NULL) env->ReleaseStringUTFChars(obj_yLabel, yLabel);
-        return _result;
-    */
-
-    private static native boolean nBeginPlot(String obj_titleID, String obj_xLabel, String obj_yLabel, float sizeX, float sizeY, int flags, int xFlags, int yFlags); /*MANUAL
-        auto titleID = obj_titleID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleID, JNI_FALSE);
-        auto xLabel = obj_xLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_xLabel, JNI_FALSE);
-        auto yLabel = obj_yLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_yLabel, JNI_FALSE);
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImPlot::BeginPlot(titleID, xLabel, yLabel, size, flags, xFlags, yFlags);
-        if (titleID != NULL) env->ReleaseStringUTFChars(obj_titleID, titleID);
-        if (xLabel != NULL) env->ReleaseStringUTFChars(obj_xLabel, xLabel);
-        if (yLabel != NULL) env->ReleaseStringUTFChars(obj_yLabel, yLabel);
-        return _result;
-    */
-
-    private static native boolean nBeginPlot(String obj_titleID, String obj_xLabel, String obj_yLabel, float sizeX, float sizeY, int flags, int xFlags, int yFlags, int y2Flags); /*MANUAL
-        auto titleID = obj_titleID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleID, JNI_FALSE);
-        auto xLabel = obj_xLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_xLabel, JNI_FALSE);
-        auto yLabel = obj_yLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_yLabel, JNI_FALSE);
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImPlot::BeginPlot(titleID, xLabel, yLabel, size, flags, xFlags, yFlags, y2Flags);
-        if (titleID != NULL) env->ReleaseStringUTFChars(obj_titleID, titleID);
-        if (xLabel != NULL) env->ReleaseStringUTFChars(obj_xLabel, xLabel);
-        if (yLabel != NULL) env->ReleaseStringUTFChars(obj_yLabel, yLabel);
-        return _result;
-    */
-
-    private static native boolean nBeginPlot(String obj_titleID, String obj_xLabel, String obj_yLabel, float sizeX, float sizeY, int flags, int xFlags, int yFlags, int y2Flags, int y3Flags); /*MANUAL
-        auto titleID = obj_titleID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleID, JNI_FALSE);
-        auto xLabel = obj_xLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_xLabel, JNI_FALSE);
-        auto yLabel = obj_yLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_yLabel, JNI_FALSE);
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImPlot::BeginPlot(titleID, xLabel, yLabel, size, flags, xFlags, yFlags, y2Flags, y3Flags);
-        if (titleID != NULL) env->ReleaseStringUTFChars(obj_titleID, titleID);
-        if (xLabel != NULL) env->ReleaseStringUTFChars(obj_xLabel, xLabel);
-        if (yLabel != NULL) env->ReleaseStringUTFChars(obj_yLabel, yLabel);
-        return _result;
-    */
-
-    private static native boolean nBeginPlot(String obj_titleID, String obj_xLabel, String obj_yLabel, float sizeX, float sizeY, int flags, int xFlags, int yFlags, int y2Flags, int y3Flags, String obj_y2Label); /*MANUAL
-        auto titleID = obj_titleID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleID, JNI_FALSE);
-        auto xLabel = obj_xLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_xLabel, JNI_FALSE);
-        auto yLabel = obj_yLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_yLabel, JNI_FALSE);
-        auto y2Label = obj_y2Label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_y2Label, JNI_FALSE);
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImPlot::BeginPlot(titleID, xLabel, yLabel, size, flags, xFlags, yFlags, y2Flags, y3Flags, y2Label);
-        if (titleID != NULL) env->ReleaseStringUTFChars(obj_titleID, titleID);
-        if (xLabel != NULL) env->ReleaseStringUTFChars(obj_xLabel, xLabel);
-        if (yLabel != NULL) env->ReleaseStringUTFChars(obj_yLabel, yLabel);
-        if (y2Label != NULL) env->ReleaseStringUTFChars(obj_y2Label, y2Label);
-        return _result;
-    */
-
-    private static native boolean nBeginPlot(String obj_titleID, String obj_xLabel, String obj_yLabel, float sizeX, float sizeY, int flags, int xFlags, int yFlags, int y2Flags, int y3Flags, String obj_y2Label, String obj_y3Label); /*MANUAL
-        auto titleID = obj_titleID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleID, JNI_FALSE);
-        auto xLabel = obj_xLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_xLabel, JNI_FALSE);
-        auto yLabel = obj_yLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_yLabel, JNI_FALSE);
-        auto y2Label = obj_y2Label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_y2Label, JNI_FALSE);
-        auto y3Label = obj_y3Label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_y3Label, JNI_FALSE);
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImPlot::BeginPlot(titleID, xLabel, yLabel, size, flags, xFlags, yFlags, y2Flags, y3Flags, y2Label, y3Label);
-        if (titleID != NULL) env->ReleaseStringUTFChars(obj_titleID, titleID);
-        if (xLabel != NULL) env->ReleaseStringUTFChars(obj_xLabel, xLabel);
-        if (yLabel != NULL) env->ReleaseStringUTFChars(obj_yLabel, yLabel);
-        if (y2Label != NULL) env->ReleaseStringUTFChars(obj_y2Label, y2Label);
-        if (y3Label != NULL) env->ReleaseStringUTFChars(obj_y3Label, y3Label);
-        return _result;
-    */
-
-    private static native boolean nBeginPlot(String obj_titleID, String obj_xLabel, String obj_yLabel, int flags, int xFlags, int yFlags, int y2Flags, int y3Flags, String obj_y2Label, String obj_y3Label); /*MANUAL
-        auto titleID = obj_titleID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleID, JNI_FALSE);
-        auto xLabel = obj_xLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_xLabel, JNI_FALSE);
-        auto yLabel = obj_yLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_yLabel, JNI_FALSE);
-        auto y2Label = obj_y2Label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_y2Label, JNI_FALSE);
-        auto y3Label = obj_y3Label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_y3Label, JNI_FALSE);
-        auto _result = ImPlot::BeginPlot(titleID, xLabel, yLabel, ImVec2(-1,0), flags, xFlags, yFlags, y2Flags, y3Flags, y2Label, y3Label);
-        if (titleID != NULL) env->ReleaseStringUTFChars(obj_titleID, titleID);
-        if (xLabel != NULL) env->ReleaseStringUTFChars(obj_xLabel, xLabel);
-        if (yLabel != NULL) env->ReleaseStringUTFChars(obj_yLabel, yLabel);
-        if (y2Label != NULL) env->ReleaseStringUTFChars(obj_y2Label, y2Label);
-        if (y3Label != NULL) env->ReleaseStringUTFChars(obj_y3Label, y3Label);
+    private static native boolean nBeginPlot(String obj_titleId, int flags); /*MANUAL
+        auto titleId = obj_titleId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_titleId, JNI_FALSE);
+        auto _result = ImPlot::BeginPlot(titleId, ImVec2(-1,0), flags);
+        if (titleId != NULL) env->ReleaseStringUTFChars(obj_titleId, titleId);
         return _result;
     */
 
@@ -345,7 +171,7 @@ public final class ImPlot {
     */
 
     //-----------------------------------------------------------------------------
-    // Begin/EndSubplots
+    // [SECTION] Begin/End Subplots
     //-----------------------------------------------------------------------------
 
     // Starts a subdivided plotting context. If the function returns true,
@@ -368,14 +194,15 @@ public final class ImPlot {
     //
     // Produces:
     //
-    // [0][1][2]
-    // [3][4][5]
+    // [0] | [1] | [2]
+    // ----|-----|----
+    // [3] | [4] | [5]
     //
     // Important notes:
     //
     // - #title_id must be unique to the current ImGui ID scope. If you need to avoid ID
     //   collisions or don't want to display a title in the plot, use double hashes
-    //   (e.g. "MyPlot##HiddenIdText" or "##NoTitle").
+    //   (e.g. "MySubplot##HiddenIdText" or "##NoTitle").
     // - #rows and #cols must be greater than 0.
     // - #size is the size of the entire grid of subplots, not the individual plots
     // - #row_ratios and #col_ratios must have AT LEAST #rows and #cols elements,
@@ -496,16 +323,526 @@ public final class ImPlot {
     */
 
     //-----------------------------------------------------------------------------
-    // Plot Items
+    // [SECTION] Setup
     //-----------------------------------------------------------------------------
 
-    /*JNI
-        // For a proper type conversion, since C++ doesn't have a "long" type.
-        #define long ImS64
-        #define LEN(arg) (int)env->GetArrayLength(obj_##arg)
-     */
+    // The following API allows you to setup and customize various aspects of the
+    // current plot. The functions should be called immediately after BeginPlot
+    // and before any other API calls. Typical usage is as follows:
 
-    // The template functions below are explicitly instantiated in implot_items.cpp.
+    // if (BeginPlot(...)) {                     1) begin a new plot
+    //     SetupAxis(ImAxis_X1, "My X-Axis");    2) make Setup calls
+    //     SetupAxis(ImAxis_Y1, "My Y-Axis");
+    //     SetupLegend(ImPlotLocation_North);
+    //     ...
+    //     SetupFinish();                        3) [optional] explicitly finish setup
+    //     PlotLine(...);                        4) plot items
+    //     ...
+    //     EndPlot();                            5) end the plot
+    // }
+    //
+    // Important notes:
+    //
+    // - Always call Setup code at the top of your BeginPlot conditional statement.
+    // - Setup is locked once you start plotting or explicitly call SetupFinish.
+    //   Do NOT call Setup code after you begin plotting or after you make
+    //   any non-Setup API calls (e.g. utils like PlotToPixels also lock Setup)
+    // - Calling SetupFinish is OPTIONAL, but probably good practice. If you do not
+    //   call it yourself, then the first subsequent plotting or utility function will
+    //   call it for you.
+
+    /**
+     * Enables an axis or sets the label and/or flags for an existing axis.
+     * Leave `label` as NULL for no label.
+     */
+    public static void setupAxis(final int axis) {
+        nSetupAxis(axis);
+    }
+
+    /**
+     * Enables an axis or sets the label and/or flags for an existing axis.
+     * Leave `label` as NULL for no label.
+     */
+    public static void setupAxis(final int axis, final String label) {
+        nSetupAxis(axis, label);
+    }
+
+    /**
+     * Enables an axis or sets the label and/or flags for an existing axis.
+     * Leave `label` as NULL for no label.
+     */
+    public static void setupAxis(final int axis, final String label, final int flags) {
+        nSetupAxis(axis, label, flags);
+    }
+
+    /**
+     * Enables an axis or sets the label and/or flags for an existing axis.
+     * Leave `label` as NULL for no label.
+     */
+    public static void setupAxis(final int axis, final int flags) {
+        nSetupAxis(axis, flags);
+    }
+
+    private static native void nSetupAxis(int axis); /*
+        ImPlot::SetupAxis(axis);
+    */
+
+    private static native void nSetupAxis(int axis, String label); /*MANUAL
+        auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
+        ImPlot::SetupAxis(axis, label);
+        if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
+    */
+
+    private static native void nSetupAxis(int axis, String label, int flags); /*MANUAL
+        auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
+        ImPlot::SetupAxis(axis, label, flags);
+        if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
+    */
+
+    private static native void nSetupAxis(int axis, int flags); /*
+        ImPlot::SetupAxis(axis, NULL, flags);
+    */
+
+    /**
+     * Sets an axis range limits. If ImPlotCond_Always is used, the axes limits will be locked.
+     */
+    public static void setupAxisLimits(final int axis, final double vMin, final double vMax) {
+        nSetupAxisLimits(axis, vMin, vMax);
+    }
+
+    /**
+     * Sets an axis range limits. If ImPlotCond_Always is used, the axes limits will be locked.
+     */
+    public static void setupAxisLimits(final int axis, final double vMin, final double vMax, final int cond) {
+        nSetupAxisLimits(axis, vMin, vMax, cond);
+    }
+
+    private static native void nSetupAxisLimits(int axis, double vMin, double vMax); /*
+        ImPlot::SetupAxisLimits(axis, vMin, vMax);
+    */
+
+    private static native void nSetupAxisLimits(int axis, double vMin, double vMax, int cond); /*
+        ImPlot::SetupAxisLimits(axis, vMin, vMax, cond);
+    */
+
+    /**
+     * Links an axis range limits to external values. Set to NULL for no linkage.
+     * The pointer data must remain valid until EndPlot.
+     */
+    public static void setupAxisLinks(final int axis, final ImDouble linkMin, final ImDouble linkMax) {
+        nSetupAxisLinks(axis, linkMin != null ? linkMin.getData() : null, linkMax != null ? linkMax.getData() : null);
+    }
+
+    private static native void nSetupAxisLinks(int axis, double[] linkMin, double[] linkMax); /*MANUAL
+        auto linkMin = obj_linkMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_linkMin, JNI_FALSE);
+        auto linkMax = obj_linkMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_linkMax, JNI_FALSE);
+        ImPlot::SetupAxisLinks(axis, (linkMin != NULL ? &linkMin[0] : NULL), (linkMax != NULL ? &linkMax[0] : NULL));
+        if (linkMin != NULL) env->ReleasePrimitiveArrayCritical(obj_linkMin, linkMin, JNI_FALSE);
+        if (linkMax != NULL) env->ReleasePrimitiveArrayCritical(obj_linkMax, linkMax, JNI_FALSE);
+    */
+
+    /**
+     * Sets the format of numeric axis labels via formatter specifier (default="%g").
+     * Formatted values will be double (i.e. use %f).
+     */
+    public static void setupAxisFormat(final int axis, final String fmt) {
+        nSetupAxisFormat(axis, fmt);
+    }
+
+    private static native void nSetupAxisFormat(int axis, String fmt); /*MANUAL
+        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
+        ImPlot::SetupAxisFormat(axis, fmt);
+        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
+    */
+
+    // TODO: support ImPlotFormatter
+
+    /**
+     * Sets an axis' ticks and optionally the labels. To keep the default ticks,
+     * set `keepDefault=true`.
+     */
+    public static void setupAxisTicks(final int axis, final double[] values, final int nTicks) {
+        nSetupAxisTicks(axis, values, nTicks);
+    }
+
+    /**
+     * Sets an axis' ticks and optionally the labels. To keep the default ticks,
+     * set `keepDefault=true`.
+     */
+    public static void setupAxisTicks(final int axis, final double[] values, final int nTicks, final String[] labels) {
+        nSetupAxisTicks(axis, values, nTicks, labels, labels.length);
+    }
+
+    /**
+     * Sets an axis' ticks and optionally the labels. To keep the default ticks,
+     * set `keepDefault=true`.
+     */
+    public static void setupAxisTicks(final int axis, final double[] values, final int nTicks, final String[] labels, final boolean keepDefault) {
+        nSetupAxisTicks(axis, values, nTicks, labels, labels.length, keepDefault);
+    }
+
+    /**
+     * Sets an axis' ticks and optionally the labels. To keep the default ticks,
+     * set `keepDefault=true`.
+     */
+    public static void setupAxisTicks(final int axis, final double[] values, final int nTicks, final boolean keepDefault) {
+        nSetupAxisTicks(axis, values, nTicks, keepDefault);
+    }
+
+    private static native void nSetupAxisTicks(int axis, double[] values, int nTicks); /*MANUAL
+        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::SetupAxisTicks(axis, &values[0], nTicks);
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nSetupAxisTicks(int axis, double[] values, int nTicks, String[] obj_labels, int labelsCount); /*MANUAL
+        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        const char* labels[labelsCount];
+        for (int i = 0; i < labelsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labels[i] = rawStr;
+        };
+        ImPlot::SetupAxisTicks(axis, &values[0], nTicks, labels);
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+        for (int i = 0; i < labelsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
+            env->ReleaseStringUTFChars(str, labels[i]);
+        };
+    */
+
+    private static native void nSetupAxisTicks(int axis, double[] values, int nTicks, String[] obj_labels, int labelsCount, boolean keepDefault); /*MANUAL
+        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        const char* labels[labelsCount];
+        for (int i = 0; i < labelsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labels[i] = rawStr;
+        };
+        ImPlot::SetupAxisTicks(axis, &values[0], nTicks, labels, keepDefault);
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+        for (int i = 0; i < labelsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
+            env->ReleaseStringUTFChars(str, labels[i]);
+        };
+    */
+
+    private static native void nSetupAxisTicks(int axis, double[] values, int nTicks, boolean keepDefault); /*MANUAL
+        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::SetupAxisTicks(axis, &values[0], nTicks, NULL, keepDefault);
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    /**
+     * Sets an axis' ticks and optionally the labels for the next plot.
+     * To keep the default ticks, set `keepDefault=true`.
+     */
+    public static void setupAxisTicks(final int axis, final double vMin, final double vMax, final int nTicks) {
+        nSetupAxisTicks(axis, vMin, vMax, nTicks);
+    }
+
+    /**
+     * Sets an axis' ticks and optionally the labels for the next plot.
+     * To keep the default ticks, set `keepDefault=true`.
+     */
+    public static void setupAxisTicks(final int axis, final double vMin, final double vMax, final int nTicks, final String[] labels) {
+        nSetupAxisTicks(axis, vMin, vMax, nTicks, labels, labels.length);
+    }
+
+    /**
+     * Sets an axis' ticks and optionally the labels for the next plot.
+     * To keep the default ticks, set `keepDefault=true`.
+     */
+    public static void setupAxisTicks(final int axis, final double vMin, final double vMax, final int nTicks, final String[] labels, final boolean keepDefault) {
+        nSetupAxisTicks(axis, vMin, vMax, nTicks, labels, labels.length, keepDefault);
+    }
+
+    /**
+     * Sets an axis' ticks and optionally the labels for the next plot.
+     * To keep the default ticks, set `keepDefault=true`.
+     */
+    public static void setupAxisTicks(final int axis, final double vMin, final double vMax, final int nTicks, final boolean keepDefault) {
+        nSetupAxisTicks(axis, vMin, vMax, nTicks, keepDefault);
+    }
+
+    private static native void nSetupAxisTicks(int axis, double vMin, double vMax, int nTicks); /*
+        ImPlot::SetupAxisTicks(axis, vMin, vMax, nTicks);
+    */
+
+    private static native void nSetupAxisTicks(int axis, double vMin, double vMax, int nTicks, String[] obj_labels, int labelsCount); /*MANUAL
+        const char* labels[labelsCount];
+        for (int i = 0; i < labelsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labels[i] = rawStr;
+        };
+        ImPlot::SetupAxisTicks(axis, vMin, vMax, nTicks, labels);
+        for (int i = 0; i < labelsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
+            env->ReleaseStringUTFChars(str, labels[i]);
+        };
+    */
+
+    private static native void nSetupAxisTicks(int axis, double vMin, double vMax, int nTicks, String[] obj_labels, int labelsCount, boolean keepDefault); /*MANUAL
+        const char* labels[labelsCount];
+        for (int i = 0; i < labelsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labels[i] = rawStr;
+        };
+        ImPlot::SetupAxisTicks(axis, vMin, vMax, nTicks, labels, keepDefault);
+        for (int i = 0; i < labelsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
+            env->ReleaseStringUTFChars(str, labels[i]);
+        };
+    */
+
+    private static native void nSetupAxisTicks(int axis, double vMin, double vMax, int nTicks, boolean keepDefault); /*
+        ImPlot::SetupAxisTicks(axis, vMin, vMax, nTicks, NULL, keepDefault);
+    */
+
+    /**
+     * Sets the label and/or flags for primary X and Y axes (shorthand for two calls to SetupAxis).
+     */
+    public static void setupAxes(final String xLabel, final String yLabel) {
+        nSetupAxes(xLabel, yLabel);
+    }
+
+    /**
+     * Sets the label and/or flags for primary X and Y axes (shorthand for two calls to SetupAxis).
+     */
+    public static void setupAxes(final String xLabel, final String yLabel, final int xFlags) {
+        nSetupAxes(xLabel, yLabel, xFlags);
+    }
+
+    /**
+     * Sets the label and/or flags for primary X and Y axes (shorthand for two calls to SetupAxis).
+     */
+    public static void setupAxes(final String xLabel, final String yLabel, final int xFlags, final int yFlags) {
+        nSetupAxes(xLabel, yLabel, xFlags, yFlags);
+    }
+
+    private static native void nSetupAxes(String xLabel, String yLabel); /*MANUAL
+        auto xLabel = obj_xLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_xLabel, JNI_FALSE);
+        auto yLabel = obj_yLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_yLabel, JNI_FALSE);
+        ImPlot::SetupAxes(xLabel, yLabel);
+        if (xLabel != NULL) env->ReleaseStringUTFChars(obj_xLabel, xLabel);
+        if (yLabel != NULL) env->ReleaseStringUTFChars(obj_yLabel, yLabel);
+    */
+
+    private static native void nSetupAxes(String xLabel, String yLabel, int xFlags); /*MANUAL
+        auto xLabel = obj_xLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_xLabel, JNI_FALSE);
+        auto yLabel = obj_yLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_yLabel, JNI_FALSE);
+        ImPlot::SetupAxes(xLabel, yLabel, xFlags);
+        if (xLabel != NULL) env->ReleaseStringUTFChars(obj_xLabel, xLabel);
+        if (yLabel != NULL) env->ReleaseStringUTFChars(obj_yLabel, yLabel);
+    */
+
+    private static native void nSetupAxes(String xLabel, String yLabel, int xFlags, int yFlags); /*MANUAL
+        auto xLabel = obj_xLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_xLabel, JNI_FALSE);
+        auto yLabel = obj_yLabel == NULL ? NULL : (char*)env->GetStringUTFChars(obj_yLabel, JNI_FALSE);
+        ImPlot::SetupAxes(xLabel, yLabel, xFlags, yFlags);
+        if (xLabel != NULL) env->ReleaseStringUTFChars(obj_xLabel, xLabel);
+        if (yLabel != NULL) env->ReleaseStringUTFChars(obj_yLabel, yLabel);
+    */
+
+    /**
+     * Sets the primary X and Y axes range limits. If ImPlotCond_Always is used,
+     * the axes limits will be locked (shorthand for two calls to SetupAxisLimits).
+     */
+    public static void setupAxesLimits(final double xMin, final double xMax, final double yMin, final double yMax) {
+        nSetupAxesLimits(xMin, xMax, yMin, yMax);
+    }
+
+    /**
+     * Sets the primary X and Y axes range limits. If ImPlotCond_Always is used,
+     * the axes limits will be locked (shorthand for two calls to SetupAxisLimits).
+     */
+    public static void setupAxesLimits(final double xMin, final double xMax, final double yMin, final double yMax, final int cond) {
+        nSetupAxesLimits(xMin, xMax, yMin, yMax, cond);
+    }
+
+    private static native void nSetupAxesLimits(double xMin, double xMax, double yMin, double yMax); /*
+        ImPlot::SetupAxesLimits(xMin, xMax, yMin, yMax);
+    */
+
+    private static native void nSetupAxesLimits(double xMin, double xMax, double yMin, double yMax, int cond); /*
+        ImPlot::SetupAxesLimits(xMin, xMax, yMin, yMax, cond);
+    */
+
+    /**
+     * Sets up the plot legend.
+     */
+    public static void setupLegend(final int location) {
+        nSetupLegend(location);
+    }
+
+    /**
+     * Sets up the plot legend.
+     */
+    public static void setupLegend(final int location, final int flags) {
+        nSetupLegend(location, flags);
+    }
+
+    private static native void nSetupLegend(int location); /*
+        ImPlot::SetupLegend(location);
+    */
+
+    private static native void nSetupLegend(int location, int flags); /*
+        ImPlot::SetupLegend(location, flags);
+    */
+
+    /**
+     * Sets the location of the current plot's mouse position text (default = South|East).
+     */
+    public static void setupMouseText(final int location) {
+        nSetupMouseText(location);
+    }
+
+    /**
+     * Sets the location of the current plot's mouse position text (default = South|East).
+     */
+    public static void setupMouseText(final int location, final int flags) {
+        nSetupMouseText(location, flags);
+    }
+
+    private static native void nSetupMouseText(int location); /*
+        ImPlot::SetupMouseText(location);
+    */
+
+    private static native void nSetupMouseText(int location, int flags); /*
+        ImPlot::SetupMouseText(location, flags);
+    */
+
+    /**
+     * Explicitly finalize plot setup. Once you call this, you cannot make any more
+     * Setup calls for the current plot! Note that calling this function is OPTIONAL;
+     * it will be called by the first subsequent setup-locking API call.
+     */
+    public static void setupFinish() {
+        nSetupFinish();
+    }
+
+    private static native void nSetupFinish(); /*
+        ImPlot::SetupFinish();
+    */
+
+    //-----------------------------------------------------------------------------
+    // [SECTION] SetNext
+    //-----------------------------------------------------------------------------
+
+    // Though you should default to the `Setup` API above, there are some scenarios
+    // where (re)configuring a plot or axis before `BeginPlot` is needed (e.g. if
+    // using a preceding button or slider widget to change the plot limits). In
+    // this case, you can use the `SetNext` API below. While this is not as feature
+    // rich as the Setup API, most common needs are provided. These functions can be
+    // called anwhere except for inside of `Begin/EndPlot`. For example:
+
+    // if (ImGui::Button("Center Plot"))
+    //     ImPlot::SetNextPlotLimits(-1,1,-1,1);
+    // if (ImPlot::BeginPlot(...)) {
+    //     ...
+    //     ImPlot::EndPlot();
+    // }
+    //
+    // Important notes:
+    //
+    // - You must still enable non-default axes with SetupAxis for these functions
+    //   to work properly.
+
+    /**
+     * Sets an upcoming axis range limits. If ImPlotCond_Always is used, the axes limits will be locked.
+     */
+    public static void setNextAxisLimits(final int axis, final double vMin, final double vMax) {
+        nSetNextAxisLimits(axis, vMin, vMax);
+    }
+
+    /**
+     * Sets an upcoming axis range limits. If ImPlotCond_Always is used, the axes limits will be locked.
+     */
+    public static void setNextAxisLimits(final int axis, final double vMin, final double vMax, final int cond) {
+        nSetNextAxisLimits(axis, vMin, vMax, cond);
+    }
+
+    private static native void nSetNextAxisLimits(int axis, double vMin, double vMax); /*
+        ImPlot::SetNextAxisLimits(axis, vMin, vMax);
+    */
+
+    private static native void nSetNextAxisLimits(int axis, double vMin, double vMax, int cond); /*
+        ImPlot::SetNextAxisLimits(axis, vMin, vMax, cond);
+    */
+
+    /**
+     * Links an upcoming axis range limits to external values. Set to NULL for no linkage.
+     * The pointer data must remain valid until EndPlot!
+     */
+    public static void setNextAxisLinks(final int axis, final ImDouble linkMin, final ImDouble linkMax) {
+        nSetNextAxisLinks(axis, linkMin != null ? linkMin.getData() : null, linkMax != null ? linkMax.getData() : null);
+    }
+
+    private static native void nSetNextAxisLinks(int axis, double[] linkMin, double[] linkMax); /*MANUAL
+        auto linkMin = obj_linkMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_linkMin, JNI_FALSE);
+        auto linkMax = obj_linkMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_linkMax, JNI_FALSE);
+        ImPlot::SetNextAxisLinks(axis, (linkMin != NULL ? &linkMin[0] : NULL), (linkMax != NULL ? &linkMax[0] : NULL));
+        if (linkMin != NULL) env->ReleasePrimitiveArrayCritical(obj_linkMin, linkMin, JNI_FALSE);
+        if (linkMax != NULL) env->ReleasePrimitiveArrayCritical(obj_linkMax, linkMax, JNI_FALSE);
+    */
+
+    /**
+     * Set an upcoming axis to auto fit to its data.
+     */
+    public static void setNextAxisToFit(final int axis) {
+        nSetNextAxisToFit(axis);
+    }
+
+    private static native void nSetNextAxisToFit(int axis); /*
+        ImPlot::SetNextAxisToFit(axis);
+    */
+
+    /**
+     * Sets the upcoming primary X and Y axes range limits. If ImPlotCond_Always is used,
+     * the axes limits will be locked (shorthand for two calls to SetupAxisLimits).
+     */
+    public static void setNextAxesLimits(final double xMin, final double xMax, final double yMin, final double yMax) {
+        nSetNextAxesLimits(xMin, xMax, yMin, yMax);
+    }
+
+    /**
+     * Sets the upcoming primary X and Y axes range limits. If ImPlotCond_Always is used,
+     * the axes limits will be locked (shorthand for two calls to SetupAxisLimits).
+     */
+    public static void setNextAxesLimits(final double xMin, final double xMax, final double yMin, final double yMax, final int cond) {
+        nSetNextAxesLimits(xMin, xMax, yMin, yMax, cond);
+    }
+
+    private static native void nSetNextAxesLimits(double xMin, double xMax, double yMin, double yMax); /*
+        ImPlot::SetNextAxesLimits(xMin, xMax, yMin, yMax);
+    */
+
+    private static native void nSetNextAxesLimits(double xMin, double xMax, double yMin, double yMax, int cond); /*
+        ImPlot::SetNextAxesLimits(xMin, xMax, yMin, yMax, cond);
+    */
+
+    /**
+     * Sets all upcoming axes to auto fit to their data.
+     */
+    public static void setNextAxesToFit() {
+        nSetNextAxesToFit();
+    }
+
+    private static native void nSetNextAxesToFit(); /*
+        ImPlot::SetNextAxesToFit();
+    */
+
+    //-----------------------------------------------------------------------------
+    // [SECTION] Plot Items
+    //-----------------------------------------------------------------------------
+
+    // The main plotting API is provied below. Call these functions between
+    // Begin/EndPlot and after any Setup API calls. Each plots data on the current
+    // x and y axes, which can be changed with `SetAxis/Axes`.
+    //
+    // The templated functions are explicitly instantiated in implot_items.cpp.
     // They are not intended to be used generically with custom types. You will get
     // a linker error if you try! All functions support the following scalar types:
     //
@@ -548,6 +885,12 @@ public final class ImPlot {
     //
     // NB: All types are converted to double before plotting. You may lose information
     // if you try plotting extremely large 64-bit integral types. Proceed with caution!
+
+    /*JNI
+        // For a proper type conversion, since C++ doesn't have a "long" type.
+        #define long ImS64
+        #define LEN(arg) (int)env->GetArrayLength(obj_##arg)
+     */
 
     // values
 
@@ -8570,7 +8913,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final short[] xs, final short[] ys, final int xBins, final int yBins, final boolean density, final ImPlotLimits range) {
+    public static double plotHistogram2D(final String labelId, final short[] xs, final short[] ys, final int xBins, final int yBins, final boolean density, final ImPlotRect range) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, density, range.x.min, range.y.min, range.x.max, range.y.max);
     }
 
@@ -8588,7 +8931,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final short[] xs, final short[] ys, final int xBins, final int yBins, final boolean density, final ImPlotLimits range, final boolean outliers) {
+    public static double plotHistogram2D(final String labelId, final short[] xs, final short[] ys, final int xBins, final int yBins, final boolean density, final ImPlotRect range, final boolean outliers) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, density, range.x.min, range.y.min, range.x.max, range.y.max, outliers);
     }
 
@@ -8606,7 +8949,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final short[] xs, final short[] ys, final int xBins, final int yBins, final ImPlotLimits range, final boolean outliers) {
+    public static double plotHistogram2D(final String labelId, final short[] xs, final short[] ys, final int xBins, final int yBins, final ImPlotRect range, final boolean outliers) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, range.x.min, range.y.min, range.x.max, range.y.max, outliers);
     }
 
@@ -8676,7 +9019,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY));
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY));
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -8687,7 +9030,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -8698,7 +9041,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, false, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, false, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -8709,7 +9052,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -8757,7 +9100,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final int[] xs, final int[] ys, final int xBins, final int yBins, final boolean density, final ImPlotLimits range) {
+    public static double plotHistogram2D(final String labelId, final int[] xs, final int[] ys, final int xBins, final int yBins, final boolean density, final ImPlotRect range) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, density, range.x.min, range.y.min, range.x.max, range.y.max);
     }
 
@@ -8775,7 +9118,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final int[] xs, final int[] ys, final int xBins, final int yBins, final boolean density, final ImPlotLimits range, final boolean outliers) {
+    public static double plotHistogram2D(final String labelId, final int[] xs, final int[] ys, final int xBins, final int yBins, final boolean density, final ImPlotRect range, final boolean outliers) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, density, range.x.min, range.y.min, range.x.max, range.y.max, outliers);
     }
 
@@ -8793,7 +9136,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final int[] xs, final int[] ys, final int xBins, final int yBins, final ImPlotLimits range, final boolean outliers) {
+    public static double plotHistogram2D(final String labelId, final int[] xs, final int[] ys, final int xBins, final int yBins, final ImPlotRect range, final boolean outliers) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, range.x.min, range.y.min, range.x.max, range.y.max, outliers);
     }
 
@@ -8863,7 +9206,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY));
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY));
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -8874,7 +9217,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -8885,7 +9228,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, false, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, false, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -8896,7 +9239,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -8944,7 +9287,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final long[] xs, final long[] ys, final int xBins, final int yBins, final boolean density, final ImPlotLimits range) {
+    public static double plotHistogram2D(final String labelId, final long[] xs, final long[] ys, final int xBins, final int yBins, final boolean density, final ImPlotRect range) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, density, range.x.min, range.y.min, range.x.max, range.y.max);
     }
 
@@ -8962,7 +9305,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final long[] xs, final long[] ys, final int xBins, final int yBins, final boolean density, final ImPlotLimits range, final boolean outliers) {
+    public static double plotHistogram2D(final String labelId, final long[] xs, final long[] ys, final int xBins, final int yBins, final boolean density, final ImPlotRect range, final boolean outliers) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, density, range.x.min, range.y.min, range.x.max, range.y.max, outliers);
     }
 
@@ -8980,7 +9323,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final long[] xs, final long[] ys, final int xBins, final int yBins, final ImPlotLimits range, final boolean outliers) {
+    public static double plotHistogram2D(final String labelId, final long[] xs, final long[] ys, final int xBins, final int yBins, final ImPlotRect range, final boolean outliers) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, range.x.min, range.y.min, range.x.max, range.y.max, outliers);
     }
 
@@ -9050,7 +9393,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY));
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY));
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -9061,7 +9404,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -9072,7 +9415,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, false, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, false, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -9083,7 +9426,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -9131,7 +9474,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final float[] xs, final float[] ys, final int xBins, final int yBins, final boolean density, final ImPlotLimits range) {
+    public static double plotHistogram2D(final String labelId, final float[] xs, final float[] ys, final int xBins, final int yBins, final boolean density, final ImPlotRect range) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, density, range.x.min, range.y.min, range.x.max, range.y.max);
     }
 
@@ -9149,7 +9492,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final float[] xs, final float[] ys, final int xBins, final int yBins, final boolean density, final ImPlotLimits range, final boolean outliers) {
+    public static double plotHistogram2D(final String labelId, final float[] xs, final float[] ys, final int xBins, final int yBins, final boolean density, final ImPlotRect range, final boolean outliers) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, density, range.x.min, range.y.min, range.x.max, range.y.max, outliers);
     }
 
@@ -9167,7 +9510,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final float[] xs, final float[] ys, final int xBins, final int yBins, final ImPlotLimits range, final boolean outliers) {
+    public static double plotHistogram2D(final String labelId, final float[] xs, final float[] ys, final int xBins, final int yBins, final ImPlotRect range, final boolean outliers) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, range.x.min, range.y.min, range.x.max, range.y.max, outliers);
     }
 
@@ -9237,7 +9580,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY));
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY));
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -9248,7 +9591,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -9259,7 +9602,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, false, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, false, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -9270,7 +9613,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -9318,7 +9661,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final double[] xs, final double[] ys, final int xBins, final int yBins, final boolean density, final ImPlotLimits range) {
+    public static double plotHistogram2D(final String labelId, final double[] xs, final double[] ys, final int xBins, final int yBins, final boolean density, final ImPlotRect range) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, density, range.x.min, range.y.min, range.x.max, range.y.max);
     }
 
@@ -9336,7 +9679,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final double[] xs, final double[] ys, final int xBins, final int yBins, final boolean density, final ImPlotLimits range, final boolean outliers) {
+    public static double plotHistogram2D(final String labelId, final double[] xs, final double[] ys, final int xBins, final int yBins, final boolean density, final ImPlotRect range, final boolean outliers) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, density, range.x.min, range.y.min, range.x.max, range.y.max, outliers);
     }
 
@@ -9354,7 +9697,7 @@ public final class ImPlot {
      * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
      * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
      */
-    public static double plotHistogram2D(final String labelId, final double[] xs, final double[] ys, final int xBins, final int yBins, final ImPlotLimits range, final boolean outliers) {
+    public static double plotHistogram2D(final String labelId, final double[] xs, final double[] ys, final int xBins, final int yBins, final ImPlotRect range, final boolean outliers) {
         return nPlotHistogram2D(labelId, xs, ys, xBins, yBins, range.x.min, range.y.min, range.x.max, range.y.max, outliers);
     }
 
@@ -9424,7 +9767,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY));
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY));
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -9435,7 +9778,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -9446,7 +9789,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, false, ImPlotLimits(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, false, ImPlotRect(rangeMinX, rangeMinY, rangeMaxX, rangeMaxY), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -9457,7 +9800,7 @@ public final class ImPlot {
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotLimits(), outliers);
+        auto _result = ImPlot::PlotHistogram2D(labelId, &xs[0], &ys[0], LEN(xs), xBins, yBins, density, ImPlotRect(), outliers);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -9828,702 +10171,1178 @@ public final class ImPlot {
      */
 
     //-----------------------------------------------------------------------------
-    // Plot Utils
+    // [SECTION] Plot Tools
+    //-----------------------------------------------------------------------------
+
+    // The following can be used to render interactive elements and/or annotations.
+    // Like the item plotting functions above, they apply to the current x and y
+    // axes, which can be changed with `SetAxis/SetAxes`.
+
+    /**
+     * Shows a draggable point at x, y. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragPoint(final int id, final ImDouble x, final ImDouble y, final ImVec4 col) {
+        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, col.x, col.y, col.z, col.w);
+    }
+
+    /**
+     * Shows a draggable point at x, y. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragPoint(final int id, final ImDouble x, final ImDouble y, final float colX, final float colY, final float colZ, final float colW) {
+        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, colX, colY, colZ, colW);
+    }
+
+    /**
+     * Shows a draggable point at x, y. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragPoint(final int id, final ImDouble x, final ImDouble y, final ImVec4 col, final float size) {
+        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, col.x, col.y, col.z, col.w, size);
+    }
+
+    /**
+     * Shows a draggable point at x, y. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragPoint(final int id, final ImDouble x, final ImDouble y, final float colX, final float colY, final float colZ, final float colW, final float size) {
+        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, colX, colY, colZ, colW, size);
+    }
+
+    /**
+     * Shows a draggable point at x, y. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragPoint(final int id, final ImDouble x, final ImDouble y, final ImVec4 col, final float size, final int flags) {
+        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, col.x, col.y, col.z, col.w, size, flags);
+    }
+
+    /**
+     * Shows a draggable point at x, y. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragPoint(final int id, final ImDouble x, final ImDouble y, final float colX, final float colY, final float colZ, final float colW, final float size, final int flags) {
+        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, colX, colY, colZ, colW, size, flags);
+    }
+
+    /**
+     * Shows a draggable point at x, y. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragPoint(final int id, final ImDouble x, final ImDouble y, final ImVec4 col, final int flags) {
+        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, col.x, col.y, col.z, col.w, flags);
+    }
+
+    /**
+     * Shows a draggable point at x, y. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragPoint(final int id, final ImDouble x, final ImDouble y, final float colX, final float colY, final float colZ, final float colW, final int flags) {
+        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, colX, colY, colZ, colW, flags);
+    }
+
+    private static native boolean nDragPoint(int id, double[] obj_x, double[] obj_y, float colX, float colY, float colZ, float colW); /*MANUAL
+        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
+        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
+        ImVec4 col = ImVec4(colX, colY, colZ, colW);
+        auto _result = ImPlot::DragPoint(id, (x != NULL ? &x[0] : NULL), (y != NULL ? &y[0] : NULL), col);
+        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
+        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
+        return _result;
+    */
+
+    private static native boolean nDragPoint(int id, double[] obj_x, double[] obj_y, float colX, float colY, float colZ, float colW, float size); /*MANUAL
+        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
+        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
+        ImVec4 col = ImVec4(colX, colY, colZ, colW);
+        auto _result = ImPlot::DragPoint(id, (x != NULL ? &x[0] : NULL), (y != NULL ? &y[0] : NULL), col, size);
+        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
+        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
+        return _result;
+    */
+
+    private static native boolean nDragPoint(int id, double[] obj_x, double[] obj_y, float colX, float colY, float colZ, float colW, float size, int flags); /*MANUAL
+        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
+        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
+        ImVec4 col = ImVec4(colX, colY, colZ, colW);
+        auto _result = ImPlot::DragPoint(id, (x != NULL ? &x[0] : NULL), (y != NULL ? &y[0] : NULL), col, size, flags);
+        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
+        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
+        return _result;
+    */
+
+    private static native boolean nDragPoint(int id, double[] obj_x, double[] obj_y, float colX, float colY, float colZ, float colW, int flags); /*MANUAL
+        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
+        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
+        ImVec4 col = ImVec4(colX, colY, colZ, colW);
+        auto _result = ImPlot::DragPoint(id, (x != NULL ? &x[0] : NULL), (y != NULL ? &y[0] : NULL), col, 4, flags);
+        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
+        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
+        return _result;
+    */
+
+    /**
+     * Shows a draggable vertical guide line at an x-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineX(final int id, final ImDouble x, final ImVec4 col) {
+        return nDragLineX(id, x != null ? x.getData() : null, col.x, col.y, col.z, col.w);
+    }
+
+    /**
+     * Shows a draggable vertical guide line at an x-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineX(final int id, final ImDouble x, final float colX, final float colY, final float colZ, final float colW) {
+        return nDragLineX(id, x != null ? x.getData() : null, colX, colY, colZ, colW);
+    }
+
+    /**
+     * Shows a draggable vertical guide line at an x-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineX(final int id, final ImDouble x, final ImVec4 col, final float thickness) {
+        return nDragLineX(id, x != null ? x.getData() : null, col.x, col.y, col.z, col.w, thickness);
+    }
+
+    /**
+     * Shows a draggable vertical guide line at an x-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineX(final int id, final ImDouble x, final float colX, final float colY, final float colZ, final float colW, final float thickness) {
+        return nDragLineX(id, x != null ? x.getData() : null, colX, colY, colZ, colW, thickness);
+    }
+
+    /**
+     * Shows a draggable vertical guide line at an x-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineX(final int id, final ImDouble x, final ImVec4 col, final float thickness, final int flags) {
+        return nDragLineX(id, x != null ? x.getData() : null, col.x, col.y, col.z, col.w, thickness, flags);
+    }
+
+    /**
+     * Shows a draggable vertical guide line at an x-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineX(final int id, final ImDouble x, final float colX, final float colY, final float colZ, final float colW, final float thickness, final int flags) {
+        return nDragLineX(id, x != null ? x.getData() : null, colX, colY, colZ, colW, thickness, flags);
+    }
+
+    /**
+     * Shows a draggable vertical guide line at an x-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineX(final int id, final ImDouble x, final ImVec4 col, final int flags) {
+        return nDragLineX(id, x != null ? x.getData() : null, col.x, col.y, col.z, col.w, flags);
+    }
+
+    /**
+     * Shows a draggable vertical guide line at an x-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineX(final int id, final ImDouble x, final float colX, final float colY, final float colZ, final float colW, final int flags) {
+        return nDragLineX(id, x != null ? x.getData() : null, colX, colY, colZ, colW, flags);
+    }
+
+    private static native boolean nDragLineX(int id, double[] obj_x, float colX, float colY, float colZ, float colW); /*MANUAL
+        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
+        ImVec4 col = ImVec4(colX, colY, colZ, colW);
+        auto _result = ImPlot::DragLineX(id, (x != NULL ? &x[0] : NULL), col);
+        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
+        return _result;
+    */
+
+    private static native boolean nDragLineX(int id, double[] obj_x, float colX, float colY, float colZ, float colW, float thickness); /*MANUAL
+        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
+        ImVec4 col = ImVec4(colX, colY, colZ, colW);
+        auto _result = ImPlot::DragLineX(id, (x != NULL ? &x[0] : NULL), col, thickness);
+        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
+        return _result;
+    */
+
+    private static native boolean nDragLineX(int id, double[] obj_x, float colX, float colY, float colZ, float colW, float thickness, int flags); /*MANUAL
+        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
+        ImVec4 col = ImVec4(colX, colY, colZ, colW);
+        auto _result = ImPlot::DragLineX(id, (x != NULL ? &x[0] : NULL), col, thickness, flags);
+        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
+        return _result;
+    */
+
+    private static native boolean nDragLineX(int id, double[] obj_x, float colX, float colY, float colZ, float colW, int flags); /*MANUAL
+        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
+        ImVec4 col = ImVec4(colX, colY, colZ, colW);
+        auto _result = ImPlot::DragLineX(id, (x != NULL ? &x[0] : NULL), col, 1, flags);
+        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
+        return _result;
+    */
+
+    /**
+     * Shows a draggable horizontal guide line at a y-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineY(final int id, final ImDouble y, final ImVec4 col) {
+        return nDragLineY(id, y != null ? y.getData() : null, col.x, col.y, col.z, col.w);
+    }
+
+    /**
+     * Shows a draggable horizontal guide line at a y-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineY(final int id, final ImDouble y, final float colX, final float colY, final float colZ, final float colW) {
+        return nDragLineY(id, y != null ? y.getData() : null, colX, colY, colZ, colW);
+    }
+
+    /**
+     * Shows a draggable horizontal guide line at a y-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineY(final int id, final ImDouble y, final ImVec4 col, final float thickness) {
+        return nDragLineY(id, y != null ? y.getData() : null, col.x, col.y, col.z, col.w, thickness);
+    }
+
+    /**
+     * Shows a draggable horizontal guide line at a y-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineY(final int id, final ImDouble y, final float colX, final float colY, final float colZ, final float colW, final float thickness) {
+        return nDragLineY(id, y != null ? y.getData() : null, colX, colY, colZ, colW, thickness);
+    }
+
+    /**
+     * Shows a draggable horizontal guide line at a y-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineY(final int id, final ImDouble y, final ImVec4 col, final float thickness, final int flags) {
+        return nDragLineY(id, y != null ? y.getData() : null, col.x, col.y, col.z, col.w, thickness, flags);
+    }
+
+    /**
+     * Shows a draggable horizontal guide line at a y-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineY(final int id, final ImDouble y, final float colX, final float colY, final float colZ, final float colW, final float thickness, final int flags) {
+        return nDragLineY(id, y != null ? y.getData() : null, colX, colY, colZ, colW, thickness, flags);
+    }
+
+    /**
+     * Shows a draggable horizontal guide line at a y-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineY(final int id, final ImDouble y, final ImVec4 col, final int flags) {
+        return nDragLineY(id, y != null ? y.getData() : null, col.x, col.y, col.z, col.w, flags);
+    }
+
+    /**
+     * Shows a draggable horizontal guide line at a y-value. `col` defaults to ImGuiCol_Text.
+     */
+    public static boolean dragLineY(final int id, final ImDouble y, final float colX, final float colY, final float colZ, final float colW, final int flags) {
+        return nDragLineY(id, y != null ? y.getData() : null, colX, colY, colZ, colW, flags);
+    }
+
+    private static native boolean nDragLineY(int id, double[] obj_y, float colX, float colY, float colZ, float colW); /*MANUAL
+        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
+        ImVec4 col = ImVec4(colX, colY, colZ, colW);
+        auto _result = ImPlot::DragLineY(id, (y != NULL ? &y[0] : NULL), col);
+        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
+        return _result;
+    */
+
+    private static native boolean nDragLineY(int id, double[] obj_y, float colX, float colY, float colZ, float colW, float thickness); /*MANUAL
+        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
+        ImVec4 col = ImVec4(colX, colY, colZ, colW);
+        auto _result = ImPlot::DragLineY(id, (y != NULL ? &y[0] : NULL), col, thickness);
+        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
+        return _result;
+    */
+
+    private static native boolean nDragLineY(int id, double[] obj_y, float colX, float colY, float colZ, float colW, float thickness, int flags); /*MANUAL
+        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
+        ImVec4 col = ImVec4(colX, colY, colZ, colW);
+        auto _result = ImPlot::DragLineY(id, (y != NULL ? &y[0] : NULL), col, thickness, flags);
+        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
+        return _result;
+    */
+
+    private static native boolean nDragLineY(int id, double[] obj_y, float colX, float colY, float colZ, float colW, int flags); /*MANUAL
+        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
+        ImVec4 col = ImVec4(colX, colY, colZ, colW);
+        auto _result = ImPlot::DragLineY(id, (y != NULL ? &y[0] : NULL), col, 1, flags);
+        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
+        return _result;
+    */
+
+    /**
+     * Shows a draggable and resizeable rectangle.
+     */
+    public static boolean dragRect(final int id, final ImDouble xMin, final ImDouble yMin, final ImDouble xMax, final ImDouble yMax, final ImVec4 col) {
+        return nDragRect(id, xMin != null ? xMin.getData() : null, yMin != null ? yMin.getData() : null, xMax != null ? xMax.getData() : null, yMax != null ? yMax.getData() : null, col.x, col.y, col.z, col.w);
+    }
+
+    /**
+     * Shows a draggable and resizeable rectangle.
+     */
+    public static boolean dragRect(final int id, final ImDouble xMin, final ImDouble yMin, final ImDouble xMax, final ImDouble yMax, final float colX, final float colY, final float colZ, final float colW) {
+        return nDragRect(id, xMin != null ? xMin.getData() : null, yMin != null ? yMin.getData() : null, xMax != null ? xMax.getData() : null, yMax != null ? yMax.getData() : null, colX, colY, colZ, colW);
+    }
+
+    /**
+     * Shows a draggable and resizeable rectangle.
+     */
+    public static boolean dragRect(final int id, final ImDouble xMin, final ImDouble yMin, final ImDouble xMax, final ImDouble yMax, final ImVec4 col, final int flags) {
+        return nDragRect(id, xMin != null ? xMin.getData() : null, yMin != null ? yMin.getData() : null, xMax != null ? xMax.getData() : null, yMax != null ? yMax.getData() : null, col.x, col.y, col.z, col.w, flags);
+    }
+
+    /**
+     * Shows a draggable and resizeable rectangle.
+     */
+    public static boolean dragRect(final int id, final ImDouble xMin, final ImDouble yMin, final ImDouble xMax, final ImDouble yMax, final float colX, final float colY, final float colZ, final float colW, final int flags) {
+        return nDragRect(id, xMin != null ? xMin.getData() : null, yMin != null ? yMin.getData() : null, xMax != null ? xMax.getData() : null, yMax != null ? yMax.getData() : null, colX, colY, colZ, colW, flags);
+    }
+
+    private static native boolean nDragRect(int id, double[] obj_xMin, double[] obj_yMin, double[] obj_xMax, double[] obj_yMax, float colX, float colY, float colZ, float colW); /*MANUAL
+        auto xMin = obj_xMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xMin, JNI_FALSE);
+        auto yMin = obj_yMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMin, JNI_FALSE);
+        auto xMax = obj_xMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xMax, JNI_FALSE);
+        auto yMax = obj_yMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMax, JNI_FALSE);
+        ImVec4 col = ImVec4(colX, colY, colZ, colW);
+        auto _result = ImPlot::DragRect(id, (xMin != NULL ? &xMin[0] : NULL), (yMin != NULL ? &yMin[0] : NULL), (xMax != NULL ? &xMax[0] : NULL), (yMax != NULL ? &yMax[0] : NULL), col);
+        if (xMin != NULL) env->ReleasePrimitiveArrayCritical(obj_xMin, xMin, JNI_FALSE);
+        if (yMin != NULL) env->ReleasePrimitiveArrayCritical(obj_yMin, yMin, JNI_FALSE);
+        if (xMax != NULL) env->ReleasePrimitiveArrayCritical(obj_xMax, xMax, JNI_FALSE);
+        if (yMax != NULL) env->ReleasePrimitiveArrayCritical(obj_yMax, yMax, JNI_FALSE);
+        return _result;
+    */
+
+    private static native boolean nDragRect(int id, double[] obj_xMin, double[] obj_yMin, double[] obj_xMax, double[] obj_yMax, float colX, float colY, float colZ, float colW, int flags); /*MANUAL
+        auto xMin = obj_xMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xMin, JNI_FALSE);
+        auto yMin = obj_yMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMin, JNI_FALSE);
+        auto xMax = obj_xMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xMax, JNI_FALSE);
+        auto yMax = obj_yMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMax, JNI_FALSE);
+        ImVec4 col = ImVec4(colX, colY, colZ, colW);
+        auto _result = ImPlot::DragRect(id, (xMin != NULL ? &xMin[0] : NULL), (yMin != NULL ? &yMin[0] : NULL), (xMax != NULL ? &xMax[0] : NULL), (yMax != NULL ? &yMax[0] : NULL), col, flags);
+        if (xMin != NULL) env->ReleasePrimitiveArrayCritical(obj_xMin, xMin, JNI_FALSE);
+        if (yMin != NULL) env->ReleasePrimitiveArrayCritical(obj_yMin, yMin, JNI_FALSE);
+        if (xMax != NULL) env->ReleasePrimitiveArrayCritical(obj_xMax, xMax, JNI_FALSE);
+        if (yMax != NULL) env->ReleasePrimitiveArrayCritical(obj_yMax, yMax, JNI_FALSE);
+        return _result;
+    */
+
+    /**
+     * Shows an annotation callout at a chosen point. Clamping keeps annotations in the plot area.
+     * Annotations are always rendered on top.
+     */
+    public static void annotation(final double x, final double y, final ImVec4 color, final ImVec2 pixOffset, final boolean clamp) {
+        nAnnotation(x, y, color.x, color.y, color.z, color.w, pixOffset.x, pixOffset.y, clamp);
+    }
+
+    /**
+     * Shows an annotation callout at a chosen point. Clamping keeps annotations in the plot area.
+     * Annotations are always rendered on top.
+     */
+    public static void annotation(final double x, final double y, final float colorX, final float colorY, final float colorZ, final float colorW, final float pixOffsetX, final float pixOffsetY, final boolean clamp) {
+        nAnnotation(x, y, colorX, colorY, colorZ, colorW, pixOffsetX, pixOffsetY, clamp);
+    }
+
+    /**
+     * Shows an annotation callout at a chosen point. Clamping keeps annotations in the plot area.
+     * Annotations are always rendered on top.
+     */
+    public static void annotation(final double x, final double y, final ImVec4 color, final ImVec2 pixOffset, final boolean clamp, final boolean round) {
+        nAnnotation(x, y, color.x, color.y, color.z, color.w, pixOffset.x, pixOffset.y, clamp, round);
+    }
+
+    /**
+     * Shows an annotation callout at a chosen point. Clamping keeps annotations in the plot area.
+     * Annotations are always rendered on top.
+     */
+    public static void annotation(final double x, final double y, final float colorX, final float colorY, final float colorZ, final float colorW, final float pixOffsetX, final float pixOffsetY, final boolean clamp, final boolean round) {
+        nAnnotation(x, y, colorX, colorY, colorZ, colorW, pixOffsetX, pixOffsetY, clamp, round);
+    }
+
+    private static native void nAnnotation(double x, double y, float colorX, float colorY, float colorZ, float colorW, float pixOffsetX, float pixOffsetY, boolean clamp); /*MANUAL
+        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
+        ImVec2 pixOffset = ImVec2(pixOffsetX, pixOffsetY);
+        ImPlot::Annotation(x, y, color, pixOffset, clamp);
+    */
+
+    private static native void nAnnotation(double x, double y, float colorX, float colorY, float colorZ, float colorW, float pixOffsetX, float pixOffsetY, boolean clamp, boolean round); /*MANUAL
+        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
+        ImVec2 pixOffset = ImVec2(pixOffsetX, pixOffsetY);
+        ImPlot::Annotation(x, y, color, pixOffset, clamp, round);
+    */
+
+    /**
+     * Shows an annotation callout at a chosen point with formatted text.
+     * Clamping keeps annotations in the plot area. Annotations are always rendered on top.
+     */
+    public static void annotation(final double x, final double y, final ImVec4 color, final ImVec2 pixOffset, final boolean clamp, final String fmt) {
+        nAnnotation(x, y, color.x, color.y, color.z, color.w, pixOffset.x, pixOffset.y, clamp, fmt);
+    }
+
+    /**
+     * Shows an annotation callout at a chosen point with formatted text.
+     * Clamping keeps annotations in the plot area. Annotations are always rendered on top.
+     */
+    public static void annotation(final double x, final double y, final float colorX, final float colorY, final float colorZ, final float colorW, final float pixOffsetX, final float pixOffsetY, final boolean clamp, final String fmt) {
+        nAnnotation(x, y, colorX, colorY, colorZ, colorW, pixOffsetX, pixOffsetY, clamp, fmt);
+    }
+
+    private static native void nAnnotation(double x, double y, float colorX, float colorY, float colorZ, float colorW, float pixOffsetX, float pixOffsetY, boolean clamp, String fmt); /*MANUAL
+        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
+        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
+        ImVec2 pixOffset = ImVec2(pixOffsetX, pixOffsetY);
+        ImPlot::Annotation(x, y, color, pixOffset, clamp, fmt, NULL);
+        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
+    */
+
+    /**
+     * Shows a x-axis tag at the specified coordinate value.
+     */
+    public static void tagX(final double x, final ImVec4 color) {
+        nTagX(x, color.x, color.y, color.z, color.w);
+    }
+
+    /**
+     * Shows a x-axis tag at the specified coordinate value.
+     */
+    public static void tagX(final double x, final float colorX, final float colorY, final float colorZ, final float colorW) {
+        nTagX(x, colorX, colorY, colorZ, colorW);
+    }
+
+    /**
+     * Shows a x-axis tag at the specified coordinate value.
+     */
+    public static void tagX(final double x, final ImVec4 color, final boolean round) {
+        nTagX(x, color.x, color.y, color.z, color.w, round);
+    }
+
+    /**
+     * Shows a x-axis tag at the specified coordinate value.
+     */
+    public static void tagX(final double x, final float colorX, final float colorY, final float colorZ, final float colorW, final boolean round) {
+        nTagX(x, colorX, colorY, colorZ, colorW, round);
+    }
+
+    private static native void nTagX(double x, float colorX, float colorY, float colorZ, float colorW); /*MANUAL
+        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
+        ImPlot::TagX(x, color);
+    */
+
+    private static native void nTagX(double x, float colorX, float colorY, float colorZ, float colorW, boolean round); /*MANUAL
+        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
+        ImPlot::TagX(x, color, round);
+    */
+
+    /**
+     * Shows a x-axis tag at the specified coordinate value with formatted text.
+     */
+    public static void tagX(final double x, final ImVec4 color, final String fmt) {
+        nTagX(x, color.x, color.y, color.z, color.w, fmt);
+    }
+
+    /**
+     * Shows a x-axis tag at the specified coordinate value with formatted text.
+     */
+    public static void tagX(final double x, final float colorX, final float colorY, final float colorZ, final float colorW, final String fmt) {
+        nTagX(x, colorX, colorY, colorZ, colorW, fmt);
+    }
+
+    private static native void nTagX(double x, float colorX, float colorY, float colorZ, float colorW, String fmt); /*MANUAL
+        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
+        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
+        ImPlot::TagX(x, color, fmt, NULL);
+        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
+    */
+
+    /**
+     * Shows a y-axis tag at the specified coordinate value.
+     */
+    public static void tagY(final double y, final ImVec4 color) {
+        nTagY(y, color.x, color.y, color.z, color.w);
+    }
+
+    /**
+     * Shows a y-axis tag at the specified coordinate value.
+     */
+    public static void tagY(final double y, final float colorX, final float colorY, final float colorZ, final float colorW) {
+        nTagY(y, colorX, colorY, colorZ, colorW);
+    }
+
+    /**
+     * Shows a y-axis tag at the specified coordinate value.
+     */
+    public static void tagY(final double y, final ImVec4 color, final boolean round) {
+        nTagY(y, color.x, color.y, color.z, color.w, round);
+    }
+
+    /**
+     * Shows a y-axis tag at the specified coordinate value.
+     */
+    public static void tagY(final double y, final float colorX, final float colorY, final float colorZ, final float colorW, final boolean round) {
+        nTagY(y, colorX, colorY, colorZ, colorW, round);
+    }
+
+    private static native void nTagY(double y, float colorX, float colorY, float colorZ, float colorW); /*MANUAL
+        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
+        ImPlot::TagY(y, color);
+    */
+
+    private static native void nTagY(double y, float colorX, float colorY, float colorZ, float colorW, boolean round); /*MANUAL
+        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
+        ImPlot::TagY(y, color, round);
+    */
+
+    /**
+     * Shows a y-axis tag at the specified coordinate value with formatted text.
+     */
+    public static void tagY(final double y, final ImVec4 color, final String fmt) {
+        nTagY(y, color.x, color.y, color.z, color.w, fmt);
+    }
+
+    /**
+     * Shows a y-axis tag at the specified coordinate value with formatted text.
+     */
+    public static void tagY(final double y, final float colorX, final float colorY, final float colorZ, final float colorW, final String fmt) {
+        nTagY(y, colorX, colorY, colorZ, colorW, fmt);
+    }
+
+    private static native void nTagY(double y, float colorX, float colorY, float colorZ, float colorW, String fmt); /*MANUAL
+        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
+        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
+        ImPlot::TagY(y, color, fmt, NULL);
+        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
+    */
+
+    //-----------------------------------------------------------------------------
+    // [SECTION] Plot Utils
     //-----------------------------------------------------------------------------
 
     /**
-     * Set the axes range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the axes limits will be locked.
+     * Selects which axis will be used for subsequent plot elements.
      */
-    public static void setNextPlotLimits(final double xMin, final double xMax, final double yMin, final double yMax) {
-        nSetNextPlotLimits(xMin, xMax, yMin, yMax);
+    public static void setAxis(final int axis) {
+        nSetAxis(axis);
     }
 
-    /**
-     * Set the axes range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the axes limits will be locked.
-     */
-    public static void setNextPlotLimits(final double xMin, final double xMax, final double yMin, final double yMax, final int cond) {
-        nSetNextPlotLimits(xMin, xMax, yMin, yMax, cond);
-    }
-
-    private static native void nSetNextPlotLimits(double xMin, double xMax, double yMin, double yMax); /*
-        ImPlot::SetNextPlotLimits(xMin, xMax, yMin, yMax);
-    */
-
-    private static native void nSetNextPlotLimits(double xMin, double xMax, double yMin, double yMax, int cond); /*
-        ImPlot::SetNextPlotLimits(xMin, xMax, yMin, yMax, cond);
+    private static native void nSetAxis(int axis); /*
+        ImPlot::SetAxis(axis);
     */
 
     /**
-     * Set the X axis range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the X axis limits will be locked.
+     * Selects which axes will be used for subsequent plot elements.
      */
-    public static void setNextPlotLimitsX(final double xMin, final double xMax) {
-        nSetNextPlotLimitsX(xMin, xMax);
+    public static void setAxes(final int xAxis, final int yAxis) {
+        nSetAxes(xAxis, yAxis);
     }
 
-    /**
-     * Set the X axis range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the X axis limits will be locked.
-     */
-    public static void setNextPlotLimitsX(final double xMin, final double xMax, final int cond) {
-        nSetNextPlotLimitsX(xMin, xMax, cond);
-    }
-
-    private static native void nSetNextPlotLimitsX(double xMin, double xMax); /*
-        ImPlot::SetNextPlotLimitsX(xMin, xMax);
-    */
-
-    private static native void nSetNextPlotLimitsX(double xMin, double xMax, int cond); /*
-        ImPlot::SetNextPlotLimitsX(xMin, xMax, cond);
+    private static native void nSetAxes(int xAxis, int yAxis); /*
+        ImPlot::SetAxes(xAxis, yAxis);
     */
 
     /**
-     * Set the Y axis range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the Y axis limits will be locked.
+     * Converts pixels to a position in the current plot's coordinate system.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotLimitsY(final double yMin, final double yMax) {
-        nSetNextPlotLimitsY(yMin, yMax);
+    public static ImPlotPoint pixelsToPlot(final ImVec2 pix) {
+        final ImPlotPoint dst = new ImPlotPoint();
+        nPixelsToPlot(dst, pix.x, pix.y);
+        return dst;
     }
 
     /**
-     * Set the Y axis range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the Y axis limits will be locked.
+     * Converts pixels to a position in the current plot's coordinate system.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotLimitsY(final double yMin, final double yMax, final int cond) {
-        nSetNextPlotLimitsY(yMin, yMax, cond);
-    }
-
-    private static native void nSetNextPlotLimitsY(double yMin, double yMax); /*
-        ImPlot::SetNextPlotLimitsY(yMin, yMax);
-    */
-
-    private static native void nSetNextPlotLimitsY(double yMin, double yMax, int cond); /*
-        ImPlot::SetNextPlotLimitsY(yMin, yMax, cond);
-    */
-
-    /**
-     * Links the next plot limits to external values. Set to NULL for no linkage. The pointer data must remain valid until the matching call to EndPlot.
-     */
-    public static void linkNextPlotLimits(final ImDouble xMin, final ImDouble xMax, final ImDouble yMin, final ImDouble yMax) {
-        nLinkNextPlotLimits(xMin != null ? xMin.getData() : null, xMax != null ? xMax.getData() : null, yMin != null ? yMin.getData() : null, yMax != null ? yMax.getData() : null);
+    public static ImPlotPoint pixelsToPlot(final float pixX, final float pixY) {
+        final ImPlotPoint dst = new ImPlotPoint();
+        nPixelsToPlot(dst, pixX, pixY);
+        return dst;
     }
 
     /**
-     * Links the next plot limits to external values. Set to NULL for no linkage. The pointer data must remain valid until the matching call to EndPlot.
+     * Converts pixels to a position in the current plot's coordinate system.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void linkNextPlotLimits(final ImDouble xMin, final ImDouble xMax, final ImDouble yMin, final ImDouble yMax, final ImDouble yMin2) {
-        nLinkNextPlotLimits(xMin != null ? xMin.getData() : null, xMax != null ? xMax.getData() : null, yMin != null ? yMin.getData() : null, yMax != null ? yMax.getData() : null, yMin2 != null ? yMin2.getData() : null);
+    public static void pixelsToPlot(final ImPlotPoint dst, final ImVec2 pix) {
+        nPixelsToPlot(dst, pix.x, pix.y);
     }
 
     /**
-     * Links the next plot limits to external values. Set to NULL for no linkage. The pointer data must remain valid until the matching call to EndPlot.
+     * Converts pixels to a position in the current plot's coordinate system.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void linkNextPlotLimits(final ImDouble xMin, final ImDouble xMax, final ImDouble yMin, final ImDouble yMax, final ImDouble yMin2, final ImDouble yMax2) {
-        nLinkNextPlotLimits(xMin != null ? xMin.getData() : null, xMax != null ? xMax.getData() : null, yMin != null ? yMin.getData() : null, yMax != null ? yMax.getData() : null, yMin2 != null ? yMin2.getData() : null, yMax2 != null ? yMax2.getData() : null);
+    public static ImPlotPoint pixelsToPlot(final ImVec2 pix, final int xAxis) {
+        final ImPlotPoint dst = new ImPlotPoint();
+        nPixelsToPlot(dst, pix.x, pix.y, xAxis);
+        return dst;
     }
 
     /**
-     * Links the next plot limits to external values. Set to NULL for no linkage. The pointer data must remain valid until the matching call to EndPlot.
+     * Converts pixels to a position in the current plot's coordinate system.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void linkNextPlotLimits(final ImDouble xMin, final ImDouble xMax, final ImDouble yMin, final ImDouble yMax, final ImDouble yMin2, final ImDouble yMax2, final ImDouble yMin3) {
-        nLinkNextPlotLimits(xMin != null ? xMin.getData() : null, xMax != null ? xMax.getData() : null, yMin != null ? yMin.getData() : null, yMax != null ? yMax.getData() : null, yMin2 != null ? yMin2.getData() : null, yMax2 != null ? yMax2.getData() : null, yMin3 != null ? yMin3.getData() : null);
+    public static ImPlotPoint pixelsToPlot(final float pixX, final float pixY, final int xAxis) {
+        final ImPlotPoint dst = new ImPlotPoint();
+        nPixelsToPlot(dst, pixX, pixY, xAxis);
+        return dst;
     }
 
     /**
-     * Links the next plot limits to external values. Set to NULL for no linkage. The pointer data must remain valid until the matching call to EndPlot.
+     * Converts pixels to a position in the current plot's coordinate system.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void linkNextPlotLimits(final ImDouble xMin, final ImDouble xMax, final ImDouble yMin, final ImDouble yMax, final ImDouble yMin2, final ImDouble yMax2, final ImDouble yMin3, final ImDouble yMax3) {
-        nLinkNextPlotLimits(xMin != null ? xMin.getData() : null, xMax != null ? xMax.getData() : null, yMin != null ? yMin.getData() : null, yMax != null ? yMax.getData() : null, yMin2 != null ? yMin2.getData() : null, yMax2 != null ? yMax2.getData() : null, yMin3 != null ? yMin3.getData() : null, yMax3 != null ? yMax3.getData() : null);
-    }
-
-    private static native void nLinkNextPlotLimits(double[] xMin, double[] xMax, double[] yMin, double[] yMax); /*MANUAL
-        auto xMin = obj_xMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xMin, JNI_FALSE);
-        auto xMax = obj_xMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xMax, JNI_FALSE);
-        auto yMin = obj_yMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMin, JNI_FALSE);
-        auto yMax = obj_yMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMax, JNI_FALSE);
-        ImPlot::LinkNextPlotLimits((xMin != NULL ? &xMin[0] : NULL), (xMax != NULL ? &xMax[0] : NULL), (yMin != NULL ? &yMin[0] : NULL), (yMax != NULL ? &yMax[0] : NULL));
-        if (xMin != NULL) env->ReleasePrimitiveArrayCritical(obj_xMin, xMin, JNI_FALSE);
-        if (xMax != NULL) env->ReleasePrimitiveArrayCritical(obj_xMax, xMax, JNI_FALSE);
-        if (yMin != NULL) env->ReleasePrimitiveArrayCritical(obj_yMin, yMin, JNI_FALSE);
-        if (yMax != NULL) env->ReleasePrimitiveArrayCritical(obj_yMax, yMax, JNI_FALSE);
-    */
-
-    private static native void nLinkNextPlotLimits(double[] xMin, double[] xMax, double[] yMin, double[] yMax, double[] yMin2); /*MANUAL
-        auto xMin = obj_xMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xMin, JNI_FALSE);
-        auto xMax = obj_xMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xMax, JNI_FALSE);
-        auto yMin = obj_yMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMin, JNI_FALSE);
-        auto yMax = obj_yMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMax, JNI_FALSE);
-        auto yMin2 = obj_yMin2 == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMin2, JNI_FALSE);
-        ImPlot::LinkNextPlotLimits((xMin != NULL ? &xMin[0] : NULL), (xMax != NULL ? &xMax[0] : NULL), (yMin != NULL ? &yMin[0] : NULL), (yMax != NULL ? &yMax[0] : NULL), (yMin2 != NULL ? &yMin2[0] : NULL));
-        if (xMin != NULL) env->ReleasePrimitiveArrayCritical(obj_xMin, xMin, JNI_FALSE);
-        if (xMax != NULL) env->ReleasePrimitiveArrayCritical(obj_xMax, xMax, JNI_FALSE);
-        if (yMin != NULL) env->ReleasePrimitiveArrayCritical(obj_yMin, yMin, JNI_FALSE);
-        if (yMax != NULL) env->ReleasePrimitiveArrayCritical(obj_yMax, yMax, JNI_FALSE);
-        if (yMin2 != NULL) env->ReleasePrimitiveArrayCritical(obj_yMin2, yMin2, JNI_FALSE);
-    */
-
-    private static native void nLinkNextPlotLimits(double[] xMin, double[] xMax, double[] yMin, double[] yMax, double[] yMin2, double[] yMax2); /*MANUAL
-        auto xMin = obj_xMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xMin, JNI_FALSE);
-        auto xMax = obj_xMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xMax, JNI_FALSE);
-        auto yMin = obj_yMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMin, JNI_FALSE);
-        auto yMax = obj_yMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMax, JNI_FALSE);
-        auto yMin2 = obj_yMin2 == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMin2, JNI_FALSE);
-        auto yMax2 = obj_yMax2 == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMax2, JNI_FALSE);
-        ImPlot::LinkNextPlotLimits((xMin != NULL ? &xMin[0] : NULL), (xMax != NULL ? &xMax[0] : NULL), (yMin != NULL ? &yMin[0] : NULL), (yMax != NULL ? &yMax[0] : NULL), (yMin2 != NULL ? &yMin2[0] : NULL), (yMax2 != NULL ? &yMax2[0] : NULL));
-        if (xMin != NULL) env->ReleasePrimitiveArrayCritical(obj_xMin, xMin, JNI_FALSE);
-        if (xMax != NULL) env->ReleasePrimitiveArrayCritical(obj_xMax, xMax, JNI_FALSE);
-        if (yMin != NULL) env->ReleasePrimitiveArrayCritical(obj_yMin, yMin, JNI_FALSE);
-        if (yMax != NULL) env->ReleasePrimitiveArrayCritical(obj_yMax, yMax, JNI_FALSE);
-        if (yMin2 != NULL) env->ReleasePrimitiveArrayCritical(obj_yMin2, yMin2, JNI_FALSE);
-        if (yMax2 != NULL) env->ReleasePrimitiveArrayCritical(obj_yMax2, yMax2, JNI_FALSE);
-    */
-
-    private static native void nLinkNextPlotLimits(double[] xMin, double[] xMax, double[] yMin, double[] yMax, double[] yMin2, double[] yMax2, double[] yMin3); /*MANUAL
-        auto xMin = obj_xMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xMin, JNI_FALSE);
-        auto xMax = obj_xMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xMax, JNI_FALSE);
-        auto yMin = obj_yMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMin, JNI_FALSE);
-        auto yMax = obj_yMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMax, JNI_FALSE);
-        auto yMin2 = obj_yMin2 == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMin2, JNI_FALSE);
-        auto yMax2 = obj_yMax2 == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMax2, JNI_FALSE);
-        auto yMin3 = obj_yMin3 == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMin3, JNI_FALSE);
-        ImPlot::LinkNextPlotLimits((xMin != NULL ? &xMin[0] : NULL), (xMax != NULL ? &xMax[0] : NULL), (yMin != NULL ? &yMin[0] : NULL), (yMax != NULL ? &yMax[0] : NULL), (yMin2 != NULL ? &yMin2[0] : NULL), (yMax2 != NULL ? &yMax2[0] : NULL), (yMin3 != NULL ? &yMin3[0] : NULL));
-        if (xMin != NULL) env->ReleasePrimitiveArrayCritical(obj_xMin, xMin, JNI_FALSE);
-        if (xMax != NULL) env->ReleasePrimitiveArrayCritical(obj_xMax, xMax, JNI_FALSE);
-        if (yMin != NULL) env->ReleasePrimitiveArrayCritical(obj_yMin, yMin, JNI_FALSE);
-        if (yMax != NULL) env->ReleasePrimitiveArrayCritical(obj_yMax, yMax, JNI_FALSE);
-        if (yMin2 != NULL) env->ReleasePrimitiveArrayCritical(obj_yMin2, yMin2, JNI_FALSE);
-        if (yMax2 != NULL) env->ReleasePrimitiveArrayCritical(obj_yMax2, yMax2, JNI_FALSE);
-        if (yMin3 != NULL) env->ReleasePrimitiveArrayCritical(obj_yMin3, yMin3, JNI_FALSE);
-    */
-
-    private static native void nLinkNextPlotLimits(double[] xMin, double[] xMax, double[] yMin, double[] yMax, double[] yMin2, double[] yMax2, double[] yMin3, double[] yMax3); /*MANUAL
-        auto xMin = obj_xMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xMin, JNI_FALSE);
-        auto xMax = obj_xMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xMax, JNI_FALSE);
-        auto yMin = obj_yMin == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMin, JNI_FALSE);
-        auto yMax = obj_yMax == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMax, JNI_FALSE);
-        auto yMin2 = obj_yMin2 == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMin2, JNI_FALSE);
-        auto yMax2 = obj_yMax2 == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMax2, JNI_FALSE);
-        auto yMin3 = obj_yMin3 == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMin3, JNI_FALSE);
-        auto yMax3 = obj_yMax3 == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yMax3, JNI_FALSE);
-        ImPlot::LinkNextPlotLimits((xMin != NULL ? &xMin[0] : NULL), (xMax != NULL ? &xMax[0] : NULL), (yMin != NULL ? &yMin[0] : NULL), (yMax != NULL ? &yMax[0] : NULL), (yMin2 != NULL ? &yMin2[0] : NULL), (yMax2 != NULL ? &yMax2[0] : NULL), (yMin3 != NULL ? &yMin3[0] : NULL), (yMax3 != NULL ? &yMax3[0] : NULL));
-        if (xMin != NULL) env->ReleasePrimitiveArrayCritical(obj_xMin, xMin, JNI_FALSE);
-        if (xMax != NULL) env->ReleasePrimitiveArrayCritical(obj_xMax, xMax, JNI_FALSE);
-        if (yMin != NULL) env->ReleasePrimitiveArrayCritical(obj_yMin, yMin, JNI_FALSE);
-        if (yMax != NULL) env->ReleasePrimitiveArrayCritical(obj_yMax, yMax, JNI_FALSE);
-        if (yMin2 != NULL) env->ReleasePrimitiveArrayCritical(obj_yMin2, yMin2, JNI_FALSE);
-        if (yMax2 != NULL) env->ReleasePrimitiveArrayCritical(obj_yMax2, yMax2, JNI_FALSE);
-        if (yMin3 != NULL) env->ReleasePrimitiveArrayCritical(obj_yMin3, yMin3, JNI_FALSE);
-        if (yMax3 != NULL) env->ReleasePrimitiveArrayCritical(obj_yMax3, yMax3, JNI_FALSE);
-    */
-
-    /**
-     * Fits the next plot axes to all plotted data if they are unlocked (equivalent to double-clicks).
-     */
-    public static void fitNextPlotAxes() {
-        nFitNextPlotAxes();
+    public static void pixelsToPlot(final ImPlotPoint dst, final ImVec2 pix, final int xAxis) {
+        nPixelsToPlot(dst, pix.x, pix.y, xAxis);
     }
 
     /**
-     * Fits the next plot axes to all plotted data if they are unlocked (equivalent to double-clicks).
+     * Converts pixels to a position in the current plot's coordinate system.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void fitNextPlotAxes(final boolean x) {
-        nFitNextPlotAxes(x);
+    public static ImPlotPoint pixelsToPlot(final ImVec2 pix, final int xAxis, final int yAxis) {
+        final ImPlotPoint dst = new ImPlotPoint();
+        nPixelsToPlot(dst, pix.x, pix.y, xAxis, yAxis);
+        return dst;
     }
 
     /**
-     * Fits the next plot axes to all plotted data if they are unlocked (equivalent to double-clicks).
+     * Converts pixels to a position in the current plot's coordinate system.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void fitNextPlotAxes(final boolean x, final boolean y) {
-        nFitNextPlotAxes(x, y);
+    public static ImPlotPoint pixelsToPlot(final float pixX, final float pixY, final int xAxis, final int yAxis) {
+        final ImPlotPoint dst = new ImPlotPoint();
+        nPixelsToPlot(dst, pixX, pixY, xAxis, yAxis);
+        return dst;
     }
 
     /**
-     * Fits the next plot axes to all plotted data if they are unlocked (equivalent to double-clicks).
+     * Converts pixels to a position in the current plot's coordinate system.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void fitNextPlotAxes(final boolean x, final boolean y, final boolean y2) {
-        nFitNextPlotAxes(x, y, y2);
+    public static void pixelsToPlot(final ImPlotPoint dst, final ImVec2 pix, final int xAxis, final int yAxis) {
+        nPixelsToPlot(dst, pix.x, pix.y, xAxis, yAxis);
     }
 
-    /**
-     * Fits the next plot axes to all plotted data if they are unlocked (equivalent to double-clicks).
-     */
-    public static void fitNextPlotAxes(final boolean x, final boolean y, final boolean y2, final boolean y3) {
-        nFitNextPlotAxes(x, y, y2, y3);
-    }
-
-    private static native void nFitNextPlotAxes(); /*
-        ImPlot::FitNextPlotAxes();
+    private static native void nPixelsToPlot(ImPlotPoint dst, float pixX, float pixY); /*MANUAL
+        ImVec2 pix = ImVec2(pixX, pixY);
+        Jni::ImPlotPointCpy(env, ImPlot::PixelsToPlot(pix), dst);
     */
 
-    private static native void nFitNextPlotAxes(boolean x); /*
-        ImPlot::FitNextPlotAxes(x);
+    private static native void nPixelsToPlot(ImPlotPoint dst, float pixX, float pixY, int xAxis); /*MANUAL
+        ImVec2 pix = ImVec2(pixX, pixY);
+        Jni::ImPlotPointCpy(env, ImPlot::PixelsToPlot(pix, xAxis), dst);
     */
 
-    private static native void nFitNextPlotAxes(boolean x, boolean y); /*
-        ImPlot::FitNextPlotAxes(x, y);
-    */
-
-    private static native void nFitNextPlotAxes(boolean x, boolean y, boolean y2); /*
-        ImPlot::FitNextPlotAxes(x, y, y2);
-    */
-
-    private static native void nFitNextPlotAxes(boolean x, boolean y, boolean y2, boolean y3); /*
-        ImPlot::FitNextPlotAxes(x, y, y2, y3);
+    private static native void nPixelsToPlot(ImPlotPoint dst, float pixX, float pixY, int xAxis, int yAxis); /*MANUAL
+        ImVec2 pix = ImVec2(pixX, pixY);
+        Jni::ImPlotPointCpy(env, ImPlot::PixelsToPlot(pix, xAxis, yAxis), dst);
     */
 
     /**
-     * Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksX(final double[] values, final int nTicks) {
-        nSetNextPlotTicksX(values, nTicks);
+    public static ImVec2 plotToPixels(final ImPlotPoint plt) {
+        final ImVec2 dst = new ImVec2();
+        nPlotToPixels(dst, plt.x, plt.y);
+        return dst;
     }
 
     /**
-     * Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksX(final double[] values, final int nTicks, final String[] labels) {
-        nSetNextPlotTicksX(values, nTicks, labels, labels.length);
+    public static ImVec2 plotToPixels(final double pltX, final double pltY) {
+        final ImVec2 dst = new ImVec2();
+        nPlotToPixels(dst, pltX, pltY);
+        return dst;
     }
 
     /**
-     * Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksX(final double[] values, final int nTicks, final String[] labels, final boolean keepDefault) {
-        nSetNextPlotTicksX(values, nTicks, labels, labels.length, keepDefault);
+    public static float plotToPixelsX(final ImPlotPoint plt) {
+        return nPlotToPixelsX(plt.x, plt.y);
     }
 
     /**
-     * Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksX(final double[] values, final int nTicks, final boolean keepDefault) {
-        nSetNextPlotTicksX(values, nTicks, keepDefault);
-    }
-
-    private static native void nSetNextPlotTicksX(double[] values, int nTicks); /*MANUAL
-        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::SetNextPlotTicksX(&values[0], nTicks);
-        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
-    */
-
-    private static native void nSetNextPlotTicksX(double[] values, int nTicks, String[] obj_labels, int labelsCount); /*MANUAL
-        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        const char* labels[labelsCount];
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
-            labels[i] = rawStr;
-        };
-        ImPlot::SetNextPlotTicksX(&values[0], nTicks, labels);
-        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            env->ReleaseStringUTFChars(str, labels[i]);
-        };
-    */
-
-    private static native void nSetNextPlotTicksX(double[] values, int nTicks, String[] obj_labels, int labelsCount, boolean keepDefault); /*MANUAL
-        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        const char* labels[labelsCount];
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
-            labels[i] = rawStr;
-        };
-        ImPlot::SetNextPlotTicksX(&values[0], nTicks, labels, keepDefault);
-        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            env->ReleaseStringUTFChars(str, labels[i]);
-        };
-    */
-
-    private static native void nSetNextPlotTicksX(double[] values, int nTicks, boolean keepDefault); /*MANUAL
-        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::SetNextPlotTicksX(&values[0], nTicks, NULL, keepDefault);
-        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
-    */
-
-    /**
-     * Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
-     */
-    public static void setNextPlotTicksX(final double xMin, final double xMax, final int nTicks) {
-        nSetNextPlotTicksX(xMin, xMax, nTicks);
+    public static float plotToPixelsY(final ImPlotPoint plt) {
+        return nPlotToPixelsY(plt.x, plt.y);
     }
 
     /**
-     * Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksX(final double xMin, final double xMax, final int nTicks, final String[] labels) {
-        nSetNextPlotTicksX(xMin, xMax, nTicks, labels, labels.length);
+    public static void plotToPixels(final ImVec2 dst, final ImPlotPoint plt) {
+        nPlotToPixels(dst, plt.x, plt.y);
     }
 
     /**
-     * Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksX(final double xMin, final double xMax, final int nTicks, final String[] labels, final boolean keepDefault) {
-        nSetNextPlotTicksX(xMin, xMax, nTicks, labels, labels.length, keepDefault);
+    public static ImVec2 plotToPixels(final ImPlotPoint plt, final int xAxis) {
+        final ImVec2 dst = new ImVec2();
+        nPlotToPixels(dst, plt.x, plt.y, xAxis);
+        return dst;
     }
 
     /**
-     * Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksX(final double xMin, final double xMax, final int nTicks, final boolean keepDefault) {
-        nSetNextPlotTicksX(xMin, xMax, nTicks, keepDefault);
-    }
-
-    private static native void nSetNextPlotTicksX(double xMin, double xMax, int nTicks); /*
-        ImPlot::SetNextPlotTicksX(xMin, xMax, nTicks);
-    */
-
-    private static native void nSetNextPlotTicksX(double xMin, double xMax, int nTicks, String[] obj_labels, int labelsCount); /*MANUAL
-        const char* labels[labelsCount];
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
-            labels[i] = rawStr;
-        };
-        ImPlot::SetNextPlotTicksX(xMin, xMax, nTicks, labels);
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            env->ReleaseStringUTFChars(str, labels[i]);
-        };
-    */
-
-    private static native void nSetNextPlotTicksX(double xMin, double xMax, int nTicks, String[] obj_labels, int labelsCount, boolean keepDefault); /*MANUAL
-        const char* labels[labelsCount];
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
-            labels[i] = rawStr;
-        };
-        ImPlot::SetNextPlotTicksX(xMin, xMax, nTicks, labels, keepDefault);
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            env->ReleaseStringUTFChars(str, labels[i]);
-        };
-    */
-
-    private static native void nSetNextPlotTicksX(double xMin, double xMax, int nTicks, boolean keepDefault); /*
-        ImPlot::SetNextPlotTicksX(xMin, xMax, nTicks, NULL, keepDefault);
-    */
-
-    /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
-     */
-    public static void setNextPlotTicksY(final double[] values, final int nTicks) {
-        nSetNextPlotTicksY(values, nTicks);
+    public static ImVec2 plotToPixels(final double pltX, final double pltY, final int xAxis) {
+        final ImVec2 dst = new ImVec2();
+        nPlotToPixels(dst, pltX, pltY, xAxis);
+        return dst;
     }
 
     /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksY(final double[] values, final int nTicks, final String[] labels) {
-        nSetNextPlotTicksY(values, nTicks, labels, labels.length);
+    public static float plotToPixelsX(final ImPlotPoint plt, final int xAxis) {
+        return nPlotToPixelsX(plt.x, plt.y, xAxis);
     }
 
     /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksY(final double[] values, final int nTicks, final String[] labels, final boolean keepDefault) {
-        nSetNextPlotTicksY(values, nTicks, labels, labels.length, keepDefault);
+    public static float plotToPixelsY(final ImPlotPoint plt, final int xAxis) {
+        return nPlotToPixelsY(plt.x, plt.y, xAxis);
     }
 
     /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksY(final double[] values, final int nTicks, final String[] labels, final boolean keepDefault, final int yAxis) {
-        nSetNextPlotTicksY(values, nTicks, labels, labels.length, keepDefault, yAxis);
+    public static void plotToPixels(final ImVec2 dst, final ImPlotPoint plt, final int xAxis) {
+        nPlotToPixels(dst, plt.x, plt.y, xAxis);
     }
 
     /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksY(final double[] values, final int nTicks, final boolean keepDefault, final int yAxis) {
-        nSetNextPlotTicksY(values, nTicks, keepDefault, yAxis);
+    public static ImVec2 plotToPixels(final ImPlotPoint plt, final int xAxis, final int yAxis) {
+        final ImVec2 dst = new ImVec2();
+        nPlotToPixels(dst, plt.x, plt.y, xAxis, yAxis);
+        return dst;
     }
 
     /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksY(final double[] values, final int nTicks, final int yAxis) {
-        nSetNextPlotTicksY(values, nTicks, yAxis);
+    public static ImVec2 plotToPixels(final double pltX, final double pltY, final int xAxis, final int yAxis) {
+        final ImVec2 dst = new ImVec2();
+        nPlotToPixels(dst, pltX, pltY, xAxis, yAxis);
+        return dst;
     }
 
     /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksY(final double[] values, final int nTicks, final String[] labels, final int yAxis) {
-        nSetNextPlotTicksY(values, nTicks, labels, labels.length, yAxis);
-    }
-
-    private static native void nSetNextPlotTicksY(double[] values, int nTicks); /*MANUAL
-        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::SetNextPlotTicksY(&values[0], nTicks);
-        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
-    */
-
-    private static native void nSetNextPlotTicksY(double[] values, int nTicks, String[] obj_labels, int labelsCount); /*MANUAL
-        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        const char* labels[labelsCount];
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
-            labels[i] = rawStr;
-        };
-        ImPlot::SetNextPlotTicksY(&values[0], nTicks, labels);
-        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            env->ReleaseStringUTFChars(str, labels[i]);
-        };
-    */
-
-    private static native void nSetNextPlotTicksY(double[] values, int nTicks, String[] obj_labels, int labelsCount, boolean keepDefault); /*MANUAL
-        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        const char* labels[labelsCount];
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
-            labels[i] = rawStr;
-        };
-        ImPlot::SetNextPlotTicksY(&values[0], nTicks, labels, keepDefault);
-        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            env->ReleaseStringUTFChars(str, labels[i]);
-        };
-    */
-
-    private static native void nSetNextPlotTicksY(double[] values, int nTicks, String[] obj_labels, int labelsCount, boolean keepDefault, int yAxis); /*MANUAL
-        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        const char* labels[labelsCount];
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
-            labels[i] = rawStr;
-        };
-        ImPlot::SetNextPlotTicksY(&values[0], nTicks, labels, keepDefault, yAxis);
-        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            env->ReleaseStringUTFChars(str, labels[i]);
-        };
-    */
-
-    private static native void nSetNextPlotTicksY(double[] values, int nTicks, boolean keepDefault, int yAxis); /*MANUAL
-        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::SetNextPlotTicksY(&values[0], nTicks, NULL, keepDefault, yAxis);
-        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
-    */
-
-    private static native void nSetNextPlotTicksY(double[] values, int nTicks, int yAxis); /*MANUAL
-        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::SetNextPlotTicksY(&values[0], nTicks, NULL, false, yAxis);
-        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
-    */
-
-    private static native void nSetNextPlotTicksY(double[] values, int nTicks, String[] obj_labels, int labelsCount, int yAxis); /*MANUAL
-        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        const char* labels[labelsCount];
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
-            labels[i] = rawStr;
-        };
-        ImPlot::SetNextPlotTicksY(&values[0], nTicks, labels, false, yAxis);
-        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            env->ReleaseStringUTFChars(str, labels[i]);
-        };
-    */
-
-    /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
-     */
-    public static void setNextPlotTicksY(final double yMin, final double yMax, final int nTicks) {
-        nSetNextPlotTicksY(yMin, yMax, nTicks);
+    public static float plotToPixelsX(final ImPlotPoint plt, final int xAxis, final int yAxis) {
+        return nPlotToPixelsX(plt.x, plt.y, xAxis, yAxis);
     }
 
     /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksY(final double yMin, final double yMax, final int nTicks, final String[] labels) {
-        nSetNextPlotTicksY(yMin, yMax, nTicks, labels, labels.length);
+    public static float plotToPixelsY(final ImPlotPoint plt, final int xAxis, final int yAxis) {
+        return nPlotToPixelsY(plt.x, plt.y, xAxis, yAxis);
     }
 
     /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
-    public static void setNextPlotTicksY(final double yMin, final double yMax, final int nTicks, final String[] labels, final boolean keepDefault) {
-        nSetNextPlotTicksY(yMin, yMax, nTicks, labels, labels.length, keepDefault);
+    public static void plotToPixels(final ImVec2 dst, final ImPlotPoint plt, final int xAxis, final int yAxis) {
+        nPlotToPixels(dst, plt.x, plt.y, xAxis, yAxis);
     }
 
-    /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
-     */
-    public static void setNextPlotTicksY(final double yMin, final double yMax, final int nTicks, final String[] labels, final boolean keepDefault, final int yAxis) {
-        nSetNextPlotTicksY(yMin, yMax, nTicks, labels, labels.length, keepDefault, yAxis);
-    }
-
-    /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
-     */
-    public static void setNextPlotTicksY(final double yMin, final double yMax, final int nTicks, final boolean keepDefault, final int yAxis) {
-        nSetNextPlotTicksY(yMin, yMax, nTicks, keepDefault, yAxis);
-    }
-
-    /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
-     */
-    public static void setNextPlotTicksY(final double yMin, final double yMax, final int nTicks, final int yAxis) {
-        nSetNextPlotTicksY(yMin, yMax, nTicks, yAxis);
-    }
-
-    /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
-     */
-    public static void setNextPlotTicksY(final double yMin, final double yMax, final int nTicks, final String[] labels, final int yAxis) {
-        nSetNextPlotTicksY(yMin, yMax, nTicks, labels, labels.length, yAxis);
-    }
-
-    private static native void nSetNextPlotTicksY(double yMin, double yMax, int nTicks); /*
-        ImPlot::SetNextPlotTicksY(yMin, yMax, nTicks);
+    private static native void nPlotToPixels(ImVec2 dst, double pltX, double pltY); /*
+        Jni::ImVec2Cpy(env, ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY)), dst);
     */
 
-    private static native void nSetNextPlotTicksY(double yMin, double yMax, int nTicks, String[] obj_labels, int labelsCount); /*MANUAL
-        const char* labels[labelsCount];
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
-            labels[i] = rawStr;
-        };
-        ImPlot::SetNextPlotTicksY(yMin, yMax, nTicks, labels);
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            env->ReleaseStringUTFChars(str, labels[i]);
-        };
+    private static native float nPlotToPixelsX(double pltX, double pltY); /*
+        return ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY)).x;
     */
 
-    private static native void nSetNextPlotTicksY(double yMin, double yMax, int nTicks, String[] obj_labels, int labelsCount, boolean keepDefault); /*MANUAL
-        const char* labels[labelsCount];
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
-            labels[i] = rawStr;
-        };
-        ImPlot::SetNextPlotTicksY(yMin, yMax, nTicks, labels, keepDefault);
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            env->ReleaseStringUTFChars(str, labels[i]);
-        };
+    private static native float nPlotToPixelsY(double pltX, double pltY); /*
+        return ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY)).y;
     */
 
-    private static native void nSetNextPlotTicksY(double yMin, double yMax, int nTicks, String[] obj_labels, int labelsCount, boolean keepDefault, int yAxis); /*MANUAL
-        const char* labels[labelsCount];
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
-            labels[i] = rawStr;
-        };
-        ImPlot::SetNextPlotTicksY(yMin, yMax, nTicks, labels, keepDefault, yAxis);
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            env->ReleaseStringUTFChars(str, labels[i]);
-        };
+    private static native void nPlotToPixels(ImVec2 dst, double pltX, double pltY, int xAxis); /*
+        Jni::ImVec2Cpy(env, ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY), xAxis), dst);
     */
 
-    private static native void nSetNextPlotTicksY(double yMin, double yMax, int nTicks, boolean keepDefault, int yAxis); /*
-        ImPlot::SetNextPlotTicksY(yMin, yMax, nTicks, NULL, keepDefault, yAxis);
+    private static native float nPlotToPixelsX(double pltX, double pltY, int xAxis); /*
+        return ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY), xAxis).x;
     */
 
-    private static native void nSetNextPlotTicksY(double yMin, double yMax, int nTicks, int yAxis); /*
-        ImPlot::SetNextPlotTicksY(yMin, yMax, nTicks, NULL, false, yAxis);
+    private static native float nPlotToPixelsY(double pltX, double pltY, int xAxis); /*
+        return ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY), xAxis).y;
     */
 
-    private static native void nSetNextPlotTicksY(double yMin, double yMax, int nTicks, String[] obj_labels, int labelsCount, int yAxis); /*MANUAL
-        const char* labels[labelsCount];
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
-            labels[i] = rawStr;
-        };
-        ImPlot::SetNextPlotTicksY(yMin, yMax, nTicks, labels, false, yAxis);
-        for (int i = 0; i < labelsCount; i++) {
-            const jstring str = (jstring)env->GetObjectArrayElement(obj_labels, i);
-            env->ReleaseStringUTFChars(str, labels[i]);
-        };
+    private static native void nPlotToPixels(ImVec2 dst, double pltX, double pltY, int xAxis, int yAxis); /*
+        Jni::ImVec2Cpy(env, ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY), xAxis, yAxis), dst);
+    */
+
+    private static native float nPlotToPixelsX(double pltX, double pltY, int xAxis, int yAxis); /*
+        return ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY), xAxis, yAxis).x;
+    */
+
+    private static native float nPlotToPixelsY(double pltX, double pltY, int xAxis, int yAxis); /*
+        return ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY), xAxis, yAxis).y;
     */
 
     /**
-     * Set the format for numeric X axis labels (default="%g"). Formated values will be doubles (i.e. don't supply %d, %i, etc.). Not applicable if ImPlotAxisFlags_Time enabled.
+     * Gets the current Plot position (top-left) in pixels.
      */
-    public static void setNextPlotFormatX(final String fmt) {
-        nSetNextPlotFormatX(fmt);
-    }
-
-    private static native void nSetNextPlotFormatX(String fmt); /*MANUAL
-        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
-        ImPlot::SetNextPlotFormatX(fmt);
-        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
-    */
-
-    /**
-     * Set the format for numeric Y axis labels (default="%g"). Formated values will be doubles (i.e. don't supply %d, %i, etc.).
-     */
-    public static void setNextPlotFormatY(final String fmt) {
-        nSetNextPlotFormatY(fmt);
+    public static ImVec2 getPlotPos() {
+        final ImVec2 dst = new ImVec2();
+        nGetPlotPos(dst);
+        return dst;
     }
 
     /**
-     * Set the format for numeric Y axis labels (default="%g"). Formated values will be doubles (i.e. don't supply %d, %i, etc.).
+     * Gets the current Plot position (top-left) in pixels.
      */
-    public static void setNextPlotFormatY(final String fmt, final int yAxis) {
-        nSetNextPlotFormatY(fmt, yAxis);
+    public static float getPlotPosX() {
+        return nGetPlotPosX();
     }
 
-    private static native void nSetNextPlotFormatY(String fmt); /*MANUAL
-        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
-        ImPlot::SetNextPlotFormatY(fmt);
-        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
+    /**
+     * Gets the current Plot position (top-left) in pixels.
+     */
+    public static float getPlotPosY() {
+        return nGetPlotPosY();
+    }
+
+    /**
+     * Gets the current Plot position (top-left) in pixels.
+     */
+    public static void getPlotPos(final ImVec2 dst) {
+        nGetPlotPos(dst);
+    }
+
+    private static native void nGetPlotPos(ImVec2 dst); /*
+        Jni::ImVec2Cpy(env, ImPlot::GetPlotPos(), dst);
     */
 
-    private static native void nSetNextPlotFormatY(String fmt, int yAxis); /*MANUAL
-        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
-        ImPlot::SetNextPlotFormatY(fmt, yAxis);
-        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
+    private static native float nGetPlotPosX(); /*
+        return ImPlot::GetPlotPos().x;
+    */
+
+    private static native float nGetPlotPosY(); /*
+        return ImPlot::GetPlotPos().y;
     */
 
     /**
-     * Select which Y axis will be used for subsequent plot elements. The default is ImPlotYAxis_1, or the first (left) Y axis. Enable 2nd and 3rd axes with ImPlotFlags_YAxisX.
+     * Gets the current Plot size in pixels.
      */
-    public static void setPlotYAxis(final int yAxis) {
-        nSetPlotYAxis(yAxis);
+    public static ImVec2 getPlotSize() {
+        final ImVec2 dst = new ImVec2();
+        nGetPlotSize(dst);
+        return dst;
     }
 
-    private static native void nSetPlotYAxis(int yAxis); /*
-        ImPlot::SetPlotYAxis(yAxis);
+    /**
+     * Gets the current Plot size in pixels.
+     */
+    public static float getPlotSizeX() {
+        return nGetPlotSizeX();
+    }
+
+    /**
+     * Gets the current Plot size in pixels.
+     */
+    public static float getPlotSizeY() {
+        return nGetPlotSizeY();
+    }
+
+    /**
+     * Gets the current Plot size in pixels.
+     */
+    public static void getPlotSize(final ImVec2 dst) {
+        nGetPlotSize(dst);
+    }
+
+    private static native void nGetPlotSize(ImVec2 dst); /*
+        Jni::ImVec2Cpy(env, ImPlot::GetPlotSize(), dst);
+    */
+
+    private static native float nGetPlotSizeX(); /*
+        return ImPlot::GetPlotSize().x;
+    */
+
+    private static native float nGetPlotSizeY(); /*
+        return ImPlot::GetPlotSize().y;
     */
 
     /**
-     * Hides the next plot item. Use ImGuiCond.Always if you need to forcefully set this every frame (default ImGuiCond.Once).
+     * Returns the mouse position in x, y coordinates of the current plot.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    public static ImPlotPoint getPlotMousePos() {
+        final ImPlotPoint dst = new ImPlotPoint();
+        nGetPlotMousePos(dst);
+        return dst;
+    }
+
+    /**
+     * Returns the mouse position in x, y coordinates of the current plot.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    public static void getPlotMousePos(final ImPlotPoint dst) {
+        nGetPlotMousePos(dst);
+    }
+
+    /**
+     * Returns the mouse position in x, y coordinates of the current plot.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    public static ImPlotPoint getPlotMousePos(final int xAxis) {
+        final ImPlotPoint dst = new ImPlotPoint();
+        nGetPlotMousePos(dst, xAxis);
+        return dst;
+    }
+
+    /**
+     * Returns the mouse position in x, y coordinates of the current plot.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    public static void getPlotMousePos(final ImPlotPoint dst, final int xAxis) {
+        nGetPlotMousePos(dst, xAxis);
+    }
+
+    /**
+     * Returns the mouse position in x, y coordinates of the current plot.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    public static ImPlotPoint getPlotMousePos(final int xAxis, final int yAxis) {
+        final ImPlotPoint dst = new ImPlotPoint();
+        nGetPlotMousePos(dst, xAxis, yAxis);
+        return dst;
+    }
+
+    /**
+     * Returns the mouse position in x, y coordinates of the current plot.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    public static void getPlotMousePos(final ImPlotPoint dst, final int xAxis, final int yAxis) {
+        nGetPlotMousePos(dst, xAxis, yAxis);
+    }
+
+    private static native void nGetPlotMousePos(ImPlotPoint dst); /*
+        Jni::ImPlotPointCpy(env, ImPlot::GetPlotMousePos(), dst);
+    */
+
+    private static native void nGetPlotMousePos(ImPlotPoint dst, int xAxis); /*
+        Jni::ImPlotPointCpy(env, ImPlot::GetPlotMousePos(xAxis), dst);
+    */
+
+    private static native void nGetPlotMousePos(ImPlotPoint dst, int xAxis, int yAxis); /*
+        Jni::ImPlotPointCpy(env, ImPlot::GetPlotMousePos(xAxis, yAxis), dst);
+    */
+
+    /**
+     * Returns the current plot axis range.
+     */
+    public static ImPlotRect getPlotLimits() {
+        final ImPlotRect dst = new ImPlotRect();
+        nGetPlotLimits(dst);
+        return dst;
+    }
+
+    /**
+     * Returns the current plot axis range.
+     */
+    public static void getPlotLimits(final ImPlotRect dst) {
+        nGetPlotLimits(dst);
+    }
+
+    /**
+     * Returns the current plot axis range.
+     */
+    public static ImPlotRect getPlotLimits(final int xAxis) {
+        final ImPlotRect dst = new ImPlotRect();
+        nGetPlotLimits(dst, xAxis);
+        return dst;
+    }
+
+    /**
+     * Returns the current plot axis range.
+     */
+    public static void getPlotLimits(final ImPlotRect dst, final int xAxis) {
+        nGetPlotLimits(dst, xAxis);
+    }
+
+    /**
+     * Returns the current plot axis range.
+     */
+    public static ImPlotRect getPlotLimits(final int xAxis, final int yAxis) {
+        final ImPlotRect dst = new ImPlotRect();
+        nGetPlotLimits(dst, xAxis, yAxis);
+        return dst;
+    }
+
+    /**
+     * Returns the current plot axis range.
+     */
+    public static void getPlotLimits(final ImPlotRect dst, final int xAxis, final int yAxis) {
+        nGetPlotLimits(dst, xAxis, yAxis);
+    }
+
+    private static native void nGetPlotLimits(ImPlotRect dst); /*
+        Jni::ImPlotRectCpy(env, ImPlot::GetPlotLimits(), dst);
+    */
+
+    private static native void nGetPlotLimits(ImPlotRect dst, int xAxis); /*
+        Jni::ImPlotRectCpy(env, ImPlot::GetPlotLimits(xAxis), dst);
+    */
+
+    private static native void nGetPlotLimits(ImPlotRect dst, int xAxis, int yAxis); /*
+        Jni::ImPlotRectCpy(env, ImPlot::GetPlotLimits(xAxis, yAxis), dst);
+    */
+
+    /**
+     * Returns true if the plot area in the current plot is hovered.
+     */
+    public static boolean isPlotHovered() {
+        return nIsPlotHovered();
+    }
+
+    private static native boolean nIsPlotHovered(); /*
+        return ImPlot::IsPlotHovered();
+    */
+
+    /**
+     * Returns true if the axis label area in the current plot is hovered.
+     */
+    public static boolean isAxisHovered(final int axis) {
+        return nIsAxisHovered(axis);
+    }
+
+    private static native boolean nIsAxisHovered(int axis); /*
+        return ImPlot::IsAxisHovered(axis);
+    */
+
+    /**
+     * Returns true if the bounding frame of a subplot is hovered.
+     */
+    public static boolean isSubplotsHovered() {
+        return nIsSubplotsHovered();
+    }
+
+    private static native boolean nIsSubplotsHovered(); /*
+        return ImPlot::IsSubplotsHovered();
+    */
+
+    /**
+     * Returns true if the current plot is being box selected.
+     */
+    public static boolean isPlotSelected() {
+        return nIsPlotSelected();
+    }
+
+    private static native boolean nIsPlotSelected(); /*
+        return ImPlot::IsPlotSelected();
+    */
+
+    /**
+     * Returns the current plot box selection bounds.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    public static ImPlotRect getPlotSelection() {
+        final ImPlotRect dst = new ImPlotRect();
+        nGetPlotSelection(dst);
+        return dst;
+    }
+
+    /**
+     * Returns the current plot box selection bounds.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    public static void getPlotSelection(final ImPlotRect dst) {
+        nGetPlotSelection(dst);
+    }
+
+    /**
+     * Returns the current plot box selection bounds.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    public static ImPlotRect getPlotSelection(final int xAxis) {
+        final ImPlotRect dst = new ImPlotRect();
+        nGetPlotSelection(dst, xAxis);
+        return dst;
+    }
+
+    /**
+     * Returns the current plot box selection bounds.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    public static void getPlotSelection(final ImPlotRect dst, final int xAxis) {
+        nGetPlotSelection(dst, xAxis);
+    }
+
+    /**
+     * Returns the current plot box selection bounds.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    public static ImPlotRect getPlotSelection(final int xAxis, final int yAxis) {
+        final ImPlotRect dst = new ImPlotRect();
+        nGetPlotSelection(dst, xAxis, yAxis);
+        return dst;
+    }
+
+    /**
+     * Returns the current plot box selection bounds.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    public static void getPlotSelection(final ImPlotRect dst, final int xAxis, final int yAxis) {
+        nGetPlotSelection(dst, xAxis, yAxis);
+    }
+
+    private static native void nGetPlotSelection(ImPlotRect dst); /*
+        Jni::ImPlotRectCpy(env, ImPlot::GetPlotSelection(), dst);
+    */
+
+    private static native void nGetPlotSelection(ImPlotRect dst, int xAxis); /*
+        Jni::ImPlotRectCpy(env, ImPlot::GetPlotSelection(xAxis), dst);
+    */
+
+    private static native void nGetPlotSelection(ImPlotRect dst, int xAxis, int yAxis); /*
+        Jni::ImPlotRectCpy(env, ImPlot::GetPlotSelection(xAxis, yAxis), dst);
+    */
+
+    /**
+     * Cancels the current plot box selection.
+     */
+    public static void cancelPlotSelection() {
+        nCancelPlotSelection();
+    }
+
+    private static native void nCancelPlotSelection(); /*
+        ImPlot::CancelPlotSelection();
+    */
+
+    /**
+     * Hides or shows the next plot item (i.e. as if it were toggled from the legend).
+     * Use ImPlotCond_Always if you need to forcefully set this every frame.
      */
     public static void hideNextItem() {
         nHideNextItem();
     }
 
     /**
-     * Hides the next plot item. Use ImGuiCond.Always if you need to forcefully set this every frame (default ImGuiCond.Once).
+     * Hides or shows the next plot item (i.e. as if it were toggled from the legend).
+     * Use ImPlotCond_Always if you need to forcefully set this every frame.
      */
     public static void hideNextItem(final boolean hidden) {
         nHideNextItem(hidden);
     }
 
     /**
-     * Hides the next plot item. Use ImGuiCond.Always if you need to forcefully set this every frame (default ImGuiCond.Once).
+     * Hides or shows the next plot item (i.e. as if it were toggled from the legend).
+     * Use ImPlotCond_Always if you need to forcefully set this every frame.
      */
     public static void hideNextItem(final boolean hidden, final int cond) {
         nHideNextItem(hidden, cond);
     }
 
     /**
-     * Hides the next plot item. Use ImGuiCond.Always if you need to forcefully set this every frame (default ImGuiCond.Once).
+     * Hides or shows the next plot item (i.e. as if it were toggled from the legend).
+     * Use ImPlotCond_Always if you need to forcefully set this every frame.
      */
     public static void hideNextItem(final int cond) {
         nHideNextItem(cond);
@@ -10545,545 +11364,25 @@ public final class ImPlot {
         ImPlot::HideNextItem(true, cond);
     */
 
-    /**
-     * Convert pixels to a position in the current plot's coordinate system. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static ImPlotPoint pixelsToPlot(final ImVec2 pix) {
-        final ImPlotPoint dst = new ImPlotPoint();
-        nPixelsToPlot(dst, pix.x, pix.y);
-        return dst;
-    }
-
-    /**
-     * Convert pixels to a position in the current plot's coordinate system. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static ImPlotPoint pixelsToPlot(final float pixX, final float pixY) {
-        final ImPlotPoint dst = new ImPlotPoint();
-        nPixelsToPlot(dst, pixX, pixY);
-        return dst;
-    }
-
-    /**
-     * Convert pixels to a position in the current plot's coordinate system. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static void pixelsToPlot(final ImPlotPoint dst, final ImVec2 pix) {
-        nPixelsToPlot(dst, pix.x, pix.y);
-    }
-
-    /**
-     * Convert pixels to a position in the current plot's coordinate system. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static ImPlotPoint pixelsToPlot(final ImVec2 pix, final int yAxis) {
-        final ImPlotPoint dst = new ImPlotPoint();
-        nPixelsToPlot(dst, pix.x, pix.y, yAxis);
-        return dst;
-    }
-
-    /**
-     * Convert pixels to a position in the current plot's coordinate system. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static ImPlotPoint pixelsToPlot(final float pixX, final float pixY, final int yAxis) {
-        final ImPlotPoint dst = new ImPlotPoint();
-        nPixelsToPlot(dst, pixX, pixY, yAxis);
-        return dst;
-    }
-
-    /**
-     * Convert pixels to a position in the current plot's coordinate system. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static void pixelsToPlot(final ImPlotPoint dst, final ImVec2 pix, final int yAxis) {
-        nPixelsToPlot(dst, pix.x, pix.y, yAxis);
-    }
-
-    private static native void nPixelsToPlot(ImPlotPoint dst, float pixX, float pixY); /*MANUAL
-        ImVec2 pix = ImVec2(pixX, pixY);
-        Jni::ImPlotPointCpy(env, ImPlot::PixelsToPlot(pix), dst);
-    */
-
-    private static native void nPixelsToPlot(ImPlotPoint dst, float pixX, float pixY, int yAxis); /*MANUAL
-        ImVec2 pix = ImVec2(pixX, pixY);
-        Jni::ImPlotPointCpy(env, ImPlot::PixelsToPlot(pix, yAxis), dst);
-    */
-
-    /**
-     * Convert a position in the current plot's coordinate system to pixels. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static ImVec2 plotToPixels(final ImPlotPoint plt) {
-        final ImVec2 dst = new ImVec2();
-        nPlotToPixels(dst, plt.x, plt.y);
-        return dst;
-    }
-
-    /**
-     * Convert a position in the current plot's coordinate system to pixels. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static ImVec2 plotToPixels(final double pltX, final double pltY) {
-        final ImVec2 dst = new ImVec2();
-        nPlotToPixels(dst, pltX, pltY);
-        return dst;
-    }
-
-    /**
-     * Convert a position in the current plot's coordinate system to pixels. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static float plotToPixelsX(final ImPlotPoint plt) {
-        return nPlotToPixelsX(plt.x, plt.y);
-    }
-
-    /**
-     * Convert a position in the current plot's coordinate system to pixels. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static float plotToPixelsY(final ImPlotPoint plt) {
-        return nPlotToPixelsY(plt.x, plt.y);
-    }
-
-    /**
-     * Convert a position in the current plot's coordinate system to pixels. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static void plotToPixels(final ImVec2 dst, final ImPlotPoint plt) {
-        nPlotToPixels(dst, plt.x, plt.y);
-    }
-
-    /**
-     * Convert a position in the current plot's coordinate system to pixels. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static ImVec2 plotToPixels(final ImPlotPoint plt, final int yAxis) {
-        final ImVec2 dst = new ImVec2();
-        nPlotToPixels(dst, plt.x, plt.y, yAxis);
-        return dst;
-    }
-
-    /**
-     * Convert a position in the current plot's coordinate system to pixels. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static ImVec2 plotToPixels(final double pltX, final double pltY, final int yAxis) {
-        final ImVec2 dst = new ImVec2();
-        nPlotToPixels(dst, pltX, pltY, yAxis);
-        return dst;
-    }
-
-    /**
-     * Convert a position in the current plot's coordinate system to pixels. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static float plotToPixelsX(final ImPlotPoint plt, final int yAxis) {
-        return nPlotToPixelsX(plt.x, plt.y, yAxis);
-    }
-
-    /**
-     * Convert a position in the current plot's coordinate system to pixels. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static float plotToPixelsY(final ImPlotPoint plt, final int yAxis) {
-        return nPlotToPixelsY(plt.x, plt.y, yAxis);
-    }
-
-    /**
-     * Convert a position in the current plot's coordinate system to pixels. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static void plotToPixels(final ImVec2 dst, final ImPlotPoint plt, final int yAxis) {
-        nPlotToPixels(dst, plt.x, plt.y, yAxis);
-    }
-
-    private static native void nPlotToPixels(ImVec2 dst, double pltX, double pltY); /*
-        Jni::ImVec2Cpy(env, ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY)), dst);
-    */
-
-    private static native float nPlotToPixelsX(double pltX, double pltY); /*
-        return ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY)).x;
-    */
-
-    private static native float nPlotToPixelsY(double pltX, double pltY); /*
-        return ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY)).y;
-    */
-
-    private static native void nPlotToPixels(ImVec2 dst, double pltX, double pltY, int yAxis); /*
-        Jni::ImVec2Cpy(env, ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY), yAxis), dst);
-    */
-
-    private static native float nPlotToPixelsX(double pltX, double pltY, int yAxis); /*
-        return ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY), yAxis).x;
-    */
-
-    private static native float nPlotToPixelsY(double pltX, double pltY, int yAxis); /*
-        return ImPlot::PlotToPixels(ImPlotPoint(pltX, pltY), yAxis).y;
-    */
-
-    /**
-     * Get the current Plot position (top-left) in pixels.
-     */
-    public static ImVec2 getPlotPos() {
-        final ImVec2 dst = new ImVec2();
-        nGetPlotPos(dst);
-        return dst;
-    }
-
-    /**
-     * Get the current Plot position (top-left) in pixels.
-     */
-    public static float getPlotPosX() {
-        return nGetPlotPosX();
-    }
-
-    /**
-     * Get the current Plot position (top-left) in pixels.
-     */
-    public static float getPlotPosY() {
-        return nGetPlotPosY();
-    }
-
-    /**
-     * Get the current Plot position (top-left) in pixels.
-     */
-    public static void getPlotPos(final ImVec2 dst) {
-        nGetPlotPos(dst);
-    }
-
-    private static native void nGetPlotPos(ImVec2 dst); /*
-        Jni::ImVec2Cpy(env, ImPlot::GetPlotPos(), dst);
-    */
-
-    private static native float nGetPlotPosX(); /*
-        return ImPlot::GetPlotPos().x;
-    */
-
-    private static native float nGetPlotPosY(); /*
-        return ImPlot::GetPlotPos().y;
-    */
-
-    /**
-     * Get the current Plot size in pixels.
-     */
-    public static ImVec2 getPlotSize() {
-        final ImVec2 dst = new ImVec2();
-        nGetPlotSize(dst);
-        return dst;
-    }
-
-    /**
-     * Get the current Plot size in pixels.
-     */
-    public static float getPlotSizeX() {
-        return nGetPlotSizeX();
-    }
-
-    /**
-     * Get the current Plot size in pixels.
-     */
-    public static float getPlotSizeY() {
-        return nGetPlotSizeY();
-    }
-
-    /**
-     * Get the current Plot size in pixels.
-     */
-    public static void getPlotSize(final ImVec2 dst) {
-        nGetPlotSize(dst);
-    }
-
-    private static native void nGetPlotSize(ImVec2 dst); /*
-        Jni::ImVec2Cpy(env, ImPlot::GetPlotSize(), dst);
-    */
-
-    private static native float nGetPlotSizeX(); /*
-        return ImPlot::GetPlotSize().x;
-    */
-
-    private static native float nGetPlotSizeY(); /*
-        return ImPlot::GetPlotSize().y;
-    */
-
-    /**
-     * Returns true if the plot area in the current plot is hovered.
-     */
-    public static boolean isPlotHovered() {
-        return nIsPlotHovered();
-    }
-
-    private static native boolean nIsPlotHovered(); /*
-        return ImPlot::IsPlotHovered();
-    */
-
-    /**
-     * Returns true if the XAxis plot area in the current plot is hovered.
-     */
-    public static boolean isPlotXAxisHovered() {
-        return nIsPlotXAxisHovered();
-    }
-
-    private static native boolean nIsPlotXAxisHovered(); /*
-        return ImPlot::IsPlotXAxisHovered();
-    */
-
-    /**
-     * Returns true if the YAxis[n] plot area in the current plot is hovered.
-     */
-    public static boolean isPlotYAxisHovered() {
-        return nIsPlotYAxisHovered();
-    }
-
-    /**
-     * Returns true if the YAxis[n] plot area in the current plot is hovered.
-     */
-    public static boolean isPlotYAxisHovered(final int yAxis) {
-        return nIsPlotYAxisHovered(yAxis);
-    }
-
-    private static native boolean nIsPlotYAxisHovered(); /*
-        return ImPlot::IsPlotYAxisHovered();
-    */
-
-    private static native boolean nIsPlotYAxisHovered(int yAxis); /*
-        return ImPlot::IsPlotYAxisHovered(yAxis);
-    */
-
-    /**
-     * Returns the mouse position in x,y coordinates of the current plot. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static ImPlotPoint getPlotMousePos() {
-        final ImPlotPoint dst = new ImPlotPoint();
-        nGetPlotMousePos(dst);
-        return dst;
-    }
-
-    /**
-     * Returns the mouse position in x,y coordinates of the current plot. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static void getPlotMousePos(final ImPlotPoint dst) {
-        nGetPlotMousePos(dst);
-    }
-
-    /**
-     * Returns the mouse position in x,y coordinates of the current plot. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static ImPlotPoint getPlotMousePos(final int yAxis) {
-        final ImPlotPoint dst = new ImPlotPoint();
-        nGetPlotMousePos(dst, yAxis);
-        return dst;
-    }
-
-    /**
-     * Returns the mouse position in x,y coordinates of the current plot. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static void getPlotMousePos(final ImPlotPoint dst, final int yAxis) {
-        nGetPlotMousePos(dst, yAxis);
-    }
-
-    private static native void nGetPlotMousePos(ImPlotPoint dst); /*
-        Jni::ImPlotPointCpy(env, ImPlot::GetPlotMousePos(), dst);
-    */
-
-    private static native void nGetPlotMousePos(ImPlotPoint dst, int yAxis); /*
-        Jni::ImPlotPointCpy(env, ImPlot::GetPlotMousePos(yAxis), dst);
-    */
-
-    /**
-     * Returns the current plot axis range. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static ImPlotLimits getPlotLimits() {
-        final ImPlotLimits dst = new ImPlotLimits();
-        nGetPlotLimits(dst);
-        return dst;
-    }
-
-    /**
-     * Returns the current plot axis range. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static void getPlotLimits(final ImPlotLimits dst) {
-        nGetPlotLimits(dst);
-    }
-
-    /**
-     * Returns the current plot axis range. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static ImPlotLimits getPlotLimits(final int yAxis) {
-        final ImPlotLimits dst = new ImPlotLimits();
-        nGetPlotLimits(dst, yAxis);
-        return dst;
-    }
-
-    /**
-     * Returns the current plot axis range. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    public static void getPlotLimits(final ImPlotLimits dst, final int yAxis) {
-        nGetPlotLimits(dst, yAxis);
-    }
-
-    private static native void nGetPlotLimits(ImPlotLimits dst); /*
-        Jni::ImPlotLimitsCpy(env, ImPlot::GetPlotLimits(), dst);
-    */
-
-    private static native void nGetPlotLimits(ImPlotLimits dst, int yAxis); /*
-        Jni::ImPlotLimitsCpy(env, ImPlot::GetPlotLimits(yAxis), dst);
-    */
-
-    /**
-     * Returns true if the current plot is being box selected.
-     */
-    public static boolean isPlotSelected() {
-        return nIsPlotSelected();
-    }
-
-    private static native boolean nIsPlotSelected(); /*
-        return ImPlot::IsPlotSelected();
-    */
-
-    /**
-     * Returns the current plot box selection bounds.
-     */
-    public static ImPlotLimits getPlotSelection() {
-        final ImPlotLimits dst = new ImPlotLimits();
-        nGetPlotSelection(dst);
-        return dst;
-    }
-
-    /**
-     * Returns the current plot box selection bounds.
-     */
-    public static void getPlotSelection(final ImPlotLimits dst) {
-        nGetPlotSelection(dst);
-    }
-
-    /**
-     * Returns the current plot box selection bounds.
-     */
-    public static ImPlotLimits getPlotSelection(final int yAxis) {
-        final ImPlotLimits dst = new ImPlotLimits();
-        nGetPlotSelection(dst, yAxis);
-        return dst;
-    }
-
-    /**
-     * Returns the current plot box selection bounds.
-     */
-    public static void getPlotSelection(final ImPlotLimits dst, final int yAxis) {
-        nGetPlotSelection(dst, yAxis);
-    }
-
-    private static native void nGetPlotSelection(ImPlotLimits dst); /*
-        Jni::ImPlotLimitsCpy(env, ImPlot::GetPlotSelection(), dst);
-    */
-
-    private static native void nGetPlotSelection(ImPlotLimits dst, int yAxis); /*
-        Jni::ImPlotLimitsCpy(env, ImPlot::GetPlotSelection(yAxis), dst);
-    */
-
-    /**
-     * Returns true if the current plot is being queried or has an active query. Query must be enabled with ImPlotFlags_Query.
-     */
-    public static boolean isPlotQueried() {
-        return nIsPlotQueried();
-    }
-
-    private static native boolean nIsPlotQueried(); /*
-        return ImPlot::IsPlotQueried();
-    */
-
-    /**
-     * Returns the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
-     */
-    public static ImPlotLimits getPlotQuery() {
-        final ImPlotLimits dst = new ImPlotLimits();
-        nGetPlotQuery(dst);
-        return dst;
-    }
-
-    /**
-     * Returns the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
-     */
-    public static void getPlotQuery(final ImPlotLimits dst) {
-        nGetPlotQuery(dst);
-    }
-
-    /**
-     * Returns the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
-     */
-    public static ImPlotLimits getPlotQuery(final int yAxis) {
-        final ImPlotLimits dst = new ImPlotLimits();
-        nGetPlotQuery(dst, yAxis);
-        return dst;
-    }
-
-    /**
-     * Returns the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
-     */
-    public static void getPlotQuery(final ImPlotLimits dst, final int yAxis) {
-        nGetPlotQuery(dst, yAxis);
-    }
-
-    private static native void nGetPlotQuery(ImPlotLimits dst); /*
-        Jni::ImPlotLimitsCpy(env, ImPlot::GetPlotQuery(), dst);
-    */
-
-    private static native void nGetPlotQuery(ImPlotLimits dst, int yAxis); /*
-        Jni::ImPlotLimitsCpy(env, ImPlot::GetPlotQuery(yAxis), dst);
-    */
-
-    /**
-     * Set the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
-     */
-    public static void setPlotQuery(final ImPlotLimits query) {
-        nSetPlotQuery(query.x.min, query.y.min, query.x.max, query.y.max);
-    }
-
-    /**
-     * Set the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
-     */
-    public static void setPlotQuery(final double queryMinX, final double queryMinY, final double queryMaxX, final double queryMaxY) {
-        nSetPlotQuery(queryMinX, queryMinY, queryMaxX, queryMaxY);
-    }
-
-    /**
-     * Set the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
-     */
-    public static void setPlotQuery(final ImPlotLimits query, final int yAxis) {
-        nSetPlotQuery(query.x.min, query.y.min, query.x.max, query.y.max, yAxis);
-    }
-
-    /**
-     * Set the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
-     */
-    public static void setPlotQuery(final double queryMinX, final double queryMinY, final double queryMaxX, final double queryMaxY, final int yAxis) {
-        nSetPlotQuery(queryMinX, queryMinY, queryMaxX, queryMaxY, yAxis);
-    }
-
-    private static native void nSetPlotQuery(double queryMinX, double queryMinY, double queryMaxX, double queryMaxY); /*
-        ImPlot::SetPlotQuery(ImPlotLimits(queryMinX, queryMinY, queryMaxX, queryMaxY));
-    */
-
-    private static native void nSetPlotQuery(double queryMinX, double queryMinY, double queryMaxX, double queryMaxY, int yAxis); /*
-        ImPlot::SetPlotQuery(ImPlotLimits(queryMinX, queryMinY, queryMaxX, queryMaxY), yAxis);
-    */
-
-    /**
-     * Returns true if the bounding frame of a subplot is hovered
-     */
-    public static boolean isSubplotsHovered() {
-        return nIsSubplotsHovered();
-    }
-
-    private static native boolean nIsSubplotsHovered(); /*
-        return ImPlot::IsSubplotsHovered();
-    */
-
-    //-----------------------------------------------------------------------------
-    // Aligned Plots
-    //-----------------------------------------------------------------------------
-
+    // Use the following around calls to Begin/EndPlot to align l/r/t/b padding.
     // Consider using Begin/EndSubplots first. They are more feature rich and
     // accomplish the same behaviour by default. The functions below offer lower
     // level control of plot alignment.
 
     /**
-     * Align axis padding over multiple plots in a single row or column. If this function returns true, EndAlignedPlots() must be called. #group_id must be unique.
+     * Aligns axis padding over multiple plots in a single row or column.
+     * `group_id` must be unique. If this function returns true, EndAlignedPlots() must be called.
      */
     public static boolean beginAlignedPlots(final String groupId) {
         return nBeginAlignedPlots(groupId);
     }
 
     /**
-     * Align axis padding over multiple plots in a single row or column. If this function returns true, EndAlignedPlots() must be called. #group_id must be unique.
+     * Aligns axis padding over multiple plots in a single row or column.
+     * `group_id` must be unique. If this function returns true, EndAlignedPlots() must be called.
      */
-    public static boolean beginAlignedPlots(final String groupId, final int orientation) {
-        return nBeginAlignedPlots(groupId, orientation);
+    public static boolean beginAlignedPlots(final String groupId, final boolean vertical) {
+        return nBeginAlignedPlots(groupId, vertical);
     }
 
     private static native boolean nBeginAlignedPlots(String obj_groupId); /*MANUAL
@@ -11093,15 +11392,15 @@ public final class ImPlot {
         return _result;
     */
 
-    private static native boolean nBeginAlignedPlots(String obj_groupId, int orientation); /*MANUAL
+    private static native boolean nBeginAlignedPlots(String obj_groupId, boolean vertical); /*MANUAL
         auto groupId = obj_groupId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_groupId, JNI_FALSE);
-        auto _result = ImPlot::BeginAlignedPlots(groupId, orientation);
+        auto _result = ImPlot::BeginAlignedPlots(groupId, vertical);
         if (groupId != NULL) env->ReleaseStringUTFChars(obj_groupId, groupId);
         return _result;
     */
 
     /**
-     * Only call EndAlignedPlots() if BeginAlignedPlots() returns true!
+     * Ends aligned plots. Only call EndAlignedPlots() if BeginAlignedPlots() returns true.
      */
     public static void endAlignedPlots() {
         nEndAlignedPlots();
@@ -11112,574 +11411,46 @@ public final class ImPlot {
     */
 
     //-----------------------------------------------------------------------------
-    // Plot Tools
+    // [SECTION] Legend Utils
     //-----------------------------------------------------------------------------
 
     /**
-     * Shows an annotation callout at a chosen point.
+     * Begins a popup for a legend entry.
      */
-    public static void annotate(final double x, final double y, final ImVec2 pixOffset, final String fmt) {
-        nAnnotate(x, y, pixOffset.x, pixOffset.y, fmt);
+    public static boolean beginLegendPopup(final String labelId) {
+        return nBeginLegendPopup(labelId);
     }
 
     /**
-     * Shows an annotation callout at a chosen point.
+     * Begins a popup for a legend entry.
      */
-    public static void annotate(final double x, final double y, final float pixOffsetX, final float pixOffsetY, final String fmt) {
-        nAnnotate(x, y, pixOffsetX, pixOffsetY, fmt);
+    public static boolean beginLegendPopup(final String labelId, final int mouseButton) {
+        return nBeginLegendPopup(labelId, mouseButton);
     }
 
-    private static native void nAnnotate(double x, double y, float pixOffsetX, float pixOffsetY, String fmt); /*MANUAL
-        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
-        ImVec2 pixOffset = ImVec2(pixOffsetX, pixOffsetY);
-        ImPlot::Annotate(x, y, pixOffset, fmt, NULL);
-        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
-    */
-
-    /**
-     * Shows an annotation callout at a chosen point.
-     */
-    public static void annotate(final double x, final double y, final ImVec2 pixOffset, final ImVec4 color, final String fmt) {
-        nAnnotate(x, y, pixOffset.x, pixOffset.y, color.x, color.y, color.z, color.w, fmt);
-    }
-
-    /**
-     * Shows an annotation callout at a chosen point.
-     */
-    public static void annotate(final double x, final double y, final float pixOffsetX, final float pixOffsetY, final float colorX, final float colorY, final float colorZ, final float colorW, final String fmt) {
-        nAnnotate(x, y, pixOffsetX, pixOffsetY, colorX, colorY, colorZ, colorW, fmt);
-    }
-
-    private static native void nAnnotate(double x, double y, float pixOffsetX, float pixOffsetY, float colorX, float colorY, float colorZ, float colorW, String fmt); /*MANUAL
-        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
-        ImVec2 pixOffset = ImVec2(pixOffsetX, pixOffsetY);
-        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
-        ImPlot::Annotate(x, y, pixOffset, color, fmt, NULL);
-        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
-    */
-
-    /**
-     * Same as above, but the annotation will always be clamped to stay inside the plot area.
-     */
-    public static void annotateClamped(final double x, final double y, final ImVec2 pixOffset, final String fmt) {
-        nAnnotateClamped(x, y, pixOffset.x, pixOffset.y, fmt);
-    }
-
-    /**
-     * Same as above, but the annotation will always be clamped to stay inside the plot area.
-     */
-    public static void annotateClamped(final double x, final double y, final float pixOffsetX, final float pixOffsetY, final String fmt) {
-        nAnnotateClamped(x, y, pixOffsetX, pixOffsetY, fmt);
-    }
-
-    private static native void nAnnotateClamped(double x, double y, float pixOffsetX, float pixOffsetY, String fmt); /*MANUAL
-        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
-        ImVec2 pixOffset = ImVec2(pixOffsetX, pixOffsetY);
-        ImPlot::AnnotateClamped(x, y, pixOffset, fmt, NULL);
-        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
-    */
-
-    /**
-     * Same as above, but the annotation will always be clamped to stay inside the plot area.
-     */
-    public static void annotateClamped(final double x, final double y, final ImVec2 pixOffset, final ImVec4 color, final String fmt) {
-        nAnnotateClamped(x, y, pixOffset.x, pixOffset.y, color.x, color.y, color.z, color.w, fmt);
-    }
-
-    /**
-     * Same as above, but the annotation will always be clamped to stay inside the plot area.
-     */
-    public static void annotateClamped(final double x, final double y, final float pixOffsetX, final float pixOffsetY, final float colorX, final float colorY, final float colorZ, final float colorW, final String fmt) {
-        nAnnotateClamped(x, y, pixOffsetX, pixOffsetY, colorX, colorY, colorZ, colorW, fmt);
-    }
-
-    private static native void nAnnotateClamped(double x, double y, float pixOffsetX, float pixOffsetY, float colorX, float colorY, float colorZ, float colorW, String fmt); /*MANUAL
-        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
-        ImVec2 pixOffset = ImVec2(pixOffsetX, pixOffsetY);
-        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
-        ImPlot::AnnotateClamped(x, y, pixOffset, color, fmt, NULL);
-        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
-    */
-
-    /**
-     * Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineX(final String id, final ImDouble xValue) {
-        return nDragLineX(id, xValue != null ? xValue.getData() : null);
-    }
-
-    /**
-     * Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineX(final String id, final ImDouble xValue, final boolean showLabel) {
-        return nDragLineX(id, xValue != null ? xValue.getData() : null, showLabel);
-    }
-
-    /**
-     * Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineX(final String id, final ImDouble xValue, final boolean showLabel, final ImVec4 color) {
-        return nDragLineX(id, xValue != null ? xValue.getData() : null, showLabel, color.x, color.y, color.z, color.w);
-    }
-
-    /**
-     * Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineX(final String id, final ImDouble xValue, final boolean showLabel, final float colorX, final float colorY, final float colorZ, final float colorW) {
-        return nDragLineX(id, xValue != null ? xValue.getData() : null, showLabel, colorX, colorY, colorZ, colorW);
-    }
-
-    /**
-     * Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineX(final String id, final ImDouble xValue, final boolean showLabel, final ImVec4 color, final float thickness) {
-        return nDragLineX(id, xValue != null ? xValue.getData() : null, showLabel, color.x, color.y, color.z, color.w, thickness);
-    }
-
-    /**
-     * Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineX(final String id, final ImDouble xValue, final boolean showLabel, final float colorX, final float colorY, final float colorZ, final float colorW, final float thickness) {
-        return nDragLineX(id, xValue != null ? xValue.getData() : null, showLabel, colorX, colorY, colorZ, colorW, thickness);
-    }
-
-    /**
-     * Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineX(final String id, final ImDouble xValue, final ImVec4 color, final float thickness) {
-        return nDragLineX(id, xValue != null ? xValue.getData() : null, color.x, color.y, color.z, color.w, thickness);
-    }
-
-    /**
-     * Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineX(final String id, final ImDouble xValue, final float colorX, final float colorY, final float colorZ, final float colorW, final float thickness) {
-        return nDragLineX(id, xValue != null ? xValue.getData() : null, colorX, colorY, colorZ, colorW, thickness);
-    }
-
-    /**
-     * Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineX(final String id, final ImDouble xValue, final float thickness) {
-        return nDragLineX(id, xValue != null ? xValue.getData() : null, thickness);
-    }
-
-    /**
-     * Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineX(final String id, final ImDouble xValue, final boolean showLabel, final float thickness) {
-        return nDragLineX(id, xValue != null ? xValue.getData() : null, showLabel, thickness);
-    }
-
-    private static native boolean nDragLineX(String obj_id, double[] obj_xValue); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto xValue = obj_xValue == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xValue, JNI_FALSE);
-        auto _result = ImPlot::DragLineX(id, (xValue != NULL ? &xValue[0] : NULL));
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (xValue != NULL) env->ReleasePrimitiveArrayCritical(obj_xValue, xValue, JNI_FALSE);
+    private static native boolean nBeginLegendPopup(String obj_labelId); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto _result = ImPlot::BeginLegendPopup(labelId);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         return _result;
     */
 
-    private static native boolean nDragLineX(String obj_id, double[] obj_xValue, boolean showLabel); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto xValue = obj_xValue == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xValue, JNI_FALSE);
-        auto _result = ImPlot::DragLineX(id, (xValue != NULL ? &xValue[0] : NULL), showLabel);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (xValue != NULL) env->ReleasePrimitiveArrayCritical(obj_xValue, xValue, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragLineX(String obj_id, double[] obj_xValue, boolean showLabel, float colorX, float colorY, float colorZ, float colorW); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto xValue = obj_xValue == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xValue, JNI_FALSE);
-        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
-        auto _result = ImPlot::DragLineX(id, (xValue != NULL ? &xValue[0] : NULL), showLabel, color);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (xValue != NULL) env->ReleasePrimitiveArrayCritical(obj_xValue, xValue, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragLineX(String obj_id, double[] obj_xValue, boolean showLabel, float colorX, float colorY, float colorZ, float colorW, float thickness); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto xValue = obj_xValue == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xValue, JNI_FALSE);
-        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
-        auto _result = ImPlot::DragLineX(id, (xValue != NULL ? &xValue[0] : NULL), showLabel, color, thickness);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (xValue != NULL) env->ReleasePrimitiveArrayCritical(obj_xValue, xValue, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragLineX(String obj_id, double[] obj_xValue, float colorX, float colorY, float colorZ, float colorW, float thickness); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto xValue = obj_xValue == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xValue, JNI_FALSE);
-        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
-        auto _result = ImPlot::DragLineX(id, (xValue != NULL ? &xValue[0] : NULL), true, color, thickness);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (xValue != NULL) env->ReleasePrimitiveArrayCritical(obj_xValue, xValue, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragLineX(String obj_id, double[] obj_xValue, float thickness); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto xValue = obj_xValue == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xValue, JNI_FALSE);
-        auto _result = ImPlot::DragLineX(id, (xValue != NULL ? &xValue[0] : NULL), true, IMPLOT_AUTO_COL, thickness);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (xValue != NULL) env->ReleasePrimitiveArrayCritical(obj_xValue, xValue, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragLineX(String obj_id, double[] obj_xValue, boolean showLabel, float thickness); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto xValue = obj_xValue == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xValue, JNI_FALSE);
-        auto _result = ImPlot::DragLineX(id, (xValue != NULL ? &xValue[0] : NULL), showLabel, IMPLOT_AUTO_COL, thickness);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (xValue != NULL) env->ReleasePrimitiveArrayCritical(obj_xValue, xValue, JNI_FALSE);
+    private static native boolean nBeginLegendPopup(String obj_labelId, int mouseButton); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto _result = ImPlot::BeginLegendPopup(labelId, mouseButton);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         return _result;
     */
 
     /**
-     * Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text.
+     * Ends a popup for a legend entry.
      */
-    public static boolean dragLineY(final String id, final ImDouble yValue) {
-        return nDragLineY(id, yValue != null ? yValue.getData() : null);
+    public static void endLegendPopup() {
+        nEndLegendPopup();
     }
 
-    /**
-     * Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineY(final String id, final ImDouble yValue, final boolean showLabel) {
-        return nDragLineY(id, yValue != null ? yValue.getData() : null, showLabel);
-    }
-
-    /**
-     * Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineY(final String id, final ImDouble yValue, final boolean showLabel, final ImVec4 color) {
-        return nDragLineY(id, yValue != null ? yValue.getData() : null, showLabel, color.x, color.y, color.z, color.w);
-    }
-
-    /**
-     * Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineY(final String id, final ImDouble yValue, final boolean showLabel, final float colorX, final float colorY, final float colorZ, final float colorW) {
-        return nDragLineY(id, yValue != null ? yValue.getData() : null, showLabel, colorX, colorY, colorZ, colorW);
-    }
-
-    /**
-     * Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineY(final String id, final ImDouble yValue, final boolean showLabel, final ImVec4 color, final float thickness) {
-        return nDragLineY(id, yValue != null ? yValue.getData() : null, showLabel, color.x, color.y, color.z, color.w, thickness);
-    }
-
-    /**
-     * Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineY(final String id, final ImDouble yValue, final boolean showLabel, final float colorX, final float colorY, final float colorZ, final float colorW, final float thickness) {
-        return nDragLineY(id, yValue != null ? yValue.getData() : null, showLabel, colorX, colorY, colorZ, colorW, thickness);
-    }
-
-    /**
-     * Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineY(final String id, final ImDouble yValue, final ImVec4 color, final float thickness) {
-        return nDragLineY(id, yValue != null ? yValue.getData() : null, color.x, color.y, color.z, color.w, thickness);
-    }
-
-    /**
-     * Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineY(final String id, final ImDouble yValue, final float colorX, final float colorY, final float colorZ, final float colorW, final float thickness) {
-        return nDragLineY(id, yValue != null ? yValue.getData() : null, colorX, colorY, colorZ, colorW, thickness);
-    }
-
-    /**
-     * Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineY(final String id, final ImDouble yValue, final float thickness) {
-        return nDragLineY(id, yValue != null ? yValue.getData() : null, thickness);
-    }
-
-    /**
-     * Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragLineY(final String id, final ImDouble yValue, final boolean showLabel, final float thickness) {
-        return nDragLineY(id, yValue != null ? yValue.getData() : null, showLabel, thickness);
-    }
-
-    private static native boolean nDragLineY(String obj_id, double[] obj_yValue); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto yValue = obj_yValue == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yValue, JNI_FALSE);
-        auto _result = ImPlot::DragLineY(id, (yValue != NULL ? &yValue[0] : NULL));
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (yValue != NULL) env->ReleasePrimitiveArrayCritical(obj_yValue, yValue, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragLineY(String obj_id, double[] obj_yValue, boolean showLabel); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto yValue = obj_yValue == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yValue, JNI_FALSE);
-        auto _result = ImPlot::DragLineY(id, (yValue != NULL ? &yValue[0] : NULL), showLabel);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (yValue != NULL) env->ReleasePrimitiveArrayCritical(obj_yValue, yValue, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragLineY(String obj_id, double[] obj_yValue, boolean showLabel, float colorX, float colorY, float colorZ, float colorW); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto yValue = obj_yValue == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yValue, JNI_FALSE);
-        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
-        auto _result = ImPlot::DragLineY(id, (yValue != NULL ? &yValue[0] : NULL), showLabel, color);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (yValue != NULL) env->ReleasePrimitiveArrayCritical(obj_yValue, yValue, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragLineY(String obj_id, double[] obj_yValue, boolean showLabel, float colorX, float colorY, float colorZ, float colorW, float thickness); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto yValue = obj_yValue == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yValue, JNI_FALSE);
-        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
-        auto _result = ImPlot::DragLineY(id, (yValue != NULL ? &yValue[0] : NULL), showLabel, color, thickness);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (yValue != NULL) env->ReleasePrimitiveArrayCritical(obj_yValue, yValue, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragLineY(String obj_id, double[] obj_yValue, float colorX, float colorY, float colorZ, float colorW, float thickness); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto yValue = obj_yValue == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yValue, JNI_FALSE);
-        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
-        auto _result = ImPlot::DragLineY(id, (yValue != NULL ? &yValue[0] : NULL), true, color, thickness);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (yValue != NULL) env->ReleasePrimitiveArrayCritical(obj_yValue, yValue, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragLineY(String obj_id, double[] obj_yValue, float thickness); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto yValue = obj_yValue == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yValue, JNI_FALSE);
-        auto _result = ImPlot::DragLineY(id, (yValue != NULL ? &yValue[0] : NULL), true, IMPLOT_AUTO_COL, thickness);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (yValue != NULL) env->ReleasePrimitiveArrayCritical(obj_yValue, yValue, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragLineY(String obj_id, double[] obj_yValue, boolean showLabel, float thickness); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto yValue = obj_yValue == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_yValue, JNI_FALSE);
-        auto _result = ImPlot::DragLineY(id, (yValue != NULL ? &yValue[0] : NULL), showLabel, IMPLOT_AUTO_COL, thickness);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (yValue != NULL) env->ReleasePrimitiveArrayCritical(obj_yValue, yValue, JNI_FALSE);
-        return _result;
-    */
-
-    /**
-     * Shows a draggable point at x,y. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragPoint(final String id, final ImDouble x, final ImDouble y) {
-        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null);
-    }
-
-    /**
-     * Shows a draggable point at x,y. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragPoint(final String id, final ImDouble x, final ImDouble y, final boolean showLabel) {
-        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, showLabel);
-    }
-
-    /**
-     * Shows a draggable point at x,y. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragPoint(final String id, final ImDouble x, final ImDouble y, final boolean showLabel, final ImVec4 color) {
-        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, showLabel, color.x, color.y, color.z, color.w);
-    }
-
-    /**
-     * Shows a draggable point at x,y. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragPoint(final String id, final ImDouble x, final ImDouble y, final boolean showLabel, final float colorX, final float colorY, final float colorZ, final float colorW) {
-        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, showLabel, colorX, colorY, colorZ, colorW);
-    }
-
-    /**
-     * Shows a draggable point at x,y. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragPoint(final String id, final ImDouble x, final ImDouble y, final boolean showLabel, final ImVec4 color, final float radius) {
-        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, showLabel, color.x, color.y, color.z, color.w, radius);
-    }
-
-    /**
-     * Shows a draggable point at x,y. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragPoint(final String id, final ImDouble x, final ImDouble y, final boolean showLabel, final float colorX, final float colorY, final float colorZ, final float colorW, final float radius) {
-        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, showLabel, colorX, colorY, colorZ, colorW, radius);
-    }
-
-    /**
-     * Shows a draggable point at x,y. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragPoint(final String id, final ImDouble x, final ImDouble y, final ImVec4 color, final float radius) {
-        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, color.x, color.y, color.z, color.w, radius);
-    }
-
-    /**
-     * Shows a draggable point at x,y. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragPoint(final String id, final ImDouble x, final ImDouble y, final float colorX, final float colorY, final float colorZ, final float colorW, final float radius) {
-        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, colorX, colorY, colorZ, colorW, radius);
-    }
-
-    /**
-     * Shows a draggable point at x,y. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragPoint(final String id, final ImDouble x, final ImDouble y, final float radius) {
-        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, radius);
-    }
-
-    /**
-     * Shows a draggable point at x,y. #col defaults to ImGuiCol_Text.
-     */
-    public static boolean dragPoint(final String id, final ImDouble x, final ImDouble y, final boolean showLabel, final float radius) {
-        return nDragPoint(id, x != null ? x.getData() : null, y != null ? y.getData() : null, showLabel, radius);
-    }
-
-    private static native boolean nDragPoint(String obj_id, double[] obj_x, double[] obj_y); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
-        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
-        auto _result = ImPlot::DragPoint(id, (x != NULL ? &x[0] : NULL), (y != NULL ? &y[0] : NULL));
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
-        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragPoint(String obj_id, double[] obj_x, double[] obj_y, boolean showLabel); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
-        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
-        auto _result = ImPlot::DragPoint(id, (x != NULL ? &x[0] : NULL), (y != NULL ? &y[0] : NULL), showLabel);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
-        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragPoint(String obj_id, double[] obj_x, double[] obj_y, boolean showLabel, float colorX, float colorY, float colorZ, float colorW); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
-        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
-        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
-        auto _result = ImPlot::DragPoint(id, (x != NULL ? &x[0] : NULL), (y != NULL ? &y[0] : NULL), showLabel, color);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
-        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragPoint(String obj_id, double[] obj_x, double[] obj_y, boolean showLabel, float colorX, float colorY, float colorZ, float colorW, float radius); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
-        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
-        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
-        auto _result = ImPlot::DragPoint(id, (x != NULL ? &x[0] : NULL), (y != NULL ? &y[0] : NULL), showLabel, color, radius);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
-        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragPoint(String obj_id, double[] obj_x, double[] obj_y, float colorX, float colorY, float colorZ, float colorW, float radius); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
-        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
-        ImVec4 color = ImVec4(colorX, colorY, colorZ, colorW);
-        auto _result = ImPlot::DragPoint(id, (x != NULL ? &x[0] : NULL), (y != NULL ? &y[0] : NULL), true, color, radius);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
-        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragPoint(String obj_id, double[] obj_x, double[] obj_y, float radius); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
-        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
-        auto _result = ImPlot::DragPoint(id, (x != NULL ? &x[0] : NULL), (y != NULL ? &y[0] : NULL), true, IMPLOT_AUTO_COL, radius);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
-        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
-        return _result;
-    */
-
-    private static native boolean nDragPoint(String obj_id, double[] obj_x, double[] obj_y, boolean showLabel, float radius); /*MANUAL
-        auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto x = obj_x == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_x, JNI_FALSE);
-        auto y = obj_y == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_y, JNI_FALSE);
-        auto _result = ImPlot::DragPoint(id, (x != NULL ? &x[0] : NULL), (y != NULL ? &y[0] : NULL), showLabel, IMPLOT_AUTO_COL, radius);
-        if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
-        if (x != NULL) env->ReleasePrimitiveArrayCritical(obj_x, x, JNI_FALSE);
-        if (y != NULL) env->ReleasePrimitiveArrayCritical(obj_y, y, JNI_FALSE);
-        return _result;
-    */
-
-    //-----------------------------------------------------------------------------
-    // Legend Utils and Tools
-    //-----------------------------------------------------------------------------
-
-    /**
-     * Set the location of the current plot's legend
-     */
-    public static void setLegendLocation(final int location) {
-        nSetLegendLocation(location);
-    }
-
-    /**
-     * Set the location of the current plot's legend
-     */
-    public static void setLegendLocation(final int location, final int orientation) {
-        nSetLegendLocation(location, orientation);
-    }
-
-    /**
-     * Set the location of the current plot's legend
-     */
-    public static void setLegendLocation(final int location, final int orientation, final boolean outside) {
-        nSetLegendLocation(location, orientation, outside);
-    }
-
-    /**
-     * Set the location of the current plot's legend
-     */
-    public static void setLegendLocation(final int location, final boolean outside) {
-        nSetLegendLocation(location, outside);
-    }
-
-    private static native void nSetLegendLocation(int location); /*
-        ImPlot::SetLegendLocation(location);
-    */
-
-    private static native void nSetLegendLocation(int location, int orientation); /*
-        ImPlot::SetLegendLocation(location, orientation);
-    */
-
-    private static native void nSetLegendLocation(int location, int orientation, boolean outside); /*
-        ImPlot::SetLegendLocation(location, orientation, outside);
-    */
-
-    private static native void nSetLegendLocation(int location, boolean outside); /*
-        ImPlot::SetLegendLocation(location, ImPlotOrientation_Vertical, outside);
-    */
-
-    /**
-     * Set the location of the current plot's mouse position text
-     */
-    public static void setMousePosLocation(final int location) {
-        nSetMousePosLocation(location);
-    }
-
-    private static native void nSetMousePosLocation(int location); /*
-        ImPlot::SetMousePosLocation(location);
+    private static native void nEndLegendPopup(); /*
+        ImPlot::EndLegendPopup();
     */
 
     /**
@@ -11696,95 +11467,37 @@ public final class ImPlot {
         return _result;
     */
 
-    /**
-     * Begin a popup for a legend entry.
-     */
-    public static boolean beginLegendPopup(final String labelID) {
-        return nBeginLegendPopup(labelID);
-    }
-
-    /**
-     * Begin a popup for a legend entry.
-     */
-    public static boolean beginLegendPopup(final String labelID, final int mouseButton) {
-        return nBeginLegendPopup(labelID, mouseButton);
-    }
-
-    private static native boolean nBeginLegendPopup(String obj_labelID); /*MANUAL
-        auto labelID = obj_labelID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelID, JNI_FALSE);
-        auto _result = ImPlot::BeginLegendPopup(labelID);
-        if (labelID != NULL) env->ReleaseStringUTFChars(obj_labelID, labelID);
-        return _result;
-    */
-
-    private static native boolean nBeginLegendPopup(String obj_labelID, int mouseButton); /*MANUAL
-        auto labelID = obj_labelID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelID, JNI_FALSE);
-        auto _result = ImPlot::BeginLegendPopup(labelID, mouseButton);
-        if (labelID != NULL) env->ReleaseStringUTFChars(obj_labelID, labelID);
-        return _result;
-    */
-
-    /**
-     * End a popup for a legend entry.
-     */
-    public static void endLegendPopup() {
-        nEndLegendPopup();
-    }
-
-    private static native void nEndLegendPopup(); /*
-        ImPlot::EndLegendPopup();
-    */
-
     //-----------------------------------------------------------------------------
-    // Drag and Drop Utils
+    // [SECTION] Drag and Drop
     //-----------------------------------------------------------------------------
 
     /**
-     * Turns the current plot's plotting area into a drag and drop target. Don't forget to call EndDragDropTarget!
+     * Turns the current plot's plotting area into a drag and drop target.
+     * Don't forget to call EndDragDropTarget!
      */
-    public static boolean beginDragDropTarget() {
-        return nBeginDragDropTarget();
+    public static boolean beginDragDropTargetPlot() {
+        return nBeginDragDropTargetPlot();
     }
 
-    private static native boolean nBeginDragDropTarget(); /*
-        return ImPlot::BeginDragDropTarget();
+    private static native boolean nBeginDragDropTargetPlot(); /*
+        return ImPlot::BeginDragDropTargetPlot();
     */
 
     /**
-     * Turns the current plot's X-axis into a drag and drop target. Don't forget to call EndDragDropTarget!
+     * Turns the current plot's X-axis into a drag and drop target.
+     * Don't forget to call EndDragDropTarget!
      */
-    public static boolean beginDragDropTargetX() {
-        return nBeginDragDropTargetX();
+    public static boolean beginDragDropTargetAxis(final int axis) {
+        return nBeginDragDropTargetAxis(axis);
     }
 
-    private static native boolean nBeginDragDropTargetX(); /*
-        return ImPlot::BeginDragDropTargetX();
+    private static native boolean nBeginDragDropTargetAxis(int axis); /*
+        return ImPlot::BeginDragDropTargetAxis(axis);
     */
 
     /**
-     * Turns the current plot's Y-Axis into a drag and drop target. Don't forget to call EndDragDropTarget!
-     */
-    public static boolean beginDragDropTargetY() {
-        return nBeginDragDropTargetY();
-    }
-
-    /**
-     * Turns the current plot's Y-Axis into a drag and drop target. Don't forget to call EndDragDropTarget!
-     */
-    public static boolean beginDragDropTargetY(final int yAxis) {
-        return nBeginDragDropTargetY(yAxis);
-    }
-
-    private static native boolean nBeginDragDropTargetY(); /*
-        return ImPlot::BeginDragDropTargetY();
-    */
-
-    private static native boolean nBeginDragDropTargetY(int yAxis); /*
-        return ImPlot::BeginDragDropTargetY(yAxis);
-    */
-
-    /**
-     * Turns the current plot's legend into a drag and drop target. Don't forget to call EndDragDropTarget!
+     * Turns the current plot's legend into a drag and drop target.
+     * Don't forget to call EndDragDropTarget!
      */
     public static boolean beginDragDropTargetLegend() {
         return nBeginDragDropTargetLegend();
@@ -11795,7 +11508,7 @@ public final class ImPlot {
     */
 
     /**
-     * Ends a drag and drop target.
+     * Ends a drag and drop target (currently just an alias for ImGui::EndDragDropTarget).
      */
     public static void endDragDropTarget() {
         nEndDragDropTarget();
@@ -11809,145 +11522,85 @@ public final class ImPlot {
     // You can change the modifier if desired. If ImGuiKeyModFlags_None is provided, the axes will be locked from panning.
 
     /**
-     * Turns the current plot's plotting area into a drag and drop source. Don't forget to call EndDragDropSource!
+     * Turns the current plot's plotting area into a drag and drop source.
+     * You must hold Ctrl. Don't forget to call EndDragDropSource!
      */
-    public static boolean beginDragDropSource() {
-        return nBeginDragDropSource();
+    public static boolean beginDragDropSourcePlot() {
+        return nBeginDragDropSourcePlot();
     }
 
     /**
-     * Turns the current plot's plotting area into a drag and drop source. Don't forget to call EndDragDropSource!
+     * Turns the current plot's plotting area into a drag and drop source.
+     * You must hold Ctrl. Don't forget to call EndDragDropSource!
      */
-    public static boolean beginDragDropSource(final int keyMods) {
-        return nBeginDragDropSource(keyMods);
+    public static boolean beginDragDropSourcePlot(final int flags) {
+        return nBeginDragDropSourcePlot(flags);
     }
 
-    /**
-     * Turns the current plot's plotting area into a drag and drop source. Don't forget to call EndDragDropSource!
-     */
-    public static boolean beginDragDropSource(final int keyMods, final int dragDropFlags) {
-        return nBeginDragDropSource(keyMods, dragDropFlags);
-    }
-
-    private static native boolean nBeginDragDropSource(); /*
-        return ImPlot::BeginDragDropSource();
+    private static native boolean nBeginDragDropSourcePlot(); /*
+        return ImPlot::BeginDragDropSourcePlot();
     */
 
-    private static native boolean nBeginDragDropSource(int keyMods); /*
-        return ImPlot::BeginDragDropSource(keyMods);
-    */
-
-    private static native boolean nBeginDragDropSource(int keyMods, int dragDropFlags); /*
-        return ImPlot::BeginDragDropSource(keyMods, dragDropFlags);
+    private static native boolean nBeginDragDropSourcePlot(int flags); /*
+        return ImPlot::BeginDragDropSourcePlot(flags);
     */
 
     /**
-     * Turns the current plot's X-axis into a drag and drop source. Don't forget to call EndDragDropSource!
+     * Turns the current plot's X-axis into a drag and drop source.
+     * You must hold Ctrl. Don't forget to call EndDragDropSource!
      */
-    public static boolean beginDragDropSourceX() {
-        return nBeginDragDropSourceX();
+    public static boolean beginDragDropSourceAxis(final int axis) {
+        return nBeginDragDropSourceAxis(axis);
     }
 
     /**
-     * Turns the current plot's X-axis into a drag and drop source. Don't forget to call EndDragDropSource!
+     * Turns the current plot's X-axis into a drag and drop source.
+     * You must hold Ctrl. Don't forget to call EndDragDropSource!
      */
-    public static boolean beginDragDropSourceX(final int keyMods) {
-        return nBeginDragDropSourceX(keyMods);
+    public static boolean beginDragDropSourceAxis(final int axis, final int flags) {
+        return nBeginDragDropSourceAxis(axis, flags);
     }
 
-    /**
-     * Turns the current plot's X-axis into a drag and drop source. Don't forget to call EndDragDropSource!
-     */
-    public static boolean beginDragDropSourceX(final int keyMods, final int dragDropFlags) {
-        return nBeginDragDropSourceX(keyMods, dragDropFlags);
-    }
-
-    private static native boolean nBeginDragDropSourceX(); /*
-        return ImPlot::BeginDragDropSourceX();
+    private static native boolean nBeginDragDropSourceAxis(int axis); /*
+        return ImPlot::BeginDragDropSourceAxis(axis);
     */
 
-    private static native boolean nBeginDragDropSourceX(int keyMods); /*
-        return ImPlot::BeginDragDropSourceX(keyMods);
-    */
-
-    private static native boolean nBeginDragDropSourceX(int keyMods, int dragDropFlags); /*
-        return ImPlot::BeginDragDropSourceX(keyMods, dragDropFlags);
+    private static native boolean nBeginDragDropSourceAxis(int axis, int flags); /*
+        return ImPlot::BeginDragDropSourceAxis(axis, flags);
     */
 
     /**
-     * Turns the current plot's Y-axis into a drag and drop source. Don't forget to call EndDragDropSource!
+     * Turns an item in the current plot's legend into a drag and drop source.
+     * Don't forget to call EndDragDropSource!
      */
-    public static boolean beginDragDropSourceY() {
-        return nBeginDragDropSourceY();
+    public static boolean beginDragDropSourceItem(final String labelId) {
+        return nBeginDragDropSourceItem(labelId);
     }
 
     /**
-     * Turns the current plot's Y-axis into a drag and drop source. Don't forget to call EndDragDropSource!
+     * Turns an item in the current plot's legend into a drag and drop source.
+     * Don't forget to call EndDragDropSource!
      */
-    public static boolean beginDragDropSourceY(final int yAxis) {
-        return nBeginDragDropSourceY(yAxis);
+    public static boolean beginDragDropSourceItem(final String labelId, final int flags) {
+        return nBeginDragDropSourceItem(labelId, flags);
     }
 
-    /**
-     * Turns the current plot's Y-axis into a drag and drop source. Don't forget to call EndDragDropSource!
-     */
-    public static boolean beginDragDropSourceY(final int yAxis, final int keyMods) {
-        return nBeginDragDropSourceY(yAxis, keyMods);
-    }
-
-    /**
-     * Turns the current plot's Y-axis into a drag and drop source. Don't forget to call EndDragDropSource!
-     */
-    public static boolean beginDragDropSourceY(final int yAxis, final int keyMods, final int dragDropFlags) {
-        return nBeginDragDropSourceY(yAxis, keyMods, dragDropFlags);
-    }
-
-    private static native boolean nBeginDragDropSourceY(); /*
-        return ImPlot::BeginDragDropSourceY();
-    */
-
-    private static native boolean nBeginDragDropSourceY(int yAxis); /*
-        return ImPlot::BeginDragDropSourceY(yAxis);
-    */
-
-    private static native boolean nBeginDragDropSourceY(int yAxis, int keyMods); /*
-        return ImPlot::BeginDragDropSourceY(yAxis, keyMods);
-    */
-
-    private static native boolean nBeginDragDropSourceY(int yAxis, int keyMods, int dragDropFlags); /*
-        return ImPlot::BeginDragDropSourceY(yAxis, keyMods, dragDropFlags);
-    */
-
-    /**
-     * Turns an item in the current plot's legend into drag and drop source. Don't forget to call EndDragDropSource!
-     */
-    public static boolean beginDragDropSourceItem(final String labelID) {
-        return nBeginDragDropSourceItem(labelID);
-    }
-
-    /**
-     * Turns an item in the current plot's legend into drag and drop source. Don't forget to call EndDragDropSource!
-     */
-    public static boolean beginDragDropSourceItem(final String labelID, final int dragDropFlags) {
-        return nBeginDragDropSourceItem(labelID, dragDropFlags);
-    }
-
-    private static native boolean nBeginDragDropSourceItem(String obj_labelID); /*MANUAL
-        auto labelID = obj_labelID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelID, JNI_FALSE);
-        auto _result = ImPlot::BeginDragDropSourceItem(labelID);
-        if (labelID != NULL) env->ReleaseStringUTFChars(obj_labelID, labelID);
+    private static native boolean nBeginDragDropSourceItem(String obj_labelId); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto _result = ImPlot::BeginDragDropSourceItem(labelId);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         return _result;
     */
 
-    private static native boolean nBeginDragDropSourceItem(String obj_labelID, int dragDropFlags); /*MANUAL
-        auto labelID = obj_labelID == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelID, JNI_FALSE);
-        auto _result = ImPlot::BeginDragDropSourceItem(labelID, dragDropFlags);
-        if (labelID != NULL) env->ReleaseStringUTFChars(obj_labelID, labelID);
+    private static native boolean nBeginDragDropSourceItem(String obj_labelId, int flags); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto _result = ImPlot::BeginDragDropSourceItem(labelId, flags);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         return _result;
     */
 
     /**
-     * Ends a drag and drop source.
+     * Ends a drag and drop source (currently just an alias for ImGui::EndDragDropSource).
      */
     public static void endDragDropSource() {
         nEndDragDropSource();
@@ -11958,7 +11611,7 @@ public final class ImPlot {
     */
 
     //-----------------------------------------------------------------------------
-    // Plot and Item Styling
+    // [SECTION] Styling
     //-----------------------------------------------------------------------------
 
     // Styling colors in ImPlot works similarly to styling colors in ImGui, but
@@ -12608,7 +12261,7 @@ public final class ImPlot {
     */
 
     //-----------------------------------------------------------------------------
-    // Colormaps
+    // [SECTION] Colormaps
     //-----------------------------------------------------------------------------
 
     // Item styling is based on colormaps when the relevant ImPlotCol_XXX is set to
@@ -13159,43 +12812,43 @@ public final class ImPlot {
     /**
      * Shows a vertical color scale with linear spaced ticks using the specified color map. Use double hashes to hide label (e.g. "##NoLabel").
      */
-    public static void colormapScale(final String label, final double scaleMin, final double scaleMax, final ImVec2 size, final int cmap, final String fmt) {
-        nColormapScale(label, scaleMin, scaleMax, size.x, size.y, cmap, fmt);
+    public static void colormapScale(final String label, final double scaleMin, final double scaleMax, final ImVec2 size, final int cmap, final String format) {
+        nColormapScale(label, scaleMin, scaleMax, size.x, size.y, cmap, format);
     }
 
     /**
      * Shows a vertical color scale with linear spaced ticks using the specified color map. Use double hashes to hide label (e.g. "##NoLabel").
      */
-    public static void colormapScale(final String label, final double scaleMin, final double scaleMax, final float sizeX, final float sizeY, final int cmap, final String fmt) {
-        nColormapScale(label, scaleMin, scaleMax, sizeX, sizeY, cmap, fmt);
+    public static void colormapScale(final String label, final double scaleMin, final double scaleMax, final float sizeX, final float sizeY, final int cmap, final String format) {
+        nColormapScale(label, scaleMin, scaleMax, sizeX, sizeY, cmap, format);
     }
 
     /**
      * Shows a vertical color scale with linear spaced ticks using the specified color map. Use double hashes to hide label (e.g. "##NoLabel").
      */
-    public static void colormapScale(final String label, final double scaleMin, final double scaleMax, final int cmap, final String fmt) {
-        nColormapScale(label, scaleMin, scaleMax, cmap, fmt);
+    public static void colormapScale(final String label, final double scaleMin, final double scaleMax, final int cmap, final String format) {
+        nColormapScale(label, scaleMin, scaleMax, cmap, format);
     }
 
     /**
      * Shows a vertical color scale with linear spaced ticks using the specified color map. Use double hashes to hide label (e.g. "##NoLabel").
      */
-    public static void colormapScale(final String label, final double scaleMin, final double scaleMax, final String fmt) {
-        nColormapScale(label, scaleMin, scaleMax, fmt);
+    public static void colormapScale(final String label, final double scaleMin, final double scaleMax, final String format) {
+        nColormapScale(label, scaleMin, scaleMax, format);
     }
 
     /**
      * Shows a vertical color scale with linear spaced ticks using the specified color map. Use double hashes to hide label (e.g. "##NoLabel").
      */
-    public static void colormapScale(final String label, final double scaleMin, final double scaleMax, final ImVec2 size, final String fmt) {
-        nColormapScale(label, scaleMin, scaleMax, size.x, size.y, fmt);
+    public static void colormapScale(final String label, final double scaleMin, final double scaleMax, final ImVec2 size, final String format) {
+        nColormapScale(label, scaleMin, scaleMax, size.x, size.y, format);
     }
 
     /**
      * Shows a vertical color scale with linear spaced ticks using the specified color map. Use double hashes to hide label (e.g. "##NoLabel").
      */
-    public static void colormapScale(final String label, final double scaleMin, final double scaleMax, final float sizeX, final float sizeY, final String fmt) {
-        nColormapScale(label, scaleMin, scaleMax, sizeX, sizeY, fmt);
+    public static void colormapScale(final String label, final double scaleMin, final double scaleMax, final float sizeX, final float sizeY, final String format) {
+        nColormapScale(label, scaleMin, scaleMax, sizeX, sizeY, format);
     }
 
     private static native void nColormapScale(String label, double scaleMin, double scaleMax); /*MANUAL
@@ -13218,38 +12871,38 @@ public final class ImPlot {
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
     */
 
-    private static native void nColormapScale(String label, double scaleMin, double scaleMax, float sizeX, float sizeY, int cmap, String fmt); /*MANUAL
+    private static native void nColormapScale(String label, double scaleMin, double scaleMax, float sizeX, float sizeY, int cmap, String format); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
-        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
+        auto format = obj_format == NULL ? NULL : (char*)env->GetStringUTFChars(obj_format, JNI_FALSE);
         ImVec2 size = ImVec2(sizeX, sizeY);
-        ImPlot::ColormapScale(label, scaleMin, scaleMax, size, cmap, fmt);
+        ImPlot::ColormapScale(label, scaleMin, scaleMax, size, cmap, format);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
-        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
+        if (format != NULL) env->ReleaseStringUTFChars(obj_format, format);
     */
 
-    private static native void nColormapScale(String label, double scaleMin, double scaleMax, int cmap, String fmt); /*MANUAL
+    private static native void nColormapScale(String label, double scaleMin, double scaleMax, int cmap, String format); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
-        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
-        ImPlot::ColormapScale(label, scaleMin, scaleMax, ImVec2(0,0), cmap, fmt);
+        auto format = obj_format == NULL ? NULL : (char*)env->GetStringUTFChars(obj_format, JNI_FALSE);
+        ImPlot::ColormapScale(label, scaleMin, scaleMax, ImVec2(0,0), cmap, format);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
-        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
+        if (format != NULL) env->ReleaseStringUTFChars(obj_format, format);
     */
 
-    private static native void nColormapScale(String label, double scaleMin, double scaleMax, String fmt); /*MANUAL
+    private static native void nColormapScale(String label, double scaleMin, double scaleMax, String format); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
-        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
-        ImPlot::ColormapScale(label, scaleMin, scaleMax, ImVec2(0,0), IMPLOT_AUTO, fmt);
+        auto format = obj_format == NULL ? NULL : (char*)env->GetStringUTFChars(obj_format, JNI_FALSE);
+        ImPlot::ColormapScale(label, scaleMin, scaleMax, ImVec2(0,0), IMPLOT_AUTO, format);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
-        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
+        if (format != NULL) env->ReleaseStringUTFChars(obj_format, format);
     */
 
-    private static native void nColormapScale(String label, double scaleMin, double scaleMax, float sizeX, float sizeY, String fmt); /*MANUAL
+    private static native void nColormapScale(String label, double scaleMin, double scaleMax, float sizeX, float sizeY, String format); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
-        auto fmt = obj_fmt == NULL ? NULL : (char*)env->GetStringUTFChars(obj_fmt, JNI_FALSE);
+        auto format = obj_format == NULL ? NULL : (char*)env->GetStringUTFChars(obj_format, JNI_FALSE);
         ImVec2 size = ImVec2(sizeX, sizeY);
-        ImPlot::ColormapScale(label, scaleMin, scaleMax, size, IMPLOT_AUTO, fmt);
+        ImPlot::ColormapScale(label, scaleMin, scaleMax, size, IMPLOT_AUTO, format);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
-        if (fmt != NULL) env->ReleaseStringUTFChars(obj_fmt, fmt);
+        if (format != NULL) env->ReleaseStringUTFChars(obj_format, format);
     */
 
     /**
@@ -13433,7 +13086,73 @@ public final class ImPlot {
     */
 
     //-----------------------------------------------------------------------------
-    // Miscellaneous
+    // [SECTION] Input Mapping
+    //-----------------------------------------------------------------------------
+
+    private static final ImPlotInputMap _GETINPUTMAP_1 = new ImPlotInputMap(0);
+
+    /**
+     * Provides access to the input mapping structure for permanent modifications to controls for pan, select, etc.
+     */
+    public static ImPlotInputMap getInputMap() {
+        _GETINPUTMAP_1.ptr = nGetInputMap();
+        return _GETINPUTMAP_1;
+    }
+
+    private static native long nGetInputMap(); /*
+        return (intptr_t)&ImPlot::GetInputMap();
+    */
+
+    /**
+     * Default input mapping: pan = LMB drag, box select = RMB drag,
+     * fit = LMB double click, context menu = RMB click, zoom = scroll.
+     */
+    public static void mapInputDefault() {
+        nMapInputDefault();
+    }
+
+    /**
+     * Default input mapping: pan = LMB drag, box select = RMB drag,
+     * fit = LMB double click, context menu = RMB click, zoom = scroll.
+     */
+    public static void mapInputDefault(final ImPlotInputMap dst) {
+        nMapInputDefault(dst.ptr);
+    }
+
+    private static native void nMapInputDefault(); /*
+        ImPlot::MapInputDefault();
+    */
+
+    private static native void nMapInputDefault(long dst); /*
+        ImPlot::MapInputDefault(reinterpret_cast<ImPlotInputMap*>(dst));
+    */
+
+    /**
+     * Reverse input mapping: pan = RMB drag, box select = LMB drag,
+     * fit = LMB double click, context menu = RMB click, zoom = scroll.
+     */
+    public static void mapInputReverse() {
+        nMapInputReverse();
+    }
+
+    /**
+     * Reverse input mapping: pan = RMB drag, box select = LMB drag,
+     * fit = LMB double click, context menu = RMB click, zoom = scroll.
+     */
+    public static void mapInputReverse(final ImPlotInputMap dst) {
+        nMapInputReverse(dst.ptr);
+    }
+
+    private static native void nMapInputReverse(); /*
+        ImPlot::MapInputReverse();
+    */
+
+    private static native void nMapInputReverse(long dst); /*
+        ImPlot::MapInputReverse(reinterpret_cast<ImPlotInputMap*>(dst));
+    */
+
+    //-----------------------------------------------------------------------------
+    // [SECTION] Miscellaneous
     //-----------------------------------------------------------------------------
 
     // Render icons similar to those that appear in legends (nifty for data lists).
@@ -13540,6 +13259,20 @@ public final class ImPlot {
     */
 
     /**
+     * Shows ImPlot input map selector dropdown menu.
+     */
+    public static boolean showInputMapSelector(final String label) {
+        return nShowInputMapSelector(label);
+    }
+
+    private static native boolean nShowInputMapSelector(String obj_label); /*MANUAL
+        auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
+        auto _result = ImPlot::ShowInputMapSelector(label);
+        if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
+        return _result;
+    */
+
+    /**
      * Shows ImPlot style editor block (not a window).
      */
     public static void showStyleEditor() {
@@ -13597,7 +13330,7 @@ public final class ImPlot {
     */
 
     //-----------------------------------------------------------------------------
-    // Demo
+    // [SECTION] Demo
     //-----------------------------------------------------------------------------
 
     /**
