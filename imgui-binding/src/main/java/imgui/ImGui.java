@@ -1563,6 +1563,9 @@ public class ImGui {
     public static native boolean TreeNode(@ArgValue(callPrefix = "(void*)") long ptrId, String label, Void NULL);
 
     @BindingMethod
+    public static native boolean TreeNodeEx(String label, int imGuiTreeNodeFlags);
+
+    @BindingMethod
     public static native boolean TreeNodeEx(String strId, int imGuiTreeNodeFlags, String label, Void NULL);
 
     @BindingMethod
@@ -1931,7 +1934,8 @@ public class ImGui {
     //   wastefully sort your data every frame!
     // - Lifetime: don't hold on this pointer over multiple frames or past any subsequent call to BeginTable().
 
-    // TODO: TableGetSortSpecs()
+    @BindingMethod
+    public static native ImGuiTableSortSpecs TableGetSortSpecs();
 
     // Tables: Miscellaneous functions
     // - Functions args 'int column_n' treat the default value of -1 as the same as passing the current column index.
