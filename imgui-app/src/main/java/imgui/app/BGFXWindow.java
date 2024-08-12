@@ -1,33 +1,28 @@
 package imgui.app;
 
 import imgui.ImGui;
+import imgui.bgfx.ImGuiImplBGFX;
 import imgui.flag.ImGuiConfigFlags;
-import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
-import org.lwjgl.glfw.Callbacks;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.bgfx.BGFXInit;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.glfw.GLFWWindowSizeCallback;
-import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL32;
+import org.lwjgl.glfw.*;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
+import org.lwjgl.system.Platform;
 
 import java.nio.IntBuffer;
 import java.util.Objects;
 
-/**
- * Low-level abstraction, which creates application window and starts the main loop.
- * It's recommended to use {@link Application}, but this class could be extended directly as well.
- * When extended, life-cycle methods should be called manually.
- */
-public abstract class Window extends Application {
+import static org.lwjgl.bgfx.BGFX.*;
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.system.Configuration.GLFW_LIBRARY_NAME;
+import static org.lwjgl.system.MemoryStack.stackPush;
 
+public abstract class BGFXWindow extends Application {
+    private final ImGuiImplBGFX imGuiBGFX = new ImGuiImplBGFX();
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
-    private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
-
-    private String glslVersion = null;
 
     /**
      * Pointer to the native GLFW window.
@@ -44,18 +39,18 @@ public abstract class Window extends Application {
      *
      * @param config configuration object with basic window information
      */
-    public final void init(final Configuration config) {
+    protected void init(final Configuration config) {
         initWindow(config);
         initImGui(config);
         imGuiGlfw.init(handle, true);
-        imGuiGl3.init(glslVersion);
+        imGuiBGFX.init();
     }
 
     /**
      * Method to dispose all used application resources and destroy its window.
      */
-    public final void dispose() {
-        imGuiGl3.dispose();
+    protected void dispose() {
+        imGuiBGFX.dispose();
         imGuiGlfw.dispose();
         disposeImGui();
         disposeWindow();
@@ -67,22 +62,25 @@ public abstract class Window extends Application {
      * @param config configuration object with basic window information
      */
     protected void initWindow(final Configuration config) {
+        if (Platform.get() == Platform.MACOSX) {
+            GLFW_LIBRARY_NAME.set("glfw_async");
+        }
+
         GLFWErrorCallback.createPrint(System.err).set();
 
         if (!GLFW.glfwInit()) {
             throw new IllegalStateException("Unable to initialize GLFW");
         }
 
-        decideGlGlslVersions();
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
-        GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
-        handle = GLFW.glfwCreateWindow(config.getWidth(), config.getHeight(), config.getTitle(), MemoryUtil.NULL, MemoryUtil.NULL);
+        handle = glfwCreateWindow(config.getWidth(), config.getHeight(), config.getTitle(), MemoryUtil.NULL, MemoryUtil.NULL);
 
         if (handle == MemoryUtil.NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
         }
 
-        try (MemoryStack stack = MemoryStack.stackPush()) {
+        try (MemoryStack stack = stackPush()) {
             final IntBuffer pWidth = stack.mallocInt(1); // int*
             final IntBuffer pHeight = stack.mallocInt(1); // int*
 
@@ -91,11 +89,34 @@ public abstract class Window extends Application {
             GLFW.glfwSetWindowPos(handle, (vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2);
         }
 
-        GLFW.glfwMakeContextCurrent(handle);
+        try (MemoryStack stack = stackPush()) {
+            BGFXInit init = BGFXInit.malloc(stack);
 
-        GL.createCapabilities();
+            bgfx_init_ctor(init);
+            init.resolution(it -> it
+                .width(config.getWidth())
+                .height(config.getHeight())
+                .reset(BGFX_RESET_VSYNC));
+            switch (Platform.get()) {
+                case LINUX:
+                    init.platformData()
+                        .ndt(GLFWNativeX11.glfwGetX11Display())
+                        .nwh(GLFWNativeX11.glfwGetX11Window(handle));
+                    break;
+                case MACOSX:
+                    init.platformData()
+                        .nwh(GLFWNativeCocoa.glfwGetCocoaWindow(handle));
+                    break;
+                case WINDOWS:
+                    init.platformData()
+                        .nwh(GLFWNativeWin32.glfwGetWin32Window(handle));
+                    break;
+            }
 
-        GLFW.glfwSwapInterval(GLFW.GLFW_TRUE);
+            if (!bgfx_init(init)) {
+                throw new RuntimeException("Error initializing bgfx renderer");
+            }
+        }
 
         if (config.isFullScreen()) {
             GLFW.glfwMaximizeWindow(handle);
@@ -109,24 +130,10 @@ public abstract class Window extends Application {
         GLFW.glfwSetWindowSizeCallback(handle, new GLFWWindowSizeCallback() {
             @Override
             public void invoke(final long window, final int width, final int height) {
+                bgfx_reset(width, height, BGFX_RESET_NONE, BGFX_TEXTURE_FORMAT_COUNT);
                 runFrame();
             }
         });
-    }
-
-    private void decideGlGlslVersions() {
-        final boolean isMac = System.getProperty("os.name").toLowerCase().contains("mac");
-        if (isMac) {
-            glslVersion = "#version 150";
-            GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
-            GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 2);
-            GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-            GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GLFW.GLFW_TRUE);          // Required on Mac
-        } else {
-            glslVersion = "#version 130";
-            GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
-            GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 0);
-        }
     }
 
     /**
@@ -179,8 +186,17 @@ public abstract class Window extends Application {
      * Method used to clear the OpenGL buffer.
      */
     private void clearBuffer() {
-        GL32.glClearColor(colorBg.getRed(), colorBg.getGreen(), colorBg.getBlue(), colorBg.getAlpha());
-        GL32.glClear(GL32.GL_COLOR_BUFFER_BIT | GL32.GL_DEPTH_BUFFER_BIT);
+        int color = Math.round(colorBg.getRed() * 255);
+        color = (color << 8) + Math.round(colorBg.getGreen() * 255);
+        color = (color << 8) + Math.round(colorBg.getBlue() * 255);
+        color = (color << 8) + Math.round(colorBg.getAlpha() * 255);
+        bgfx_set_view_clear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH,  color, 1.0f, 0);
+        IntBuffer w = BufferUtils.createIntBuffer(1);
+        IntBuffer h = BufferUtils.createIntBuffer(1);
+        glfwGetWindowSize(getHandle(), w, h);
+        int width = w.get(0);
+        int height = h.get(0);
+        bgfx_set_view_rect(0, 0, 0, width, height);
     }
 
     /**
@@ -199,7 +215,7 @@ public abstract class Window extends Application {
      */
     protected void endFrame() {
         ImGui.render();
-        imGuiGl3.renderDrawData(ImGui.getDrawData());
+        imGuiBGFX.renderDrawData(ImGui.getDrawData());
 
         if (ImGui.getIO().hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
             final long backupWindowPtr = GLFW.glfwGetCurrentContext();
@@ -215,7 +231,7 @@ public abstract class Window extends Application {
      * Method to render the OpenGL buffer and poll window events.
      */
     private void renderBuffer() {
-        GLFW.glfwSwapBuffers(handle);
+        bgfx_frame(false);
         GLFW.glfwPollEvents();
     }
 
@@ -230,6 +246,7 @@ public abstract class Window extends Application {
      * Method to destroy GLFW window.
      */
     protected void disposeWindow() {
+        bgfx_shutdown();
         Callbacks.glfwFreeCallbacks(handle);
         GLFW.glfwDestroyWindow(handle);
         GLFW.glfwTerminate();
