@@ -9,7 +9,6 @@ import imgui.binding.ImGuiStruct;
  * Make sure to set 'SpecsDirty = false' after sorting, else you may wastefully sort your data every frame!
  */
 public final class ImGuiTableSortSpecs extends ImGuiStruct {
-
     public ImGuiTableSortSpecs(final long ptr) {
         super(ptr);
     }
@@ -23,8 +22,8 @@ public final class ImGuiTableSortSpecs extends ImGuiStruct {
      * Pointer to sort spec array.
      */
     public ImGuiTableColumnSortSpecs[] getSpecs() {
-        long[] specsPointers = nGetSpecs();
-        ImGuiTableColumnSortSpecs[] specs = new ImGuiTableColumnSortSpecs[specsPointers.length];
+        final long[] specsPointers = nGetSpecs();
+        final ImGuiTableColumnSortSpecs[] specs = new ImGuiTableColumnSortSpecs[specsPointers.length];
         for (int i = 0; i < specsPointers.length; i++) {
             specs[i] = new ImGuiTableColumnSortSpecs(specsPointers[i]);
         }

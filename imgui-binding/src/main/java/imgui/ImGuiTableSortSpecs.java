@@ -13,7 +13,6 @@ import imgui.binding.annotation.BindingSource;
  */
 @BindingSource
 public final class ImGuiTableSortSpecs extends ImGuiStruct {
-
     public ImGuiTableSortSpecs(final long ptr) {
         super(ptr);
     }
@@ -27,8 +26,8 @@ public final class ImGuiTableSortSpecs extends ImGuiStruct {
      * Pointer to sort spec array.
      */
     public ImGuiTableColumnSortSpecs[] getSpecs() {
-        long[] specsPointers = nGetSpecs();
-        ImGuiTableColumnSortSpecs[] specs = new ImGuiTableColumnSortSpecs[specsPointers.length];
+        final long[] specsPointers = nGetSpecs();
+        final ImGuiTableColumnSortSpecs[] specs = new ImGuiTableColumnSortSpecs[specsPointers.length];
         for (int i = 0; i < specsPointers.length; i++) {
             specs[i] = new ImGuiTableColumnSortSpecs(specsPointers[i]);
         }
