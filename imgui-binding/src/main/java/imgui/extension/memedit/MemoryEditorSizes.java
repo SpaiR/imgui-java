@@ -7,6 +7,7 @@ import imgui.binding.annotation.BindingSource;
 @BindingSource
 public final class MemoryEditorSizes extends ImGuiStructDestroyable {
     public MemoryEditorSizes() {
+        super();
     }
 
     public MemoryEditorSizes(final long ptr) {

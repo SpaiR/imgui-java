@@ -328,7 +328,6 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-    /**
      * When holding a key/button, time before it starts repeating, in seconds (for buttons in Repeat mode, etc.).
      */
     public float getKeyRepeatDelay() {

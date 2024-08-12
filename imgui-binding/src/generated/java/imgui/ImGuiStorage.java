@@ -14,6 +14,7 @@ import imgui.binding.ImGuiStructDestroyable;
  */
 public final class ImGuiStorage extends ImGuiStructDestroyable {
     public ImGuiStorage() {
+        super();
     }
 
     public ImGuiStorage(final long ptr) {

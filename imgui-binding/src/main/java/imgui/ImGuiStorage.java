@@ -18,6 +18,7 @@ import imgui.binding.annotation.OptArg;
 @BindingSource
 public final class ImGuiStorage extends ImGuiStructDestroyable {
     public ImGuiStorage() {
+        super();
     }
 
     public ImGuiStorage(final long ptr) {

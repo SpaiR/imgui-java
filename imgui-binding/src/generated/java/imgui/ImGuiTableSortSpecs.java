@@ -45,7 +45,7 @@ public final class ImGuiTableSortSpecs extends ImGuiStruct {
     */
 
     /**
-     * Sort spec count. Most often 1. May be {@code > } 1 when ImGuiTableFlags_SortMulti is enabled. May be == 0 when ImGuiTableFlags_SortTristate is enabled.
+     * Sort spec count. Most often 1. May be {@code >} 1 when ImGuiTableFlags_SortMulti is enabled. May be == 0 when ImGuiTableFlags_SortTristate is enabled.
      */
     public int getSpecsCount() {
         return nGetSpecsCount();

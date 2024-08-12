@@ -15,6 +15,7 @@ import imgui.binding.annotation.ReturnValue;
 @BindingSource
 public final class ImFont extends ImGuiStructDestroyable {
     public ImFont() {
+        super();
     }
 
     public ImFont(final long ptr) {
