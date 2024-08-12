@@ -22,6 +22,6 @@ dependencies {
     implementation("com.lordcodes.turtle:turtle:0.6.0")
     implementation("fr.inria.gforge.spoon:spoon-core:10.3.0")
 
-    implementation("com.fasterxml.jackson.core:jackson-core:2.14.2")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.17.2")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
 }
