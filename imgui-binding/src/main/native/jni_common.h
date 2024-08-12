@@ -20,4 +20,7 @@ namespace Jni
 
     void ImVec2ArrayCpy(JNIEnv* env, jobjectArray src, ImVec2* dst, int size);
     void ImVec4ArrayCpy(JNIEnv* env, jobjectArray src, ImVec4* dst, int size);
+
+    jobjectArray NewImGuiKeyDataArray(JNIEnv* env, const ImGuiKeyData* src, int size);
+    void ImGuiKeyDataArrayCpy(JNIEnv* env, jobjectArray src, ImGuiKeyData* dst, int size);
 }

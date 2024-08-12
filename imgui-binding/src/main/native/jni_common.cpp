@@ -1,4 +1,5 @@
 #include "jni_common.h"
+#include "jni_binding_struct.h"
 
 static jfieldID imVec2XID;
 static jfieldID imVec2YID;
@@ -62,7 +63,7 @@ namespace Jni
         jclass cls = env->FindClass("imgui/ImVec2");
         jmethodID cstr = env->GetMethodID(cls, "<init>", "(FF)V");
         jobjectArray dst = env->NewObjectArray(size, cls, NULL);
-        for (int i = 0; i < size; ++i) {
+        for (int i = 0; i < size; i++) {
             jobject vec = env->NewObject(cls, cstr, src[i].x, src[i].y);
             env->SetObjectArrayElement(dst, i, vec);
             env->DeleteLocalRef(vec);
@@ -74,7 +75,7 @@ namespace Jni
         jclass cls = env->FindClass("imgui/ImVec4");
         jmethodID cstr = env->GetMethodID(cls, "<init>", "(FFFF)V");
         jobjectArray dst = env->NewObjectArray(size, cls, NULL);
-        for (int i = 0; i < size; ++i) {
+        for (int i = 0; i < size; i++) {
             jobject vec = env->NewObject(cls, cstr, src[i].x, src[i].y, src[i].z, src[i].w);
             env->SetObjectArrayElement(dst, i, vec);
             env->DeleteLocalRef(vec);
@@ -94,6 +95,27 @@ namespace Jni
         for (int i = 0; i < size; i++) {
             jobject value = env->GetObjectArrayElement(src, i);
             Jni::ImVec4Cpy(env, value, &dst[i]);
+            env->DeleteLocalRef(value);
+        }
+    }
+
+    jobjectArray NewImGuiKeyDataArray(JNIEnv* env, const ImGuiKeyData* src, int size) {
+        jclass cls = env->FindClass("imgui/ImGuiKeyData");
+        jmethodID cstr = env->GetMethodID(cls, "<init>", "(J)V");
+        jobjectArray dst = env->NewObjectArray(size, cls, NULL);
+        for (int i = 0; i < size; i++) {
+            jobject obj = env->NewObject(cls, cstr, (jlong)(intptr_t)&src[i]);
+            env->SetObjectArrayElement(dst, i, obj);
+            env->DeleteLocalRef(obj);
+        }
+        return dst;
+    }
+
+    void ImGuiKeyDataArrayCpy(JNIEnv* env, jobjectArray src, ImGuiKeyData* dst, int size) {
+        for (int i = 0; i < size; i++) {
+            jobject value = env->GetObjectArrayElement(src, i);
+            jlong ptr = env->GetLongField(value, Jni::GetBindingStructPtrID());
+            dst[i] = *reinterpret_cast<ImGuiKeyData*>(ptr);
             env->DeleteLocalRef(value);
         }
     }

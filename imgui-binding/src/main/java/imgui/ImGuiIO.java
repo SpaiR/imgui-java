@@ -5,6 +5,7 @@ import imgui.binding.annotation.ArgValue;
 import imgui.binding.annotation.BindingField;
 import imgui.binding.annotation.BindingMethod;
 import imgui.binding.annotation.BindingSource;
+import imgui.binding.annotation.OptArg;
 import imgui.binding.annotation.ReturnValue;
 import imgui.binding.annotation.TypeArray;
 import imgui.callback.ImStrConsumer;
@@ -88,13 +89,6 @@ public final class ImGuiIO extends ImGuiStruct {
      */
     @BindingField
     public float MouseDragThreshold;
-
-    /**
-     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
-     */
-    @BindingField
-    @TypeArray(type = "int", size = "ImGuiKey_COUNT")
-    public int[] KeyMap;
 
     /**
      * When holding a key/button, time before it starts repeating, in seconds (for buttons in Repeat mode, etc.).
@@ -206,6 +200,12 @@ public final class ImGuiIO extends ImGuiStruct {
     public boolean ConfigMacOSXBehaviors;
 
     /**
+     * Enable input queue trickling: some types of events submitted during the same frame (e.g. button down + up) will be spread over multiple frames, improving interactions with low framerates.
+     */
+    @BindingField
+    public boolean ConfigInputTrickleEventQueue;
+
+    /**
      * Set to false to disable blinking cursor, for users who consider it distracting.
      */
     @BindingField
@@ -285,82 +285,52 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     //------------------------------------------------------------------
-    // Input - Fill before calling NewFrame()
+    // Input - Call before calling NewFrame()
     //------------------------------------------------------------------
 
-    /**
-     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
-     */
-    @BindingField
-    public ImVec2 MousePos;
+    // Input Functions
 
     /**
-     * Mouse buttons: 0=left, 1=right, 2=middle + extras (ImGuiMouseButton_COUNT == 5). Dear ImGui mostly uses left and right buttons.
-     * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
+     * Queue a new key down/up event. Key should be "translated" (as in, generally ImGuiKey_A matches the key end-user would use to emit an 'A' character)
      */
-    @BindingField
-    @TypeArray(type = "boolean", size = "5")
-    public boolean[] MouseDown;
+    @BindingMethod
+    public native void AddKeyEvent(@ArgValue(staticCast = "ImGuiKey") int key, boolean down);
 
     /**
-     * Mouse wheel Vertical: 1 unit scrolls about 5 lines text.
+     * Queue a new key down/up event for analog values (e.g. ImGuiKey_Gamepad_ values). Dead-zones should be handled by the backend.
      */
-    @BindingField
-    public float MouseWheel;
+    @BindingMethod
+    public native void AddKeyAnalogEvent(@ArgValue(staticCast = "ImGuiKey") int key, boolean down, float v);
 
     /**
-     * Mouse wheel Horizontal. Most users don't have a mouse with an horizontal wheel, may not be filled by all backends.
+     * Queue a mouse position update. Use -FLT_MAX,-FLT_MAX to signify no mouse (e.g. app not focused and not hovered)
      */
-    @BindingField
-    public float MouseWheelH;
+    @BindingMethod
+    public native void AddMousePosEvent(float x, float y);
 
     /**
-     * (Optional) When using multiple viewports: viewport the OS mouse cursor is hovering _IGNORING_ viewports with the ImGuiViewportFlags_NoInputs flag,
-     * and _REGARDLESS_ of whether another viewport is focused. Set io.BackendFlags |= ImGuiBackendFlags_HasMouseHoveredViewport if you can provide this info.
-     * If you don't imgui will infer the value using the rectangles and last focused time of the viewports it knows about (ignoring other OS windows).
+     * Queue a mouse button change
      */
-    @BindingField
-    public int MouseHoveredViewport;
+    @BindingMethod
+    public native void AddMouseButtonEvent(int button, boolean down);
 
     /**
-     * Keyboard modifier pressed: Control
+     * Queue a mouse wheel update
      */
-    @BindingField
-    public boolean KeyCtrl;
+    @BindingMethod
+    public native void AddMouseWheelEvent(float whX, float whY);
 
     /**
-     * Keyboard modifier pressed: Shift
+     * Queue a mouse hovered viewport. Requires backend to set ImGuiBackendFlags_HasMouseHoveredViewport to call this (for multi-viewport support).
      */
-    @BindingField
-    public boolean KeyShift;
+    @BindingMethod
+    public native void AddMouseViewportEvent(@ArgValue(staticCast = "ImGuiID") int id);
 
     /**
-     * Keyboard modifier pressed: Alt
+     * Queue a gain/loss of focus for the application (generally based on OS/platform focus of your window)
      */
-    @BindingField
-    public boolean KeyAlt;
-
-    /**
-     * Keyboard modifier pressed: Cmd/Super/Windows
-     */
-    @BindingField
-    public boolean KeySuper;
-
-    /**
-     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
-     */
-    @BindingField
-    @TypeArray(type = "boolean", size = "512")
-    public boolean[] KeysDown;
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    @BindingField
-    @TypeArray(type = "float", size = "512")
-    public float[] NavInputs;
-
-    // Functions
+    @BindingMethod
+    public native void AddFocusEvent(boolean focused);
 
     /**
      * Queue new character input.
@@ -381,12 +351,6 @@ public final class ImGuiIO extends ImGuiStruct {
     public native void AddInputCharactersUTF8(String str);
 
     /**
-     * Notifies Dear ImGui when hosting platform windows lose or gain input focus
-     */
-    @BindingMethod
-    public native void AddFocusEvent(boolean focused);
-
-    /**
      * [Internal] Clear the text input buffer manually
      */
     @BindingMethod
@@ -397,6 +361,12 @@ public final class ImGuiIO extends ImGuiStruct {
      */
     @BindingMethod
     public native void ClearInputKeys();
+
+    /**
+     * [Optional] Specify index for legacy <1.87 IsKeyXXX() functions with native indices + specify native keycode, scancode.
+     */
+    @BindingMethod
+    public native void SetKeyEventNativeData(@ArgValue(staticCast = "ImGuiKey") int key, int nativeKeycode, int nativeScancode, @OptArg int nativeLegacyIndex);
 
     //------------------------------------------------------------------
     // Output - Updated by NewFrame() or EndFrame()/Render()
@@ -496,15 +466,92 @@ public final class ImGuiIO extends ImGuiStruct {
     @BindingField
     public ImVec2 MouseDelta;
 
+    /**
+     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
+     */
+    @BindingField
+    @TypeArray(type = "int", size = "ImGuiKey_COUNT")
+    @Deprecated
+    public int[] KeyMap;
+
+    /**
+     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
+     */
+    @BindingField
+    @TypeArray(type = "boolean", size = "512")
+    @Deprecated
+    public boolean[] KeysDown;
+
     //------------------------------------------------------------------
     // [Internal] Dear ImGui will maintain those fields. Forward compatibility not guaranteed!
     //------------------------------------------------------------------
 
     /**
-     * Alternative to WantCaptureMouse: (WantCaptureMouse == true {@code &&} WantCaptureMouseUnlessPopupClose == false) when a click over void is expected to close a popup.
+     * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
      */
     @BindingField
-    public boolean WantCaptureMouseUnlessPopupClose;
+    public ImVec2 MousePos;
+
+    /**
+     * Mouse buttons: 0=left, 1=right, 2=middle + extras (ImGuiMouseButton_COUNT == 5). Dear ImGui mostly uses left and right buttons.
+     * Others buttons allows us to track if the mouse is being used by your application + available to user as a convenience via IsMouse** API.
+     */
+    @BindingField
+    @TypeArray(type = "boolean", size = "5")
+    public boolean[] MouseDown;
+
+    /**
+     * Mouse wheel Vertical: 1 unit scrolls about 5 lines text.
+     */
+    @BindingField
+    public float MouseWheel;
+
+    /**
+     * Mouse wheel Horizontal. Most users don't have a mouse with an horizontal wheel, may not be filled by all backends.
+     */
+    @BindingField
+    public float MouseWheelH;
+
+    /**
+     * (Optional) When using multiple viewports: viewport the OS mouse cursor is hovering _IGNORING_ viewports with the ImGuiViewportFlags_NoInputs flag,
+     * and _REGARDLESS_ of whether another viewport is focused. Set io.BackendFlags |= ImGuiBackendFlags_HasMouseHoveredViewport if you can provide this info.
+     * If you don't imgui will infer the value using the rectangles and last focused time of the viewports it knows about (ignoring other OS windows).
+     */
+    @BindingField
+    public int MouseHoveredViewport;
+
+    /**
+     * Keyboard modifier pressed: Control
+     */
+    @BindingField
+    public boolean KeyCtrl;
+
+    /**
+     * Keyboard modifier pressed: Shift
+     */
+    @BindingField
+    public boolean KeyShift;
+
+    /**
+     * Keyboard modifier pressed: Alt
+     */
+    @BindingField
+    public boolean KeyAlt;
+
+    /**
+     * Keyboard modifier pressed: Cmd/Super/Windows
+     */
+    @BindingField
+    public boolean KeySuper;
+
+    /**
+     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
+     */
+    @BindingField
+    @TypeArray(type = "float", size = "512")
+    public float[] NavInputs;
+
+    // Other state maintained from data above + IO function calls
 
     /**
      * Key mods flags (same as io.KeyCtrl/KeyShift/KeyAlt/KeySuper but merged into flags), updated by NewFrame()
@@ -513,10 +560,23 @@ public final class ImGuiIO extends ImGuiStruct {
     public int KeyMods;
 
     /**
-     * Previous key mods
+     * Key mods flags (from previous frame)
      */
     @BindingField
     public int KeyModsPrev;
+
+    /**
+     * Key state for all known keys. Use IsKeyXXX() functions to access this.
+     */
+    @BindingField
+    @TypeArray(type = "ImGuiKeyData", size = "ImGuiKey_KeysData_SIZE")
+    public ImGuiKeyData[] KeysData;
+
+    /**
+     * Alternative to WantCaptureMouse: (WantCaptureMouse == true {@code &&} WantCaptureMouseUnlessPopupClose == false) when a click over void is expected to close a popup.
+     */
+    @BindingField
+    public boolean WantCaptureMouseUnlessPopupClose;
 
     /**
      * Previous mouse position (note that MouseDelta is not necessary == MousePos-MousePosPrev, in case either position is invalid)
@@ -615,20 +675,6 @@ public final class ImGuiIO extends ImGuiStruct {
     @TypeArray(type = "float", size = "5")
     public float[] MouseDragMaxDistanceSqr;
 
-    /**
-     * Duration the keyboard key has been down (0.0f == just pressed)
-     */
-    @BindingField
-    @TypeArray(type = "float", size = "512")
-    public float[] KeysDownDuration;
-
-    /**
-     * Previous duration the key has been down
-     */
-    @BindingField
-    @TypeArray(type = "float", size = "512")
-    public float[] KeysDownDurationPrev;
-
     @BindingField
     @TypeArray(type = "float", size = "ImGuiNavInput_COUNT")
     public float[] NavInputsDownDuration;
@@ -645,6 +691,18 @@ public final class ImGuiIO extends ImGuiStruct {
 
     @BindingField
     public boolean AppFocusLost;
+
+    /**
+     * -1: unknown, 0: using AddKeyEvent(), 1: using legacy io.KeysDown[]
+     */
+    @BindingField
+    public short BackendUsingLegacyKeyArrays;
+
+    /**
+     * 0: using AddKeyAnalogEvent(), 1: writing to legacy io.NavInputs[] directly
+     */
+    @BindingField
+    public boolean BackendUsingLegacyNavInputArray;
 
     /**
      * For AddInputCharacterUTF16
