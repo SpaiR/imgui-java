@@ -13,7 +13,7 @@ namespace Jni
     void ImPlotRangeCpy(JNIEnv* env, ImPlotRange src, jobject dst);
     void ImPlotRangeCpy(JNIEnv* env, jobject src, ImPlotRange* dst);
 
-    void ImPlotLimitsCpy(JNIEnv* env, ImPlotLimits* src, jobject dst);
-    void ImPlotLimitsCpy(JNIEnv* env, ImPlotLimits src, jobject dst);
-    void ImPlotLimitsCpy(JNIEnv* env, jobject src, ImPlotLimits* dst);
+    void ImPlotRectCpy(JNIEnv* env, ImPlotRect* src, jobject dst);
+    void ImPlotRectCpy(JNIEnv* env, ImPlotRect src, jobject dst);
+    void ImPlotRectCpy(JNIEnv* env, jobject src, ImPlotRect* dst);
 }

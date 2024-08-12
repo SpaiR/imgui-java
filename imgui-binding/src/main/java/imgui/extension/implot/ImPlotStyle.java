@@ -10,6 +10,7 @@ import imgui.binding.annotation.TypeArray;
 @BindingSource
 public final class ImPlotStyle extends ImGuiStructDestroyable {
     public ImPlotStyle() {
+        super();
     }
 
     public ImPlotStyle(final long ptr) {

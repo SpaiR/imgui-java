@@ -4,10 +4,10 @@ import imgui.binding.annotation.BindingAstEnum;
 import imgui.binding.annotation.BindingSource;
 
 @BindingSource
-public final class ImPlotOrientation {
-    private ImPlotOrientation() {
+public final class ImPlotCond {
+    private ImPlotCond() {
     }
 
-    @BindingAstEnum(file = "ast-implot.json", qualType = "ImPlotOrientation_")
+    @BindingAstEnum(file = "ast-implot.json", qualType = "ImPlotCond_")
     public Void __;
 }

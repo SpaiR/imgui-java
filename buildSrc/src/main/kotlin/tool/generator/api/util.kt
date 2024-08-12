@@ -74,7 +74,7 @@ val DST_RETURN_TYPE_SET = setOf(
     "ImRect",
     "ImPlotPoint",
     "ImPlotRange",
-    "ImPlotLimits",
+    "ImPlotRect",
     "TextEditorCoordinates",
 )
 

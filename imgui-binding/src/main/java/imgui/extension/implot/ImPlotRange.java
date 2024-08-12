@@ -25,6 +25,10 @@ public final class ImPlotRange implements Cloneable {
         return max - min;
     }
 
+    public double clamp(final double value) {
+        return Math.max(min, Math.min(max, value));
+    }
+
     public ImPlotRange set(final double min, final double max) {
         this.min = min;
         this.max = max;
