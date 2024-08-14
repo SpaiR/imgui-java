@@ -363,7 +363,7 @@ public final class ImGuiIO extends ImGuiStruct {
     public native void ClearInputKeys();
 
     /**
-     * [Optional] Specify index for legacy <1.87 IsKeyXXX() functions with native indices + specify native keycode, scancode.
+     * [Optional] Specify index for legacy before 1.87 IsKeyXXX() functions with native indices + specify native keycode, scancode.
      */
     @BindingMethod
     public native void SetKeyEventNativeData(@ArgValue(staticCast = "ImGuiKey") int key, int nativeKeycode, int nativeScancode, @OptArg int nativeLegacyIndex);

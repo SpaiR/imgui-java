@@ -6,7 +6,7 @@ import imgui.binding.annotation.BindingSource;
 
 /**
  * [Internal] Storage used by IsKeyDown(), IsKeyPressed() etc functions.
- * If prior to 1.87 you used io.KeysDownDuration[] (which was marked as internal), you should use GetKeyData(key)->DownDuration and not io.KeysData[key]->DownDuration.
+ * If prior to 1.87 you used io.KeysDownDuration[] (which was marked as internal), you should use GetKeyData(key).DownDuration and not io.KeysData[key].DownDuration.
  */
 @BindingSource
 public final class ImGuiKeyData extends ImGuiStructDestroyable {
@@ -39,7 +39,7 @@ public final class ImGuiKeyData extends ImGuiStructDestroyable {
     public boolean Down;
 
     /**
-     * Duration the key has been down (<0.0f: not pressed, 0.0f: just pressed, >0.0f: time held)
+     * Duration the key has been down ({@code <}0.0f: not pressed, 0.0f: just pressed, {@code >}0.0f: time held)
      */
     @BindingField
     public float DownDuration;

@@ -1106,14 +1106,14 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-     * [Optional] Specify index for legacy <1.87 IsKeyXXX() functions with native indices + specify native keycode, scancode.
+     * [Optional] Specify index for legacy before 1.87 IsKeyXXX() functions with native indices + specify native keycode, scancode.
      */
     public void setKeyEventNativeData(final int key, final int nativeKeycode, final int nativeScancode) {
         nSetKeyEventNativeData(key, nativeKeycode, nativeScancode);
     }
 
     /**
-     * [Optional] Specify index for legacy <1.87 IsKeyXXX() functions with native indices + specify native keycode, scancode.
+     * [Optional] Specify index for legacy before 1.87 IsKeyXXX() functions with native indices + specify native keycode, scancode.
      */
     public void setKeyEventNativeData(final int key, final int nativeKeycode, final int nativeScancode, final int nativeLegacyIndex) {
         nSetKeyEventNativeData(key, nativeKeycode, nativeScancode, nativeLegacyIndex);
