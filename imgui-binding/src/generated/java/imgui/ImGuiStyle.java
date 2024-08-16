@@ -9,6 +9,7 @@ import imgui.binding.ImGuiStructDestroyable;
  */
 public final class ImGuiStyle extends ImGuiStructDestroyable {
     public ImGuiStyle() {
+        super();
     }
 
     public ImGuiStyle(final long ptr) {

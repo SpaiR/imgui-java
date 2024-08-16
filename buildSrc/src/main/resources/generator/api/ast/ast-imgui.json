@@ -1,9 +1,9 @@
 {
   "info" : {
     "source" : "include/imgui/imgui.h",
-    "hash" : "97ead8252e026205d9bf9540a0106e96",
+    "hash" : "76f421743dc699b039d2dd2dc2a13f8e",
     "url" : "https://github.com/ocornut/imgui",
-    "revision" : "15b4a064f9244c430e65214f7249b615fb394321"
+    "revision" : "1ee252772ae9c0a971d06257bb5c89f628fa696a"
   },
   "decls" : [ {
     "@type" : "AstRecordDecl",
@@ -2226,7 +2226,10 @@
             "text" : " - CTRL+Click on any drag box to turn them into an input box. Manually input values aren't clamped by default and can go off-bounds. Use ImGuiSliderFlags_AlwaysClamp to always clamp."
           }, {
             "@type" : "AstTextComment",
-            "text" : " - For all the Float2/Float3/Float4/Int2/Int3/Int4 versions of every functions, note that a 'float v[X]' function argument is the same as 'float* v', the array syntax is just a way to document the number of elements that are expected to be accessible. You can pass address of your first element out of a contiguous set, e.g. "
+            "text" : " - For all the Float2/Float3/Float4/Int2/Int3/Int4 versions of every functions, note that a 'float v[X]' function argument is the same as 'float* v',"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : "   the array syntax is just a way to document the number of elements that are expected to be accessible. You can pass address of your first element out of a contiguous set, e.g. "
           }, {
             "@type" : "AstTextComment",
             "text" : "&myvector"
@@ -5103,6 +5106,9 @@
           }, {
             "@type" : "AstTextComment",
             "text" : "  - Use IsWindowAppearing() after BeginPopup() to tell if a window just opened."
+          }, {
+            "@type" : "AstTextComment",
+            "text" : "  - IMPORTANT: Notice that for OpenPopupOnItemClick() we exceptionally default flags to 1 (== ImGuiPopupFlags_MouseButtonRight) for backward compatibility with older API taking 'int mouse_button = 1' parameter"
           } ]
         } ]
       } ]
@@ -5177,7 +5183,7 @@
             "text" : "  - IMPORTANT: Notice that BeginPopupContextXXX takes ImGuiPopupFlags just like OpenPopup() and unlike BeginPopup(). For full consistency, we may add ImGuiWindowFlags to the BeginPopupContextXXX functions in the future."
           }, {
             "@type" : "AstTextComment",
-            "text" : "  - IMPORTANT: we exceptionally default their flags to 1 (== ImGuiPopupFlags_MouseButtonRight) for backward compatibility with older API taking 'int mouse_button = 1' parameter, so if you add other flags remember to re-add the ImGuiPopupFlags_MouseButtonRight."
+            "text" : "  - IMPORTANT: Notice that we exceptionally default their flags to 1 (== ImGuiPopupFlags_MouseButtonRight) for backward compatibility with older API taking 'int mouse_button = 1' parameter, so if you add other flags remember to re-add the ImGuiPopupFlags_MouseButtonRight."
           } ]
         } ]
       } ]
@@ -5288,9 +5294,6 @@
           "decls" : [ {
             "@type" : "AstTextComment",
             "text" : " Tables"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " [BETA API] API may evolve slightly! If you use this, please update to the next version when it comes out!"
           }, {
             "@type" : "AstTextComment",
             "text" : " - Full-featured replacement for old Columns API."
@@ -6578,11 +6581,11 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "name" : "GetKeyIndex",
-      "resultType" : "int",
+      "name" : "IsKeyDown",
+      "resultType" : "bool",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "name" : "imgui_key",
+        "name" : "key",
         "qualType" : "ImGuiKey",
         "desugaredQualType" : "int"
       }, {
@@ -6594,22 +6597,27 @@
             "text" : " Inputs Utilities: Keyboard"
           }, {
             "@type" : "AstTextComment",
-            "text" : " - For 'int user_key_index' you can use your own indices/enums according to how your backend/engine stored them in io.KeysDown[]."
+            "text" : " Without IMGUI_DISABLE_OBSOLETE_KEYIO: (legacy support)"
           }, {
             "@type" : "AstTextComment",
-            "text" : " - We don't know the meaning of those value. You can use GetKeyIndex() to map a ImGuiKey_ value into the user index."
+            "text" : "   - For 'ImGuiKey key' you can still use your legacy native/user indices according to how your backend/engine stored them in io.KeysDown[]."
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " With IMGUI_DISABLE_OBSOLETE_KEYIO: (this is the way forward)"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : "   - Any use of 'ImGuiKey' will assert when key "
+          }, {
+            "@type" : "AstTextComment",
+            "text" : "<"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " 512 will be passed, previously reserved as native/user keys indices"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : "   - GetKeyIndex() is pass-through and therefore deprecated (gone if IMGUI_DISABLE_OBSOLETE_KEYIO is defined)"
           } ]
         } ]
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "IsKeyDown",
-      "resultType" : "bool",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "user_key_index",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6617,8 +6625,8 @@
       "resultType" : "bool",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "name" : "user_key_index",
-        "qualType" : "int",
+        "name" : "key",
+        "qualType" : "ImGuiKey",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstParmVarDecl",
@@ -6633,8 +6641,8 @@
       "resultType" : "bool",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "name" : "user_key_index",
-        "qualType" : "int",
+        "name" : "key",
+        "qualType" : "ImGuiKey",
         "desugaredQualType" : "int"
       } ]
     }, {
@@ -6643,8 +6651,8 @@
       "resultType" : "int",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "name" : "key_index",
-        "qualType" : "int",
+        "name" : "key",
+        "qualType" : "ImGuiKey",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstParmVarDecl",
@@ -6656,6 +6664,16 @@
         "name" : "rate",
         "qualType" : "float",
         "desugaredQualType" : "float"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "GetKeyName",
+      "resultType" : "const char *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "key",
+        "qualType" : "ImGuiKey",
+        "desugaredQualType" : "int"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -8192,10 +8210,7 @@
           "text" : " Flags for ImGui::BeginTable()"
         }, {
           "@type" : "AstTextComment",
-          "text" : " [BETA API] API may evolve slightly! If you use this, please update to the next version when it comes out!"
-        }, {
-          "@type" : "AstTextComment",
-          "text" : " - Important! Sizing policies have complex and subtle side effects, more so than you would expect."
+          "text" : " - Important! Sizing policies have complex and subtle side effects, much more so than you would expect."
         }, {
           "@type" : "AstTextComment",
           "text" : "   Read comments/demos carefully + experiment with live demos to get acquainted with them."
@@ -8219,10 +8234,10 @@
           "text" : "    - Columns sizing policy allowed: Stretch (default), Fixed/Auto."
         }, {
           "@type" : "AstTextComment",
-          "text" : "    - Fixed Columns will generally obtain their requested width (unless the table cannot fit them all)."
+          "text" : "    - Fixed Columns (if any) will generally obtain their requested width (unless the table cannot fit them all)."
         }, {
           "@type" : "AstTextComment",
-          "text" : "    - Stretch Columns will share the remaining width."
+          "text" : "    - Stretch Columns will share the remaining width according to their respective weight."
         }, {
           "@type" : "AstTextComment",
           "text" : "    - Mixed Fixed/Stretch columns is possible but has various side-effects on resizing behaviors."
@@ -8798,7 +8813,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiTableRowFlags_Headers",
-      "docComment" : "Identify header row (set default background color + width of its contents accounted different for auto column width)",
+      "docComment" : "Identify header row (set default background color + width of its contents accounted differently for auto column width)",
       "qualType" : "ImGuiTableRowFlags_",
       "order" : 1,
       "value" : "1 << 0",
@@ -9409,158 +9424,907 @@
     "@type" : "AstEnumDecl",
     "name" : "ImGuiKey_",
     "decls" : [ {
-      "@type" : "AstFullComment",
-      "decls" : [ {
-        "@type" : "AstParagraphComment",
-        "decls" : [ {
-          "@type" : "AstTextComment",
-          "text" : " User fill ImGuiIO.KeyMap[] array with indices into the ImGuiIO.KeysDown[512] array"
-        } ]
-      } ]
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_None",
+      "docComment" : "Keyboard",
+      "qualType" : "ImGuiKey_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Tab",
+      "docComment" : "== ImGuiKey_NamedKey_BEGIN",
       "qualType" : "ImGuiKey_",
-      "order" : 0,
-      "evaluatedValue" : 0
+      "order" : 1,
+      "value" : "512",
+      "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_LeftArrow",
       "qualType" : "ImGuiKey_",
-      "order" : 1,
-      "evaluatedValue" : 1
+      "order" : 2,
+      "evaluatedValue" : 513
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_RightArrow",
       "qualType" : "ImGuiKey_",
-      "order" : 2,
-      "evaluatedValue" : 2
+      "order" : 3,
+      "evaluatedValue" : 514
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_UpArrow",
       "qualType" : "ImGuiKey_",
-      "order" : 3,
-      "evaluatedValue" : 3
+      "order" : 4,
+      "evaluatedValue" : 515
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_DownArrow",
       "qualType" : "ImGuiKey_",
-      "order" : 4,
-      "evaluatedValue" : 4
+      "order" : 5,
+      "evaluatedValue" : 516
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_PageUp",
       "qualType" : "ImGuiKey_",
-      "order" : 5,
-      "evaluatedValue" : 5
+      "order" : 6,
+      "evaluatedValue" : 517
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_PageDown",
       "qualType" : "ImGuiKey_",
-      "order" : 6,
-      "evaluatedValue" : 6
+      "order" : 7,
+      "evaluatedValue" : 518
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Home",
       "qualType" : "ImGuiKey_",
-      "order" : 7,
-      "evaluatedValue" : 7
+      "order" : 8,
+      "evaluatedValue" : 519
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_End",
       "qualType" : "ImGuiKey_",
-      "order" : 8,
-      "evaluatedValue" : 8
+      "order" : 9,
+      "evaluatedValue" : 520
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Insert",
       "qualType" : "ImGuiKey_",
-      "order" : 9,
-      "evaluatedValue" : 9
+      "order" : 10,
+      "evaluatedValue" : 521
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Delete",
       "qualType" : "ImGuiKey_",
-      "order" : 10,
-      "evaluatedValue" : 10
+      "order" : 11,
+      "evaluatedValue" : 522
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Backspace",
       "qualType" : "ImGuiKey_",
-      "order" : 11,
-      "evaluatedValue" : 11
+      "order" : 12,
+      "evaluatedValue" : 523
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Space",
       "qualType" : "ImGuiKey_",
-      "order" : 12,
-      "evaluatedValue" : 12
+      "order" : 13,
+      "evaluatedValue" : 524
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Enter",
       "qualType" : "ImGuiKey_",
-      "order" : 13,
-      "evaluatedValue" : 13
+      "order" : 14,
+      "evaluatedValue" : 525
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Escape",
       "qualType" : "ImGuiKey_",
-      "order" : 14,
-      "evaluatedValue" : 14
+      "order" : 15,
+      "evaluatedValue" : 526
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiKey_KeyPadEnter",
+      "name" : "ImGuiKey_LeftCtrl",
       "qualType" : "ImGuiKey_",
-      "order" : 15,
-      "evaluatedValue" : 15
+      "order" : 16,
+      "evaluatedValue" : 527
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_LeftShift",
+      "qualType" : "ImGuiKey_",
+      "order" : 17,
+      "evaluatedValue" : 528
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_LeftAlt",
+      "qualType" : "ImGuiKey_",
+      "order" : 18,
+      "evaluatedValue" : 529
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_LeftSuper",
+      "qualType" : "ImGuiKey_",
+      "order" : 19,
+      "evaluatedValue" : 530
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_RightCtrl",
+      "qualType" : "ImGuiKey_",
+      "order" : 20,
+      "evaluatedValue" : 531
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_RightShift",
+      "qualType" : "ImGuiKey_",
+      "order" : 21,
+      "evaluatedValue" : 532
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_RightAlt",
+      "qualType" : "ImGuiKey_",
+      "order" : 22,
+      "evaluatedValue" : 533
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_RightSuper",
+      "qualType" : "ImGuiKey_",
+      "order" : 23,
+      "evaluatedValue" : 534
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Menu",
+      "qualType" : "ImGuiKey_",
+      "order" : 24,
+      "evaluatedValue" : 535
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_0",
+      "qualType" : "ImGuiKey_",
+      "order" : 25,
+      "evaluatedValue" : 536
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_1",
+      "qualType" : "ImGuiKey_",
+      "order" : 26,
+      "evaluatedValue" : 537
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_2",
+      "qualType" : "ImGuiKey_",
+      "order" : 27,
+      "evaluatedValue" : 538
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_3",
+      "qualType" : "ImGuiKey_",
+      "order" : 28,
+      "evaluatedValue" : 539
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_4",
+      "qualType" : "ImGuiKey_",
+      "order" : 29,
+      "evaluatedValue" : 540
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_5",
+      "qualType" : "ImGuiKey_",
+      "order" : 30,
+      "evaluatedValue" : 541
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_6",
+      "qualType" : "ImGuiKey_",
+      "order" : 31,
+      "evaluatedValue" : 542
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_7",
+      "qualType" : "ImGuiKey_",
+      "order" : 32,
+      "evaluatedValue" : 543
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_8",
+      "qualType" : "ImGuiKey_",
+      "order" : 33,
+      "evaluatedValue" : 544
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_9",
+      "qualType" : "ImGuiKey_",
+      "order" : 34,
+      "evaluatedValue" : 545
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_A",
-      "docComment" : "for text edit CTRL+A: select all",
       "qualType" : "ImGuiKey_",
-      "order" : 16,
-      "evaluatedValue" : 16
+      "order" : 35,
+      "evaluatedValue" : 546
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_B",
+      "qualType" : "ImGuiKey_",
+      "order" : 36,
+      "evaluatedValue" : 547
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_C",
-      "docComment" : "for text edit CTRL+C: copy",
       "qualType" : "ImGuiKey_",
-      "order" : 17,
-      "evaluatedValue" : 17
+      "order" : 37,
+      "evaluatedValue" : 548
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_D",
+      "qualType" : "ImGuiKey_",
+      "order" : 38,
+      "evaluatedValue" : 549
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_E",
+      "qualType" : "ImGuiKey_",
+      "order" : 39,
+      "evaluatedValue" : 550
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_F",
+      "qualType" : "ImGuiKey_",
+      "order" : 40,
+      "evaluatedValue" : 551
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_G",
+      "qualType" : "ImGuiKey_",
+      "order" : 41,
+      "evaluatedValue" : 552
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_H",
+      "qualType" : "ImGuiKey_",
+      "order" : 42,
+      "evaluatedValue" : 553
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_I",
+      "qualType" : "ImGuiKey_",
+      "order" : 43,
+      "evaluatedValue" : 554
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_J",
+      "qualType" : "ImGuiKey_",
+      "order" : 44,
+      "evaluatedValue" : 555
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_K",
+      "qualType" : "ImGuiKey_",
+      "order" : 45,
+      "evaluatedValue" : 556
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_L",
+      "qualType" : "ImGuiKey_",
+      "order" : 46,
+      "evaluatedValue" : 557
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_M",
+      "qualType" : "ImGuiKey_",
+      "order" : 47,
+      "evaluatedValue" : 558
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_N",
+      "qualType" : "ImGuiKey_",
+      "order" : 48,
+      "evaluatedValue" : 559
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_O",
+      "qualType" : "ImGuiKey_",
+      "order" : 49,
+      "evaluatedValue" : 560
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_P",
+      "qualType" : "ImGuiKey_",
+      "order" : 50,
+      "evaluatedValue" : 561
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Q",
+      "qualType" : "ImGuiKey_",
+      "order" : 51,
+      "evaluatedValue" : 562
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_R",
+      "qualType" : "ImGuiKey_",
+      "order" : 52,
+      "evaluatedValue" : 563
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_S",
+      "qualType" : "ImGuiKey_",
+      "order" : 53,
+      "evaluatedValue" : 564
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_T",
+      "qualType" : "ImGuiKey_",
+      "order" : 54,
+      "evaluatedValue" : 565
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_U",
+      "qualType" : "ImGuiKey_",
+      "order" : 55,
+      "evaluatedValue" : 566
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_V",
-      "docComment" : "for text edit CTRL+V: paste",
       "qualType" : "ImGuiKey_",
-      "order" : 18,
-      "evaluatedValue" : 18
+      "order" : 56,
+      "evaluatedValue" : 567
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_W",
+      "qualType" : "ImGuiKey_",
+      "order" : 57,
+      "evaluatedValue" : 568
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_X",
-      "docComment" : "for text edit CTRL+X: cut",
       "qualType" : "ImGuiKey_",
-      "order" : 19,
-      "evaluatedValue" : 19
+      "order" : 58,
+      "evaluatedValue" : 569
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Y",
-      "docComment" : "for text edit CTRL+Y: redo",
       "qualType" : "ImGuiKey_",
-      "order" : 20,
-      "evaluatedValue" : 20
+      "order" : 59,
+      "evaluatedValue" : 570
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_Z",
-      "docComment" : "for text edit CTRL+Z: undo",
       "qualType" : "ImGuiKey_",
-      "order" : 21,
-      "evaluatedValue" : 21
+      "order" : 60,
+      "evaluatedValue" : 571
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_F1",
+      "qualType" : "ImGuiKey_",
+      "order" : 61,
+      "evaluatedValue" : 572
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_F2",
+      "qualType" : "ImGuiKey_",
+      "order" : 62,
+      "evaluatedValue" : 573
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_F3",
+      "qualType" : "ImGuiKey_",
+      "order" : 63,
+      "evaluatedValue" : 574
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_F4",
+      "qualType" : "ImGuiKey_",
+      "order" : 64,
+      "evaluatedValue" : 575
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_F5",
+      "qualType" : "ImGuiKey_",
+      "order" : 65,
+      "evaluatedValue" : 576
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_F6",
+      "qualType" : "ImGuiKey_",
+      "order" : 66,
+      "evaluatedValue" : 577
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_F7",
+      "qualType" : "ImGuiKey_",
+      "order" : 67,
+      "evaluatedValue" : 578
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_F8",
+      "qualType" : "ImGuiKey_",
+      "order" : 68,
+      "evaluatedValue" : 579
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_F9",
+      "qualType" : "ImGuiKey_",
+      "order" : 69,
+      "evaluatedValue" : 580
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_F10",
+      "qualType" : "ImGuiKey_",
+      "order" : 70,
+      "evaluatedValue" : 581
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_F11",
+      "qualType" : "ImGuiKey_",
+      "order" : 71,
+      "evaluatedValue" : 582
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_F12",
+      "qualType" : "ImGuiKey_",
+      "order" : 72,
+      "evaluatedValue" : 583
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Apostrophe",
+      "docComment" : "'",
+      "qualType" : "ImGuiKey_",
+      "order" : 73,
+      "evaluatedValue" : 584
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Comma",
+      "docComment" : ",",
+      "qualType" : "ImGuiKey_",
+      "order" : 74,
+      "evaluatedValue" : 585
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Minus",
+      "docComment" : "-",
+      "qualType" : "ImGuiKey_",
+      "order" : 75,
+      "evaluatedValue" : 586
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Period",
+      "docComment" : ".",
+      "qualType" : "ImGuiKey_",
+      "order" : 76,
+      "evaluatedValue" : 587
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Slash",
+      "docComment" : "/",
+      "qualType" : "ImGuiKey_",
+      "order" : 77,
+      "evaluatedValue" : 588
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Semicolon",
+      "docComment" : ";",
+      "qualType" : "ImGuiKey_",
+      "order" : 78,
+      "evaluatedValue" : 589
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Equal",
+      "docComment" : "=",
+      "qualType" : "ImGuiKey_",
+      "order" : 79,
+      "evaluatedValue" : 590
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_LeftBracket",
+      "docComment" : "[",
+      "qualType" : "ImGuiKey_",
+      "order" : 80,
+      "evaluatedValue" : 591
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Backslash",
+      "docComment" : " \\ (this text inhibit multiline comment caused by backslash)",
+      "qualType" : "ImGuiKey_",
+      "order" : 81,
+      "evaluatedValue" : 592
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_RightBracket",
+      "docComment" : "]",
+      "qualType" : "ImGuiKey_",
+      "order" : 82,
+      "evaluatedValue" : 593
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GraveAccent",
+      "docComment" : "`",
+      "qualType" : "ImGuiKey_",
+      "order" : 83,
+      "evaluatedValue" : 594
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_CapsLock",
+      "qualType" : "ImGuiKey_",
+      "order" : 84,
+      "evaluatedValue" : 595
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_ScrollLock",
+      "qualType" : "ImGuiKey_",
+      "order" : 85,
+      "evaluatedValue" : 596
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_NumLock",
+      "qualType" : "ImGuiKey_",
+      "order" : 86,
+      "evaluatedValue" : 597
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_PrintScreen",
+      "qualType" : "ImGuiKey_",
+      "order" : 87,
+      "evaluatedValue" : 598
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Pause",
+      "qualType" : "ImGuiKey_",
+      "order" : 88,
+      "evaluatedValue" : 599
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Keypad0",
+      "qualType" : "ImGuiKey_",
+      "order" : 89,
+      "evaluatedValue" : 600
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Keypad1",
+      "qualType" : "ImGuiKey_",
+      "order" : 90,
+      "evaluatedValue" : 601
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Keypad2",
+      "qualType" : "ImGuiKey_",
+      "order" : 91,
+      "evaluatedValue" : 602
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Keypad3",
+      "qualType" : "ImGuiKey_",
+      "order" : 92,
+      "evaluatedValue" : 603
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Keypad4",
+      "qualType" : "ImGuiKey_",
+      "order" : 93,
+      "evaluatedValue" : 604
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Keypad5",
+      "qualType" : "ImGuiKey_",
+      "order" : 94,
+      "evaluatedValue" : 605
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Keypad6",
+      "qualType" : "ImGuiKey_",
+      "order" : 95,
+      "evaluatedValue" : 606
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Keypad7",
+      "qualType" : "ImGuiKey_",
+      "order" : 96,
+      "evaluatedValue" : 607
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Keypad8",
+      "qualType" : "ImGuiKey_",
+      "order" : 97,
+      "evaluatedValue" : 608
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_Keypad9",
+      "qualType" : "ImGuiKey_",
+      "order" : 98,
+      "evaluatedValue" : 609
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_KeypadDecimal",
+      "qualType" : "ImGuiKey_",
+      "order" : 99,
+      "evaluatedValue" : 610
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_KeypadDivide",
+      "qualType" : "ImGuiKey_",
+      "order" : 100,
+      "evaluatedValue" : 611
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_KeypadMultiply",
+      "qualType" : "ImGuiKey_",
+      "order" : 101,
+      "evaluatedValue" : 612
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_KeypadSubtract",
+      "qualType" : "ImGuiKey_",
+      "order" : 102,
+      "evaluatedValue" : 613
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_KeypadAdd",
+      "qualType" : "ImGuiKey_",
+      "order" : 103,
+      "evaluatedValue" : 614
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_KeypadEnter",
+      "qualType" : "ImGuiKey_",
+      "order" : 104,
+      "evaluatedValue" : 615
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_KeypadEqual",
+      "qualType" : "ImGuiKey_",
+      "order" : 105,
+      "evaluatedValue" : 616
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadStart",
+      "docComment" : "Menu (Xbox)          + (Switch)   Start/Options (PS) // --",
+      "qualType" : "ImGuiKey_",
+      "order" : 106,
+      "evaluatedValue" : 617
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadBack",
+      "docComment" : "View (Xbox)          - (Switch)   Share (PS)         // --",
+      "qualType" : "ImGuiKey_",
+      "order" : 107,
+      "evaluatedValue" : 618
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadFaceUp",
+      "docComment" : "Y (Xbox)             X (Switch)   Triangle (PS)      // -> ImGuiNavInput_Input",
+      "qualType" : "ImGuiKey_",
+      "order" : 108,
+      "evaluatedValue" : 619
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadFaceDown",
+      "docComment" : "A (Xbox)             B (Switch)   Cross (PS)         // -> ImGuiNavInput_Activate",
+      "qualType" : "ImGuiKey_",
+      "order" : 109,
+      "evaluatedValue" : 620
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadFaceLeft",
+      "docComment" : "X (Xbox)             Y (Switch)   Square (PS)        // -> ImGuiNavInput_Menu",
+      "qualType" : "ImGuiKey_",
+      "order" : 110,
+      "evaluatedValue" : 621
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadFaceRight",
+      "docComment" : "B (Xbox)             A (Switch)   Circle (PS)        // -> ImGuiNavInput_Cancel",
+      "qualType" : "ImGuiKey_",
+      "order" : 111,
+      "evaluatedValue" : 622
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadDpadUp",
+      "docComment" : "D-pad Up                                             // -> ImGuiNavInput_DpadUp",
+      "qualType" : "ImGuiKey_",
+      "order" : 112,
+      "evaluatedValue" : 623
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadDpadDown",
+      "docComment" : "D-pad Down                                           // -> ImGuiNavInput_DpadDown",
+      "qualType" : "ImGuiKey_",
+      "order" : 113,
+      "evaluatedValue" : 624
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadDpadLeft",
+      "docComment" : "D-pad Left                                           // -> ImGuiNavInput_DpadLeft",
+      "qualType" : "ImGuiKey_",
+      "order" : 114,
+      "evaluatedValue" : 625
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadDpadRight",
+      "docComment" : "D-pad Right                                          // -> ImGuiNavInput_DpadRight",
+      "qualType" : "ImGuiKey_",
+      "order" : 115,
+      "evaluatedValue" : 626
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadL1",
+      "docComment" : "L Bumper (Xbox)      L (Switch)   L1 (PS)            // -> ImGuiNavInput_FocusPrev + ImGuiNavInput_TweakSlow",
+      "qualType" : "ImGuiKey_",
+      "order" : 116,
+      "evaluatedValue" : 627
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadR1",
+      "docComment" : "R Bumper (Xbox)      R (Switch)   R1 (PS)            // -> ImGuiNavInput_FocusNext + ImGuiNavInput_TweakFast",
+      "qualType" : "ImGuiKey_",
+      "order" : 117,
+      "evaluatedValue" : 628
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadL2",
+      "docComment" : "L Trigger (Xbox)     ZL (Switch)  L2 (PS) [Analog]",
+      "qualType" : "ImGuiKey_",
+      "order" : 118,
+      "evaluatedValue" : 629
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadR2",
+      "docComment" : "R Trigger (Xbox)     ZR (Switch)  R2 (PS) [Analog]",
+      "qualType" : "ImGuiKey_",
+      "order" : 119,
+      "evaluatedValue" : 630
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadL3",
+      "docComment" : "L Thumbstick (Xbox)  L3 (Switch)  L3 (PS)",
+      "qualType" : "ImGuiKey_",
+      "order" : 120,
+      "evaluatedValue" : 631
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadR3",
+      "docComment" : "R Thumbstick (Xbox)  R3 (Switch)  R3 (PS)",
+      "qualType" : "ImGuiKey_",
+      "order" : 121,
+      "evaluatedValue" : 632
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadLStickUp",
+      "docComment" : "[Analog]                                             // -> ImGuiNavInput_LStickUp",
+      "qualType" : "ImGuiKey_",
+      "order" : 122,
+      "evaluatedValue" : 633
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadLStickDown",
+      "docComment" : "[Analog]                                             // -> ImGuiNavInput_LStickDown",
+      "qualType" : "ImGuiKey_",
+      "order" : 123,
+      "evaluatedValue" : 634
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadLStickLeft",
+      "docComment" : "[Analog]                                             // -> ImGuiNavInput_LStickLeft",
+      "qualType" : "ImGuiKey_",
+      "order" : 124,
+      "evaluatedValue" : 635
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadLStickRight",
+      "docComment" : "[Analog]                                             // -> ImGuiNavInput_LStickRight",
+      "qualType" : "ImGuiKey_",
+      "order" : 125,
+      "evaluatedValue" : 636
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadRStickUp",
+      "docComment" : "[Analog]",
+      "qualType" : "ImGuiKey_",
+      "order" : 126,
+      "evaluatedValue" : 637
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadRStickDown",
+      "docComment" : "[Analog]",
+      "qualType" : "ImGuiKey_",
+      "order" : 127,
+      "evaluatedValue" : 638
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadRStickLeft",
+      "docComment" : "[Analog]",
+      "qualType" : "ImGuiKey_",
+      "order" : 128,
+      "evaluatedValue" : 639
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_GamepadRStickRight",
+      "docComment" : "[Analog]",
+      "qualType" : "ImGuiKey_",
+      "order" : 129,
+      "evaluatedValue" : 640
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_ModCtrl",
+      "docComment" : "Keyboard Modifiers - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...",
+      "qualType" : "ImGuiKey_",
+      "order" : 130,
+      "evaluatedValue" : 641
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_ModShift",
+      "docComment" : "Keyboard Modifiers - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...",
+      "qualType" : "ImGuiKey_",
+      "order" : 131,
+      "evaluatedValue" : 642
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_ModAlt",
+      "docComment" : "Keyboard Modifiers - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...",
+      "qualType" : "ImGuiKey_",
+      "order" : 132,
+      "evaluatedValue" : 643
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_ModSuper",
+      "docComment" : "Keyboard Modifiers - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...",
+      "qualType" : "ImGuiKey_",
+      "order" : 133,
+      "evaluatedValue" : 644
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_COUNT",
+      "docComment" : "No valid ImGuiKey is ever greater than this value",
       "qualType" : "ImGuiKey_",
-      "order" : 22,
-      "evaluatedValue" : 22
+      "order" : 134,
+      "evaluatedValue" : 645
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_NamedKey_BEGIN",
+      "docComment" : "[Internal] Prior to 1.87 we required user to fill io.KeysDown[512] using their own native index + a io.KeyMap[] array. We are ditching this method but keeping a legacy path for user code doing e.g. IsKeyPressed(MY_NATIVE_KEY_CODE)",
+      "qualType" : "ImGuiKey_",
+      "order" : 135,
+      "value" : "512",
+      "evaluatedValue" : 512
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_NamedKey_END",
+      "docComment" : "[Internal] Prior to 1.87 we required user to fill io.KeysDown[512] using their own native index + a io.KeyMap[] array. We are ditching this method but keeping a legacy path for user code doing e.g. IsKeyPressed(MY_NATIVE_KEY_CODE)",
+      "qualType" : "ImGuiKey_",
+      "order" : 136,
+      "value" : "ImGuiKey_COUNT",
+      "evaluatedValue" : 645
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_NamedKey_COUNT",
+      "docComment" : "[Internal] Prior to 1.87 we required user to fill io.KeysDown[512] using their own native index + a io.KeyMap[] array. We are ditching this method but keeping a legacy path for user code doing e.g. IsKeyPressed(MY_NATIVE_KEY_CODE)",
+      "qualType" : "ImGuiKey_",
+      "order" : 137,
+      "value" : "ImGuiKey_NamedKey_END - ImGuiKey_NamedKey_BEGIN",
+      "evaluatedValue" : 133
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_KeysData_SIZE",
+      "docComment" : "Size of KeysData[]: hold legacy 0..512 keycodes + named keys",
+      "qualType" : "ImGuiKey_",
+      "order" : 138,
+      "value" : "ImGuiKey_COUNT",
+      "evaluatedValue" : 645
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_KeysData_OFFSET",
+      "docComment" : "First key stored in KeysData[0]",
+      "qualType" : "ImGuiKey_",
+      "order" : 139,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKey_KeyPadEnter",
+      "docComment" : "Renamed in 1.87",
+      "qualType" : "ImGuiKey_",
+      "order" : 140,
+      "value" : "ImGuiKey_KeypadEnter",
+      "evaluatedValue" : 615
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9571,7 +10335,7 @@
         "@type" : "AstParagraphComment",
         "decls" : [ {
           "@type" : "AstTextComment",
-          "text" : " To test io.KeyMods (which is a combination of individual fields io.KeyCtrl, io.KeyShift, io.KeyAlt set by user/backend)"
+          "text" : " Helper \"flags\" version of key-mods to store and compare multiple key-mods easily. Sometimes used for storage (e.g. io.KeyMods) but otherwise not much used in public API."
         } ]
       } ]
     }, {
@@ -9605,6 +10369,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKeyModFlags_Super",
+      "docComment" : "Cmd/Super/Windows key",
       "qualType" : "ImGuiKeyModFlags_",
       "order" : 4,
       "value" : "1 << 3",
@@ -9622,7 +10387,7 @@
           "text" : " Gamepad/Keyboard navigation"
         }, {
           "@type" : "AstTextComment",
-          "text" : " Keyboard: Set io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard to enable. NewFrame() will automatically fill io.NavInputs[] based on your io.KeysDown[] + io.KeyMap[] arrays."
+          "text" : " Keyboard: Set io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard to enable. NewFrame() will automatically fill io.NavInputs[] based on your io.AddKeyEvent() calls."
         }, {
           "@type" : "AstTextComment",
           "text" : " Gamepad:  Set io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad to enable. Backend: set ImGuiBackendFlags_HasGamepad and fill the io.NavInputs[] fields before calling NewFrame(). Note that io.NavInputs[] is cleared by EndFrame()."
@@ -9634,35 +10399,35 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_Activate",
-      "docComment" : "activate / open / toggle / tweak value       // e.g. Cross  (PS4), A (Xbox), A (Switch), Space (Keyboard)",
+      "docComment" : "Activate / Open / Toggle / Tweak value       // e.g. Cross  (PS4), A (Xbox), A (Switch), Space (Keyboard)",
       "qualType" : "ImGuiNavInput_",
       "order" : 0,
       "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_Cancel",
-      "docComment" : "cancel / close / exit                        // e.g. Circle (PS4), B (Xbox), B (Switch), Escape (Keyboard)",
+      "docComment" : "Cancel / Close / Exit                        // e.g. Circle (PS4), B (Xbox), B (Switch), Escape (Keyboard)",
       "qualType" : "ImGuiNavInput_",
       "order" : 1,
       "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_Input",
-      "docComment" : "text input / on-screen keyboard              // e.g. Triang.(PS4), Y (Xbox), X (Switch), Return (Keyboard)",
+      "docComment" : "Text input / On-Screen keyboard              // e.g. Triang.(PS4), Y (Xbox), X (Switch), Return (Keyboard)",
       "qualType" : "ImGuiNavInput_",
       "order" : 2,
       "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_Menu",
-      "docComment" : "tap: toggle menu / hold: focus, move, resize // e.g. Square (PS4), X (Xbox), Y (Switch), Alt (Keyboard)",
+      "docComment" : "Tap: Toggle menu / Hold: Focus, Move, Resize // e.g. Square (PS4), X (Xbox), Y (Switch), Alt (Keyboard)",
       "qualType" : "ImGuiNavInput_",
       "order" : 3,
       "evaluatedValue" : 3
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_DpadLeft",
-      "docComment" : "move / tweak / resize window (w/ PadMenu)    // e.g. D-pad Left/Right/Up/Down (Gamepads), Arrow keys (Keyboard)",
+      "docComment" : "Move / Tweak / Resize window (w/ PadMenu)    // e.g. D-pad Left/Right/Up/Down (Gamepads), Arrow keys (Keyboard)",
       "qualType" : "ImGuiNavInput_",
       "order" : 4,
       "evaluatedValue" : 4
@@ -9687,7 +10452,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_LStickLeft",
-      "docComment" : "scroll / move window (w/ PadMenu)            // e.g. Left Analog Stick Left/Right/Up/Down",
+      "docComment" : "Scroll / Move window (w/ PadMenu)            // e.g. Left Analog Stick Left/Right/Up/Down",
       "qualType" : "ImGuiNavInput_",
       "order" : 8,
       "evaluatedValue" : 8
@@ -9712,56 +10477,56 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_FocusPrev",
-      "docComment" : "next window (w/ PadMenu)                     // e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)",
+      "docComment" : "Focus Next window (w/ PadMenu)               // e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)",
       "qualType" : "ImGuiNavInput_",
       "order" : 12,
       "evaluatedValue" : 12
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_FocusNext",
-      "docComment" : "prev window (w/ PadMenu)                     // e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)",
+      "docComment" : "Focus Prev window (w/ PadMenu)               // e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)",
       "qualType" : "ImGuiNavInput_",
       "order" : 13,
       "evaluatedValue" : 13
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_TweakSlow",
-      "docComment" : "slower tweaks                                // e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)",
+      "docComment" : "Slower tweaks                                // e.g. L1 or L2 (PS4), LB or LT (Xbox), L or ZL (Switch)",
       "qualType" : "ImGuiNavInput_",
       "order" : 14,
       "evaluatedValue" : 14
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_TweakFast",
-      "docComment" : "faster tweaks                                // e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)",
+      "docComment" : "Faster tweaks                                // e.g. R1 or R2 (PS4), RB or RT (Xbox), R or ZL (Switch)",
       "qualType" : "ImGuiNavInput_",
       "order" : 15,
       "evaluatedValue" : 15
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_KeyLeft_",
-      "docComment" : "move left                                    // = Arrow keys",
+      "docComment" : "Move left                                    // = Arrow keys",
       "qualType" : "ImGuiNavInput_",
       "order" : 16,
       "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_KeyRight_",
-      "docComment" : "move right",
+      "docComment" : "Move right",
       "qualType" : "ImGuiNavInput_",
       "order" : 17,
       "evaluatedValue" : 17
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_KeyUp_",
-      "docComment" : "move up",
+      "docComment" : "Move up",
       "qualType" : "ImGuiNavInput_",
       "order" : 18,
       "evaluatedValue" : 18
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiNavInput_KeyDown_",
-      "docComment" : "move down",
+      "docComment" : "Move down",
       "qualType" : "ImGuiNavInput_",
       "order" : 19,
       "evaluatedValue" : 19
@@ -9771,13 +10536,6 @@
       "qualType" : "ImGuiNavInput_",
       "order" : 20,
       "evaluatedValue" : 20
-    }, {
-      "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiNavInput_InternalStart_",
-      "qualType" : "ImGuiNavInput_",
-      "order" : 21,
-      "value" : "ImGuiNavInput_KeyLeft_",
-      "evaluatedValue" : 16
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -9801,7 +10559,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiConfigFlags_NavEnableKeyboard",
-      "docComment" : "Master keyboard navigation enable flag. NewFrame() will automatically fill io.NavInputs[] based on io.KeysDown[].",
+      "docComment" : "Master keyboard navigation enable flag. NewFrame() will automatically fill io.NavInputs[] based on io.AddKeyEvent() calls",
       "qualType" : "ImGuiConfigFlags_",
       "order" : 1,
       "value" : "1 << 0",
@@ -9957,7 +10715,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiBackendFlags_HasMouseHoveredViewport",
-      "docComment" : "Backend Platform supports setting io.MouseHoveredViewport to the viewport directly under the mouse _IGNORING_ viewports with the ImGuiViewportFlags_NoInputs flag and _REGARDLESS_ of whether another viewport is focused and may be capturing the mouse. This information is _NOT EASY_ to provide correctly with most high-level engines! Don't set this without studying _carefully_ how the backends handle ImGuiViewportFlags_NoInputs!",
+      "docComment" : "Backend Platform supports calling io.AddMouseViewportEvent() with the viewport under the mouse. IF POSSIBLE, ignore viewports with the ImGuiViewportFlags_NoInputs flag (Win32 backend, GLFW 3.30+ backend can do this, SDL backend cannot). If this cannot be done, Dear ImGui needs to use a flawed heuristic to find the viewport under.",
       "qualType" : "ImGuiBackendFlags_",
       "order" : 6,
       "value" : "1 << 11",
@@ -10851,30 +11609,6 @@
       "order" : 28,
       "value" : "ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_InputHSV",
       "evaluatedValue" : 402653184
-    }, {
-      "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiColorEditFlags_RGB",
-      "docComment" : "[renamed in 1.69]",
-      "qualType" : "ImGuiColorEditFlags_",
-      "order" : 29,
-      "value" : "ImGuiColorEditFlags_DisplayRGB",
-      "evaluatedValue" : 1048576
-    }, {
-      "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiColorEditFlags_HSV",
-      "docComment" : "[renamed in 1.69]",
-      "qualType" : "ImGuiColorEditFlags_",
-      "order" : 30,
-      "value" : "ImGuiColorEditFlags_DisplayHSV",
-      "evaluatedValue" : 2097152
-    }, {
-      "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiColorEditFlags_HEX",
-      "docComment" : "[renamed in 1.69]",
-      "qualType" : "ImGuiColorEditFlags_",
-      "order" : 31,
-      "value" : "ImGuiColorEditFlags_DisplayHex",
-      "evaluatedValue" : 4194304
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -11421,32 +12155,44 @@
     } ]
   }, {
     "@type" : "AstRecordDecl",
-    "name" : "ImGuiIO",
+    "name" : "ImGuiKeyData",
     "decls" : [ {
       "@type" : "AstFullComment",
       "decls" : [ {
         "@type" : "AstParagraphComment",
         "decls" : [ {
           "@type" : "AstTextComment",
-          "text" : "-----------------------------------------------------------------------------"
+          "text" : " [Internal] Storage used by IsKeyDown(), IsKeyPressed() etc functions."
         }, {
           "@type" : "AstTextComment",
-          "text" : " [SECTION] ImGuiIO"
-        }, {
-          "@type" : "AstTextComment",
-          "text" : "-----------------------------------------------------------------------------"
-        }, {
-          "@type" : "AstTextComment",
-          "text" : " Communicate most settings and inputs/outputs to Dear ImGui using this structure."
-        }, {
-          "@type" : "AstTextComment",
-          "text" : " Access via ImGui::GetIO(). Read 'Programmer guide' section in .cpp file for general usage."
-        }, {
-          "@type" : "AstTextComment",
-          "text" : "-----------------------------------------------------------------------------"
+          "text" : " If prior to 1.87 you used io.KeysDownDuration[] (which was marked as internal), you should use GetKeyData(key)->DownDuration and not io.KeysData[key]->DownDuration."
         } ]
       } ]
     }, {
+      "@type" : "AstFieldDecl",
+      "name" : "Down",
+      "qualType" : "bool",
+      "desugaredQualType" : "bool"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "DownDuration",
+      "qualType" : "float",
+      "desugaredQualType" : "float"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "DownDurationPrev",
+      "qualType" : "float",
+      "desugaredQualType" : "float"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "AnalogValue",
+      "qualType" : "float",
+      "desugaredQualType" : "float"
+    } ]
+  }, {
+    "@type" : "AstRecordDecl",
+    "name" : "ImGuiIO",
+    "decls" : [ {
       "@type" : "AstFieldDecl",
       "name" : "ConfigFlags",
       "qualType" : "ImGuiConfigFlags",
@@ -11496,11 +12242,6 @@
       "name" : "MouseDragThreshold",
       "qualType" : "float",
       "desugaredQualType" : "float"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "KeyMap",
-      "qualType" : "int[22]",
-      "desugaredQualType" : "int[22]"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "KeyRepeatDelay",
@@ -11593,6 +12334,11 @@
       "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
+      "name" : "ConfigInputTrickleEventQueue",
+      "qualType" : "bool",
+      "desugaredQualType" : "bool"
+    }, {
+      "@type" : "AstFieldDecl",
       "name" : "ConfigInputTextCursorBlink",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
@@ -11658,59 +12404,123 @@
       "desugaredQualType" : "void *"
     }, {
       "@type" : "AstFieldDecl",
-      "name" : "MousePos",
-      "qualType" : "ImVec2",
-      "desugaredQualType" : "ImVec2"
+      "name" : "SetPlatformImeDataFn",
+      "qualType" : "void (*)(ImGuiViewport *, ImGuiPlatformImeData *)",
+      "desugaredQualType" : "void (*)(ImGuiViewport *, ImGuiPlatformImeData *)"
     }, {
       "@type" : "AstFieldDecl",
-      "name" : "MouseDown",
-      "qualType" : "bool[5]",
-      "desugaredQualType" : "bool[5]"
+      "name" : "ImeWindowHandle",
+      "qualType" : "void *",
+      "desugaredQualType" : "void *"
     }, {
-      "@type" : "AstFieldDecl",
-      "name" : "MouseWheel",
-      "qualType" : "float",
-      "desugaredQualType" : "float"
+      "@type" : "AstFunctionDecl",
+      "name" : "AddKeyEvent",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "key",
+        "qualType" : "ImGuiKey",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "down",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Input Functions"
+          } ]
+        } ]
+      } ]
     }, {
-      "@type" : "AstFieldDecl",
-      "name" : "MouseWheelH",
-      "qualType" : "float",
-      "desugaredQualType" : "float"
+      "@type" : "AstFunctionDecl",
+      "name" : "AddKeyAnalogEvent",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "key",
+        "qualType" : "ImGuiKey",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "down",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "v",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      } ]
     }, {
-      "@type" : "AstFieldDecl",
-      "name" : "MouseHoveredViewport",
-      "qualType" : "ImGuiID",
-      "desugaredQualType" : "unsigned int"
+      "@type" : "AstFunctionDecl",
+      "name" : "AddMousePosEvent",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "x",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "y",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      } ]
     }, {
-      "@type" : "AstFieldDecl",
-      "name" : "KeyCtrl",
-      "qualType" : "bool",
-      "desugaredQualType" : "bool"
+      "@type" : "AstFunctionDecl",
+      "name" : "AddMouseButtonEvent",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "button",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "down",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool"
+      } ]
     }, {
-      "@type" : "AstFieldDecl",
-      "name" : "KeyShift",
-      "qualType" : "bool",
-      "desugaredQualType" : "bool"
+      "@type" : "AstFunctionDecl",
+      "name" : "AddMouseWheelEvent",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "wh_x",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "wh_y",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      } ]
     }, {
-      "@type" : "AstFieldDecl",
-      "name" : "KeyAlt",
-      "qualType" : "bool",
-      "desugaredQualType" : "bool"
+      "@type" : "AstFunctionDecl",
+      "name" : "AddMouseViewportEvent",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "id",
+        "qualType" : "ImGuiID",
+        "desugaredQualType" : "unsigned int"
+      } ]
     }, {
-      "@type" : "AstFieldDecl",
-      "name" : "KeySuper",
-      "qualType" : "bool",
-      "desugaredQualType" : "bool"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "KeysDown",
-      "qualType" : "bool[512]",
-      "desugaredQualType" : "bool[512]"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "NavInputs",
-      "qualType" : "float[20]",
-      "desugaredQualType" : "float[20]"
+      "@type" : "AstFunctionDecl",
+      "name" : "AddFocusEvent",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "focused",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool"
+      } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "AddInputCharacter",
@@ -11720,15 +12530,6 @@
         "name" : "c",
         "qualType" : "unsigned int",
         "desugaredQualType" : "unsigned int"
-      }, {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Functions"
-          } ]
-        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -11752,22 +12553,38 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "name" : "AddFocusEvent",
-      "resultType" : "void",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "focused",
-        "qualType" : "bool",
-        "desugaredQualType" : "bool"
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
       "name" : "ClearInputCharacters",
       "resultType" : "void"
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "ClearInputKeys",
       "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "SetKeyEventNativeData",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "key",
+        "qualType" : "ImGuiKey",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "native_keycode",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "native_scancode",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "native_legacy_index",
+        "qualType" : "int",
+        "desugaredQualType" : "int",
+        "defaultValue" : "-1"
+      } ]
     }, {
       "@type" : "AstFieldDecl",
       "name" : "WantCaptureMouse",
@@ -11840,9 +12657,64 @@
       "desugaredQualType" : "ImVec2"
     }, {
       "@type" : "AstFieldDecl",
-      "name" : "WantCaptureMouseUnlessPopupClose",
+      "name" : "KeyMap",
+      "qualType" : "int[645]",
+      "desugaredQualType" : "int[645]"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "KeysDown",
+      "qualType" : "bool[512]",
+      "desugaredQualType" : "bool[512]"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "MousePos",
+      "qualType" : "ImVec2",
+      "desugaredQualType" : "ImVec2"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "MouseDown",
+      "qualType" : "bool[5]",
+      "desugaredQualType" : "bool[5]"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "MouseWheel",
+      "qualType" : "float",
+      "desugaredQualType" : "float"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "MouseWheelH",
+      "qualType" : "float",
+      "desugaredQualType" : "float"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "MouseHoveredViewport",
+      "qualType" : "ImGuiID",
+      "desugaredQualType" : "unsigned int"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "KeyCtrl",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "KeyShift",
+      "qualType" : "bool",
+      "desugaredQualType" : "bool"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "KeyAlt",
+      "qualType" : "bool",
+      "desugaredQualType" : "bool"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "KeySuper",
+      "qualType" : "bool",
+      "desugaredQualType" : "bool"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "NavInputs",
+      "qualType" : "float[20]",
+      "desugaredQualType" : "float[20]"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "KeyMods",
@@ -11853,6 +12725,16 @@
       "name" : "KeyModsPrev",
       "qualType" : "ImGuiKeyModFlags",
       "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "KeysData",
+      "qualType" : "ImGuiKeyData[645]",
+      "desugaredQualType" : "ImGuiKeyData[645]"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "WantCaptureMouseUnlessPopupClose",
+      "qualType" : "bool",
+      "desugaredQualType" : "bool"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "MousePosPrev",
@@ -11925,16 +12807,6 @@
       "desugaredQualType" : "float[5]"
     }, {
       "@type" : "AstFieldDecl",
-      "name" : "KeysDownDuration",
-      "qualType" : "float[512]",
-      "desugaredQualType" : "float[512]"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "KeysDownDurationPrev",
-      "qualType" : "float[512]",
-      "desugaredQualType" : "float[512]"
-    }, {
-      "@type" : "AstFieldDecl",
       "name" : "NavInputsDownDuration",
       "qualType" : "float[20]",
       "desugaredQualType" : "float[20]"
@@ -11951,6 +12823,16 @@
     }, {
       "@type" : "AstFieldDecl",
       "name" : "AppFocusLost",
+      "qualType" : "bool",
+      "desugaredQualType" : "bool"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "BackendUsingLegacyKeyArrays",
+      "qualType" : "ImS8",
+      "desugaredQualType" : "signed char"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "BackendUsingLegacyNavInputArray",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
@@ -13173,7 +14055,7 @@
           "text" : " Typically, 1 command = 1 GPU draw call (unless command is a callback)"
         }, {
           "@type" : "AstTextComment",
-          "text" : " - VtxOffset/IdxOffset: When 'io.BackendFlags "
+          "text" : " - VtxOffset: When 'io.BackendFlags "
         }, {
           "@type" : "AstTextComment",
           "text" : "&"
@@ -13182,10 +14064,16 @@
           "text" : " ImGuiBackendFlags_RendererHasVtxOffset' is enabled,"
         }, {
           "@type" : "AstTextComment",
-          "text" : "   those fields allow us to render meshes larger than 64K vertices while keeping 16-bit indices."
+          "text" : "   this fields allow us to render meshes larger than 64K vertices while keeping 16-bit indices."
         }, {
           "@type" : "AstTextComment",
-          "text" : "   Pre-1.71 backends will typically ignore the VtxOffset/IdxOffset fields."
+          "text" : "   Backends made for "
+        }, {
+          "@type" : "AstTextComment",
+          "text" : "<"
+        }, {
+          "@type" : "AstTextComment",
+          "text" : "1.71. will typically ignore the VtxOffset fields."
         }, {
           "@type" : "AstTextComment",
           "text" : " - The ClipRect/TextureId/VtxOffset fields must be contiguous as we memcmp() them together (this is asserted for)."
@@ -16804,11 +17692,6 @@
       "desugaredQualType" : "void (*)(ImGuiViewport *)"
     }, {
       "@type" : "AstFieldDecl",
-      "name" : "Platform_SetImeInputPos",
-      "qualType" : "void (*)(ImGuiViewport *, ImVec2)",
-      "desugaredQualType" : "void (*)(ImGuiViewport *, ImVec2)"
-    }, {
-      "@type" : "AstFieldDecl",
       "name" : "Platform_CreateVkSurface",
       "qualType" : "int (*)(ImGuiViewport *, ImU64, const void *, ImU64 *)",
       "desugaredQualType" : "int (*)(ImGuiViewport *, ImU64, const void *, ImU64 *)"
@@ -16888,6 +17771,69 @@
       "name" : "DpiScale",
       "qualType" : "float",
       "desugaredQualType" : "float"
+    } ]
+  }, {
+    "@type" : "AstRecordDecl",
+    "name" : "ImGuiPlatformImeData",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " (Optional) Support for IME (Input Method Editor) via the io.SetPlatformImeDataFn() function."
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "WantVisible",
+      "qualType" : "bool",
+      "desugaredQualType" : "bool"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "InputPos",
+      "qualType" : "ImVec2",
+      "desugaredQualType" : "ImVec2"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "InputLineHeight",
+      "qualType" : "float",
+      "desugaredQualType" : "float"
+    } ]
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "name" : "ImGui",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : "-----------------------------------------------------------------------------"
+        }, {
+          "@type" : "AstTextComment",
+          "text" : " [SECTION] Obsolete functions and types"
+        }, {
+          "@type" : "AstTextComment",
+          "text" : " (Will be removed! Read 'API BREAKING CHANGES' section in imgui.cpp for details)"
+        }, {
+          "@type" : "AstTextComment",
+          "text" : " Please keep your copy of dear imgui up to date! Occasionally set '#define IMGUI_DISABLE_OBSOLETE_FUNCTIONS' in imconfig.h to stay ahead."
+        }, {
+          "@type" : "AstTextComment",
+          "text" : "-----------------------------------------------------------------------------"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "GetKeyIndex",
+      "resultType" : "int",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "key",
+        "qualType" : "ImGuiKey",
+        "desugaredQualType" : "int"
+      } ]
     } ]
   }, {
     "@type" : "AstNamespaceDecl",
@@ -17537,59 +18483,6 @@
           "decls" : [ {
             "@type" : "AstTextComment",
             "text" : " OBSOLETED in 1.77 (from June 2020)"
-          } ]
-        } ]
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "TreeAdvanceToLabelPos",
-      "resultType" : "void",
-      "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " OBSOLETED in 1.72 (from April 2019)"
-          } ]
-        } ]
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "SetNextTreeNodeOpen",
-      "resultType" : "void",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "open",
-        "qualType" : "bool",
-        "desugaredQualType" : "bool"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "cond",
-        "qualType" : "ImGuiCond",
-        "desugaredQualType" : "int",
-        "defaultValue" : "0"
-      }, {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " OBSOLETED in 1.71 (from June 2019)"
-          } ]
-        } ]
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "GetContentRegionAvailWidth",
-      "resultType" : "float",
-      "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " OBSOLETED in 1.70 (from May 2019)"
           } ]
         } ]
       } ]

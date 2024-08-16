@@ -32,7 +32,7 @@ private fun joinInBodyParams(params: List<CtParameter<*>>, defaults: IntArray): 
 
                 "ImPlotPoint" -> "${p.simpleName}.x, ${p.simpleName}.y"
                 "ImPlotRange" -> "${p.simpleName}.min, ${p.simpleName}.max"
-                "ImPlotLimits" -> "${p.simpleName}.x.min, ${p.simpleName}.y.min, ${p.simpleName}.x.max, ${p.simpleName}.y.max"
+                "ImPlotRect" -> "${p.simpleName}.x.min, ${p.simpleName}.y.min, ${p.simpleName}.x.max, ${p.simpleName}.y.max"
 
                 "TextEditorCoordinates" -> "${p.simpleName}.mLine, ${p.simpleName}.mColumn"
 
@@ -366,7 +366,7 @@ private fun methodPlotLimitsUnwrappedContent(method: CtMethod<*>): String {
     val paramNames = mutableSetOf<String>()
 
     for (p in newMethod.parameters) {
-        if (p.isType("ImPlotLimits")) {
+        if (p.isType("ImPlotRect")) {
             paramNames += p.simpleName
 
             val paramMinX = p.factory.createParameter<Nothing>()
@@ -527,7 +527,7 @@ private fun transformMethodToContent(
         methodPlotRangeUnwrappedContent(mNew).takeIf(String::isNotEmpty)?.run(methods::add)
     }
 
-    if (params.find { it.isType("ImPlotLimits") } != null) {
+    if (params.find { it.isType("ImPlotRect") } != null) {
         methodPlotLimitsUnwrappedContent(mNew).takeIf(String::isNotEmpty)?.run(methods::add)
     }
 

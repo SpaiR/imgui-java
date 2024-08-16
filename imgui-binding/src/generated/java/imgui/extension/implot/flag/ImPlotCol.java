@@ -71,59 +71,44 @@ public final class ImPlotCol {
     public static final int InlayText = 12;
 
     /**
-     * x-axis label and tick lables color (defaults to ImGuiCol_Text)
+     * axis label and tick lables color (defaults to ImGuiCol_Text)
      */
-    public static final int XAxis = 13;
+    public static final int AxisText = 13;
 
     /**
-     * x-axis grid color (defaults to 25% ImPlotCol_XAxis)
+     * axis grid color (defaults to 25% ImPlotCol_AxisText)
      */
-    public static final int XAxisGrid = 14;
+    public static final int AxisGrid = 14;
 
     /**
-     * y-axis label and tick labels color (defaults to ImGuiCol_Text)
+     * axis tick color (defaults to AxisGrid)
      */
-    public static final int YAxis = 15;
+    public static final int AxisTick = 15;
 
     /**
-     * y-axis grid color (defaults to 25% ImPlotCol_YAxis)
+     * background color of axis hover region (defaults to transparent)
      */
-    public static final int YAxisGrid = 16;
+    public static final int AxisBg = 16;
 
     /**
-     * 2nd y-axis label and tick labels color (defaults to ImGuiCol_Text)
+     * axis hover color (defaults to ImGuiCol_ButtonHovered)
      */
-    public static final int YAxis2 = 17;
+    public static final int AxisBgHovered = 17;
 
     /**
-     * 2nd y-axis grid/label color (defaults to 25% ImPlotCol_YAxis2)
+     * axis active color (defaults to ImGuiCol_ButtonActive)
      */
-    public static final int YAxisGrid2 = 18;
-
-    /**
-     * 3rd y-axis label and tick labels color (defaults to ImGuiCol_Text)
-     */
-    public static final int YAxis3 = 19;
-
-    /**
-     * 3rd y-axis grid/label color (defaults to 25% ImPlotCol_YAxis3)
-     */
-    public static final int YAxisGrid3 = 20;
+    public static final int AxisBgActive = 18;
 
     /**
      * box-selection color (defaults to yellow)
      */
-    public static final int Selection = 21;
-
-    /**
-     * box-query color (defaults to green)
-     */
-    public static final int Query = 22;
+    public static final int Selection = 19;
 
     /**
      * crosshairs color (defaults to ImPlotCol_PlotBorder)
      */
-    public static final int Crosshairs = 23;
+    public static final int Crosshairs = 20;
 
-    public static final int COUNT = 24;
+    public static final int COUNT = 21;
 }

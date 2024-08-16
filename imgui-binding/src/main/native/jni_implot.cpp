@@ -6,8 +6,8 @@ static jfieldID imPlotPointYID;
 static jfieldID imPlotRangeMinID;
 static jfieldID imPlotRangeMaxID;
 
-static jfieldID imPlotLimitsX;
-static jfieldID imPlotLimitsY;
+static jfieldID imPlotRectX;
+static jfieldID imPlotRectY;
 
 static void initialize(JNIEnv* env) {
     static bool initialized = false;
@@ -23,9 +23,9 @@ static void initialize(JNIEnv* env) {
     imPlotRangeMinID = env->GetFieldID(jImPlotRangeClass, "min", "D");
     imPlotRangeMaxID = env->GetFieldID(jImPlotRangeClass, "max", "D");
 
-    jclass jImPlotLimitsClass = env->FindClass("imgui/extension/implot/ImPlotLimits");
-    imPlotLimitsX = env->GetFieldID(jImPlotLimitsClass, "x", "Limgui/extension/implot/ImPlotRange;");
-    imPlotLimitsY = env->GetFieldID(jImPlotLimitsClass, "y", "Limgui/extension/implot/ImPlotRange;");
+    jclass jImPlotRectClass = env->FindClass("imgui/extension/implot/ImPlotRect");
+    imPlotRectX = env->GetFieldID(jImPlotRectClass, "x", "Limgui/extension/implot/ImPlotRange;");
+    imPlotRectY = env->GetFieldID(jImPlotRectClass, "y", "Limgui/extension/implot/ImPlotRange;");
 
     initialized = true;
 }
@@ -68,26 +68,26 @@ namespace Jni
         dst->Max = env->GetDoubleField(src, imPlotRangeMaxID);
     }
 
-    void ImPlotLimitsCpy(JNIEnv* env, ImPlotLimits* src, jobject dst) {
+    void ImPlotRectCpy(JNIEnv* env, ImPlotRect* src, jobject dst) {
         initialize(env);
-        jobject x = env->GetObjectField(dst, imPlotLimitsX);
-        jobject y = env->GetObjectField(dst, imPlotLimitsY);
+        jobject x = env->GetObjectField(dst, imPlotRectX);
+        jobject y = env->GetObjectField(dst, imPlotRectY);
         Jni::ImPlotRangeCpy(env, src->X, x);
         Jni::ImPlotRangeCpy(env, src->Y, y);
     }
 
-    void ImPlotLimitsCpy(JNIEnv* env, ImPlotLimits src, jobject dst) {
+    void ImPlotRectCpy(JNIEnv* env, ImPlotRect src, jobject dst) {
         initialize(env);
-        jobject x = env->GetObjectField(dst, imPlotLimitsX);
-        jobject y = env->GetObjectField(dst, imPlotLimitsY);
+        jobject x = env->GetObjectField(dst, imPlotRectX);
+        jobject y = env->GetObjectField(dst, imPlotRectY);
         Jni::ImPlotRangeCpy(env, src.X, x);
         Jni::ImPlotRangeCpy(env, src.Y, y);
     }
 
-    void ImPlotLimitsCpy(JNIEnv* env, jobject src, ImPlotLimits* dst) {
+    void ImPlotRectCpy(JNIEnv* env, jobject src, ImPlotRect* dst) {
         initialize(env);
-        jobject x = env->GetObjectField(src, imPlotLimitsX);
-        jobject y = env->GetObjectField(src, imPlotLimitsY);
+        jobject x = env->GetObjectField(src, imPlotRectX);
+        jobject y = env->GetObjectField(src, imPlotRectY);
         Jni::ImPlotRangeCpy(env, x, &dst->X);
         Jni::ImPlotRangeCpy(env, y, &dst->Y);
     }

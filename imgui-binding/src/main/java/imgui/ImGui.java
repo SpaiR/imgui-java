@@ -2572,38 +2572,49 @@ public class ImGui {
     */
 
     // Inputs Utilities: Keyboard
-    // - For 'int user_key_index' you can use your own indices/enums according to how your backend/engine stored them in io.KeysDown[].
-    // - We don't know the meaning of those value. You can use GetKeyIndex() to map a ImGuiKey_ value into the user index.
+    // Without IMGUI_DISABLE_OBSOLETE_KEYIO: (legacy support)
+    //   - For 'ImGuiKey key' you can still use your legacy native/user indices according to how your backend/engine stored them in io.KeysDown[].
+    // With IMGUI_DISABLE_OBSOLETE_KEYIO: (this is the way forward)
+    //   - Any use of 'ImGuiKey' will assert when key < 512 will be passed, previously reserved as native/user keys indices
+    //   - GetKeyIndex() is pass-through and therefore deprecated (gone if IMGUI_DISABLE_OBSOLETE_KEYIO is defined)
 
     /**
      * Map ImGuiKey_* values into user's key index. == io.KeyMap[key]
      */
     @BindingMethod
-    public static native int GetKeyIndex(int imguiKey);
+    @Deprecated
+    public static native int GetKeyIndex(@ArgValue(staticCast = "ImGuiKey") int key);
+
     /**
      * Is key being held. == io.KeysDown[user_key_index].
      */
     @BindingMethod
-    public static native boolean IsKeyDown(int userKeyIndex);
+    public static native boolean IsKeyDown(@ArgValue(staticCast = "ImGuiKey") int key);
 
     /**
      * Was key pressed (went from !Down to Down)? if repeat=true, uses io.KeyRepeatDelay / KeyRepeatRate
      */
     @BindingMethod
-    public static native boolean IsKeyPressed(int userKeyIndex, @OptArg boolean repeat);
+    public static native boolean IsKeyPressed(@ArgValue(staticCast = "ImGuiKey") int key, @OptArg boolean repeat);
 
     /**
-     * Was key released (went from Down to !Down)..
+     * Was key released (went from Down to !Down)
      */
     @BindingMethod
-    public static native boolean IsKeyReleased(int userKeyIndex);
+    public static native boolean IsKeyReleased(@ArgValue(staticCast = "ImGuiKey") int key);
 
     /**
      * Uses provided repeat rate/delay.
      * Return a count, most often 0 or 1 but might be {@code >1} if RepeatRate is small enough that {@code DeltaTime > RepeatRate}
      */
     @BindingMethod
-    public static native boolean GetKeyPressedAmount(int keyIndex, float repeatDelay, float rate);
+    public static native boolean GetKeyPressedAmount(@ArgValue(staticCast = "ImGuiKey") int key, float repeatDelay, float rate);
+
+    /**
+     * [DEBUG] returns English name of the key. Those names a provided for debugging purpose and are not meant to be saved persistently not compared.
+     */
+    @BindingMethod
+    public static native String GetKeyName(@ArgValue(staticCast = "ImGuiKey") int key);
 
     /**
      * Attention: misleading name! manually override io.WantCaptureKeyboard flag next frame (said flag is entirely left for your application to handle).

@@ -6,6 +6,7 @@ import java.util.Map;
 
 public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     public TextEditorLanguageDefinition() {
+        super();
     }
 
     public TextEditorLanguageDefinition(final long ptr) {

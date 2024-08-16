@@ -208,25 +208,4 @@ public final class ImGuiColorEditFlags {
      * <p>Definition: {@code ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_InputHSV}
      */
     public static final int InputMask_ = 402653184;
-
-    /**
-     * [renamed in 1.69]
-     *
-     * <p>Definition: {@code ImGuiColorEditFlags_DisplayRGB}
-     */
-    public static final int RGB = 1048576;
-
-    /**
-     * [renamed in 1.69]
-     *
-     * <p>Definition: {@code ImGuiColorEditFlags_DisplayHSV}
-     */
-    public static final int HSV = 2097152;
-
-    /**
-     * [renamed in 1.69]
-     *
-     * <p>Definition: {@code ImGuiColorEditFlags_DisplayHex}
-     */
-    public static final int HEX = 4194304;
 }

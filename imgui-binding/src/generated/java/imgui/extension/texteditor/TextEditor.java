@@ -7,6 +7,7 @@ import java.util.Map;
 
 public final class TextEditor extends ImGuiStructDestroyable {
     public TextEditor() {
+        super();
     }
 
     public TextEditor(final long ptr) {

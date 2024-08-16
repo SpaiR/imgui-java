@@ -14,7 +14,7 @@ public final class ImGuiConfigFlags {
     public static final int None = 0;
 
     /**
-     * Master keyboard navigation enable flag. NewFrame() will automatically fill io.NavInputs[] based on io.KeysDown[].
+     * Master keyboard navigation enable flag. NewFrame() will automatically fill io.NavInputs[] based on io.AddKeyEvent() calls
      *
      * <p>Definition: {@code 1 << 0}
      */

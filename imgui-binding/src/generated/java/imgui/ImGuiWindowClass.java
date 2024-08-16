@@ -13,6 +13,7 @@ import imgui.binding.ImGuiStructDestroyable;
  */
 public final class ImGuiWindowClass extends ImGuiStructDestroyable {
     public ImGuiWindowClass() {
+        super();
     }
 
     public ImGuiWindowClass(final long ptr) {

@@ -14,6 +14,7 @@ import imgui.binding.annotation.OptArg;
 @BindingSource
 public final class MemoryEditor extends ImGuiStructDestroyable {
     public MemoryEditor() {
+        super();
     }
 
     public MemoryEditor(final long ptr) {

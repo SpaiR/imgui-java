@@ -23,9 +23,8 @@ import java.util.Objects;
  * When extended, life-cycle methods should be called manually.
  */
 public abstract class Window {
-
-    private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
-    private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+    protected ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
+    protected ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
 
     private String glslVersion = null;
 
@@ -55,8 +54,8 @@ public abstract class Window {
      * Method to dispose all used application resources and destroy its window.
      */
     protected void dispose() {
-        imGuiGl3.dispose();
-        imGuiGlfw.dispose();
+        imGuiGl3.shutdown();
+        imGuiGlfw.shutdown();
         disposeImGui();
         disposeWindow();
     }
@@ -189,6 +188,7 @@ public abstract class Window {
      */
     protected void startFrame() {
         clearBuffer();
+        imGuiGl3.newFrame();
         imGuiGlfw.newFrame();
         ImGui.newFrame();
     }
@@ -201,11 +201,14 @@ public abstract class Window {
         ImGui.render();
         imGuiGl3.renderDrawData(ImGui.getDrawData());
 
+        // Update and Render additional Platform Windows
+        // (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
+        //  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
         if (ImGui.getIO().hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
-            final long backupWindowPtr = GLFW.glfwGetCurrentContext();
+            final long backupCurrentContext = GLFW.glfwGetCurrentContext();
             ImGui.updatePlatformWindows();
             ImGui.renderPlatformWindowsDefault();
-            GLFW.glfwMakeContextCurrent(backupWindowPtr);
+            GLFW.glfwMakeContextCurrent(backupCurrentContext);
         }
 
         renderBuffer();

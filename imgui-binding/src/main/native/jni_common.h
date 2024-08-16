@@ -1,7 +1,31 @@
 #pragma once
 
+#include "stdlib.h"
+#include "stdint.h"
+
 #include "jni.h"
 #include "imgui.h"
+
+#ifndef SET_STRING_FIELD
+#define SET_STRING_FIELD(field, value) \
+    do { \
+        static bool freeField = false; \
+        if (freeField) { \
+            free((void*)(field)); \
+        } \
+        if ((value) != NULL) { \
+            size_t length = strlen(value) + 1; \
+            (field) = (char*)malloc(length); \
+            if ((field) != NULL) { \
+                strcpy((char*)(field), value); \
+                freeField = true; \
+            } \
+        } else { \
+            (field) = NULL; \
+            freeField = false; \
+        } \
+    } while (0)
+#endif
 
 namespace Jni
 {
@@ -20,4 +44,7 @@ namespace Jni
 
     void ImVec2ArrayCpy(JNIEnv* env, jobjectArray src, ImVec2* dst, int size);
     void ImVec4ArrayCpy(JNIEnv* env, jobjectArray src, ImVec4* dst, int size);
+
+    jobjectArray NewImGuiKeyDataArray(JNIEnv* env, const ImGuiKeyData* src, int size);
+    void ImGuiKeyDataArrayCpy(JNIEnv* env, jobjectArray src, ImGuiKeyData* dst, int size);
 }

@@ -23,7 +23,7 @@ public final class ImPlot {
      */
 
     //-----------------------------------------------------------------------------
-    // ImPlot Context
+    // [SECTION] Contexts
     //-----------------------------------------------------------------------------
 
     /**
@@ -54,42 +54,28 @@ public final class ImPlot {
     public static native void SetImGuiContext(ImGuiContext ctx);
 
     //-----------------------------------------------------------------------------
-    // Begin/End Plot
+    // [SECTION] Begin/End Plot
     //-----------------------------------------------------------------------------
 
     // Starts a 2D plotting context. If this function returns true, EndPlot() MUST
     // be called! You are encouraged to use the following convention:
     //
-    // if (ImPlot.beginPlot(...)) {
-    //     ImPlot.plotLine(...);
+    // if (BeginPlot(...)) {
+    //     PlotLine(...);
     //     ...
-    //     ImPlot.endPlot();
+    //     EndPlot();
     // }
     //
     // Important notes:
     //
-    // - #titleID must be unique to the current ImGui ID scope. If you need to avoid ID
+    // - #title_id must be unique to the current ImGui ID scope. If you need to avoid ID
     //   collisions or don't want to display a title in the plot, use double hashes
     //   (e.g. "MyPlot##HiddenIdText" or "##NoTitle").
-    // - If #xLabel and/or #yLabel are provided, axes labels will be displayed.
     // - #size is the **frame** size of the plot widget, not the plot area. The default
-    //   size of plots (i.e. when ImVec2(0,0)) can be modified in your ImPlotStyle
-    //   (default is 400x300 px).
-    // - Auxiliary y-axes must be enabled with ImPlotFlags_YAxis2/3 to be displayed.
-    // - See ImPlotFlags and ImPlotAxisFlags for more available options.
+    //   size of plots (i.e. when ImVec2(0,0)) can be modified in your ImPlotStyle.
 
     @BindingMethod
-    public static native boolean BeginPlot(String titleID,
-                                           @OptArg String xLabel,
-                                           @OptArg String yLabel,
-                                           @OptArg(callValue = "ImVec2(-1,0)") ImVec2 size,
-                                           @OptArg int flags,
-                                           @OptArg int xFlags,
-                                           @OptArg int yFlags,
-                                           @OptArg int y2Flags,
-                                           @OptArg int y3Flags,
-                                           @OptArg String y2Label,
-                                           @OptArg String y3Label);
+    public static native boolean BeginPlot(String titleId, @OptArg(callValue = "ImVec2(-1,0)") ImVec2 size, @OptArg int flags);
 
     /**
      * Only call EndPlot() if beginPlot() returns true! Typically called at the end
@@ -99,7 +85,7 @@ public final class ImPlot {
     public static native void EndPlot();
 
     //-----------------------------------------------------------------------------
-    // Begin/EndSubplots
+    // [SECTION] Begin/End Subplots
     //-----------------------------------------------------------------------------
 
     // Starts a subdivided plotting context. If the function returns true,
@@ -122,14 +108,15 @@ public final class ImPlot {
     //
     // Produces:
     //
-    // [0][1][2]
-    // [3][4][5]
+    // [0] | [1] | [2]
+    // ----|-----|----
+    // [3] | [4] | [5]
     //
     // Important notes:
     //
     // - #title_id must be unique to the current ImGui ID scope. If you need to avoid ID
     //   collisions or don't want to display a title in the plot, use double hashes
-    //   (e.g. "MyPlot##HiddenIdText" or "##NoTitle").
+    //   (e.g. "MySubplot##HiddenIdText" or "##NoTitle").
     // - #rows and #cols must be greater than 0.
     // - #size is the size of the entire grid of subplots, not the individual plots
     // - #row_ratios and #col_ratios must have AT LEAST #rows and #cols elements,
@@ -164,16 +151,174 @@ public final class ImPlot {
     public static native void EndSubplots();
 
     //-----------------------------------------------------------------------------
-    // Plot Items
+    // [SECTION] Setup
     //-----------------------------------------------------------------------------
 
-    /*JNI
-        // For a proper type conversion, since C++ doesn't have a "long" type.
-        #define long ImS64
-        #define LEN(arg) (int)env->GetArrayLength(obj_##arg)
-     */
+    // The following API allows you to setup and customize various aspects of the
+    // current plot. The functions should be called immediately after BeginPlot
+    // and before any other API calls. Typical usage is as follows:
 
-    // The template functions below are explicitly instantiated in implot_items.cpp.
+    // if (BeginPlot(...)) {                     1) begin a new plot
+    //     SetupAxis(ImAxis_X1, "My X-Axis");    2) make Setup calls
+    //     SetupAxis(ImAxis_Y1, "My Y-Axis");
+    //     SetupLegend(ImPlotLocation_North);
+    //     ...
+    //     SetupFinish();                        3) [optional] explicitly finish setup
+    //     PlotLine(...);                        4) plot items
+    //     ...
+    //     EndPlot();                            5) end the plot
+    // }
+    //
+    // Important notes:
+    //
+    // - Always call Setup code at the top of your BeginPlot conditional statement.
+    // - Setup is locked once you start plotting or explicitly call SetupFinish.
+    //   Do NOT call Setup code after you begin plotting or after you make
+    //   any non-Setup API calls (e.g. utils like PlotToPixels also lock Setup)
+    // - Calling SetupFinish is OPTIONAL, but probably good practice. If you do not
+    //   call it yourself, then the first subsequent plotting or utility function will
+    //   call it for you.
+
+    /**
+     * Enables an axis or sets the label and/or flags for an existing axis.
+     * Leave `label` as NULL for no label.
+     */
+    @BindingMethod
+    public static native void SetupAxis(int axis, @OptArg(callValue = "NULL") String label, @OptArg int flags);
+
+    /**
+     * Sets an axis range limits. If ImPlotCond_Always is used, the axes limits will be locked.
+     */
+    @BindingMethod
+    public static native void SetupAxisLimits(int axis, double vMin, double vMax, @OptArg int cond);
+
+    /**
+     * Links an axis range limits to external values. Set to NULL for no linkage.
+     * The pointer data must remain valid until EndPlot.
+     */
+    @BindingMethod
+    public static native void SetupAxisLinks(int axis, ImDouble linkMin, ImDouble linkMax);
+
+    /**
+     * Sets the format of numeric axis labels via formatter specifier (default="%g").
+     * Formatted values will be double (i.e. use %f).
+     */
+    @BindingMethod
+    public static native void SetupAxisFormat(int axis, String fmt);
+
+    // TODO: support ImPlotFormatter
+
+    /**
+     * Sets an axis' ticks and optionally the labels. To keep the default ticks,
+     * set `keepDefault=true`.
+     */
+    @BindingMethod
+    public static native void SetupAxisTicks(int axis, double[] values, int nTicks, @OptArg(callValue = "NULL") String[] labels, @OptArg boolean keepDefault);
+
+    /**
+     * Sets an axis' ticks and optionally the labels for the next plot.
+     * To keep the default ticks, set `keepDefault=true`.
+     */
+    @BindingMethod
+    public static native void SetupAxisTicks(int axis, double vMin, double vMax, int nTicks, @OptArg(callValue = "NULL") String[] labels, @OptArg boolean keepDefault);
+
+    /**
+     * Sets the label and/or flags for primary X and Y axes (shorthand for two calls to SetupAxis).
+     */
+    @BindingMethod
+    public static native void SetupAxes(String xLabel, String yLabel, @OptArg int xFlags, @OptArg int yFlags);
+
+    /**
+     * Sets the primary X and Y axes range limits. If ImPlotCond_Always is used,
+     * the axes limits will be locked (shorthand for two calls to SetupAxisLimits).
+     */
+    @BindingMethod
+    public static native void SetupAxesLimits(double xMin, double xMax, double yMin, double yMax, @OptArg int cond);
+
+    /**
+     * Sets up the plot legend.
+     */
+    @BindingMethod
+    public static native void SetupLegend(int location, @OptArg int flags);
+
+    /**
+     * Sets the location of the current plot's mouse position text (default = South|East).
+     */
+    @BindingMethod
+    public static native void SetupMouseText(int location, @OptArg int flags);
+
+    /**
+     * Explicitly finalize plot setup. Once you call this, you cannot make any more
+     * Setup calls for the current plot! Note that calling this function is OPTIONAL;
+     * it will be called by the first subsequent setup-locking API call.
+     */
+    @BindingMethod
+    public static native void SetupFinish();
+
+    //-----------------------------------------------------------------------------
+    // [SECTION] SetNext
+    //-----------------------------------------------------------------------------
+
+    // Though you should default to the `Setup` API above, there are some scenarios
+    // where (re)configuring a plot or axis before `BeginPlot` is needed (e.g. if
+    // using a preceding button or slider widget to change the plot limits). In
+    // this case, you can use the `SetNext` API below. While this is not as feature
+    // rich as the Setup API, most common needs are provided. These functions can be
+    // called anwhere except for inside of `Begin/EndPlot`. For example:
+
+    // if (ImGui::Button("Center Plot"))
+    //     ImPlot::SetNextPlotLimits(-1,1,-1,1);
+    // if (ImPlot::BeginPlot(...)) {
+    //     ...
+    //     ImPlot::EndPlot();
+    // }
+    //
+    // Important notes:
+    //
+    // - You must still enable non-default axes with SetupAxis for these functions
+    //   to work properly.
+
+    /**
+     * Sets an upcoming axis range limits. If ImPlotCond_Always is used, the axes limits will be locked.
+     */
+    @BindingMethod
+    public static native void SetNextAxisLimits(int axis, double vMin, double vMax, @OptArg int cond);
+
+    /**
+     * Links an upcoming axis range limits to external values. Set to NULL for no linkage.
+     * The pointer data must remain valid until EndPlot!
+     */
+    @BindingMethod
+    public static native void SetNextAxisLinks(int axis, ImDouble linkMin, ImDouble linkMax);
+
+    /**
+     * Set an upcoming axis to auto fit to its data.
+     */
+    @BindingMethod
+    public static native void SetNextAxisToFit(int axis);
+
+    /**
+     * Sets the upcoming primary X and Y axes range limits. If ImPlotCond_Always is used,
+     * the axes limits will be locked (shorthand for two calls to SetupAxisLimits).
+     */
+    @BindingMethod
+    public static native void SetNextAxesLimits(double xMin, double xMax, double yMin, double yMax, @OptArg int cond);
+
+    /**
+     * Sets all upcoming axes to auto fit to their data.
+     */
+    @BindingMethod
+    public static native void SetNextAxesToFit();
+
+    //-----------------------------------------------------------------------------
+    // [SECTION] Plot Items
+    //-----------------------------------------------------------------------------
+
+    // The main plotting API is provied below. Call these functions between
+    // Begin/EndPlot and after any Setup API calls. Each plots data on the current
+    // x and y axes, which can be changed with `SetAxis/Axes`.
+    //
+    // The templated functions are explicitly instantiated in implot_items.cpp.
     // They are not intended to be used generically with custom types. You will get
     // a linker error if you try! All functions support the following scalar types:
     //
@@ -216,6 +361,12 @@ public final class ImPlot {
     //
     // NB: All types are converted to double before plotting. You may lose information
     // if you try plotting extremely large 64-bit integral types. Proceed with caution!
+
+    /*JNI
+        // For a proper type conversion, since C++ doesn't have a "long" type.
+        #define long ImS64
+        #define LEN(arg) (int)env->GetArrayLength(obj_##arg)
+     */
 
     // values
 
@@ -1170,7 +1321,7 @@ public final class ImPlot {
                                                 @OptArg int xBins,
                                                 @OptArg int yBins,
                                                 @OptArg(callValue = "false") boolean density,
-                                                @OptArg(callValue = "ImPlotLimits()") ImPlotLimits range,
+                                                @OptArg(callValue = "ImPlotRect()") ImPlotRect range,
                                                 @OptArg boolean outliers);
 
     /**
@@ -1186,7 +1337,7 @@ public final class ImPlot {
                                                 @OptArg int xBins,
                                                 @OptArg int yBins,
                                                 @OptArg(callValue = "false") boolean density,
-                                                @OptArg(callValue = "ImPlotLimits()") ImPlotLimits range,
+                                                @OptArg(callValue = "ImPlotRect()") ImPlotRect range,
                                                 @OptArg boolean outliers);
 
     /**
@@ -1202,7 +1353,7 @@ public final class ImPlot {
                                                 @OptArg int xBins,
                                                 @OptArg int yBins,
                                                 @OptArg(callValue = "false") boolean density,
-                                                @OptArg(callValue = "ImPlotLimits()") ImPlotLimits range,
+                                                @OptArg(callValue = "ImPlotRect()") ImPlotRect range,
                                                 @OptArg boolean outliers);
 
     /**
@@ -1218,7 +1369,7 @@ public final class ImPlot {
                                                 @OptArg int xBins,
                                                 @OptArg int yBins,
                                                 @OptArg(callValue = "false") boolean density,
-                                                @OptArg(callValue = "ImPlotLimits()") ImPlotLimits range,
+                                                @OptArg(callValue = "ImPlotRect()") ImPlotRect range,
                                                 @OptArg boolean outliers);
 
     /**
@@ -1234,7 +1385,7 @@ public final class ImPlot {
                                                 @OptArg int xBins,
                                                 @OptArg int yBins,
                                                 @OptArg(callValue = "false") boolean density,
-                                                @OptArg(callValue = "ImPlotLimits()") ImPlotLimits range,
+                                                @OptArg(callValue = "ImPlotRect()") ImPlotRect range,
                                                 @OptArg boolean outliers);
 
     /**
@@ -1291,110 +1442,129 @@ public final class ImPlot {
      */
 
     //-----------------------------------------------------------------------------
-    // Plot Utils
+    // [SECTION] Plot Tools
+    //-----------------------------------------------------------------------------
+
+    // The following can be used to render interactive elements and/or annotations.
+    // Like the item plotting functions above, they apply to the current x and y
+    // axes, which can be changed with `SetAxis/SetAxes`.
+
+    /**
+     * Shows a draggable point at x, y. `col` defaults to ImGuiCol_Text.
+     */
+    @BindingMethod
+    public static native boolean DragPoint(int id, ImDouble x, ImDouble y, ImVec4 col, @OptArg(callValue = "4") float size, @OptArg int flags);
+
+    /**
+     * Shows a draggable vertical guide line at an x-value. `col` defaults to ImGuiCol_Text.
+     */
+    @BindingMethod
+    public static native boolean DragLineX(int id, ImDouble x, ImVec4 col, @OptArg(callValue = "1") float thickness, @OptArg int flags);
+
+    /**
+     * Shows a draggable horizontal guide line at a y-value. `col` defaults to ImGuiCol_Text.
+     */
+    @BindingMethod
+    public static native boolean DragLineY(int id, ImDouble y, ImVec4 col, @OptArg(callValue = "1") float thickness, @OptArg int flags);
+
+    /**
+     * Shows a draggable and resizeable rectangle.
+     */
+    @BindingMethod
+    public static native boolean DragRect(int id, ImDouble xMin, ImDouble yMin, ImDouble xMax, ImDouble yMax, ImVec4 col, @OptArg int flags);
+
+    /**
+     * Shows an annotation callout at a chosen point. Clamping keeps annotations in the plot area.
+     * Annotations are always rendered on top.
+     */
+    @BindingMethod
+    public static native void Annotation(double x, double y, ImVec4 color, ImVec2 pixOffset, boolean clamp, @OptArg boolean round);
+
+    /**
+     * Shows an annotation callout at a chosen point with formatted text.
+     * Clamping keeps annotations in the plot area. Annotations are always rendered on top.
+     */
+    @BindingMethod
+    public static native void Annotation(double x, double y, ImVec4 color, ImVec2 pixOffset, boolean clamp, String fmt, Void NULL);
+
+    /**
+     * Shows a x-axis tag at the specified coordinate value.
+     */
+    @BindingMethod
+    public static native void TagX(double x, ImVec4 color, @OptArg boolean round);
+
+    /**
+     * Shows a x-axis tag at the specified coordinate value with formatted text.
+     */
+    @BindingMethod
+    public static native void TagX(double x, ImVec4 color, String fmt, Void NULL);
+
+    /**
+     * Shows a y-axis tag at the specified coordinate value.
+     */
+    @BindingMethod
+    public static native void TagY(double y, ImVec4 color, @OptArg boolean round);
+
+    /**
+     * Shows a y-axis tag at the specified coordinate value with formatted text.
+     */
+    @BindingMethod
+    public static native void TagY(double y, ImVec4 color, String fmt, Void NULL);
+
+    //-----------------------------------------------------------------------------
+    // [SECTION] Plot Utils
     //-----------------------------------------------------------------------------
 
     /**
-     * Set the axes range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the axes limits will be locked.
+     * Selects which axis will be used for subsequent plot elements.
      */
     @BindingMethod
-    public static native void SetNextPlotLimits(double xMin, double xMax, double yMin, double yMax, @OptArg int cond);
+    public static native void SetAxis(int axis);
 
     /**
-     * Set the X axis range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the X axis limits will be locked.
+     * Selects which axes will be used for subsequent plot elements.
      */
     @BindingMethod
-    public static native void SetNextPlotLimitsX(double xMin, double xMax, @OptArg int cond);
+    public static native void SetAxes(int xAxis, int yAxis);
 
     /**
-     * Set the Y axis range limits of the next plot. Call right before BeginPlot(). If ImGuiCond_Always is used, the Y axis limits will be locked.
+     * Converts pixels to a position in the current plot's coordinate system.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
     @BindingMethod
-    public static native void SetNextPlotLimitsY(double yMin, double yMax, @OptArg int cond);
+    public static native ImPlotPoint PixelsToPlot(ImVec2 pix, @OptArg int xAxis, @OptArg int yAxis);
 
     /**
-     * Links the next plot limits to external values. Set to NULL for no linkage. The pointer data must remain valid until the matching call to EndPlot.
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
     @BindingMethod
-    public static native void LinkNextPlotLimits(ImDouble xMin, ImDouble xMax, ImDouble yMin, ImDouble yMax, @OptArg ImDouble yMin2, @OptArg ImDouble yMax2, @OptArg ImDouble yMin3, @OptArg ImDouble yMax3);
+    public static native ImVec2 PlotToPixels(ImPlotPoint plt, @OptArg int xAxis, @OptArg int yAxis);
 
     /**
-     * Fits the next plot axes to all plotted data if they are unlocked (equivalent to double-clicks).
-     */
-    @BindingMethod
-    public static native void FitNextPlotAxes(@OptArg boolean x, @OptArg boolean y, @OptArg boolean y2, @OptArg boolean y3);
-
-    /**
-     * Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
-     */
-    @BindingMethod
-    public static native void SetNextPlotTicksX(double[] values, int nTicks, @OptArg(callValue = "NULL") String[] labels, @OptArg boolean keepDefault);
-
-    /**
-     * Set the X axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
-     */
-    @BindingMethod
-    public static native void SetNextPlotTicksX(double xMin, double xMax, int nTicks, @OptArg(callValue = "NULL") String[] labels, @OptArg boolean keepDefault);
-
-    /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
-     */
-    @BindingMethod
-    public static native void SetNextPlotTicksY(double[] values, int nTicks, @OptArg(callValue = "NULL") String[] labels, @OptArg(callValue = "false") boolean keepDefault, @OptArg int yAxis);
-
-    /**
-     * Set the Y axis ticks and optionally the labels for the next plot. To keep the default ticks, set #keep_default=true.
-     */
-    @BindingMethod
-    public static native void SetNextPlotTicksY(double yMin, double yMax, int nTicks, @OptArg(callValue = "NULL") String[] labels, @OptArg(callValue = "false") boolean keepDefault, @OptArg int yAxis);
-
-    /**
-     * Set the format for numeric X axis labels (default="%g"). Formated values will be doubles (i.e. don't supply %d, %i, etc.). Not applicable if ImPlotAxisFlags_Time enabled.
-     */
-    @BindingMethod
-    public static native void SetNextPlotFormatX(String fmt);
-
-    /**
-     * Set the format for numeric Y axis labels (default="%g"). Formated values will be doubles (i.e. don't supply %d, %i, etc.).
-     */
-    @BindingMethod
-    public static native void SetNextPlotFormatY(String fmt, @OptArg int yAxis);
-
-    /**
-     * Select which Y axis will be used for subsequent plot elements. The default is ImPlotYAxis_1, or the first (left) Y axis. Enable 2nd and 3rd axes with ImPlotFlags_YAxisX.
-     */
-    @BindingMethod
-    public static native void SetPlotYAxis(int yAxis);
-
-    /**
-     * Hides the next plot item. Use ImGuiCond.Always if you need to forcefully set this every frame (default ImGuiCond.Once).
-     */
-    @BindingMethod
-    public static native void HideNextItem(@OptArg(callValue = "true") boolean hidden, @OptArg int cond);
-
-    /**
-     * Convert pixels to a position in the current plot's coordinate system. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    @BindingMethod
-    public static native ImPlotPoint PixelsToPlot(ImVec2 pix, @OptArg int yAxis);
-
-    /**
-     * Convert a position in the current plot's coordinate system to pixels. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    @BindingMethod
-    public static native ImVec2 PlotToPixels(ImPlotPoint plt, @OptArg int yAxis);
-
-    /**
-     * Get the current Plot position (top-left) in pixels.
+     * Gets the current Plot position (top-left) in pixels.
      */
     @BindingMethod
     public static native ImVec2 GetPlotPos();
 
     /**
-     * Get the current Plot size in pixels.
+     * Gets the current Plot size in pixels.
      */
     @BindingMethod
     public static native ImVec2 GetPlotSize();
+
+    /**
+     * Returns the mouse position in x, y coordinates of the current plot.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    @BindingMethod
+    public static native ImPlotPoint GetPlotMousePos(@OptArg int xAxis, @OptArg int yAxis);
+
+    /**
+     * Returns the current plot axis range.
+     */
+    @BindingMethod
+    public static native ImPlotRect GetPlotLimits(@OptArg int xAxis, @OptArg int yAxis);
 
     /**
      * Returns true if the plot area in the current plot is hovered.
@@ -1403,28 +1573,16 @@ public final class ImPlot {
     public static native boolean IsPlotHovered();
 
     /**
-     * Returns true if the XAxis plot area in the current plot is hovered.
+     * Returns true if the axis label area in the current plot is hovered.
      */
     @BindingMethod
-    public static native boolean IsPlotXAxisHovered();
+    public static native boolean IsAxisHovered(int axis);
 
     /**
-     * Returns true if the YAxis[n] plot area in the current plot is hovered.
+     * Returns true if the bounding frame of a subplot is hovered.
      */
     @BindingMethod
-    public static native boolean IsPlotYAxisHovered(@OptArg int yAxis);
-
-    /**
-     * Returns the mouse position in x,y coordinates of the current plot. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    @BindingMethod
-    public static native ImPlotPoint GetPlotMousePos(@OptArg int yAxis);
-
-    /**
-     * Returns the current plot axis range. A negative yAxis uses the current value of SetPlotYAxis (ImPlotYAxis_1 initially).
-     */
-    @BindingMethod
-    public static native ImPlotLimits GetPlotLimits(@OptArg int yAxis);
+    public static native boolean IsSubplotsHovered();
 
     /**
      * Returns true if the current plot is being box selected.
@@ -1434,115 +1592,57 @@ public final class ImPlot {
 
     /**
      * Returns the current plot box selection bounds.
+     * Passing IMPLOT_AUTO uses the current axes.
      */
     @BindingMethod
-    public static native ImPlotLimits GetPlotSelection(@OptArg int yAxis);
+    public static native ImPlotRect GetPlotSelection(@OptArg int xAxis, @OptArg int yAxis);
 
     /**
-     * Returns true if the current plot is being queried or has an active query. Query must be enabled with ImPlotFlags_Query.
+     * Cancels the current plot box selection.
      */
     @BindingMethod
-    public static native boolean IsPlotQueried();
+    public static native void CancelPlotSelection();
 
     /**
-     * Returns the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
+     * Hides or shows the next plot item (i.e. as if it were toggled from the legend).
+     * Use ImPlotCond_Always if you need to forcefully set this every frame.
      */
     @BindingMethod
-    public static native ImPlotLimits GetPlotQuery(@OptArg int yAxis);
+    public static native void HideNextItem(@OptArg(callValue = "true") boolean hidden, @OptArg int cond);
 
-    /**
-     * Set the current plot query bounds. Query must be enabled with ImPlotFlags_Query.
-     */
-    @BindingMethod
-    public static native void SetPlotQuery(ImPlotLimits query, @OptArg int yAxis);
-
-    /**
-     * Returns true if the bounding frame of a subplot is hovered
-     */
-    @BindingMethod
-    public static native boolean IsSubplotsHovered();
-
-    //-----------------------------------------------------------------------------
-    // Aligned Plots
-    //-----------------------------------------------------------------------------
-
+    // Use the following around calls to Begin/EndPlot to align l/r/t/b padding.
     // Consider using Begin/EndSubplots first. They are more feature rich and
     // accomplish the same behaviour by default. The functions below offer lower
     // level control of plot alignment.
 
     /**
-     * Align axis padding over multiple plots in a single row or column. If this function returns true, EndAlignedPlots() must be called. #group_id must be unique.
+     * Aligns axis padding over multiple plots in a single row or column.
+     * `group_id` must be unique. If this function returns true, EndAlignedPlots() must be called.
      */
     @BindingMethod
-    public static native boolean BeginAlignedPlots(String groupId, @OptArg int orientation);
+    public static native boolean BeginAlignedPlots(String groupId, @OptArg boolean vertical);
 
     /**
-     * Only call EndAlignedPlots() if BeginAlignedPlots() returns true!
+     * Ends aligned plots. Only call EndAlignedPlots() if BeginAlignedPlots() returns true.
      */
     @BindingMethod
     public static native void EndAlignedPlots();
 
     //-----------------------------------------------------------------------------
-    // Plot Tools
+    // [SECTION] Legend Utils
     //-----------------------------------------------------------------------------
 
     /**
-     * Shows an annotation callout at a chosen point.
+     * Begins a popup for a legend entry.
      */
     @BindingMethod
-    public static native void Annotate(double x, double y, ImVec2 pixOffset, String fmt, Void NULL);
+    public static native boolean BeginLegendPopup(String labelId, @OptArg int mouseButton);
 
     /**
-     * Shows an annotation callout at a chosen point.
+     * Ends a popup for a legend entry.
      */
     @BindingMethod
-    public static native void Annotate(double x, double y, ImVec2 pixOffset, ImVec4 color, String fmt, Void NULL);
-
-    /**
-     * Same as above, but the annotation will always be clamped to stay inside the plot area.
-     */
-    @BindingMethod
-    public static native void AnnotateClamped(double x, double y, ImVec2 pixOffset, String fmt, Void NULL);
-
-    /**
-     * Same as above, but the annotation will always be clamped to stay inside the plot area.
-     */
-    @BindingMethod
-    public static native void AnnotateClamped(double x, double y, ImVec2 pixOffset, ImVec4 color, String fmt, Void NULL);
-
-    /**
-     * Shows a draggable vertical guide line at an x-value. #col defaults to ImGuiCol_Text.
-     */
-    @BindingMethod
-    public static native boolean DragLineX(String id, ImDouble xValue, @OptArg(callValue = "true") boolean showLabel, @OptArg(callValue = "IMPLOT_AUTO_COL") ImVec4 color, @OptArg float thickness);
-
-    /**
-     * Shows a draggable horizontal guide line at a y-value. #col defaults to ImGuiCol_Text.
-     */
-    @BindingMethod
-    public static native boolean DragLineY(String id, ImDouble yValue, @OptArg(callValue = "true") boolean showLabel, @OptArg(callValue = "IMPLOT_AUTO_COL") ImVec4 color, @OptArg float thickness);
-
-    /**
-     * Shows a draggable point at x,y. #col defaults to ImGuiCol_Text.
-     */
-    @BindingMethod
-    public static native boolean DragPoint(String id, ImDouble x, ImDouble y, @OptArg(callValue = "true") boolean showLabel, @OptArg(callValue = "IMPLOT_AUTO_COL") ImVec4 color, @OptArg float radius);
-
-    //-----------------------------------------------------------------------------
-    // Legend Utils and Tools
-    //-----------------------------------------------------------------------------
-
-    /**
-     * Set the location of the current plot's legend
-     */
-    @BindingMethod
-    public static native void SetLegendLocation(int location, @OptArg(callValue = "ImPlotOrientation_Vertical") int orientation, @OptArg boolean outside);
-
-    /**
-     * Set the location of the current plot's mouse position text
-     */
-    @BindingMethod
-    public static native void SetMousePosLocation(int location);
+    public static native void EndLegendPopup();
 
     /**
      * Returns true if a plot item legend entry is hovered.
@@ -1550,48 +1650,33 @@ public final class ImPlot {
     @BindingMethod
     public static native boolean IsLegendEntryHovered(String labelId);
 
-    /**
-     * Begin a popup for a legend entry.
-     */
-    @BindingMethod
-    public static native boolean BeginLegendPopup(String labelID, @OptArg int mouseButton);
-
-    /**
-     * End a popup for a legend entry.
-     */
-    @BindingMethod
-    public static native void EndLegendPopup();
-
     //-----------------------------------------------------------------------------
-    // Drag and Drop Utils
+    // [SECTION] Drag and Drop
     //-----------------------------------------------------------------------------
 
     /**
-     * Turns the current plot's plotting area into a drag and drop target. Don't forget to call EndDragDropTarget!
+     * Turns the current plot's plotting area into a drag and drop target.
+     * Don't forget to call EndDragDropTarget!
      */
     @BindingMethod
-    public static native boolean BeginDragDropTarget();
+    public static native boolean BeginDragDropTargetPlot();
 
     /**
-     * Turns the current plot's X-axis into a drag and drop target. Don't forget to call EndDragDropTarget!
+     * Turns the current plot's X-axis into a drag and drop target.
+     * Don't forget to call EndDragDropTarget!
      */
     @BindingMethod
-    public static native boolean BeginDragDropTargetX();
+    public static native boolean BeginDragDropTargetAxis(int axis);
 
     /**
-     * Turns the current plot's Y-Axis into a drag and drop target. Don't forget to call EndDragDropTarget!
-     */
-    @BindingMethod
-    public static native boolean BeginDragDropTargetY(@OptArg int yAxis);
-
-    /**
-     * Turns the current plot's legend into a drag and drop target. Don't forget to call EndDragDropTarget!
+     * Turns the current plot's legend into a drag and drop target.
+     * Don't forget to call EndDragDropTarget!
      */
     @BindingMethod
     public static native boolean BeginDragDropTargetLegend();
 
     /**
-     * Ends a drag and drop target.
+     * Ends a drag and drop target (currently just an alias for ImGui::EndDragDropTarget).
      */
     @BindingMethod
     public static native void EndDragDropTarget();
@@ -1600,37 +1685,34 @@ public final class ImPlot {
     // You can change the modifier if desired. If ImGuiKeyModFlags_None is provided, the axes will be locked from panning.
 
     /**
-     * Turns the current plot's plotting area into a drag and drop source. Don't forget to call EndDragDropSource!
+     * Turns the current plot's plotting area into a drag and drop source.
+     * You must hold Ctrl. Don't forget to call EndDragDropSource!
      */
     @BindingMethod
-    public static native boolean BeginDragDropSource(@OptArg int keyMods, @OptArg int dragDropFlags);
+    public static native boolean BeginDragDropSourcePlot(@OptArg int flags);
 
     /**
-     * Turns the current plot's X-axis into a drag and drop source. Don't forget to call EndDragDropSource!
+     * Turns the current plot's X-axis into a drag and drop source.
+     * You must hold Ctrl. Don't forget to call EndDragDropSource!
      */
     @BindingMethod
-    public static native boolean BeginDragDropSourceX(@OptArg int keyMods, @OptArg int dragDropFlags);
+    public static native boolean BeginDragDropSourceAxis(int axis, @OptArg int flags);
 
     /**
-     * Turns the current plot's Y-axis into a drag and drop source. Don't forget to call EndDragDropSource!
+     * Turns an item in the current plot's legend into a drag and drop source.
+     * Don't forget to call EndDragDropSource!
      */
     @BindingMethod
-    public static native boolean BeginDragDropSourceY(@OptArg int yAxis, @OptArg int keyMods, @OptArg int dragDropFlags);
+    public static native boolean BeginDragDropSourceItem(String labelId, @OptArg int flags);
 
     /**
-     * Turns an item in the current plot's legend into drag and drop source. Don't forget to call EndDragDropSource!
-     */
-    @BindingMethod
-    public static native boolean BeginDragDropSourceItem(String labelID, @OptArg int dragDropFlags);
-
-    /**
-     * Ends a drag and drop source.
+     * Ends a drag and drop source (currently just an alias for ImGui::EndDragDropSource).
      */
     @BindingMethod
     public static native void EndDragDropSource();
 
     //-----------------------------------------------------------------------------
-    // Plot and Item Styling
+    // [SECTION] Styling
     //-----------------------------------------------------------------------------
 
     // Styling colors in ImPlot works similarly to styling colors in ImGui, but
@@ -1785,7 +1867,7 @@ public final class ImPlot {
     public static native String GetMarkerName(int idx);
 
     //-----------------------------------------------------------------------------
-    // Colormaps
+    // [SECTION] Colormaps
     //-----------------------------------------------------------------------------
 
     // Item styling is based on colormaps when the relevant ImPlotCol_XXX is set to
@@ -1875,7 +1957,7 @@ public final class ImPlot {
      * Shows a vertical color scale with linear spaced ticks using the specified color map. Use double hashes to hide label (e.g. "##NoLabel").
      */
     @BindingMethod
-    public static native void ColormapScale(String label, double scaleMin, double scaleMax, @OptArg(callValue = "ImVec2(0,0)") ImVec2 size, @OptArg(callValue = "IMPLOT_AUTO") int cmap, @OptArg String fmt);
+    public static native void ColormapScale(String label, double scaleMin, double scaleMax, @OptArg(callValue = "ImVec2(0,0)") ImVec2 size, @OptArg(callValue = "IMPLOT_AUTO") int cmap, @OptArg String format);
 
     /**
      * Shows a horizontal slider with a colormap gradient background.
@@ -1903,7 +1985,32 @@ public final class ImPlot {
     public static native void BustColorCache(@OptArg String plotTitleId);
 
     //-----------------------------------------------------------------------------
-    // Miscellaneous
+    // [SECTION] Input Mapping
+    //-----------------------------------------------------------------------------
+
+    /**
+     * Provides access to the input mapping structure for permanent modifications to controls for pan, select, etc.
+     */
+    @BindingMethod
+    @ReturnValue(callPrefix = "&", isStatic = true)
+    public static native ImPlotInputMap GetInputMap();
+
+    /**
+     * Default input mapping: pan = LMB drag, box select = RMB drag,
+     * fit = LMB double click, context menu = RMB click, zoom = scroll.
+     */
+    @BindingMethod
+    public static native void MapInputDefault(@OptArg ImPlotInputMap dst);
+
+    /**
+     * Reverse input mapping: pan = RMB drag, box select = LMB drag,
+     * fit = LMB double click, context menu = RMB click, zoom = scroll.
+     */
+    @BindingMethod
+    public static native void MapInputReverse(@OptArg ImPlotInputMap dst);
+
+    //-----------------------------------------------------------------------------
+    // [SECTION] Miscellaneous
     //-----------------------------------------------------------------------------
 
     // Render icons similar to those that appear in legends (nifty for data lists).
@@ -1948,6 +2055,12 @@ public final class ImPlot {
     public static native boolean ShowColormapSelector(String label);
 
     /**
+     * Shows ImPlot input map selector dropdown menu.
+     */
+    @BindingMethod
+    public static native boolean ShowInputMapSelector(String label);
+
+    /**
      * Shows ImPlot style editor block (not a window).
      */
     @BindingMethod
@@ -1966,7 +2079,7 @@ public final class ImPlot {
     public static native void ShowMetricsWindow(@OptArg ImBoolean pOpen);
 
     //-----------------------------------------------------------------------------
-    // Demo
+    // [SECTION] Demo
     //-----------------------------------------------------------------------------
 
     /**

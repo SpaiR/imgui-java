@@ -71,7 +71,7 @@ private fun convertParams2jni(f: Factory, params: List<CtParameter<*>>, defaults
                 setType<Nothing>(f.createTypeParam("double"))
                 setSimpleName<Nothing>("${p.simpleName}Max")
             }
-        } else if (p.isType("ImPlotLimits")) {
+        } else if (p.isType("ImPlotRect")) {
             result += f.createParameter<Nothing>().apply {
                 setType<Nothing>(f.createTypeParam("double"))
                 setSimpleName<Nothing>("${p.simpleName}MinX")
@@ -155,8 +155,8 @@ private fun joinInBodyParams(params: List<CtParameter<*>>, defaults: IntArray): 
                     "ImPlotRange(${p.simpleName}Min, ${p.simpleName}Max)"
                 }
 
-                "ImPlotLimits" -> {
-                    "ImPlotLimits(${p.simpleName}MinX, ${p.simpleName}MinY, ${p.simpleName}MaxX, ${p.simpleName}MaxY)"
+                "ImPlotRect" -> {
+                    "ImPlotRect(${p.simpleName}MinX, ${p.simpleName}MinY, ${p.simpleName}MaxX, ${p.simpleName}MaxY)"
                 }
 
                 "TextEditorCoordinates" -> {
@@ -281,8 +281,10 @@ private fun createMethod(mOrig: CtMethod<*>, params: List<CtParameter<*>>, defau
             append(joinInBodyParams(params, defaults))
             append(')')
 
-            mOrig.getAnnotation(A_NAME_RETURN_VALUE)?.let { a ->
-                append(a.getValueAsString(A_VALUE_CALL_SUFFIX))
+            if (!mOrig.isType("void")) {
+                mOrig.getAnnotation(A_NAME_RETURN_VALUE)?.let { a ->
+                    append(a.getValueAsString(A_VALUE_CALL_SUFFIX))
+                }
             }
 
             if (jniCpyReturn) {
@@ -553,7 +555,7 @@ private fun createFieldGetContent(field: CtField<*>): List<String> {
                 )
             }
 
-            "ImVec2", "ImVec4" -> {
+            else -> {
                 getArray.setBody<Nothing>(
                     f.createCodeSnippet(
                         """
@@ -602,6 +604,7 @@ private fun createFieldSetContent(field: CtField<*>): List<String> {
     setAccessor.setParent<Nothing>(field.parent)
     setAccessor.setSimpleName<Nothing>("set${field.simpleName}")
     setAccessor.addModifier<Nothing>(ModifierKind.PRIVATE)
+    setAccessor.setAnnotations<Nothing>(field.annotations)
 
     val valueParam = f.createParameter<Nothing>().apply {
         setType<Nothing>(field.type)
@@ -633,7 +636,7 @@ private fun createFieldSetContent(field: CtField<*>): List<String> {
                 )
             }
 
-            "ImVec2", "ImVec4" -> {
+            else -> {
                 setArray.setBody<Nothing>(
                     f.createCodeSnippet("""
                         Jni::${arrayType}ArrayCpy(env, value, $PTR_JNI_THIS->${field.getCallName()}, $arraySize)
@@ -665,10 +668,16 @@ private fun createFieldSetContent(field: CtField<*>): List<String> {
         }
     } else {
         result += transformMethodToContent(setAccessor, listOf(valueParam)).map {
-            it.replace(
-                "$PTR_JNI_THIS->${setAccessor.simpleName}\\((.+)\\)".toRegex(),
-                "$PTR_JNI_THIS->${field.getCallName()} = $1"
-            )
+            val fieldName = "$PTR_JNI_THIS->${field.getCallName()}"
+            val replaceTarget = "$PTR_JNI_THIS->${setAccessor.simpleName}\\((.+)\\)"
+            var replaceContent = "$fieldName = $1"
+
+            // When we set a string to a field we need to manually copy the string itself.
+            if (field.isType("String") && !field.hasAnnotation(A_NAME_TYPE_STD_STRING)) {
+                replaceContent = "SET_STRING_FIELD($fieldName, $1)"
+            }
+
+            it.replace(replaceTarget.toRegex(), replaceContent)
         }
     }
 

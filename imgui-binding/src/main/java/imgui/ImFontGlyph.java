@@ -11,6 +11,7 @@ import imgui.binding.annotation.BindingSource;
 @BindingSource
 public final class ImFontGlyph extends ImGuiStructDestroyable {
     public ImFontGlyph() {
+        super();
     }
 
     public ImFontGlyph(final long ptr) {

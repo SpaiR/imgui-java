@@ -16,6 +16,7 @@ import imgui.binding.annotation.BindingSource;
 @BindingSource
 public final class ImGuiWindowClass extends ImGuiStructDestroyable {
     public ImGuiWindowClass() {
+        super();
     }
 
     public ImGuiWindowClass(final long ptr) {

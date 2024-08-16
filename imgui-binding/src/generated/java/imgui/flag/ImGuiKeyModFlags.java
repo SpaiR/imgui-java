@@ -29,7 +29,9 @@ public final class ImGuiKeyModFlags {
     public static final int Alt = 4;
 
     /**
-     * Definition: {@code 1 << 3}
+     * Cmd/Super/Windows key
+     *
+     * <p>Definition: {@code 1 << 3}
      */
     public static final int Super = 8;
 }

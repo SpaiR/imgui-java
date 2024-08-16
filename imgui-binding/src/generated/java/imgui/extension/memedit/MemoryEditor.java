@@ -8,6 +8,7 @@ import imgui.binding.ImGuiStructDestroyable;
  */
 public final class MemoryEditor extends ImGuiStructDestroyable {
     public MemoryEditor() {
+        super();
     }
 
     public MemoryEditor(final long ptr) {

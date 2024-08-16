@@ -30,6 +30,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
     private ByteBuffer rgba32pixels = null;
 
     public ImFontAtlas() {
+        super();
     }
 
     public ImFontAtlas(final long ptr) {

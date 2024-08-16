@@ -5,12 +5,14 @@ import imgui.binding.annotation.BindingField;
 import imgui.binding.annotation.BindingMethod;
 import imgui.binding.annotation.BindingSource;
 import imgui.binding.annotation.ReturnValue;
+import imgui.binding.annotation.TypeStdString;
 
 import java.util.Map;
 
 @BindingSource
 public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     public TextEditorLanguageDefinition() {
+        super();
     }
 
     public TextEditorLanguageDefinition(final long ptr) {
@@ -33,6 +35,7 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     */
 
     @BindingField(callName = "mName")
+    @TypeStdString
     @ReturnValue(callSuffix = ".c_str()")
     public String Name;
 
@@ -96,14 +99,17 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     */
 
     @BindingField(callName = "mCommentStart")
+    @TypeStdString
     @ReturnValue(callSuffix = ".c_str()")
     public String CommentStart;
 
     @BindingField(callName = "mCommentEnd")
+    @TypeStdString
     @ReturnValue(callSuffix = ".c_str()")
     public String CommentEnd;
 
     @BindingField(callName = "mSingleLineComment")
+    @TypeStdString
     @ReturnValue(callSuffix = ".c_str()")
     public String SingleLineComment;
 
