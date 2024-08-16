@@ -668,10 +668,16 @@ private fun createFieldSetContent(field: CtField<*>): List<String> {
         }
     } else {
         result += transformMethodToContent(setAccessor, listOf(valueParam)).map {
-            it.replace(
-                "$PTR_JNI_THIS->${setAccessor.simpleName}\\((.+)\\)".toRegex(),
-                "$PTR_JNI_THIS->${field.getCallName()} = $1"
-            )
+            val fieldName = "$PTR_JNI_THIS->${field.getCallName()}"
+            val replaceTarget = "$PTR_JNI_THIS->${setAccessor.simpleName}\\((.+)\\)"
+            var replaceContent = "$fieldName = $1"
+
+            // When we set a string to a field we need to manually copy the string itself.
+            if (field.isType("String") && !field.hasAnnotation(A_NAME_TYPE_STD_STRING)) {
+                replaceContent = "SET_STRING_FIELD($fieldName, $1)"
+            }
+
+            it.replace(replaceTarget.toRegex(), replaceContent)
         }
     }
 

@@ -31,7 +31,7 @@ public final class NodeEditorConfig extends ImGuiStructDestroyable {
 
     private native void nSetSettingsFile(String value); /*MANUAL
         auto value = obj_value == NULL ? NULL : (char*)env->GetStringUTFChars(obj_value, JNI_FALSE);
-        THIS->SettingsFile = value;
+        SET_STRING_FIELD(THIS->SettingsFile, value);
         if (value != NULL) env->ReleaseStringUTFChars(obj_value, value);
     */
 

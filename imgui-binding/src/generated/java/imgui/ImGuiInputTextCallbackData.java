@@ -116,7 +116,7 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
 
     private native void nSetBuf(String value); /*MANUAL
         auto value = obj_value == NULL ? NULL : (char*)env->GetStringUTFChars(obj_value, JNI_FALSE);
-        THIS->Buf = value;
+        SET_STRING_FIELD(THIS->Buf, value);
         if (value != NULL) env->ReleaseStringUTFChars(obj_value, value);
     */
 

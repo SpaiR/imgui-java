@@ -233,7 +233,7 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nSetIniFilename(String value); /*MANUAL
         auto value = obj_value == NULL ? NULL : (char*)env->GetStringUTFChars(obj_value, JNI_FALSE);
-        THIS->IniFilename = value;
+        SET_STRING_FIELD(THIS->IniFilename, value);
         if (value != NULL) env->ReleaseStringUTFChars(obj_value, value);
     */
 
@@ -257,7 +257,7 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nSetLogFilename(String value); /*MANUAL
         auto value = obj_value == NULL ? NULL : (char*)env->GetStringUTFChars(obj_value, JNI_FALSE);
-        THIS->LogFilename = value;
+        SET_STRING_FIELD(THIS->LogFilename, value);
         if (value != NULL) env->ReleaseStringUTFChars(obj_value, value);
     */
 
@@ -909,7 +909,7 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nSetBackendPlatformName(String value); /*MANUAL
         auto value = obj_value == NULL ? NULL : (char*)env->GetStringUTFChars(obj_value, JNI_FALSE);
-        THIS->BackendPlatformName = value;
+        SET_STRING_FIELD(THIS->BackendPlatformName, value);
         if (value != NULL) env->ReleaseStringUTFChars(obj_value, value);
     */
 
@@ -927,7 +927,7 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nSetBackendRendererName(String value); /*MANUAL
         auto value = obj_value == NULL ? NULL : (char*)env->GetStringUTFChars(obj_value, JNI_FALSE);
-        THIS->BackendRendererName = value;
+        SET_STRING_FIELD(THIS->BackendRendererName, value);
         if (value != NULL) env->ReleaseStringUTFChars(obj_value, value);
     */
 
