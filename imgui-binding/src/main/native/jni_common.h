@@ -1,5 +1,8 @@
 #pragma once
 
+#include "stdlib.h"
+#include "stdint.h"
+
 #include "jni.h"
 #include "imgui.h"
 
