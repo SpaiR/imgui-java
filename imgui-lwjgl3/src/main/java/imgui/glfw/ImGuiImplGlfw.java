@@ -758,35 +758,34 @@ public class ImGuiImplGlfw {
         data.prevUserCallbackMonitor = null;
     }
 
-    protected void detectGlfwVersionAndEnabledFeatures() {
-        final int[] major = new int[1];
-        final int[] minor = new int[1];
-        final int[] rev = new int[1];
-        glfwGetVersion(major, minor, rev);
-
-        final int version = major[0] * 1000 + minor[0] * 100 + rev[0] * 10;
-
-        glfwHawWindowTopmost = version >= 3200;
-        glfwHasWindowHovered = version >= 3300;
-        glfwHasWindowAlpha = version >= 3300;
-        glfwHasPerMonitorDpi = version >= 3300;
-        // glfwHasVulkan = version >= 3200; TODO: I want to believe...
-        glfwHasFocusWindow = version >= 3200;
-        glfwHasFocusOnShow = version >= 3300;
-        glfwHasMonitorWorkArea = version >= 3300;
-        glfwHasOsxWindowPosFix = version >= 3310;
-        glfwHasNewCursors = version >= 3400;
-        glfwHasMousePassthrough = version >= 3400;
-        glfwHasGamepadApi = version >= 3300;
-        glfwHasGetKeyName = version >= 3200;
-    }
-
     protected Data newData() {
         return new Data();
     }
 
     public boolean init(final long window, final boolean installCallbacks) {
-        detectGlfwVersionAndEnabledFeatures();
+        // On the Dear ImGui backend side version resolving is done with the usage of defines.
+        {
+            final int[] major = new int[1];
+            final int[] minor = new int[1];
+            final int[] rev = new int[1];
+            glfwGetVersion(major, minor, rev);
+
+            final int version = major[0] * 1000 + minor[0] * 100 + rev[0] * 10;
+
+            glfwHawWindowTopmost = version >= 3200;
+            glfwHasWindowHovered = version >= 3300;
+            glfwHasWindowAlpha = version >= 3300;
+            glfwHasPerMonitorDpi = version >= 3300;
+            // glfwHasVulkan = version >= 3200; TODO: I want to believe...
+            glfwHasFocusWindow = version >= 3200;
+            glfwHasFocusOnShow = version >= 3300;
+            glfwHasMonitorWorkArea = version >= 3300;
+            glfwHasOsxWindowPosFix = version >= 3310;
+            glfwHasNewCursors = version >= 3400;
+            glfwHasMousePassthrough = version >= 3400;
+            glfwHasGamepadApi = version >= 3300;
+            glfwHasGetKeyName = version >= 3200;
+        }
 
         final ImGuiIO io = ImGui.getIO();
 
