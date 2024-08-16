@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import static org.lwjgl.opengl.GL20.glDeleteShader;
 import static org.lwjgl.opengl.GL20.glDetachShader;
 import static org.lwjgl.opengl.GL20.glGetAttribLocation;
+import static org.lwjgl.opengl.GL20.glGetProgramiv;
 import static org.lwjgl.opengl.GL20.glGetUniformLocation;
 import static org.lwjgl.opengl.GL32.GL_ACTIVE_TEXTURE;
 import static org.lwjgl.opengl.GL32.GL_ARRAY_BUFFER;
@@ -570,7 +571,7 @@ public class ImGuiImplGl3 {
         glGetShaderiv(handle, GL_COMPILE_STATUS, status);
         glGetShaderiv(handle, GL_INFO_LOG_LENGTH, logLength);
         if (status[0] == GL_FALSE) {
-            System.err.printf("Failed to compile %s! With GLSL: %s\n", desc, data.glslVersion);
+            System.err.printf("%s: failed to compile %s! With GLSL: %s\n", this, desc, data.glslVersion);
         }
         if (logLength[0] > 1) {
             final String log = glGetShaderInfoLog(handle);
@@ -582,10 +583,10 @@ public class ImGuiImplGl3 {
     protected boolean checkProgram(final int handle, final String desc) {
         final int[] status = new int[1];
         final int[] logLength = new int[1];
-        glGetShaderiv(handle, GL_LINK_STATUS, status);
-        glGetShaderiv(handle, GL_INFO_LOG_LENGTH, logLength);
+        glGetProgramiv(handle, GL_LINK_STATUS, status);
+        glGetProgramiv(handle, GL_INFO_LOG_LENGTH, logLength);
         if (status[0] == GL_FALSE) {
-            System.err.printf("Failed to link %s! With GLSL: %s\n", desc, data.glslVersion);
+            System.err.printf("%s: failed to link %s! With GLSL: %s\n", this, desc, data.glslVersion);
         }
         if (logLength[0] > 1) {
             final String log = glGetProgramInfoLog(handle);
