@@ -52,9 +52,9 @@ The `footer` is optional. The [Commit Message Footer](#commit-footer) format des
   │       │             │
   │       │             └─⫸ Summary in present tense. Not capitalized. No period at the end.
   │       │
-  │       └─⫸ Commit Scope: binding|api|generator
+  │       └─⫸ Commit Scope: api|generator|build
   │
-  └─⫸ Commit Type: build|ci|docs|feat|fix|perf|refactor|test
+  └─⫸ Commit Type: feat|fix|chore|docs
 ```
 
 The `<type>` and `<summary>` fields are mandatory, the `(<scope>)` field is optional.
@@ -66,18 +66,18 @@ Must be one of the following:
 
 * **feat**: A new feature
 * **fix**: A bug fix
-* **build**: Changes that affect the build system, CI or external dependencies
 * **chore**: Routine tasks, refactoring, updates, minor improvements
 * **docs**: Documentation only changes
+
+Type **build** can be used specifically to update dependencies. (Relying on `dependantbot` conventions.)
 
 
 ##### Scope
 The following is the list of supported scopes:
 
-* `binding` - changes to the binding code (ex. changes in `imgui.binding` package or library loading in `imgui.ImGui` class)
 * `api` - changes to the API (ex. adding binding for another extension or new supported native methods)
 * `generator` - changes to the API generator (ex. improved generation code etc.)
-* `ci` - changes to the project CI (ex. adding a new CI job)
+* `build` - changes that affect the build system, CI or external dependencies
 
 ##### Summary
 
