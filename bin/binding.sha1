@@ -2,7 +2,7 @@ b282da90ccdd5e1eb36cebc86e0fcedc05d9b6b2  imgui-binding/src/main/java/imgui/ImCo
 4be9c80cd4f1e2786fb4eba04a8aace07423d5e6  imgui-binding/src/main/java/imgui/ImDrawData.java
 95eec6c312deabeaa0025ae678399e69208edfd8  imgui-binding/src/main/java/imgui/ImDrawList.java
 da796ffa641503a456d7776a1cf7d112f0fb3c97  imgui-binding/src/main/java/imgui/ImFont.java
-d04342b5281724df1000f573b506b63e760b0591  imgui-binding/src/main/java/imgui/ImFontAtlas.java
+337cba04a2f17a423d9fd0c6a51ce27cdc325c10  imgui-binding/src/main/java/imgui/ImFontAtlas.java
 9beb63fa3e7d8c04a1a9d347a3694a40ff9e71e4  imgui-binding/src/main/java/imgui/ImFontConfig.java
 7817ba44186676d5bd3f0d20d204ff05de2a9e1f  imgui-binding/src/main/java/imgui/ImFontGlyph.java
 02db135a54b6e95dfc7494d68af20cd4bd1010e9  imgui-binding/src/main/java/imgui/ImFontGlyphRangesBuilder.java
@@ -118,7 +118,7 @@ b76d8296fcda68447942c64fb9aa2814e56ee603  imgui-binding/src/main/java/imgui/flag
 353130a2081d3b47ce8b32a4c4daa20973004275  imgui-binding/src/main/java/imgui/flag/ImGuiDockNodeFlags.java
 42e70f57aa598bbfaafac4c8affe4c19f3c5fb13  imgui-binding/src/main/java/imgui/flag/ImGuiDragDropFlags.java
 e8fe3f98453c5973e8900db66fb269dde332571f  imgui-binding/src/main/java/imgui/flag/ImGuiFocusedFlags.java
-29900f13b4809712ab0c84f366a3cba6ff526e66  imgui-binding/src/main/java/imgui/flag/ImGuiFreeTypeBuilderFlags.java
+313dde1b224a1fe698b21c66ab6726c79bce9764  imgui-binding/src/main/java/imgui/flag/ImGuiFreeTypeBuilderFlags.java
 35b9d607bd8c706a5d5d57475c7e1e351474f2b3  imgui-binding/src/main/java/imgui/flag/ImGuiHoveredFlags.java
 cc64497c274b0db2958e7ad18ec4e6de4c640be0  imgui-binding/src/main/java/imgui/flag/ImGuiInputTextFlags.java
 7844ecc4de35625fbe8fb9e98d53e86267ec93ca  imgui-binding/src/main/java/imgui/flag/ImGuiKey.java
@@ -168,7 +168,7 @@ ebaeae97db5cdc8316de13ba2ea1afaf3c8a8fef  imgui-binding/src/main/native/_common.
 cf5e3a1e1f69ca16f7a2a653baffc515042bfa2f  imgui-binding/src/main/native/_memedit.h
 a15e0de96eb1fa3f2efe3732a4ea369bd4d42b29  imgui-binding/src/main/native/_nodeeditor.h
 d23ee9baa061292dd8445f3f1da185e824de7764  imgui-binding/src/main/native/_texteditor.h
-cca9da638051df059612467cd4289502e2dbe332  imgui-binding/src/main/native/imconfig.h
+e9bfa1276cac7fb0b4221a61976c612559d38df7  imgui-binding/src/main/native/imconfig.h
 f2db8453ac6843e846822b878c52bb31e2d336b9  imgui-binding/src/main/native/jni_assertion.cpp
 957ce75266115c2c0b2bef67941bdf454befcd6c  imgui-binding/src/main/native/jni_assertion.h
 ef606408ac1c27bdf9048daa121e457acc587543  imgui-binding/src/main/native/jni_binding_struct.cpp
@@ -190,7 +190,7 @@ b282da90ccdd5e1eb36cebc86e0fcedc05d9b6b2  imgui-binding/src/generated/java/imgui
 819d83b6613d7deb447dc070558c60a157bcb61c  imgui-binding/src/generated/java/imgui/ImDrawData.java
 8978fa88d8a243bea21eb725528da5d699083c84  imgui-binding/src/generated/java/imgui/ImDrawList.java
 d5707391448405219d3663e55f0f4aaefacca7b0  imgui-binding/src/generated/java/imgui/ImFont.java
-431c4a9ebde119f602e6c4dcd5e91e169dcf2d5e  imgui-binding/src/generated/java/imgui/ImFontAtlas.java
+807defa1f3124ec609cf5b9a287444fe3cd1c44a  imgui-binding/src/generated/java/imgui/ImFontAtlas.java
 58763f9d2d9ad5162c20c31bef747409e44e5600  imgui-binding/src/generated/java/imgui/ImFontConfig.java
 89ed9835dbd202bb3b5ea4a72681bcd2543d58c1  imgui-binding/src/generated/java/imgui/ImFontGlyph.java
 02db135a54b6e95dfc7494d68af20cd4bd1010e9  imgui-binding/src/generated/java/imgui/ImFontGlyphRangesBuilder.java
@@ -296,7 +296,7 @@ ac8819ab468acb35212fe7b8855ba8da0c230ced  imgui-binding/src/generated/java/imgui
 ad157494db7d1cf503d78299e15f1631dd600063  imgui-binding/src/generated/java/imgui/flag/ImGuiDockNodeFlags.java
 77c3287bbdedeb8cd04dd4923452a601972a4454  imgui-binding/src/generated/java/imgui/flag/ImGuiDragDropFlags.java
 8591f02e79ee0a326d34d25021f4b96c39ffa47c  imgui-binding/src/generated/java/imgui/flag/ImGuiFocusedFlags.java
-cf4b2cfd3ced749ed5f471e0005e59a7dccb185f  imgui-binding/src/generated/java/imgui/flag/ImGuiFreeTypeBuilderFlags.java
+41c2cfcc097d4b844caa3e0d2f1f34283aa9d56e  imgui-binding/src/generated/java/imgui/flag/ImGuiFreeTypeBuilderFlags.java
 9651545a5fa2d4f0888bb15ae22f65f4356aa48c  imgui-binding/src/generated/java/imgui/flag/ImGuiHoveredFlags.java
 76d034a0f9cde8e2320e14a379e07c73f10fd979  imgui-binding/src/generated/java/imgui/flag/ImGuiInputTextFlags.java
 e1bee1f31ffb17a56abfef5d12e440b1ff0608fc  imgui-binding/src/generated/java/imgui/flag/ImGuiKey.java
