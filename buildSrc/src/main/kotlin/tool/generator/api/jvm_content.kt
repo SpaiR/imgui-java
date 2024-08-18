@@ -9,7 +9,7 @@ import spoon.reflect.declaration.ModifierKind
 import kotlin.math.absoluteValue
 
 private fun createStaticStructFieldName(method: CtMethod<*>): String {
-    return "_${method.simpleName.toUpperCase()}_${method.parameters.hashCode().absoluteValue}"
+    return "_${method.simpleName.uppercase()}_${method.parameters.hashCode().absoluteValue}"
 }
 
 private fun createStaticStructField(typeName: String, fieldName: String): String {

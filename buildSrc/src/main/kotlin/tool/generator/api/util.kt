@@ -9,6 +9,7 @@ import spoon.reflect.factory.Factory
 import spoon.reflect.reference.CtTypeParameterReference
 import tool.generator.ast.Decl
 import tool.generator.ast.DeclContainer
+import java.util.*
 
 const val A_NAME_BINDING_SOURCE = "BindingSource"
 const val A_NAME_BINDING_METHOD = "BindingMethod"
@@ -185,4 +186,12 @@ fun Collection<Decl>.filterDecls0(filter: (Decl) -> Boolean): Collection<Decl> {
     }
     filter0(this)
     return result
+}
+
+fun String.capitalize(): String {
+    return replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+}
+
+fun String.decapitalize(): String {
+    return replaceFirstChar { it.lowercase(Locale.getDefault()) }
 }
