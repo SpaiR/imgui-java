@@ -43,7 +43,11 @@ public class Main extends Application {
      * For more information read: https://github.com/ocornut/imgui/blob/33cdbe97b8fd233c6c12ca216e76398c2e89b0d8/docs/FONTS.md
      */
     private void initFonts(final ImGuiIO io) {
-        io.getFonts().addFontDefault(); // Add default font for latin glyphs
+        // This enables FreeType font renderer, which is disabled by default.
+        io.getFonts().setFreeTypeRenderer(true);
+
+        // Add default font for latin glyphs
+        io.getFonts().addFontDefault();
 
         // You can use the ImFontGlyphRangesBuilder helper to create glyph ranges based on text input.
         // For example: for a game where your script is known, if you can feed your entire script to it (using addText) and only build the characters the game needs.

@@ -85,7 +85,15 @@ class GenerateLibs extends DefaultTask {
                 spec.from(project.rootProject.file('include/imgui/misc/freetype')) { CopySpec it -> it.include('*.h', '*.cpp') }
                 spec.into("$jniDir/misc/freetype")
             }
-            enableDefine('IMGUI_ENABLE_FREETYPE')
+
+            // Since we give a possibility to build library without enabled freetype - define should be set like that.
+            replaceSourceFileContent("imconfig.h", "//#define IMGUI_ENABLE_FREETYPE", "#define IMGUI_ENABLE_FREETYPE")
+
+            // Binding specific behavior to handle FreeType.
+            // By defining IMGUI_ENABLE_FREETYPE, Dear ImGui will default to using the FreeType font renderer.
+            // However, we modify the source code to ensure that, even with this, the STB_TrueType renderer is used instead.
+            // To use the FreeType font renderer, it must be explicitly forced on the atlas manually.
+            replaceSourceFileContent("imgui_draw.cpp", "ImGuiFreeType::GetBuilderForFreeType()", "ImFontAtlasGetBuilderForStbTruetype()")
         }
 
         // Copy dirent for ImGuiFileDialog
@@ -181,7 +189,13 @@ class GenerateLibs extends DefaultTask {
         target.libraries += ' -lfreetype'
     }
 
-    void enableDefine(String define) {
-        new File("$jniDir/imconfig.h").text += "#define $define"
+    void replaceSourceFileContent(String fileName, String replaceWhat, String replaceWith) {
+        def sourceFile = new File("$jniDir/$fileName")
+        def sourceTxt = sourceFile.text
+        def sourceTxtModified = sourceTxt.replace(replaceWhat, replaceWith)
+        if (sourceTxt == sourceTxtModified) {
+            throw new IllegalStateException("Unable to replace [$fileName] with content [$replaceWith]!")
+        }
+        sourceFile.text = sourceTxtModified
     }
 }
