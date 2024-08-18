@@ -54,6 +54,7 @@ tasks.register('generateAst', GenerateAst) {
     headerFiles = [
             file('include/imgui/imgui.h'),
             file('include/imgui/imgui_internal.h'),
+            file('include/imgui/misc/freetype/imgui_freetype.h'),
             file('include/ImGuiFileDialog/ImGuiFileDialog.h'),
             file('include/imgui-knobs/imgui-knobs.h'),
             file('include/imguizmo/ImGuizmo.h'),
