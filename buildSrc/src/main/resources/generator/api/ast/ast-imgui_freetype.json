@@ -1,0 +1,186 @@
+{
+  "info" : {
+    "source" : "include/imgui/misc/freetype/imgui_freetype.h",
+    "hash" : "5976473c3ad2fbe2f0386eaa9019d4e0",
+    "url" : "https://github.com/ocornut/imgui",
+    "revision" : "1ee252772ae9c0a971d06257bb5c89f628fa696a"
+  },
+  "decls" : [ {
+    "@type" : "AstRecordDecl",
+    "name" : "ImFontAtlas",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Forward declarations"
+        } ]
+      } ]
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImGuiFreeTypeBuilderFlags",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Hinting greatly impacts visuals (and glyph sizes)."
+        }, {
+          "@type" : "AstTextComment",
+          "text" : " - By default, hinting is enabled and the font's native hinter is preferred over the auto-hinter."
+        }, {
+          "@type" : "AstTextComment",
+          "text" : " - When disabled, FreeType generates blurrier glyphs, more or less matches the stb_truetype.h"
+        }, {
+          "@type" : "AstTextComment",
+          "text" : " - The Default hinting mode usually looks good, but may distort glyphs in an unusual way."
+        }, {
+          "@type" : "AstTextComment",
+          "text" : " - The Light hinting mode generates fuzzier glyphs but better matches Microsoft's rasterizer."
+        }, {
+          "@type" : "AstTextComment",
+          "text" : " You can set those flags globaly in ImFontAtlas::FontBuilderFlags"
+        }, {
+          "@type" : "AstTextComment",
+          "text" : " You can set those flags on a per font basis in ImFontConfig::FontBuilderFlags"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_NoHinting",
+      "docComment" : "Disable hinting. This generally generates 'blurrier' bitmap glyphs when the glyph are rendered in any of the anti-aliased modes.",
+      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "order" : 0,
+      "value" : "1 << 0",
+      "evaluatedValue" : 1
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_NoAutoHint",
+      "docComment" : "Disable auto-hinter.",
+      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "order" : 1,
+      "value" : "1 << 1",
+      "evaluatedValue" : 2
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_ForceAutoHint",
+      "docComment" : "Indicates that the auto-hinter is preferred over the font's native hinter.",
+      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "order" : 2,
+      "value" : "1 << 2",
+      "evaluatedValue" : 4
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_LightHinting",
+      "docComment" : "A lighter hinting algorithm for gray-level modes. Many generated glyphs are fuzzier but better resemble their original shape. This is achieved by snapping glyphs to the pixel grid only vertically (Y-axis), as is done by Microsoft's ClearType and Adobe's proprietary font renderer. This preserves inter-glyph spacing in horizontal text.",
+      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "order" : 3,
+      "value" : "1 << 3",
+      "evaluatedValue" : 8
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_MonoHinting",
+      "docComment" : "Strong hinting algorithm that should only be used for monochrome output.",
+      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "order" : 4,
+      "value" : "1 << 4",
+      "evaluatedValue" : 16
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_Bold",
+      "docComment" : "Styling: Should we artificially embolden the font?",
+      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "order" : 5,
+      "value" : "1 << 5",
+      "evaluatedValue" : 32
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_Oblique",
+      "docComment" : "Styling: Should we slant the font, emulating italic style?",
+      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "order" : 6,
+      "value" : "1 << 6",
+      "evaluatedValue" : 64
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_Monochrome",
+      "docComment" : "Disable anti-aliasing. Combine this with MonoHinting for best results!",
+      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "order" : 7,
+      "value" : "1 << 7",
+      "evaluatedValue" : 128
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_LoadColor",
+      "docComment" : "Enable FreeType color-layered glyphs",
+      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "order" : 8,
+      "value" : "1 << 8",
+      "evaluatedValue" : 256
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_Bitmap",
+      "docComment" : "Enable FreeType bitmap glyphs",
+      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "order" : 9,
+      "value" : "1 << 9",
+      "evaluatedValue" : 512
+    } ]
+  }, {
+    "@type" : "AstNamespaceDecl",
+    "name" : "ImGuiFreeType",
+    "decls" : [ {
+      "@type" : "AstFunctionDecl",
+      "name" : "SetAllocatorFunctions",
+      "resultType" : "int",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "alloc_func",
+        "qualType" : "void *(*)(int, void *)",
+        "desugaredQualType" : "void *(*)(int, void *)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "free_func",
+        "qualType" : "void (*)(void *, void *)",
+        "desugaredQualType" : "void (*)(void *, void *)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "user_data",
+        "qualType" : "void *",
+        "desugaredQualType" : "void *",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Override allocators. By default ImGuiFreeType will use IM_ALLOC()/IM_FREE()"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " However, as FreeType does lots of allocations we provide a way for the user to redirect it to a separate memory heap if desired."
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "BuildFontAtlas",
+      "resultType" : "bool",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "atlas",
+        "qualType" : "ImFontAtlas *",
+        "desugaredQualType" : "ImFontAtlas *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "unsigned int",
+        "desugaredQualType" : "unsigned int",
+        "defaultValue" : "0"
+      } ]
+    } ]
+  } ]
+}

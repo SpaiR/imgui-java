@@ -8,6 +8,6 @@ public final class ImGuiFreeTypeBuilderFlags {
     private ImGuiFreeTypeBuilderFlags() {
     }
 
-    @BindingAstEnum(file = "ast-imgui.json", qualType = "ImGuiFreeTypeBuilderFlags_")
+    @BindingAstEnum(file = "ast-imgui_freetype.json", qualType = "ImGuiFreeTypeBuilderFlags", sanitizeName = "ImGuiFreeTypeBuilderFlags_")
     public Void __;
 }

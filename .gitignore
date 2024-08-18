@@ -25,7 +25,7 @@ logs/
 *.tar.gz
 *.rar
 *.gpg
-!vendor/freetype-2.12.1.tar.gz
+!vendor/*
 
 # Gradle
 .gradletasknamecache

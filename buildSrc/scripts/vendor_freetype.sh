@@ -17,7 +17,7 @@ echo "Vendor type set to '$VTYPE'"
 
 # Define library directory and version
 LIBDIR=build/vendor/freetype
-VERSION=2.12.1
+VERSION=2.13.3
 
 # Clean and create library directory, then extract FreeType source
 echo "Cleaning and creating library directory, then extracting FreeType source..."

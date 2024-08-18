@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.lordcodes.turtle.shellRun
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
@@ -23,6 +24,8 @@ open class GenerateAst : DefaultTask() {
 
     @InputFiles
     lateinit var headerFiles: Collection<File>
+    @Input
+    var defines: Set<String> = emptySet()
 
     private val dstDir: File = File("${project.rootDir}/buildSrc/src/main/resources/${AstParser.RESOURCE_PATH}")
     private val objectMapper: ObjectMapper = ObjectMapper()
@@ -403,9 +406,21 @@ open class GenerateAst : DefaultTask() {
     }
 
     private fun callClangAstBump(scriptPath: String, srcHeader: File, dstJson: File) {
+        fun buildCommand(): List<String> {
+            val command = mutableListOf(
+                scriptPath,
+                srcHeader.absolutePath,
+                dstJson.absolutePath,
+            )
+            if (defines.isNotEmpty()) {
+                command += defines.map { "-D$it" }
+            }
+            return command
+        }
+
         dstJson.delete()
         val pb = ProcessBuilder()
-        pb.command(scriptPath, srcHeader.absolutePath, dstJson.absolutePath)
+        pb.command(buildCommand())
         pb.start().waitFor()
     }
 
