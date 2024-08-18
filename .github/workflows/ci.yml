@@ -25,7 +25,9 @@ jobs:
         with:
           distribution: liberica
           java-version: 11
-          cache: gradle
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Build
         run: ./gradlew buildAll
@@ -70,7 +72,9 @@ jobs:
         with:
           distribution: liberica
           java-version: 11
-          cache: gradle
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Install Dependencies (for Windows build)
         if: matrix.target.type == 'windows'
@@ -155,7 +159,9 @@ jobs:
         with:
           distribution: liberica
           java-version: 11
-          cache: gradle
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Download Artifacts
         uses: actions/download-artifact@v4
