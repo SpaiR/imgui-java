@@ -3,7 +3,7 @@ b282da90ccdd5e1eb36cebc86e0fcedc05d9b6b2  imgui-binding/src/main/java/imgui/ImCo
 95eec6c312deabeaa0025ae678399e69208edfd8  imgui-binding/src/main/java/imgui/ImDrawList.java
 da796ffa641503a456d7776a1cf7d112f0fb3c97  imgui-binding/src/main/java/imgui/ImFont.java
 337cba04a2f17a423d9fd0c6a51ce27cdc325c10  imgui-binding/src/main/java/imgui/ImFontAtlas.java
-9beb63fa3e7d8c04a1a9d347a3694a40ff9e71e4  imgui-binding/src/main/java/imgui/ImFontConfig.java
+74b6ddd5338811ad73bf0562a0a2f01d0c105cc6  imgui-binding/src/main/java/imgui/ImFontConfig.java
 7817ba44186676d5bd3f0d20d204ff05de2a9e1f  imgui-binding/src/main/java/imgui/ImFontGlyph.java
 02db135a54b6e95dfc7494d68af20cd4bd1010e9  imgui-binding/src/main/java/imgui/ImFontGlyphRangesBuilder.java
 7042ee1f14fde7e87bc9f1420971a4e996ceb6a6  imgui-binding/src/main/java/imgui/ImGui.java
@@ -191,7 +191,7 @@ b282da90ccdd5e1eb36cebc86e0fcedc05d9b6b2  imgui-binding/src/generated/java/imgui
 8978fa88d8a243bea21eb725528da5d699083c84  imgui-binding/src/generated/java/imgui/ImDrawList.java
 d5707391448405219d3663e55f0f4aaefacca7b0  imgui-binding/src/generated/java/imgui/ImFont.java
 807defa1f3124ec609cf5b9a287444fe3cd1c44a  imgui-binding/src/generated/java/imgui/ImFontAtlas.java
-58763f9d2d9ad5162c20c31bef747409e44e5600  imgui-binding/src/generated/java/imgui/ImFontConfig.java
+4906944b68c2650ffeb3063938df66303a1f5e96  imgui-binding/src/generated/java/imgui/ImFontConfig.java
 89ed9835dbd202bb3b5ea4a72681bcd2543d58c1  imgui-binding/src/generated/java/imgui/ImFontGlyph.java
 02db135a54b6e95dfc7494d68af20cd4bd1010e9  imgui-binding/src/generated/java/imgui/ImFontGlyphRangesBuilder.java
 6ef93e92f8659439dccce0277492c5d42e68ec01  imgui-binding/src/generated/java/imgui/ImGui.java
