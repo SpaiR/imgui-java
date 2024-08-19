@@ -20,7 +20,7 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-jnigen:2.5.1")
     implementation("org.reflections:reflections:0.10.2")
     implementation("com.lordcodes.turtle:turtle:0.6.0")
-    implementation("fr.inria.gforge.spoon:spoon-core:10.3.0")
+    implementation("fr.inria.gforge.spoon:spoon-core:11.1.0")
 
     implementation("com.fasterxml.jackson.core:jackson-core:2.17.2")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.2")
