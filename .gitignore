@@ -25,7 +25,7 @@ logs/
 *.tar.gz
 *.rar
 *.gpg
-!vendor/*
+!vendor/*.tar.gz
 
 # Gradle
 .gradletasknamecache
