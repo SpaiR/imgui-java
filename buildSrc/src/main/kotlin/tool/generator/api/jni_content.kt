@@ -540,7 +540,7 @@ private fun createFieldGetContent(field: CtField<*>): List<String> {
         getArray.setType<Nothing>(f.createTypeParam("$arrayType[]"))
 
         when (arrayType) {
-            "boolean", "short", "int", "float", "double", "long" -> {
+            "boolean", "byte", "short", "int", "float", "double", "long" -> {
                 getArray.setBody<Nothing>(
                     f.createCodeSnippet(
                         """
@@ -569,7 +569,7 @@ private fun createFieldGetContent(field: CtField<*>): List<String> {
         result += getArray.prettyprint(false)
 
         when (arrayType) {
-            "boolean", "short", "int", "float", "double", "long" -> {
+            "boolean", "byte", "short", "int", "float", "double", "long" -> {
                 val getArrayIdx = getArray.clone()
                 getArrayIdx.addParameter<Nothing>(f.createParameter<Nothing>().apply {
                     setType<Nothing>(f.createTypeParam("int"))
@@ -625,7 +625,7 @@ private fun createFieldSetContent(field: CtField<*>): List<String> {
         setArray.setSimpleName<Nothing>("nSet${field.simpleName}")
 
         when (arrayType) {
-            "boolean", "short", "int", "float", "double", "long" -> {
+            "boolean", "byte", "short", "int", "float", "double", "long" -> {
                 setArray.setBody<Nothing>(
                     f.createCodeSnippet(
                         """
@@ -649,7 +649,7 @@ private fun createFieldSetContent(field: CtField<*>): List<String> {
         result += setArray.prettyprint(false)
 
         when (arrayType) {
-            "boolean", "short", "int", "float", "double", "long" -> {
+            "boolean", "byte", "short", "int", "float", "double", "long" -> {
                 val setArrayIdx = setArray.clone()
                 setArrayIdx.parameters.clear()
                 setArrayIdx.addParameter<Nothing>(f.createParameter<Nothing>().apply {

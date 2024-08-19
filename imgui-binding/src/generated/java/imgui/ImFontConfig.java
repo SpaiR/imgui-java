@@ -27,7 +27,22 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
         return (intptr_t)cfg;
     */
 
-    // TODO: FontData
+    /**
+     * TTF/OTF data
+     */
+    public native byte[] getFontData(); /*
+        int size = THIS->FontDataSize;
+        jbyteArray jBuf = env->NewByteArray(size);
+        env->SetByteArrayRegion(jBuf, 0, size, (jbyte*)THIS->FontData);
+        return jBuf;
+    */
+
+    /**
+     * TTF/OTF data
+     */
+    public native void setFontData(byte[] fontData); /*
+        THIS->FontData = &fontData[0];
+    */
 
     /**
      * TTF/OTF data size
@@ -313,7 +328,28 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
         THIS->GlyphOffset = value;
     */
 
-    // TODO: GlyphRanges
+    private short[] glyphRanges;
+
+    /**
+     * Pointer to a user-provided list of Unicode range (2 value per range, values are inclusive, zero-terminated list).
+     * THE ARRAY DATA NEEDS TO PERSIST AS LONG AS THE FONT IS ALIVE.
+     */
+    public short[] getGlyphRanges() {
+        return glyphRanges;
+    }
+
+    /**
+     * Pointer to a user-provided list of Unicode range (2 value per range, values are inclusive, zero-terminated list).
+     * THE ARRAY DATA NEEDS TO PERSIST AS LONG AS THE FONT IS ALIVE.
+     */
+    public void setGlyphRanges(final short[] glyphRanges) {
+        this.glyphRanges = glyphRanges;
+        nSetGlyphRanges(glyphRanges);
+    }
+
+    private native void nSetGlyphRanges(short[] glyphRanges); /*
+        THIS->GlyphRanges = glyphRanges != NULL ? (ImWchar*)&glyphRanges[0] : NULL;
+    */
 
     /**
      * Minimum AdvanceX for glyphs, set Min to align font icons, set both Min/Max to enforce mono-space font
