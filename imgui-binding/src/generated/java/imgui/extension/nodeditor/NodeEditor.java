@@ -1449,6 +1449,10 @@ public final class NodeEditor {
         nScreenToCanvas(dst, pos.x, pos.y);
     }
 
+    public static void screenToCanvas(final ImVec2 dst, final float posX, final float posY) {
+        nScreenToCanvas(dst, posX, posY);
+    }
+
     private static native void nScreenToCanvas(ImVec2 dst, float posX, float posY); /*MANUAL
         ImVec2 pos = ImVec2(posX, posY);
         Jni::ImVec2Cpy(env, ax::NodeEditor::ScreenToCanvas(pos), dst);
@@ -1488,6 +1492,10 @@ public final class NodeEditor {
 
     public static void canvasToScreen(final ImVec2 dst, final ImVec2 pos) {
         nCanvasToScreen(dst, pos.x, pos.y);
+    }
+
+    public static void canvasToScreen(final ImVec2 dst, final float posX, final float posY) {
+        nCanvasToScreen(dst, posX, posY);
     }
 
     private static native void nCanvasToScreen(ImVec2 dst, float posX, float posY); /*MANUAL

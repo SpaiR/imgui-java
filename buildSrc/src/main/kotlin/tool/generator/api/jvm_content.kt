@@ -163,13 +163,13 @@ private fun createMethod(origM: CtMethod<*>, params: List<CtParameter<*>>, defau
     return newM
 }
 
-private fun methodVecUnwrappedContent(method: CtMethod<*>): String {
+private fun methodVecUnwrappedContent(method: CtMethod<*>, fromIndex: Int): String {
     val newMethod = method.clone()
     val newParams = mutableListOf<CtParameter<*>>()
     val vecParamNames = mutableSetOf<String>()
 
-    for (p in newMethod.parameters) {
-        if (p.isType("ImVec2") || p.isType("ImVec4")) {
+    for ((idx, p) in newMethod.parameters.withIndex()) {
+        if ((p.isType("ImVec2") || p.isType("ImVec4")) && idx >= fromIndex) {
             vecParamNames += p.simpleName
 
             val paramX = p.factory.createParameter<Nothing>()
@@ -194,9 +194,9 @@ private fun methodVecUnwrappedContent(method: CtMethod<*>): String {
             }
 
             getJDoc(newMethod)?.let { jDoc ->
-                val idx = jDoc.tags.indexOfFirst { it.param == p.simpleName }
-                if (idx != -1) {
-                    jDoc.removeTag<Nothing>(idx)
+                val tagIdx = jDoc.tags.indexOfFirst { it.param == p.simpleName }
+                if (tagIdx != -1) {
+                    jDoc.removeTag<Nothing>(tagIdx)
                 }
             }
         } else {
@@ -223,13 +223,13 @@ private fun methodVecUnwrappedContent(method: CtMethod<*>): String {
     return ""
 }
 
-private fun methodRectUnwrappedContent(method: CtMethod<*>): String {
+private fun methodRectUnwrappedContent(method: CtMethod<*>, fromIndex: Int): String {
     val newMethod = method.clone()
     val newParams = mutableListOf<CtParameter<*>>()
     val paramNames = mutableSetOf<String>()
 
-    for (p in newMethod.parameters) {
-        if (p.isType("ImRect")) {
+    for ((idx, p) in newMethod.parameters.withIndex()) {
+        if (p.isType("ImRect") && idx >= fromIndex) {
             paramNames += p.simpleName
 
             val paramMinX = p.factory.createParameter<Nothing>()
@@ -276,13 +276,13 @@ private fun methodRectUnwrappedContent(method: CtMethod<*>): String {
     return ""
 }
 
-private fun methodPlotPointUnwrappedContent(method: CtMethod<*>): String {
+private fun methodPlotPointUnwrappedContent(method: CtMethod<*>, fromIndex: Int): String {
     val newMethod = method.clone()
     val newParams = mutableListOf<CtParameter<*>>()
     val paramNames = mutableSetOf<String>()
 
-    for (p in newMethod.parameters) {
-        if (p.isType("ImPlotPoint")) {
+    for ((idx, p) in newMethod.parameters.withIndex()) {
+        if (p.isType("ImPlotPoint") && idx >= fromIndex) {
             paramNames += p.simpleName
 
             val paramX = p.factory.createParameter<Nothing>()
@@ -318,13 +318,13 @@ private fun methodPlotPointUnwrappedContent(method: CtMethod<*>): String {
     return ""
 }
 
-private fun methodPlotRangeUnwrappedContent(method: CtMethod<*>): String {
+private fun methodPlotRangeUnwrappedContent(method: CtMethod<*>, fromIndex: Int): String {
     val newMethod = method.clone()
     val newParams = mutableListOf<CtParameter<*>>()
     val paramNames = mutableSetOf<String>()
 
-    for (p in newMethod.parameters) {
-        if (p.isType("ImPlotRange")) {
+    for ((idx, p) in newMethod.parameters.withIndex()) {
+        if (p.isType("ImPlotRange") && idx >= fromIndex) {
             paramNames += p.simpleName
 
             val paramX = p.factory.createParameter<Nothing>()
@@ -360,13 +360,13 @@ private fun methodPlotRangeUnwrappedContent(method: CtMethod<*>): String {
     return ""
 }
 
-private fun methodPlotLimitsUnwrappedContent(method: CtMethod<*>): String {
+private fun methodPlotLimitsUnwrappedContent(method: CtMethod<*>, fromIndex: Int): String {
     val newMethod = method.clone()
     val newParams = mutableListOf<CtParameter<*>>()
     val paramNames = mutableSetOf<String>()
 
-    for (p in newMethod.parameters) {
-        if (p.isType("ImPlotRect")) {
+    for ((idx, p) in newMethod.parameters.withIndex()) {
+        if (p.isType("ImPlotRect") && idx >= fromIndex) {
             paramNames += p.simpleName
 
             val paramMinX = p.factory.createParameter<Nothing>()
@@ -413,13 +413,13 @@ private fun methodPlotLimitsUnwrappedContent(method: CtMethod<*>): String {
     return ""
 }
 
-private fun methodCoordinatesUnwrappedContent(method: CtMethod<*>): String {
+private fun methodCoordinatesUnwrappedContent(method: CtMethod<*>, fromIndex: Int): String {
     val newMethod = method.clone()
     val newParams = mutableListOf<CtParameter<*>>()
     val paramNames = mutableSetOf<String>()
 
-    for (p in newMethod.parameters) {
-        if (p.isType("TextEditorCoordinates")) {
+    for ((idx, p) in newMethod.parameters.withIndex()) {
+        if (p.isType("TextEditorCoordinates") && idx >= fromIndex) {
             paramNames += p.simpleName
 
             val paramX = p.factory.createParameter<Nothing>()
@@ -506,34 +506,34 @@ private fun transformMethodToContent(
     params: List<CtParameter<*>> = emptyList(),
     defaults: IntArray = intArrayOf()
 ): List<String> {
+    fun methodUnwrapped(method: CtMethod<*>, fromIndex: Int = 0): Set<String> {
+        val result = mutableSetOf<String>()
+        if (params.find { it.isType("ImVec2") || it.isType("ImVec4") } != null) {
+            methodVecUnwrappedContent(method, fromIndex).takeIf(String::isNotEmpty)?.run(result::add)
+        }
+        if (params.find { it.isType("ImRect") } != null) {
+            methodRectUnwrappedContent(method, fromIndex).takeIf(String::isNotEmpty)?.run(result::add)
+        }
+        if (params.find { it.isType("ImPlotPoint") } != null) {
+            methodPlotPointUnwrappedContent(method, fromIndex).takeIf(String::isNotEmpty)?.run(result::add)
+        }
+        if (params.find { it.isType("ImPlotRange") } != null) {
+            methodPlotRangeUnwrappedContent(method, fromIndex).takeIf(String::isNotEmpty)?.run(result::add)
+        }
+        if (params.find { it.isType("ImPlotRect") } != null) {
+            methodPlotLimitsUnwrappedContent(method, fromIndex).takeIf(String::isNotEmpty)?.run(result::add)
+        }
+        if (params.find { it.isType("TextEditorCoordinates") } != null) {
+            methodCoordinatesUnwrappedContent(method, fromIndex).takeIf(String::isNotEmpty)?.run(result::add)
+        }
+        return result
+    }
+
     val methods = mutableListOf<String>()
     val mNew = createMethod(mOrig, params, defaults)
 
     methods += mNew.prettyprint()
-
-    if (params.find { it.isType("ImVec2") || it.isType("ImVec4") } != null) {
-        methodVecUnwrappedContent(mNew).takeIf(String::isNotEmpty)?.run(methods::add)
-    }
-
-    if (params.find { it.isType("ImRect") } != null) {
-        methodRectUnwrappedContent(mNew).takeIf(String::isNotEmpty)?.run(methods::add)
-    }
-
-    if (params.find { it.isType("ImPlotPoint") } != null) {
-        methodPlotPointUnwrappedContent(mNew).takeIf(String::isNotEmpty)?.run(methods::add)
-    }
-
-    if (params.find { it.isType("ImPlotRange") } != null) {
-        methodPlotRangeUnwrappedContent(mNew).takeIf(String::isNotEmpty)?.run(methods::add)
-    }
-
-    if (params.find { it.isType("ImPlotRect") } != null) {
-        methodPlotLimitsUnwrappedContent(mNew).takeIf(String::isNotEmpty)?.run(methods::add)
-    }
-
-    if (params.find { it.isType("TextEditorCoordinates") } != null) {
-        methodCoordinatesUnwrappedContent(mNew).takeIf(String::isNotEmpty)?.run(methods::add)
-    }
+    methods += methodUnwrapped(mNew)
 
     if (mOrig.isType("ImVec2") || mOrig.isType("ImVec4")) {
         methods += createMethodVecValueReturn("x", mNew, params, defaults).prettyprint()
@@ -545,7 +545,9 @@ private fun transformMethodToContent(
     }
 
     if (DST_RETURN_TYPE_SET.contains(mOrig.type.simpleName)) {
-        methods += createMethodDstReturn(mNew, params, defaults).prettyprint()
+        val dstMethod = createMethodDstReturn(mNew, params, defaults)
+        methods += dstMethod.prettyprint()
+        methods += methodUnwrapped(dstMethod, 1)
     }
 
     return methods

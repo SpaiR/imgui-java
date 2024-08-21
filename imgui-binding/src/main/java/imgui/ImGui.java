@@ -14,6 +14,8 @@ import imgui.type.ImBoolean;
 import imgui.type.ImDouble;
 import imgui.type.ImFloat;
 import imgui.type.ImInt;
+import imgui.type.ImLong;
+import imgui.type.ImShort;
 import imgui.type.ImString;
 
 import java.io.IOException;
@@ -1043,7 +1045,7 @@ public class ImGui {
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
     @BindingMethod
-    public static native void ImageButton(@ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int userTextureId, ImVec2 size, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg(callValue = "-1") int framePadding, @OptArg ImVec4 bgCol, @OptArg ImVec4 tintCol);
+    public static native boolean ImageButton(@ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int userTextureId, ImVec2 size, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg(callValue = "-1") int framePadding, @OptArg ImVec4 bgCol, @OptArg ImVec4 tintCol);
 
     public static boolean checkbox(String label, boolean active) {
         return nCheckbox(label, active);
@@ -1491,19 +1493,19 @@ public class ImGui {
     public static native boolean InputDouble(String label, ImDouble v, @OptArg double step, @OptArg double stepFast, @OptArg(callValue = "\"%.6f\"") String format, @OptArg int imGuiInputTextFlags);
 
     @BindingMethod
-    public static native boolean InputScalar(String label, Void ImGuiDataType_S16, short[] pData, @OptArg @ArgValue(callPrefix = "&") short pStep, @OptArg @ArgValue(callPrefix = "&") short pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
+    public static native boolean InputScalar(String label, Void ImGuiDataType_S16, ImShort pData, @OptArg @ArgValue(callPrefix = "&") short pStep, @OptArg @ArgValue(callPrefix = "&") short pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
 
     @BindingMethod
-    public static native boolean InputScalar(String label, Void ImGuiDataType_S32, int[] pData, @OptArg @ArgValue(callPrefix = "&") int pStep, @OptArg @ArgValue(callPrefix = "&") int pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
+    public static native boolean InputScalar(String label, Void ImGuiDataType_S32, ImInt pData, @OptArg @ArgValue(callPrefix = "&") int pStep, @OptArg @ArgValue(callPrefix = "&") int pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
 
     @BindingMethod
-    public static native boolean InputScalar(String label, Void ImGuiDataType_S64, long[] pData, @OptArg @ArgValue(callPrefix = "&") long pStep, @OptArg @ArgValue(callPrefix = "&") long pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
+    public static native boolean InputScalar(String label, Void ImGuiDataType_S64, ImLong pData, @OptArg @ArgValue(callPrefix = "&") long pStep, @OptArg @ArgValue(callPrefix = "&") long pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
 
     @BindingMethod
-    public static native boolean InputScalar(String label, Void ImGuiDataType_Float, float[] pData, @OptArg @ArgValue(callPrefix = "&") float pStep, @OptArg @ArgValue(callPrefix = "&") float pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
+    public static native boolean InputScalar(String label, Void ImGuiDataType_Float, ImFloat pData, @OptArg @ArgValue(callPrefix = "&") float pStep, @OptArg @ArgValue(callPrefix = "&") float pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
 
     @BindingMethod
-    public static native boolean InputScalar(String label, Void ImGuiDataType_Double, double[] pData, @OptArg @ArgValue(callPrefix = "&") double pStep, @OptArg @ArgValue(callPrefix = "&") double pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
+    public static native boolean InputScalar(String label, Void ImGuiDataType_Double, ImDouble pData, @OptArg @ArgValue(callPrefix = "&") double pStep, @OptArg @ArgValue(callPrefix = "&") double pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
 
     @BindingMethod
     public static native boolean InputScalarN(String label, Void ImGuiDataType_S16, short[] pData, int components, @OptArg @ArgValue(callPrefix = "&") short pStep, @OptArg @ArgValue(callPrefix = "&") short pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
@@ -1541,6 +1543,15 @@ public class ImGui {
      */
     @BindingMethod
     public static native boolean ColorButton(String descId, ImVec4 col, @OptArg(callValue = "0") int imGuiColorEditFlags, @OptArg ImVec2 size);
+
+    /**
+     * Display a colored square/button, hover for details, return true when pressed.
+     *
+     * @deprecated use {@link #colorButton(String, ImVec4)} or {@link #colorButton(String, float, float, float, float)} instead
+     */
+    @Deprecated
+    @BindingMethod
+    public static native boolean ColorButton(String descId, @ArgValue(callValue = "ImVec4(col[0], col[1], col[2], col[3])") float[] col, @OptArg(callValue = "0") int imGuiColorEditFlags, @OptArg ImVec2 size);
 
     /**
      * Initialize current options (generally on application startup) if you want to select a default format,
@@ -1606,7 +1617,7 @@ public class ImGui {
      * to false when clicked, if '*p_visible==false' don't display the header.
      */
     @BindingMethod
-    private static native boolean CollapsingHeader(String label, ImBoolean pVisible, @OptArg int imGuiTreeNodeFlags);
+    public static native boolean CollapsingHeader(String label, ImBoolean pVisible, @OptArg int imGuiTreeNodeFlags);
 
     /**
      * Set next TreeNode/CollapsingHeader open state.

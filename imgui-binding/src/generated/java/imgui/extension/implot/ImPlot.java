@@ -10750,6 +10750,14 @@ public final class ImPlot {
      * Converts pixels to a position in the current plot's coordinate system.
      * Passing IMPLOT_AUTO uses the current axes.
      */
+    public static void pixelsToPlot(final ImPlotPoint dst, final float pixX, final float pixY) {
+        nPixelsToPlot(dst, pixX, pixY);
+    }
+
+    /**
+     * Converts pixels to a position in the current plot's coordinate system.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
     public static ImPlotPoint pixelsToPlot(final ImVec2 pix, final int xAxis) {
         final ImPlotPoint dst = new ImPlotPoint();
         nPixelsToPlot(dst, pix.x, pix.y, xAxis);
@@ -10778,6 +10786,14 @@ public final class ImPlot {
      * Converts pixels to a position in the current plot's coordinate system.
      * Passing IMPLOT_AUTO uses the current axes.
      */
+    public static void pixelsToPlot(final ImPlotPoint dst, final float pixX, final float pixY, final int xAxis) {
+        nPixelsToPlot(dst, pixX, pixY, xAxis);
+    }
+
+    /**
+     * Converts pixels to a position in the current plot's coordinate system.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
     public static ImPlotPoint pixelsToPlot(final ImVec2 pix, final int xAxis, final int yAxis) {
         final ImPlotPoint dst = new ImPlotPoint();
         nPixelsToPlot(dst, pix.x, pix.y, xAxis, yAxis);
@@ -10800,6 +10816,14 @@ public final class ImPlot {
      */
     public static void pixelsToPlot(final ImPlotPoint dst, final ImVec2 pix, final int xAxis, final int yAxis) {
         nPixelsToPlot(dst, pix.x, pix.y, xAxis, yAxis);
+    }
+
+    /**
+     * Converts pixels to a position in the current plot's coordinate system.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    public static void pixelsToPlot(final ImPlotPoint dst, final float pixX, final float pixY, final int xAxis, final int yAxis) {
+        nPixelsToPlot(dst, pixX, pixY, xAxis, yAxis);
     }
 
     private static native void nPixelsToPlot(ImPlotPoint dst, float pixX, float pixY); /*MANUAL
@@ -10865,6 +10889,14 @@ public final class ImPlot {
      * Converts a position in the current plot's coordinate system to pixels.
      * Passing IMPLOT_AUTO uses the current axes.
      */
+    public static void plotToPixels(final ImVec2 dst, final double pltX, final double pltY) {
+        nPlotToPixels(dst, pltX, pltY);
+    }
+
+    /**
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
     public static ImVec2 plotToPixels(final ImPlotPoint plt, final int xAxis) {
         final ImVec2 dst = new ImVec2();
         nPlotToPixels(dst, plt.x, plt.y, xAxis);
@@ -10909,6 +10941,14 @@ public final class ImPlot {
      * Converts a position in the current plot's coordinate system to pixels.
      * Passing IMPLOT_AUTO uses the current axes.
      */
+    public static void plotToPixels(final ImVec2 dst, final double pltX, final double pltY, final int xAxis) {
+        nPlotToPixels(dst, pltX, pltY, xAxis);
+    }
+
+    /**
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
     public static ImVec2 plotToPixels(final ImPlotPoint plt, final int xAxis, final int yAxis) {
         final ImVec2 dst = new ImVec2();
         nPlotToPixels(dst, plt.x, plt.y, xAxis, yAxis);
@@ -10947,6 +10987,14 @@ public final class ImPlot {
      */
     public static void plotToPixels(final ImVec2 dst, final ImPlotPoint plt, final int xAxis, final int yAxis) {
         nPlotToPixels(dst, plt.x, plt.y, xAxis, yAxis);
+    }
+
+    /**
+     * Converts a position in the current plot's coordinate system to pixels.
+     * Passing IMPLOT_AUTO uses the current axes.
+     */
+    public static void plotToPixels(final ImVec2 dst, final double pltX, final double pltY, final int xAxis, final int yAxis) {
+        nPlotToPixels(dst, pltX, pltY, xAxis, yAxis);
     }
 
     private static native void nPlotToPixels(ImVec2 dst, double pltX, double pltY); /*

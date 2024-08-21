@@ -47,6 +47,10 @@ public final class ImGui extends imgui.ImGui {
         nCalcItemSize(dst, size.x, size.y, defaultW, defaultH);
     }
 
+    public static void calcItemSize(final ImVec2 dst, final float sizeX, final float sizeY, final float defaultW, final float defaultH) {
+        nCalcItemSize(dst, sizeX, sizeY, defaultW, defaultH);
+    }
+
     private static native void nCalcItemSize(ImVec2 dst, float sizeX, float sizeY, float defaultW, float defaultH); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         Jni::ImVec2Cpy(env, ImGui::CalcItemSize(size, defaultW, defaultH), dst);

@@ -9,6 +9,8 @@ import imgui.type.ImBoolean;
 import imgui.type.ImDouble;
 import imgui.type.ImFloat;
 import imgui.type.ImInt;
+import imgui.type.ImLong;
+import imgui.type.ImShort;
 import imgui.type.ImString;
 
 import java.io.IOException;
@@ -3073,150 +3075,157 @@ public class ImGui {
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static void imageButton(final int userTextureId, final ImVec2 size) {
-        nImageButton(userTextureId, size.x, size.y);
+    public static boolean imageButton(final int userTextureId, final ImVec2 size) {
+        return nImageButton(userTextureId, size.x, size.y);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static void imageButton(final int userTextureId, final float sizeX, final float sizeY) {
-        nImageButton(userTextureId, sizeX, sizeY);
+    public static boolean imageButton(final int userTextureId, final float sizeX, final float sizeY) {
+        return nImageButton(userTextureId, sizeX, sizeY);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static void imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0) {
-        nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y);
+    public static boolean imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0) {
+        return nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static void imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y) {
-        nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y);
+    public static boolean imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y) {
+        return nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static void imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1) {
-        nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y);
+    public static boolean imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1) {
+        return nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static void imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y) {
-        nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y);
+    public static boolean imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y) {
+        return nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static void imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final int framePadding) {
-        nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, framePadding);
+    public static boolean imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final int framePadding) {
+        return nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, framePadding);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static void imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final int framePadding) {
-        nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, framePadding);
+    public static boolean imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final int framePadding) {
+        return nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, framePadding);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static void imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final int framePadding, final ImVec4 bgCol) {
-        nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, framePadding, bgCol.x, bgCol.y, bgCol.z, bgCol.w);
+    public static boolean imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final int framePadding, final ImVec4 bgCol) {
+        return nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, framePadding, bgCol.x, bgCol.y, bgCol.z, bgCol.w);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static void imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final int framePadding, final float bgColX, final float bgColY, final float bgColZ, final float bgColW) {
-        nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, framePadding, bgColX, bgColY, bgColZ, bgColW);
+    public static boolean imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final int framePadding, final float bgColX, final float bgColY, final float bgColZ, final float bgColW) {
+        return nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, framePadding, bgColX, bgColY, bgColZ, bgColW);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static void imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final int framePadding, final ImVec4 bgCol, final ImVec4 tintCol) {
-        nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, framePadding, bgCol.x, bgCol.y, bgCol.z, bgCol.w, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
+    public static boolean imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final int framePadding, final ImVec4 bgCol, final ImVec4 tintCol) {
+        return nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, framePadding, bgCol.x, bgCol.y, bgCol.z, bgCol.w, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static void imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final int framePadding, final float bgColX, final float bgColY, final float bgColZ, final float bgColW, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
-        nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, framePadding, bgColX, bgColY, bgColZ, bgColW, tintColX, tintColY, tintColZ, tintColW);
+    public static boolean imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final int framePadding, final float bgColX, final float bgColY, final float bgColZ, final float bgColW, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
+        return nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, framePadding, bgColX, bgColY, bgColZ, bgColW, tintColX, tintColY, tintColZ, tintColW);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static void imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 bgCol, final ImVec4 tintCol) {
-        nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, bgCol.x, bgCol.y, bgCol.z, bgCol.w, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
+    public static boolean imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 bgCol, final ImVec4 tintCol) {
+        return nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, bgCol.x, bgCol.y, bgCol.z, bgCol.w, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static void imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float bgColX, final float bgColY, final float bgColZ, final float bgColW, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
-        nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, bgColX, bgColY, bgColZ, bgColW, tintColX, tintColY, tintColZ, tintColW);
+    public static boolean imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float bgColX, final float bgColY, final float bgColZ, final float bgColW, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
+        return nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, bgColX, bgColY, bgColZ, bgColW, tintColX, tintColY, tintColZ, tintColW);
     }
 
-    private static native void nImageButton(int userTextureId, float sizeX, float sizeY); /*MANUAL
+    private static native boolean nImageButton(int userTextureId, float sizeX, float sizeY); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
-        ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size);
+        auto _result = ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size);
+        return _result;
     */
 
-    private static native void nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y); /*MANUAL
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        ImVec2 uv0 = ImVec2(uv0X, uv0Y);
-        ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0);
-    */
-
-    private static native void nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*MANUAL
+    private static native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
-        ImVec2 uv1 = ImVec2(uv1X, uv1Y);
-        ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1);
+        auto _result = ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0);
+        return _result;
     */
 
-    private static native void nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding); /*MANUAL
+    private static native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
-        ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1, framePadding);
+        auto _result = ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1);
+        return _result;
     */
 
-    private static native void nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding, float bgColX, float bgColY, float bgColZ, float bgColW); /*MANUAL
+    private static native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
-        ImVec4 bgCol = ImVec4(bgColX, bgColY, bgColZ, bgColW);
-        ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1, framePadding, bgCol);
+        auto _result = ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1, framePadding);
+        return _result;
     */
 
-    private static native void nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding, float bgColX, float bgColY, float bgColZ, float bgColW, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
+    private static native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding, float bgColX, float bgColY, float bgColZ, float bgColW); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
         ImVec4 bgCol = ImVec4(bgColX, bgColY, bgColZ, bgColW);
-        ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
-        ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1, framePadding, bgCol, tintCol);
+        auto _result = ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1, framePadding, bgCol);
+        return _result;
     */
 
-    private static native void nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float bgColX, float bgColY, float bgColZ, float bgColW, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
+    private static native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding, float bgColX, float bgColY, float bgColZ, float bgColW, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
         ImVec4 bgCol = ImVec4(bgColX, bgColY, bgColZ, bgColW);
         ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
-        ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1, -1, bgCol, tintCol);
+        auto _result = ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1, framePadding, bgCol, tintCol);
+        return _result;
+    */
+
+    private static native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float bgColX, float bgColY, float bgColZ, float bgColW, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
+        ImVec2 size = ImVec2(sizeX, sizeY);
+        ImVec2 uv0 = ImVec2(uv0X, uv0Y);
+        ImVec2 uv1 = ImVec2(uv1X, uv1Y);
+        ImVec4 bgCol = ImVec4(bgColX, bgColY, bgColZ, bgColW);
+        ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
+        auto _result = ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1, -1, bgCol, tintCol);
+        return _result;
     */
 
     public static boolean checkbox(String label, boolean active) {
@@ -7390,30 +7399,30 @@ public class ImGui {
         return _result;
     */
 
-    public static boolean inputScalar(final String label, final short[] pData) {
-        return nInputScalar(label, pData);
+    public static boolean inputScalar(final String label, final ImShort pData) {
+        return nInputScalar(label, pData != null ? pData.getData() : null);
     }
 
-    public static boolean inputScalar(final String label, final short[] pData, final short pStep) {
-        return nInputScalar(label, pData, pStep);
+    public static boolean inputScalar(final String label, final ImShort pData, final short pStep) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep);
     }
 
-    public static boolean inputScalar(final String label, final short[] pData, final short pStep, final short pStepFast) {
-        return nInputScalar(label, pData, pStep, pStepFast);
+    public static boolean inputScalar(final String label, final ImShort pData, final short pStep, final short pStepFast) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast);
     }
 
-    public static boolean inputScalar(final String label, final short[] pData, final short pStep, final short pStepFast, final String format) {
-        return nInputScalar(label, pData, pStep, pStepFast, format);
+    public static boolean inputScalar(final String label, final ImShort pData, final short pStep, final short pStepFast, final String format) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast, format);
     }
 
-    public static boolean inputScalar(final String label, final short[] pData, final short pStep, final short pStepFast, final String format, final int imGuiSliderFlags) {
-        return nInputScalar(label, pData, pStep, pStepFast, format, imGuiSliderFlags);
+    public static boolean inputScalar(final String label, final ImShort pData, final short pStep, final short pStepFast, final String format, final int imGuiSliderFlags) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast, format, imGuiSliderFlags);
     }
 
     private static native boolean nInputScalar(String obj_label, short[] obj_pData); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S16, &pData[0]);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S16, (pData != NULL ? &pData[0] : NULL));
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7422,7 +7431,7 @@ public class ImGui {
     private static native boolean nInputScalar(String obj_label, short[] obj_pData, short pStep); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S16, &pData[0], &pStep);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S16, (pData != NULL ? &pData[0] : NULL), &pStep);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7431,7 +7440,7 @@ public class ImGui {
     private static native boolean nInputScalar(String obj_label, short[] obj_pData, short pStep, short pStepFast); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S16, &pData[0], &pStep, &pStepFast);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S16, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7441,7 +7450,7 @@ public class ImGui {
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
         auto format = obj_format == NULL ? NULL : (char*)env->GetStringUTFChars(obj_format, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S16, &pData[0], &pStep, &pStepFast, format);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S16, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast, format);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         if (format != NULL) env->ReleaseStringUTFChars(obj_format, format);
@@ -7452,37 +7461,37 @@ public class ImGui {
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
         auto format = obj_format == NULL ? NULL : (char*)env->GetStringUTFChars(obj_format, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S16, &pData[0], &pStep, &pStepFast, format, imGuiSliderFlags);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S16, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast, format, imGuiSliderFlags);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         if (format != NULL) env->ReleaseStringUTFChars(obj_format, format);
         return _result;
     */
 
-    public static boolean inputScalar(final String label, final int[] pData) {
-        return nInputScalar(label, pData);
+    public static boolean inputScalar(final String label, final ImInt pData) {
+        return nInputScalar(label, pData != null ? pData.getData() : null);
     }
 
-    public static boolean inputScalar(final String label, final int[] pData, final int pStep) {
-        return nInputScalar(label, pData, pStep);
+    public static boolean inputScalar(final String label, final ImInt pData, final int pStep) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep);
     }
 
-    public static boolean inputScalar(final String label, final int[] pData, final int pStep, final int pStepFast) {
-        return nInputScalar(label, pData, pStep, pStepFast);
+    public static boolean inputScalar(final String label, final ImInt pData, final int pStep, final int pStepFast) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast);
     }
 
-    public static boolean inputScalar(final String label, final int[] pData, final int pStep, final int pStepFast, final String format) {
-        return nInputScalar(label, pData, pStep, pStepFast, format);
+    public static boolean inputScalar(final String label, final ImInt pData, final int pStep, final int pStepFast, final String format) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast, format);
     }
 
-    public static boolean inputScalar(final String label, final int[] pData, final int pStep, final int pStepFast, final String format, final int imGuiSliderFlags) {
-        return nInputScalar(label, pData, pStep, pStepFast, format, imGuiSliderFlags);
+    public static boolean inputScalar(final String label, final ImInt pData, final int pStep, final int pStepFast, final String format, final int imGuiSliderFlags) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast, format, imGuiSliderFlags);
     }
 
     private static native boolean nInputScalar(String obj_label, int[] obj_pData); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S32, &pData[0]);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S32, (pData != NULL ? &pData[0] : NULL));
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7491,7 +7500,7 @@ public class ImGui {
     private static native boolean nInputScalar(String obj_label, int[] obj_pData, int pStep); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S32, &pData[0], &pStep);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S32, (pData != NULL ? &pData[0] : NULL), &pStep);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7500,7 +7509,7 @@ public class ImGui {
     private static native boolean nInputScalar(String obj_label, int[] obj_pData, int pStep, int pStepFast); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S32, &pData[0], &pStep, &pStepFast);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S32, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7510,7 +7519,7 @@ public class ImGui {
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
         auto format = obj_format == NULL ? NULL : (char*)env->GetStringUTFChars(obj_format, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S32, &pData[0], &pStep, &pStepFast, format);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S32, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast, format);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         if (format != NULL) env->ReleaseStringUTFChars(obj_format, format);
@@ -7521,37 +7530,37 @@ public class ImGui {
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
         auto format = obj_format == NULL ? NULL : (char*)env->GetStringUTFChars(obj_format, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S32, &pData[0], &pStep, &pStepFast, format, imGuiSliderFlags);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S32, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast, format, imGuiSliderFlags);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         if (format != NULL) env->ReleaseStringUTFChars(obj_format, format);
         return _result;
     */
 
-    public static boolean inputScalar(final String label, final long[] pData) {
-        return nInputScalar(label, pData);
+    public static boolean inputScalar(final String label, final ImLong pData) {
+        return nInputScalar(label, pData != null ? pData.getData() : null);
     }
 
-    public static boolean inputScalar(final String label, final long[] pData, final long pStep) {
-        return nInputScalar(label, pData, pStep);
+    public static boolean inputScalar(final String label, final ImLong pData, final long pStep) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep);
     }
 
-    public static boolean inputScalar(final String label, final long[] pData, final long pStep, final long pStepFast) {
-        return nInputScalar(label, pData, pStep, pStepFast);
+    public static boolean inputScalar(final String label, final ImLong pData, final long pStep, final long pStepFast) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast);
     }
 
-    public static boolean inputScalar(final String label, final long[] pData, final long pStep, final long pStepFast, final String format) {
-        return nInputScalar(label, pData, pStep, pStepFast, format);
+    public static boolean inputScalar(final String label, final ImLong pData, final long pStep, final long pStepFast, final String format) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast, format);
     }
 
-    public static boolean inputScalar(final String label, final long[] pData, final long pStep, final long pStepFast, final String format, final int imGuiSliderFlags) {
-        return nInputScalar(label, pData, pStep, pStepFast, format, imGuiSliderFlags);
+    public static boolean inputScalar(final String label, final ImLong pData, final long pStep, final long pStepFast, final String format, final int imGuiSliderFlags) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast, format, imGuiSliderFlags);
     }
 
     private static native boolean nInputScalar(String obj_label, long[] obj_pData); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S64, &pData[0]);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S64, (pData != NULL ? &pData[0] : NULL));
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7560,7 +7569,7 @@ public class ImGui {
     private static native boolean nInputScalar(String obj_label, long[] obj_pData, long pStep); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S64, &pData[0], &pStep);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S64, (pData != NULL ? &pData[0] : NULL), &pStep);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7569,7 +7578,7 @@ public class ImGui {
     private static native boolean nInputScalar(String obj_label, long[] obj_pData, long pStep, long pStepFast); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S64, &pData[0], &pStep, &pStepFast);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S64, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7579,7 +7588,7 @@ public class ImGui {
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
         auto format = obj_format == NULL ? NULL : (char*)env->GetStringUTFChars(obj_format, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S64, &pData[0], &pStep, &pStepFast, format);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S64, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast, format);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         if (format != NULL) env->ReleaseStringUTFChars(obj_format, format);
@@ -7590,37 +7599,37 @@ public class ImGui {
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
         auto format = obj_format == NULL ? NULL : (char*)env->GetStringUTFChars(obj_format, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_S64, &pData[0], &pStep, &pStepFast, format, imGuiSliderFlags);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_S64, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast, format, imGuiSliderFlags);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         if (format != NULL) env->ReleaseStringUTFChars(obj_format, format);
         return _result;
     */
 
-    public static boolean inputScalar(final String label, final float[] pData) {
-        return nInputScalar(label, pData);
+    public static boolean inputScalar(final String label, final ImFloat pData) {
+        return nInputScalar(label, pData != null ? pData.getData() : null);
     }
 
-    public static boolean inputScalar(final String label, final float[] pData, final float pStep) {
-        return nInputScalar(label, pData, pStep);
+    public static boolean inputScalar(final String label, final ImFloat pData, final float pStep) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep);
     }
 
-    public static boolean inputScalar(final String label, final float[] pData, final float pStep, final float pStepFast) {
-        return nInputScalar(label, pData, pStep, pStepFast);
+    public static boolean inputScalar(final String label, final ImFloat pData, final float pStep, final float pStepFast) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast);
     }
 
-    public static boolean inputScalar(final String label, final float[] pData, final float pStep, final float pStepFast, final String format) {
-        return nInputScalar(label, pData, pStep, pStepFast, format);
+    public static boolean inputScalar(final String label, final ImFloat pData, final float pStep, final float pStepFast, final String format) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast, format);
     }
 
-    public static boolean inputScalar(final String label, final float[] pData, final float pStep, final float pStepFast, final String format, final int imGuiSliderFlags) {
-        return nInputScalar(label, pData, pStep, pStepFast, format, imGuiSliderFlags);
+    public static boolean inputScalar(final String label, final ImFloat pData, final float pStep, final float pStepFast, final String format, final int imGuiSliderFlags) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast, format, imGuiSliderFlags);
     }
 
     private static native boolean nInputScalar(String obj_label, float[] obj_pData); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_Float, &pData[0]);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_Float, (pData != NULL ? &pData[0] : NULL));
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7629,7 +7638,7 @@ public class ImGui {
     private static native boolean nInputScalar(String obj_label, float[] obj_pData, float pStep); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_Float, &pData[0], &pStep);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_Float, (pData != NULL ? &pData[0] : NULL), &pStep);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7638,7 +7647,7 @@ public class ImGui {
     private static native boolean nInputScalar(String obj_label, float[] obj_pData, float pStep, float pStepFast); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_Float, &pData[0], &pStep, &pStepFast);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_Float, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7648,7 +7657,7 @@ public class ImGui {
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
         auto format = obj_format == NULL ? NULL : (char*)env->GetStringUTFChars(obj_format, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_Float, &pData[0], &pStep, &pStepFast, format);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_Float, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast, format);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         if (format != NULL) env->ReleaseStringUTFChars(obj_format, format);
@@ -7659,37 +7668,37 @@ public class ImGui {
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
         auto format = obj_format == NULL ? NULL : (char*)env->GetStringUTFChars(obj_format, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_Float, &pData[0], &pStep, &pStepFast, format, imGuiSliderFlags);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_Float, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast, format, imGuiSliderFlags);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         if (format != NULL) env->ReleaseStringUTFChars(obj_format, format);
         return _result;
     */
 
-    public static boolean inputScalar(final String label, final double[] pData) {
-        return nInputScalar(label, pData);
+    public static boolean inputScalar(final String label, final ImDouble pData) {
+        return nInputScalar(label, pData != null ? pData.getData() : null);
     }
 
-    public static boolean inputScalar(final String label, final double[] pData, final double pStep) {
-        return nInputScalar(label, pData, pStep);
+    public static boolean inputScalar(final String label, final ImDouble pData, final double pStep) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep);
     }
 
-    public static boolean inputScalar(final String label, final double[] pData, final double pStep, final double pStepFast) {
-        return nInputScalar(label, pData, pStep, pStepFast);
+    public static boolean inputScalar(final String label, final ImDouble pData, final double pStep, final double pStepFast) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast);
     }
 
-    public static boolean inputScalar(final String label, final double[] pData, final double pStep, final double pStepFast, final String format) {
-        return nInputScalar(label, pData, pStep, pStepFast, format);
+    public static boolean inputScalar(final String label, final ImDouble pData, final double pStep, final double pStepFast, final String format) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast, format);
     }
 
-    public static boolean inputScalar(final String label, final double[] pData, final double pStep, final double pStepFast, final String format, final int imGuiSliderFlags) {
-        return nInputScalar(label, pData, pStep, pStepFast, format, imGuiSliderFlags);
+    public static boolean inputScalar(final String label, final ImDouble pData, final double pStep, final double pStepFast, final String format, final int imGuiSliderFlags) {
+        return nInputScalar(label, pData != null ? pData.getData() : null, pStep, pStepFast, format, imGuiSliderFlags);
     }
 
     private static native boolean nInputScalar(String obj_label, double[] obj_pData); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_Double, &pData[0]);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_Double, (pData != NULL ? &pData[0] : NULL));
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7698,7 +7707,7 @@ public class ImGui {
     private static native boolean nInputScalar(String obj_label, double[] obj_pData, double pStep); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_Double, &pData[0], &pStep);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_Double, (pData != NULL ? &pData[0] : NULL), &pStep);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7707,7 +7716,7 @@ public class ImGui {
     private static native boolean nInputScalar(String obj_label, double[] obj_pData, double pStep, double pStepFast); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_Double, &pData[0], &pStep, &pStepFast);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_Double, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         return _result;
@@ -7717,7 +7726,7 @@ public class ImGui {
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
         auto format = obj_format == NULL ? NULL : (char*)env->GetStringUTFChars(obj_format, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_Double, &pData[0], &pStep, &pStepFast, format);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_Double, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast, format);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         if (format != NULL) env->ReleaseStringUTFChars(obj_format, format);
@@ -7728,7 +7737,7 @@ public class ImGui {
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pData = obj_pData == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_pData, JNI_FALSE);
         auto format = obj_format == NULL ? NULL : (char*)env->GetStringUTFChars(obj_format, JNI_FALSE);
-        auto _result = ImGui::InputScalar(label, ImGuiDataType_Double, &pData[0], &pStep, &pStepFast, format, imGuiSliderFlags);
+        auto _result = ImGui::InputScalar(label, ImGuiDataType_Double, (pData != NULL ? &pData[0] : NULL), &pStep, &pStepFast, format, imGuiSliderFlags);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pData != NULL) env->ReleasePrimitiveArrayCritical(obj_pData, pData, JNI_FALSE);
         if (format != NULL) env->ReleaseStringUTFChars(obj_format, format);
@@ -8309,6 +8318,104 @@ public class ImGui {
     */
 
     /**
+     * Display a colored square/button, hover for details, return true when pressed.
+     *
+     * @deprecated use {@link #colorButton(String, ImVec4)} or {@link #colorButton(String, float, float, float, float)} instead
+     */
+    @Deprecated
+    public static boolean colorButton(final String descId, final float[] col) {
+        return nColorButton(descId, col);
+    }
+
+    /**
+     * Display a colored square/button, hover for details, return true when pressed.
+     *
+     * @deprecated use {@link #colorButton(String, ImVec4)} or {@link #colorButton(String, float, float, float, float)} instead
+     */
+    @Deprecated
+    public static boolean colorButton(final String descId, final float[] col, final int imGuiColorEditFlags) {
+        return nColorButton(descId, col, imGuiColorEditFlags);
+    }
+
+    /**
+     * Display a colored square/button, hover for details, return true when pressed.
+     *
+     * @deprecated use {@link #colorButton(String, ImVec4)} or {@link #colorButton(String, float, float, float, float)} instead
+     */
+    @Deprecated
+    public static boolean colorButton(final String descId, final float[] col, final int imGuiColorEditFlags, final ImVec2 size) {
+        return nColorButton(descId, col, imGuiColorEditFlags, size.x, size.y);
+    }
+
+    /**
+     * Display a colored square/button, hover for details, return true when pressed.
+     *
+     * @deprecated use {@link #colorButton(String, ImVec4)} or {@link #colorButton(String, float, float, float, float)} instead
+     */
+    @Deprecated
+    public static boolean colorButton(final String descId, final float[] col, final int imGuiColorEditFlags, final float sizeX, final float sizeY) {
+        return nColorButton(descId, col, imGuiColorEditFlags, sizeX, sizeY);
+    }
+
+    /**
+     * Display a colored square/button, hover for details, return true when pressed.
+     *
+     * @deprecated use {@link #colorButton(String, ImVec4)} or {@link #colorButton(String, float, float, float, float)} instead
+     */
+    @Deprecated
+    public static boolean colorButton(final String descId, final float[] col, final ImVec2 size) {
+        return nColorButton(descId, col, size.x, size.y);
+    }
+
+    /**
+     * Display a colored square/button, hover for details, return true when pressed.
+     *
+     * @deprecated use {@link #colorButton(String, ImVec4)} or {@link #colorButton(String, float, float, float, float)} instead
+     */
+    @Deprecated
+    public static boolean colorButton(final String descId, final float[] col, final float sizeX, final float sizeY) {
+        return nColorButton(descId, col, sizeX, sizeY);
+    }
+
+    private static native boolean nColorButton(String obj_descId, float[] obj_col); /*MANUAL
+        auto descId = obj_descId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_descId, JNI_FALSE);
+        auto col = obj_col == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_col, JNI_FALSE);
+        auto _result = ImGui::ColorButton(descId, ImVec4(col[0], col[1], col[2], col[3]));
+        if (descId != NULL) env->ReleaseStringUTFChars(obj_descId, descId);
+        if (col != NULL) env->ReleasePrimitiveArrayCritical(obj_col, col, JNI_FALSE);
+        return _result;
+    */
+
+    private static native boolean nColorButton(String obj_descId, float[] obj_col, int imGuiColorEditFlags); /*MANUAL
+        auto descId = obj_descId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_descId, JNI_FALSE);
+        auto col = obj_col == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_col, JNI_FALSE);
+        auto _result = ImGui::ColorButton(descId, ImVec4(col[0], col[1], col[2], col[3]), imGuiColorEditFlags);
+        if (descId != NULL) env->ReleaseStringUTFChars(obj_descId, descId);
+        if (col != NULL) env->ReleasePrimitiveArrayCritical(obj_col, col, JNI_FALSE);
+        return _result;
+    */
+
+    private static native boolean nColorButton(String obj_descId, float[] obj_col, int imGuiColorEditFlags, float sizeX, float sizeY); /*MANUAL
+        auto descId = obj_descId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_descId, JNI_FALSE);
+        auto col = obj_col == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_col, JNI_FALSE);
+        ImVec2 size = ImVec2(sizeX, sizeY);
+        auto _result = ImGui::ColorButton(descId, ImVec4(col[0], col[1], col[2], col[3]), imGuiColorEditFlags, size);
+        if (descId != NULL) env->ReleaseStringUTFChars(obj_descId, descId);
+        if (col != NULL) env->ReleasePrimitiveArrayCritical(obj_col, col, JNI_FALSE);
+        return _result;
+    */
+
+    private static native boolean nColorButton(String obj_descId, float[] obj_col, float sizeX, float sizeY); /*MANUAL
+        auto descId = obj_descId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_descId, JNI_FALSE);
+        auto col = obj_col == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_col, JNI_FALSE);
+        ImVec2 size = ImVec2(sizeX, sizeY);
+        auto _result = ImGui::ColorButton(descId, ImVec4(col[0], col[1], col[2], col[3]), 0, size);
+        if (descId != NULL) env->ReleaseStringUTFChars(obj_descId, descId);
+        if (col != NULL) env->ReleasePrimitiveArrayCritical(obj_col, col, JNI_FALSE);
+        return _result;
+    */
+
+    /**
      * Initialize current options (generally on application startup) if you want to select a default format,
      * picker type, etc. User will be able to change many settings, unless you pass the _NoOptions flag to your calls.
      */
@@ -8475,7 +8582,7 @@ public class ImGui {
      * When 'p_visible != NULL': if '*p_visible==true' display an additional small close button on upper right of the header which will set the bool
      * to false when clicked, if '*p_visible==false' don't display the header.
      */
-    static boolean collapsingHeader(final String label, final ImBoolean pVisible) {
+    public static boolean collapsingHeader(final String label, final ImBoolean pVisible) {
         return nCollapsingHeader(label, pVisible != null ? pVisible.getData() : null);
     }
 
@@ -8483,7 +8590,7 @@ public class ImGui {
      * When 'p_visible != NULL': if '*p_visible==true' display an additional small close button on upper right of the header which will set the bool
      * to false when clicked, if '*p_visible==false' don't display the header.
      */
-    static boolean collapsingHeader(final String label, final ImBoolean pVisible, final int imGuiTreeNodeFlags) {
+    public static boolean collapsingHeader(final String label, final ImBoolean pVisible, final int imGuiTreeNodeFlags) {
         return nCollapsingHeader(label, pVisible != null ? pVisible.getData() : null, imGuiTreeNodeFlags);
     }
 
