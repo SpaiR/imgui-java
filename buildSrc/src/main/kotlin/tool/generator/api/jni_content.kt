@@ -113,6 +113,7 @@ private fun convertParams2jni(f: Factory, params: List<CtParameter<*>>, defaults
                 } else if (p.type.isClass) {
                     when (p.type.simpleName) {
                         "ImBoolean" -> f.createTypeParam("boolean[]")
+                        "ImShort" -> f.createTypeParam("short[]")
                         "ImInt" -> f.createTypeParam("int[]")
                         "ImFloat" -> f.createTypeParam("float[]")
                         "ImLong" -> f.createTypeParam("long[]")
@@ -139,7 +140,7 @@ private fun joinInBodyParams(params: List<CtParameter<*>>, defaults: IntArray): 
             "&${p.simpleName}[0]"
         } else if (p.type.isClass) {
             when (p.type.simpleName) {
-                "ImBoolean", "ImInt", "ImFloat", "ImLong", "ImDouble" -> {
+                "ImBoolean", "ImShort", "ImInt", "ImFloat", "ImLong", "ImDouble" -> {
                     "(${p.simpleName} != NULL ? &${p.simpleName}[0] : NULL)"
                 }
 
