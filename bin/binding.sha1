@@ -6,7 +6,7 @@ da796ffa641503a456d7776a1cf7d112f0fb3c97  imgui-binding/src/main/java/imgui/ImFo
 74b6ddd5338811ad73bf0562a0a2f01d0c105cc6  imgui-binding/src/main/java/imgui/ImFontConfig.java
 7817ba44186676d5bd3f0d20d204ff05de2a9e1f  imgui-binding/src/main/java/imgui/ImFontGlyph.java
 02db135a54b6e95dfc7494d68af20cd4bd1010e9  imgui-binding/src/main/java/imgui/ImFontGlyphRangesBuilder.java
-1805587ad0f292f88f9524aa25fa27bde740ab5c  imgui-binding/src/main/java/imgui/ImGui.java
+ce67c27b06f9b93527167c517d5c1508ae596f5a  imgui-binding/src/main/java/imgui/ImGui.java
 7de573e17431c11224abbcf0b0782cc65dc5d0f3  imgui-binding/src/main/java/imgui/ImGuiIO.java
 a40ac8c3174ad46c9dd45c788da4b2365a010470  imgui-binding/src/main/java/imgui/ImGuiInputTextCallbackData.java
 9fc5e5c0970429927a9067a0e306a7063f29ab5f  imgui-binding/src/main/java/imgui/ImGuiKeyData.java
@@ -27,6 +27,7 @@ b236162b77cec3e67400ee402620f1a056470313  imgui-binding/src/main/java/imgui/ImVe
 c902069596a551954b31ba7786060f92b460bce1  imgui-binding/src/main/java/imgui/binding/ImGuiStruct.java
 171b6e4e7eeb969c07b86f2ed532955d05705139  imgui-binding/src/main/java/imgui/binding/ImGuiStructDestroyable.java
 38daf340422bcff450280dff3689e21348d99104  imgui-binding/src/main/java/imgui/binding/annotation/ArgValue.java
+cc1e6cf84fd3b4d49d53c8a3b6d8dadf761f7df5  imgui-binding/src/main/java/imgui/binding/annotation/ArgVariant.java
 1d78570abee35b1953b90fe19b91ba0b36c7a75a  imgui-binding/src/main/java/imgui/binding/annotation/BindingAstEnum.java
 8beb1aa6f8761e714404b700c8d597650c33f9ab  imgui-binding/src/main/java/imgui/binding/annotation/BindingField.java
 5f18e33b8e21db73925dc5022a62e783ee3d58e9  imgui-binding/src/main/java/imgui/binding/annotation/BindingMethod.java
@@ -67,7 +68,7 @@ e7cb369231f4493f4f22ff8f983f65c1c003eb39  imgui-binding/src/main/java/imgui/exte
 c9ad9c532cc04bc0577d81a653806ab43232b3b5  imgui-binding/src/main/java/imgui/extension/imnodes/flag/ImNodesPinShape.java
 1356a76e0fb790db7cd2ad2b36951cd6ec92838a  imgui-binding/src/main/java/imgui/extension/imnodes/flag/ImNodesStyleFlags.java
 9e3e85832b694f72c47c7ab00f8160e4a3710660  imgui-binding/src/main/java/imgui/extension/imnodes/flag/ImNodesStyleVar.java
-c8f6655f10bbe9208dc6b4e5ec6ae522599d8e28  imgui-binding/src/main/java/imgui/extension/implot/ImPlot.java
+54125b9b01dd62f9d74af16618aaf8f899259aa8  imgui-binding/src/main/java/imgui/extension/implot/ImPlot.java
 4d9fbdbd6ad28c11199b8bbf1a5053a3179b5d34  imgui-binding/src/main/java/imgui/extension/implot/ImPlotContext.java
 e991351929fc804fdfdbc7375dd8fd98c7cde7cb  imgui-binding/src/main/java/imgui/extension/implot/ImPlotInputMap.java
 e2a5bf6fb85c9b337679d2938668c9d4b5c1e0a9  imgui-binding/src/main/java/imgui/extension/implot/ImPlotPoint.java
@@ -245,7 +246,7 @@ e54f89d1e521600ea2567177b08c7fda1dee7cbf  imgui-binding/src/generated/java/imgui
 53581b03a08cea920ddfd61dc5308ae3507744cf  imgui-binding/src/generated/java/imgui/extension/imnodes/flag/ImNodesPinShape.java
 1c8ff9ed622ee86c6a3e1078f960b85a1d3f6726  imgui-binding/src/generated/java/imgui/extension/imnodes/flag/ImNodesStyleFlags.java
 71ccdeac2d1f346cce7a75c6c709ee9ce5041a66  imgui-binding/src/generated/java/imgui/extension/imnodes/flag/ImNodesStyleVar.java
-eaafd1c98021faf53ebd24ba1a1d2975e7a260bf  imgui-binding/src/generated/java/imgui/extension/implot/ImPlot.java
+7fe74e0216473f9059fa4586d8d842a5ef82f670  imgui-binding/src/generated/java/imgui/extension/implot/ImPlot.java
 4d9fbdbd6ad28c11199b8bbf1a5053a3179b5d34  imgui-binding/src/generated/java/imgui/extension/implot/ImPlotContext.java
 af3786dbec9b666a96191b8e0676ab216d886f72  imgui-binding/src/generated/java/imgui/extension/implot/ImPlotInputMap.java
 e2a5bf6fb85c9b337679d2938668c9d4b5c1e0a9  imgui-binding/src/generated/java/imgui/extension/implot/ImPlotPoint.java
