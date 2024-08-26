@@ -2,6 +2,7 @@ package imgui;
 
 import imgui.assertion.ImAssertCallback;
 import imgui.binding.annotation.ArgValue;
+import imgui.binding.annotation.ArgVariant;
 import imgui.binding.annotation.BindingMethod;
 import imgui.binding.annotation.BindingSource;
 import imgui.binding.annotation.OptArg;
@@ -1493,34 +1494,23 @@ public class ImGui {
     public static native boolean InputDouble(String label, ImDouble v, @OptArg double step, @OptArg double stepFast, @OptArg(callValue = "\"%.6f\"") String format, @OptArg int imGuiInputTextFlags);
 
     @BindingMethod
-    public static native boolean InputScalar(String label, Void ImGuiDataType_S16, ImShort pData, @OptArg @ArgValue(callPrefix = "&") short pStep, @OptArg @ArgValue(callPrefix = "&") short pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
+    public static native boolean InputScalar(String label,
+                                             @ArgVariant(name = {"ImGuiDataType_S16", "ImGuiDataType_S32", "ImGuiDataType_S64", "ImGuiDataType_Float", "ImGuiDataType_Double"}) Void __,
+                                             @ArgVariant(type = {"ImShort", "ImInt", "ImLong", "ImFloat", "ImDouble"}) Void pData,
+                                             @ArgVariant(type = {"short", "int", "long", "float", "double"}) @OptArg @ArgValue(callPrefix = "&") Void pStep,
+                                             @ArgVariant(type = {"short", "int", "long", "float", "double"}) @OptArg @ArgValue(callPrefix = "&") Void pStepFast,
+                                             @OptArg String format,
+                                             @OptArg int imGuiSliderFlags);
 
     @BindingMethod
-    public static native boolean InputScalar(String label, Void ImGuiDataType_S32, ImInt pData, @OptArg @ArgValue(callPrefix = "&") int pStep, @OptArg @ArgValue(callPrefix = "&") int pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
-
-    @BindingMethod
-    public static native boolean InputScalar(String label, Void ImGuiDataType_S64, ImLong pData, @OptArg @ArgValue(callPrefix = "&") long pStep, @OptArg @ArgValue(callPrefix = "&") long pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
-
-    @BindingMethod
-    public static native boolean InputScalar(String label, Void ImGuiDataType_Float, ImFloat pData, @OptArg @ArgValue(callPrefix = "&") float pStep, @OptArg @ArgValue(callPrefix = "&") float pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
-
-    @BindingMethod
-    public static native boolean InputScalar(String label, Void ImGuiDataType_Double, ImDouble pData, @OptArg @ArgValue(callPrefix = "&") double pStep, @OptArg @ArgValue(callPrefix = "&") double pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
-
-    @BindingMethod
-    public static native boolean InputScalarN(String label, Void ImGuiDataType_S16, short[] pData, int components, @OptArg @ArgValue(callPrefix = "&") short pStep, @OptArg @ArgValue(callPrefix = "&") short pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
-
-    @BindingMethod
-    public static native boolean InputScalarN(String label, Void ImGuiDataType_S32, int[] pData, int components, @OptArg @ArgValue(callPrefix = "&") int pStep, @OptArg @ArgValue(callPrefix = "&") int pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
-
-    @BindingMethod
-    public static native boolean InputScalarN(String label, Void ImGuiDataType_S64, long[] pData, int components, @OptArg @ArgValue(callPrefix = "&") long pStep, @OptArg @ArgValue(callPrefix = "&") long pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
-
-    @BindingMethod
-    public static native boolean InputScalarN(String label, Void ImGuiDataType_Float, float[] pData, int components, @OptArg @ArgValue(callPrefix = "&") float pStep, @OptArg @ArgValue(callPrefix = "&") float pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
-
-    @BindingMethod
-    public static native boolean InputScalarN(String label, Void ImGuiDataType_Double, double[] pData, int components, @OptArg @ArgValue(callPrefix = "&") double pStep, @OptArg @ArgValue(callPrefix = "&") double pStepFast, @OptArg String format, @OptArg int imGuiSliderFlags);
+    public static native boolean InputScalarN(String label,
+                                              @ArgVariant(name = {"ImGuiDataType_S16", "ImGuiDataType_S32", "ImGuiDataType_S64", "ImGuiDataType_Float", "ImGuiDataType_Double"}) Void __,
+                                              @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void pData,
+                                              int components,
+                                              @ArgVariant(type = {"short", "int", "long", "float", "double"}) @OptArg @ArgValue(callPrefix = "&") Void pStep,
+                                              @ArgVariant(type = {"short", "int", "long", "float", "double"}) @OptArg @ArgValue(callPrefix = "&") Void pStepFast,
+                                              @OptArg String format,
+                                              @OptArg int imGuiSliderFlags);
 
     // Widgets: Color Editor/Picker (tip: the ColorEdit* functions have a little color square that can be left-clicked to open a picker, and right-clicked to open an option menu.)
     // - Note that in C++ a 'float v[X]' function argument is the _same_ as 'float* v', the array syntax is just a way to document the number of elements that are expected to be accessible.

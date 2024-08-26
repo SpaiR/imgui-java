@@ -19,6 +19,7 @@ const val A_NAME_OPT_ARG = "OptArg"
 const val A_NAME_EXCLUDED_SOURCE = "ExcludedSource"
 const val A_NAME_RETURN_VALUE = "ReturnValue"
 const val A_NAME_ARG_VALUE = "ArgValue"
+const val A_NAME_ARG_VARIANT = "ArgVariant"
 const val A_NAME_TYPE_ARRAY = "TypeArray"
 const val A_NAME_TYPE_STD_STRING = "TypeStdString"
 
@@ -56,6 +57,7 @@ val CLEANUP_ANNOTATIONS_LIST = listOf(
     A_NAME_RETURN_VALUE,
     A_NAME_OPT_ARG,
     A_NAME_ARG_VALUE,
+    A_NAME_ARG_VARIANT,
     A_NAME_TYPE_ARRAY,
     A_NAME_TYPE_STD_STRING,
     A_NAME_BINDING_AST_ENUM,

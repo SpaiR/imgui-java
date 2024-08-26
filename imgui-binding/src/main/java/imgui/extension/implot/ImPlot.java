@@ -4,6 +4,7 @@ import imgui.ImDrawList;
 import imgui.ImVec2;
 import imgui.ImVec4;
 import imgui.binding.annotation.ArgValue;
+import imgui.binding.annotation.ArgVariant;
 import imgui.binding.annotation.BindingMethod;
 import imgui.binding.annotation.BindingSource;
 import imgui.binding.annotation.OptArg;
@@ -374,31 +375,23 @@ public final class ImPlot {
      * Plots a standard 2D line plot.
      */
     @BindingMethod
-    public static native void PlotLine(String labelId, short[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
+    public static native void PlotLine(String labelId,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                       @ArgValue(callValue = "LEN(values)") Void count,
+                                       @OptArg double xscale,
+                                       @OptArg double x0,
+                                       @OptArg int offset);
 
     /**
      * Plots a standard 2D line plot.
      */
     @BindingMethod
-    public static native void PlotLine(String labelId, int[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D line plot.
-     */
-    @BindingMethod
-    public static native void PlotLine(String labelId, long[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D line plot.
-     */
-    @BindingMethod
-    public static native void PlotLine(String labelId, float[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D line plot.
-     */
-    @BindingMethod
-    public static native void PlotLine(String labelId, double[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
+    public static native void PlotLine(String labelId,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                       int count,
+                                       @OptArg double xscale,
+                                       @OptArg double x0,
+                                       @OptArg int offset);
 
     // xs,ys
 
@@ -406,31 +399,21 @@ public final class ImPlot {
      * Plots a standard 2D line plot.
      */
     @BindingMethod
-    public static native void PlotLine(String labelId, short[] xs, short[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotLine(String labelId,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                       @ArgValue(callValue = "LEN(xs)") Void count,
+                                       @OptArg int offset);
 
     /**
      * Plots a standard 2D line plot.
      */
     @BindingMethod
-    public static native void PlotLine(String labelId, int[] xs, int[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D line plot.
-     */
-    @BindingMethod
-    public static native void PlotLine(String labelId, long[] xs, long[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D line plot.
-     */
-    @BindingMethod
-    public static native void PlotLine(String labelId, float[] xs, float[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D line plot.
-     */
-    @BindingMethod
-    public static native void PlotLine(String labelId, double[] xs, double[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotLine(String labelId,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                       int count,
+                                       int offset);
 
     // values
 
