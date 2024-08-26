@@ -110,7 +110,7 @@ private fun convertParams2jni(f: Factory, params: List<CtParameter<*>>, defaults
             result += f.createParameter<Nothing>().apply {
                 val type = if (p.type.isPtrClass()) {
                     f.createTypeParam("long")
-                } else if (p.type.isClass) {
+                } else {
                     when (p.type.simpleName) {
                         "ImBoolean" -> f.createTypeParam("boolean[]")
                         "ImShort" -> f.createTypeParam("short[]")
@@ -120,8 +120,6 @@ private fun convertParams2jni(f: Factory, params: List<CtParameter<*>>, defaults
                         "ImDouble" -> f.createTypeParam("double[]")
                         else -> p.type
                     }
-                } else {
-                    p.type
                 }
 
                 setType<Nothing>(type)
@@ -138,7 +136,7 @@ private fun joinInBodyParams(params: List<CtParameter<*>>, defaults: IntArray): 
             "reinterpret_cast<${p.type.simpleName}*>(${p.simpleName})"
         } else if (p.isPrimitivePtrType()) {
             "&${p.simpleName}[0]"
-        } else if (p.type.isClass) {
+        } else {
             when (p.type.simpleName) {
                 "ImBoolean", "ImShort", "ImInt", "ImFloat", "ImLong", "ImDouble" -> {
                     "(${p.simpleName} != NULL ? &${p.simpleName}[0] : NULL)"
@@ -166,8 +164,6 @@ private fun joinInBodyParams(params: List<CtParameter<*>>, defaults: IntArray): 
 
                 else -> p.simpleName
             }
-        } else {
-            p.simpleName
         }
     }
 

@@ -4,6 +4,7 @@ import imgui.ImDrawList;
 import imgui.ImVec2;
 import imgui.ImVec4;
 import imgui.binding.annotation.ArgValue;
+import imgui.binding.annotation.ArgVariant;
 import imgui.binding.annotation.BindingMethod;
 import imgui.binding.annotation.BindingSource;
 import imgui.binding.annotation.OptArg;
@@ -374,31 +375,23 @@ public final class ImPlot {
      * Plots a standard 2D line plot.
      */
     @BindingMethod
-    public static native void PlotLine(String labelId, short[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
+    public static native void PlotLine(String labelId,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                       @ArgValue(callValue = "LEN(values)") Void count,
+                                       @OptArg double xscale,
+                                       @OptArg double x0,
+                                       @OptArg int offset);
 
     /**
      * Plots a standard 2D line plot.
      */
     @BindingMethod
-    public static native void PlotLine(String labelId, int[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D line plot.
-     */
-    @BindingMethod
-    public static native void PlotLine(String labelId, long[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D line plot.
-     */
-    @BindingMethod
-    public static native void PlotLine(String labelId, float[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D line plot.
-     */
-    @BindingMethod
-    public static native void PlotLine(String labelId, double[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
+    public static native void PlotLine(String labelId,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                       int count,
+                                       @OptArg double xscale,
+                                       @OptArg double x0,
+                                       @OptArg int offset);
 
     // xs,ys
 
@@ -406,31 +399,20 @@ public final class ImPlot {
      * Plots a standard 2D line plot.
      */
     @BindingMethod
-    public static native void PlotLine(String labelId, short[] xs, short[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotLine(String labelId,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                       @ArgValue(callValue = "LEN(xs)") Void count);
 
     /**
      * Plots a standard 2D line plot.
      */
     @BindingMethod
-    public static native void PlotLine(String labelId, int[] xs, int[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D line plot.
-     */
-    @BindingMethod
-    public static native void PlotLine(String labelId, long[] xs, long[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D line plot.
-     */
-    @BindingMethod
-    public static native void PlotLine(String labelId, float[] xs, float[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D line plot.
-     */
-    @BindingMethod
-    public static native void PlotLine(String labelId, double[] xs, double[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotLine(String labelId,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                       int count,
+                                       @OptArg int offset);
 
     // values
 
@@ -438,31 +420,23 @@ public final class ImPlot {
      * Plots a standard 2D scatter plot. Default marker is ImPlotMarker_Circle.
      */
     @BindingMethod
-    public static native void PlotScatter(String labelId, short[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
+    public static native void PlotScatter(String labelId,
+                                          @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                          @ArgValue(callValue = "LEN(values)") Void count,
+                                          @OptArg double xscale,
+                                          @OptArg double x0,
+                                          @OptArg int offset);
 
     /**
      * Plots a standard 2D scatter plot. Default marker is ImPlotMarker_Circle.
      */
     @BindingMethod
-    public static native void PlotScatter(String labelId, int[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D scatter plot. Default marker is ImPlotMarker_Circle.
-     */
-    @BindingMethod
-    public static native void PlotScatter(String labelId, long[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D scatter plot. Default marker is ImPlotMarker_Circle.
-     */
-    @BindingMethod
-    public static native void PlotScatter(String labelId, float[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D scatter plot. Default marker is ImPlotMarker_Circle.
-     */
-    @BindingMethod
-    public static native void PlotScatter(String labelId, double[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
+    public static native void PlotScatter(String labelId,
+                                          @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                          int count,
+                                          @OptArg double xscale,
+                                          @OptArg double x0,
+                                          @OptArg int offset);
 
     // xs,ys
 
@@ -470,31 +444,20 @@ public final class ImPlot {
      * Plots a standard 2D scatter plot. Default marker is ImPlotMarker_Circle.
      */
     @BindingMethod
-    public static native void PlotScatter(String labelId, short[] xs, short[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotScatter(String labelId,
+                                          @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                          @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                          @ArgValue(callValue = "LEN(xs)") Void count);
 
     /**
      * Plots a standard 2D scatter plot. Default marker is ImPlotMarker_Circle.
      */
     @BindingMethod
-    public static native void PlotScatter(String labelId, int[] xs, int[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D scatter plot. Default marker is ImPlotMarker_Circle.
-     */
-    @BindingMethod
-    public static native void PlotScatter(String labelId, long[] xs, long[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D scatter plot. Default marker is ImPlotMarker_Circle.
-     */
-    @BindingMethod
-    public static native void PlotScatter(String labelId, float[] xs, float[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a standard 2D scatter plot. Default marker is ImPlotMarker_Circle.
-     */
-    @BindingMethod
-    public static native void PlotScatter(String labelId, double[] xs, double[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotScatter(String labelId,
+                                          @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                          @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                          int count,
+                                          @OptArg int offset);
 
     // values
 
@@ -502,31 +465,23 @@ public final class ImPlot {
      * Plots a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
      */
     @BindingMethod
-    public static native void PlotStairs(String labelId, short[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
+    public static native void PlotStairs(String labelId,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                         @ArgValue(callValue = "LEN(values)") Void count,
+                                         @OptArg double xscale,
+                                         @OptArg double x0,
+                                         @OptArg int offset);
 
     /**
      * Plots a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
      */
     @BindingMethod
-    public static native void PlotStairs(String labelId, int[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
-     */
-    @BindingMethod
-    public static native void PlotStairs(String labelId, long[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
-     */
-    @BindingMethod
-    public static native void PlotStairs(String labelId, float[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
-     */
-    @BindingMethod
-    public static native void PlotStairs(String labelId, double[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
+    public static native void PlotStairs(String labelId,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                         int count,
+                                         @OptArg double xscale,
+                                         @OptArg double x0,
+                                         @OptArg int offset);
 
     // xs,ys
 
@@ -534,31 +489,20 @@ public final class ImPlot {
      * Plots a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
      */
     @BindingMethod
-    public static native void PlotStairs(String labelId, short[] xs, short[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotStairs(String labelId,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                         @ArgValue(callValue = "LEN(xs)") Void count);
 
     /**
      * Plots a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
      */
     @BindingMethod
-    public static native void PlotStairs(String labelId, int[] xs, int[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
-     */
-    @BindingMethod
-    public static native void PlotStairs(String labelId, long[] xs, long[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
-     */
-    @BindingMethod
-    public static native void PlotStairs(String labelId, float[] xs, float[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a stairstep graph. The y value is continued constantly from every x position, i.e. the interval [x[i], x[i+1]) has the value y[i].
-     */
-    @BindingMethod
-    public static native void PlotStairs(String labelId, double[] xs, double[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotStairs(String labelId,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                         int count,
+                                         @OptArg int offset);
 
     // values
 
@@ -566,31 +510,25 @@ public final class ImPlot {
      * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
      */
     @BindingMethod
-    public static native void PlotShaded(String labelId, short[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double yRef, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
+    public static native void PlotShaded(String labelId,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                         @ArgValue(callValue = "LEN(values)") Void count,
+                                         @OptArg double yRef,
+                                         @OptArg double xscale,
+                                         @OptArg double x0,
+                                         @OptArg int offset);
 
     /**
      * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
      */
     @BindingMethod
-    public static native void PlotShaded(String labelId, int[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double yRef, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
-     */
-    @BindingMethod
-    public static native void PlotShaded(String labelId, long[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double yRef, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
-     */
-    @BindingMethod
-    public static native void PlotShaded(String labelId, float[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double yRef, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
-     */
-    @BindingMethod
-    public static native void PlotShaded(String labelId, double[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double yRef, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
+    public static native void PlotShaded(String labelId,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                         int count,
+                                         @OptArg double yRef,
+                                         @OptArg double xscale,
+                                         @OptArg double x0,
+                                         @OptArg int offset);
 
     // xs,ys
 
@@ -598,31 +536,23 @@ public final class ImPlot {
      * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
      */
     @BindingMethod
-    public static native void PlotShaded(String labelId, short[] xs, short[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg double yRef, @OptArg int offset);
+    public static native void PlotShaded(String labelId,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                         @ArgValue(callValue = "LEN(xs)") Void count,
+                                         @OptArg double yRef,
+                                         @OptArg int offset);
 
     /**
      * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
      */
     @BindingMethod
-    public static native void PlotShaded(String labelId, int[] xs, int[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg double yRef, @OptArg int offset);
-
-    /**
-     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
-     */
-    @BindingMethod
-    public static native void PlotShaded(String labelId, long[] xs, long[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg double yRef, @OptArg int offset);
-
-    /**
-     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
-     */
-    @BindingMethod
-    public static native void PlotShaded(String labelId, float[] xs, float[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg double yRef, @OptArg int offset);
-
-    /**
-     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
-     */
-    @BindingMethod
-    public static native void PlotShaded(String labelId, double[] xs, double[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg double yRef, @OptArg int offset);
+    public static native void PlotShaded(String labelId,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                         int count,
+                                         @OptArg double yRef,
+                                         @OptArg int offset);
 
     // xs,ys1,ys2
 
@@ -630,31 +560,22 @@ public final class ImPlot {
      * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
      */
     @BindingMethod
-    public static native void PlotShaded(String labelId, short[] xs, short[] ys1, short[] ys2, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotShaded(String labelId,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys1,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys2,
+                                         @ArgValue(callValue = "LEN(xs)") Void count);
 
     /**
      * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
      */
     @BindingMethod
-    public static native void PlotShaded(String labelId, int[] xs, int[] ys1, int[] ys2, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
-     */
-    @BindingMethod
-    public static native void PlotShaded(String labelId, long[] xs, long[] ys1, long[] ys2, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
-     */
-    @BindingMethod
-    public static native void PlotShaded(String labelId, float[] xs, float[] ys1, float[] ys2, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots a shaded (filled) region between two lines, or a line and a horizontal reference. Set y_ref to +/-INFINITY for infinite fill extents.
-     */
-    @BindingMethod
-    public static native void PlotShaded(String labelId, double[] xs, double[] ys1, double[] ys2, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotShaded(String labelId,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys1,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys2,
+                                         int count,
+                                         @OptArg int offset);
 
     // values
 
@@ -662,31 +583,23 @@ public final class ImPlot {
      * Plots a vertical bar graph. #width and #shift are in X units.
      */
     @BindingMethod
-    public static native void PlotBars(String labelId, short[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double width, @OptArg double shift, @OptArg int offset);
+    public static native void PlotBars(String labelId,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                       @ArgValue(callValue = "LEN(values)") Void count,
+                                       @OptArg double width,
+                                       @OptArg double shift,
+                                       @OptArg int offset);
 
     /**
      * Plots a vertical bar graph. #width and #shift are in X units.
      */
     @BindingMethod
-    public static native void PlotBars(String labelId, int[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double width, @OptArg double shift, @OptArg int offset);
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    @BindingMethod
-    public static native void PlotBars(String labelId, long[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double width, @OptArg double shift, @OptArg int offset);
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    @BindingMethod
-    public static native void PlotBars(String labelId, float[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double width, @OptArg double shift, @OptArg int offset);
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    @BindingMethod
-    public static native void PlotBars(String labelId, double[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double width, @OptArg double shift, @OptArg int offset);
+    public static native void PlotBars(String labelId,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                       int count,
+                                       @OptArg double width,
+                                       @OptArg double shift,
+                                       @OptArg int offset);
 
     // xs,ys
 
@@ -694,61 +607,22 @@ public final class ImPlot {
      * Plots a vertical bar graph. #width and #shift are in X units.
      */
     @BindingMethod
-    public static native void PlotBars(String labelId, short[] xs, short[] ys, @ArgValue(callValue = "LEN(xs)") Void count, double width, @OptArg int offset);
+    public static native void PlotBars(String labelId,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                       @ArgValue(callValue = "LEN(xs)") Void count,
+                                       double width);
 
     /**
      * Plots a vertical bar graph. #width and #shift are in X units.
      */
     @BindingMethod
-    public static native void PlotBars(String labelId, int[] xs, int[] ys, @ArgValue(callValue = "LEN(xs)") Void count, double width, @OptArg int offset);
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    @BindingMethod
-    public static native void PlotBars(String labelId, long[] xs, long[] ys, @ArgValue(callValue = "LEN(xs)") Void count, double width, @OptArg int offset);
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    @BindingMethod
-    public static native void PlotBars(String labelId, float[] xs, float[] ys, @ArgValue(callValue = "LEN(xs)") Void count, double width, @OptArg int offset);
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    @BindingMethod
-    public static native void PlotBars(String labelId, double[] xs, double[] ys, @ArgValue(callValue = "LEN(xs)") Void count, double width, @OptArg int offset);
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    @BindingMethod
-    public static native void PlotBars(String labelId, short[] xs, short[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @ArgValue(callValue = "0.67") Void width, @OptArg int offset);
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    @BindingMethod
-    public static native void PlotBars(String labelId, int[] xs, int[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @ArgValue(callValue = "0.67") Void width, @OptArg int offset);
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    @BindingMethod
-    public static native void PlotBars(String labelId, long[] xs, long[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @ArgValue(callValue = "0.67") Void width, @OptArg int offset);
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    @BindingMethod
-    public static native void PlotBars(String labelId, float[] xs, float[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @ArgValue(callValue = "0.67") Void width, @OptArg int offset);
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    @BindingMethod
-    public static native void PlotBars(String labelId, double[] xs, double[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @ArgValue(callValue = "0.67") Void width, @OptArg int offset);
+    public static native void PlotBars(String labelId,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                       int count,
+                                       double width,
+                                       @OptArg int offset);
 
     // values
 
@@ -756,31 +630,23 @@ public final class ImPlot {
      * Plots a horizontal bar graph. #height and #shift are in Y units.
      */
     @BindingMethod
-    public static native void PlotBarsH(String labelId, short[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double height, @OptArg double shift, @OptArg int offset);
+    public static native void PlotBarsH(String labelId,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                        @ArgValue(callValue = "LEN(values)") Void count,
+                                        @OptArg double height,
+                                        @OptArg double shift,
+                                        @OptArg int offset);
 
     /**
      * Plots a horizontal bar graph. #height and #shift are in Y units.
      */
     @BindingMethod
-    public static native void PlotBarsH(String labelId, int[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double height, @OptArg double shift, @OptArg int offset);
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    @BindingMethod
-    public static native void PlotBarsH(String labelId, long[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double height, @OptArg double shift, @OptArg int offset);
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    @BindingMethod
-    public static native void PlotBarsH(String labelId, float[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double height, @OptArg double shift, @OptArg int offset);
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    @BindingMethod
-    public static native void PlotBarsH(String labelId, double[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double height, @OptArg double shift, @OptArg int offset);
+    public static native void PlotBarsH(String labelId,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                        int count,
+                                        @OptArg double height,
+                                        @OptArg double shift,
+                                        @OptArg int offset);
 
     // xs,ys
 
@@ -788,181 +654,110 @@ public final class ImPlot {
      * Plots a horizontal bar graph. #height and #shift are in Y units.
      */
     @BindingMethod
-    public static native void PlotBarsH(String labelId, short[] xs, short[] ys, @ArgValue(callValue = "LEN(xs)") Void count, double height, @OptArg int offset);
+    public static native void PlotBarsH(String labelId,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                        @ArgValue(callValue = "LEN(xs)") Void count,
+                                        double height);
 
     /**
      * Plots a horizontal bar graph. #height and #shift are in Y units.
      */
     @BindingMethod
-    public static native void PlotBarsH(String labelId, int[] xs, int[] ys, @ArgValue(callValue = "LEN(xs)") Void count, double height, @OptArg int offset);
+    public static native void PlotBarsH(String labelId,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                        int count,
+                                        double height,
+                                        @OptArg int offset);
 
     /**
      * Plots a horizontal bar graph. #height and #shift are in Y units.
      */
     @BindingMethod
-    public static native void PlotBarsH(String labelId, long[] xs, long[] ys, @ArgValue(callValue = "LEN(xs)") Void count, double height, @OptArg int offset);
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    @BindingMethod
-    public static native void PlotBarsH(String labelId, float[] xs, float[] ys, @ArgValue(callValue = "LEN(xs)") Void count, double height, @OptArg int offset);
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    @BindingMethod
-    public static native void PlotBarsH(String labelId, double[] xs, double[] ys, @ArgValue(callValue = "LEN(xs)") Void count, double height, @OptArg int offset);
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    @BindingMethod
-    public static native void PlotBarsH(String labelId, short[] xs, short[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @ArgValue(callValue = "0.67") Void height, @OptArg int offset);
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    @BindingMethod
-    public static native void PlotBarsH(String labelId, int[] xs, int[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @ArgValue(callValue = "0.67") Void height, @OptArg int offset);
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    @BindingMethod
-    public static native void PlotBarsH(String labelId, long[] xs, long[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @ArgValue(callValue = "0.67") Void height, @OptArg int offset);
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    @BindingMethod
-    public static native void PlotBarsH(String labelId, float[] xs, float[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @ArgValue(callValue = "0.67") Void height, @OptArg int offset);
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    @BindingMethod
-    public static native void PlotBarsH(String labelId, double[] xs, double[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @ArgValue(callValue = "0.67") Void height, @OptArg int offset);
+    public static native void PlotBarsH(String labelId,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                        @ArgValue(callValue = "LEN(xs)") Void count,
+                                        @ArgValue(callValue = "0.67") Void height,
+                                        @OptArg int offset);
 
     /**
      * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
      */
     @BindingMethod
-    public static native void PlotErrorBars(String labelId, short[] xs, short[] ys, short[] err, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotErrorBars(String labelId,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void err,
+                                            @ArgValue(callValue = "LEN(xs)") Void count);
 
     /**
      * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
      */
     @BindingMethod
-    public static native void PlotErrorBars(String labelId, int[] xs, int[] ys, int[] err, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotErrorBars(String labelId,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void err,
+                                            int count,
+                                            @OptArg int offset);
 
     /**
      * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
      */
     @BindingMethod
-    public static native void PlotErrorBars(String labelId, long[] xs, long[] ys, long[] err, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotErrorBars(String labelId,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void neg,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void pos,
+                                            @ArgValue(callValue = "LEN(xs)") Void count);
 
     /**
      * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
      */
     @BindingMethod
-    public static native void PlotErrorBars(String labelId, float[] xs, float[] ys, float[] err, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
-     */
-    @BindingMethod
-    public static native void PlotErrorBars(String labelId, double[] xs, double[] ys, double[] err, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
-     */
-    @BindingMethod
-    public static native void PlotErrorBars(String labelId, short[] xs, short[] ys, short[] neg, short[] pos, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
-     */
-    @BindingMethod
-    public static native void PlotErrorBars(String labelId, int[] xs, int[] ys, int[] neg, int[] pos, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
-     */
-    @BindingMethod
-    public static native void PlotErrorBars(String labelId, long[] xs, long[] ys, long[] neg, long[] pos, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
-     */
-    @BindingMethod
-    public static native void PlotErrorBars(String labelId, float[] xs, float[] ys, float[] neg, float[] pos, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
-     */
-    @BindingMethod
-    public static native void PlotErrorBars(String labelId, double[] xs, double[] ys, double[] neg, double[] pos, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotErrorBars(String labelId,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void neg,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void pos,
+                                            int count,
+                                            @OptArg int offset);
 
     /**
      * Plots horizontal error bars. The label_id should be the same as the label_id of the associated line or bar plot.
      */
     @BindingMethod
-    public static native void PlotErrorBarsH(String labelId, short[] xs, short[] ys, short[] err, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotErrorBarsH(String labelId,
+                                             @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                             @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                             @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void err,
+                                             @ArgValue(callValue = "LEN(xs)") Void count);
 
     /**
      * Plots horizontal error bars. The label_id should be the same as the label_id of the associated line or bar plot.
      */
     @BindingMethod
-    public static native void PlotErrorBarsH(String labelId, int[] xs, int[] ys, int[] err, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotErrorBarsH(String labelId,
+                                             @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                             @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                             @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void err,
+                                             int count,
+                                             @OptArg int offset);
 
     /**
      * Plots horizontal error bars. The label_id should be the same as the label_id of the associated line or bar plot.
      */
     @BindingMethod
-    public static native void PlotErrorBarsH(String labelId, long[] xs, long[] ys, long[] err, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots horizontal error bars. The label_id should be the same as the label_id of the associated line or bar plot.
-     */
-    @BindingMethod
-    public static native void PlotErrorBarsH(String labelId, float[] xs, float[] ys, float[] err, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots horizontal error bars. The label_id should be the same as the label_id of the associated line or bar plot.
-     */
-    @BindingMethod
-    public static native void PlotErrorBarsH(String labelId, double[] xs, double[] ys, double[] err, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots horizontal error bars. The label_id should be the same as the label_id of the associated line or bar plot.
-     */
-    @BindingMethod
-    public static native void PlotErrorBarsH(String labelId, short[] xs, short[] ys, short[] neg, short[] pos, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots horizontal error bars. The label_id should be the same as the label_id of the associated line or bar plot.
-     */
-    @BindingMethod
-    public static native void PlotErrorBarsH(String labelId, int[] xs, int[] ys, int[] neg, int[] pos, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots horizontal error bars. The label_id should be the same as the label_id of the associated line or bar plot.
-     */
-    @BindingMethod
-    public static native void PlotErrorBarsH(String labelId, long[] xs, long[] ys, long[] neg, long[] pos, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots horizontal error bars. The label_id should be the same as the label_id of the associated line or bar plot.
-     */
-    @BindingMethod
-    public static native void PlotErrorBarsH(String labelId, float[] xs, float[] ys, float[] neg, float[] pos, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots horizontal error bars. The label_id should be the same as the label_id of the associated line or bar plot.
-     */
-    @BindingMethod
-    public static native void PlotErrorBarsH(String labelId, double[] xs, double[] ys, double[] neg, double[] pos, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotErrorBarsH(String labelId,
+                                             @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                             @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                             @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void neg,
+                                             @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void pos,
+                                             int count,
+                                             @OptArg int offset);
 
     // values
 
@@ -970,31 +765,25 @@ public final class ImPlot {
      * Plots vertical stems.
      */
     @BindingMethod
-    public static native void PlotStems(String labelId, short[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double yRef, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
+    public static native void PlotStems(String labelId,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                        @ArgValue(callValue = "LEN(values)") Void count,
+                                        @OptArg double yRef,
+                                        @OptArg double xscale,
+                                        @OptArg double x0,
+                                        @OptArg int offset);
 
     /**
      * Plots vertical stems.
      */
     @BindingMethod
-    public static native void PlotStems(String labelId, int[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double yRef, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots vertical stems.
-     */
-    @BindingMethod
-    public static native void PlotStems(String labelId, long[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double yRef, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots vertical stems.
-     */
-    @BindingMethod
-    public static native void PlotStems(String labelId, float[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double yRef, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
-
-    /**
-     * Plots vertical stems.
-     */
-    @BindingMethod
-    public static native void PlotStems(String labelId, double[] values, @ArgValue(callValue = "LEN(values)") Void count, @OptArg double yRef, @OptArg double xscale, @OptArg double x0, @OptArg int offset);
+    public static native void PlotStems(String labelId,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                        int count,
+                                        @OptArg double yRef,
+                                        @OptArg double xscale,
+                                        @OptArg double x0,
+                                        @OptArg int offset);
 
     // xs,ys
 
@@ -1002,98 +791,64 @@ public final class ImPlot {
      * Plots vertical stems.
      */
     @BindingMethod
-    public static native void PlotStems(String labelId, short[] xs, short[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg double yRef, @OptArg int offset);
+    public static native void PlotStems(String labelId,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                        @ArgValue(callValue = "LEN(xs)") Void count,
+                                        @OptArg double yRef,
+                                        @OptArg int offset);
 
     /**
      * Plots vertical stems.
      */
     @BindingMethod
-    public static native void PlotStems(String labelId, int[] xs, int[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg double yRef, @OptArg int offset);
-
-    /**
-     * Plots vertical stems.
-     */
-    @BindingMethod
-    public static native void PlotStems(String labelId, long[] xs, long[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg double yRef, @OptArg int offset);
-
-    /**
-     * Plots vertical stems.
-     */
-    @BindingMethod
-    public static native void PlotStems(String labelId, float[] xs, float[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg double yRef, @OptArg int offset);
-
-    /**
-     * Plots vertical stems.
-     */
-    @BindingMethod
-    public static native void PlotStems(String labelId, double[] xs, double[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg double yRef, @OptArg int offset);
+    public static native void PlotStems(String labelId,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                        int count,
+                                        @OptArg double yRef,
+                                        @OptArg int offset);
 
     /**
      * Plots infinite vertical or horizontal lines (e.g. for references or asymptotes).
      */
     @BindingMethod
-    public static native void PlotVLines(String labelId, short[] xs, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotVLines(String labelId,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                         @ArgValue(callValue = "LEN(xs)") Void count);
 
     /**
      * Plots infinite vertical or horizontal lines (e.g. for references or asymptotes).
      */
     @BindingMethod
-    public static native void PlotVLines(String labelId, int[] xs, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotVLines(String labelId,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                         int count,
+                                         @OptArg int offset);
 
     /**
      * Plots infinite vertical or horizontal lines (e.g. for references or asymptotes).
      */
     @BindingMethod
-    public static native void PlotVLines(String labelId, long[] xs, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotHLines(String labelId,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                         @ArgValue(callValue = "LEN(ys)") Void count);
 
     /**
      * Plots infinite vertical or horizontal lines (e.g. for references or asymptotes).
      */
     @BindingMethod
-    public static native void PlotVLines(String labelId, float[] xs, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots infinite vertical or horizontal lines (e.g. for references or asymptotes).
-     */
-    @BindingMethod
-    public static native void PlotVLines(String labelId, double[] xs, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots infinite vertical or horizontal lines (e.g. for references or asymptotes).
-     */
-    @BindingMethod
-    public static native void PlotHLines(String labelId, short[] ys, @ArgValue(callValue = "LEN(ys)") Void count, @OptArg int offset);
-
-    /**
-     * Plots infinite vertical or horizontal lines (e.g. for references or asymptotes).
-     */
-    @BindingMethod
-    public static native void PlotHLines(String labelId, int[] ys, @ArgValue(callValue = "LEN(ys)") Void count, @OptArg int offset);
-
-    /**
-     * Plots infinite vertical or horizontal lines (e.g. for references or asymptotes).
-     */
-    @BindingMethod
-    public static native void PlotHLines(String labelId, long[] ys, @ArgValue(callValue = "LEN(ys)") Void count, @OptArg int offset);
-
-    /**
-     * Plots infinite vertical or horizontal lines (e.g. for references or asymptotes).
-     */
-    @BindingMethod
-    public static native void PlotHLines(String labelId, float[] ys, @ArgValue(callValue = "LEN(ys)") Void count, @OptArg int offset);
-
-    /**
-     * Plots infinite vertical or horizontal lines (e.g. for references or asymptotes).
-     */
-    @BindingMethod
-    public static native void PlotHLines(String labelId, double[] ys, @ArgValue(callValue = "LEN(ys)") Void count, @OptArg int offset);
+    public static native void PlotHLines(String labelId,
+                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                         int count,
+                                         @OptArg int offset);
 
     /**
      * Plots a pie chart. If the sum of values{@code >}1 or normalize is true, each value will be normalized. Center and radius are in plot units. #label_fmt can be set to NULL for no labels.
      */
     @BindingMethod
     public static native void PlotPieChart(String[] labelIds,
-                                           short[] values,
+                                           @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
                                            @ArgValue(callValue = "LEN(values)") Void count,
                                            double x,
                                            double y,
@@ -1107,50 +862,8 @@ public final class ImPlot {
      */
     @BindingMethod
     public static native void PlotPieChart(String[] labelIds,
-                                           int[] values,
-                                           @ArgValue(callValue = "LEN(values)") Void count,
-                                           double x,
-                                           double y,
-                                           double radius,
-                                           @OptArg(callValue = "false") boolean normalize,
-                                           @OptArg(callValue = "\"%.1f\"") String labelFmt,
-                                           @OptArg double angle0);
-
-    /**
-     * Plots a pie chart. If the sum of values{@code >}1 or normalize is true, each value will be normalized. Center and radius are in plot units. #label_fmt can be set to NULL for no labels.
-     */
-    @BindingMethod
-    public static native void PlotPieChart(String[] labelIds,
-                                           long[] values,
-                                           @ArgValue(callValue = "LEN(values)") Void count,
-                                           double x,
-                                           double y,
-                                           double radius,
-                                           @OptArg(callValue = "false") boolean normalize,
-                                           @OptArg(callValue = "\"%.1f\"") String labelFmt,
-                                           @OptArg double angle0);
-
-    /**
-     * Plots a pie chart. If the sum of values{@code >}1 or normalize is true, each value will be normalized. Center and radius are in plot units. #label_fmt can be set to NULL for no labels.
-     */
-    @BindingMethod
-    public static native void PlotPieChart(String[] labelIds,
-                                           float[] values,
-                                           @ArgValue(callValue = "LEN(values)") Void count,
-                                           double x,
-                                           double y,
-                                           double radius,
-                                           @OptArg(callValue = "false") boolean normalize,
-                                           @OptArg(callValue = "\"%.1f\"") String labelFmt,
-                                           @OptArg double angle0);
-
-    /**
-     * Plots a pie chart. If the sum of values{@code >}1 or normalize is true, each value will be normalized. Center and radius are in plot units. #label_fmt can be set to NULL for no labels.
-     */
-    @BindingMethod
-    public static native void PlotPieChart(String[] labelIds,
-                                           double[] values,
-                                           @ArgValue(callValue = "LEN(values)") Void count,
+                                           @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                           int count,
                                            double x,
                                            double y,
                                            double radius,
@@ -1163,63 +876,7 @@ public final class ImPlot {
      */
     @BindingMethod
     public static native void PlotHeatmap(String labelId,
-                                          short[] values,
-                                          int rows,
-                                          int cols,
-                                          @OptArg double scaleMin,
-                                          @OptArg double scaleMax,
-                                          @OptArg(callValue = "\"%.1f\"") String labelFmt,
-                                          @OptArg ImPlotPoint boundsMin,
-                                          @OptArg ImPlotPoint boundsMax);
-
-    /**
-     * Plots a 2D heatmap chart. Values are expected to be in row-major order. Leave #scale_min and scale_max both at 0 for automatic color scaling, or set them to a predefined range. #label_fmt can be set to NULL for no labels.
-     */
-    @BindingMethod
-    public static native void PlotHeatmap(String labelId,
-                                          int[] values,
-                                          int rows,
-                                          int cols,
-                                          @OptArg double scaleMin,
-                                          @OptArg double scaleMax,
-                                          @OptArg(callValue = "\"%.1f\"") String labelFmt,
-                                          @OptArg ImPlotPoint boundsMin,
-                                          @OptArg ImPlotPoint boundsMax);
-
-    /**
-     * Plots a 2D heatmap chart. Values are expected to be in row-major order. Leave #scale_min and scale_max both at 0 for automatic color scaling, or set them to a predefined range. #label_fmt can be set to NULL for no labels.
-     */
-    @BindingMethod
-    public static native void PlotHeatmap(String labelId,
-                                          long[] values,
-                                          int rows,
-                                          int cols,
-                                          @OptArg double scaleMin,
-                                          @OptArg double scaleMax,
-                                          @OptArg(callValue = "\"%.1f\"") String labelFmt,
-                                          @OptArg ImPlotPoint boundsMin,
-                                          @OptArg ImPlotPoint boundsMax);
-
-    /**
-     * Plots a 2D heatmap chart. Values are expected to be in row-major order. Leave #scale_min and scale_max both at 0 for automatic color scaling, or set them to a predefined range. #label_fmt can be set to NULL for no labels.
-     */
-    @BindingMethod
-    public static native void PlotHeatmap(String labelId,
-                                          float[] values,
-                                          int rows,
-                                          int cols,
-                                          @OptArg double scaleMin,
-                                          @OptArg double scaleMax,
-                                          @OptArg(callValue = "\"%.1f\"") String labelFmt,
-                                          @OptArg ImPlotPoint boundsMin,
-                                          @OptArg ImPlotPoint boundsMax);
-
-    /**
-     * Plots a 2D heatmap chart. Values are expected to be in row-major order. Leave #scale_min and scale_max both at 0 for automatic color scaling, or set them to a predefined range. #label_fmt can be set to NULL for no labels.
-     */
-    @BindingMethod
-    public static native void PlotHeatmap(String labelId,
-                                          double[] values,
+                                          @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
                                           int rows,
                                           int cols,
                                           @OptArg double scaleMin,
@@ -1235,7 +892,7 @@ public final class ImPlot {
      */
     @BindingMethod
     public static native double PlotHistogram(String labelId,
-                                              short[] values,
+                                              @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
                                               @ArgValue(callValue = "LEN(values)") Void count,
                                               @OptArg(callValue = "ImPlotBin_Sturges") int bins,
                                               @OptArg boolean cumulative,
@@ -1251,57 +908,9 @@ public final class ImPlot {
      */
     @BindingMethod
     public static native double PlotHistogram(String labelId,
-                                              int[] values,
-                                              @ArgValue(callValue = "LEN(values)") Void count,
-                                              @OptArg(callValue = "ImPlotBin_Sturges") int bins,
-                                              @OptArg boolean cumulative,
-                                              @OptArg boolean density,
-                                              @OptArg(callValue = "ImPlotRange()") ImPlotRange range,
-                                              @OptArg(callValue = "true") boolean outliers,
-                                              @OptArg double barScale);
-
-    /**
-     * Plots a horizontal histogram. #bins can be a positive integer or an ImPlotBin_ method. If #cumulative is true, each bin contains its count plus the counts of all previous bins.
-     * If #density is true, the PDF is visualized. If both are true, the CDF is visualized. If #range is left unspecified, the min/max of #values will be used as the range.
-     * If #range is specified, outlier values outside of the range are not binned. However, outliers still count toward normalizing and cumulative counts unless #outliers is false. The largest bin count or density is returned.
-     */
-    @BindingMethod
-    public static native double PlotHistogram(String labelId,
-                                              long[] values,
-                                              @ArgValue(callValue = "LEN(values)") Void count,
-                                              @OptArg(callValue = "ImPlotBin_Sturges") int bins,
-                                              @OptArg boolean cumulative,
-                                              @OptArg boolean density,
-                                              @OptArg(callValue = "ImPlotRange()") ImPlotRange range,
-                                              @OptArg(callValue = "true") boolean outliers,
-                                              @OptArg double barScale);
-
-    /**
-     * Plots a horizontal histogram. #bins can be a positive integer or an ImPlotBin_ method. If #cumulative is true, each bin contains its count plus the counts of all previous bins.
-     * If #density is true, the PDF is visualized. If both are true, the CDF is visualized. If #range is left unspecified, the min/max of #values will be used as the range.
-     * If #range is specified, outlier values outside of the range are not binned. However, outliers still count toward normalizing and cumulative counts unless #outliers is false. The largest bin count or density is returned.
-     */
-    @BindingMethod
-    public static native double PlotHistogram(String labelId,
-                                              float[] values,
-                                              @ArgValue(callValue = "LEN(values)") Void count,
-                                              @OptArg(callValue = "ImPlotBin_Sturges") int bins,
-                                              @OptArg boolean cumulative,
-                                              @OptArg boolean density,
-                                              @OptArg(callValue = "ImPlotRange()") ImPlotRange range,
-                                              @OptArg(callValue = "true") boolean outliers,
-                                              @OptArg double barScale);
-
-    /**
-     * Plots a horizontal histogram. #bins can be a positive integer or an ImPlotBin_ method. If #cumulative is true, each bin contains its count plus the counts of all previous bins.
-     * If #density is true, the PDF is visualized. If both are true, the CDF is visualized. If #range is left unspecified, the min/max of #values will be used as the range.
-     * If #range is specified, outlier values outside of the range are not binned. However, outliers still count toward normalizing and cumulative counts unless #outliers is false. The largest bin count or density is returned.
-     */
-    @BindingMethod
-    public static native double PlotHistogram(String labelId,
-                                              double[] values,
-                                              @ArgValue(callValue = "LEN(values)") Void count,
-                                              @OptArg(callValue = "ImPlotBin_Sturges") int bins,
+                                              @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                              int count,
+                                              int bins,
                                               @OptArg boolean cumulative,
                                               @OptArg boolean density,
                                               @OptArg(callValue = "ImPlotRange()") ImPlotRange range,
@@ -1315,8 +924,8 @@ public final class ImPlot {
      */
     @BindingMethod
     public static native double PlotHistogram2D(String labelId,
-                                                short[] xs,
-                                                short[] ys,
+                                                @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                                @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
                                                 @ArgValue(callValue = "LEN(xs)") Void count,
                                                 @OptArg int xBins,
                                                 @OptArg int yBins,
@@ -1331,59 +940,11 @@ public final class ImPlot {
      */
     @BindingMethod
     public static native double PlotHistogram2D(String labelId,
-                                                int[] xs,
-                                                int[] ys,
-                                                @ArgValue(callValue = "LEN(xs)") Void count,
-                                                @OptArg int xBins,
-                                                @OptArg int yBins,
-                                                @OptArg(callValue = "false") boolean density,
-                                                @OptArg(callValue = "ImPlotRect()") ImPlotRect range,
-                                                @OptArg boolean outliers);
-
-    /**
-     * Plots two dimensional, bivariate histogram as a heatmap. #x_bins and #y_bins can be a positive integer or an ImPlotBin. If #density is true, the PDF is visualized.
-     * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
-     * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
-     */
-    @BindingMethod
-    public static native double PlotHistogram2D(String labelId,
-                                                long[] xs,
-                                                long[] ys,
-                                                @ArgValue(callValue = "LEN(xs)") Void count,
-                                                @OptArg int xBins,
-                                                @OptArg int yBins,
-                                                @OptArg(callValue = "false") boolean density,
-                                                @OptArg(callValue = "ImPlotRect()") ImPlotRect range,
-                                                @OptArg boolean outliers);
-
-    /**
-     * Plots two dimensional, bivariate histogram as a heatmap. #x_bins and #y_bins can be a positive integer or an ImPlotBin. If #density is true, the PDF is visualized.
-     * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
-     * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
-     */
-    @BindingMethod
-    public static native double PlotHistogram2D(String labelId,
-                                                float[] xs,
-                                                float[] ys,
-                                                @ArgValue(callValue = "LEN(xs)") Void count,
-                                                @OptArg int xBins,
-                                                @OptArg int yBins,
-                                                @OptArg(callValue = "false") boolean density,
-                                                @OptArg(callValue = "ImPlotRect()") ImPlotRect range,
-                                                @OptArg boolean outliers);
-
-    /**
-     * Plots two dimensional, bivariate histogram as a heatmap. #x_bins and #y_bins can be a positive integer or an ImPlotBin. If #density is true, the PDF is visualized.
-     * If #range is left unspecified, the min/max of #xs an #ys will be used as the ranges. If #range is specified, outlier values outside of range are not binned.
-     * However, outliers still count toward the normalizing count for density plots unless #outliers is false. The largest bin count or density is returned.
-     */
-    @BindingMethod
-    public static native double PlotHistogram2D(String labelId,
-                                                double[] xs,
-                                                double[] ys,
-                                                @ArgValue(callValue = "LEN(xs)") Void count,
-                                                @OptArg int xBins,
-                                                @OptArg int yBins,
+                                                @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                                @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                                int count,
+                                                int xBins,
+                                                int yBins,
                                                 @OptArg(callValue = "false") boolean density,
                                                 @OptArg(callValue = "ImPlotRect()") ImPlotRect range,
                                                 @OptArg boolean outliers);
@@ -1392,43 +953,42 @@ public final class ImPlot {
      * Plots digital data. Digital plots do not respond to y drag or zoom, and are always referenced to the bottom of the plot.
      */
     @BindingMethod
-    public static native void PlotDigital(String labelId, short[] xs, short[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotDigital(String labelId,
+                                          @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                          @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                          @ArgValue(callValue = "LEN(xs)") Void count);
 
     /**
      * Plots digital data. Digital plots do not respond to y drag or zoom, and are always referenced to the bottom of the plot.
      */
     @BindingMethod
-    public static native void PlotDigital(String labelId, int[] xs, int[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots digital data. Digital plots do not respond to y drag or zoom, and are always referenced to the bottom of the plot.
-     */
-    @BindingMethod
-    public static native void PlotDigital(String labelId, long[] xs, long[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots digital data. Digital plots do not respond to y drag or zoom, and are always referenced to the bottom of the plot.
-     */
-    @BindingMethod
-    public static native void PlotDigital(String labelId, float[] xs, float[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
-
-    /**
-     * Plots digital data. Digital plots do not respond to y drag or zoom, and are always referenced to the bottom of the plot.
-     */
-    @BindingMethod
-    public static native void PlotDigital(String labelId, double[] xs, double[] ys, @ArgValue(callValue = "LEN(xs)") Void count, @OptArg int offset);
+    public static native void PlotDigital(String labelId,
+                                          @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                          @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                          int count,
+                                          @OptArg int offset);
 
     /**
      * Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
      */
     @BindingMethod
-    public static native void PlotImage(String labelId, @ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int userTextureId, ImPlotPoint boundsMin, ImPlotPoint boundsMax, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg ImVec4 tintCol);
+    public static native void PlotImage(String labelId,
+                                        @ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int userTextureId,
+                                        ImPlotPoint boundsMin,
+                                        ImPlotPoint boundsMax,
+                                        @OptArg ImVec2 uv0,
+                                        @OptArg ImVec2 uv1,
+                                        @OptArg ImVec4 tintCol);
 
     /**
      * Plots a centered text label at point x,y with an optional pixel offset. Text color can be changed with ImPlot::PushStyleColor(ImPlotCol_InlayText, ...).
      */
     @BindingMethod
-    public static native void PlotText(String text, double x, double y, @OptArg(callValue = "false") boolean vertical, @OptArg ImVec2 pixOffset);
+    public static native void PlotText(String text,
+                                       double x,
+                                       double y,
+                                       @OptArg(callValue = "false") boolean vertical,
+                                       @OptArg ImVec2 pixOffset);
 
     /**
      * Plots a dummy item (i.e. adds a legend entry colored by ImPlotCol_Line)

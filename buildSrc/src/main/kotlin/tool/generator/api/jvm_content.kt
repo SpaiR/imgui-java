@@ -20,7 +20,7 @@ private fun joinInBodyParams(params: List<CtParameter<*>>, defaults: IntArray): 
     fun param2str(p: CtParameter<*>): String {
         return if (p.type.isPtrClass()) {
             "${p.simpleName}.$PTR_JVM_FIELD"
-        } else if (p.type.isClass) {
+        } else {
             when (p.type.simpleName) {
                 "ImBoolean", "ImShort", "ImInt", "ImFloat", "ImLong", "ImDouble" -> {
                     "${p.simpleName} != null ? ${p.simpleName}.getData() : null"
@@ -42,8 +42,6 @@ private fun joinInBodyParams(params: List<CtParameter<*>>, defaults: IntArray): 
 
                 else -> p.simpleName
             }
-        } else {
-            p.simpleName
         }
     }
 
@@ -147,7 +145,7 @@ private fun createMethod(origM: CtMethod<*>, params: List<CtParameter<*>>, defau
                 append(createBodyStaticStructReturn(origM, params, defaults))
             } else if (DST_RETURN_TYPE_SET.contains(origM.type.simpleName)) {
                 append(createBodyDstReturn(origM, params, defaults))
-            } else if (origM.type.isClass && !origM.type.isPrimitive && !origM.isType("void") && !origM.isType("String") && !origM.isPrimitivePtrType()) {
+            } else if (origM.type.isPtrClass()) {
                 append(createBodyStructReturn(origM, params, defaults))
             } else {
                 if (!origM.isType("void")) {
