@@ -385,7 +385,7 @@ public final class ImGuiViewport extends ImGuiStruct {
     }
 
     private native long nGetDrawData(); /*
-        return (intptr_t)THIS->DrawData;
+        return (uintptr_t)THIS->DrawData;
     */
 
     private native void nSetDrawData(long value); /*
@@ -442,7 +442,7 @@ public final class ImGuiViewport extends ImGuiStruct {
      * void* for FindViewportByPlatformHandle(). (e.g. suggested to use natural platform handle such as HWND, GLFWWindow*, SDL_Window*)
      */
     public native long getPlatformHandle(); /*
-        return (intptr_t)THIS->PlatformHandle;
+        return (uintptr_t)THIS->PlatformHandle;
     */
 
     /**
@@ -456,7 +456,7 @@ public final class ImGuiViewport extends ImGuiStruct {
      * void* to hold lower-level, platform-native window handle (e.g. the HWND) when using an abstraction layer like GLFW or SDL (where PlatformHandle would be a SDL_Window*)
      */
     public native long getPlatformHandleRaw(); /*
-        return (intptr_t)THIS->PlatformHandleRaw;
+        return (uintptr_t)THIS->PlatformHandleRaw;
     */
 
     /**

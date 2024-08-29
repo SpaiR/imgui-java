@@ -130,12 +130,12 @@ public final class ImDrawList extends ImGuiStruct {
         THIS->PopClipRect();
     */
 
-    public void pushTextureID(final int textureId) {
+    public void pushTextureID(final long textureId) {
         nPushTextureID(textureId);
     }
 
-    private native void nPushTextureID(int textureId); /*
-        THIS->PushTextureID((ImTextureID)(intptr_t)textureId);
+    private native void nPushTextureID(long textureId); /*
+        THIS->PushTextureID((ImTextureID)(uintptr_t)textureId);
     */
 
     public void popTextureID() {
@@ -880,154 +880,143 @@ public final class ImDrawList extends ImGuiStruct {
     // - "pMin" and "pMax" represent the upper-left and lower-right corners of the rectangle.
     // - "uvMin" and "uvMax" represent the normalized texture coordinates to use for those corners. Using (0,0)->(1,1) texture coordinates will generally display the entire texture.
 
-    public void addImage(final int textureID, final ImVec2 pMin, final ImVec2 pMax) {
+    public void addImage(final long textureID, final ImVec2 pMin, final ImVec2 pMax) {
         nAddImage(textureID, pMin.x, pMin.y, pMax.x, pMax.y);
     }
 
-    public void addImage(final int textureID, final float pMinX, final float pMinY, final float pMaxX, final float pMaxY) {
+    public void addImage(final long textureID, final float pMinX, final float pMinY, final float pMaxX, final float pMaxY) {
         nAddImage(textureID, pMinX, pMinY, pMaxX, pMaxY);
     }
 
-    public void addImage(final int textureID, final ImVec2 pMin, final ImVec2 pMax, final ImVec2 uvMin) {
+    public void addImage(final long textureID, final ImVec2 pMin, final ImVec2 pMax, final ImVec2 uvMin) {
         nAddImage(textureID, pMin.x, pMin.y, pMax.x, pMax.y, uvMin.x, uvMin.y);
     }
 
-    public void addImage(final int textureID, final float pMinX, final float pMinY, final float pMaxX, final float pMaxY, final float uvMinX, final float uvMinY) {
+    public void addImage(final long textureID, final float pMinX, final float pMinY, final float pMaxX, final float pMaxY, final float uvMinX, final float uvMinY) {
         nAddImage(textureID, pMinX, pMinY, pMaxX, pMaxY, uvMinX, uvMinY);
     }
 
-    public void addImage(final int textureID, final ImVec2 pMin, final ImVec2 pMax, final ImVec2 uvMin, final ImVec2 uvMax) {
+    public void addImage(final long textureID, final ImVec2 pMin, final ImVec2 pMax, final ImVec2 uvMin, final ImVec2 uvMax) {
         nAddImage(textureID, pMin.x, pMin.y, pMax.x, pMax.y, uvMin.x, uvMin.y, uvMax.x, uvMax.y);
     }
 
-    public void addImage(final int textureID, final float pMinX, final float pMinY, final float pMaxX, final float pMaxY, final float uvMinX, final float uvMinY, final float uvMaxX, final float uvMaxY) {
+    public void addImage(final long textureID, final float pMinX, final float pMinY, final float pMaxX, final float pMaxY, final float uvMinX, final float uvMinY, final float uvMaxX, final float uvMaxY) {
         nAddImage(textureID, pMinX, pMinY, pMaxX, pMaxY, uvMinX, uvMinY, uvMaxX, uvMaxY);
     }
 
-    public void addImage(final int textureID, final ImVec2 pMin, final ImVec2 pMax, final ImVec2 uvMin, final ImVec2 uvMax, final int col) {
+    public void addImage(final long textureID, final ImVec2 pMin, final ImVec2 pMax, final ImVec2 uvMin, final ImVec2 uvMax, final int col) {
         nAddImage(textureID, pMin.x, pMin.y, pMax.x, pMax.y, uvMin.x, uvMin.y, uvMax.x, uvMax.y, col);
     }
 
-    public void addImage(final int textureID, final float pMinX, final float pMinY, final float pMaxX, final float pMaxY, final float uvMinX, final float uvMinY, final float uvMaxX, final float uvMaxY, final int col) {
+    public void addImage(final long textureID, final float pMinX, final float pMinY, final float pMaxX, final float pMaxY, final float uvMinX, final float uvMinY, final float uvMaxX, final float uvMaxY, final int col) {
         nAddImage(textureID, pMinX, pMinY, pMaxX, pMaxY, uvMinX, uvMinY, uvMaxX, uvMaxY, col);
     }
 
-    private native void nAddImage(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY); /*MANUAL
+    private native void nAddImage(long textureID, float pMinX, float pMinY, float pMaxX, float pMaxY); /*MANUAL
         ImVec2 pMin = ImVec2(pMinX, pMinY);
         ImVec2 pMax = ImVec2(pMaxX, pMaxY);
-        THIS->AddImage((ImTextureID)(intptr_t)textureID, pMin, pMax);
+        THIS->AddImage((ImTextureID)(uintptr_t)textureID, pMin, pMax);
     */
 
-    private native void nAddImage(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY); /*MANUAL
-        ImVec2 pMin = ImVec2(pMinX, pMinY);
-        ImVec2 pMax = ImVec2(pMaxX, pMaxY);
-        ImVec2 uvMin = ImVec2(uvMinX, uvMinY);
-        THIS->AddImage((ImTextureID)(intptr_t)textureID, pMin, pMax, uvMin);
-    */
-
-    private native void nAddImage(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY); /*MANUAL
+    private native void nAddImage(long textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY); /*MANUAL
         ImVec2 pMin = ImVec2(pMinX, pMinY);
         ImVec2 pMax = ImVec2(pMaxX, pMaxY);
         ImVec2 uvMin = ImVec2(uvMinX, uvMinY);
-        ImVec2 uvMax = ImVec2(uvMaxX, uvMaxY);
-        THIS->AddImage((ImTextureID)(intptr_t)textureID, pMin, pMax, uvMin, uvMax);
+        THIS->AddImage((ImTextureID)(uintptr_t)textureID, pMin, pMax, uvMin);
     */
 
-    private native void nAddImage(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY, int col); /*MANUAL
+    private native void nAddImage(long textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY); /*MANUAL
         ImVec2 pMin = ImVec2(pMinX, pMinY);
         ImVec2 pMax = ImVec2(pMaxX, pMaxY);
         ImVec2 uvMin = ImVec2(uvMinX, uvMinY);
         ImVec2 uvMax = ImVec2(uvMaxX, uvMaxY);
-        THIS->AddImage((ImTextureID)(intptr_t)textureID, pMin, pMax, uvMin, uvMax, col);
+        THIS->AddImage((ImTextureID)(uintptr_t)textureID, pMin, pMax, uvMin, uvMax);
     */
 
-    public void addImageQuad(final int textureID, final ImVec2 p1, final ImVec2 p2, final ImVec2 p3, final ImVec2 p4) {
+    private native void nAddImage(long textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY, int col); /*MANUAL
+        ImVec2 pMin = ImVec2(pMinX, pMinY);
+        ImVec2 pMax = ImVec2(pMaxX, pMaxY);
+        ImVec2 uvMin = ImVec2(uvMinX, uvMinY);
+        ImVec2 uvMax = ImVec2(uvMaxX, uvMaxY);
+        THIS->AddImage((ImTextureID)(uintptr_t)textureID, pMin, pMax, uvMin, uvMax, col);
+    */
+
+    public void addImageQuad(final long textureID, final ImVec2 p1, final ImVec2 p2, final ImVec2 p3, final ImVec2 p4) {
         nAddImageQuad(textureID, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
     }
 
-    public void addImageQuad(final int textureID, final float p1X, final float p1Y, final float p2X, final float p2Y, final float p3X, final float p3Y, final float p4X, final float p4Y) {
+    public void addImageQuad(final long textureID, final float p1X, final float p1Y, final float p2X, final float p2Y, final float p3X, final float p3Y, final float p4X, final float p4Y) {
         nAddImageQuad(textureID, p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y);
     }
 
-    public void addImageQuad(final int textureID, final ImVec2 p1, final ImVec2 p2, final ImVec2 p3, final ImVec2 p4, final ImVec2 uv1) {
+    public void addImageQuad(final long textureID, final ImVec2 p1, final ImVec2 p2, final ImVec2 p3, final ImVec2 p4, final ImVec2 uv1) {
         nAddImageQuad(textureID, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, uv1.x, uv1.y);
     }
 
-    public void addImageQuad(final int textureID, final float p1X, final float p1Y, final float p2X, final float p2Y, final float p3X, final float p3Y, final float p4X, final float p4Y, final float uv1X, final float uv1Y) {
+    public void addImageQuad(final long textureID, final float p1X, final float p1Y, final float p2X, final float p2Y, final float p3X, final float p3Y, final float p4X, final float p4Y, final float uv1X, final float uv1Y) {
         nAddImageQuad(textureID, p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, uv1X, uv1Y);
     }
 
-    public void addImageQuad(final int textureID, final ImVec2 p1, final ImVec2 p2, final ImVec2 p3, final ImVec2 p4, final ImVec2 uv1, final ImVec2 uv2) {
+    public void addImageQuad(final long textureID, final ImVec2 p1, final ImVec2 p2, final ImVec2 p3, final ImVec2 p4, final ImVec2 uv1, final ImVec2 uv2) {
         nAddImageQuad(textureID, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, uv1.x, uv1.y, uv2.x, uv2.y);
     }
 
-    public void addImageQuad(final int textureID, final float p1X, final float p1Y, final float p2X, final float p2Y, final float p3X, final float p3Y, final float p4X, final float p4Y, final float uv1X, final float uv1Y, final float uv2X, final float uv2Y) {
+    public void addImageQuad(final long textureID, final float p1X, final float p1Y, final float p2X, final float p2Y, final float p3X, final float p3Y, final float p4X, final float p4Y, final float uv1X, final float uv1Y, final float uv2X, final float uv2Y) {
         nAddImageQuad(textureID, p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, uv1X, uv1Y, uv2X, uv2Y);
     }
 
-    public void addImageQuad(final int textureID, final ImVec2 p1, final ImVec2 p2, final ImVec2 p3, final ImVec2 p4, final ImVec2 uv1, final ImVec2 uv2, final ImVec2 uv3) {
+    public void addImageQuad(final long textureID, final ImVec2 p1, final ImVec2 p2, final ImVec2 p3, final ImVec2 p4, final ImVec2 uv1, final ImVec2 uv2, final ImVec2 uv3) {
         nAddImageQuad(textureID, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, uv1.x, uv1.y, uv2.x, uv2.y, uv3.x, uv3.y);
     }
 
-    public void addImageQuad(final int textureID, final float p1X, final float p1Y, final float p2X, final float p2Y, final float p3X, final float p3Y, final float p4X, final float p4Y, final float uv1X, final float uv1Y, final float uv2X, final float uv2Y, final float uv3X, final float uv3Y) {
+    public void addImageQuad(final long textureID, final float p1X, final float p1Y, final float p2X, final float p2Y, final float p3X, final float p3Y, final float p4X, final float p4Y, final float uv1X, final float uv1Y, final float uv2X, final float uv2Y, final float uv3X, final float uv3Y) {
         nAddImageQuad(textureID, p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, uv1X, uv1Y, uv2X, uv2Y, uv3X, uv3Y);
     }
 
-    public void addImageQuad(final int textureID, final ImVec2 p1, final ImVec2 p2, final ImVec2 p3, final ImVec2 p4, final ImVec2 uv1, final ImVec2 uv2, final ImVec2 uv3, final ImVec2 uv4) {
+    public void addImageQuad(final long textureID, final ImVec2 p1, final ImVec2 p2, final ImVec2 p3, final ImVec2 p4, final ImVec2 uv1, final ImVec2 uv2, final ImVec2 uv3, final ImVec2 uv4) {
         nAddImageQuad(textureID, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, uv1.x, uv1.y, uv2.x, uv2.y, uv3.x, uv3.y, uv4.x, uv4.y);
     }
 
-    public void addImageQuad(final int textureID, final float p1X, final float p1Y, final float p2X, final float p2Y, final float p3X, final float p3Y, final float p4X, final float p4Y, final float uv1X, final float uv1Y, final float uv2X, final float uv2Y, final float uv3X, final float uv3Y, final float uv4X, final float uv4Y) {
+    public void addImageQuad(final long textureID, final float p1X, final float p1Y, final float p2X, final float p2Y, final float p3X, final float p3Y, final float p4X, final float p4Y, final float uv1X, final float uv1Y, final float uv2X, final float uv2Y, final float uv3X, final float uv3Y, final float uv4X, final float uv4Y) {
         nAddImageQuad(textureID, p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, uv1X, uv1Y, uv2X, uv2Y, uv3X, uv3Y, uv4X, uv4Y);
     }
 
-    public void addImageQuad(final int textureID, final ImVec2 p1, final ImVec2 p2, final ImVec2 p3, final ImVec2 p4, final ImVec2 uv1, final ImVec2 uv2, final ImVec2 uv3, final ImVec2 uv4, final int col) {
+    public void addImageQuad(final long textureID, final ImVec2 p1, final ImVec2 p2, final ImVec2 p3, final ImVec2 p4, final ImVec2 uv1, final ImVec2 uv2, final ImVec2 uv3, final ImVec2 uv4, final int col) {
         nAddImageQuad(textureID, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, uv1.x, uv1.y, uv2.x, uv2.y, uv3.x, uv3.y, uv4.x, uv4.y, col);
     }
 
-    public void addImageQuad(final int textureID, final float p1X, final float p1Y, final float p2X, final float p2Y, final float p3X, final float p3Y, final float p4X, final float p4Y, final float uv1X, final float uv1Y, final float uv2X, final float uv2Y, final float uv3X, final float uv3Y, final float uv4X, final float uv4Y, final int col) {
+    public void addImageQuad(final long textureID, final float p1X, final float p1Y, final float p2X, final float p2Y, final float p3X, final float p3Y, final float p4X, final float p4Y, final float uv1X, final float uv1Y, final float uv2X, final float uv2Y, final float uv3X, final float uv3Y, final float uv4X, final float uv4Y, final int col) {
         nAddImageQuad(textureID, p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, uv1X, uv1Y, uv2X, uv2Y, uv3X, uv3Y, uv4X, uv4Y, col);
     }
 
-    private native void nAddImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y); /*MANUAL
+    private native void nAddImageQuad(long textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y); /*MANUAL
         ImVec2 p1 = ImVec2(p1X, p1Y);
         ImVec2 p2 = ImVec2(p2X, p2Y);
         ImVec2 p3 = ImVec2(p3X, p3Y);
         ImVec2 p4 = ImVec2(p4X, p4Y);
-        THIS->AddImageQuad((ImTextureID)(intptr_t)textureID, p1, p2, p3, p4);
+        THIS->AddImageQuad((ImTextureID)(uintptr_t)textureID, p1, p2, p3, p4);
     */
 
-    private native void nAddImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y); /*MANUAL
-        ImVec2 p1 = ImVec2(p1X, p1Y);
-        ImVec2 p2 = ImVec2(p2X, p2Y);
-        ImVec2 p3 = ImVec2(p3X, p3Y);
-        ImVec2 p4 = ImVec2(p4X, p4Y);
-        ImVec2 uv1 = ImVec2(uv1X, uv1Y);
-        THIS->AddImageQuad((ImTextureID)(intptr_t)textureID, p1, p2, p3, p4, uv1);
-    */
-
-    private native void nAddImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y); /*MANUAL
+    private native void nAddImageQuad(long textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y); /*MANUAL
         ImVec2 p1 = ImVec2(p1X, p1Y);
         ImVec2 p2 = ImVec2(p2X, p2Y);
         ImVec2 p3 = ImVec2(p3X, p3Y);
         ImVec2 p4 = ImVec2(p4X, p4Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
-        ImVec2 uv2 = ImVec2(uv2X, uv2Y);
-        THIS->AddImageQuad((ImTextureID)(intptr_t)textureID, p1, p2, p3, p4, uv1, uv2);
+        THIS->AddImageQuad((ImTextureID)(uintptr_t)textureID, p1, p2, p3, p4, uv1);
     */
 
-    private native void nAddImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y, float uv3X, float uv3Y); /*MANUAL
+    private native void nAddImageQuad(long textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y); /*MANUAL
         ImVec2 p1 = ImVec2(p1X, p1Y);
         ImVec2 p2 = ImVec2(p2X, p2Y);
         ImVec2 p3 = ImVec2(p3X, p3Y);
         ImVec2 p4 = ImVec2(p4X, p4Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
         ImVec2 uv2 = ImVec2(uv2X, uv2Y);
-        ImVec2 uv3 = ImVec2(uv3X, uv3Y);
-        THIS->AddImageQuad((ImTextureID)(intptr_t)textureID, p1, p2, p3, p4, uv1, uv2, uv3);
+        THIS->AddImageQuad((ImTextureID)(uintptr_t)textureID, p1, p2, p3, p4, uv1, uv2);
     */
 
-    private native void nAddImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y, float uv3X, float uv3Y, float uv4X, float uv4Y); /*MANUAL
+    private native void nAddImageQuad(long textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y, float uv3X, float uv3Y); /*MANUAL
         ImVec2 p1 = ImVec2(p1X, p1Y);
         ImVec2 p2 = ImVec2(p2X, p2Y);
         ImVec2 p3 = ImVec2(p3X, p3Y);
@@ -1035,11 +1024,10 @@ public final class ImDrawList extends ImGuiStruct {
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
         ImVec2 uv2 = ImVec2(uv2X, uv2Y);
         ImVec2 uv3 = ImVec2(uv3X, uv3Y);
-        ImVec2 uv4 = ImVec2(uv4X, uv4Y);
-        THIS->AddImageQuad((ImTextureID)(intptr_t)textureID, p1, p2, p3, p4, uv1, uv2, uv3, uv4);
+        THIS->AddImageQuad((ImTextureID)(uintptr_t)textureID, p1, p2, p3, p4, uv1, uv2, uv3);
     */
 
-    private native void nAddImageQuad(int textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y, float uv3X, float uv3Y, float uv4X, float uv4Y, int col); /*MANUAL
+    private native void nAddImageQuad(long textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y, float uv3X, float uv3Y, float uv4X, float uv4Y); /*MANUAL
         ImVec2 p1 = ImVec2(p1X, p1Y);
         ImVec2 p2 = ImVec2(p2X, p2Y);
         ImVec2 p3 = ImVec2(p3X, p3Y);
@@ -1048,39 +1036,51 @@ public final class ImDrawList extends ImGuiStruct {
         ImVec2 uv2 = ImVec2(uv2X, uv2Y);
         ImVec2 uv3 = ImVec2(uv3X, uv3Y);
         ImVec2 uv4 = ImVec2(uv4X, uv4Y);
-        THIS->AddImageQuad((ImTextureID)(intptr_t)textureID, p1, p2, p3, p4, uv1, uv2, uv3, uv4, col);
+        THIS->AddImageQuad((ImTextureID)(uintptr_t)textureID, p1, p2, p3, p4, uv1, uv2, uv3, uv4);
     */
 
-    public void addImageRounded(final int textureID, final ImVec2 pMin, final ImVec2 pMax, final ImVec2 uvMin, final ImVec2 uvMax, final int col, final float rounding) {
+    private native void nAddImageQuad(long textureID, float p1X, float p1Y, float p2X, float p2Y, float p3X, float p3Y, float p4X, float p4Y, float uv1X, float uv1Y, float uv2X, float uv2Y, float uv3X, float uv3Y, float uv4X, float uv4Y, int col); /*MANUAL
+        ImVec2 p1 = ImVec2(p1X, p1Y);
+        ImVec2 p2 = ImVec2(p2X, p2Y);
+        ImVec2 p3 = ImVec2(p3X, p3Y);
+        ImVec2 p4 = ImVec2(p4X, p4Y);
+        ImVec2 uv1 = ImVec2(uv1X, uv1Y);
+        ImVec2 uv2 = ImVec2(uv2X, uv2Y);
+        ImVec2 uv3 = ImVec2(uv3X, uv3Y);
+        ImVec2 uv4 = ImVec2(uv4X, uv4Y);
+        THIS->AddImageQuad((ImTextureID)(uintptr_t)textureID, p1, p2, p3, p4, uv1, uv2, uv3, uv4, col);
+    */
+
+    public void addImageRounded(final long textureID, final ImVec2 pMin, final ImVec2 pMax, final ImVec2 uvMin, final ImVec2 uvMax, final int col, final float rounding) {
         nAddImageRounded(textureID, pMin.x, pMin.y, pMax.x, pMax.y, uvMin.x, uvMin.y, uvMax.x, uvMax.y, col, rounding);
     }
 
-    public void addImageRounded(final int textureID, final float pMinX, final float pMinY, final float pMaxX, final float pMaxY, final float uvMinX, final float uvMinY, final float uvMaxX, final float uvMaxY, final int col, final float rounding) {
+    public void addImageRounded(final long textureID, final float pMinX, final float pMinY, final float pMaxX, final float pMaxY, final float uvMinX, final float uvMinY, final float uvMaxX, final float uvMaxY, final int col, final float rounding) {
         nAddImageRounded(textureID, pMinX, pMinY, pMaxX, pMaxY, uvMinX, uvMinY, uvMaxX, uvMaxY, col, rounding);
     }
 
-    public void addImageRounded(final int textureID, final ImVec2 pMin, final ImVec2 pMax, final ImVec2 uvMin, final ImVec2 uvMax, final int col, final float rounding, final int imDrawFlags) {
+    public void addImageRounded(final long textureID, final ImVec2 pMin, final ImVec2 pMax, final ImVec2 uvMin, final ImVec2 uvMax, final int col, final float rounding, final int imDrawFlags) {
         nAddImageRounded(textureID, pMin.x, pMin.y, pMax.x, pMax.y, uvMin.x, uvMin.y, uvMax.x, uvMax.y, col, rounding, imDrawFlags);
     }
 
-    public void addImageRounded(final int textureID, final float pMinX, final float pMinY, final float pMaxX, final float pMaxY, final float uvMinX, final float uvMinY, final float uvMaxX, final float uvMaxY, final int col, final float rounding, final int imDrawFlags) {
+    public void addImageRounded(final long textureID, final float pMinX, final float pMinY, final float pMaxX, final float pMaxY, final float uvMinX, final float uvMinY, final float uvMaxX, final float uvMaxY, final int col, final float rounding, final int imDrawFlags) {
         nAddImageRounded(textureID, pMinX, pMinY, pMaxX, pMaxY, uvMinX, uvMinY, uvMaxX, uvMaxY, col, rounding, imDrawFlags);
     }
 
-    private native void nAddImageRounded(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY, int col, float rounding); /*MANUAL
+    private native void nAddImageRounded(long textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY, int col, float rounding); /*MANUAL
         ImVec2 pMin = ImVec2(pMinX, pMinY);
         ImVec2 pMax = ImVec2(pMaxX, pMaxY);
         ImVec2 uvMin = ImVec2(uvMinX, uvMinY);
         ImVec2 uvMax = ImVec2(uvMaxX, uvMaxY);
-        THIS->AddImageRounded((ImTextureID)(intptr_t)textureID, pMin, pMax, uvMin, uvMax, col, rounding);
+        THIS->AddImageRounded((ImTextureID)(uintptr_t)textureID, pMin, pMax, uvMin, uvMax, col, rounding);
     */
 
-    private native void nAddImageRounded(int textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY, int col, float rounding, int imDrawFlags); /*MANUAL
+    private native void nAddImageRounded(long textureID, float pMinX, float pMinY, float pMaxX, float pMaxY, float uvMinX, float uvMinY, float uvMaxX, float uvMaxY, int col, float rounding, int imDrawFlags); /*MANUAL
         ImVec2 pMin = ImVec2(pMinX, pMinY);
         ImVec2 pMax = ImVec2(pMaxX, pMaxY);
         ImVec2 uvMin = ImVec2(uvMinX, uvMinY);
         ImVec2 uvMax = ImVec2(uvMaxX, uvMaxY);
-        THIS->AddImageRounded((ImTextureID)(intptr_t)textureID, pMin, pMax, uvMin, uvMax, col, rounding, imDrawFlags);
+        THIS->AddImageRounded((ImTextureID)(uintptr_t)textureID, pMin, pMax, uvMin, uvMax, col, rounding, imDrawFlags);
     */
 
     // Stateful path API, add points then finish with PathFillConvex() or PathStroke()

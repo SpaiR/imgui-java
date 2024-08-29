@@ -1586,6 +1586,6 @@ public final class ImGuiFileDialog {
     }
 
     private static native long nGetUserDatas(); /*
-        return (intptr_t)ImGuiFileDialog::Instance()->GetUserDatas();
+        return (uintptr_t)ImGuiFileDialog::Instance()->GetUserDatas();
     */
 }

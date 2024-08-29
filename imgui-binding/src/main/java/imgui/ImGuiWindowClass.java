@@ -34,7 +34,7 @@ public final class ImGuiWindowClass extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new ImGuiWindowClass());
+        return (uintptr_t)(new ImGuiWindowClass());
     */
 
     /**

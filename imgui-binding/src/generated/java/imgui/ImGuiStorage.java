@@ -32,7 +32,7 @@ public final class ImGuiStorage extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new ImGuiStorage());
+        return (uintptr_t)(new ImGuiStorage());
     */
 
     // - Get***() functions find pair, never add/allocate. Pairs are sorted so a query is O(log N)

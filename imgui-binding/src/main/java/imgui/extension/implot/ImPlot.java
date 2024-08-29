@@ -973,7 +973,7 @@ public final class ImPlot {
      */
     @BindingMethod
     public static native void PlotImage(String labelId,
-                                        @ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int userTextureId,
+                                        @ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId,
                                         ImPlotPoint boundsMin,
                                         ImPlotPoint boundsMax,
                                         @OptArg ImVec2 uv0,

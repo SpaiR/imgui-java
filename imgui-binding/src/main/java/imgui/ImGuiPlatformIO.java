@@ -102,7 +102,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
             void PlatformStub##name(ImGuiViewport* vp) {\
                 if (platformCallback##name != NULL) {\
                     JNIEnv* env = Jni::GetEnv();\
-                    env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (intptr_t)vp);\
+                    env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (uintptr_t)vp);\
                     Jni::CallImPlatformFuncViewport(env, platformCallback##name, jTmpViewport);\
                 }\
             }\
@@ -155,7 +155,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
             void PlatformStub##name(ImGuiViewport* vp, ImVec2 pos) {\
                 if (platformCallback##name != NULL) {\
                     JNIEnv* env = Jni::GetEnv();\
-                    env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (intptr_t)vp);\
+                    env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (uintptr_t)vp);\
                     Jni::ImVec2Cpy(env, pos, jTmpImVec2);\
                     Jni::CallImPlatformFuncViewportImVec2(env, platformCallback##name, jTmpViewport, jTmpImVec2);\
                 }\
@@ -185,7 +185,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
                 ImVec2 dst;\
                 if (platformCallback##name != NULL) {\
                     JNIEnv* env = Jni::GetEnv();\
-                    env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (intptr_t)vp);\
+                    env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (uintptr_t)vp);\
                     Jni::CallImPlatformFuncViewportSuppImVec2(env, platformCallback##name, jTmpViewport, jTmpImVec2);\
                     Jni::ImVec2Cpy(env, jTmpImVec2, &dst);\
                 }\
@@ -248,7 +248,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
             bool PlatformStub##name(ImGuiViewport* vp) {\
                 if (platformCallback##name != NULL) {\
                     JNIEnv* env = Jni::GetEnv();\
-                    env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (intptr_t)vp);\
+                    env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (uintptr_t)vp);\
                     return Jni::CallImPlatformFuncViewportSuppBoolean(env, platformCallback##name, jTmpViewport);\
                 }\
                 return false;\
@@ -287,7 +287,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
         void PlatformStubSetWindowTitle(ImGuiViewport* vp, const char* str) {
             if (platformCallbackSetWindowTitle != NULL) {
                 JNIEnv* env = Jni::GetEnv();
-                env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (intptr_t)vp);
+                env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (uintptr_t)vp);
                 Jni::CallImPlatformFuncViewportString(env, platformCallbackSetWindowTitle, jTmpViewport, str);
             }
         }
@@ -309,7 +309,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
         void PlatformStubSetWindowAlpha(ImGuiViewport* vp, float alpha) {
             if (platformCallbackSetWindowAlpha != NULL) {
                 JNIEnv* env = Jni::GetEnv();
-                env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (intptr_t)vp);
+                env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (uintptr_t)vp);
                 Jni::CallImPlatformFuncViewportFloat(env, platformCallbackSetWindowAlpha, jTmpViewport, alpha);
             }
         }
@@ -364,7 +364,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
         float PlatformStubGetWindowDpiScale(ImGuiViewport* vp) {
             if (platformCallbackGetWindowDpiScale != NULL) {
                 JNIEnv* env = Jni::GetEnv();
-                env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (intptr_t)vp);
+                env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (uintptr_t)vp);
                 return Jni::CallImPlatformFuncViewportSuppFloat(env, platformCallbackGetWindowDpiScale, jTmpViewport);
             }
             return false;
@@ -401,7 +401,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
             void RendererStub##name(ImGuiViewport* vp) {\
                 if (rendererCallback##name != NULL) {\
                     JNIEnv* env = Jni::GetEnv();\
-                    env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (intptr_t)vp);\
+                    env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (uintptr_t)vp);\
                     Jni::CallImPlatformFuncViewport(env, rendererCallback##name, jTmpViewport);\
                 }\
             }\
@@ -442,7 +442,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
         void RendererStubSetWindowSize(ImGuiViewport* vp, ImVec2 pos) {
             if (rendererCallbackSetWindowSize != NULL) {
                 JNIEnv* env = Jni::GetEnv();
-                env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (intptr_t)vp);
+                env->SetLongField(jTmpViewport, Jni::GetBindingStructPtrID(), (uintptr_t)vp);
                 Jni::ImVec2Cpy(env, pos, jTmpImVec2);
                 Jni::CallImPlatformFuncViewportImVec2(env, rendererCallbackSetWindowSize, jTmpViewport, jTmpImVec2);
             }
@@ -519,7 +519,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
     }
 
     private native long nGetMonitors(int idx); /*
-        return (intptr_t)&IMGUI_PLATFORM_IO->Monitors[idx];
+        return (uintptr_t)&IMGUI_PLATFORM_IO->Monitors[idx];
     */
 
     // Viewports list (the list is updated by calling ImGui::EndFrame or ImGui::Render)
@@ -535,6 +535,6 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
     }
 
     private native long nGetViewports(int idx); /*
-        return (intptr_t)IMGUI_PLATFORM_IO->Viewports[idx];
+        return (uintptr_t)IMGUI_PLATFORM_IO->Viewports[idx];
     */
 }

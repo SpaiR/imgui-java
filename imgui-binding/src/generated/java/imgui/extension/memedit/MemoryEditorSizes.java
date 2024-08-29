@@ -22,7 +22,7 @@ public final class MemoryEditorSizes extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new MemoryEditor::Sizes());
+        return (uintptr_t)(new MemoryEditor::Sizes());
     */
 
     public int getAddrDigitsCount() {

@@ -24,7 +24,7 @@ public final class ImPlotStyle extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new ImPlotStyle());
+        return (uintptr_t)(new ImPlotStyle());
     */
 
     public float getLineWeight() {

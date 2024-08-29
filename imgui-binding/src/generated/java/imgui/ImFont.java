@@ -26,7 +26,7 @@ public final class ImFont extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new ImFont());
+        return (uintptr_t)(new ImFont());
     */
 
     // TODO IndexAdvanceX
@@ -95,7 +95,7 @@ public final class ImFont extends ImGuiStructDestroyable {
     }
 
     private native long nGetFallbackGlyph(); /*
-        return (intptr_t)THIS->FallbackGlyph;
+        return (uintptr_t)THIS->FallbackGlyph;
     */
 
     private native void nSetFallbackGlyph(long value); /*
@@ -277,7 +277,7 @@ public final class ImFont extends ImGuiStructDestroyable {
     }
 
     private native long nFindGlyph(int c); /*
-        return (intptr_t)THIS->FindGlyph((ImWchar)c);
+        return (uintptr_t)THIS->FindGlyph((ImWchar)c);
     */
 
     public ImFontGlyph findGlyphNoFallback(final int c) {
@@ -285,7 +285,7 @@ public final class ImFont extends ImGuiStructDestroyable {
     }
 
     private native long nFindGlyphNoFallback(int c); /*
-        return (intptr_t)THIS->FindGlyphNoFallback((ImWchar)c);
+        return (uintptr_t)THIS->FindGlyphNoFallback((ImWchar)c);
     */
 
     public float getCharAdvance(final int c) {

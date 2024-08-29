@@ -45,7 +45,7 @@ const val A_TYPE_VALUE_ACCESSOR_SETTER = "SETTER"
 const val A_TYPE_VALUE_ACCESSOR_GETTER = "GETTER"
 
 const val PTR_JVM_FIELD = "ptr"
-const val PTR_JNI_CAST = "intptr_t"
+const val PTR_JNI_CAST = "uintptr_t"
 const val PTR_JNI_THIS = "THIS"
 
 const val PARAM_ARR_LEN_POSTFIX = "Count"

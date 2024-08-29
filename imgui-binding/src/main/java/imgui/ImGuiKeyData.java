@@ -29,7 +29,7 @@ public final class ImGuiKeyData extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new ImGuiKeyData());
+        return (uintptr_t)(new ImGuiKeyData());
     */
 
     /**

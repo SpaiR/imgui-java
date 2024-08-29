@@ -32,7 +32,7 @@ public final class TextEditor extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new TextEditor());
+        return (uintptr_t)(new TextEditor());
     */
 
     @BindingMethod

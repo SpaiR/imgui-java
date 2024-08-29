@@ -28,7 +28,7 @@ public final class ImPlot {
     }
 
     private static native long nCreateContext(); /*
-        return (intptr_t)ImPlot::CreateContext();
+        return (uintptr_t)ImPlot::CreateContext();
     */
 
     /**
@@ -61,7 +61,7 @@ public final class ImPlot {
     }
 
     private static native long nGetCurrentContext(); /*
-        return (intptr_t)ImPlot::GetCurrentContext();
+        return (uintptr_t)ImPlot::GetCurrentContext();
     */
 
     /**
@@ -16180,107 +16180,107 @@ public final class ImPlot {
     /**
      * Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
      */
-    public static void plotImage(final String labelId, final int userTextureId, final ImPlotPoint boundsMin, final ImPlotPoint boundsMax) {
+    public static void plotImage(final String labelId, final long userTextureId, final ImPlotPoint boundsMin, final ImPlotPoint boundsMax) {
         nPlotImage(labelId, userTextureId, boundsMin.x, boundsMin.y, boundsMax.x, boundsMax.y);
     }
 
     /**
      * Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
      */
-    public static void plotImage(final String labelId, final int userTextureId, final double boundsMinX, final double boundsMinY, final double boundsMaxX, final double boundsMaxY) {
+    public static void plotImage(final String labelId, final long userTextureId, final double boundsMinX, final double boundsMinY, final double boundsMaxX, final double boundsMaxY) {
         nPlotImage(labelId, userTextureId, boundsMinX, boundsMinY, boundsMaxX, boundsMaxY);
     }
 
     /**
      * Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
      */
-    public static void plotImage(final String labelId, final int userTextureId, final ImPlotPoint boundsMin, final ImPlotPoint boundsMax, final ImVec2 uv0) {
+    public static void plotImage(final String labelId, final long userTextureId, final ImPlotPoint boundsMin, final ImPlotPoint boundsMax, final ImVec2 uv0) {
         nPlotImage(labelId, userTextureId, boundsMin.x, boundsMin.y, boundsMax.x, boundsMax.y, uv0.x, uv0.y);
     }
 
     /**
      * Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
      */
-    public static void plotImage(final String labelId, final int userTextureId, final ImPlotPoint boundsMin, final ImPlotPoint boundsMax, final float uv0X, final float uv0Y) {
+    public static void plotImage(final String labelId, final long userTextureId, final ImPlotPoint boundsMin, final ImPlotPoint boundsMax, final float uv0X, final float uv0Y) {
         nPlotImage(labelId, userTextureId, boundsMin.x, boundsMin.y, boundsMax.x, boundsMax.y, uv0X, uv0Y);
     }
 
     /**
      * Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
      */
-    public static void plotImage(final String labelId, final int userTextureId, final double boundsMinX, final double boundsMinY, final double boundsMaxX, final double boundsMaxY, final ImVec2 uv0) {
+    public static void plotImage(final String labelId, final long userTextureId, final double boundsMinX, final double boundsMinY, final double boundsMaxX, final double boundsMaxY, final ImVec2 uv0) {
         nPlotImage(labelId, userTextureId, boundsMinX, boundsMinY, boundsMaxX, boundsMaxY, uv0.x, uv0.y);
     }
 
     /**
      * Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
      */
-    public static void plotImage(final String labelId, final int userTextureId, final ImPlotPoint boundsMin, final ImPlotPoint boundsMax, final ImVec2 uv0, final ImVec2 uv1) {
+    public static void plotImage(final String labelId, final long userTextureId, final ImPlotPoint boundsMin, final ImPlotPoint boundsMax, final ImVec2 uv0, final ImVec2 uv1) {
         nPlotImage(labelId, userTextureId, boundsMin.x, boundsMin.y, boundsMax.x, boundsMax.y, uv0.x, uv0.y, uv1.x, uv1.y);
     }
 
     /**
      * Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
      */
-    public static void plotImage(final String labelId, final int userTextureId, final ImPlotPoint boundsMin, final ImPlotPoint boundsMax, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y) {
+    public static void plotImage(final String labelId, final long userTextureId, final ImPlotPoint boundsMin, final ImPlotPoint boundsMax, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y) {
         nPlotImage(labelId, userTextureId, boundsMin.x, boundsMin.y, boundsMax.x, boundsMax.y, uv0X, uv0Y, uv1X, uv1Y);
     }
 
     /**
      * Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
      */
-    public static void plotImage(final String labelId, final int userTextureId, final double boundsMinX, final double boundsMinY, final double boundsMaxX, final double boundsMaxY, final ImVec2 uv0, final ImVec2 uv1) {
+    public static void plotImage(final String labelId, final long userTextureId, final double boundsMinX, final double boundsMinY, final double boundsMaxX, final double boundsMaxY, final ImVec2 uv0, final ImVec2 uv1) {
         nPlotImage(labelId, userTextureId, boundsMinX, boundsMinY, boundsMaxX, boundsMaxY, uv0.x, uv0.y, uv1.x, uv1.y);
     }
 
     /**
      * Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
      */
-    public static void plotImage(final String labelId, final int userTextureId, final ImPlotPoint boundsMin, final ImPlotPoint boundsMax, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 tintCol) {
+    public static void plotImage(final String labelId, final long userTextureId, final ImPlotPoint boundsMin, final ImPlotPoint boundsMax, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 tintCol) {
         nPlotImage(labelId, userTextureId, boundsMin.x, boundsMin.y, boundsMax.x, boundsMax.y, uv0.x, uv0.y, uv1.x, uv1.y, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
     }
 
     /**
      * Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
      */
-    public static void plotImage(final String labelId, final int userTextureId, final ImPlotPoint boundsMin, final ImPlotPoint boundsMax, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
+    public static void plotImage(final String labelId, final long userTextureId, final ImPlotPoint boundsMin, final ImPlotPoint boundsMax, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
         nPlotImage(labelId, userTextureId, boundsMin.x, boundsMin.y, boundsMax.x, boundsMax.y, uv0X, uv0Y, uv1X, uv1Y, tintColX, tintColY, tintColZ, tintColW);
     }
 
     /**
      * Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down).
      */
-    public static void plotImage(final String labelId, final int userTextureId, final double boundsMinX, final double boundsMinY, final double boundsMaxX, final double boundsMaxY, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 tintCol) {
+    public static void plotImage(final String labelId, final long userTextureId, final double boundsMinX, final double boundsMinY, final double boundsMaxX, final double boundsMaxY, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 tintCol) {
         nPlotImage(labelId, userTextureId, boundsMinX, boundsMinY, boundsMaxX, boundsMaxY, uv0.x, uv0.y, uv1.x, uv1.y, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
     }
 
-    private static native void nPlotImage(String labelId, int userTextureId, double boundsMinX, double boundsMinY, double boundsMaxX, double boundsMaxY); /*MANUAL
+    private static native void nPlotImage(String labelId, long userTextureId, double boundsMinX, double boundsMinY, double boundsMaxX, double boundsMaxY); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        ImPlot::PlotImage(labelId, (ImTextureID)(intptr_t)userTextureId, ImPlotPoint(boundsMinX, boundsMinY), ImPlotPoint(boundsMaxX, boundsMaxY));
+        ImPlot::PlotImage(labelId, (ImTextureID)(uintptr_t)userTextureId, ImPlotPoint(boundsMinX, boundsMinY), ImPlotPoint(boundsMaxX, boundsMaxY));
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
     */
 
-    private static native void nPlotImage(String labelId, int userTextureId, double boundsMinX, double boundsMinY, double boundsMaxX, double boundsMaxY, float uv0X, float uv0Y); /*MANUAL
+    private static native void nPlotImage(String labelId, long userTextureId, double boundsMinX, double boundsMinY, double boundsMaxX, double boundsMaxY, float uv0X, float uv0Y); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
-        ImPlot::PlotImage(labelId, (ImTextureID)(intptr_t)userTextureId, ImPlotPoint(boundsMinX, boundsMinY), ImPlotPoint(boundsMaxX, boundsMaxY), uv0);
+        ImPlot::PlotImage(labelId, (ImTextureID)(uintptr_t)userTextureId, ImPlotPoint(boundsMinX, boundsMinY), ImPlotPoint(boundsMaxX, boundsMaxY), uv0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
     */
 
-    private static native void nPlotImage(String labelId, int userTextureId, double boundsMinX, double boundsMinY, double boundsMaxX, double boundsMaxY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*MANUAL
+    private static native void nPlotImage(String labelId, long userTextureId, double boundsMinX, double boundsMinY, double boundsMaxX, double boundsMaxY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
-        ImPlot::PlotImage(labelId, (ImTextureID)(intptr_t)userTextureId, ImPlotPoint(boundsMinX, boundsMinY), ImPlotPoint(boundsMaxX, boundsMaxY), uv0, uv1);
+        ImPlot::PlotImage(labelId, (ImTextureID)(uintptr_t)userTextureId, ImPlotPoint(boundsMinX, boundsMinY), ImPlotPoint(boundsMaxX, boundsMaxY), uv0, uv1);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
     */
 
-    private static native void nPlotImage(String labelId, int userTextureId, double boundsMinX, double boundsMinY, double boundsMaxX, double boundsMaxY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
+    private static native void nPlotImage(String labelId, long userTextureId, double boundsMinX, double boundsMinY, double boundsMaxX, double boundsMaxY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
         ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
-        ImPlot::PlotImage(labelId, (ImTextureID)(intptr_t)userTextureId, ImPlotPoint(boundsMinX, boundsMinY), ImPlotPoint(boundsMaxX, boundsMaxY), uv0, uv1, tintCol);
+        ImPlot::PlotImage(labelId, (ImTextureID)(uintptr_t)userTextureId, ImPlotPoint(boundsMinX, boundsMinY), ImPlotPoint(boundsMaxX, boundsMaxY), uv0, uv1, tintCol);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
     */
 
@@ -17902,7 +17902,7 @@ public final class ImPlot {
     }
 
     private static native long nGetStyle(); /*
-        return (intptr_t)&ImPlot::GetStyle();
+        return (uintptr_t)&ImPlot::GetStyle();
     */
 
     /**
@@ -19348,7 +19348,7 @@ public final class ImPlot {
     }
 
     private static native long nGetInputMap(); /*
-        return (intptr_t)&ImPlot::GetInputMap();
+        return (uintptr_t)&ImPlot::GetInputMap();
     */
 
     /**
@@ -19442,7 +19442,7 @@ public final class ImPlot {
     }
 
     private static native long nGetPlotDrawList(); /*
-        return (intptr_t)ImPlot::GetPlotDrawList();
+        return (uintptr_t)ImPlot::GetPlotDrawList();
     */
 
     /**

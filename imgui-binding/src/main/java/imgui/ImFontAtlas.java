@@ -63,7 +63,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
     */
 
     private native long nCreate(); /*
-        return (intptr_t)(new ImFontConfig());
+        return (uintptr_t)(new ImFontConfig());
     */
 
     @BindingMethod
@@ -243,7 +243,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
      * It is passed back to you during rendering via the ImDrawCmd structure.
      */
     @BindingMethod
-    public native void SetTexID(@ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int textureID);
+    public native void SetTexID(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long textureID);
 
     //-------------------------------------------
     // Glyph Ranges

@@ -27,7 +27,7 @@ public final class MemoryEditor extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new MemoryEditor());
+        return (uintptr_t)(new MemoryEditor());
     */
 
     public boolean getOpen() {

@@ -190,7 +190,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
     }
 
     private native long nGetParentNode(); /*
-        return (intptr_t)THIS->ParentNode;
+        return (uintptr_t)THIS->ParentNode;
     */
 
     private native void nSetParentNode(long value); /*
@@ -205,7 +205,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
     }
 
     private native long nGetChildNodeFirst(); /*
-        return (intptr_t)THIS->ChildNodes[0];
+        return (uintptr_t)THIS->ChildNodes[0];
     */
 
     /**
@@ -227,7 +227,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
     }
 
     private native long nGetChildNodeSecond(); /*
-        return (intptr_t)THIS->ChildNodes[1];
+        return (uintptr_t)THIS->ChildNodes[1];
     */
 
     /**
@@ -445,7 +445,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
     }
 
     private native long nGetWindowClass(); /*
-        return (intptr_t)&THIS->WindowClass;
+        return (uintptr_t)&THIS->WindowClass;
     */
 
     public int getLastBgColor() {
@@ -473,7 +473,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
     }
 
     private native long nGetHostWindow(); /*
-        return (intptr_t)THIS->HostWindow;
+        return (uintptr_t)THIS->HostWindow;
     */
 
     private native void nSetHostWindow(long value); /*
@@ -495,7 +495,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
     }
 
     private native long nGetVisibleWindow(); /*
-        return (intptr_t)THIS->VisibleWindow;
+        return (uintptr_t)THIS->VisibleWindow;
     */
 
     private native void nSetVisibleWindow(long value); /*
@@ -517,7 +517,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
     }
 
     private native long nGetCentralNode(); /*
-        return (intptr_t)THIS->CentralNode;
+        return (uintptr_t)THIS->CentralNode;
     */
 
     private native void nSetCentralNode(long value); /*
@@ -539,7 +539,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
     }
 
     private native long nGetOnlyNodeWithWindows(); /*
-        return (intptr_t)THIS->OnlyNodeWithWindows;
+        return (uintptr_t)THIS->OnlyNodeWithWindows;
     */
 
     private native void nSetOnlyNodeWithWindows(long value); /*

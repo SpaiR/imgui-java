@@ -35,7 +35,7 @@ public final class ImGuiTableSortSpecs extends ImGuiStruct {
         int specsCount = THIS->SpecsCount;
         jlong jBuf[specsCount];
         for (int i = 0; i < specsCount; i++) {
-            jBuf[i] = (intptr_t)specs;
+            jBuf[i] = (uintptr_t)specs;
             specs++;
         }
         jlongArray result = env->NewLongArray(specsCount);

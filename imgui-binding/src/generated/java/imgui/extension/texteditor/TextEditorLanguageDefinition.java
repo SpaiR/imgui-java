@@ -25,7 +25,7 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new TextEditor::LanguageDefinition());
+        return (uintptr_t)(new TextEditor::LanguageDefinition());
     */
 
     public String getName() {
@@ -238,7 +238,7 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     }
 
     private static native long nCPlusPlus(); /*
-        return (intptr_t)&TextEditorLanguageDefinition::CPlusPlus();
+        return (uintptr_t)&TextEditorLanguageDefinition::CPlusPlus();
     */
 
     private static final TextEditorLanguageDefinition _HLSL_1 = new TextEditorLanguageDefinition(0);
@@ -249,7 +249,7 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     }
 
     private static native long nHLSL(); /*
-        return (intptr_t)&TextEditorLanguageDefinition::HLSL();
+        return (uintptr_t)&TextEditorLanguageDefinition::HLSL();
     */
 
     private static final TextEditorLanguageDefinition _GLSL_1 = new TextEditorLanguageDefinition(0);
@@ -260,7 +260,7 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     }
 
     private static native long nGLSL(); /*
-        return (intptr_t)&TextEditorLanguageDefinition::GLSL();
+        return (uintptr_t)&TextEditorLanguageDefinition::GLSL();
     */
 
     private static final TextEditorLanguageDefinition _C_1 = new TextEditorLanguageDefinition(0);
@@ -271,7 +271,7 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     }
 
     private static native long nC(); /*
-        return (intptr_t)&TextEditorLanguageDefinition::C();
+        return (uintptr_t)&TextEditorLanguageDefinition::C();
     */
 
     private static final TextEditorLanguageDefinition _SQL_1 = new TextEditorLanguageDefinition(0);
@@ -282,7 +282,7 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     }
 
     private static native long nSQL(); /*
-        return (intptr_t)&TextEditorLanguageDefinition::SQL();
+        return (uintptr_t)&TextEditorLanguageDefinition::SQL();
     */
 
     private static final TextEditorLanguageDefinition _ANGELSCRIPT_1 = new TextEditorLanguageDefinition(0);
@@ -293,7 +293,7 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     }
 
     private static native long nAngelScript(); /*
-        return (intptr_t)&TextEditorLanguageDefinition::AngelScript();
+        return (uintptr_t)&TextEditorLanguageDefinition::AngelScript();
     */
 
     private static final TextEditorLanguageDefinition _LUA_1 = new TextEditorLanguageDefinition(0);
@@ -304,7 +304,7 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     }
 
     private static native long nLua(); /*
-        return (intptr_t)&TextEditorLanguageDefinition::Lua();
+        return (uintptr_t)&TextEditorLanguageDefinition::Lua();
     */
 
     /*JNI

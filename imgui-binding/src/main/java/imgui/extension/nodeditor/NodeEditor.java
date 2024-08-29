@@ -293,17 +293,17 @@ public final class NodeEditor {
 
     public static native long getNodeWithContextMenu(); /*
         ax::NodeEditor::NodeId id;
-        return ax::NodeEditor::ShowNodeContextMenu(&id) ? (intptr_t)(uintptr_t)id : -1;
+        return ax::NodeEditor::ShowNodeContextMenu(&id) ? (uintptr_t)id : -1;
     */
 
     public static native long getPinWithContextMenu(); /*
         ax::NodeEditor::PinId id;
-        return ax::NodeEditor::ShowPinContextMenu(&id) ? (intptr_t)(uintptr_t)id : -1;
+        return ax::NodeEditor::ShowPinContextMenu(&id) ? (uintptr_t)id : -1;
     */
 
     public static native long getLinkWithContextMenu(); /*
         ax::NodeEditor::LinkId id;
-        return ax::NodeEditor::ShowLinkContextMenu(&id) ? (intptr_t)(uintptr_t)id : -1;
+        return ax::NodeEditor::ShowLinkContextMenu(&id) ? (uintptr_t)id : -1;
     */
 
     @BindingMethod
@@ -349,27 +349,27 @@ public final class NodeEditor {
     public static native float GetCurrentZoom();
 
     @BindingMethod
-    @ReturnValue(callPrefix = "(intptr_t)(uintptr_t)")
+    @ReturnValue(callPrefix = "(uintptr_t)")
     public static native long GetHoveredNode();
 
     @BindingMethod
-    @ReturnValue(callPrefix = "(intptr_t)(uintptr_t)")
+    @ReturnValue(callPrefix = "(uintptr_t)")
     public static native long GetHoveredPin();
 
     @BindingMethod
-    @ReturnValue(callPrefix = "(intptr_t)(uintptr_t)")
+    @ReturnValue(callPrefix = "(uintptr_t)")
     public static native long GetHoveredLink();
 
     @BindingMethod
-    @ReturnValue(callPrefix = "(intptr_t)(uintptr_t)")
+    @ReturnValue(callPrefix = "(uintptr_t)")
     public static native long GetDoubleClickedNode();
 
     @BindingMethod
-    @ReturnValue(callPrefix = "(intptr_t)(uintptr_t)")
+    @ReturnValue(callPrefix = "(uintptr_t)")
     public static native long GetDoubleClickedPin();
 
     @BindingMethod
-    @ReturnValue(callPrefix = "(intptr_t)(uintptr_t)")
+    @ReturnValue(callPrefix = "(uintptr_t)")
     public static native long GetDoubleClickedLink();
 
     @BindingMethod

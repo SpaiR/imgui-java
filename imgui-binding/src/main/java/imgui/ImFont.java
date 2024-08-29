@@ -33,7 +33,7 @@ public final class ImFont extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new ImFont());
+        return (uintptr_t)(new ImFont());
     */
 
     // TODO IndexAdvanceX

@@ -38,7 +38,7 @@ public final class ImNodes {
     }
 
     private static native long nCreateContext(); /*
-        return (intptr_t)ImNodes::CreateContext();
+        return (uintptr_t)ImNodes::CreateContext();
     */
 
     public static void destroyContext() {
@@ -62,7 +62,7 @@ public final class ImNodes {
     }
 
     private static native long nGetCurrentContext(); /*
-        return (intptr_t)ImNodes::GetCurrentContext();
+        return (uintptr_t)ImNodes::GetCurrentContext();
     */
 
     public static void setCurrentContext(final ImNodesContext ctx) {
@@ -78,7 +78,7 @@ public final class ImNodes {
     }
 
     private static native long nEditorContextCreate(); /*
-        return (intptr_t)ImNodes::EditorContextCreate();
+        return (uintptr_t)ImNodes::EditorContextCreate();
     */
 
     public static void editorContextFree(final ImNodesEditorContext context) {
@@ -156,7 +156,7 @@ public final class ImNodes {
     }
 
     private static native long nGetIO(); /*
-        return (intptr_t)&ImNodes::GetIO();
+        return (uintptr_t)&ImNodes::GetIO();
     */
 
     private static final ImNodesStyle _GETSTYLE_1 = new ImNodesStyle(0);
@@ -170,7 +170,7 @@ public final class ImNodes {
     }
 
     private static native long nGetStyle(); /*
-        return (intptr_t)&ImNodes::GetStyle();
+        return (uintptr_t)&ImNodes::GetStyle();
     */
 
     // Style presets matching the dear imgui styles of the same name.

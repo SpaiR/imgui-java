@@ -45,7 +45,7 @@ public final class NodeEditor {
     }
 
     private static native long nGetCurrentEditor(); /*
-        return (intptr_t)ax::NodeEditor::GetCurrentEditor();
+        return (uintptr_t)ax::NodeEditor::GetCurrentEditor();
     */
 
     public static NodeEditorContext createEditor() {
@@ -57,11 +57,11 @@ public final class NodeEditor {
     }
 
     private static native long nCreateEditor(); /*
-        return (intptr_t)ax::NodeEditor::CreateEditor();
+        return (uintptr_t)ax::NodeEditor::CreateEditor();
     */
 
     private static native long nCreateEditor(long config); /*
-        return (intptr_t)ax::NodeEditor::CreateEditor(reinterpret_cast<NodeEditorConfig*>(config));
+        return (uintptr_t)ax::NodeEditor::CreateEditor(reinterpret_cast<NodeEditorConfig*>(config));
     */
 
     public static void destroyEditor(final NodeEditorContext ctx) {
@@ -80,7 +80,7 @@ public final class NodeEditor {
     }
 
     private static native long nGetStyle(); /*
-        return (intptr_t)&ax::NodeEditor::GetStyle();
+        return (uintptr_t)&ax::NodeEditor::GetStyle();
     */
 
     public static String getStyleColorName(final int colorIndex) {
@@ -391,7 +391,7 @@ public final class NodeEditor {
     }
 
     private static native long nGetHintForegroundDrawList(); /*
-        return (intptr_t)ax::NodeEditor::GetHintForegroundDrawList();
+        return (uintptr_t)ax::NodeEditor::GetHintForegroundDrawList();
     */
 
     private static final ImDrawList _GETHINTBACKGROUNDDRAWLIST_1 = new ImDrawList(0);
@@ -402,7 +402,7 @@ public final class NodeEditor {
     }
 
     private static native long nGetHintBackgroundDrawList(); /*
-        return (intptr_t)ax::NodeEditor::GetHintBackgroundDrawList();
+        return (uintptr_t)ax::NodeEditor::GetHintBackgroundDrawList();
     */
 
     public static void endGroupHint() {
@@ -421,7 +421,7 @@ public final class NodeEditor {
     }
 
     private static native long nGetNodeBackgroundDrawList(long nodeId); /*
-        return (intptr_t)ax::NodeEditor::GetNodeBackgroundDrawList(nodeId);
+        return (uintptr_t)ax::NodeEditor::GetNodeBackgroundDrawList(nodeId);
     */
 
     public static boolean link(final long id, final long startPinId, final long endPinId) {
@@ -1179,17 +1179,17 @@ public final class NodeEditor {
 
     public static native long getNodeWithContextMenu(); /*
         ax::NodeEditor::NodeId id;
-        return ax::NodeEditor::ShowNodeContextMenu(&id) ? (intptr_t)(uintptr_t)id : -1;
+        return ax::NodeEditor::ShowNodeContextMenu(&id) ? (uintptr_t)id : -1;
     */
 
     public static native long getPinWithContextMenu(); /*
         ax::NodeEditor::PinId id;
-        return ax::NodeEditor::ShowPinContextMenu(&id) ? (intptr_t)(uintptr_t)id : -1;
+        return ax::NodeEditor::ShowPinContextMenu(&id) ? (uintptr_t)id : -1;
     */
 
     public static native long getLinkWithContextMenu(); /*
         ax::NodeEditor::LinkId id;
-        return ax::NodeEditor::ShowLinkContextMenu(&id) ? (intptr_t)(uintptr_t)id : -1;
+        return ax::NodeEditor::ShowLinkContextMenu(&id) ? (uintptr_t)id : -1;
     */
 
     public static boolean showBackgroundContextMenu() {
@@ -1315,7 +1315,7 @@ public final class NodeEditor {
     }
 
     private static native long nGetHoveredNode(); /*
-        return (intptr_t)(uintptr_t)ax::NodeEditor::GetHoveredNode();
+        return (uintptr_t)ax::NodeEditor::GetHoveredNode();
     */
 
     public static long getHoveredPin() {
@@ -1323,7 +1323,7 @@ public final class NodeEditor {
     }
 
     private static native long nGetHoveredPin(); /*
-        return (intptr_t)(uintptr_t)ax::NodeEditor::GetHoveredPin();
+        return (uintptr_t)ax::NodeEditor::GetHoveredPin();
     */
 
     public static long getHoveredLink() {
@@ -1331,7 +1331,7 @@ public final class NodeEditor {
     }
 
     private static native long nGetHoveredLink(); /*
-        return (intptr_t)(uintptr_t)ax::NodeEditor::GetHoveredLink();
+        return (uintptr_t)ax::NodeEditor::GetHoveredLink();
     */
 
     public static long getDoubleClickedNode() {
@@ -1339,7 +1339,7 @@ public final class NodeEditor {
     }
 
     private static native long nGetDoubleClickedNode(); /*
-        return (intptr_t)(uintptr_t)ax::NodeEditor::GetDoubleClickedNode();
+        return (uintptr_t)ax::NodeEditor::GetDoubleClickedNode();
     */
 
     public static long getDoubleClickedPin() {
@@ -1347,7 +1347,7 @@ public final class NodeEditor {
     }
 
     private static native long nGetDoubleClickedPin(); /*
-        return (intptr_t)(uintptr_t)ax::NodeEditor::GetDoubleClickedPin();
+        return (uintptr_t)ax::NodeEditor::GetDoubleClickedPin();
     */
 
     public static long getDoubleClickedLink() {
@@ -1355,7 +1355,7 @@ public final class NodeEditor {
     }
 
     private static native long nGetDoubleClickedLink(); /*
-        return (intptr_t)(uintptr_t)ax::NodeEditor::GetDoubleClickedLink();
+        return (uintptr_t)ax::NodeEditor::GetDoubleClickedLink();
     */
 
     public static boolean isBackgroundClicked() {

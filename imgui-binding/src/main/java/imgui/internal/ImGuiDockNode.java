@@ -61,7 +61,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
     }
 
     private native long nGetChildNodeFirst(); /*
-        return (intptr_t)THIS->ChildNodes[0];
+        return (uintptr_t)THIS->ChildNodes[0];
     */
 
     /**
@@ -83,7 +83,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
     }
 
     private native long nGetChildNodeSecond(); /*
-        return (intptr_t)THIS->ChildNodes[1];
+        return (uintptr_t)THIS->ChildNodes[1];
     */
 
     /**
