@@ -109,7 +109,7 @@ public final class ImGui extends imgui.ImGui {
     }
 
     private static native long nDockBuilderGetNode(int nodeId); /*
-        return (intptr_t)ImGui::DockBuilderGetNode(nodeId);
+        return (uintptr_t)ImGui::DockBuilderGetNode(nodeId);
     */
 
     public static ImGuiDockNode dockBuilderGetCentralNode(final int nodeId) {
@@ -117,7 +117,7 @@ public final class ImGui extends imgui.ImGui {
     }
 
     private static native long nDockBuilderGetCentralNode(int nodeId); /*
-        return (intptr_t)ImGui::DockBuilderGetCentralNode(nodeId);
+        return (uintptr_t)ImGui::DockBuilderGetCentralNode(nodeId);
     */
 
     public static int dockBuilderAddNode() {
@@ -321,7 +321,7 @@ public final class ImGui extends imgui.ImGui {
     }
 
     private static native long nGetCurrentWindow(); /*
-        return (intptr_t)ImGui::GetCurrentWindow();
+        return (uintptr_t)ImGui::GetCurrentWindow();
     */
 
     public static ImRect getWindowScrollbarRect(final ImGuiWindow imGuiWindow, final int axis) {

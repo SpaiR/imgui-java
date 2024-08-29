@@ -27,7 +27,7 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
     private native long nCreate(); /*
         ImFontConfig* cfg = new ImFontConfig();
         cfg->FontDataOwnedByAtlas = false;
-        return (intptr_t)cfg;
+        return (uintptr_t)cfg;
     */
 
     /**

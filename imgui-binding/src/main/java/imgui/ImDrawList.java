@@ -50,7 +50,7 @@ public final class ImDrawList extends ImGuiStruct {
     public native void PopClipRect();
 
     @BindingMethod
-    public native void PushTextureID(@ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int textureId);
+    public native void PushTextureID(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long textureId);
 
     @BindingMethod
     public native void PopTextureID();
@@ -137,13 +137,13 @@ public final class ImDrawList extends ImGuiStruct {
     // - "uvMin" and "uvMax" represent the normalized texture coordinates to use for those corners. Using (0,0)->(1,1) texture coordinates will generally display the entire texture.
 
     @BindingMethod
-    public native void AddImage(@ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int textureID, ImVec2 pMin, ImVec2 pMax, @OptArg ImVec2 uvMin, @OptArg ImVec2 uvMax, @OptArg int col);
+    public native void AddImage(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long textureID, ImVec2 pMin, ImVec2 pMax, @OptArg ImVec2 uvMin, @OptArg ImVec2 uvMax, @OptArg int col);
 
     @BindingMethod
-    public native void AddImageQuad(@ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int textureID, ImVec2 p1, ImVec2 p2, ImVec2 p3, ImVec2 p4, @OptArg ImVec2 uv1, @OptArg ImVec2 uv2, @OptArg ImVec2 uv3, @OptArg ImVec2 uv4, @OptArg int col);
+    public native void AddImageQuad(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long textureID, ImVec2 p1, ImVec2 p2, ImVec2 p3, ImVec2 p4, @OptArg ImVec2 uv1, @OptArg ImVec2 uv2, @OptArg ImVec2 uv3, @OptArg ImVec2 uv4, @OptArg int col);
 
     @BindingMethod
-    public native void AddImageRounded(@ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int textureID, ImVec2 pMin, ImVec2 pMax, ImVec2 uvMin, ImVec2 uvMax, int col, float rounding, @OptArg int imDrawFlags);
+    public native void AddImageRounded(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long textureID, ImVec2 pMin, ImVec2 pMax, ImVec2 uvMin, ImVec2 uvMax, int col, float rounding, @OptArg int imDrawFlags);
 
     // Stateful path API, add points then finish with PathFillConvex() or PathStroke()
 

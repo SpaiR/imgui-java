@@ -389,7 +389,7 @@ public final class ImGuiIO extends ImGuiStruct {
     }
 
     private native long nGetFonts(); /*
-        return (intptr_t)THIS->Fonts;
+        return (uintptr_t)THIS->Fonts;
     */
 
     private native void nSetFonts(long value); /*
@@ -455,7 +455,7 @@ public final class ImGuiIO extends ImGuiStruct {
     }
 
     private native long nGetFontDefault(); /*
-        return (intptr_t)THIS->FontDefault;
+        return (uintptr_t)THIS->FontDefault;
     */
 
     private native void nSetFontDefault(long value); /*

@@ -301,6 +301,6 @@ public final class ImGuiFileDialog {
      * @return user datas sent with Open Dialog/Modal
      */
     @BindingMethod
-    @ReturnValue(callPrefix = "(intptr_t)")
+    @ReturnValue(callPrefix = "(uintptr_t)")
     public static native long GetUserDatas();
 }

@@ -29,7 +29,7 @@ public final class ImFontGlyph extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new ImFontGlyph());
+        return (uintptr_t)(new ImFontGlyph());
     */
 
     /**

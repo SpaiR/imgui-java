@@ -26,7 +26,7 @@ public final class TextEditor extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new TextEditor());
+        return (uintptr_t)(new TextEditor());
     */
 
     public void setLanguageDefinition(final TextEditorLanguageDefinition aLanguageDef) {
@@ -42,7 +42,7 @@ public final class TextEditor extends ImGuiStructDestroyable {
     }
 
     private native long nGetLanguageDefinition(); /*
-        return (intptr_t)&THIS->GetLanguageDefinition();
+        return (uintptr_t)&THIS->GetLanguageDefinition();
     */
 
     public native int[] getPalette(); /*

@@ -68,7 +68,7 @@ public final class ImDrawData extends ImGuiStruct {
      * Ignore if never using images or multiple fonts atlas.
      */
     public native int getCmdListCmdBufferTextureId(int cmdListIdx, int cmdBufferIdx); /*
-        return (intptr_t)THIS->CmdLists[cmdListIdx]->CmdBuffer[cmdBufferIdx].GetTexID();
+        return (uintptr_t)THIS->CmdLists[cmdListIdx]->CmdBuffer[cmdBufferIdx].GetTexID();
     */
 
     /**

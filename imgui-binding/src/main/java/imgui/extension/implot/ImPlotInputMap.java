@@ -25,7 +25,7 @@ public final class ImPlotInputMap extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new ImPlotInputMap());
+        return (uintptr_t)(new ImPlotInputMap());
     */
 
     /**

@@ -1040,13 +1040,13 @@ public class ImGui {
     public static native boolean ArrowButton(String strId, int dir);
 
     @BindingMethod
-    public static native void Image(@ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int userTextureId, ImVec2 size, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg ImVec4 tintCol, @OptArg ImVec4 borderCol);
+    public static native void Image(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 size, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg ImVec4 tintCol, @OptArg ImVec4 borderCol);
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
     @BindingMethod
-    public static native boolean ImageButton(@ArgValue(callPrefix = "(ImTextureID)(intptr_t)") int userTextureId, ImVec2 size, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg(callValue = "-1") int framePadding, @OptArg ImVec4 bgCol, @OptArg ImVec4 tintCol);
+    public static native boolean ImageButton(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 size, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg(callValue = "-1") int framePadding, @OptArg ImVec4 bgCol, @OptArg ImVec4 tintCol);
 
     public static boolean checkbox(String label, boolean active) {
         return nCheckbox(label, active);

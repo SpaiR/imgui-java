@@ -104,7 +104,7 @@ namespace Jni
         jmethodID cstr = env->GetMethodID(cls, "<init>", "(J)V");
         jobjectArray dst = env->NewObjectArray(size, cls, NULL);
         for (int i = 0; i < size; i++) {
-            jobject obj = env->NewObject(cls, cstr, (jlong)(intptr_t)&src[i]);
+            jobject obj = env->NewObject(cls, cstr, (jlong)(uintptr_t)&src[i]);
             env->SetObjectArrayElement(dst, i, obj);
             env->DeleteLocalRef(obj);
         }

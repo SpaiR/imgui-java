@@ -174,11 +174,11 @@ public class ImGui {
     }
 
     private static native long nCreateContext(); /*
-        return (intptr_t)ImGui::CreateContext();
+        return (uintptr_t)ImGui::CreateContext();
     */
 
     private static native long nCreateContext(long sharedFontAtlas); /*
-        return (intptr_t)ImGui::CreateContext(reinterpret_cast<ImFontAtlas*>(sharedFontAtlas));
+        return (uintptr_t)ImGui::CreateContext(reinterpret_cast<ImFontAtlas*>(sharedFontAtlas));
     */
 
     public static void destroyContext() {
@@ -202,7 +202,7 @@ public class ImGui {
     }
 
     private static native long nGetCurrentContext(); /*
-        return (intptr_t)ImGui::GetCurrentContext();
+        return (uintptr_t)ImGui::GetCurrentContext();
     */
 
     public static void setCurrentContext(final ImGuiContext ctx) {
@@ -226,7 +226,7 @@ public class ImGui {
     }
 
     private static native long nGetIO(); /*
-        return (intptr_t)&ImGui::GetIO();
+        return (uintptr_t)&ImGui::GetIO();
     */
 
     private static final ImGuiStyle _GETSTYLE_1 = new ImGuiStyle(0);
@@ -240,7 +240,7 @@ public class ImGui {
     }
 
     private static native long nGetStyle(); /*
-        return (intptr_t)&ImGui::GetStyle();
+        return (uintptr_t)&ImGui::GetStyle();
     */
 
     /**
@@ -288,7 +288,7 @@ public class ImGui {
     }
 
     private static native long nGetDrawData(); /*
-        return (intptr_t)ImGui::GetDrawData();
+        return (uintptr_t)ImGui::GetDrawData();
     */
 
     // Demo, Debug, Information
@@ -869,7 +869,7 @@ public class ImGui {
     }
 
     private static native long nGetWindowDrawList(); /*
-        return (intptr_t)ImGui::GetWindowDrawList();
+        return (uintptr_t)ImGui::GetWindowDrawList();
     */
 
     /**
@@ -997,7 +997,7 @@ public class ImGui {
     }
 
     private static native long nGetWindowViewport(); /*
-        return (intptr_t)ImGui::GetWindowViewport();
+        return (uintptr_t)ImGui::GetWindowViewport();
     */
 
     // Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin).
@@ -2045,7 +2045,7 @@ public class ImGui {
     }
 
     private static native long nGetFont(); /*
-        return (intptr_t)ImGui::GetFont();
+        return (uintptr_t)ImGui::GetFont();
     */
 
     /**
@@ -2997,234 +2997,234 @@ public class ImGui {
         return _result;
     */
 
-    public static void image(final int userTextureId, final ImVec2 size) {
+    public static void image(final long userTextureId, final ImVec2 size) {
         nImage(userTextureId, size.x, size.y);
     }
 
-    public static void image(final int userTextureId, final float sizeX, final float sizeY) {
+    public static void image(final long userTextureId, final float sizeX, final float sizeY) {
         nImage(userTextureId, sizeX, sizeY);
     }
 
-    public static void image(final int userTextureId, final ImVec2 size, final ImVec2 uv0) {
+    public static void image(final long userTextureId, final ImVec2 size, final ImVec2 uv0) {
         nImage(userTextureId, size.x, size.y, uv0.x, uv0.y);
     }
 
-    public static void image(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y) {
+    public static void image(final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y) {
         nImage(userTextureId, sizeX, sizeY, uv0X, uv0Y);
     }
 
-    public static void image(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1) {
+    public static void image(final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1) {
         nImage(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y);
     }
 
-    public static void image(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y) {
+    public static void image(final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y) {
         nImage(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y);
     }
 
-    public static void image(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 tintCol) {
+    public static void image(final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 tintCol) {
         nImage(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
     }
 
-    public static void image(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
+    public static void image(final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
         nImage(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, tintColX, tintColY, tintColZ, tintColW);
     }
 
-    public static void image(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 tintCol, final ImVec4 borderCol) {
+    public static void image(final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 tintCol, final ImVec4 borderCol) {
         nImage(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, tintCol.x, tintCol.y, tintCol.z, tintCol.w, borderCol.x, borderCol.y, borderCol.z, borderCol.w);
     }
 
-    public static void image(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float tintColX, final float tintColY, final float tintColZ, final float tintColW, final float borderColX, final float borderColY, final float borderColZ, final float borderColW) {
+    public static void image(final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float tintColX, final float tintColY, final float tintColZ, final float tintColW, final float borderColX, final float borderColY, final float borderColZ, final float borderColW) {
         nImage(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, tintColX, tintColY, tintColZ, tintColW, borderColX, borderColY, borderColZ, borderColW);
     }
 
-    private static native void nImage(int userTextureId, float sizeX, float sizeY); /*MANUAL
+    private static native void nImage(long userTextureId, float sizeX, float sizeY); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
-        ImGui::Image((ImTextureID)(intptr_t)userTextureId, size);
+        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, size);
     */
 
-    private static native void nImage(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y); /*MANUAL
+    private static native void nImage(long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
-        ImGui::Image((ImTextureID)(intptr_t)userTextureId, size, uv0);
+        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, size, uv0);
     */
 
-    private static native void nImage(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*MANUAL
+    private static native void nImage(long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
-        ImGui::Image((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1);
+        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1);
     */
 
-    private static native void nImage(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
+    private static native void nImage(long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
         ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
-        ImGui::Image((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1, tintCol);
+        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1, tintCol);
     */
 
-    private static native void nImage(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColX, float tintColY, float tintColZ, float tintColW, float borderColX, float borderColY, float borderColZ, float borderColW); /*MANUAL
+    private static native void nImage(long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColX, float tintColY, float tintColZ, float tintColW, float borderColX, float borderColY, float borderColZ, float borderColW); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
         ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
         ImVec4 borderCol = ImVec4(borderColX, borderColY, borderColZ, borderColW);
-        ImGui::Image((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1, tintCol, borderCol);
+        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1, tintCol, borderCol);
     */
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static boolean imageButton(final int userTextureId, final ImVec2 size) {
+    public static boolean imageButton(final long userTextureId, final ImVec2 size) {
         return nImageButton(userTextureId, size.x, size.y);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static boolean imageButton(final int userTextureId, final float sizeX, final float sizeY) {
+    public static boolean imageButton(final long userTextureId, final float sizeX, final float sizeY) {
         return nImageButton(userTextureId, sizeX, sizeY);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static boolean imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0) {
+    public static boolean imageButton(final long userTextureId, final ImVec2 size, final ImVec2 uv0) {
         return nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static boolean imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y) {
+    public static boolean imageButton(final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y) {
         return nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static boolean imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1) {
+    public static boolean imageButton(final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1) {
         return nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static boolean imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y) {
+    public static boolean imageButton(final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y) {
         return nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static boolean imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final int framePadding) {
+    public static boolean imageButton(final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final int framePadding) {
         return nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, framePadding);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static boolean imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final int framePadding) {
+    public static boolean imageButton(final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final int framePadding) {
         return nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, framePadding);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static boolean imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final int framePadding, final ImVec4 bgCol) {
+    public static boolean imageButton(final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final int framePadding, final ImVec4 bgCol) {
         return nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, framePadding, bgCol.x, bgCol.y, bgCol.z, bgCol.w);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static boolean imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final int framePadding, final float bgColX, final float bgColY, final float bgColZ, final float bgColW) {
+    public static boolean imageButton(final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final int framePadding, final float bgColX, final float bgColY, final float bgColZ, final float bgColW) {
         return nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, framePadding, bgColX, bgColY, bgColZ, bgColW);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static boolean imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final int framePadding, final ImVec4 bgCol, final ImVec4 tintCol) {
+    public static boolean imageButton(final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final int framePadding, final ImVec4 bgCol, final ImVec4 tintCol) {
         return nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, framePadding, bgCol.x, bgCol.y, bgCol.z, bgCol.w, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static boolean imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final int framePadding, final float bgColX, final float bgColY, final float bgColZ, final float bgColW, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
+    public static boolean imageButton(final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final int framePadding, final float bgColX, final float bgColY, final float bgColZ, final float bgColW, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
         return nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, framePadding, bgColX, bgColY, bgColZ, bgColW, tintColX, tintColY, tintColZ, tintColW);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static boolean imageButton(final int userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 bgCol, final ImVec4 tintCol) {
+    public static boolean imageButton(final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 bgCol, final ImVec4 tintCol) {
         return nImageButton(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, bgCol.x, bgCol.y, bgCol.z, bgCol.w, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
     }
 
     /**
      * {@code <0} framePadding uses default frame padding settings. 0 for no padding
      */
-    public static boolean imageButton(final int userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float bgColX, final float bgColY, final float bgColZ, final float bgColW, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
+    public static boolean imageButton(final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float bgColX, final float bgColY, final float bgColZ, final float bgColW, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
         return nImageButton(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, bgColX, bgColY, bgColZ, bgColW, tintColX, tintColY, tintColZ, tintColW);
     }
 
-    private static native boolean nImageButton(int userTextureId, float sizeX, float sizeY); /*MANUAL
+    private static native boolean nImageButton(long userTextureId, float sizeX, float sizeY); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size);
+        auto _result = ImGui::ImageButton((ImTextureID)(uintptr_t)userTextureId, size);
         return _result;
     */
 
-    private static native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y); /*MANUAL
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        ImVec2 uv0 = ImVec2(uv0X, uv0Y);
-        auto _result = ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0);
-        return _result;
-    */
-
-    private static native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*MANUAL
+    private static native boolean nImageButton(long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
-        ImVec2 uv1 = ImVec2(uv1X, uv1Y);
-        auto _result = ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1);
+        auto _result = ImGui::ImageButton((ImTextureID)(uintptr_t)userTextureId, size, uv0);
         return _result;
     */
 
-    private static native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding); /*MANUAL
+    private static native boolean nImageButton(long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
-        auto _result = ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1, framePadding);
+        auto _result = ImGui::ImageButton((ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1);
         return _result;
     */
 
-    private static native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding, float bgColX, float bgColY, float bgColZ, float bgColW); /*MANUAL
+    private static native boolean nImageButton(long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
-        ImVec4 bgCol = ImVec4(bgColX, bgColY, bgColZ, bgColW);
-        auto _result = ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1, framePadding, bgCol);
+        auto _result = ImGui::ImageButton((ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1, framePadding);
         return _result;
     */
 
-    private static native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding, float bgColX, float bgColY, float bgColZ, float bgColW, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
+    private static native boolean nImageButton(long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding, float bgColX, float bgColY, float bgColZ, float bgColW); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
         ImVec4 bgCol = ImVec4(bgColX, bgColY, bgColZ, bgColW);
-        ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
-        auto _result = ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1, framePadding, bgCol, tintCol);
+        auto _result = ImGui::ImageButton((ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1, framePadding, bgCol);
         return _result;
     */
 
-    private static native boolean nImageButton(int userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float bgColX, float bgColY, float bgColZ, float bgColW, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
+    private static native boolean nImageButton(long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, int framePadding, float bgColX, float bgColY, float bgColZ, float bgColW, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
         ImVec4 bgCol = ImVec4(bgColX, bgColY, bgColZ, bgColW);
         ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
-        auto _result = ImGui::ImageButton((ImTextureID)(intptr_t)userTextureId, size, uv0, uv1, -1, bgCol, tintCol);
+        auto _result = ImGui::ImageButton((ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1, framePadding, bgCol, tintCol);
+        return _result;
+    */
+
+    private static native boolean nImageButton(long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float bgColX, float bgColY, float bgColZ, float bgColW, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
+        ImVec2 size = ImVec2(sizeX, sizeY);
+        ImVec2 uv0 = ImVec2(uv0X, uv0Y);
+        ImVec2 uv1 = ImVec2(uv1X, uv1Y);
+        ImVec4 bgCol = ImVec4(bgColX, bgColY, bgColZ, bgColW);
+        ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
+        auto _result = ImGui::ImageButton((ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1, -1, bgCol, tintCol);
         return _result;
     */
 
@@ -10233,7 +10233,7 @@ public class ImGui {
     }
 
     private static native long nTableGetSortSpecs(); /*
-        return (intptr_t)ImGui::TableGetSortSpecs();
+        return (uintptr_t)ImGui::TableGetSortSpecs();
     */
 
     // Tables: Miscellaneous functions
@@ -11602,7 +11602,7 @@ public class ImGui {
     }
 
     private static native long nGetMainViewport(); /*
-        return (intptr_t)ImGui::GetMainViewport();
+        return (uintptr_t)ImGui::GetMainViewport();
     */
 
     // Miscellaneous Utilities
@@ -11687,11 +11687,11 @@ public class ImGui {
     }
 
     private static native long nGetBackgroundDrawList(); /*
-        return (intptr_t)ImGui::GetBackgroundDrawList();
+        return (uintptr_t)ImGui::GetBackgroundDrawList();
     */
 
     private static native long nGetBackgroundDrawList(long viewport); /*
-        return (intptr_t)ImGui::GetBackgroundDrawList(reinterpret_cast<ImGuiViewport*>(viewport));
+        return (uintptr_t)ImGui::GetBackgroundDrawList(reinterpret_cast<ImGuiViewport*>(viewport));
     */
 
     /**
@@ -11711,11 +11711,11 @@ public class ImGui {
     }
 
     private static native long nGetForegroundDrawList(); /*
-        return (intptr_t)ImGui::GetForegroundDrawList();
+        return (uintptr_t)ImGui::GetForegroundDrawList();
     */
 
     private static native long nGetForegroundDrawList(long viewport); /*
-        return (intptr_t)ImGui::GetForegroundDrawList(reinterpret_cast<ImGuiViewport*>(viewport));
+        return (uintptr_t)ImGui::GetForegroundDrawList(reinterpret_cast<ImGuiViewport*>(viewport));
     */
 
     // TODO GetDrawListSharedData
@@ -11747,7 +11747,7 @@ public class ImGui {
     }
 
     private static native long nGetStateStorage(); /*
-        return (intptr_t)ImGui::GetStateStorage();
+        return (uintptr_t)ImGui::GetStateStorage();
     */
 
     /**
@@ -12737,7 +12737,7 @@ public class ImGui {
     }
 
     private static native long nGetPlatformIO(); /*
-        return (intptr_t)&ImGui::GetPlatformIO();
+        return (uintptr_t)&ImGui::GetPlatformIO();
     */
 
     /**
@@ -12784,7 +12784,7 @@ public class ImGui {
     }
 
     private static native long nFindViewportByID(int imGuiID); /*
-        return (intptr_t)ImGui::FindViewportByID(imGuiID);
+        return (uintptr_t)ImGui::FindViewportByID(imGuiID);
     */
 
     /**
@@ -12795,6 +12795,6 @@ public class ImGui {
     }
 
     private static native long nFindViewportByPlatformHandle(long platformHandle); /*
-        return (intptr_t)ImGui::FindViewportByPlatformHandle((void*)platformHandle);
+        return (uintptr_t)ImGui::FindViewportByPlatformHandle((void*)platformHandle);
     */
 }

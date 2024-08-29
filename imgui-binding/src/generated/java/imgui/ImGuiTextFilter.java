@@ -29,7 +29,7 @@ public final class ImGuiTextFilter extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(String defaultFilter); /*
-        return (intptr_t)(new ImGuiTextFilter(defaultFilter));
+        return (uintptr_t)(new ImGuiTextFilter(defaultFilter));
     */
 
     public boolean draw() {

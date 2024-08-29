@@ -31,7 +31,7 @@ public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new TextEditor::LanguageDefinition());
+        return (uintptr_t)(new TextEditor::LanguageDefinition());
     */
 
     @BindingField(callName = "mName")

@@ -14,7 +14,7 @@ public final class NodeEditorConfig extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new ax::NodeEditor::Config());
+        return (uintptr_t)(new ax::NodeEditor::Config());
     */
 
     public String getSettingsFile() {

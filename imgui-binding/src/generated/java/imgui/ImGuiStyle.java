@@ -27,7 +27,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
      */
 
     private native long nCreate(); /*
-        return (intptr_t)(new ImGuiStyle());
+        return (uintptr_t)(new ImGuiStyle());
     */
 
     /**
