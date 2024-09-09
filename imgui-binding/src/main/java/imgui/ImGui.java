@@ -1503,8 +1503,27 @@ public class ImGui {
                                              @OptArg int imGuiSliderFlags);
 
     @BindingMethod
+    public static native boolean InputScalar(String label,
+                                             int dataType,
+                                             @ArgVariant(type = {"ImShort", "ImInt", "ImLong", "ImFloat", "ImDouble"}) Void pData,
+                                             @ArgVariant(type = {"short", "int", "long", "float", "double"}) @OptArg @ArgValue(callPrefix = "&") Void pStep,
+                                             @ArgVariant(type = {"short", "int", "long", "float", "double"}) @OptArg @ArgValue(callPrefix = "&") Void pStepFast,
+                                             @OptArg String format,
+                                             @OptArg int imGuiSliderFlags);
+
+    @BindingMethod
     public static native boolean InputScalarN(String label,
                                               @ArgVariant(name = {"ImGuiDataType_S16", "ImGuiDataType_S32", "ImGuiDataType_S64", "ImGuiDataType_Float", "ImGuiDataType_Double"}) Void __,
+                                              @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void pData,
+                                              int components,
+                                              @ArgVariant(type = {"short", "int", "long", "float", "double"}) @OptArg @ArgValue(callPrefix = "&") Void pStep,
+                                              @ArgVariant(type = {"short", "int", "long", "float", "double"}) @OptArg @ArgValue(callPrefix = "&") Void pStepFast,
+                                              @OptArg String format,
+                                              @OptArg int imGuiSliderFlags);
+
+    @BindingMethod
+    public static native boolean InputScalarN(String label,
+                                              int dataType,
                                               @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void pData,
                                               int components,
                                               @ArgVariant(type = {"short", "int", "long", "float", "double"}) @OptArg @ArgValue(callPrefix = "&") Void pStep,
@@ -1553,6 +1572,9 @@ public class ImGui {
     // Widgets: Trees
     // - TreeNode functions return true when the node is open, in which case you need to also call TreePop() when you are finished displaying the tree node contents.
 
+    @BindingMethod
+    public static native boolean TreeNode(String label);
+
     /**
      * Helper variation to easily decorelate the id from the displayed string.
      * Read the FAQ about why and how to use ID. to align arbitrary text at the same level as a TreeNode() you can use Bullet().
@@ -1564,13 +1586,13 @@ public class ImGui {
     public static native boolean TreeNode(@ArgValue(callPrefix = "(void*)") long ptrId, String label, Void NULL);
 
     @BindingMethod
-    public static native boolean TreeNodeEx(String label, int imGuiTreeNodeFlags);
+    public static native boolean TreeNodeEx(String label, @OptArg int flags);
 
     @BindingMethod
-    public static native boolean TreeNodeEx(String strId, int imGuiTreeNodeFlags, String label, Void NULL);
+    public static native boolean TreeNodeEx(String strId, int flags, String label, Void NULL);
 
     @BindingMethod
-    public static native boolean TreeNodeEx(@ArgValue(callPrefix = "(void*)") long ptrId, int imGuiTreeNodeFlags, String label, Void NULL);
+    public static native boolean TreeNodeEx(@ArgValue(callPrefix = "(void*)") long ptrId, int flags, String label, Void NULL);
 
     /**
      * ~ Indent()+PushId(). Already called by TreeNode() when returning true, but you can call TreePush/TreePop yourself if desired.
