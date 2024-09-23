@@ -5023,31 +5023,31 @@ public final class ImPlot {
     // values
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
     public static void plotBars(final String labelId, final short[] values) {
         nPlotBars(labelId, values);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final short[] values, final double width) {
-        nPlotBars(labelId, values, width);
+    public static void plotBars(final String labelId, final short[] values, final double barWidth) {
+        nPlotBars(labelId, values, barWidth);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final short[] values, final double width, final double shift) {
-        nPlotBars(labelId, values, width, shift);
+    public static void plotBars(final String labelId, final short[] values, final double barWidth, final double x0) {
+        nPlotBars(labelId, values, barWidth, x0);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final short[] values, final double width, final double shift, final int offset) {
-        nPlotBars(labelId, values, width, shift, offset);
+    public static void plotBars(final String labelId, final short[] values, final double barWidth, final double x0, final int offset) {
+        nPlotBars(labelId, values, barWidth, x0, offset);
     }
 
     private static native void nPlotBars(String labelId, short[] values); /*MANUAL
@@ -5058,56 +5058,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, short[] values, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, short[] values, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, short[] values, double width, double shift); /*MANUAL
+    private static native void nPlotBars(String labelId, short[] values, double barWidth, double x0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width, shift);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth, x0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, short[] values, double width, double shift, int offset); /*MANUAL
+    private static native void nPlotBars(String labelId, short[] values, double barWidth, double x0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width, shift, offset);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth, x0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
     public static void plotBars(final String labelId, final int[] values) {
         nPlotBars(labelId, values);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final int[] values, final double width) {
-        nPlotBars(labelId, values, width);
+    public static void plotBars(final String labelId, final int[] values, final double barWidth) {
+        nPlotBars(labelId, values, barWidth);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final int[] values, final double width, final double shift) {
-        nPlotBars(labelId, values, width, shift);
+    public static void plotBars(final String labelId, final int[] values, final double barWidth, final double x0) {
+        nPlotBars(labelId, values, barWidth, x0);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final int[] values, final double width, final double shift, final int offset) {
-        nPlotBars(labelId, values, width, shift, offset);
+    public static void plotBars(final String labelId, final int[] values, final double barWidth, final double x0, final int offset) {
+        nPlotBars(labelId, values, barWidth, x0, offset);
     }
 
     private static native void nPlotBars(String labelId, int[] values); /*MANUAL
@@ -5118,56 +5118,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, int[] values, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, int[] values, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, int[] values, double width, double shift); /*MANUAL
+    private static native void nPlotBars(String labelId, int[] values, double barWidth, double x0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width, shift);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth, x0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, int[] values, double width, double shift, int offset); /*MANUAL
+    private static native void nPlotBars(String labelId, int[] values, double barWidth, double x0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width, shift, offset);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth, x0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
     public static void plotBars(final String labelId, final long[] values) {
         nPlotBars(labelId, values);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final long[] values, final double width) {
-        nPlotBars(labelId, values, width);
+    public static void plotBars(final String labelId, final long[] values, final double barWidth) {
+        nPlotBars(labelId, values, barWidth);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final long[] values, final double width, final double shift) {
-        nPlotBars(labelId, values, width, shift);
+    public static void plotBars(final String labelId, final long[] values, final double barWidth, final double x0) {
+        nPlotBars(labelId, values, barWidth, x0);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final long[] values, final double width, final double shift, final int offset) {
-        nPlotBars(labelId, values, width, shift, offset);
+    public static void plotBars(final String labelId, final long[] values, final double barWidth, final double x0, final int offset) {
+        nPlotBars(labelId, values, barWidth, x0, offset);
     }
 
     private static native void nPlotBars(String labelId, long[] values); /*MANUAL
@@ -5178,56 +5178,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, long[] values, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, long[] values, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, long[] values, double width, double shift); /*MANUAL
+    private static native void nPlotBars(String labelId, long[] values, double barWidth, double x0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width, shift);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth, x0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, long[] values, double width, double shift, int offset); /*MANUAL
+    private static native void nPlotBars(String labelId, long[] values, double barWidth, double x0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width, shift, offset);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth, x0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
     public static void plotBars(final String labelId, final float[] values) {
         nPlotBars(labelId, values);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final float[] values, final double width) {
-        nPlotBars(labelId, values, width);
+    public static void plotBars(final String labelId, final float[] values, final double barWidth) {
+        nPlotBars(labelId, values, barWidth);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final float[] values, final double width, final double shift) {
-        nPlotBars(labelId, values, width, shift);
+    public static void plotBars(final String labelId, final float[] values, final double barWidth, final double x0) {
+        nPlotBars(labelId, values, barWidth, x0);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final float[] values, final double width, final double shift, final int offset) {
-        nPlotBars(labelId, values, width, shift, offset);
+    public static void plotBars(final String labelId, final float[] values, final double barWidth, final double x0, final int offset) {
+        nPlotBars(labelId, values, barWidth, x0, offset);
     }
 
     private static native void nPlotBars(String labelId, float[] values); /*MANUAL
@@ -5238,56 +5238,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, float[] values, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, float[] values, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, float[] values, double width, double shift); /*MANUAL
+    private static native void nPlotBars(String labelId, float[] values, double barWidth, double x0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width, shift);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth, x0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, float[] values, double width, double shift, int offset); /*MANUAL
+    private static native void nPlotBars(String labelId, float[] values, double barWidth, double x0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width, shift, offset);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth, x0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
     public static void plotBars(final String labelId, final double[] values) {
         nPlotBars(labelId, values);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final double[] values, final double width) {
-        nPlotBars(labelId, values, width);
+    public static void plotBars(final String labelId, final double[] values, final double barWidth) {
+        nPlotBars(labelId, values, barWidth);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final double[] values, final double width, final double shift) {
-        nPlotBars(labelId, values, width, shift);
+    public static void plotBars(final String labelId, final double[] values, final double barWidth, final double x0) {
+        nPlotBars(labelId, values, barWidth, x0);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final double[] values, final double width, final double shift, final int offset) {
-        nPlotBars(labelId, values, width, shift, offset);
+    public static void plotBars(final String labelId, final double[] values, final double barWidth, final double x0, final int offset) {
+        nPlotBars(labelId, values, barWidth, x0, offset);
     }
 
     private static native void nPlotBars(String labelId, double[] values); /*MANUAL
@@ -5298,56 +5298,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, double[] values, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, double[] values, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, double[] values, double width, double shift); /*MANUAL
+    private static native void nPlotBars(String labelId, double[] values, double barWidth, double x0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width, shift);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth, x0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, double[] values, double width, double shift, int offset); /*MANUAL
+    private static native void nPlotBars(String labelId, double[] values, double barWidth, double x0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], LEN(values), width, shift, offset);
+        ImPlot::PlotBars(labelId, &values[0], LEN(values), barWidth, x0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
     public static void plotBars(final String labelId, final short[] values, final int count) {
         nPlotBars(labelId, values, count);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final short[] values, final int count, final double width) {
-        nPlotBars(labelId, values, count, width);
+    public static void plotBars(final String labelId, final short[] values, final int count, final double barWidth) {
+        nPlotBars(labelId, values, count, barWidth);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final short[] values, final int count, final double width, final double shift) {
-        nPlotBars(labelId, values, count, width, shift);
+    public static void plotBars(final String labelId, final short[] values, final int count, final double barWidth, final double x0) {
+        nPlotBars(labelId, values, count, barWidth, x0);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final short[] values, final int count, final double width, final double shift, final int offset) {
-        nPlotBars(labelId, values, count, width, shift, offset);
+    public static void plotBars(final String labelId, final short[] values, final int count, final double barWidth, final double x0, final int offset) {
+        nPlotBars(labelId, values, count, barWidth, x0, offset);
     }
 
     private static native void nPlotBars(String labelId, short[] values, int count); /*MANUAL
@@ -5358,56 +5358,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, short[] values, int count, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, short[] values, int count, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, short[] values, int count, double width, double shift); /*MANUAL
+    private static native void nPlotBars(String labelId, short[] values, int count, double barWidth, double x0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width, shift);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth, x0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, short[] values, int count, double width, double shift, int offset); /*MANUAL
+    private static native void nPlotBars(String labelId, short[] values, int count, double barWidth, double x0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width, shift, offset);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth, x0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
     public static void plotBars(final String labelId, final int[] values, final int count) {
         nPlotBars(labelId, values, count);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final int[] values, final int count, final double width) {
-        nPlotBars(labelId, values, count, width);
+    public static void plotBars(final String labelId, final int[] values, final int count, final double barWidth) {
+        nPlotBars(labelId, values, count, barWidth);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final int[] values, final int count, final double width, final double shift) {
-        nPlotBars(labelId, values, count, width, shift);
+    public static void plotBars(final String labelId, final int[] values, final int count, final double barWidth, final double x0) {
+        nPlotBars(labelId, values, count, barWidth, x0);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final int[] values, final int count, final double width, final double shift, final int offset) {
-        nPlotBars(labelId, values, count, width, shift, offset);
+    public static void plotBars(final String labelId, final int[] values, final int count, final double barWidth, final double x0, final int offset) {
+        nPlotBars(labelId, values, count, barWidth, x0, offset);
     }
 
     private static native void nPlotBars(String labelId, int[] values, int count); /*MANUAL
@@ -5418,56 +5418,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, int[] values, int count, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, int[] values, int count, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, int[] values, int count, double width, double shift); /*MANUAL
+    private static native void nPlotBars(String labelId, int[] values, int count, double barWidth, double x0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width, shift);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth, x0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, int[] values, int count, double width, double shift, int offset); /*MANUAL
+    private static native void nPlotBars(String labelId, int[] values, int count, double barWidth, double x0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width, shift, offset);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth, x0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
     public static void plotBars(final String labelId, final long[] values, final int count) {
         nPlotBars(labelId, values, count);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final long[] values, final int count, final double width) {
-        nPlotBars(labelId, values, count, width);
+    public static void plotBars(final String labelId, final long[] values, final int count, final double barWidth) {
+        nPlotBars(labelId, values, count, barWidth);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final long[] values, final int count, final double width, final double shift) {
-        nPlotBars(labelId, values, count, width, shift);
+    public static void plotBars(final String labelId, final long[] values, final int count, final double barWidth, final double x0) {
+        nPlotBars(labelId, values, count, barWidth, x0);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final long[] values, final int count, final double width, final double shift, final int offset) {
-        nPlotBars(labelId, values, count, width, shift, offset);
+    public static void plotBars(final String labelId, final long[] values, final int count, final double barWidth, final double x0, final int offset) {
+        nPlotBars(labelId, values, count, barWidth, x0, offset);
     }
 
     private static native void nPlotBars(String labelId, long[] values, int count); /*MANUAL
@@ -5478,56 +5478,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, long[] values, int count, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, long[] values, int count, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, long[] values, int count, double width, double shift); /*MANUAL
+    private static native void nPlotBars(String labelId, long[] values, int count, double barWidth, double x0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width, shift);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth, x0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, long[] values, int count, double width, double shift, int offset); /*MANUAL
+    private static native void nPlotBars(String labelId, long[] values, int count, double barWidth, double x0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width, shift, offset);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth, x0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
     public static void plotBars(final String labelId, final float[] values, final int count) {
         nPlotBars(labelId, values, count);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final float[] values, final int count, final double width) {
-        nPlotBars(labelId, values, count, width);
+    public static void plotBars(final String labelId, final float[] values, final int count, final double barWidth) {
+        nPlotBars(labelId, values, count, barWidth);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final float[] values, final int count, final double width, final double shift) {
-        nPlotBars(labelId, values, count, width, shift);
+    public static void plotBars(final String labelId, final float[] values, final int count, final double barWidth, final double x0) {
+        nPlotBars(labelId, values, count, barWidth, x0);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final float[] values, final int count, final double width, final double shift, final int offset) {
-        nPlotBars(labelId, values, count, width, shift, offset);
+    public static void plotBars(final String labelId, final float[] values, final int count, final double barWidth, final double x0, final int offset) {
+        nPlotBars(labelId, values, count, barWidth, x0, offset);
     }
 
     private static native void nPlotBars(String labelId, float[] values, int count); /*MANUAL
@@ -5538,56 +5538,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, float[] values, int count, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, float[] values, int count, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, float[] values, int count, double width, double shift); /*MANUAL
+    private static native void nPlotBars(String labelId, float[] values, int count, double barWidth, double x0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width, shift);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth, x0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, float[] values, int count, double width, double shift, int offset); /*MANUAL
+    private static native void nPlotBars(String labelId, float[] values, int count, double barWidth, double x0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width, shift, offset);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth, x0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
     public static void plotBars(final String labelId, final double[] values, final int count) {
         nPlotBars(labelId, values, count);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final double[] values, final int count, final double width) {
-        nPlotBars(labelId, values, count, width);
+    public static void plotBars(final String labelId, final double[] values, final int count, final double barWidth) {
+        nPlotBars(labelId, values, count, barWidth);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final double[] values, final int count, final double width, final double shift) {
-        nPlotBars(labelId, values, count, width, shift);
+    public static void plotBars(final String labelId, final double[] values, final int count, final double barWidth, final double x0) {
+        nPlotBars(labelId, values, count, barWidth, x0);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final double[] values, final int count, final double width, final double shift, final int offset) {
-        nPlotBars(labelId, values, count, width, shift, offset);
+    public static void plotBars(final String labelId, final double[] values, final int count, final double barWidth, final double x0, final int offset) {
+        nPlotBars(labelId, values, count, barWidth, x0, offset);
     }
 
     private static native void nPlotBars(String labelId, double[] values, int count); /*MANUAL
@@ -5598,26 +5598,26 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, double[] values, int count, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, double[] values, int count, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, double[] values, int count, double width, double shift); /*MANUAL
+    private static native void nPlotBars(String labelId, double[] values, int count, double barWidth, double x0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width, shift);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth, x0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, double[] values, int count, double width, double shift, int offset); /*MANUAL
+    private static native void nPlotBars(String labelId, double[] values, int count, double barWidth, double x0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &values[0], count, width, shift, offset);
+        ImPlot::PlotBars(labelId, &values[0], count, barWidth, x0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
@@ -5625,255 +5625,510 @@ public final class ImPlot {
     // xs,ys
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final short[] xs, final short[] ys, final double width) {
-        nPlotBars(labelId, xs, ys, width);
+    public static void plotBars(final String labelId, final short[] xs, final short[] ys) {
+        nPlotBars(labelId, xs, ys);
     }
 
-    private static native void nPlotBars(String labelId, short[] xs, short[] ys, double width); /*MANUAL
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final short[] xs, final short[] ys, final int offset) {
+        nPlotBars(labelId, xs, ys, offset);
+    }
+
+    private static native void nPlotBars(String labelId, short[] xs, short[] ys); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), width);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), 0.67);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
     */
 
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    public static void plotBars(final String labelId, final int[] xs, final int[] ys, final double width) {
-        nPlotBars(labelId, xs, ys, width);
-    }
-
-    private static native void nPlotBars(String labelId, int[] xs, int[] ys, double width); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), width);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    public static void plotBars(final String labelId, final long[] xs, final long[] ys, final double width) {
-        nPlotBars(labelId, xs, ys, width);
-    }
-
-    private static native void nPlotBars(String labelId, long[] xs, long[] ys, double width); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), width);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    public static void plotBars(final String labelId, final float[] xs, final float[] ys, final double width) {
-        nPlotBars(labelId, xs, ys, width);
-    }
-
-    private static native void nPlotBars(String labelId, float[] xs, float[] ys, double width); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), width);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    public static void plotBars(final String labelId, final double[] xs, final double[] ys, final double width) {
-        nPlotBars(labelId, xs, ys, width);
-    }
-
-    private static native void nPlotBars(String labelId, double[] xs, double[] ys, double width); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), width);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    public static void plotBars(final String labelId, final short[] xs, final short[] ys, final int count, final double width) {
-        nPlotBars(labelId, xs, ys, count, width);
-    }
-
-    /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
-     */
-    public static void plotBars(final String labelId, final short[] xs, final short[] ys, final int count, final double width, final int offset) {
-        nPlotBars(labelId, xs, ys, count, width, offset);
-    }
-
-    private static native void nPlotBars(String labelId, short[] xs, short[] ys, int count, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, short[] xs, short[] ys, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, width);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), 0.67, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, short[] xs, short[] ys, int count, double width, int offset); /*MANUAL
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final int[] xs, final int[] ys) {
+        nPlotBars(labelId, xs, ys);
+    }
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final int[] xs, final int[] ys, final int offset) {
+        nPlotBars(labelId, xs, ys, offset);
+    }
+
+    private static native void nPlotBars(String labelId, int[] xs, int[] ys); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), 0.67);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBars(String labelId, int[] xs, int[] ys, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), 0.67, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final long[] xs, final long[] ys) {
+        nPlotBars(labelId, xs, ys);
+    }
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final long[] xs, final long[] ys, final int offset) {
+        nPlotBars(labelId, xs, ys, offset);
+    }
+
+    private static native void nPlotBars(String labelId, long[] xs, long[] ys); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), 0.67);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBars(String labelId, long[] xs, long[] ys, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), 0.67, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final float[] xs, final float[] ys) {
+        nPlotBars(labelId, xs, ys);
+    }
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final float[] xs, final float[] ys, final int offset) {
+        nPlotBars(labelId, xs, ys, offset);
+    }
+
+    private static native void nPlotBars(String labelId, float[] xs, float[] ys); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), 0.67);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBars(String labelId, float[] xs, float[] ys, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), 0.67, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final double[] xs, final double[] ys) {
+        nPlotBars(labelId, xs, ys);
+    }
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final double[] xs, final double[] ys, final int offset) {
+        nPlotBars(labelId, xs, ys, offset);
+    }
+
+    private static native void nPlotBars(String labelId, double[] xs, double[] ys); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), 0.67);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBars(String labelId, double[] xs, double[] ys, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), 0.67, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final short[] xs, final short[] ys, final double barWidth) {
+        nPlotBars(labelId, xs, ys, barWidth);
+    }
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final short[] xs, final short[] ys, final double barWidth, final int offset) {
+        nPlotBars(labelId, xs, ys, barWidth, offset);
+    }
+
+    private static native void nPlotBars(String labelId, short[] xs, short[] ys, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, width, offset);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), barWidth);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBars(String labelId, short[] xs, short[] ys, double barWidth, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), barWidth, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
     */
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final int[] xs, final int[] ys, final int count, final double width) {
-        nPlotBars(labelId, xs, ys, count, width);
+    public static void plotBars(final String labelId, final int[] xs, final int[] ys, final double barWidth) {
+        nPlotBars(labelId, xs, ys, barWidth);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final int[] xs, final int[] ys, final int count, final double width, final int offset) {
-        nPlotBars(labelId, xs, ys, count, width, offset);
+    public static void plotBars(final String labelId, final int[] xs, final int[] ys, final double barWidth, final int offset) {
+        nPlotBars(labelId, xs, ys, barWidth, offset);
     }
 
-    private static native void nPlotBars(String labelId, int[] xs, int[] ys, int count, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, int[] xs, int[] ys, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, width);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), barWidth);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, int[] xs, int[] ys, int count, double width, int offset); /*MANUAL
+    private static native void nPlotBars(String labelId, int[] xs, int[] ys, double barWidth, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, width, offset);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), barWidth, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
     */
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final long[] xs, final long[] ys, final int count, final double width) {
-        nPlotBars(labelId, xs, ys, count, width);
+    public static void plotBars(final String labelId, final long[] xs, final long[] ys, final double barWidth) {
+        nPlotBars(labelId, xs, ys, barWidth);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final long[] xs, final long[] ys, final int count, final double width, final int offset) {
-        nPlotBars(labelId, xs, ys, count, width, offset);
+    public static void plotBars(final String labelId, final long[] xs, final long[] ys, final double barWidth, final int offset) {
+        nPlotBars(labelId, xs, ys, barWidth, offset);
     }
 
-    private static native void nPlotBars(String labelId, long[] xs, long[] ys, int count, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, long[] xs, long[] ys, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, width);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), barWidth);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, long[] xs, long[] ys, int count, double width, int offset); /*MANUAL
+    private static native void nPlotBars(String labelId, long[] xs, long[] ys, double barWidth, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, width, offset);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), barWidth, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
     */
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final float[] xs, final float[] ys, final int count, final double width) {
-        nPlotBars(labelId, xs, ys, count, width);
+    public static void plotBars(final String labelId, final float[] xs, final float[] ys, final double barWidth) {
+        nPlotBars(labelId, xs, ys, barWidth);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final float[] xs, final float[] ys, final int count, final double width, final int offset) {
-        nPlotBars(labelId, xs, ys, count, width, offset);
+    public static void plotBars(final String labelId, final float[] xs, final float[] ys, final double barWidth, final int offset) {
+        nPlotBars(labelId, xs, ys, barWidth, offset);
     }
 
-    private static native void nPlotBars(String labelId, float[] xs, float[] ys, int count, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, float[] xs, float[] ys, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, width);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), barWidth);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, float[] xs, float[] ys, int count, double width, int offset); /*MANUAL
+    private static native void nPlotBars(String labelId, float[] xs, float[] ys, double barWidth, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, width, offset);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), barWidth, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
     */
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final double[] xs, final double[] ys, final int count, final double width) {
-        nPlotBars(labelId, xs, ys, count, width);
+    public static void plotBars(final String labelId, final double[] xs, final double[] ys, final double barWidth) {
+        nPlotBars(labelId, xs, ys, barWidth);
     }
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
-    public static void plotBars(final String labelId, final double[] xs, final double[] ys, final int count, final double width, final int offset) {
-        nPlotBars(labelId, xs, ys, count, width, offset);
+    public static void plotBars(final String labelId, final double[] xs, final double[] ys, final double barWidth, final int offset) {
+        nPlotBars(labelId, xs, ys, barWidth, offset);
     }
 
-    private static native void nPlotBars(String labelId, double[] xs, double[] ys, int count, double width); /*MANUAL
+    private static native void nPlotBars(String labelId, double[] xs, double[] ys, double barWidth); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, width);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), barWidth);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
     */
 
-    private static native void nPlotBars(String labelId, double[] xs, double[] ys, int count, double width, int offset); /*MANUAL
+    private static native void nPlotBars(String labelId, double[] xs, double[] ys, double barWidth, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
         auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, width, offset);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], LEN(xs), barWidth, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final short[] xs, final short[] ys, final int count, final double barWidth) {
+        nPlotBars(labelId, xs, ys, count, barWidth);
+    }
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final short[] xs, final short[] ys, final int count, final double barWidth, final int offset) {
+        nPlotBars(labelId, xs, ys, count, barWidth, offset);
+    }
+
+    private static native void nPlotBars(String labelId, short[] xs, short[] ys, int count, double barWidth); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, barWidth);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBars(String labelId, short[] xs, short[] ys, int count, double barWidth, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, barWidth, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final int[] xs, final int[] ys, final int count, final double barWidth) {
+        nPlotBars(labelId, xs, ys, count, barWidth);
+    }
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final int[] xs, final int[] ys, final int count, final double barWidth, final int offset) {
+        nPlotBars(labelId, xs, ys, count, barWidth, offset);
+    }
+
+    private static native void nPlotBars(String labelId, int[] xs, int[] ys, int count, double barWidth); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, barWidth);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBars(String labelId, int[] xs, int[] ys, int count, double barWidth, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, barWidth, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final long[] xs, final long[] ys, final int count, final double barWidth) {
+        nPlotBars(labelId, xs, ys, count, barWidth);
+    }
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final long[] xs, final long[] ys, final int count, final double barWidth, final int offset) {
+        nPlotBars(labelId, xs, ys, count, barWidth, offset);
+    }
+
+    private static native void nPlotBars(String labelId, long[] xs, long[] ys, int count, double barWidth); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, barWidth);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBars(String labelId, long[] xs, long[] ys, int count, double barWidth, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, barWidth, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final float[] xs, final float[] ys, final int count, final double barWidth) {
+        nPlotBars(labelId, xs, ys, count, barWidth);
+    }
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final float[] xs, final float[] ys, final int count, final double barWidth, final int offset) {
+        nPlotBars(labelId, xs, ys, count, barWidth, offset);
+    }
+
+    private static native void nPlotBars(String labelId, float[] xs, float[] ys, int count, double barWidth); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, barWidth);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBars(String labelId, float[] xs, float[] ys, int count, double barWidth, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, barWidth, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final double[] xs, final double[] ys, final int count, final double barWidth) {
+        nPlotBars(labelId, xs, ys, count, barWidth);
+    }
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    public static void plotBars(final String labelId, final double[] xs, final double[] ys, final int count, final double barWidth, final int offset) {
+        nPlotBars(labelId, xs, ys, count, barWidth, offset);
+    }
+
+    private static native void nPlotBars(String labelId, double[] xs, double[] ys, int count, double barWidth); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, barWidth);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBars(String labelId, double[] xs, double[] ys, int count, double barWidth, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBars(labelId, &xs[0], &ys[0], count, barWidth, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
@@ -5882,31 +6137,31 @@ public final class ImPlot {
     // values
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final short[] values) {
         nPlotBarsH(labelId, values);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final short[] values, final double height) {
-        nPlotBarsH(labelId, values, height);
+    public static void plotBarsH(final String labelId, final short[] values, final double barHeight) {
+        nPlotBarsH(labelId, values, barHeight);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final short[] values, final double height, final double shift) {
-        nPlotBarsH(labelId, values, height, shift);
+    public static void plotBarsH(final String labelId, final short[] values, final double barHeight, final double y0) {
+        nPlotBarsH(labelId, values, barHeight, y0);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final short[] values, final double height, final double shift, final int offset) {
-        nPlotBarsH(labelId, values, height, shift, offset);
+    public static void plotBarsH(final String labelId, final short[] values, final double barHeight, final double y0, final int offset) {
+        nPlotBarsH(labelId, values, barHeight, y0, offset);
     }
 
     private static native void nPlotBarsH(String labelId, short[] values); /*MANUAL
@@ -5917,56 +6172,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, short[] values, double height); /*MANUAL
+    private static native void nPlotBarsH(String labelId, short[] values, double barHeight); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, short[] values, double height, double shift); /*MANUAL
+    private static native void nPlotBarsH(String labelId, short[] values, double barHeight, double y0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height, shift);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight, y0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, short[] values, double height, double shift, int offset); /*MANUAL
+    private static native void nPlotBarsH(String labelId, short[] values, double barHeight, double y0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height, shift, offset);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight, y0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final int[] values) {
         nPlotBarsH(labelId, values);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final int[] values, final double height) {
-        nPlotBarsH(labelId, values, height);
+    public static void plotBarsH(final String labelId, final int[] values, final double barHeight) {
+        nPlotBarsH(labelId, values, barHeight);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final int[] values, final double height, final double shift) {
-        nPlotBarsH(labelId, values, height, shift);
+    public static void plotBarsH(final String labelId, final int[] values, final double barHeight, final double y0) {
+        nPlotBarsH(labelId, values, barHeight, y0);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final int[] values, final double height, final double shift, final int offset) {
-        nPlotBarsH(labelId, values, height, shift, offset);
+    public static void plotBarsH(final String labelId, final int[] values, final double barHeight, final double y0, final int offset) {
+        nPlotBarsH(labelId, values, barHeight, y0, offset);
     }
 
     private static native void nPlotBarsH(String labelId, int[] values); /*MANUAL
@@ -5977,56 +6232,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, int[] values, double height); /*MANUAL
+    private static native void nPlotBarsH(String labelId, int[] values, double barHeight); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, int[] values, double height, double shift); /*MANUAL
+    private static native void nPlotBarsH(String labelId, int[] values, double barHeight, double y0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height, shift);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight, y0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, int[] values, double height, double shift, int offset); /*MANUAL
+    private static native void nPlotBarsH(String labelId, int[] values, double barHeight, double y0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height, shift, offset);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight, y0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final long[] values) {
         nPlotBarsH(labelId, values);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final long[] values, final double height) {
-        nPlotBarsH(labelId, values, height);
+    public static void plotBarsH(final String labelId, final long[] values, final double barHeight) {
+        nPlotBarsH(labelId, values, barHeight);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final long[] values, final double height, final double shift) {
-        nPlotBarsH(labelId, values, height, shift);
+    public static void plotBarsH(final String labelId, final long[] values, final double barHeight, final double y0) {
+        nPlotBarsH(labelId, values, barHeight, y0);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final long[] values, final double height, final double shift, final int offset) {
-        nPlotBarsH(labelId, values, height, shift, offset);
+    public static void plotBarsH(final String labelId, final long[] values, final double barHeight, final double y0, final int offset) {
+        nPlotBarsH(labelId, values, barHeight, y0, offset);
     }
 
     private static native void nPlotBarsH(String labelId, long[] values); /*MANUAL
@@ -6037,56 +6292,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, long[] values, double height); /*MANUAL
+    private static native void nPlotBarsH(String labelId, long[] values, double barHeight); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, long[] values, double height, double shift); /*MANUAL
+    private static native void nPlotBarsH(String labelId, long[] values, double barHeight, double y0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height, shift);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight, y0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, long[] values, double height, double shift, int offset); /*MANUAL
+    private static native void nPlotBarsH(String labelId, long[] values, double barHeight, double y0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height, shift, offset);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight, y0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final float[] values) {
         nPlotBarsH(labelId, values);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final float[] values, final double height) {
-        nPlotBarsH(labelId, values, height);
+    public static void plotBarsH(final String labelId, final float[] values, final double barHeight) {
+        nPlotBarsH(labelId, values, barHeight);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final float[] values, final double height, final double shift) {
-        nPlotBarsH(labelId, values, height, shift);
+    public static void plotBarsH(final String labelId, final float[] values, final double barHeight, final double y0) {
+        nPlotBarsH(labelId, values, barHeight, y0);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final float[] values, final double height, final double shift, final int offset) {
-        nPlotBarsH(labelId, values, height, shift, offset);
+    public static void plotBarsH(final String labelId, final float[] values, final double barHeight, final double y0, final int offset) {
+        nPlotBarsH(labelId, values, barHeight, y0, offset);
     }
 
     private static native void nPlotBarsH(String labelId, float[] values); /*MANUAL
@@ -6097,56 +6352,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, float[] values, double height); /*MANUAL
+    private static native void nPlotBarsH(String labelId, float[] values, double barHeight); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, float[] values, double height, double shift); /*MANUAL
+    private static native void nPlotBarsH(String labelId, float[] values, double barHeight, double y0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height, shift);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight, y0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, float[] values, double height, double shift, int offset); /*MANUAL
+    private static native void nPlotBarsH(String labelId, float[] values, double barHeight, double y0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height, shift, offset);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight, y0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final double[] values) {
         nPlotBarsH(labelId, values);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final double[] values, final double height) {
-        nPlotBarsH(labelId, values, height);
+    public static void plotBarsH(final String labelId, final double[] values, final double barHeight) {
+        nPlotBarsH(labelId, values, barHeight);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final double[] values, final double height, final double shift) {
-        nPlotBarsH(labelId, values, height, shift);
+    public static void plotBarsH(final String labelId, final double[] values, final double barHeight, final double y0) {
+        nPlotBarsH(labelId, values, barHeight, y0);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final double[] values, final double height, final double shift, final int offset) {
-        nPlotBarsH(labelId, values, height, shift, offset);
+    public static void plotBarsH(final String labelId, final double[] values, final double barHeight, final double y0, final int offset) {
+        nPlotBarsH(labelId, values, barHeight, y0, offset);
     }
 
     private static native void nPlotBarsH(String labelId, double[] values); /*MANUAL
@@ -6157,56 +6412,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, double[] values, double height); /*MANUAL
+    private static native void nPlotBarsH(String labelId, double[] values, double barHeight); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, double[] values, double height, double shift); /*MANUAL
+    private static native void nPlotBarsH(String labelId, double[] values, double barHeight, double y0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height, shift);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight, y0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, double[] values, double height, double shift, int offset); /*MANUAL
+    private static native void nPlotBarsH(String labelId, double[] values, double barHeight, double y0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), height, shift, offset);
+        ImPlot::PlotBarsH(labelId, &values[0], LEN(values), barHeight, y0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final short[] values, final int count) {
         nPlotBarsH(labelId, values, count);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final short[] values, final int count, final double height) {
-        nPlotBarsH(labelId, values, count, height);
+    public static void plotBarsH(final String labelId, final short[] values, final int count, final double barHeight) {
+        nPlotBarsH(labelId, values, count, barHeight);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final short[] values, final int count, final double height, final double shift) {
-        nPlotBarsH(labelId, values, count, height, shift);
+    public static void plotBarsH(final String labelId, final short[] values, final int count, final double barHeight, final double y0) {
+        nPlotBarsH(labelId, values, count, barHeight, y0);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final short[] values, final int count, final double height, final double shift, final int offset) {
-        nPlotBarsH(labelId, values, count, height, shift, offset);
+    public static void plotBarsH(final String labelId, final short[] values, final int count, final double barHeight, final double y0, final int offset) {
+        nPlotBarsH(labelId, values, count, barHeight, y0, offset);
     }
 
     private static native void nPlotBarsH(String labelId, short[] values, int count); /*MANUAL
@@ -6217,56 +6472,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, short[] values, int count, double height); /*MANUAL
+    private static native void nPlotBarsH(String labelId, short[] values, int count, double barHeight); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, short[] values, int count, double height, double shift); /*MANUAL
+    private static native void nPlotBarsH(String labelId, short[] values, int count, double barHeight, double y0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height, shift);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight, y0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, short[] values, int count, double height, double shift, int offset); /*MANUAL
+    private static native void nPlotBarsH(String labelId, short[] values, int count, double barHeight, double y0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height, shift, offset);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight, y0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final int[] values, final int count) {
         nPlotBarsH(labelId, values, count);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final int[] values, final int count, final double height) {
-        nPlotBarsH(labelId, values, count, height);
+    public static void plotBarsH(final String labelId, final int[] values, final int count, final double barHeight) {
+        nPlotBarsH(labelId, values, count, barHeight);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final int[] values, final int count, final double height, final double shift) {
-        nPlotBarsH(labelId, values, count, height, shift);
+    public static void plotBarsH(final String labelId, final int[] values, final int count, final double barHeight, final double y0) {
+        nPlotBarsH(labelId, values, count, barHeight, y0);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final int[] values, final int count, final double height, final double shift, final int offset) {
-        nPlotBarsH(labelId, values, count, height, shift, offset);
+    public static void plotBarsH(final String labelId, final int[] values, final int count, final double barHeight, final double y0, final int offset) {
+        nPlotBarsH(labelId, values, count, barHeight, y0, offset);
     }
 
     private static native void nPlotBarsH(String labelId, int[] values, int count); /*MANUAL
@@ -6277,56 +6532,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, int[] values, int count, double height); /*MANUAL
+    private static native void nPlotBarsH(String labelId, int[] values, int count, double barHeight); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, int[] values, int count, double height, double shift); /*MANUAL
+    private static native void nPlotBarsH(String labelId, int[] values, int count, double barHeight, double y0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height, shift);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight, y0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, int[] values, int count, double height, double shift, int offset); /*MANUAL
+    private static native void nPlotBarsH(String labelId, int[] values, int count, double barHeight, double y0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height, shift, offset);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight, y0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final long[] values, final int count) {
         nPlotBarsH(labelId, values, count);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final long[] values, final int count, final double height) {
-        nPlotBarsH(labelId, values, count, height);
+    public static void plotBarsH(final String labelId, final long[] values, final int count, final double barHeight) {
+        nPlotBarsH(labelId, values, count, barHeight);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final long[] values, final int count, final double height, final double shift) {
-        nPlotBarsH(labelId, values, count, height, shift);
+    public static void plotBarsH(final String labelId, final long[] values, final int count, final double barHeight, final double y0) {
+        nPlotBarsH(labelId, values, count, barHeight, y0);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final long[] values, final int count, final double height, final double shift, final int offset) {
-        nPlotBarsH(labelId, values, count, height, shift, offset);
+    public static void plotBarsH(final String labelId, final long[] values, final int count, final double barHeight, final double y0, final int offset) {
+        nPlotBarsH(labelId, values, count, barHeight, y0, offset);
     }
 
     private static native void nPlotBarsH(String labelId, long[] values, int count); /*MANUAL
@@ -6337,56 +6592,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, long[] values, int count, double height); /*MANUAL
+    private static native void nPlotBarsH(String labelId, long[] values, int count, double barHeight); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, long[] values, int count, double height, double shift); /*MANUAL
+    private static native void nPlotBarsH(String labelId, long[] values, int count, double barHeight, double y0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height, shift);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight, y0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, long[] values, int count, double height, double shift, int offset); /*MANUAL
+    private static native void nPlotBarsH(String labelId, long[] values, int count, double barHeight, double y0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height, shift, offset);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight, y0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final float[] values, final int count) {
         nPlotBarsH(labelId, values, count);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final float[] values, final int count, final double height) {
-        nPlotBarsH(labelId, values, count, height);
+    public static void plotBarsH(final String labelId, final float[] values, final int count, final double barHeight) {
+        nPlotBarsH(labelId, values, count, barHeight);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final float[] values, final int count, final double height, final double shift) {
-        nPlotBarsH(labelId, values, count, height, shift);
+    public static void plotBarsH(final String labelId, final float[] values, final int count, final double barHeight, final double y0) {
+        nPlotBarsH(labelId, values, count, barHeight, y0);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final float[] values, final int count, final double height, final double shift, final int offset) {
-        nPlotBarsH(labelId, values, count, height, shift, offset);
+    public static void plotBarsH(final String labelId, final float[] values, final int count, final double barHeight, final double y0, final int offset) {
+        nPlotBarsH(labelId, values, count, barHeight, y0, offset);
     }
 
     private static native void nPlotBarsH(String labelId, float[] values, int count); /*MANUAL
@@ -6397,56 +6652,56 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, float[] values, int count, double height); /*MANUAL
+    private static native void nPlotBarsH(String labelId, float[] values, int count, double barHeight); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, float[] values, int count, double height, double shift); /*MANUAL
+    private static native void nPlotBarsH(String labelId, float[] values, int count, double barHeight, double y0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height, shift);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight, y0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, float[] values, int count, double height, double shift, int offset); /*MANUAL
+    private static native void nPlotBarsH(String labelId, float[] values, int count, double barHeight, double y0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height, shift, offset);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight, y0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final double[] values, final int count) {
         nPlotBarsH(labelId, values, count);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final double[] values, final int count, final double height) {
-        nPlotBarsH(labelId, values, count, height);
+    public static void plotBarsH(final String labelId, final double[] values, final int count, final double barHeight) {
+        nPlotBarsH(labelId, values, count, barHeight);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final double[] values, final int count, final double height, final double shift) {
-        nPlotBarsH(labelId, values, count, height, shift);
+    public static void plotBarsH(final String labelId, final double[] values, final int count, final double barHeight, final double y0) {
+        nPlotBarsH(labelId, values, count, barHeight, y0);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
-    public static void plotBarsH(final String labelId, final double[] values, final int count, final double height, final double shift, final int offset) {
-        nPlotBarsH(labelId, values, count, height, shift, offset);
+    public static void plotBarsH(final String labelId, final double[] values, final int count, final double barHeight, final double y0, final int offset) {
+        nPlotBarsH(labelId, values, count, barHeight, y0, offset);
     }
 
     private static native void nPlotBarsH(String labelId, double[] values, int count); /*MANUAL
@@ -6457,26 +6712,26 @@ public final class ImPlot {
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, double[] values, int count, double height); /*MANUAL
+    private static native void nPlotBarsH(String labelId, double[] values, int count, double barHeight); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, double[] values, int count, double height, double shift); /*MANUAL
+    private static native void nPlotBarsH(String labelId, double[] values, int count, double barHeight, double y0); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height, shift);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight, y0);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
-    private static native void nPlotBarsH(String labelId, double[] values, int count, double height, double shift, int offset); /*MANUAL
+    private static native void nPlotBarsH(String labelId, double[] values, int count, double barHeight, double y0, int offset); /*MANUAL
         auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
         auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &values[0], count, height, shift, offset);
+        ImPlot::PlotBarsH(labelId, &values[0], count, barHeight, y0, offset);
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
@@ -6484,269 +6739,14 @@ public final class ImPlot {
     // xs,ys
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final short[] xs, final short[] ys, final double height) {
-        nPlotBarsH(labelId, xs, ys, height);
-    }
-
-    private static native void nPlotBarsH(String labelId, short[] xs, short[] ys, double height); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), height);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final int[] xs, final int[] ys, final double height) {
-        nPlotBarsH(labelId, xs, ys, height);
-    }
-
-    private static native void nPlotBarsH(String labelId, int[] xs, int[] ys, double height); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), height);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final long[] xs, final long[] ys, final double height) {
-        nPlotBarsH(labelId, xs, ys, height);
-    }
-
-    private static native void nPlotBarsH(String labelId, long[] xs, long[] ys, double height); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), height);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final float[] xs, final float[] ys, final double height) {
-        nPlotBarsH(labelId, xs, ys, height);
-    }
-
-    private static native void nPlotBarsH(String labelId, float[] xs, float[] ys, double height); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), height);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final double[] xs, final double[] ys, final double height) {
-        nPlotBarsH(labelId, xs, ys, height);
-    }
-
-    private static native void nPlotBarsH(String labelId, double[] xs, double[] ys, double height); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), height);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final short[] xs, final short[] ys, final int count, final double height) {
-        nPlotBarsH(labelId, xs, ys, count, height);
-    }
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final short[] xs, final short[] ys, final int count, final double height, final int offset) {
-        nPlotBarsH(labelId, xs, ys, count, height, offset);
-    }
-
-    private static native void nPlotBarsH(String labelId, short[] xs, short[] ys, int count, double height); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, height);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    private static native void nPlotBarsH(String labelId, short[] xs, short[] ys, int count, double height, int offset); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, height, offset);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final int[] xs, final int[] ys, final int count, final double height) {
-        nPlotBarsH(labelId, xs, ys, count, height);
-    }
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final int[] xs, final int[] ys, final int count, final double height, final int offset) {
-        nPlotBarsH(labelId, xs, ys, count, height, offset);
-    }
-
-    private static native void nPlotBarsH(String labelId, int[] xs, int[] ys, int count, double height); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, height);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    private static native void nPlotBarsH(String labelId, int[] xs, int[] ys, int count, double height, int offset); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, height, offset);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final long[] xs, final long[] ys, final int count, final double height) {
-        nPlotBarsH(labelId, xs, ys, count, height);
-    }
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final long[] xs, final long[] ys, final int count, final double height, final int offset) {
-        nPlotBarsH(labelId, xs, ys, count, height, offset);
-    }
-
-    private static native void nPlotBarsH(String labelId, long[] xs, long[] ys, int count, double height); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, height);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    private static native void nPlotBarsH(String labelId, long[] xs, long[] ys, int count, double height, int offset); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, height, offset);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final float[] xs, final float[] ys, final int count, final double height) {
-        nPlotBarsH(labelId, xs, ys, count, height);
-    }
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final float[] xs, final float[] ys, final int count, final double height, final int offset) {
-        nPlotBarsH(labelId, xs, ys, count, height, offset);
-    }
-
-    private static native void nPlotBarsH(String labelId, float[] xs, float[] ys, int count, double height); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, height);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    private static native void nPlotBarsH(String labelId, float[] xs, float[] ys, int count, double height, int offset); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, height, offset);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final double[] xs, final double[] ys, final int count, final double height) {
-        nPlotBarsH(labelId, xs, ys, count, height);
-    }
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
-     */
-    public static void plotBarsH(final String labelId, final double[] xs, final double[] ys, final int count, final double height, final int offset) {
-        nPlotBarsH(labelId, xs, ys, count, height, offset);
-    }
-
-    private static native void nPlotBarsH(String labelId, double[] xs, double[] ys, int count, double height); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, height);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    private static native void nPlotBarsH(String labelId, double[] xs, double[] ys, int count, double height, int offset); /*MANUAL
-        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
-        auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
-        auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
-        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, height, offset);
-        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
-        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
-        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
-    */
-
-    /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final short[] xs, final short[] ys) {
         nPlotBarsH(labelId, xs, ys);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final short[] xs, final short[] ys, final int offset) {
         nPlotBarsH(labelId, xs, ys, offset);
@@ -6773,14 +6773,14 @@ public final class ImPlot {
     */
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final int[] xs, final int[] ys) {
         nPlotBarsH(labelId, xs, ys);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final int[] xs, final int[] ys, final int offset) {
         nPlotBarsH(labelId, xs, ys, offset);
@@ -6807,14 +6807,14 @@ public final class ImPlot {
     */
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final long[] xs, final long[] ys) {
         nPlotBarsH(labelId, xs, ys);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final long[] xs, final long[] ys, final int offset) {
         nPlotBarsH(labelId, xs, ys, offset);
@@ -6841,14 +6841,14 @@ public final class ImPlot {
     */
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final float[] xs, final float[] ys) {
         nPlotBarsH(labelId, xs, ys);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final float[] xs, final float[] ys, final int offset) {
         nPlotBarsH(labelId, xs, ys, offset);
@@ -6875,14 +6875,14 @@ public final class ImPlot {
     */
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final double[] xs, final double[] ys) {
         nPlotBarsH(labelId, xs, ys);
     }
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     public static void plotBarsH(final String labelId, final double[] xs, final double[] ys, final int offset) {
         nPlotBarsH(labelId, xs, ys, offset);
@@ -6906,6 +6906,1266 @@ public final class ImPlot {
         if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
         if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
         if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final short[] xs, final short[] ys, final double barHeight) {
+        nPlotBarsH(labelId, xs, ys, barHeight);
+    }
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final short[] xs, final short[] ys, final double barHeight, final int offset) {
+        nPlotBarsH(labelId, xs, ys, barHeight, offset);
+    }
+
+    private static native void nPlotBarsH(String labelId, short[] xs, short[] ys, double barHeight); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), barHeight);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBarsH(String labelId, short[] xs, short[] ys, double barHeight, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), barHeight, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final int[] xs, final int[] ys, final double barHeight) {
+        nPlotBarsH(labelId, xs, ys, barHeight);
+    }
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final int[] xs, final int[] ys, final double barHeight, final int offset) {
+        nPlotBarsH(labelId, xs, ys, barHeight, offset);
+    }
+
+    private static native void nPlotBarsH(String labelId, int[] xs, int[] ys, double barHeight); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), barHeight);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBarsH(String labelId, int[] xs, int[] ys, double barHeight, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), barHeight, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final long[] xs, final long[] ys, final double barHeight) {
+        nPlotBarsH(labelId, xs, ys, barHeight);
+    }
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final long[] xs, final long[] ys, final double barHeight, final int offset) {
+        nPlotBarsH(labelId, xs, ys, barHeight, offset);
+    }
+
+    private static native void nPlotBarsH(String labelId, long[] xs, long[] ys, double barHeight); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), barHeight);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBarsH(String labelId, long[] xs, long[] ys, double barHeight, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), barHeight, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final float[] xs, final float[] ys, final double barHeight) {
+        nPlotBarsH(labelId, xs, ys, barHeight);
+    }
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final float[] xs, final float[] ys, final double barHeight, final int offset) {
+        nPlotBarsH(labelId, xs, ys, barHeight, offset);
+    }
+
+    private static native void nPlotBarsH(String labelId, float[] xs, float[] ys, double barHeight); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), barHeight);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBarsH(String labelId, float[] xs, float[] ys, double barHeight, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), barHeight, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final double[] xs, final double[] ys, final double barHeight) {
+        nPlotBarsH(labelId, xs, ys, barHeight);
+    }
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final double[] xs, final double[] ys, final double barHeight, final int offset) {
+        nPlotBarsH(labelId, xs, ys, barHeight, offset);
+    }
+
+    private static native void nPlotBarsH(String labelId, double[] xs, double[] ys, double barHeight); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), barHeight);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBarsH(String labelId, double[] xs, double[] ys, double barHeight, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], LEN(xs), barHeight, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final short[] xs, final short[] ys, final int count, final double barHeight) {
+        nPlotBarsH(labelId, xs, ys, count, barHeight);
+    }
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final short[] xs, final short[] ys, final int count, final double barHeight, final int offset) {
+        nPlotBarsH(labelId, xs, ys, count, barHeight, offset);
+    }
+
+    private static native void nPlotBarsH(String labelId, short[] xs, short[] ys, int count, double barHeight); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, barHeight);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBarsH(String labelId, short[] xs, short[] ys, int count, double barHeight, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, barHeight, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final int[] xs, final int[] ys, final int count, final double barHeight) {
+        nPlotBarsH(labelId, xs, ys, count, barHeight);
+    }
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final int[] xs, final int[] ys, final int count, final double barHeight, final int offset) {
+        nPlotBarsH(labelId, xs, ys, count, barHeight, offset);
+    }
+
+    private static native void nPlotBarsH(String labelId, int[] xs, int[] ys, int count, double barHeight); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, barHeight);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBarsH(String labelId, int[] xs, int[] ys, int count, double barHeight, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, barHeight, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final long[] xs, final long[] ys, final int count, final double barHeight) {
+        nPlotBarsH(labelId, xs, ys, count, barHeight);
+    }
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final long[] xs, final long[] ys, final int count, final double barHeight, final int offset) {
+        nPlotBarsH(labelId, xs, ys, count, barHeight, offset);
+    }
+
+    private static native void nPlotBarsH(String labelId, long[] xs, long[] ys, int count, double barHeight); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, barHeight);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBarsH(String labelId, long[] xs, long[] ys, int count, double barHeight, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, barHeight, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final float[] xs, final float[] ys, final int count, final double barHeight) {
+        nPlotBarsH(labelId, xs, ys, count, barHeight);
+    }
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final float[] xs, final float[] ys, final int count, final double barHeight, final int offset) {
+        nPlotBarsH(labelId, xs, ys, count, barHeight, offset);
+    }
+
+    private static native void nPlotBarsH(String labelId, float[] xs, float[] ys, int count, double barHeight); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, barHeight);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBarsH(String labelId, float[] xs, float[] ys, int count, double barHeight, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, barHeight, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final double[] xs, final double[] ys, final int count, final double barHeight) {
+        nPlotBarsH(labelId, xs, ys, count, barHeight);
+    }
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    public static void plotBarsH(final String labelId, final double[] xs, final double[] ys, final int count, final double barHeight, final int offset) {
+        nPlotBarsH(labelId, xs, ys, count, barHeight, offset);
+    }
+
+    private static native void nPlotBarsH(String labelId, double[] xs, double[] ys, int count, double barHeight); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, barHeight);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    private static native void nPlotBarsH(String labelId, double[] xs, double[] ys, int count, double barHeight, int offset); /*MANUAL
+        auto labelId = obj_labelId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_labelId, JNI_FALSE);
+        auto xs = obj_xs == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_xs, JNI_FALSE);
+        auto ys = obj_ys == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_ys, JNI_FALSE);
+        ImPlot::PlotBarsH(labelId, &xs[0], &ys[0], count, barHeight, offset);
+        if (labelId != NULL) env->ReleaseStringUTFChars(obj_labelId, labelId);
+        if (xs != NULL) env->ReleasePrimitiveArrayCritical(obj_xs, xs, JNI_FALSE);
+        if (ys != NULL) env->ReleasePrimitiveArrayCritical(obj_ys, ys, JNI_FALSE);
+    */
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final short[] values, final int itemCount, final int groupCount) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final short[] values, final int itemCount, final int groupCount, final double groupWidth) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final short[] values, final int itemCount, final int groupCount, final double groupWidth, final double x0) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth, x0);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final short[] values, final int itemCount, final int groupCount, final double groupWidth, final double x0, final int flags) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth, x0, flags);
+    }
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, short[] values, int itemCount, int groupCount); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, short[] values, int itemCount, int groupCount, double groupWidth); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, short[] values, int itemCount, int groupCount, double groupWidth, double x0); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth, x0);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, short[] values, int itemCount, int groupCount, double groupWidth, double x0, int flags); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth, x0, flags);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final int[] values, final int itemCount, final int groupCount) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final int[] values, final int itemCount, final int groupCount, final double groupWidth) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final int[] values, final int itemCount, final int groupCount, final double groupWidth, final double x0) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth, x0);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final int[] values, final int itemCount, final int groupCount, final double groupWidth, final double x0, final int flags) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth, x0, flags);
+    }
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, int[] values, int itemCount, int groupCount); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, int[] values, int itemCount, int groupCount, double groupWidth); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, int[] values, int itemCount, int groupCount, double groupWidth, double x0); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth, x0);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, int[] values, int itemCount, int groupCount, double groupWidth, double x0, int flags); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth, x0, flags);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final long[] values, final int itemCount, final int groupCount) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final long[] values, final int itemCount, final int groupCount, final double groupWidth) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final long[] values, final int itemCount, final int groupCount, final double groupWidth, final double x0) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth, x0);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final long[] values, final int itemCount, final int groupCount, final double groupWidth, final double x0, final int flags) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth, x0, flags);
+    }
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, long[] values, int itemCount, int groupCount); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, long[] values, int itemCount, int groupCount, double groupWidth); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, long[] values, int itemCount, int groupCount, double groupWidth, double x0); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth, x0);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, long[] values, int itemCount, int groupCount, double groupWidth, double x0, int flags); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth, x0, flags);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final float[] values, final int itemCount, final int groupCount) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final float[] values, final int itemCount, final int groupCount, final double groupWidth) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final float[] values, final int itemCount, final int groupCount, final double groupWidth, final double x0) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth, x0);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final float[] values, final int itemCount, final int groupCount, final double groupWidth, final double x0, final int flags) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth, x0, flags);
+    }
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, float[] values, int itemCount, int groupCount); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, float[] values, int itemCount, int groupCount, double groupWidth); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, float[] values, int itemCount, int groupCount, double groupWidth, double x0); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth, x0);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, float[] values, int itemCount, int groupCount, double groupWidth, double x0, int flags); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth, x0, flags);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final double[] values, final int itemCount, final int groupCount) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final double[] values, final int itemCount, final int groupCount, final double groupWidth) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final double[] values, final int itemCount, final int groupCount, final double groupWidth, final double x0) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth, x0);
+    }
+
+    /**
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroups(final String[] labelIds, final double[] values, final int itemCount, final int groupCount, final double groupWidth, final double x0, final int flags) {
+        nPlotBarGroups(labelIds, labelIds.length, values, itemCount, groupCount, groupWidth, x0, flags);
+    }
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, double[] values, int itemCount, int groupCount); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, double[] values, int itemCount, int groupCount, double groupWidth); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, double[] values, int itemCount, int groupCount, double groupWidth, double x0); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth, x0);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroups(String[] obj_labelIds, int labelIdsCount, double[] values, int itemCount, int groupCount, double groupWidth, double x0, int flags); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroups(labelIds, &values[0], itemCount, groupCount, groupWidth, x0, flags);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final short[] values, final int itemCount, final int groupCount) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final short[] values, final int itemCount, final int groupCount, final double groupHeight) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final short[] values, final int itemCount, final int groupCount, final double groupHeight, final double y0) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight, y0);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final short[] values, final int itemCount, final int groupCount, final double groupHeight, final double y0, final int flags) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight, y0, flags);
+    }
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, short[] values, int itemCount, int groupCount); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, short[] values, int itemCount, int groupCount, double groupHeight); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, short[] values, int itemCount, int groupCount, double groupHeight, double y0); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight, y0);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, short[] values, int itemCount, int groupCount, double groupHeight, double y0, int flags); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (short*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight, y0, flags);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final int[] values, final int itemCount, final int groupCount) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final int[] values, final int itemCount, final int groupCount, final double groupHeight) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final int[] values, final int itemCount, final int groupCount, final double groupHeight, final double y0) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight, y0);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final int[] values, final int itemCount, final int groupCount, final double groupHeight, final double y0, final int flags) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight, y0, flags);
+    }
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, int[] values, int itemCount, int groupCount); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, int[] values, int itemCount, int groupCount, double groupHeight); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, int[] values, int itemCount, int groupCount, double groupHeight, double y0); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight, y0);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, int[] values, int itemCount, int groupCount, double groupHeight, double y0, int flags); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight, y0, flags);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final long[] values, final int itemCount, final int groupCount) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final long[] values, final int itemCount, final int groupCount, final double groupHeight) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final long[] values, final int itemCount, final int groupCount, final double groupHeight, final double y0) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight, y0);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final long[] values, final int itemCount, final int groupCount, final double groupHeight, final double y0, final int flags) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight, y0, flags);
+    }
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, long[] values, int itemCount, int groupCount); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, long[] values, int itemCount, int groupCount, double groupHeight); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, long[] values, int itemCount, int groupCount, double groupHeight, double y0); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight, y0);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, long[] values, int itemCount, int groupCount, double groupHeight, double y0, int flags); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (long*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight, y0, flags);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final float[] values, final int itemCount, final int groupCount) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final float[] values, final int itemCount, final int groupCount, final double groupHeight) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final float[] values, final int itemCount, final int groupCount, final double groupHeight, final double y0) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight, y0);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final float[] values, final int itemCount, final int groupCount, final double groupHeight, final double y0, final int flags) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight, y0, flags);
+    }
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, float[] values, int itemCount, int groupCount); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, float[] values, int itemCount, int groupCount, double groupHeight); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, float[] values, int itemCount, int groupCount, double groupHeight, double y0); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight, y0);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, float[] values, int itemCount, int groupCount, double groupHeight, double y0, int flags); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight, y0, flags);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final double[] values, final int itemCount, final int groupCount) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final double[] values, final int itemCount, final int groupCount, final double groupHeight) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final double[] values, final int itemCount, final int groupCount, final double groupHeight, final double y0) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight, y0);
+    }
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    public static void plotBarGroupsH(final String[] labelIds, final double[] values, final int itemCount, final int groupCount, final double groupHeight, final double y0, final int flags) {
+        nPlotBarGroupsH(labelIds, labelIds.length, values, itemCount, groupCount, groupHeight, y0, flags);
+    }
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, double[] values, int itemCount, int groupCount); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, double[] values, int itemCount, int groupCount, double groupHeight); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, double[] values, int itemCount, int groupCount, double groupHeight, double y0); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight, y0);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
+    */
+
+    private static native void nPlotBarGroupsH(String[] obj_labelIds, int labelIdsCount, double[] values, int itemCount, int groupCount, double groupHeight, double y0, int flags); /*MANUAL
+        const char* labelIds[labelIdsCount];
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            auto rawStr = (char*)env->GetStringUTFChars(str, JNI_FALSE);
+            labelIds[i] = rawStr;
+        };
+        auto values = obj_values == NULL ? NULL : (double*)env->GetPrimitiveArrayCritical(obj_values, JNI_FALSE);
+        ImPlot::PlotBarGroupsH(labelIds, &values[0], itemCount, groupCount, groupHeight, y0, flags);
+        for (int i = 0; i < labelIdsCount; i++) {
+            const jstring str = (jstring)env->GetObjectArrayElement(obj_labelIds, i);
+            env->ReleaseStringUTFChars(str, labelIds[i]);
+        };
+        if (values != NULL) env->ReleasePrimitiveArrayCritical(obj_values, values, JNI_FALSE);
     */
 
     /**
