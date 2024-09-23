@@ -1,5 +1,5 @@
 b282da90ccdd5e1eb36cebc86e0fcedc05d9b6b2  imgui-binding/src/main/java/imgui/ImColor.java
-8b60e1515c70bb86172360057eb094e57c304a5d  imgui-binding/src/main/java/imgui/ImDrawData.java
+aedb1b8c068d8dc3ba64f04e5ff699a3813baadc  imgui-binding/src/main/java/imgui/ImDrawData.java
 e54a91cc77ff9ea97436c252d3c1bba57a96ccbb  imgui-binding/src/main/java/imgui/ImDrawList.java
 0260f3e1564ed7c90da5d16fb0525d12175a2bfd  imgui-binding/src/main/java/imgui/ImFont.java
 ff72284146695db7974502ed3031d4bb33e0cfa2  imgui-binding/src/main/java/imgui/ImFontAtlas.java
@@ -188,7 +188,7 @@ f94e999ce7b59ca2bf05cef05139dd12625f857f  imgui-binding/src/main/native/jni_comm
 9d13e0ed0754904ce42b19db661bf3d20d9060c0  imgui-binding/src/main/native/jni_texteditor.h
 04ec5e3baeaea3d37cd56849c706802ed6768a19  imgui-binding/src/main/resources/imgui/imgui-java.properties
 b282da90ccdd5e1eb36cebc86e0fcedc05d9b6b2  imgui-binding/src/generated/java/imgui/ImColor.java
-8beb3f2bd20a573dc423f4eb4fe74fd8a6b33921  imgui-binding/src/generated/java/imgui/ImDrawData.java
+428cf605a53835fdb7d362625705844270a43caf  imgui-binding/src/generated/java/imgui/ImDrawData.java
 9c5ccd1fff59792ae668464cab43d5c55c4a08e2  imgui-binding/src/generated/java/imgui/ImDrawList.java
 9c4fee687006da190de6b2d0b3b9638c611ece20  imgui-binding/src/generated/java/imgui/ImFont.java
 6a31a1de7c38057514b2bb854b6de36c1e860482  imgui-binding/src/generated/java/imgui/ImFontAtlas.java
