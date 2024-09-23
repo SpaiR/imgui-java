@@ -63,7 +63,7 @@ public final class ImDrawData extends ImGuiStruct {
      * User-provided texture ID. Set by user in ImfontAtlas::SetTexID() for fonts or passed to Image*() functions.
      * Ignore if never using images or multiple fonts atlas.
      */
-    public native int getCmdListCmdBufferTextureId(int cmdListIdx, int cmdBufferIdx); /*
+    public native long getCmdListCmdBufferTextureId(int cmdListIdx, int cmdBufferIdx); /*
         return (uintptr_t)THIS->CmdLists[cmdListIdx]->CmdBuffer[cmdBufferIdx].GetTexID();
     */
 
