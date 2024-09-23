@@ -68,7 +68,7 @@ e7cb369231f4493f4f22ff8f983f65c1c003eb39  imgui-binding/src/main/java/imgui/exte
 c9ad9c532cc04bc0577d81a653806ab43232b3b5  imgui-binding/src/main/java/imgui/extension/imnodes/flag/ImNodesPinShape.java
 1356a76e0fb790db7cd2ad2b36951cd6ec92838a  imgui-binding/src/main/java/imgui/extension/imnodes/flag/ImNodesStyleFlags.java
 9e3e85832b694f72c47c7ab00f8160e4a3710660  imgui-binding/src/main/java/imgui/extension/imnodes/flag/ImNodesStyleVar.java
-bbb45f03a9b7cf8ac7f72f8d2d8b591248dacf7b  imgui-binding/src/main/java/imgui/extension/implot/ImPlot.java
+6860d668b15958e4cd9e6806cdec70b7f0fe3ede  imgui-binding/src/main/java/imgui/extension/implot/ImPlot.java
 4d9fbdbd6ad28c11199b8bbf1a5053a3179b5d34  imgui-binding/src/main/java/imgui/extension/implot/ImPlotContext.java
 af74a781f622a1d9049314acca73b7f01cbd2c7c  imgui-binding/src/main/java/imgui/extension/implot/ImPlotInputMap.java
 e2a5bf6fb85c9b337679d2938668c9d4b5c1e0a9  imgui-binding/src/main/java/imgui/extension/implot/ImPlotPoint.java
@@ -246,7 +246,7 @@ e54f89d1e521600ea2567177b08c7fda1dee7cbf  imgui-binding/src/generated/java/imgui
 53581b03a08cea920ddfd61dc5308ae3507744cf  imgui-binding/src/generated/java/imgui/extension/imnodes/flag/ImNodesPinShape.java
 1c8ff9ed622ee86c6a3e1078f960b85a1d3f6726  imgui-binding/src/generated/java/imgui/extension/imnodes/flag/ImNodesStyleFlags.java
 71ccdeac2d1f346cce7a75c6c709ee9ce5041a66  imgui-binding/src/generated/java/imgui/extension/imnodes/flag/ImNodesStyleVar.java
-d9316e93e1674a38daef94009f6a021ead192a5c  imgui-binding/src/generated/java/imgui/extension/implot/ImPlot.java
+91de53bb9cf864641e8961afe52404950abb1912  imgui-binding/src/generated/java/imgui/extension/implot/ImPlot.java
 4d9fbdbd6ad28c11199b8bbf1a5053a3179b5d34  imgui-binding/src/generated/java/imgui/extension/implot/ImPlotContext.java
 d52f3376d9847751f2a6d80a2ba5838a6aa5fc0e  imgui-binding/src/generated/java/imgui/extension/implot/ImPlotInputMap.java
 e2a5bf6fb85c9b337679d2938668c9d4b5c1e0a9  imgui-binding/src/generated/java/imgui/extension/implot/ImPlotPoint.java
