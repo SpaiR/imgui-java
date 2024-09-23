@@ -474,14 +474,14 @@ public class ImGuiImplGl3 {
                 glScissor((int) clipMinX, (int) (fbHeight - clipMaxY), (int) (clipMaxX - clipMinX), (int) (clipMaxY - clipMinY));
 
                 // Bind texture, Draw
-                final int textureId = drawData.getCmdListCmdBufferTextureId(n, cmdIdx);
+                final long textureId = drawData.getCmdListCmdBufferTextureId(n, cmdIdx);
                 final int elemCount = drawData.getCmdListCmdBufferElemCount(n, cmdIdx);
                 final int idxOffset = drawData.getCmdListCmdBufferIdxOffset(n, cmdIdx);
                 final int vtxOffset = drawData.getCmdListCmdBufferVtxOffset(n, cmdIdx);
                 final long indices = idxOffset * (long) ImDrawData.sizeOfImDrawIdx();
                 final int type = ImDrawData.sizeOfImDrawIdx() == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT;
 
-                glBindTexture(GL_TEXTURE_2D, textureId);
+                glBindTexture(GL_TEXTURE_2D, (int) textureId);
 
                 if (data.glVersion >= 320) {
                     glDrawElementsBaseVertex(GL_TRIANGLES, elemCount, type, indices, vtxOffset);
