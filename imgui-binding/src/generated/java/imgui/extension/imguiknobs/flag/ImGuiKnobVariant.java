@@ -1,6 +1,9 @@
 package imgui.extension.imguiknobs.flag;
 
 
+
+
+
 public final class ImGuiKnobVariant {
     private ImGuiKnobVariant() {
     }

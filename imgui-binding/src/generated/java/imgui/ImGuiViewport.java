@@ -2,11 +2,16 @@ package imgui;
 
 import imgui.binding.ImGuiStruct;
 
+
+
+
+
 /**
  * The viewports created and managed by Dear ImGui. The role of the platform backend is to create the platform/OS windows corresponding to each viewport.
  * - Main Area = entire viewport.
  * - Work Area = entire viewport minus sections optionally used by menu bars, status bars. Some positioning code will prefer to use this. Window are also trying to stay within this area.
  */
+
 public final class ImGuiViewport extends ImGuiStruct {
     public ImGuiViewport(final long ptr) {
         super(ptr);
@@ -17,7 +22,7 @@ public final class ImGuiViewport extends ImGuiStruct {
         #define THIS ((ImGuiViewport*)STRUCT_PTR)
      */
 
-    /**
+     /**
      * Unique identifier for the viewport.
      */
     public int getID() {
@@ -39,7 +44,7 @@ public final class ImGuiViewport extends ImGuiStruct {
         THIS->ID = value;
     */
 
-    /**
+     /**
      * See {@link imgui.flag.ImGuiViewportFlags}.
      */
     public int getFlags() {
@@ -82,7 +87,7 @@ public final class ImGuiViewport extends ImGuiStruct {
         THIS->Flags = value;
     */
 
-    /**
+     /**
      * Main Area: Position of the viewport (the imgui coordinates are the same as OS desktop/native coordinates).
      */
     public ImVec2 getPos() {
@@ -143,7 +148,7 @@ public final class ImGuiViewport extends ImGuiStruct {
         THIS->Pos = value;
     */
 
-    /**
+     /**
      * Main Area: Size of the viewport.
      */
     public ImVec2 getSize() {
@@ -204,7 +209,7 @@ public final class ImGuiViewport extends ImGuiStruct {
         THIS->Size = value;
     */
 
-    /**
+     /**
      * Work Area: Position of the viewport minus task bars, menus bars, status bars.
      */
     public ImVec2 getWorkPos() {
@@ -265,7 +270,7 @@ public final class ImGuiViewport extends ImGuiStruct {
         THIS->WorkPos = value;
     */
 
-    /**
+     /**
      * Work Area: Size of the viewport minus task bars, menu bars, status bars.
      */
     public ImVec2 getWorkSize() {
@@ -326,7 +331,7 @@ public final class ImGuiViewport extends ImGuiStruct {
         THIS->WorkSize = value;
     */
 
-    /**
+     /**
      * 1.0f = 96 DPI = No extra scale.
      */
     public float getDpiScale() {
@@ -348,7 +353,7 @@ public final class ImGuiViewport extends ImGuiStruct {
         THIS->DpiScale = value;
     */
 
-    /**
+     /**
      * (Advanced) 0: no parent. Instruct the platform backend to setup a parent/child relationship between platform windows.
      */
     public int getParentViewportId() {
@@ -370,7 +375,7 @@ public final class ImGuiViewport extends ImGuiStruct {
         THIS->ParentViewportId = value;
     */
 
-    /**
+     /**
      * The ImDrawData corresponding to this viewport. Valid after Render() and until the next call to NewFrame().
      */
     public ImDrawData getDrawData() {
@@ -459,7 +464,7 @@ public final class ImGuiViewport extends ImGuiStruct {
         return (uintptr_t)THIS->PlatformHandleRaw;
     */
 
-    /**
+     /**
      * Platform window requested move (e.g. window was moved by the OS / host window manager, authoritative position will be OS window position).
      */
     public boolean getPlatformRequestMove() {
@@ -481,7 +486,7 @@ public final class ImGuiViewport extends ImGuiStruct {
         THIS->PlatformRequestMove = value;
     */
 
-    /**
+     /**
      * Platform window requested resize (e.g. window was resized by the OS / host window manager, authoritative size will be OS window size).
      */
     public boolean getPlatformRequestResize() {
@@ -503,7 +508,7 @@ public final class ImGuiViewport extends ImGuiStruct {
         THIS->PlatformRequestResize = value;
     */
 
-    /**
+     /**
      * Platform window requested closure (e.g. window was moved by the OS / host window manager, e.g. pressing ALT-F4).
      */
     public boolean getPlatformRequestClose() {

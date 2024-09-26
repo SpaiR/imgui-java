@@ -2,6 +2,9 @@ package imgui.extension.nodeditor;
 
 import imgui.binding.ImGuiStructDestroyable;
 
+
+
+
 public final class NodeEditorConfig extends ImGuiStructDestroyable {
     @Override
     protected long create() {

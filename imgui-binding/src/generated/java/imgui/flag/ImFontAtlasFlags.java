@@ -1,9 +1,12 @@
 package imgui.flag;
 
 
+
+
 /**
  * Flags for ImFontAtlas build
  */
+
 public final class ImFontAtlasFlags {
     private ImFontAtlasFlags() {
     }

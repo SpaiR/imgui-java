@@ -2,6 +2,11 @@ package imgui;
 
 import imgui.binding.ImGuiStruct;
 
+
+
+
+
+
 /**
  * Draw command list
  * This is the low-level list of polygons that ImGui:: functions are filling. At the end of the frame,
@@ -13,6 +18,7 @@ import imgui.binding.ImGuiStruct;
  * but you are totally free to apply whatever transformation matrix to want to the data (if you apply such transformation you'll want to apply it to ClipRect as well)
  * Important: Primitives are always added to the list and not culled (culling is done at higher-level by ImGui:: functions), if you use this API a lot consider coarse culling your drawn objects.
  */
+
 public final class ImDrawList extends ImGuiStruct {
     public ImDrawList(final long ptr) {
         super(ptr);
@@ -23,7 +29,7 @@ public final class ImDrawList extends ImGuiStruct {
         #define THIS ((ImDrawList*)STRUCT_PTR)
      */
 
-    /**
+     /**
      * Flags, you may poke into these to adjust anti-aliasing settings per-primitive.
      */
     public int getFlags() {
@@ -66,7 +72,7 @@ public final class ImDrawList extends ImGuiStruct {
         THIS->Flags = value;
     */
 
-    /**
+     /**
      * Render-level scissoring.
      * This is passed down to your render function but not used for CPU-side coarse clipping.
      * Prefer using higher-level ImGui::PushClipRect() to affect logic (hit-testing and widget culling)
@@ -770,7 +776,7 @@ public final class ImDrawList extends ImGuiStruct {
         THIS->AddPolyline(points, numPoint, col, imDrawFlags, thickness);
     */
 
-    /**
+     /**
      * Note: Anti-aliased filling requires points to be in clockwise order.
      */
     public void addConvexPolyFilled(final ImVec2[] points, final int numPoints, final int col) {
@@ -789,7 +795,7 @@ public final class ImDrawList extends ImGuiStruct {
         THIS->AddConvexPolyFilled(points, numPoints, col);
     */
 
-    /**
+     /**
      * Cubic Bezier (4 control points)
      */
     public void addBezierCubic(final ImVec2 p1, final ImVec2 p2, final ImVec2 p3, final ImVec2 p4, final int col, final float thickness) {
@@ -833,7 +839,7 @@ public final class ImDrawList extends ImGuiStruct {
         THIS->AddBezierCubic(p1, p2, p3, p4, col, thickness, numSegments);
     */
 
-    /**
+     /**
      * Quadratic Bezier (3 control points)
      */
     public void addBezierQuadratic(final ImVec2 p1, final ImVec2 p2, final ImVec2 p3, final int col, final float thickness) {
@@ -1119,7 +1125,7 @@ public final class ImDrawList extends ImGuiStruct {
         THIS->PathLineToMergeDuplicate(pos);
     */
 
-    /**
+     /**
      * Note: Anti-aliased filling requires points to be in clockwise order.
      */
     public void pathFillConvex(final int col) {
@@ -1188,7 +1194,7 @@ public final class ImDrawList extends ImGuiStruct {
         THIS->PathArcTo(center, radius, aMin, aMax, numSegments);
     */
 
-    /**
+     /**
      * Use precomputed angles for a 12 steps circle
      */
     public void pathArcToFast(final ImVec2 center, final float radius, final int aMinOf12, final int aMaxOf12) {
@@ -1207,7 +1213,7 @@ public final class ImDrawList extends ImGuiStruct {
         THIS->PathArcToFast(center, radius, aMinOf12, aMaxOf12);
     */
 
-    /**
+     /**
      * Cubic Bezier (4 control points)
      */
     public void pathBezierCubicCurveTo(final ImVec2 p2, final ImVec2 p3, final ImVec2 p4) {
@@ -1249,7 +1255,7 @@ public final class ImDrawList extends ImGuiStruct {
         THIS->PathBezierCubicCurveTo(p2, p3, p4, numSegments);
     */
 
-    /**
+     /**
      * Quadratic Bezier (3 control points)
      */
     public void pathBezierQuadraticCurveTo(final ImVec2 p2, final ImVec2 p3) {

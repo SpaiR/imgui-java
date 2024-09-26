@@ -2,6 +2,9 @@ package imgui.extension.memedit;
 
 import imgui.binding.ImGuiStructDestroyable;
 
+
+
+
 public final class MemoryEditorSizes extends ImGuiStructDestroyable {
     public MemoryEditorSizes() {
         super();

@@ -2,6 +2,9 @@ package imgui.extension.implot;
 
 import imgui.binding.ImGuiStructDestroyable;
 
+
+
+
 public final class ImPlotInputMap extends ImGuiStructDestroyable {
     public ImPlotInputMap() {
         super();
@@ -25,7 +28,7 @@ public final class ImPlotInputMap extends ImGuiStructDestroyable {
         return (uintptr_t)(new ImPlotInputMap());
     */
 
-    /**
+     /**
      * LMB enables panning when held
      */
     public int getPan() {
@@ -47,7 +50,7 @@ public final class ImPlotInputMap extends ImGuiStructDestroyable {
         THIS->Pan = value;
     */
 
-    /**
+     /**
      * Optional modifier that must be held for panning/fitting
      */
     public int getPanMod() {
@@ -69,7 +72,7 @@ public final class ImPlotInputMap extends ImGuiStructDestroyable {
         THIS->PanMod = value;
     */
 
-    /**
+     /**
      * LMB initiates fit when double clicked
      */
     public int getFit() {
@@ -91,7 +94,7 @@ public final class ImPlotInputMap extends ImGuiStructDestroyable {
         THIS->Fit = value;
     */
 
-    /**
+     /**
      * RMB begins box selection when pressed and confirms
      * selection when released
      */
@@ -115,7 +118,7 @@ public final class ImPlotInputMap extends ImGuiStructDestroyable {
         THIS->Select = value;
     */
 
-    /**
+     /**
      * LMB cancels active box selection when pressed;
      * cannot be the same as Select
      */
@@ -139,7 +142,7 @@ public final class ImPlotInputMap extends ImGuiStructDestroyable {
         THIS->SelectCancel = value;
     */
 
-    /**
+     /**
      * Optional modifier that must be held for box selection
      */
     public int getSelectMod() {
@@ -161,7 +164,7 @@ public final class ImPlotInputMap extends ImGuiStructDestroyable {
         THIS->SelectMod = value;
     */
 
-    /**
+     /**
      * Alt expands active box selection horizontally
      * to plot edge when held
      */
@@ -185,7 +188,7 @@ public final class ImPlotInputMap extends ImGuiStructDestroyable {
         THIS->SelectHorzMod = value;
     */
 
-    /**
+     /**
      * Shift expands active box selection vertically
      * to plot edge when held
      */
@@ -209,7 +212,7 @@ public final class ImPlotInputMap extends ImGuiStructDestroyable {
         THIS->SelectVertMod = value;
     */
 
-    /**
+     /**
      * RMB opens context menus (if enabled) when clicked
      */
     public int getMenu() {
@@ -231,7 +234,7 @@ public final class ImPlotInputMap extends ImGuiStructDestroyable {
         THIS->Menu = value;
     */
 
-    /**
+     /**
      * Ctrl when held, all input is ignored;
      * used to enable axis/plots as DND sources
      */
@@ -255,7 +258,7 @@ public final class ImPlotInputMap extends ImGuiStructDestroyable {
         THIS->OverrideMod = value;
     */
 
-    /**
+     /**
      * Optional modifier that must be held for scroll wheel zooming
      */
     public int getZoomMod() {
@@ -277,7 +280,7 @@ public final class ImPlotInputMap extends ImGuiStructDestroyable {
         THIS->ZoomMod = value;
     */
 
-    /**
+     /**
      * Zoom rate for scroll (e.g. 0.1f = 10% plot range every scroll click);
      * make negative to invert
      */

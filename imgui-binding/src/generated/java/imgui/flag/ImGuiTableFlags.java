@@ -1,6 +1,8 @@
 package imgui.flag;
 
 
+
+
 /**
  * Flags for ImGui::BeginTable()
  * [BETA API] API may evolve slightly! If you use this, please update to the next version when it comes out!
@@ -26,6 +28,7 @@ package imgui.flag;
  * If you specify a value for 'inner_width' then effectively the scrolling space is known and Stretch or mixed Fixed/Stretch columns become meaningful again.
  * - Read on documentation at the top of imgui_tables.cpp for details.
  */
+
 public final class ImGuiTableFlags {
     private ImGuiTableFlags() {
     }

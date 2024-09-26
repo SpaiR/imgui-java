@@ -1,11 +1,14 @@
 package imgui.flag;
 
 
+
+
 /**
  * Enumeration for ImGui::SetWindow***(), SetNextWindow***(), SetNextItem***() functions
  * Represent a condition.
  * Important: Treat as a regular enum! Do NOT combine multiple values using binary operators! All the functions above treat 0 as a shortcut to ImGuiCond_Always.
  */
+
 public final class ImGuiCond {
     private ImGuiCond() {
     }

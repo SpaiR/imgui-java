@@ -1,6 +1,9 @@
 package imgui.flag;
 
 
+
+
+
 public final class ImGuiSliderFlags {
     private ImGuiSliderFlags() {
     }

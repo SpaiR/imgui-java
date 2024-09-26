@@ -1,9 +1,12 @@
 package imgui.flag;
 
 
+
+
 /**
  * Flags for ImGui::IsWindowFocused()
  */
+
 public final class ImGuiFocusedFlags {
     private ImGuiFocusedFlags() {
     }

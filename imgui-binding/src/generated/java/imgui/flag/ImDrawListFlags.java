@@ -1,10 +1,13 @@
 package imgui.flag;
 
 
+
+
 /**
  * Flags for ImDrawList. Those are set automatically by ImGui:: functions from ImGuiIO settings, and generally not manipulated directly.
  * It is however possible to temporarily alter flags between calls to ImDrawList:: functions.
  */
+
 public final class ImDrawListFlags {
     private ImDrawListFlags() {
     }

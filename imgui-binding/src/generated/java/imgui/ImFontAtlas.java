@@ -1,6 +1,11 @@
 package imgui;
 
 import imgui.binding.ImGuiStructDestroyable;
+
+
+
+
+
 import imgui.type.ImInt;
 
 import java.nio.ByteBuffer;
@@ -25,6 +30,7 @@ import java.nio.ByteOrder;
  * - Even though many functions are suffixed with "TTF", OTF data is supported just as well.
  * - This is an old API and it is currently awkward for those and and various other reasons! We will address them in the future!
  */
+
 public final class ImFontAtlas extends ImGuiStructDestroyable {
     private ByteBuffer alpha8pixels = null;
     private ByteBuffer rgba32pixels = null;
@@ -132,7 +138,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         return _result;
     */
 
-    /**
+     /**
      * Note: Transfer ownership of 'ttf_data' to ImFontAtlas! Will be deleted after destruction of the atlas.
      * Set font_cfg.FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
      */
@@ -196,7 +202,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         return _result;
     */
 
-    /**
+     /**
      * Note: Transfer ownership of 'ttf_data' to ImFontAtlas! Will be deleted after destruction of the atlas.
      * Set font_cfg.FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
      */
@@ -260,7 +266,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         return _result;
     */
 
-    /**
+     /**
      * 'compressed_font_data' still owned by caller. Compress with binary_to_compressed_c.cpp.
      */
     public ImFont addFontFromMemoryCompressedTTF(final byte[] compressedFontData, final float sizePixels) {
@@ -320,7 +326,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         return _result;
     */
 
-    /**
+     /**
      * 'compressed_font_data' still owned by caller. Compress with binary_to_compressed_c.cpp.
      */
     public ImFont addFontFromMemoryCompressedTTF(final byte[] compressedFontData, final int compressedFontSize, final float sizePixels) {
@@ -380,7 +386,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         return _result;
     */
 
-    /**
+     /**
      * 'compressed_font_data_base85' still owned by caller. Compress with binary_to_compressed_c.cpp with -base85 parameter.
      */
     public ImFont addFontFromMemoryCompressedBase85TTF(final String compressedFontDataBase85, final float sizePixels, final ImFontConfig fontConfig) {
@@ -410,7 +416,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         return _result;
     */
 
-    /**
+     /**
      * Clear input data (all ImFontConfig structures including sizes, TTF data, glyph ranges, etc.) = all the data used to build the texture and fonts.
      */
     public void clearInputData() {
@@ -421,7 +427,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         THIS->ClearInputData();
     */
 
-    /**
+     /**
      * Clear output texture data (CPU side). Saves RAM once the texture has been copied to graphics memory.
      */
     public void clearTexData() {
@@ -432,7 +438,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         THIS->ClearTexData();
     */
 
-    /**
+     /**
      * Clear output font data (glyphs storage, UV coordinates).
      */
     public void clearFonts() {
@@ -443,7 +449,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         THIS->ClearFonts();
     */
 
-    /**
+     /**
      * Clear all input and output.
      */
     public void clear() {
@@ -486,7 +492,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         #endif
     */
 
-    /**
+     /**
      * Build pixels data. This is called automatically for you by the GetTexData*** functions.
      */
     public boolean build() {
@@ -571,7 +577,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         return THIS->IsBuilt();
     */
 
-    /**
+     /**
      * User data to refer to the texture once it has been uploaded to user's graphic systems.
      * It is passed back to you during rendering via the ImDrawCmd structure.
      */
@@ -681,7 +687,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         return THIS->AddCustomRectRegular(width, height);
     */
 
-    /**
+     /**
      * Id needs to be {@code <} 0x110000 to register a rectangle to map into a specific font.
      */
     public int addCustomRectFontGlyph(final ImFont imFont, final short id, final int width, final int height, final float advanceX) {
@@ -718,7 +724,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
     // Members
     //-------------------------------------------
 
-    /**
+     /**
      * Build flags (see {@link imgui.flag.ImFontAtlasFlags})
      */
     public int getFlags() {
@@ -763,7 +769,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
 
     // TexID implemented as SetTexID function
 
-    /**
+     /**
      * Texture width desired by user before Build(). Must be a power-of-two.
      * If have many glyphs your graphics API have texture size restrictions you may want to increase texture width to decrease height.
      */
@@ -787,7 +793,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         THIS->TexDesiredWidth = value;
     */
 
-    /**
+     /**
      * Padding between glyphs within texture in pixels. Defaults to 1.
      * If your rendering method doesn't rely on bilinear filtering you may set this to 0.
      */
@@ -811,7 +817,7 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         THIS->TexGlyphPadding = value;
     */
 
-    /**
+     /**
      * Marked as Locked by ImGui::NewFrame() so attempt to modify the atlas will assert.
      */
     public boolean getLocked() {

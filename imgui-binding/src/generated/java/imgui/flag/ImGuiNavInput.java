@@ -1,6 +1,8 @@
 package imgui.flag;
 
 
+
+
 /**
  * Gamepad/Keyboard directional navigation
  * Keyboard: Set io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard to enable.
@@ -10,6 +12,7 @@ package imgui.flag;
  * Note that io.NavInputs[] is cleared by EndFrame().
  * Read instructions in imgui.cpp for more details. Download PNG/PSD at http://dearimgui.org/controls_sheets.
  */
+
 public final class ImGuiNavInput {
     private ImGuiNavInput() {
     }

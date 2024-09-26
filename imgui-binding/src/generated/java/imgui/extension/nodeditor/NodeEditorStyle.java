@@ -4,6 +4,10 @@ import imgui.ImVec2;
 import imgui.ImVec4;
 import imgui.binding.ImGuiStruct;
 
+
+
+
+
 public final class NodeEditorStyle extends ImGuiStruct {
     public NodeEditorStyle(final long ptr) {
         super(ptr);

@@ -1,10 +1,13 @@
 package imgui.flag;
 
 
+
+
 /**
  * Identify a mouse button.
  * Those values are guaranteed to be stable and we frequently use 0/1 directly. Named enums provided for convenience.
  */
+
 public final class ImGuiMouseButton {
     private ImGuiMouseButton() {
     }

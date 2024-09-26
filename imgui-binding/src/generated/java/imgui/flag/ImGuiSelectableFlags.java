@@ -1,9 +1,12 @@
 package imgui.flag;
 
 
+
+
 /**
  * Flags for ImGui::Selectable()
  */
+
 public final class ImGuiSelectableFlags {
     private ImGuiSelectableFlags() {
     }

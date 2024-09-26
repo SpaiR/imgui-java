@@ -4,6 +4,11 @@ import imgui.ImGuiWindowClass;
 import imgui.ImVec2;
 import imgui.binding.ImGuiStruct;
 
+
+
+
+
+
 public final class ImGuiDockNode extends ImGuiStruct {
     public ImGuiDockNode(final long ptr) {
         super(ptr);
@@ -32,7 +37,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->ID = value;
     */
 
-    /**
+     /**
      * Flags shared by all nodes of a same dockspace hierarchy (inherited from the root node)
      */
     public int getSharedFlags() {
@@ -75,7 +80,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->SharedFlags = value;
     */
 
-    /**
+     /**
      * Flags specific to this node
      */
     public int getLocalFlags() {
@@ -118,7 +123,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->LocalFlags = value;
     */
 
-    /**
+     /**
      * Flags specific to this node, applied from windows
      */
     public int getLocalFlagsInWindows() {
@@ -161,7 +166,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->LocalFlagsInWindows = value;
     */
 
-    /**
+     /**
      * Effective flags (== SharedFlags | LocalFlagsInNode | LocalFlagsInWindows)
      */
     public int getMergedFlags() {
@@ -243,7 +248,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
 
     // TODO  Windows, TabBar
 
-    /**
+     /**
      * Current position
      */
     public ImVec2 getPos() {
@@ -304,7 +309,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->Pos = value;
     */
 
-    /**
+     /**
      * Current size
      */
     public ImVec2 getSize() {
@@ -365,7 +370,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->Size = value;
     */
 
-    /**
+     /**
      * [Split node only] Last explicitly written-to size (overridden when using a splitter affecting the node), used to calculate Size.
      */
     public ImVec2 getSizeRef() {
@@ -426,7 +431,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->SizeRef = value;
     */
 
-    /**
+     /**
      * [Split node only] Split axis (X or Y)
      */
     public int getSplitAxis() {
@@ -437,7 +442,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         return THIS->SplitAxis;
     */
 
-    /**
+     /**
      * [Root node only]
      */
     public ImGuiWindowClass getWindowClass() {
@@ -480,7 +485,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->HostWindow = reinterpret_cast<ImGuiWindow*>(value);
     */
 
-    /**
+     /**
      * Generally point to window which is ID is == SelectedTabID, but when CTRL+Tabbing this can be a different window.
      */
     public ImGuiWindow getVisibleWindow() {
@@ -502,7 +507,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->VisibleWindow = reinterpret_cast<ImGuiWindow*>(value);
     */
 
-    /**
+     /**
      * [Root node only] Pointer to central node.
      */
     public ImGuiDockNode getCentralNode() {
@@ -524,7 +529,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->CentralNode = reinterpret_cast<ImGuiDockNode*>(value);
     */
 
-    /**
+     /**
      * [Root node only] Set when there is a single visible node within the hierarchy.
      */
     public ImGuiDockNode getOnlyNodeWithWindows() {
@@ -546,7 +551,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->OnlyNodeWithWindows = reinterpret_cast<ImGuiDockNode*>(value);
     */
 
-    /**
+     /**
      * Last frame number the node was updated or kept alive explicitly with DockSpace() + int_KeepAliveOnly
      */
     public int getLastFrameAlive() {
@@ -568,7 +573,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->LastFrameAlive = value;
     */
 
-    /**
+     /**
      * Last frame number the node was updated.
      */
     public int getLastFrameActive() {
@@ -590,7 +595,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->LastFrameActive = value;
     */
 
-    /**
+     /**
      * Last frame number the node was focused.
      */
     public int getLastFrameFocused() {
@@ -612,7 +617,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->LastFrameFocused = value;
     */
 
-    /**
+     /**
      * [Root node only] Which of our child docking node (any ancestor in the hierarchy) was last focused.
      */
     public int getLastFocusedNodeId() {
@@ -634,7 +639,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->LastFocusedNodeId = value;
     */
 
-    /**
+     /**
      * [Leaf node only] Which of our tab/window is selected.
      */
     public int getSelectedTabId() {
@@ -656,7 +661,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->SelectedTabId = value;
     */
 
-    /**
+     /**
      * [Leaf node only] Set when closing a specific tab/window.
      */
     public int getWantCloseTabId() {
@@ -726,7 +731,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->AuthorityForViewport = value;
     */
 
-    /**
+     /**
      * Set to false when the node is hidden (usually disabled as it has no active window)
      */
     public boolean getIsVisible() {
@@ -812,7 +817,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->HasCentralNodeChild = value;
     */
 
-    /**
+     /**
      * Set when closing all tabs at once.
      */
     public boolean getWantCloseAll() {
@@ -850,7 +855,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         THIS->WantLockSizeOnce = value;
     */
 
-    /**
+     /**
      * After a node extraction we need to transition toward moving the newly created host window
      */
     public boolean getWantMouseMove() {
@@ -936,7 +941,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         return THIS->IsCentralNode();
     */
 
-    /**
+     /**
      * Hidden tab bar can be shown back by clicking the small triangle
      */
     public boolean isHiddenTabBar() {
@@ -947,7 +952,7 @@ public final class ImGuiDockNode extends ImGuiStruct {
         return THIS->IsHiddenTabBar();
     */
 
-    /**
+     /**
      * Never show a tab bar
      */
     public boolean isNoTabBar() {

@@ -2,6 +2,9 @@ package imgui.internal;
 
 import imgui.binding.ImGuiStruct;
 
+
+
+
 public class ImGuiWindow extends ImGuiStruct {
     public ImGuiWindow(final long ptr) {
         super(ptr);
@@ -14,7 +17,7 @@ public class ImGuiWindow extends ImGuiStruct {
         #define THIS ((ImGuiWindow*)STRUCT_PTR)
      */
 
-    /**
+     /**
      * Is scrollbar visible?
      */
     public boolean getScrollbarX() {
@@ -25,7 +28,7 @@ public class ImGuiWindow extends ImGuiStruct {
         return THIS->ScrollbarX;
     */
 
-    /**
+     /**
      * Is scrollbar visible?
      */
     public boolean getScrollbarY() {

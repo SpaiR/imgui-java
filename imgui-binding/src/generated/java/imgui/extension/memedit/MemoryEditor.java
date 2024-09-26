@@ -2,10 +2,16 @@ package imgui.extension.memedit;
 
 import imgui.binding.ImGuiStructDestroyable;
 
+
+
+
+
+
 /**
  * ImGui Club Memory Editor extension for ImGui
  * Repo: <a href="https://github.com/ocornut/imgui_club">https://github.com/ocornut/imgui_club</a>
  */
+
 public final class MemoryEditor extends ImGuiStructDestroyable {
     public MemoryEditor() {
         super();

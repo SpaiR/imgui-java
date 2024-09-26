@@ -1,9 +1,12 @@
 package imgui.flag;
 
 
+
+
 /**
  * Flags for ImGui::TreeNodeEx(), ImGui::CollapsingHeader*()
  */
+
 public final class ImGuiTreeNodeFlags {
     private ImGuiTreeNodeFlags() {
     }
