@@ -580,107 +580,144 @@ public final class ImPlot {
     // values
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
     @BindingMethod
     public static native void PlotBars(String labelId,
                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
                                        @ArgValue(callValue = "LEN(values)") Void count,
-                                       @OptArg double width,
-                                       @OptArg double shift,
+                                       @OptArg double barWidth,
+                                       @OptArg double x0,
                                        @OptArg int offset);
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
     @BindingMethod
     public static native void PlotBars(String labelId,
                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
                                        int count,
-                                       @OptArg double width,
-                                       @OptArg double shift,
+                                       @OptArg double barWidth,
+                                       @OptArg double x0,
                                        @OptArg int offset);
 
     // xs,ys
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
     @BindingMethod
     public static native void PlotBars(String labelId,
                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
                                        @ArgValue(callValue = "LEN(xs)") Void count,
-                                       double width);
+                                       @ArgValue(callValue = "0.67") Void barWidth,
+                                       @OptArg int offset);
 
     /**
-     * Plots a vertical bar graph. #width and #shift are in X units.
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
+     */
+    @BindingMethod
+    public static native void PlotBars(String labelId,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                       @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                       @ArgValue(callValue = "LEN(xs)") Void count,
+                                       double barWidth,
+                                       @OptArg int offset);
+
+    /**
+     * Plots a vertical bar graph. #bar_width and #x0 are in X units.
      */
     @BindingMethod
     public static native void PlotBars(String labelId,
                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
                                        int count,
-                                       double width,
+                                       double barWidth,
                                        @OptArg int offset);
 
     // values
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     @BindingMethod
     public static native void PlotBarsH(String labelId,
                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
                                         @ArgValue(callValue = "LEN(values)") Void count,
-                                        @OptArg double height,
-                                        @OptArg double shift,
+                                        @OptArg double barHeight,
+                                        @OptArg double y0,
                                         @OptArg int offset);
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     @BindingMethod
     public static native void PlotBarsH(String labelId,
                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
                                         int count,
-                                        @OptArg double height,
-                                        @OptArg double shift,
+                                        @OptArg double barHeight,
+                                        @OptArg double y0,
                                         @OptArg int offset);
 
     // xs,ys
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     @BindingMethod
     public static native void PlotBarsH(String labelId,
                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
                                         @ArgValue(callValue = "LEN(xs)") Void count,
-                                        double height);
+                                        @ArgValue(callValue = "0.67") Void barHeight,
+                                        @OptArg int offset);
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
+     */
+    @BindingMethod
+    public static native void PlotBarsH(String labelId,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
+                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
+                                        @ArgValue(callValue = "LEN(xs)") Void count,
+                                        double barHeight,
+                                        @OptArg int offset);
+
+    /**
+     * Plots a horizontal bar graph. #bar_height and #y0 are in Y units.
      */
     @BindingMethod
     public static native void PlotBarsH(String labelId,
                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
                                         @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
                                         int count,
-                                        double height,
+                                        double barHeight,
                                         @OptArg int offset);
 
     /**
-     * Plots a horizontal bar graph. #height and #shift are in Y units.
+     * Plots a group of vertical bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
      */
     @BindingMethod
-    public static native void PlotBarsH(String labelId,
-                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void xs,
-                                        @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void ys,
-                                        @ArgValue(callValue = "LEN(xs)") Void count,
-                                        @ArgValue(callValue = "0.67") Void height,
-                                        @OptArg int offset);
+    public static native void PlotBarGroups(String[] labelIds,
+                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                            int itemCount,
+                                            int groupCount,
+                                            @OptArg double groupWidth,
+                                            @OptArg double x0,
+                                            @OptArg int flags);
+
+    /**
+     * Plots a group of horizontal bars. #values is a row-major matrix with #item_count rows and #group_count cols. #label_ids should have #item_count elements.
+     */
+    @BindingMethod
+    public static native void PlotBarGroupsH(String[] labelIds,
+                                             @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
+                                             int itemCount,
+                                             int groupCount,
+                                             @OptArg double groupHeight,
+                                             @OptArg double y0,
+                                             @OptArg int flags);
 
     /**
      * Plots vertical error bar. The label_id should be the same as the label_id of the associated line or bar plot.
