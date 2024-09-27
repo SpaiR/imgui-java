@@ -2,10 +2,13 @@ package imgui;
 
 import imgui.binding.ImGuiStruct;
 
+
+
 /**
  * (Optional) This is required when enabling multi-viewport. Represent the bounds of each connected monitor/display and their DPI.
  * We use this information for multiple DPI support + clamping the position of popups and tooltips so they don't straddle multiple monitors.
  */
+
 public final class ImGuiPlatformMonitor extends ImGuiStruct {
     public ImGuiPlatformMonitor(final long ptr) {
         super(ptr);
@@ -16,7 +19,7 @@ public final class ImGuiPlatformMonitor extends ImGuiStruct {
         #define THIS ((ImGuiPlatformMonitor*)STRUCT_PTR)
      */
 
-    /**
+     /**
      * Coordinates of the area displayed on this monitor (Min = upper left, Max = bottom right)
      */
     public ImVec2 getMainPos() {
@@ -77,7 +80,7 @@ public final class ImGuiPlatformMonitor extends ImGuiStruct {
         THIS->MainPos = value;
     */
 
-    /**
+     /**
      * Coordinates of the area displayed on this monitor (Min = upper left, Max = bottom right)
      */
     public ImVec2 getMainSize() {
@@ -138,7 +141,7 @@ public final class ImGuiPlatformMonitor extends ImGuiStruct {
         THIS->MainSize = value;
     */
 
-    /**
+     /**
      * Coordinates without task bars / side bars / menu bars.
      * Used to avoid positioning popups/tooltips inside this region. If you don't have this info, please copy the value for MainPos/MainSize.
      */
@@ -205,7 +208,7 @@ public final class ImGuiPlatformMonitor extends ImGuiStruct {
         THIS->WorkPos = value;
     */
 
-    /**
+     /**
      * Coordinates without task bars / side bars / menu bars.
      * Used to avoid positioning popups/tooltips inside this region. If you don't have this info, please copy the value for MainPos/MainSize.
      */
@@ -272,7 +275,7 @@ public final class ImGuiPlatformMonitor extends ImGuiStruct {
         THIS->WorkSize = value;
     */
 
-    /**
+     /**
      * 1.0f = 96 DPI
      */
     public float getDpiScale() {

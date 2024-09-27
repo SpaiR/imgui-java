@@ -1,6 +1,8 @@
 package imgui.flag;
 
 
+
+
 /**
  * Enumeration for PushStyleVar() / PopStyleVar() to temporarily modify the ImGuiStyle structure.
  * - The enum only refers to fields of ImGuiStyle which makes sense to be pushed/popped inside UI code.
@@ -10,6 +12,7 @@ package imgui.flag;
  *   With Visual Assist installed: ALT+G ("VAssistX.GoToImplementation") can also follow symbols in comments.
  * - When changing this enum, you need to update the associated internal table GStyleVarInfo[] accordingly. This is where we link enum values to members offset/type.
  */
+
 public final class ImGuiStyleVar {
     private ImGuiStyleVar() {
     }

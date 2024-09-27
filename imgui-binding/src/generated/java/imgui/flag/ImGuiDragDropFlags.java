@@ -1,9 +1,12 @@
 package imgui.flag;
 
 
+
+
 /**
  * Flags for ImGui::BeginDragDropSource(), ImGui::AcceptDragDropPayload()
  */
+
 public final class ImGuiDragDropFlags {
     private ImGuiDragDropFlags() {
     }

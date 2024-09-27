@@ -1,6 +1,9 @@
 package imgui.internal.flag;
 
 
+
+
+
 public final class ImGuiAxis {
     private ImGuiAxis() {
     }

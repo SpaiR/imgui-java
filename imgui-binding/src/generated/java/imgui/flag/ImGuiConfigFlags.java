@@ -1,9 +1,12 @@
 package imgui.flag;
 
 
+
+
 /**
  * Configuration flags stored in io.ConfigFlags. Set by user/application.
  */
+
 public final class ImGuiConfigFlags {
     private ImGuiConfigFlags() {
     }

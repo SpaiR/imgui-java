@@ -2,9 +2,14 @@ package imgui;
 
 import imgui.binding.ImGuiStructDestroyable;
 
+
+
+
+
 /**
  * Helper: Parse and apply text filters. In format "aaaaa[,bbbb][,ccccc]"
  */
+
 public final class ImGuiTextFilter extends ImGuiStructDestroyable {
     public ImGuiTextFilter() {
         this("");

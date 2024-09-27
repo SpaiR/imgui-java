@@ -3,7 +3,13 @@ package imgui.extension.texteditor;
 import imgui.ImVec2;
 import imgui.binding.ImGuiStructDestroyable;
 
+
+
+
+
+
 import java.util.Map;
+
 
 public final class TextEditor extends ImGuiStructDestroyable {
     public TextEditor() {

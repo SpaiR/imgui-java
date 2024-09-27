@@ -2,6 +2,9 @@ package imgui;
 
 import imgui.binding.ImGuiStruct;
 
+
+
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -13,6 +16,7 @@ import java.nio.ByteOrder;
  * BINDING NOTICE: Since it's impossible to do a 1:1 mapping with JNI, current class provides "getCmdList*()" methods.
  * Those are used to get the data needed to do a rendering.
  */
+
 public final class ImDrawData extends ImGuiStruct {
     private static final int RESIZE_FACTOR = 5_000;
     private static ByteBuffer dataBuffer = ByteBuffer.allocateDirect(25_000).order(ByteOrder.nativeOrder());
@@ -144,7 +148,7 @@ public final class ImDrawData extends ImGuiStruct {
 
     ///////// End of Render Methods
 
-    /**
+     /**
      * Only valid after Render() is called and before the next NewFrame() is called.
      */
     public boolean getValid() {
@@ -155,7 +159,7 @@ public final class ImDrawData extends ImGuiStruct {
         return THIS->Valid;
     */
 
-    /**
+     /**
      * Number of ImDrawList* to render
      */
     public int getCmdListsCount() {
@@ -166,7 +170,7 @@ public final class ImDrawData extends ImGuiStruct {
         return THIS->CmdListsCount;
     */
 
-    /**
+     /**
      * For convenience, sum of all ImDrawList's IdxBuffer.Size
      */
     public int getTotalIdxCount() {
@@ -177,7 +181,7 @@ public final class ImDrawData extends ImGuiStruct {
         return THIS->TotalIdxCount;
     */
 
-    /**
+     /**
      * For convenience, sum of all ImDrawList's VtxBuffer.Size
      */
     public int getTotalVtxCount() {
@@ -188,7 +192,7 @@ public final class ImDrawData extends ImGuiStruct {
         return THIS->TotalVtxCount;
     */
 
-    /**
+     /**
      * Upper-left position of the viewport to render (== upper-left of the orthogonal projection matrix to use)
      */
     public ImVec2 getDisplayPos() {
@@ -230,7 +234,7 @@ public final class ImDrawData extends ImGuiStruct {
         return THIS->DisplayPos.y;
     */
 
-    /**
+     /**
      * Size of the viewport to render (== io.DisplaySize for the main viewport)
      * (DisplayPos + DisplaySize == lower-right of the orthogonal projection matrix to use)
      */
@@ -276,7 +280,7 @@ public final class ImDrawData extends ImGuiStruct {
         return THIS->DisplaySize.y;
     */
 
-    /**
+     /**
      * Amount of pixels for each unit of DisplaySize. Based on io.DisplayFramebufferScale. Generally (1,1) on normal display, (2,2) on OSX with Retina display.
      */
     public ImVec2 getFramebufferScale() {
@@ -318,7 +322,7 @@ public final class ImDrawData extends ImGuiStruct {
         return THIS->FramebufferScale.y;
     */
 
-    /**
+     /**
      * Viewport carrying the ImDrawData instance, might be of use to the renderer (generally not).
      */
     public ImGuiViewport getOwnerViewport() {
@@ -331,7 +335,7 @@ public final class ImDrawData extends ImGuiStruct {
 
     // Functions
 
-    /**
+     /**
      * Helper to convert all buffers from indexed to non-indexed, in case you cannot render indexed. Note: this is slow and most likely a waste of resources.
      * Always prefer indexed rendering!
      */
@@ -343,7 +347,7 @@ public final class ImDrawData extends ImGuiStruct {
         THIS->DeIndexAllBuffers();
     */
 
-    /**
+     /**
      * Helper to scale the ClipRect field of each ImDrawCmd. Use if your final output buffer is at a different scale than Dear ImGui expects,
      * or if there is a difference between your window resolution and framebuffer resolution.
      */

@@ -1,10 +1,13 @@
 package imgui.flag;
 
 
+
+
 /**
  * Enumeration for GetMouseCursor()
  * User code may request binding to display given cursor by calling SetMouseCursor(), which is why we have some cursors that are marked unused here
  */
+
 public final class ImGuiMouseCursor {
     private ImGuiMouseCursor() {
     }

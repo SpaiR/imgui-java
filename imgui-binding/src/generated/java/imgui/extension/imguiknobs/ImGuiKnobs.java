@@ -1,5 +1,8 @@
 package imgui.extension.imguiknobs;
 
+
+
+
 import imgui.type.ImFloat;
 import imgui.type.ImInt;
 
@@ -7,6 +10,7 @@ import imgui.type.ImInt;
  * ImGuiKnobs extension for ImGui
  * Repo: https://github.com/altschuler/imgui-knobs
  */
+
 public final class ImGuiKnobs {
     private ImGuiKnobs() {
     }
@@ -15,7 +19,7 @@ public final class ImGuiKnobs {
         #include "_imguiknobs.h"
      */
 
-    /**
+     /**
      * Create a knob with float values
      *
      * @param label
@@ -513,7 +517,7 @@ public final class ImGuiKnobs {
         return _result;
     */
 
-    /**
+     /**
      * Create a knob with int values
      *
      * @param label

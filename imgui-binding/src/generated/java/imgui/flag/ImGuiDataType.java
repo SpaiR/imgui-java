@@ -1,9 +1,12 @@
 package imgui.flag;
 
 
+
+
 /**
  * A primary data type
  */
+
 public final class ImGuiDataType {
     private ImGuiDataType() {
     }

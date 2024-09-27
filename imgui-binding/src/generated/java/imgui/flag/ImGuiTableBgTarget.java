@@ -1,6 +1,8 @@
 package imgui.flag;
 
 
+
+
 /**
  * Enum for ImGui::TableSetBgColor()
  * Background colors are rendering in 3 layers:
@@ -12,6 +14,7 @@ package imgui.flag;
  * If you set the color of RowBg0 target, your color will override the existing RowBg0 color.
  * If you set the color of RowBg1 or ColumnBg1 target, your color will blend over the RowBg0 color.
  */
+
 public final class ImGuiTableBgTarget {
     private ImGuiTableBgTarget() {
     }

@@ -1,10 +1,13 @@
 package imgui.flag;
 
 
+
+
 /**
  * Flags for ImGui::DockSpace(), shared/inherited by child nodes.
  * (Some flags can be applied to individual nodes directly)
  */
+
 public final class ImGuiDockNodeFlags {
     private ImGuiDockNodeFlags() {
     }

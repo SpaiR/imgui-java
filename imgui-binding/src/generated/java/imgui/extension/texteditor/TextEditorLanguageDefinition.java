@@ -2,7 +2,13 @@ package imgui.extension.texteditor;
 
 import imgui.binding.ImGuiStructDestroyable;
 
+
+
+
+
+
 import java.util.Map;
+
 
 public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     public TextEditorLanguageDefinition() {

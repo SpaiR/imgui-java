@@ -1,9 +1,12 @@
 package imgui.flag;
 
 
+
+
 /**
  * Flags for ImGui::BeginCombo()
  */
+
 public final class ImGuiComboFlags {
     private ImGuiComboFlags() {
     }

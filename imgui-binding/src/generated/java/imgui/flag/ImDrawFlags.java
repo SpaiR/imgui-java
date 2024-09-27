@@ -1,9 +1,12 @@
 package imgui.flag;
 
 
+
+
 /**
  * Flags for ImDrawList functions
  */
+
 public final class ImDrawFlags {
     private ImDrawFlags() {
     }

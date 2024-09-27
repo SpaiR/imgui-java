@@ -1,11 +1,14 @@
 package imgui.extension.imguizmo.flag;
 
 
+
+
 /**
  * Needs view and projection matrices.
  * Matrix parameter is the source matrix (where will be gizmo be drawn) and might be transformed by the function. Return deltaMatrix is optional.
  * Translation is applied in world space.
  */
+
 public final class Operation {
     private Operation() {
     }

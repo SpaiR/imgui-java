@@ -4,6 +4,10 @@ import imgui.ImVec2;
 import imgui.ImVec4;
 import imgui.binding.ImGuiStructDestroyable;
 
+
+
+
+
 public final class ImPlotStyle extends ImGuiStructDestroyable {
     public ImPlotStyle() {
         super();

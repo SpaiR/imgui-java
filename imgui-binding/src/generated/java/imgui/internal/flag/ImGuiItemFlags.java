@@ -1,10 +1,13 @@
 package imgui.internal.flag;
 
 
+
+
 /**
  * Transient per-window flags, reset at the beginning of the frame. For child window, inherited from parent on first Begin().
  * This is going to be exposed in imgui.h when stabilized enough.
  */
+
 public final class ImGuiItemFlags {
     private ImGuiItemFlags() {
     }

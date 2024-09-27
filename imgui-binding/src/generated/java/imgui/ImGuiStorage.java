@@ -2,6 +2,9 @@ package imgui;
 
 import imgui.binding.ImGuiStructDestroyable;
 
+
+
+
 /**
  * Helper: Key-Value storage
  * Typically you don't have to worry about this since a storage is held within each Window.
@@ -12,6 +15,7 @@ import imgui.binding.ImGuiStructDestroyable;
  * - You want to store custom debug data easily without adding or editing structures in your code (probably not efficient, but convenient)
  * Types are NOT stored, so it is up to you to make sure your Key don't collide with different types.
  */
+
 public final class ImGuiStorage extends ImGuiStructDestroyable {
     public ImGuiStorage() {
         super();
@@ -119,7 +123,7 @@ public final class ImGuiStorage extends ImGuiStructDestroyable {
         THIS->SetFloat(key, val);
     */
 
-    /**
+     /**
      * Use on your own storage if you know only integer are being stored (open/close all tree nodes)
      */
     public void setAllInt(final int val) {
@@ -130,7 +134,7 @@ public final class ImGuiStorage extends ImGuiStructDestroyable {
         THIS->SetAllInt(val);
     */
 
-    /**
+     /**
      * For quicker full rebuild of a storage (instead of an incremental one), you may add all your contents and then sort once.
      */
     public void buildSortByKey() {

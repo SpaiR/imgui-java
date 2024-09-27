@@ -3,6 +3,11 @@ package imgui.extension.nodeditor;
 import imgui.ImDrawList;
 import imgui.ImVec2;
 import imgui.ImVec4;
+
+
+
+
+
 import imgui.type.ImLong;
 
 /**
@@ -21,6 +26,7 @@ import imgui.type.ImLong;
  * Binding notice: instead of special types for ids of nodes, links and pins which used in native library
  * we use longs to reduce boilerplate and garbage production
  */
+
 public final class NodeEditor {
     private NodeEditor() {
     }

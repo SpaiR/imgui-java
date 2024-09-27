@@ -1,8 +1,13 @@
 package imgui.internal;
 
 import imgui.ImVec2;
+
+
+
+
 import imgui.type.ImFloat;
 import imgui.type.ImInt;
+
 
 public final class ImGui extends imgui.ImGui {
     /*JNI
@@ -144,7 +149,7 @@ public final class ImGui extends imgui.ImGui {
         return ImGui::DockBuilderAddNode(nodeId, flags);
     */
 
-    /**
+     /**
      * Remove node and all its child, undock all windows.
      */
     public static void dockBuilderRemoveNode(final int nodeId) {
@@ -171,7 +176,7 @@ public final class ImGui extends imgui.ImGui {
         ImGui::DockBuilderRemoveNodeDockedWindows(nodeId, clearSettingsRefs);
     */
 
-    /**
+     /**
      * Remove all split/hierarchy. All remaining docked windows will be re-docked to the remaining root node (node_id).
      */
     public static void dockBuilderRemoveNodeChildNodes(final int nodeId) {
@@ -208,7 +213,7 @@ public final class ImGui extends imgui.ImGui {
         ImGui::DockBuilderSetNodeSize(nodeId, size);
     */
 
-    /**
+     /**
      * Create 2 child nodes in this parent node.
      */
     public static int dockBuilderSplitNode(final int nodeId, final int splitDir, final float sizeRatioForNodeAtDir, final ImInt outIdAtDir, final ImInt outIdAtOppositeDir) {

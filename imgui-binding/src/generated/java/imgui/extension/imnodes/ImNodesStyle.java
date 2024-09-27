@@ -4,6 +4,10 @@ import imgui.ImVec2;
 import imgui.ImVec4;
 import imgui.binding.ImGuiStruct;
 
+
+
+
+
 public final class ImNodesStyle extends ImGuiStruct {
     public ImNodesStyle(final long ptr) {
         super(ptr);
@@ -153,7 +157,7 @@ public final class ImNodesStyle extends ImGuiStruct {
         THIS->LinkHoverDistance = value;
     */
 
-    /**
+     /**
      * The circle radius used when the pin shape is either PinShape_Circle or PinShape_CircleFilled.
      */
     public float getPinCircleRadius() {
@@ -175,7 +179,7 @@ public final class ImNodesStyle extends ImGuiStruct {
         THIS->PinCircleRadius = value;
     */
 
-    /**
+     /**
      * The quad side length used when the shape is either PinShape_Quad or PinShape_QuadFilled.
      */
     public float getPinQuadSideLength() {
@@ -197,7 +201,7 @@ public final class ImNodesStyle extends ImGuiStruct {
         THIS->PinQuadSideLength = value;
     */
 
-    /**
+     /**
      * The equilateral triangle side length used when the pin shape is either PinShape_Triangle or PinShape_TriangleFilled.
      */
     public float getPinTriangleSideLength() {
@@ -219,7 +223,7 @@ public final class ImNodesStyle extends ImGuiStruct {
         THIS->PinTriangleSideLength = value;
     */
 
-    /**
+     /**
      * The thickness of the line used when the pin shape is not filled.
      */
     public float getPinLineThickness() {
@@ -241,7 +245,7 @@ public final class ImNodesStyle extends ImGuiStruct {
         THIS->PinLineThickness = value;
     */
 
-    /**
+     /**
      * The radius from the pin's center position inside of which it is detected as being hovered over.
      */
     public float getPinHoverRadius() {
@@ -263,7 +267,7 @@ public final class ImNodesStyle extends ImGuiStruct {
         THIS->PinHoverRadius = value;
     */
 
-    /**
+     /**
      * Offsets the pins' positions from the edge of the node to the outside of the node.
      */
     public float getPinOffset() {
@@ -285,7 +289,7 @@ public final class ImNodesStyle extends ImGuiStruct {
         THIS->PinOffset = value;
     */
 
-    /**
+     /**
      * Mini-map padding size between mini-map edge and mini-map content.
      */
     public ImVec2 getMiniMapPadding() {
@@ -346,7 +350,7 @@ public final class ImNodesStyle extends ImGuiStruct {
         THIS->MiniMapPadding = value;
     */
 
-    /**
+     /**
      * Mini-map offset from the screen side.
      */
     public ImVec2 getMiniMapOffset() {
@@ -407,7 +411,7 @@ public final class ImNodesStyle extends ImGuiStruct {
         THIS->MiniMapOffset = value;
     */
 
-    /**
+     /**
      * By default, ImNodesStyleFlags_NodeOutline and ImNodesStyleFlags_Gridlines are enabled.
      */
     public int getFlags() {
