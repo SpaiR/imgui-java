@@ -558,31 +558,39 @@ public final class ImNodes {
         ImNodes::SetNodeGridSpacePos(nodeId, gridPos);
     */
 
-    public static void getNodeScreenSpacePos(final int nodeId) {
-        nGetNodeScreenSpacePos(nodeId);
+    public static void getNodeScreenSpacePos(ImVec2 dst, final int nodeId) {
+        nGetNodeScreenSpacePos(dst, nodeId);
     }
 
-    private static native void nGetNodeScreenSpacePos(int nodeId); /*
-        ImNodes::GetNodeScreenSpacePos(nodeId);
+    private static native void nGetNodeScreenSpacePos(ImVec2 dst, int nodeId); /*
+        Jni::ImVec2Cpy(env, ImNodes::GetNodeScreenSpacePogs(nodeId), dst);
     */
 
-    public static void getNodeEditorSpacePos(final int nodeId) {
-        nGetNodeEditorSpacePos(nodeId);
+    public static void getNodeEditorSpacePos(ImVec2 dst, final int nodeId) {
+        nGetNodeEditorSpacePos(dst, nodeId);
     }
 
-    private static native void nGetNodeEditorSpacePos(int nodeId); /*
-        ImNodes::GetNodeEditorSpacePos(nodeId);
+    private static native void nGetNodeEditorSpacePos(ImVec2 dst, int nodeId); /*
+        Jni::ImVec2Cpy(env, ImNodes::GetNodeEditorSpacePos(nodeId), dst);
     */
 
-    public static void getNodeGridSpacePos(final int nodeId) {
-        nGetNodeGridSpacePos(nodeId);
+    public static void getNodeGridSpacePos(ImVec2 dst, final int nodeId) {
+        nGetNodeGridSpacePos(dst, nodeId);
     }
 
-    private static native void nGetNodeGridSpacePos(int nodeId); /*
-        ImNodes::GetNodeGridSpacePos(nodeId);
+    private static native void nGetNodeGridSpacePos(ImVec2 dst, int nodeId); /*
+        Jni::ImVec2Cpy(env, ImNodes::GetNodeGridSpacePos(nodeId), dst);
     */
 
-     /**
+    public static void snapNodeToGrid(final int nodeId) {
+        nSnapNodeToGrid(nodeId);
+    }
+
+    private static native void nSnapNodeToGrid(int nodeId); /*
+        ImNodes::SnapNodeToGrid(nodeId);
+    */
+
+    /**
      * Returns true if the current node editor canvas is being hovered over by the mouse, and is not
      * blocked by any other windows.
      */
