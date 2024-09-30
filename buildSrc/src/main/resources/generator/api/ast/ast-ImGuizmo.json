@@ -17,7 +17,7 @@
         "name" : "drawlist",
         "qualType" : "int *",
         "desugaredQualType" : "int *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -471,12 +471,12 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "operation",
-        "qualType" : "OPERATION",
+        "qualType" : "ImGuizmo::OPERATION",
         "desugaredQualType" : "ImGuizmo::OPERATION"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "mode",
-        "qualType" : "MODE",
+        "qualType" : "ImGuizmo::MODE",
         "desugaredQualType" : "ImGuizmo::MODE"
       }, {
         "@type" : "AstParmVarDecl",
@@ -570,7 +570,7 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "op",
-        "qualType" : "OPERATION",
+        "qualType" : "ImGuizmo::OPERATION",
         "desugaredQualType" : "ImGuizmo::OPERATION"
       }, {
         "@type" : "AstFullComment",

@@ -1,9 +1,9 @@
 {
   "info" : {
     "source" : "include/imnodes/imnodes.h",
-    "hash" : "652280ae054728987fb8b2201f9a88fa",
+    "hash" : "4ea12e1472e9f121b5084ac0b72237de",
     "url" : "https://github.com/Nelarius/imnodes",
-    "revision" : "e563371cee49eb42da08cca1e0209d30d452c665"
+    "revision" : "8563e1655bd9bb1f249e6552cc6274d506ee788b"
   },
   "decls" : [ {
     "@type" : "AstEnumDecl",
@@ -107,82 +107,88 @@
       "evaluatedValue" : 15
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImNodesCol_MiniMapBackground",
+      "name" : "ImNodesCol_GridLinePrimary",
       "qualType" : "ImNodesCol_",
       "order" : 16,
       "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImNodesCol_MiniMapBackgroundHovered",
+      "name" : "ImNodesCol_MiniMapBackground",
       "qualType" : "ImNodesCol_",
       "order" : 17,
       "evaluatedValue" : 17
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImNodesCol_MiniMapOutline",
+      "name" : "ImNodesCol_MiniMapBackgroundHovered",
       "qualType" : "ImNodesCol_",
       "order" : 18,
       "evaluatedValue" : 18
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImNodesCol_MiniMapOutlineHovered",
+      "name" : "ImNodesCol_MiniMapOutline",
       "qualType" : "ImNodesCol_",
       "order" : 19,
       "evaluatedValue" : 19
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImNodesCol_MiniMapNodeBackground",
+      "name" : "ImNodesCol_MiniMapOutlineHovered",
       "qualType" : "ImNodesCol_",
       "order" : 20,
       "evaluatedValue" : 20
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImNodesCol_MiniMapNodeBackgroundHovered",
+      "name" : "ImNodesCol_MiniMapNodeBackground",
       "qualType" : "ImNodesCol_",
       "order" : 21,
       "evaluatedValue" : 21
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImNodesCol_MiniMapNodeBackgroundSelected",
+      "name" : "ImNodesCol_MiniMapNodeBackgroundHovered",
       "qualType" : "ImNodesCol_",
       "order" : 22,
       "evaluatedValue" : 22
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImNodesCol_MiniMapNodeOutline",
+      "name" : "ImNodesCol_MiniMapNodeBackgroundSelected",
       "qualType" : "ImNodesCol_",
       "order" : 23,
       "evaluatedValue" : 23
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImNodesCol_MiniMapLink",
+      "name" : "ImNodesCol_MiniMapNodeOutline",
       "qualType" : "ImNodesCol_",
       "order" : 24,
       "evaluatedValue" : 24
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImNodesCol_MiniMapLinkSelected",
+      "name" : "ImNodesCol_MiniMapLink",
       "qualType" : "ImNodesCol_",
       "order" : 25,
       "evaluatedValue" : 25
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImNodesCol_MiniMapCanvas",
+      "name" : "ImNodesCol_MiniMapLinkSelected",
       "qualType" : "ImNodesCol_",
       "order" : 26,
       "evaluatedValue" : 26
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImNodesCol_MiniMapCanvasOutline",
+      "name" : "ImNodesCol_MiniMapCanvas",
       "qualType" : "ImNodesCol_",
       "order" : 27,
       "evaluatedValue" : 27
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImNodesCol_COUNT",
+      "name" : "ImNodesCol_MiniMapCanvasOutline",
       "qualType" : "ImNodesCol_",
       "order" : 28,
       "evaluatedValue" : 28
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImNodesCol_COUNT",
+      "qualType" : "ImNodesCol_",
+      "order" : 29,
+      "evaluatedValue" : 29
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -309,6 +315,20 @@
       "order" : 2,
       "value" : "1 << 2",
       "evaluatedValue" : 4
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImNodesStyleFlags_GridLinesPrimary",
+      "qualType" : "ImNodesStyleFlags_",
+      "order" : 3,
+      "value" : "1 << 3",
+      "evaluatedValue" : 8
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImNodesStyleFlags_GridSnapping",
+      "qualType" : "ImNodesStyleFlags_",
+      "order" : 4,
+      "value" : "1 << 4",
+      "evaluatedValue" : 16
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -418,6 +438,20 @@
       "qualType" : "struct LinkDetachWithModifierClick",
       "desugaredQualType" : "ImNodesIO::LinkDetachWithModifierClick"
     }, {
+      "@type" : "AstRecordDecl",
+      "name" : "MultipleSelectModifier",
+      "decls" : [ {
+        "@type" : "AstFieldDecl",
+        "name" : "Modifier",
+        "qualType" : "const bool *",
+        "desugaredQualType" : "const bool *"
+      } ]
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "MultipleSelectModifier",
+      "qualType" : "struct MultipleSelectModifier",
+      "desugaredQualType" : "ImNodesIO::MultipleSelectModifier"
+    }, {
       "@type" : "AstFieldDecl",
       "name" : "AltMouseButton",
       "qualType" : "int",
@@ -514,8 +548,8 @@
     }, {
       "@type" : "AstFieldDecl",
       "name" : "Colors",
-      "qualType" : "unsigned int[28]",
-      "desugaredQualType" : "unsigned int[28]"
+      "qualType" : "unsigned int[29]",
+      "desugaredQualType" : "unsigned int[29]"
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -683,23 +717,46 @@
       "name" : "StyleColorsDark",
       "resultType" : "void",
       "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "dest",
+        "qualType" : "ImNodesStyle *",
+        "desugaredQualType" : "ImNodesStyle *",
+        "defaultValue" : "NULL"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Style presets matching the dear imgui styles of the same name."
+            "text" : " Style presets matching the dear imgui styles of the same name. If dest is NULL, the active"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " context's ImNodesStyle instance will be used as the destination."
           } ]
         } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "StyleColorsClassic",
-      "resultType" : "void"
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "dest",
+        "qualType" : "ImNodesStyle *",
+        "desugaredQualType" : "ImNodesStyle *",
+        "defaultValue" : "NULL"
+      } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "StyleColorsLight",
-      "resultType" : "void"
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "dest",
+        "qualType" : "ImNodesStyle *",
+        "desugaredQualType" : "ImNodesStyle *",
+        "defaultValue" : "NULL"
+      } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "BeginNodeEditor",
@@ -1140,6 +1197,25 @@
         "name" : "node_id",
         "qualType" : "const int",
         "desugaredQualType" : "const int"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "SnapNodeToGrid",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "node_id",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " If ImNodesStyleFlags_GridSnapping is enabled, snap the specified node's origin to the grid."
+          } ]
+        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",

@@ -220,15 +220,21 @@ public final class ImNodes {
 
     @BindingMethod
     public static native void SetNodeGridSpacePos(int nodeId, ImVec2 gridPos);
+    
+    @BindingMethod
+    public static native ImVec2 GetNodeScreenSpacePos(int nodeId);
 
     @BindingMethod
-    public static native void GetNodeScreenSpacePos(int nodeId);
+    public static native ImVec2 GetNodeEditorSpacePos(int nodeId);
 
     @BindingMethod
-    public static native void GetNodeEditorSpacePos(int nodeId);
+    public static native ImVec2 GetNodeGridSpacePos(int nodeId);
 
+    /**
+     * Enable or disable grid snapping.
+     */
     @BindingMethod
-    public static native void GetNodeGridSpacePos(int nodeId);
+    public static native void SnapNodeToGrid(int nodeId);
 
     /**
      * Returns true if the current node editor canvas is being hovered over by the mouse, and is not
