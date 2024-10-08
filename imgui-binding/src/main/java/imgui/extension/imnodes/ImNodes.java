@@ -78,13 +78,13 @@ public final class ImNodes {
     // Style presets matching the dear imgui styles of the same name.
 
     @BindingMethod
-    public static native void StyleColorsDark();
+    public static native void StyleColorsDark(@OptArg ImNodesStyle style);
 
     @BindingMethod
-    public static native void StyleColorsClassic();
+    public static native void StyleColorsClassic(@OptArg ImNodesStyle style);
 
     @BindingMethod
-    public static native void StyleColorsLight();
+    public static native void StyleColorsLight(@OptArg ImNodesStyle style);
 
     /**
      * The top-level function call. Call this before calling BeginNode/EndNode. Calling this function

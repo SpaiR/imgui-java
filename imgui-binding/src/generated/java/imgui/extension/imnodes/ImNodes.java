@@ -179,24 +179,48 @@ public final class ImNodes {
         nStyleColorsDark();
     }
 
+    public static void styleColorsDark(final ImNodesStyle style) {
+        nStyleColorsDark(style.ptr);
+    }
+
     private static native void nStyleColorsDark(); /*
         ImNodes::StyleColorsDark();
+    */
+
+    private static native void nStyleColorsDark(long style); /*
+        ImNodes::StyleColorsDark(reinterpret_cast<ImNodesStyle*>(style));
     */
 
     public static void styleColorsClassic() {
         nStyleColorsClassic();
     }
 
+    public static void styleColorsClassic(final ImNodesStyle style) {
+        nStyleColorsClassic(style.ptr);
+    }
+
     private static native void nStyleColorsClassic(); /*
         ImNodes::StyleColorsClassic();
+    */
+
+    private static native void nStyleColorsClassic(long style); /*
+        ImNodes::StyleColorsClassic(reinterpret_cast<ImNodesStyle*>(style));
     */
 
     public static void styleColorsLight() {
         nStyleColorsLight();
     }
 
+    public static void styleColorsLight(final ImNodesStyle style) {
+        nStyleColorsLight(style.ptr);
+    }
+
     private static native void nStyleColorsLight(); /*
         ImNodes::StyleColorsLight();
+    */
+
+    private static native void nStyleColorsLight(long style); /*
+        ImNodes::StyleColorsLight(reinterpret_cast<ImNodesStyle*>(style));
     */
 
     /**
