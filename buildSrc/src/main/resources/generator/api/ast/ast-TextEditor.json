@@ -7,6 +7,79 @@
   },
   "decls" : [ {
     "@type" : "AstRecordDecl",
+    "name" : "tm",
+    "decls" : [ {
+      "@type" : "AstFieldDecl",
+      "name" : "tm_sec",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "tm_min",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "tm_hour",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "tm_mday",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "tm_mon",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "tm_year",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "tm_wday",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "tm_yday",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "tm_isdst",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "tm_gmtoff",
+      "qualType" : "long",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "tm_zone",
+      "qualType" : "const char *",
+      "desugaredQualType" : "const char *"
+    } ]
+  }, {
+    "@type" : "AstRecordDecl",
+    "name" : "itimerspec",
+    "decls" : [ {
+      "@type" : "AstFieldDecl",
+      "name" : "it_interval",
+      "qualType" : "struct timespec",
+      "desugaredQualType" : "timespec"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "it_value",
+      "qualType" : "struct timespec",
+      "desugaredQualType" : "timespec"
+    } ]
+  }, {
+    "@type" : "AstRecordDecl",
     "name" : "TextEditor",
     "decls" : [ {
       "@type" : "AstEnumDecl",
@@ -183,7 +256,7 @@
         "@type" : "AstFieldDecl",
         "name" : "mCondition",
         "qualType" : "std::string",
-        "desugaredQualType" : "std::string"
+        "desugaredQualType" : "std::basic_string<char>"
       } ]
     }, {
       "@type" : "AstRecordDecl",
@@ -228,7 +301,7 @@
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "Invalid",
-        "resultType" : "Coordinates"
+        "resultType" : "TextEditor::Coordinates"
       } ]
     }, {
       "@type" : "AstRecordDecl",
@@ -236,13 +309,13 @@
       "decls" : [ {
         "@type" : "AstFieldDecl",
         "name" : "mLocation",
-        "qualType" : "Coordinates",
+        "qualType" : "TextEditor::Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mDeclaration",
         "qualType" : "std::string",
-        "desugaredQualType" : "std::string"
+        "desugaredQualType" : "std::basic_string<char>"
       } ]
     }, {
       "@type" : "AstRecordDecl",
@@ -250,12 +323,12 @@
       "decls" : [ {
         "@type" : "AstFieldDecl",
         "name" : "mChar",
-        "qualType" : "Char",
+        "qualType" : "TextEditor::Char",
         "desugaredQualType" : "unsigned char"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mColorIndex",
-        "qualType" : "PaletteIndex",
+        "qualType" : "TextEditor::PaletteIndex",
         "desugaredQualType" : "TextEditor::PaletteIndex"
       }, {
         "@type" : "AstFieldDecl",
@@ -280,37 +353,37 @@
         "@type" : "AstFieldDecl",
         "name" : "mName",
         "qualType" : "std::string",
-        "desugaredQualType" : "std::string"
+        "desugaredQualType" : "std::basic_string<char>"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mKeywords",
-        "qualType" : "Keywords",
+        "qualType" : "TextEditor::Keywords",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mIdentifiers",
-        "qualType" : "Identifiers",
+        "qualType" : "TextEditor::Identifiers",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mPreprocIdentifiers",
-        "qualType" : "Identifiers",
+        "qualType" : "TextEditor::Identifiers",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mCommentStart",
         "qualType" : "std::string",
-        "desugaredQualType" : "std::string"
+        "desugaredQualType" : "std::basic_string<char>"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mCommentEnd",
         "qualType" : "std::string",
-        "desugaredQualType" : "std::string"
+        "desugaredQualType" : "std::basic_string<char>"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mSingleLineComment",
         "qualType" : "std::string",
-        "desugaredQualType" : "std::string"
+        "desugaredQualType" : "std::basic_string<char>"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mPreprocChar",
@@ -324,12 +397,12 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mTokenize",
-        "qualType" : "TokenizeCallback",
-        "desugaredQualType" : "bool (*)(const char *, const char *, const char *&, const char *&, PaletteIndex &)"
+        "qualType" : "TextEditor::LanguageDefinition::TokenizeCallback",
+        "desugaredQualType" : "bool (*)(const char *, const char *, const char *&, const char *&, TextEditor::PaletteIndex &)"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mTokenRegexStrings",
-        "qualType" : "TokenRegexStrings",
+        "qualType" : "TextEditor::LanguageDefinition::TokenRegexStrings",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
@@ -339,31 +412,31 @@
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "CPlusPlus",
-        "resultType" : "const LanguageDefinition &"
+        "resultType" : "const TextEditor::LanguageDefinition &"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "HLSL",
-        "resultType" : "const LanguageDefinition &"
+        "resultType" : "const TextEditor::LanguageDefinition &"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GLSL",
-        "resultType" : "const LanguageDefinition &"
+        "resultType" : "const TextEditor::LanguageDefinition &"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "C",
-        "resultType" : "const LanguageDefinition &"
+        "resultType" : "const TextEditor::LanguageDefinition &"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "SQL",
-        "resultType" : "const LanguageDefinition &"
+        "resultType" : "const TextEditor::LanguageDefinition &"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "AngelScript",
-        "resultType" : "const LanguageDefinition &"
+        "resultType" : "const TextEditor::LanguageDefinition &"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "Lua",
-        "resultType" : "const LanguageDefinition &"
+        "resultType" : "const TextEditor::LanguageDefinition &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -372,17 +445,17 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aLanguageDef",
-        "qualType" : "const LanguageDefinition &",
-        "desugaredQualType" : "const LanguageDefinition &"
+        "qualType" : "const TextEditor::LanguageDefinition &",
+        "desugaredQualType" : "const TextEditor::LanguageDefinition &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "GetLanguageDefinition",
-      "resultType" : "const LanguageDefinition &"
+      "resultType" : "const TextEditor::LanguageDefinition &"
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "GetPalette",
-      "resultType" : "const Palette &"
+      "resultType" : "const TextEditor::Palette &"
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetPalette",
@@ -390,8 +463,8 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aValue",
-        "qualType" : "const Palette &",
-        "desugaredQualType" : "const Palette &"
+        "qualType" : "const TextEditor::Palette &",
+        "desugaredQualType" : "const TextEditor::Palette &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -400,8 +473,8 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aMarkers",
-        "qualType" : "const ErrorMarkers &",
-        "desugaredQualType" : "const ErrorMarkers &"
+        "qualType" : "const TextEditor::ErrorMarkers &",
+        "desugaredQualType" : "const TextEditor::ErrorMarkers &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -410,8 +483,8 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aMarkers",
-        "qualType" : "const Breakpoints &",
-        "desugaredQualType" : "const Breakpoints &"
+        "qualType" : "const TextEditor::Breakpoints &",
+        "desugaredQualType" : "const TextEditor::Breakpoints &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -518,7 +591,7 @@
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "GetCursorPosition",
-      "resultType" : "Coordinates"
+      "resultType" : "TextEditor::Coordinates"
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SetCursorPosition",
@@ -526,8 +599,8 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aPosition",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -750,8 +823,8 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aPosition",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -760,8 +833,8 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aPosition",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -770,17 +843,17 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aStart",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "aEnd",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "aMode",
-        "qualType" : "SelectionMode",
+        "qualType" : "TextEditor::SelectionMode",
         "desugaredQualType" : "TextEditor::SelectionMode",
         "defaultValue" : "SelectionMode::Normal"
       } ]
@@ -845,32 +918,32 @@
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "GetDarkPalette",
-      "resultType" : "const Palette &"
+      "resultType" : "const TextEditor::Palette &"
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "GetLightPalette",
-      "resultType" : "const Palette &"
+      "resultType" : "const TextEditor::Palette &"
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "GetRetroBluePalette",
-      "resultType" : "const Palette &"
+      "resultType" : "const TextEditor::Palette &"
     }, {
       "@type" : "AstRecordDecl",
       "name" : "EditorState",
       "decls" : [ {
         "@type" : "AstFieldDecl",
         "name" : "mSelectionStart",
-        "qualType" : "Coordinates",
+        "qualType" : "TextEditor::Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mSelectionEnd",
-        "qualType" : "Coordinates",
+        "qualType" : "TextEditor::Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mCursorPosition",
-        "qualType" : "Coordinates",
+        "qualType" : "TextEditor::Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       } ]
     }, {
@@ -900,41 +973,41 @@
         "@type" : "AstFieldDecl",
         "name" : "mAdded",
         "qualType" : "std::string",
-        "desugaredQualType" : "std::string"
+        "desugaredQualType" : "std::basic_string<char>"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mAddedStart",
-        "qualType" : "Coordinates",
+        "qualType" : "TextEditor::Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mAddedEnd",
-        "qualType" : "Coordinates",
+        "qualType" : "TextEditor::Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mRemoved",
         "qualType" : "std::string",
-        "desugaredQualType" : "std::string"
+        "desugaredQualType" : "std::basic_string<char>"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mRemovedStart",
-        "qualType" : "Coordinates",
+        "qualType" : "TextEditor::Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mRemovedEnd",
-        "qualType" : "Coordinates",
+        "qualType" : "TextEditor::Coordinates",
         "desugaredQualType" : "TextEditor::Coordinates"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mBefore",
-        "qualType" : "EditorState",
+        "qualType" : "TextEditor::EditorState",
         "desugaredQualType" : "TextEditor::EditorState"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "mAfter",
-        "qualType" : "EditorState",
+        "qualType" : "TextEditor::EditorState",
         "desugaredQualType" : "TextEditor::EditorState"
       } ]
     }, {
@@ -986,8 +1059,8 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aFrom",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1004,27 +1077,27 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aStart",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "aEnd",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "GetActualCursorCoordinates",
-      "resultType" : "Coordinates"
+      "resultType" : "TextEditor::Coordinates"
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "SanitizeCoordinates",
-      "resultType" : "Coordinates",
+      "resultType" : "TextEditor::Coordinates",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aValue",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1033,8 +1106,8 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aCoordinates",
-        "qualType" : "Coordinates &",
-        "desugaredQualType" : "Coordinates &"
+        "qualType" : "TextEditor::Coordinates &",
+        "desugaredQualType" : "TextEditor::Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1043,13 +1116,13 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aStart",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "aEnd",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1058,8 +1131,8 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aWhere",
-        "qualType" : "Coordinates &",
-        "desugaredQualType" : "Coordinates &"
+        "qualType" : "TextEditor::Coordinates &",
+        "desugaredQualType" : "TextEditor::Coordinates &"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "aValue",
@@ -1073,13 +1146,13 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aValue",
-        "qualType" : "UndoRecord &",
-        "desugaredQualType" : "UndoRecord &"
+        "qualType" : "TextEditor::UndoRecord &",
+        "desugaredQualType" : "TextEditor::UndoRecord &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "ScreenPosToCoordinates",
-      "resultType" : "Coordinates",
+      "resultType" : "TextEditor::Coordinates",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aPosition",
@@ -1089,32 +1162,32 @@
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "FindWordStart",
-      "resultType" : "Coordinates",
+      "resultType" : "TextEditor::Coordinates",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aFrom",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "FindWordEnd",
-      "resultType" : "Coordinates",
+      "resultType" : "TextEditor::Coordinates",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aFrom",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "FindNextWord",
-      "resultType" : "Coordinates",
+      "resultType" : "TextEditor::Coordinates",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aFrom",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1123,8 +1196,8 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aCoordinates",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1168,8 +1241,8 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aAt",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1199,7 +1272,7 @@
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "InsertLine",
-      "resultType" : "Line &",
+      "resultType" : "TextEditor::Line &",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aIndex",
@@ -1240,8 +1313,8 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aCoords",
-        "qualType" : "const Coordinates &",
-        "desugaredQualType" : "const Coordinates &"
+        "qualType" : "const TextEditor::Coordinates &",
+        "desugaredQualType" : "const TextEditor::Coordinates &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1250,8 +1323,8 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "aGlyph",
-        "qualType" : "const Glyph &",
-        "desugaredQualType" : "const Glyph &"
+        "qualType" : "const TextEditor::Glyph &",
+        "desugaredQualType" : "const TextEditor::Glyph &"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -1273,17 +1346,17 @@
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mLines",
-      "qualType" : "Lines",
+      "qualType" : "TextEditor::Lines",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mState",
-      "qualType" : "EditorState",
+      "qualType" : "TextEditor::EditorState",
       "desugaredQualType" : "TextEditor::EditorState"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mUndoBuffer",
-      "qualType" : "UndoBuffer",
+      "qualType" : "TextEditor::UndoBuffer",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
@@ -1358,7 +1431,7 @@
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mSelectionMode",
-      "qualType" : "SelectionMode",
+      "qualType" : "TextEditor::SelectionMode",
       "desugaredQualType" : "TextEditor::SelectionMode"
     }, {
       "@type" : "AstFieldDecl",
@@ -1383,22 +1456,22 @@
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mPaletteBase",
-      "qualType" : "Palette",
+      "qualType" : "TextEditor::Palette",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mPalette",
-      "qualType" : "Palette",
+      "qualType" : "TextEditor::Palette",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mLanguageDefinition",
-      "qualType" : "LanguageDefinition",
+      "qualType" : "TextEditor::LanguageDefinition",
       "desugaredQualType" : "TextEditor::LanguageDefinition"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mRegexList",
-      "qualType" : "RegexList",
+      "qualType" : "TextEditor::RegexList",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
@@ -1408,12 +1481,12 @@
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mBreakpoints",
-      "qualType" : "Breakpoints",
+      "qualType" : "TextEditor::Breakpoints",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mErrorMarkers",
-      "qualType" : "ErrorMarkers",
+      "qualType" : "TextEditor::ErrorMarkers",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
@@ -1423,23 +1496,23 @@
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mInteractiveStart",
-      "qualType" : "Coordinates",
+      "qualType" : "TextEditor::Coordinates",
       "desugaredQualType" : "TextEditor::Coordinates"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mInteractiveEnd",
-      "qualType" : "Coordinates",
+      "qualType" : "TextEditor::Coordinates",
       "desugaredQualType" : "TextEditor::Coordinates"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mLineBuffer",
       "qualType" : "std::string",
-      "desugaredQualType" : "std::string"
+      "desugaredQualType" : "std::basic_string<char>"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mStartTime",
       "qualType" : "uint64_t",
-      "desugaredQualType" : "unsigned long long"
+      "desugaredQualType" : "unsigned long"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "mLastClick",
@@ -1447,792 +1520,134 @@
       "desugaredQualType" : "float"
     } ]
   }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswalnum_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswblank_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswalpha_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswhexnumber_l",
-    "resultType" : "int"
-  }, {
     "@type" : "AstRecordDecl",
     "name" : "timespec",
     "decls" : [ {
       "@type" : "AstFieldDecl",
       "name" : "tv_sec",
-      "qualType" : "__darwin_time_t",
+      "qualType" : "__time_t",
       "desugaredQualType" : "long"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "tv_nsec",
-      "qualType" : "long",
+      "qualType" : "__syscall_slong_t",
       "desugaredQualType" : "long"
     } ]
   }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswcntrl_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswideogram_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswctype_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswnumber_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswdigit_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswphonogram_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswgraph_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswrune_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswalnum",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswlower_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswspecial_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswalpha",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswblank",
-    "resultType" : "int"
-  }, {
     "@type" : "AstRecordDecl",
-    "name" : "lconv",
+    "name" : "timex",
     "decls" : [ {
       "@type" : "AstFieldDecl",
-      "name" : "decimal_point",
-      "qualType" : "char *",
-      "desugaredQualType" : "char *"
+      "name" : "modes",
+      "qualType" : "unsigned int",
+      "desugaredQualType" : "unsigned int"
     }, {
       "@type" : "AstFieldDecl",
-      "name" : "thousands_sep",
-      "qualType" : "char *",
-      "desugaredQualType" : "char *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "grouping",
-      "qualType" : "char *",
-      "desugaredQualType" : "char *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "int_curr_symbol",
-      "qualType" : "char *",
-      "desugaredQualType" : "char *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "currency_symbol",
-      "qualType" : "char *",
-      "desugaredQualType" : "char *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "mon_decimal_point",
-      "qualType" : "char *",
-      "desugaredQualType" : "char *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "mon_thousands_sep",
-      "qualType" : "char *",
-      "desugaredQualType" : "char *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "mon_grouping",
-      "qualType" : "char *",
-      "desugaredQualType" : "char *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "positive_sign",
-      "qualType" : "char *",
-      "desugaredQualType" : "char *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "negative_sign",
-      "qualType" : "char *",
-      "desugaredQualType" : "char *"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "int_frac_digits",
-      "qualType" : "char",
-      "desugaredQualType" : "char"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "frac_digits",
-      "qualType" : "char",
-      "desugaredQualType" : "char"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "p_cs_precedes",
-      "qualType" : "char",
-      "desugaredQualType" : "char"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "p_sep_by_space",
-      "qualType" : "char",
-      "desugaredQualType" : "char"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "n_cs_precedes",
-      "qualType" : "char",
-      "desugaredQualType" : "char"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "n_sep_by_space",
-      "qualType" : "char",
-      "desugaredQualType" : "char"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "p_sign_posn",
-      "qualType" : "char",
-      "desugaredQualType" : "char"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "n_sign_posn",
-      "qualType" : "char",
-      "desugaredQualType" : "char"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "int_p_cs_precedes",
-      "qualType" : "char",
-      "desugaredQualType" : "char"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "int_n_cs_precedes",
-      "qualType" : "char",
-      "desugaredQualType" : "char"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "int_p_sep_by_space",
-      "qualType" : "char",
-      "desugaredQualType" : "char"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "int_n_sep_by_space",
-      "qualType" : "char",
-      "desugaredQualType" : "char"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "int_p_sign_posn",
-      "qualType" : "char",
-      "desugaredQualType" : "char"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "int_n_sign_posn",
-      "qualType" : "char",
-      "desugaredQualType" : "char"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswprint_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswcntrl",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswascii",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswpunct_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswctype",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswhexnumber",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswspace_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswdigit",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswideogram",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswgraph",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswupper_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswnumber",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswlower",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswphonogram",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswxdigit_l",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswprint",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "digittoint_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswrune",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "towlower_l",
-    "resultType" : "wint_t"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswpunct",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isalnum_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswspecial",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "towupper_l",
-    "resultType" : "wint_t"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswspace",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isalpha_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswupper",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isblank_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iswxdigit",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iscntrl_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "towlower",
-    "resultType" : "wint_t"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isdigit_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "towupper",
-    "resultType" : "wint_t"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isgraph_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "ishexnumber_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isideogram_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstRecordDecl",
-    "name" : "tm",
-    "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "tm_sec",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "tm_min",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "tm_hour",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "tm_mday",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "tm_mon",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "tm_year",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "tm_wday",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "tm_yday",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "tm_isdst",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "tm_gmtoff",
-      "qualType" : "long",
+      "name" : "offset",
+      "qualType" : "__syscall_slong_t",
       "desugaredQualType" : "long"
     }, {
       "@type" : "AstFieldDecl",
-      "name" : "tm_zone",
-      "qualType" : "char *",
-      "desugaredQualType" : "char *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "islower_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
+      "name" : "freq",
+      "qualType" : "__syscall_slong_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "maxerror",
+      "qualType" : "__syscall_slong_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "esterror",
+      "qualType" : "__syscall_slong_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "status",
       "qualType" : "int",
       "desugaredQualType" : "int"
     }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isnumber_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
+      "@type" : "AstFieldDecl",
+      "name" : "constant",
+      "qualType" : "__syscall_slong_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "precision",
+      "qualType" : "__syscall_slong_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "tolerance",
+      "qualType" : "__syscall_slong_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "time",
+      "qualType" : "struct timeval",
+      "desugaredQualType" : "timeval"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "tick",
+      "qualType" : "__syscall_slong_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "ppsfreq",
+      "qualType" : "__syscall_slong_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "jitter",
+      "qualType" : "__syscall_slong_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "shift",
       "qualType" : "int",
       "desugaredQualType" : "int"
     }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isphonogram_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
+      "@type" : "AstFieldDecl",
+      "name" : "stabil",
+      "qualType" : "__syscall_slong_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "jitcnt",
+      "qualType" : "__syscall_slong_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "calcnt",
+      "qualType" : "__syscall_slong_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "errcnt",
+      "qualType" : "__syscall_slong_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "stbcnt",
+      "qualType" : "__syscall_slong_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "tai",
       "qualType" : "int",
       "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
     } ]
   }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isprint_l",
-    "resultType" : "int",
+    "@type" : "AstRecordDecl",
+    "name" : "sched_param",
     "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
+      "@type" : "AstFieldDecl",
+      "name" : "sched_priority",
       "qualType" : "int",
       "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
     } ]
   }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "ispunct_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isrune_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isspace_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isspecial_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isupper_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isxdigit_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "tolower_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "toupper_l",
-    "resultType" : "int",
-    "decls" : [ {
-      "@type" : "AstParmVarDecl",
-      "name" : "c",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstParmVarDecl",
-      "name" : "l",
-      "qualType" : "locale_t",
-      "desugaredQualType" : "struct _xlocale *"
-    } ]
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isascii",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "major",
-    "resultType" : "__int32_t"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "minor",
-    "resultType" : "__int32_t"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "makedev",
-    "resultType" : "dev_t"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isalnum",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isalpha",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isblank",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "iscntrl",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isdigit",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isgraph",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "islower",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isprint",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "ispunct",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isspace",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isupper",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isxdigit",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "toascii",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "tolower",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "toupper",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "digittoint",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "ishexnumber",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isideogram",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isnumber",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isphonogram",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isrune",
-    "resultType" : "int"
-  }, {
-    "@type" : "AstFunctionDecl",
-    "name" : "isspecial",
-    "resultType" : "int"
+    "@type" : "AstRecordDecl",
+    "name" : "pthread_attr_t"
   } ]
 }

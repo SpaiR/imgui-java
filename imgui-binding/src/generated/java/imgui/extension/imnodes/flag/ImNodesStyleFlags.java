@@ -19,4 +19,14 @@ public final class ImNodesStyleFlags {
      * Definition: {@code 1 << 2}
      */
     public static final int GridLines = 4;
+
+    /**
+     * Definition: {@code 1 << 3}
+     */
+    public static final int GridLinesPrimary = 8;
+
+    /**
+     * Definition: {@code 1 << 4}
+     */
+    public static final int GridSnapping = 16;
 }

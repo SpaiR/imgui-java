@@ -40,29 +40,31 @@ public final class ImNodesCol {
 
     public static final int GridLine = 15;
 
-    public static final int MiniMapBackground = 16;
+    public static final int GridLinePrimary = 16;
 
-    public static final int MiniMapBackgroundHovered = 17;
+    public static final int MiniMapBackground = 17;
 
-    public static final int MiniMapOutline = 18;
+    public static final int MiniMapBackgroundHovered = 18;
 
-    public static final int MiniMapOutlineHovered = 19;
+    public static final int MiniMapOutline = 19;
 
-    public static final int MiniMapNodeBackground = 20;
+    public static final int MiniMapOutlineHovered = 20;
 
-    public static final int MiniMapNodeBackgroundHovered = 21;
+    public static final int MiniMapNodeBackground = 21;
 
-    public static final int MiniMapNodeBackgroundSelected = 22;
+    public static final int MiniMapNodeBackgroundHovered = 22;
 
-    public static final int MiniMapNodeOutline = 23;
+    public static final int MiniMapNodeBackgroundSelected = 23;
 
-    public static final int MiniMapLink = 24;
+    public static final int MiniMapNodeOutline = 24;
 
-    public static final int MiniMapLinkSelected = 25;
+    public static final int MiniMapLink = 25;
 
-    public static final int MiniMapCanvas = 26;
+    public static final int MiniMapLinkSelected = 26;
 
-    public static final int MiniMapCanvasOutline = 27;
+    public static final int MiniMapCanvas = 27;
 
-    public static final int COUNT = 28;
+    public static final int MiniMapCanvasOutline = 28;
+
+    public static final int COUNT = 29;
 }
