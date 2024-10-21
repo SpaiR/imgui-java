@@ -179,24 +179,48 @@ public final class ImNodes {
         nStyleColorsDark();
     }
 
+    public static void styleColorsDark(final ImNodesStyle style) {
+        nStyleColorsDark(style.ptr);
+    }
+
     private static native void nStyleColorsDark(); /*
         ImNodes::StyleColorsDark();
+    */
+
+    private static native void nStyleColorsDark(long style); /*
+        ImNodes::StyleColorsDark(reinterpret_cast<ImNodesStyle*>(style));
     */
 
     public static void styleColorsClassic() {
         nStyleColorsClassic();
     }
 
+    public static void styleColorsClassic(final ImNodesStyle style) {
+        nStyleColorsClassic(style.ptr);
+    }
+
     private static native void nStyleColorsClassic(); /*
         ImNodes::StyleColorsClassic();
+    */
+
+    private static native void nStyleColorsClassic(long style); /*
+        ImNodes::StyleColorsClassic(reinterpret_cast<ImNodesStyle*>(style));
     */
 
     public static void styleColorsLight() {
         nStyleColorsLight();
     }
 
+    public static void styleColorsLight(final ImNodesStyle style) {
+        nStyleColorsLight(style.ptr);
+    }
+
     private static native void nStyleColorsLight(); /*
         ImNodes::StyleColorsLight();
+    */
+
+    private static native void nStyleColorsLight(long style); /*
+        ImNodes::StyleColorsLight(reinterpret_cast<ImNodesStyle*>(style));
     */
 
     /**
@@ -551,29 +575,106 @@ public final class ImNodes {
         ImVec2 gridPos = ImVec2(gridPosX, gridPosY);
         ImNodes::SetNodeGridSpacePos(nodeId, gridPos);
     */
-
-    public static void getNodeScreenSpacePos(final int nodeId) {
-        nGetNodeScreenSpacePos(nodeId);
+    
+    public static ImVec2 getNodeScreenSpacePos(final int nodeId) {
+        final ImVec2 dst = new ImVec2();
+        nGetNodeScreenSpacePos(dst, nodeId);
+        return dst;
     }
 
-    private static native void nGetNodeScreenSpacePos(int nodeId); /*
-        ImNodes::GetNodeScreenSpacePos(nodeId);
+    public static float getNodeScreenSpacePosX(final int nodeId) {
+        return nGetNodeScreenSpacePosX(nodeId);
+    }
+
+    public static float getNodeScreenSpacePosY(final int nodeId) {
+        return nGetNodeScreenSpacePosY(nodeId);
+    }
+
+    public static void getNodeScreenSpacePos(final ImVec2 dst, final int nodeId) {
+        nGetNodeScreenSpacePos(dst, nodeId);
+    }
+
+    private static native void nGetNodeScreenSpacePos(ImVec2 dst, int nodeId); /*
+        Jni::ImVec2Cpy(env, ImNodes::GetNodeScreenSpacePos(nodeId), dst);
     */
 
-    public static void getNodeEditorSpacePos(final int nodeId) {
-        nGetNodeEditorSpacePos(nodeId);
-    }
-
-    private static native void nGetNodeEditorSpacePos(int nodeId); /*
-        ImNodes::GetNodeEditorSpacePos(nodeId);
+    private static native float nGetNodeScreenSpacePosX(int nodeId); /*
+        return ImNodes::GetNodeScreenSpacePos(nodeId).x;
     */
 
-    public static void getNodeGridSpacePos(final int nodeId) {
-        nGetNodeGridSpacePos(nodeId);
+    private static native float nGetNodeScreenSpacePosY(int nodeId); /*
+        return ImNodes::GetNodeScreenSpacePos(nodeId).y;
+    */
+
+    public static ImVec2 getNodeEditorSpacePos(final int nodeId) {
+        final ImVec2 dst = new ImVec2();
+        nGetNodeEditorSpacePos(dst, nodeId);
+        return dst;
     }
 
-    private static native void nGetNodeGridSpacePos(int nodeId); /*
-        ImNodes::GetNodeGridSpacePos(nodeId);
+    public static float getNodeEditorSpacePosX(final int nodeId) {
+        return nGetNodeEditorSpacePosX(nodeId);
+    }
+
+    public static float getNodeEditorSpacePosY(final int nodeId) {
+        return nGetNodeEditorSpacePosY(nodeId);
+    }
+
+    public static void getNodeEditorSpacePos(final ImVec2 dst, final int nodeId) {
+        nGetNodeEditorSpacePos(dst, nodeId);
+    }
+
+    private static native void nGetNodeEditorSpacePos(ImVec2 dst, int nodeId); /*
+        Jni::ImVec2Cpy(env, ImNodes::GetNodeEditorSpacePos(nodeId), dst);
+    */
+
+    private static native float nGetNodeEditorSpacePosX(int nodeId); /*
+        return ImNodes::GetNodeEditorSpacePos(nodeId).x;
+    */
+
+    private static native float nGetNodeEditorSpacePosY(int nodeId); /*
+        return ImNodes::GetNodeEditorSpacePos(nodeId).y;
+    */
+
+    public static ImVec2 getNodeGridSpacePos(final int nodeId) {
+        final ImVec2 dst = new ImVec2();
+        nGetNodeGridSpacePos(dst, nodeId);
+        return dst;
+    }
+
+    public static float getNodeGridSpacePosX(final int nodeId) {
+        return nGetNodeGridSpacePosX(nodeId);
+    }
+
+    public static float getNodeGridSpacePosY(final int nodeId) {
+        return nGetNodeGridSpacePosY(nodeId);
+    }
+
+    public static void getNodeGridSpacePos(final ImVec2 dst, final int nodeId) {
+        nGetNodeGridSpacePos(dst, nodeId);
+    }
+
+    private static native void nGetNodeGridSpacePos(ImVec2 dst, int nodeId); /*
+        Jni::ImVec2Cpy(env, ImNodes::GetNodeGridSpacePos(nodeId), dst);
+    */
+
+    private static native float nGetNodeGridSpacePosX(int nodeId); /*
+        return ImNodes::GetNodeGridSpacePos(nodeId).x;
+    */
+
+    private static native float nGetNodeGridSpacePosY(int nodeId); /*
+        return ImNodes::GetNodeGridSpacePos(nodeId).y;
+    */
+
+    /**
+     * Enable or disable grid snapping.
+     */
+    public static void snapNodeToGrid(final int nodeId) {
+        nSnapNodeToGrid(nodeId);
+    }
+
+    private static native void nSnapNodeToGrid(int nodeId); /*
+        ImNodes::SnapNodeToGrid(nodeId);
     */
 
     /**
