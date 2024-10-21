@@ -4,8 +4,12 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    labels:
+      - deps
 
   - package-ecosystem: gradle
     directory: /
     schedule:
       interval: weekly
+    labels:
+      - deps
