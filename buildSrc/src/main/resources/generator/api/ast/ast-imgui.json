@@ -13359,8 +13359,8 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "out",
-          "qualType" : "ImVector<ImGuiTextFilter::ImGuiTextRange> *",
-          "desugaredQualType" : "ImVector<ImGuiTextFilter::ImGuiTextRange> *"
+          "qualType" : "ImVector<ImGuiTextRange> *",
+          "desugaredQualType" : "ImVector<ImGuiTextRange> *"
         } ]
       } ]
     }, {
@@ -13371,7 +13371,7 @@
     }, {
       "@type" : "AstFieldDecl",
       "name" : "Filters",
-      "qualType" : "ImVector<ImGuiTextFilter::ImGuiTextRange>",
+      "qualType" : "ImVector<ImGuiTextRange>",
       "desugaredQualType" : "ImVector<ImGuiTextFilter::ImGuiTextRange>"
     }, {
       "@type" : "AstFieldDecl",
@@ -13539,7 +13539,7 @@
     }, {
       "@type" : "AstFieldDecl",
       "name" : "Data",
-      "qualType" : "ImVector<ImGuiStorage::ImGuiStoragePair>",
+      "qualType" : "ImVector<ImGuiStoragePair>",
       "desugaredQualType" : "ImVector<ImGuiStorage::ImGuiStoragePair>"
     }, {
       "@type" : "AstFunctionDecl",

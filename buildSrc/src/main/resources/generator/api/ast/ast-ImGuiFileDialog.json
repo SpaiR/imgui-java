@@ -6,6 +6,415 @@
     "revision" : "007091af18c69a2eed15cf5016951eb481a1de79"
   },
   "decls" : [ {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswalnum_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswblank_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswalpha_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswhexnumber_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstRecordDecl",
+    "name" : "timespec",
+    "decls" : [ {
+      "@type" : "AstFieldDecl",
+      "name" : "tv_sec",
+      "qualType" : "__darwin_time_t",
+      "desugaredQualType" : "long"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "tv_nsec",
+      "qualType" : "long",
+      "desugaredQualType" : "long"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswcntrl_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswideogram_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswctype_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswnumber_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswdigit_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswphonogram_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswgraph_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswrune_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswlower_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswspecial_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswblank",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstRecordDecl",
+    "name" : "lconv",
+    "decls" : [ {
+      "@type" : "AstFieldDecl",
+      "name" : "decimal_point",
+      "qualType" : "char *",
+      "desugaredQualType" : "char *"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "thousands_sep",
+      "qualType" : "char *",
+      "desugaredQualType" : "char *"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "grouping",
+      "qualType" : "char *",
+      "desugaredQualType" : "char *"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "int_curr_symbol",
+      "qualType" : "char *",
+      "desugaredQualType" : "char *"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "currency_symbol",
+      "qualType" : "char *",
+      "desugaredQualType" : "char *"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "mon_decimal_point",
+      "qualType" : "char *",
+      "desugaredQualType" : "char *"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "mon_thousands_sep",
+      "qualType" : "char *",
+      "desugaredQualType" : "char *"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "mon_grouping",
+      "qualType" : "char *",
+      "desugaredQualType" : "char *"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "positive_sign",
+      "qualType" : "char *",
+      "desugaredQualType" : "char *"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "negative_sign",
+      "qualType" : "char *",
+      "desugaredQualType" : "char *"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "int_frac_digits",
+      "qualType" : "char",
+      "desugaredQualType" : "char"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "frac_digits",
+      "qualType" : "char",
+      "desugaredQualType" : "char"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "p_cs_precedes",
+      "qualType" : "char",
+      "desugaredQualType" : "char"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "p_sep_by_space",
+      "qualType" : "char",
+      "desugaredQualType" : "char"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "n_cs_precedes",
+      "qualType" : "char",
+      "desugaredQualType" : "char"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "n_sep_by_space",
+      "qualType" : "char",
+      "desugaredQualType" : "char"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "p_sign_posn",
+      "qualType" : "char",
+      "desugaredQualType" : "char"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "n_sign_posn",
+      "qualType" : "char",
+      "desugaredQualType" : "char"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "int_p_cs_precedes",
+      "qualType" : "char",
+      "desugaredQualType" : "char"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "int_n_cs_precedes",
+      "qualType" : "char",
+      "desugaredQualType" : "char"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "int_p_sep_by_space",
+      "qualType" : "char",
+      "desugaredQualType" : "char"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "int_n_sep_by_space",
+      "qualType" : "char",
+      "desugaredQualType" : "char"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "int_p_sign_posn",
+      "qualType" : "char",
+      "desugaredQualType" : "char"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "int_n_sign_posn",
+      "qualType" : "char",
+      "desugaredQualType" : "char"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswprint_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswascii",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswpunct_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswhexnumber",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswspace_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswideogram",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswupper_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswnumber",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswphonogram",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswxdigit_l",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "digittoint_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswrune",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "towlower_l",
+    "resultType" : "wint_t"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isalnum_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswspecial",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "towupper_l",
+    "resultType" : "wint_t"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isalpha_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isblank_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswalnum",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iscntrl_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswalpha",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isdigit_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswcntrl",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isgraph_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswctype",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "ishexnumber_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswdigit",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isideogram_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
     "@type" : "AstRecordDecl",
     "name" : "tm",
     "decls" : [ {
@@ -61,153 +470,329 @@
     }, {
       "@type" : "AstFieldDecl",
       "name" : "tm_zone",
-      "qualType" : "const char *",
-      "desugaredQualType" : "const char *"
+      "qualType" : "char *",
+      "desugaredQualType" : "char *"
     } ]
   }, {
-    "@type" : "AstRecordDecl",
-    "name" : "itimerspec",
-    "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "it_interval",
-      "qualType" : "struct timespec",
-      "desugaredQualType" : "timespec"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "it_value",
-      "qualType" : "struct timespec",
-      "desugaredQualType" : "timespec"
-    } ]
+    "@type" : "AstFunctionDecl",
+    "name" : "iswgraph",
+    "resultType" : "int"
   }, {
-    "@type" : "AstRecordDecl",
-    "name" : "timespec",
+    "@type" : "AstFunctionDecl",
+    "name" : "islower_l",
+    "resultType" : "int",
     "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "tv_sec",
-      "qualType" : "__time_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "tv_nsec",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    } ]
-  }, {
-    "@type" : "AstRecordDecl",
-    "name" : "timex",
-    "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "modes",
-      "qualType" : "unsigned int",
-      "desugaredQualType" : "unsigned int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "offset",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "freq",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "maxerror",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "esterror",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "status",
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
       "qualType" : "int",
       "desugaredQualType" : "int"
     }, {
-      "@type" : "AstFieldDecl",
-      "name" : "constant",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "precision",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "tolerance",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "time",
-      "qualType" : "struct timeval",
-      "desugaredQualType" : "timeval"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "tick",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "ppsfreq",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "jitter",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "shift",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "stabil",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "jitcnt",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "calcnt",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "errcnt",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "stbcnt",
-      "qualType" : "__syscall_slong_t",
-      "desugaredQualType" : "long"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "tai",
-      "qualType" : "int",
-      "desugaredQualType" : "int"
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
     } ]
   }, {
-    "@type" : "AstRecordDecl",
-    "name" : "sched_param",
+    "@type" : "AstFunctionDecl",
+    "name" : "iswlower",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isnumber_l",
+    "resultType" : "int",
     "decls" : [ {
-      "@type" : "AstFieldDecl",
-      "name" : "sched_priority",
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
       "qualType" : "int",
       "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
     } ]
   }, {
-    "@type" : "AstRecordDecl",
-    "name" : "pthread_attr_t"
+    "@type" : "AstFunctionDecl",
+    "name" : "iswprint",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isphonogram_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswpunct",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswspace",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isprint_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswupper",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "ispunct_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iswxdigit",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isrune_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "towlower",
+    "resultType" : "wint_t"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isspace_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "towupper",
+    "resultType" : "wint_t"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isspecial_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isupper_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isxdigit_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "tolower_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "toupper_l",
+    "resultType" : "int",
+    "decls" : [ {
+      "@type" : "AstParmVarDecl",
+      "name" : "c",
+      "qualType" : "int",
+      "desugaredQualType" : "int"
+    }, {
+      "@type" : "AstParmVarDecl",
+      "name" : "l",
+      "qualType" : "locale_t",
+      "desugaredQualType" : "struct _xlocale *"
+    } ]
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isascii",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "major",
+    "resultType" : "__int32_t"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "minor",
+    "resultType" : "__int32_t"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "makedev",
+    "resultType" : "dev_t"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isalnum",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isalpha",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isblank",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "iscntrl",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isdigit",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isgraph",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "islower",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isprint",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "ispunct",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isspace",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isupper",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isxdigit",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "toascii",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "tolower",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "toupper",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "digittoint",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "ishexnumber",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isideogram",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isnumber",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isphonogram",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isrune",
+    "resultType" : "int"
+  }, {
+    "@type" : "AstFunctionDecl",
+    "name" : "isspecial",
+    "resultType" : "int"
   }, {
     "@type" : "AstEnumDecl",
     "name" : "IGFD_FileStyleFlags_",
@@ -377,7 +962,7 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puSearchTag",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
@@ -400,8 +985,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "IGFD::FileDialogInternal &",
-          "desugaredQualType" : "IGFD::FileDialogInternal &"
+          "qualType" : "FileDialogInternal &",
+          "desugaredQualType" : "FileDialogInternal &"
         } ]
       } ]
     }, {
@@ -428,17 +1013,17 @@
         "decls" : [ {
           "@type" : "AstFieldDecl",
           "name" : "path",
-          "qualType" : "std::string",
+          "qualType" : "int",
           "desugaredQualType" : "int"
         }, {
           "@type" : "AstFieldDecl",
           "name" : "name",
-          "qualType" : "std::string",
+          "qualType" : "int",
           "desugaredQualType" : "int"
         }, {
           "@type" : "AstFieldDecl",
           "name" : "ext",
-          "qualType" : "std::string",
+          "qualType" : "int",
           "desugaredQualType" : "int"
         }, {
           "@type" : "AstFieldDecl",
@@ -494,18 +1079,18 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "str",
-          "qualType" : "std::string &",
-          "desugaredQualType" : "std::string &"
+          "qualType" : "int &",
+          "desugaredQualType" : "int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "oldStr",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "newStr",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -514,8 +1099,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "name",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -524,18 +1109,18 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "name",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "ParsePathFileName",
-        "resultType" : "IGFD::Utils::PathStruct",
+        "resultType" : "PathStruct",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vPathFileName",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -554,8 +1139,8 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vStr",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -584,8 +1169,8 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vStr",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -594,8 +1179,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "text",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "delimiter",
@@ -638,7 +1223,7 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "icon",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
@@ -679,7 +1264,7 @@
         "decls" : [ {
           "@type" : "AstFieldDecl",
           "name" : "filter",
-          "qualType" : "std::string",
+          "qualType" : "int",
           "desugaredQualType" : "int"
         }, {
           "@type" : "AstFieldDecl",
@@ -701,8 +1286,8 @@
           "decls" : [ {
             "@type" : "AstParmVarDecl",
             "name" : "vFilter",
-            "qualType" : "const std::string &",
-            "desugaredQualType" : "const std::string &"
+            "qualType" : "const int &",
+            "desugaredQualType" : "const int &"
           } ]
         } ]
       }, {
@@ -712,23 +1297,18 @@
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
-        "name" : "prFilesStyle",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
-      }, {
-        "@type" : "AstFieldDecl",
         "name" : "prSelectedFilter",
-        "qualType" : "IGFD::FilterManager::FilterInfos",
+        "qualType" : "FilterInfos",
         "desugaredQualType" : "IGFD::FilterManager::FilterInfos"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puDLGFilters",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puDLGdefaultExt",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
@@ -747,8 +1327,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFilter",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -777,8 +1357,8 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vInfos",
-          "qualType" : "const IGFD::FileStyle &",
-          "desugaredQualType" : "const IGFD::FileStyle &"
+          "qualType" : "const FileStyle &",
+          "desugaredQualType" : "const FileStyle &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -802,8 +1382,8 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vIcon",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFont",
@@ -822,8 +1402,8 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vCriteria",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vOutColor",
@@ -832,8 +1412,8 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vOutIcon",
-          "qualType" : "std::string *",
-          "desugaredQualType" : "std::string *"
+          "qualType" : "int *",
+          "desugaredQualType" : "int *"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vOutFont",
@@ -851,8 +1431,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vTag",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -861,22 +1441,22 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "IGFD::FileDialogInternal &",
-          "desugaredQualType" : "IGFD::FileDialogInternal &"
+          "qualType" : "FileDialogInternal &",
+          "desugaredQualType" : "FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetSelectedFilter",
-        "resultType" : "IGFD::FilterManager::FilterInfos"
+        "resultType" : "FilterInfos"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "ReplaceExtentionWithCurrentFilter",
-        "resultType" : "std::string",
+        "resultType" : "int",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFile",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -909,22 +1489,22 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "filePath",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "fileNameExt",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "fileNameExt_optimized",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "fileExt",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
@@ -934,12 +1514,12 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "formatedFileSize",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "fileModifDate",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
@@ -953,8 +1533,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vTag",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       } ]
     }, {
@@ -1018,7 +1598,7 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "prCurrentPath",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
@@ -1038,7 +1618,7 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "prLastSelectedFileName",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
@@ -1088,22 +1668,22 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puHeaderFileName",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puHeaderFileType",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puHeaderFileSize",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puHeaderFileDate",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
@@ -1113,7 +1693,7 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puSortingField",
-        "qualType" : "IGFD::FileManager::SortingFieldEnum",
+        "qualType" : "SortingFieldEnum",
         "desugaredQualType" : "IGFD::FileManager::SortingFieldEnum"
       }, {
         "@type" : "AstFieldDecl",
@@ -1123,12 +1703,12 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puDLGpath",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puDLGDefaultFileName",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
@@ -1143,12 +1723,12 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puFsRoot",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "prRoundNumber",
-        "resultType" : "std::string",
+        "resultType" : "int",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vvalue",
@@ -1163,7 +1743,7 @@
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "prFormatFileSize",
-        "resultType" : "std::string",
+        "resultType" : "int",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vByteSize",
@@ -1173,12 +1753,12 @@
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "prOptimizeFilenameForSearchOperations",
-        "resultType" : "std::string",
+        "resultType" : "int",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileNameExt",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1197,8 +1777,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileName",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1207,8 +1787,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileName",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vSetLastSelectionFileName",
@@ -1222,18 +1802,18 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "const IGFD::FileDialogInternal &",
-          "desugaredQualType" : "const IGFD::FileDialogInternal &"
+          "qualType" : "const FileDialogInternal &",
+          "desugaredQualType" : "const FileDialogInternal &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vPath",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFileName",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFileType",
@@ -1291,13 +1871,13 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileName",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetBack",
-        "resultType" : "std::string"
+        "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "ClearComposer",
@@ -1317,8 +1897,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "const IGFD::FileDialogInternal &",
-          "desugaredQualType" : "const IGFD::FileDialogInternal &"
+          "qualType" : "const FileDialogInternal &",
+          "desugaredQualType" : "const FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1327,8 +1907,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "const IGFD::FileDialogInternal &",
-          "desugaredQualType" : "const IGFD::FileDialogInternal &"
+          "qualType" : "const FileDialogInternal &",
+          "desugaredQualType" : "const FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1337,13 +1917,13 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "const IGFD::FileDialogInternal &",
-          "desugaredQualType" : "const IGFD::FileDialogInternal &"
+          "qualType" : "const FileDialogInternal &",
+          "desugaredQualType" : "const FileDialogInternal &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vSortingField",
-          "qualType" : "const IGFD::FileManager::SortingFieldEnum &",
-          "desugaredQualType" : "const IGFD::FileManager::SortingFieldEnum &"
+          "qualType" : "const SortingFieldEnum &",
+          "desugaredQualType" : "const SortingFieldEnum &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vCanChangeOrder",
@@ -1361,8 +1941,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vPath",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1381,7 +1961,7 @@
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetCurrentPath",
-        "resultType" : "std::string"
+        "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "SetCurrentPath",
@@ -1389,8 +1969,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vCurrentPath",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1399,8 +1979,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFile",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1409,8 +1989,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileName",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1429,8 +2009,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "const IGFD::FileDialogInternal &",
-          "desugaredQualType" : "const IGFD::FileDialogInternal &"
+          "qualType" : "const FileDialogInternal &",
+          "desugaredQualType" : "const FileDialogInternal &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vInfos",
@@ -1444,8 +2024,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vPath",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstFullComment",
           "decls" : [ {
@@ -1463,37 +2043,37 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "const IGFD::FileDialogInternal &",
-          "desugaredQualType" : "const IGFD::FileDialogInternal &"
+          "qualType" : "const FileDialogInternal &",
+          "desugaredQualType" : "const FileDialogInternal &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vPath",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetResultingPath",
-        "resultType" : "std::string"
+        "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetResultingFileName",
-        "resultType" : "std::string",
+        "resultType" : "int",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "IGFD::FileDialogInternal &",
-          "desugaredQualType" : "IGFD::FileDialogInternal &"
+          "qualType" : "FileDialogInternal &",
+          "desugaredQualType" : "FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetResultingFilePathName",
-        "resultType" : "std::string",
+        "resultType" : "int",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "IGFD::FileDialogInternal &",
-          "desugaredQualType" : "IGFD::FileDialogInternal &"
+          "qualType" : "FileDialogInternal &",
+          "desugaredQualType" : "FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1506,8 +2086,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "const IGFD::FileDialogInternal &",
-          "desugaredQualType" : "const IGFD::FileDialogInternal &"
+          "qualType" : "const FileDialogInternal &",
+          "desugaredQualType" : "const FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1516,8 +2096,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "const IGFD::FileDialogInternal &",
-          "desugaredQualType" : "const IGFD::FileDialogInternal &"
+          "qualType" : "const FileDialogInternal &",
+          "desugaredQualType" : "const FileDialogInternal &"
         } ]
       } ]
     }, {
@@ -1530,8 +2110,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "IGFD::FileDialogInternal &",
-          "desugaredQualType" : "IGFD::FileDialogInternal &"
+          "qualType" : "FileDialogInternal &",
+          "desugaredQualType" : "FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1540,8 +2120,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "IGFD::FileDialogInternal &",
-          "desugaredQualType" : "IGFD::FileDialogInternal &"
+          "qualType" : "FileDialogInternal &",
+          "desugaredQualType" : "FileDialogInternal &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1550,8 +2130,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vFileDialogInternal",
-          "qualType" : "IGFD::FileDialogInternal &",
-          "desugaredQualType" : "IGFD::FileDialogInternal &"
+          "qualType" : "FileDialogInternal &",
+          "desugaredQualType" : "FileDialogInternal &"
         } ]
       } ]
     }, {
@@ -1592,22 +2172,22 @@
       "decls" : [ {
         "@type" : "AstFieldDecl",
         "name" : "puFileManager",
-        "qualType" : "IGFD::FileManager",
+        "qualType" : "FileManager",
         "desugaredQualType" : "IGFD::FileManager"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puFilterManager",
-        "qualType" : "IGFD::FilterManager",
+        "qualType" : "FilterManager",
         "desugaredQualType" : "IGFD::FilterManager"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puSearchManager",
-        "qualType" : "IGFD::SearchManager",
+        "qualType" : "SearchManager",
         "desugaredQualType" : "IGFD::SearchManager"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puName",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
@@ -1657,12 +2237,12 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puDLGkey",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puDLGtitle",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
@@ -1672,13 +2252,13 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puDLGuserDatas",
-        "qualType" : "IGFD::UserDatas",
+        "qualType" : "UserDatas",
         "desugaredQualType" : "void *"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puDLGoptionsPane",
-        "qualType" : "IGFD::PaneFun",
-        "desugaredQualType" : "std::function<void (const char *, void *, bool *)>"
+        "qualType" : "PaneFun",
+        "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puDLGoptionsPaneWidth",
@@ -1707,12 +2287,12 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puLocaleBegin",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFieldDecl",
         "name" : "puLocaleEnd",
-        "qualType" : "std::string",
+        "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
@@ -1748,7 +2328,7 @@
       }, {
         "@type" : "AstFieldDecl",
         "name" : "prFileDialogInternal",
-        "qualType" : "IGFD::FileDialogInternal",
+        "qualType" : "FileDialogInternal",
         "desugaredQualType" : "IGFD::FileDialogInternal"
       }, {
         "@type" : "AstFieldDecl",
@@ -1763,7 +2343,7 @@
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "Instance",
-        "resultType" : "IGFD::FileDialog *"
+        "resultType" : "FileDialog *"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "OpenDialog",
@@ -1771,13 +2351,13 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vKey",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vTitle",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFilters",
@@ -1786,13 +2366,13 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vPath",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFileName",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vCountSelectionMax",
@@ -1802,7 +2382,7 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vUserDatas",
-          "qualType" : "IGFD::UserDatas",
+          "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
@@ -1828,13 +2408,13 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vKey",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vTitle",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFilters",
@@ -1843,8 +2423,8 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFilePathName",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vCountSelectionMax",
@@ -1854,7 +2434,7 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vUserDatas",
-          "qualType" : "IGFD::UserDatas",
+          "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
@@ -1871,13 +2451,13 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vKey",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vTitle",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFilters",
@@ -1886,18 +2466,18 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vPath",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFileName",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vSidePane",
-          "qualType" : "const IGFD::PaneFun &",
-          "desugaredQualType" : "const IGFD::PaneFun &"
+          "qualType" : "const PaneFun &",
+          "desugaredQualType" : "const PaneFun &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vSidePaneWidth",
@@ -1913,7 +2493,7 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vUserDatas",
-          "qualType" : "IGFD::UserDatas",
+          "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
@@ -1939,13 +2519,13 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vKey",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vTitle",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFilters",
@@ -1954,13 +2534,13 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFilePathName",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vSidePane",
-          "qualType" : "const IGFD::PaneFun &",
-          "desugaredQualType" : "const IGFD::PaneFun &"
+          "qualType" : "const PaneFun &",
+          "desugaredQualType" : "const PaneFun &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vSidePaneWidth",
@@ -1976,7 +2556,7 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vUserDatas",
-          "qualType" : "IGFD::UserDatas",
+          "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
@@ -1993,13 +2573,13 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vKey",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vTitle",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFilters",
@@ -2008,13 +2588,13 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vPath",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFileName",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vCountSelectionMax",
@@ -2024,7 +2604,7 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vUserDatas",
-          "qualType" : "IGFD::UserDatas",
+          "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
@@ -2050,13 +2630,13 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vKey",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vTitle",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFilters",
@@ -2065,8 +2645,8 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFilePathName",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vCountSelectionMax",
@@ -2076,7 +2656,7 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vUserDatas",
-          "qualType" : "IGFD::UserDatas",
+          "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
@@ -2093,13 +2673,13 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vKey",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vTitle",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFilters",
@@ -2108,18 +2688,18 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vPath",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFileName",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vSidePane",
-          "qualType" : "const IGFD::PaneFun &",
-          "desugaredQualType" : "const IGFD::PaneFun &"
+          "qualType" : "const PaneFun &",
+          "desugaredQualType" : "const PaneFun &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vSidePaneWidth",
@@ -2135,7 +2715,7 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vUserDatas",
-          "qualType" : "IGFD::UserDatas",
+          "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
@@ -2161,13 +2741,13 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vKey",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vTitle",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFilters",
@@ -2176,13 +2756,13 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFilePathName",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vSidePane",
-          "qualType" : "const IGFD::PaneFun &",
-          "desugaredQualType" : "const IGFD::PaneFun &"
+          "qualType" : "const PaneFun &",
+          "desugaredQualType" : "const PaneFun &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vSidePaneWidth",
@@ -2198,7 +2778,7 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vUserDatas",
-          "qualType" : "IGFD::UserDatas",
+          "qualType" : "UserDatas",
           "desugaredQualType" : "void *",
           "defaultValue" : "nullptr"
         }, {
@@ -2215,8 +2795,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vKey",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vFlags",
@@ -2256,8 +2836,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vKey",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstFullComment",
           "decls" : [ {
@@ -2279,8 +2859,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "vKey",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -2289,7 +2869,7 @@
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetOpenedKey",
-        "resultType" : "std::string"
+        "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "IsOk",
@@ -2311,23 +2891,23 @@
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetFilePathName",
-        "resultType" : "std::string"
+        "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetCurrentFileName",
-        "resultType" : "std::string"
+        "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetCurrentPath",
-        "resultType" : "std::string"
+        "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetCurrentFilter",
-        "resultType" : "std::string"
+        "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetUserDatas",
-        "resultType" : "IGFD::UserDatas"
+        "resultType" : "UserDatas"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "SetFileStyle",
@@ -2345,8 +2925,8 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vInfos",
-          "qualType" : "const IGFD::FileStyle &",
-          "desugaredQualType" : "const IGFD::FileStyle &"
+          "qualType" : "const FileStyle &",
+          "desugaredQualType" : "const FileStyle &"
         }, {
           "@type" : "AstFullComment",
           "decls" : [ {
@@ -2379,8 +2959,8 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vIcon",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &",
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &",
           "defaultValue" : "="
         }, {
           "@type" : "AstParmVarDecl",
@@ -2401,8 +2981,8 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vCriteria",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vOutColor",
@@ -2411,8 +2991,8 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vOutIcon",
-          "qualType" : "std::string *",
-          "desugaredQualType" : "std::string *",
+          "qualType" : "int *",
+          "desugaredQualType" : "int *",
           "defaultValue" : "nullptr"
         }, {
           "@type" : "AstParmVarDecl",
@@ -2437,13 +3017,13 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vLocaleBegin",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vLocaleEnd",
-          "qualType" : "const std::string &",
-          "desugaredQualType" : "const std::string &"
+          "qualType" : "const int &",
+          "desugaredQualType" : "const int &"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -2574,8 +3154,8 @@
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vOutStr",
-          "qualType" : "std::string &",
-          "desugaredQualType" : "std::string &"
+          "qualType" : "int &",
+          "desugaredQualType" : "int &"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "vOutFont",

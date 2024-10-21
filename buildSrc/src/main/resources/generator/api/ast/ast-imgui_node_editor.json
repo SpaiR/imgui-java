@@ -99,33 +99,33 @@
         }, {
           "@type" : "AstFieldDecl",
           "name" : "BeginSaveSession",
-          "qualType" : "ax::NodeEditor::ConfigSession",
+          "qualType" : "ConfigSession",
           "desugaredQualType" : "void (*)(void *)"
         }, {
           "@type" : "AstFieldDecl",
           "name" : "EndSaveSession",
-          "qualType" : "ax::NodeEditor::ConfigSession",
+          "qualType" : "ConfigSession",
           "desugaredQualType" : "void (*)(void *)"
         }, {
           "@type" : "AstFieldDecl",
           "name" : "SaveSettings",
-          "qualType" : "ax::NodeEditor::ConfigSaveSettings",
-          "desugaredQualType" : "bool (*)(const char *, int, ax::NodeEditor::SaveReasonFlags, void *)"
+          "qualType" : "ConfigSaveSettings",
+          "desugaredQualType" : "bool (*)(const char *, size_t, SaveReasonFlags, void *)"
         }, {
           "@type" : "AstFieldDecl",
           "name" : "LoadSettings",
-          "qualType" : "int",
-          "desugaredQualType" : "int"
+          "qualType" : "ConfigLoadSettings",
+          "desugaredQualType" : "size_t (*)(char *, void *)"
         }, {
           "@type" : "AstFieldDecl",
           "name" : "SaveNodeSettings",
-          "qualType" : "ax::NodeEditor::ConfigSaveNodeSettings",
-          "desugaredQualType" : "bool (*)(ax::NodeEditor::NodeId, const char *, int, ax::NodeEditor::SaveReasonFlags, void *)"
+          "qualType" : "ConfigSaveNodeSettings",
+          "desugaredQualType" : "bool (*)(NodeId, const char *, size_t, SaveReasonFlags, void *)"
         }, {
           "@type" : "AstFieldDecl",
           "name" : "LoadNodeSettings",
-          "qualType" : "int",
-          "desugaredQualType" : "int"
+          "qualType" : "ConfigLoadNodeSettings",
+          "desugaredQualType" : "size_t (*)(NodeId, char *, void *)"
         }, {
           "@type" : "AstFieldDecl",
           "name" : "UserPointer",
@@ -612,8 +612,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "ctx",
-          "qualType" : "ax::NodeEditor::EditorContext *",
-          "desugaredQualType" : "ax::NodeEditor::EditorContext *"
+          "qualType" : "EditorContext *",
+          "desugaredQualType" : "EditorContext *"
         }, {
           "@type" : "AstFullComment",
           "decls" : [ {
@@ -627,16 +627,16 @@
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetCurrentEditor",
-        "resultType" : "ax::NodeEditor::EditorContext *"
+        "resultType" : "EditorContext *"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "CreateEditor",
-        "resultType" : "ax::NodeEditor::EditorContext *",
+        "resultType" : "EditorContext *",
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "config",
-          "qualType" : "const ax::NodeEditor::Config *",
-          "desugaredQualType" : "const ax::NodeEditor::Config *",
+          "qualType" : "const Config *",
+          "desugaredQualType" : "const Config *",
           "defaultValue" : "nullptr"
         } ]
       }, {
@@ -646,13 +646,13 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "ctx",
-          "qualType" : "ax::NodeEditor::EditorContext *",
-          "desugaredQualType" : "ax::NodeEditor::EditorContext *"
+          "qualType" : "EditorContext *",
+          "desugaredQualType" : "EditorContext *"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetStyle",
-        "resultType" : "ax::NodeEditor::Style &"
+        "resultType" : "Style &"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetStyleColorName",
@@ -660,7 +660,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "colorIndex",
-          "qualType" : "ax::NodeEditor::StyleColor",
+          "qualType" : "StyleColor",
           "desugaredQualType" : "ax::NodeEditor::StyleColor"
         } ]
       }, {
@@ -670,7 +670,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "colorIndex",
-          "qualType" : "ax::NodeEditor::StyleColor",
+          "qualType" : "StyleColor",
           "desugaredQualType" : "ax::NodeEditor::StyleColor"
         }, {
           "@type" : "AstParmVarDecl",
@@ -696,7 +696,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "varIndex",
-          "qualType" : "ax::NodeEditor::StyleVar",
+          "qualType" : "StyleVar",
           "desugaredQualType" : "ax::NodeEditor::StyleVar"
         }, {
           "@type" : "AstParmVarDecl",
@@ -711,7 +711,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "varIndex",
-          "qualType" : "ax::NodeEditor::StyleVar",
+          "qualType" : "StyleVar",
           "desugaredQualType" : "ax::NodeEditor::StyleVar"
         }, {
           "@type" : "AstParmVarDecl",
@@ -726,7 +726,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "varIndex",
-          "qualType" : "ax::NodeEditor::StyleVar",
+          "qualType" : "StyleVar",
           "desugaredQualType" : "ax::NodeEditor::StyleVar"
         }, {
           "@type" : "AstParmVarDecl",
@@ -772,7 +772,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "id",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         } ]
       }, {
@@ -782,12 +782,12 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "id",
-          "qualType" : "ax::NodeEditor::PinId",
+          "qualType" : "PinId",
           "desugaredQualType" : "ax::NodeEditor::PinId"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "kind",
-          "qualType" : "ax::NodeEditor::PinKind",
+          "qualType" : "PinKind",
           "desugaredQualType" : "ax::NodeEditor::PinKind"
         } ]
       }, {
@@ -875,7 +875,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         } ]
       }, {
@@ -905,7 +905,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         }, {
           "@type" : "AstFullComment",
@@ -924,17 +924,17 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "id",
-          "qualType" : "ax::NodeEditor::LinkId",
+          "qualType" : "LinkId",
           "desugaredQualType" : "ax::NodeEditor::LinkId"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "startPinId",
-          "qualType" : "ax::NodeEditor::PinId",
+          "qualType" : "PinId",
           "desugaredQualType" : "ax::NodeEditor::PinId"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "endPinId",
-          "qualType" : "ax::NodeEditor::PinId",
+          "qualType" : "PinId",
           "desugaredQualType" : "ax::NodeEditor::PinId"
         }, {
           "@type" : "AstParmVarDecl",
@@ -956,12 +956,12 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "linkId",
-          "qualType" : "ax::NodeEditor::LinkId",
+          "qualType" : "LinkId",
           "desugaredQualType" : "ax::NodeEditor::LinkId"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "direction",
-          "qualType" : "ax::NodeEditor::FlowDirection",
+          "qualType" : "FlowDirection",
           "desugaredQualType" : "ax::NodeEditor::FlowDirection",
           "defaultValue" : "FlowDirection::Forward"
         } ]
@@ -989,13 +989,13 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "startId",
-          "qualType" : "ax::NodeEditor::PinId *",
-          "desugaredQualType" : "ax::NodeEditor::PinId *"
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "endId",
-          "qualType" : "ax::NodeEditor::PinId *",
-          "desugaredQualType" : "ax::NodeEditor::PinId *"
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1004,13 +1004,13 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "startId",
-          "qualType" : "ax::NodeEditor::PinId *",
-          "desugaredQualType" : "ax::NodeEditor::PinId *"
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "endId",
-          "qualType" : "ax::NodeEditor::PinId *",
-          "desugaredQualType" : "ax::NodeEditor::PinId *"
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "color",
@@ -1030,8 +1030,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "pinId",
-          "qualType" : "ax::NodeEditor::PinId *",
-          "desugaredQualType" : "ax::NodeEditor::PinId *"
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1040,8 +1040,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "pinId",
-          "qualType" : "ax::NodeEditor::PinId *",
-          "desugaredQualType" : "ax::NodeEditor::PinId *"
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "color",
@@ -1109,19 +1109,19 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "linkId",
-          "qualType" : "ax::NodeEditor::LinkId *",
-          "desugaredQualType" : "ax::NodeEditor::LinkId *"
+          "qualType" : "LinkId *",
+          "desugaredQualType" : "LinkId *"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "startId",
-          "qualType" : "ax::NodeEditor::PinId *",
-          "desugaredQualType" : "ax::NodeEditor::PinId *",
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *",
           "defaultValue" : "nullptr"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "endId",
-          "qualType" : "ax::NodeEditor::PinId *",
-          "desugaredQualType" : "ax::NodeEditor::PinId *",
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *",
           "defaultValue" : "nullptr"
         } ]
       }, {
@@ -1131,8 +1131,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId *",
-          "desugaredQualType" : "ax::NodeEditor::NodeId *"
+          "qualType" : "NodeId *",
+          "desugaredQualType" : "NodeId *"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1160,7 +1160,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         }, {
           "@type" : "AstParmVarDecl",
@@ -1175,7 +1175,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         }, {
           "@type" : "AstParmVarDecl",
@@ -1190,7 +1190,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         } ]
       }, {
@@ -1200,7 +1200,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         } ]
       }, {
@@ -1210,7 +1210,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         } ]
       }, {
@@ -1220,7 +1220,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         }, {
           "@type" : "AstParmVarDecl",
@@ -1235,7 +1235,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         } ]
       }, {
@@ -1245,7 +1245,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         } ]
       }, {
@@ -1279,8 +1279,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodes",
-          "qualType" : "ax::NodeEditor::NodeId *",
-          "desugaredQualType" : "ax::NodeEditor::NodeId *"
+          "qualType" : "NodeId *",
+          "desugaredQualType" : "NodeId *"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "size",
@@ -1294,8 +1294,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "links",
-          "qualType" : "ax::NodeEditor::LinkId *",
-          "desugaredQualType" : "ax::NodeEditor::LinkId *"
+          "qualType" : "LinkId *",
+          "desugaredQualType" : "LinkId *"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "size",
@@ -1309,7 +1309,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         } ]
       }, {
@@ -1319,7 +1319,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "linkId",
-          "qualType" : "ax::NodeEditor::LinkId",
+          "qualType" : "LinkId",
           "desugaredQualType" : "ax::NodeEditor::LinkId"
         } ]
       }, {
@@ -1333,7 +1333,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         }, {
           "@type" : "AstParmVarDecl",
@@ -1349,7 +1349,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "linkId",
-          "qualType" : "ax::NodeEditor::LinkId",
+          "qualType" : "LinkId",
           "desugaredQualType" : "ax::NodeEditor::LinkId"
         }, {
           "@type" : "AstParmVarDecl",
@@ -1365,7 +1365,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         } ]
       }, {
@@ -1375,7 +1375,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "linkId",
-          "qualType" : "ax::NodeEditor::LinkId",
+          "qualType" : "LinkId",
           "desugaredQualType" : "ax::NodeEditor::LinkId"
         } ]
       }, {
@@ -1385,7 +1385,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         } ]
       }, {
@@ -1395,7 +1395,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "linkId",
-          "qualType" : "ax::NodeEditor::LinkId",
+          "qualType" : "LinkId",
           "desugaredQualType" : "ax::NodeEditor::LinkId"
         } ]
       }, {
@@ -1405,7 +1405,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         } ]
       }, {
@@ -1415,7 +1415,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "pinId",
-          "qualType" : "ax::NodeEditor::PinId",
+          "qualType" : "PinId",
           "desugaredQualType" : "ax::NodeEditor::PinId"
         } ]
       }, {
@@ -1425,7 +1425,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId",
+          "qualType" : "NodeId",
           "desugaredQualType" : "ax::NodeEditor::NodeId"
         } ]
       }, {
@@ -1435,7 +1435,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "pinId",
-          "qualType" : "ax::NodeEditor::PinId",
+          "qualType" : "PinId",
           "desugaredQualType" : "ax::NodeEditor::PinId"
         } ]
       }, {
@@ -1473,8 +1473,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodeId",
-          "qualType" : "ax::NodeEditor::NodeId *",
-          "desugaredQualType" : "ax::NodeEditor::NodeId *"
+          "qualType" : "NodeId *",
+          "desugaredQualType" : "NodeId *"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1483,8 +1483,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "pinId",
-          "qualType" : "ax::NodeEditor::PinId *",
-          "desugaredQualType" : "ax::NodeEditor::PinId *"
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1493,8 +1493,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "linkId",
-          "qualType" : "ax::NodeEditor::LinkId *",
-          "desugaredQualType" : "ax::NodeEditor::LinkId *"
+          "qualType" : "LinkId *",
+          "desugaredQualType" : "LinkId *"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1549,8 +1549,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodes",
-          "qualType" : "ax::NodeEditor::NodeId *",
-          "desugaredQualType" : "ax::NodeEditor::NodeId *"
+          "qualType" : "NodeId *",
+          "desugaredQualType" : "NodeId *"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "size",
@@ -1564,8 +1564,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "links",
-          "qualType" : "ax::NodeEditor::LinkId *",
-          "desugaredQualType" : "ax::NodeEditor::LinkId *"
+          "qualType" : "LinkId *",
+          "desugaredQualType" : "LinkId *"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "size",
@@ -1583,27 +1583,27 @@
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetHoveredNode",
-        "resultType" : "ax::NodeEditor::NodeId"
+        "resultType" : "NodeId"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetHoveredPin",
-        "resultType" : "ax::NodeEditor::PinId"
+        "resultType" : "PinId"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetHoveredLink",
-        "resultType" : "ax::NodeEditor::LinkId"
+        "resultType" : "LinkId"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetDoubleClickedNode",
-        "resultType" : "ax::NodeEditor::NodeId"
+        "resultType" : "NodeId"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetDoubleClickedPin",
-        "resultType" : "ax::NodeEditor::PinId"
+        "resultType" : "PinId"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetDoubleClickedLink",
-        "resultType" : "ax::NodeEditor::LinkId"
+        "resultType" : "LinkId"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "IsBackgroundClicked",
@@ -1619,18 +1619,18 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "linkId",
-          "qualType" : "ax::NodeEditor::LinkId",
+          "qualType" : "LinkId",
           "desugaredQualType" : "ax::NodeEditor::LinkId"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "startPinId",
-          "qualType" : "ax::NodeEditor::PinId *",
-          "desugaredQualType" : "ax::NodeEditor::PinId *"
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "endPinId",
-          "qualType" : "ax::NodeEditor::PinId *",
-          "desugaredQualType" : "ax::NodeEditor::PinId *"
+          "qualType" : "PinId *",
+          "desugaredQualType" : "PinId *"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1639,7 +1639,7 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "pinId",
-          "qualType" : "ax::NodeEditor::PinId",
+          "qualType" : "PinId",
           "desugaredQualType" : "ax::NodeEditor::PinId"
         } ]
       }, {
@@ -1677,8 +1677,8 @@
         "decls" : [ {
           "@type" : "AstParmVarDecl",
           "name" : "nodes",
-          "qualType" : "ax::NodeEditor::NodeId *",
-          "desugaredQualType" : "ax::NodeEditor::NodeId *"
+          "qualType" : "NodeId *",
+          "desugaredQualType" : "NodeId *"
         }, {
           "@type" : "AstParmVarDecl",
           "name" : "size",
