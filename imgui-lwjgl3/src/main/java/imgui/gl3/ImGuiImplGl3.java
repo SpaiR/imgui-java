@@ -65,6 +65,9 @@ import static org.lwjgl.opengl.GL32.GL_TEXTURE_MAG_FILTER;
 import static org.lwjgl.opengl.GL32.GL_TEXTURE_MIN_FILTER;
 import static org.lwjgl.opengl.GL32.GL_TRIANGLES;
 import static org.lwjgl.opengl.GL32.GL_TRUE;
+import static org.lwjgl.opengl.GL32.GL_UNPACK_ALIGNMENT;
+import static org.lwjgl.opengl.GL32.GL_UNPACK_SKIP_PIXELS;
+import static org.lwjgl.opengl.GL32.GL_UNPACK_SKIP_ROWS;
 import static org.lwjgl.opengl.GL32.GL_UNPACK_ROW_LENGTH;
 import static org.lwjgl.opengl.GL32.GL_UNSIGNED_BYTE;
 import static org.lwjgl.opengl.GL32.GL_UNSIGNED_INT;
@@ -545,6 +548,9 @@ public class ImGuiImplGl3 {
         glBindTexture(GL_TEXTURE_2D, data.fontTexture);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 4); // Not on WebGL/ES
+        glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0); // Not on WebGL/ES
+        glPixelStorei(GL_UNPACK_SKIP_ROWS, 0); // Not on WebGL/ES
         glPixelStorei(GL_UNPACK_ROW_LENGTH, 0); // Not on WebGL/ES
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width.get(), height.get(), 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
