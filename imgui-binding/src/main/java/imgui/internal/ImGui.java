@@ -5,10 +5,12 @@ import imgui.ImFont;
 import imgui.ImGuiPlatformMonitor;
 import imgui.ImGuiViewport;
 import imgui.ImVec2;
+import imgui.ImVec4;
 import imgui.binding.annotation.ArgValue;
 import imgui.binding.annotation.BindingMethod;
 import imgui.binding.annotation.BindingSource;
 import imgui.binding.annotation.OptArg;
+import imgui.type.ImBoolean;
 import imgui.type.ImFloat;
 import imgui.type.ImInt;
 
@@ -332,11 +334,48 @@ public final class ImGui extends imgui.ImGui {
     @BindingMethod
     public static native void DockBuilderFinish(int nodeId);
 
+
+    // Widgets
+
+    @BindingMethod
+    public static native void TextEx(String beginText, @OptArg String endText, @OptArg @ArgValue(staticCast = "ImGuiTextFlags_") int imGuiTextFlags);
+
+    @BindingMethod
+    public static native boolean ButtonEx(String label, @OptArg(callValue = "ImVec2(0,0)") ImVec2 size, @OptArg @ArgValue(staticCast = "ImGuiButtonFlags") int imGuiButtonFlags);
+
+    @BindingMethod
+    public static native boolean CloseButton(@ArgValue(callPrefix = "(ImGuiID)") int id, ImVec2 pos);
+
+    @BindingMethod
+    public static native boolean ArrowButtonEx(String strId, @ArgValue(staticCast = "ImGuiDir") int imGuiDir, ImVec2 size, @OptArg @ArgValue(staticCast = "ImGuiButtonFlags") int imGuiButtonFlags);
+
+    @BindingMethod
+    public static native void Scrollbar(@ArgValue(staticCast = "ImGuiAxis") int axis);
+
+    @BindingMethod
+    public static native boolean ImageButtonEx(@ArgValue(callPrefix = "(ImGuiID)") int id, @ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 size, ImVec2 uv0, ImVec2 uv1, ImVec2 padding, ImVec4 bgCol, ImVec4 tintCol);
+
+    @BindingMethod
+    public static native void SeparatorEx(@ArgValue(staticCast = "ImGuiSeparatorFlags_") int imGuiSeparatorFlags);
+
+    @BindingMethod
+    public static native ImRect GetWindowScrollbarRect(ImGuiWindow imGuiWindow, @ArgValue(staticCast = "ImGuiAxis") int axis);
+
+    @BindingMethod
+    public static native int GetWindowScrollbarID(ImGuiWindow window, @ArgValue(staticCast = "ImGuiAxis") int axis);
+
+    @BindingMethod
+    public static native int GetWindowResizeCornerID(ImGuiWindow window, int n);
+
+    @BindingMethod
+    public static native int GetWindowResizeBorderID(ImGuiWindow window, @ArgValue(staticCast = "ImGuiDir") int dir);
+
     // Widgets low-level behaviors
+
+    @BindingMethod
+    public static native boolean ButtonBehavior(ImRect bb, @ArgValue(callPrefix = "(ImGuiID)") int id, ImBoolean outHovered, ImBoolean outHeld, @OptArg @ArgValue(staticCast = "ImGuiButtonFlags") int imGuiButtonFlags);
 
     @BindingMethod
     public static native boolean SplitterBehavior(ImRect bb, int id, @ArgValue(staticCast = "ImGuiAxis") int axis, ImFloat size1, ImFloat size2, float minSize1, float minSize2, @OptArg float hoverExtend, @OptArg float hoverVisibilityDelay, @OptArg int bgCol);
 
-    @BindingMethod
-    public static native ImRect GetWindowScrollbarRect(ImGuiWindow imGuiWindow, @ArgValue(staticCast = "ImGuiAxis") int axis);
 }
