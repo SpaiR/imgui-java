@@ -5,6 +5,8 @@ import imgui.ImFont;
 import imgui.ImGuiPlatformMonitor;
 import imgui.ImGuiViewport;
 import imgui.ImVec2;
+import imgui.ImVec4;
+import imgui.type.ImBoolean;
 import imgui.type.ImFloat;
 import imgui.type.ImInt;
 
@@ -1106,7 +1108,251 @@ public final class ImGui extends imgui.ImGui {
         ImGui::DockBuilderFinish(nodeId);
     */
 
+
+    // Widgets
+
+    public static void textEx(final String beginText) {
+        nTextEx(beginText);
+    }
+
+    public static void textEx(final String beginText, final String endText) {
+        nTextEx(beginText, endText);
+    }
+
+    public static void textEx(final String beginText, final String endText, final int imGuiTextFlags) {
+        nTextEx(beginText, endText, imGuiTextFlags);
+    }
+
+    private static native void nTextEx(String beginText); /*MANUAL
+        auto beginText = obj_beginText == NULL ? NULL : (char*)env->GetStringUTFChars(obj_beginText, JNI_FALSE);
+        ImGui::TextEx(beginText);
+        if (beginText != NULL) env->ReleaseStringUTFChars(obj_beginText, beginText);
+    */
+
+    private static native void nTextEx(String beginText, String endText); /*MANUAL
+        auto beginText = obj_beginText == NULL ? NULL : (char*)env->GetStringUTFChars(obj_beginText, JNI_FALSE);
+        auto endText = obj_endText == NULL ? NULL : (char*)env->GetStringUTFChars(obj_endText, JNI_FALSE);
+        ImGui::TextEx(beginText, endText);
+        if (beginText != NULL) env->ReleaseStringUTFChars(obj_beginText, beginText);
+        if (endText != NULL) env->ReleaseStringUTFChars(obj_endText, endText);
+    */
+
+    private static native void nTextEx(String beginText, String endText, int imGuiTextFlags); /*MANUAL
+        auto beginText = obj_beginText == NULL ? NULL : (char*)env->GetStringUTFChars(obj_beginText, JNI_FALSE);
+        auto endText = obj_endText == NULL ? NULL : (char*)env->GetStringUTFChars(obj_endText, JNI_FALSE);
+        ImGui::TextEx(beginText, endText, static_cast<ImGuiTextFlags_>(imGuiTextFlags));
+        if (beginText != NULL) env->ReleaseStringUTFChars(obj_beginText, beginText);
+        if (endText != NULL) env->ReleaseStringUTFChars(obj_endText, endText);
+    */
+
+    public static boolean buttonEx(final String label) {
+        return nButtonEx(label);
+    }
+
+    public static boolean buttonEx(final String label, final ImVec2 size) {
+        return nButtonEx(label, size.x, size.y);
+    }
+
+    public static boolean buttonEx(final String label, final float sizeX, final float sizeY) {
+        return nButtonEx(label, sizeX, sizeY);
+    }
+
+    public static boolean buttonEx(final String label, final ImVec2 size, final int imGuiButtonFlags) {
+        return nButtonEx(label, size.x, size.y, imGuiButtonFlags);
+    }
+
+    public static boolean buttonEx(final String label, final float sizeX, final float sizeY, final int imGuiButtonFlags) {
+        return nButtonEx(label, sizeX, sizeY, imGuiButtonFlags);
+    }
+
+    public static boolean buttonEx(final String label, final int imGuiButtonFlags) {
+        return nButtonEx(label, imGuiButtonFlags);
+    }
+
+    private static native boolean nButtonEx(String obj_label); /*MANUAL
+        auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
+        auto _result = ImGui::ButtonEx(label);
+        if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
+        return _result;
+    */
+
+    private static native boolean nButtonEx(String obj_label, float sizeX, float sizeY); /*MANUAL
+        auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
+        ImVec2 size = ImVec2(sizeX, sizeY);
+        auto _result = ImGui::ButtonEx(label, size);
+        if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
+        return _result;
+    */
+
+    private static native boolean nButtonEx(String obj_label, float sizeX, float sizeY, int imGuiButtonFlags); /*MANUAL
+        auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
+        ImVec2 size = ImVec2(sizeX, sizeY);
+        auto _result = ImGui::ButtonEx(label, size, static_cast<ImGuiButtonFlags>(imGuiButtonFlags));
+        if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
+        return _result;
+    */
+
+    private static native boolean nButtonEx(String obj_label, int imGuiButtonFlags); /*MANUAL
+        auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
+        auto _result = ImGui::ButtonEx(label, ImVec2(0,0), static_cast<ImGuiButtonFlags>(imGuiButtonFlags));
+        if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
+        return _result;
+    */
+
+    public static boolean closeButton(final int id, final ImVec2 pos) {
+        return nCloseButton(id, pos.x, pos.y);
+    }
+
+    public static boolean closeButton(final int id, final float posX, final float posY) {
+        return nCloseButton(id, posX, posY);
+    }
+
+    private static native boolean nCloseButton(int id, float posX, float posY); /*MANUAL
+        ImVec2 pos = ImVec2(posX, posY);
+        auto _result = ImGui::CloseButton((ImGuiID)id, pos);
+        return _result;
+    */
+
+    public static boolean arrowButtonEx(final String strId, final int imGuiDir, final ImVec2 size) {
+        return nArrowButtonEx(strId, imGuiDir, size.x, size.y);
+    }
+
+    public static boolean arrowButtonEx(final String strId, final int imGuiDir, final float sizeX, final float sizeY) {
+        return nArrowButtonEx(strId, imGuiDir, sizeX, sizeY);
+    }
+
+    public static boolean arrowButtonEx(final String strId, final int imGuiDir, final ImVec2 size, final int imGuiButtonFlags) {
+        return nArrowButtonEx(strId, imGuiDir, size.x, size.y, imGuiButtonFlags);
+    }
+
+    public static boolean arrowButtonEx(final String strId, final int imGuiDir, final float sizeX, final float sizeY, final int imGuiButtonFlags) {
+        return nArrowButtonEx(strId, imGuiDir, sizeX, sizeY, imGuiButtonFlags);
+    }
+
+    private static native boolean nArrowButtonEx(String obj_strId, int imGuiDir, float sizeX, float sizeY); /*MANUAL
+        auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
+        ImVec2 size = ImVec2(sizeX, sizeY);
+        auto _result = ImGui::ArrowButtonEx(strId, static_cast<ImGuiDir>(imGuiDir), size);
+        if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
+        return _result;
+    */
+
+    private static native boolean nArrowButtonEx(String obj_strId, int imGuiDir, float sizeX, float sizeY, int imGuiButtonFlags); /*MANUAL
+        auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
+        ImVec2 size = ImVec2(sizeX, sizeY);
+        auto _result = ImGui::ArrowButtonEx(strId, static_cast<ImGuiDir>(imGuiDir), size, static_cast<ImGuiButtonFlags>(imGuiButtonFlags));
+        if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
+        return _result;
+    */
+
+    public static void scrollbar(final int axis) {
+        nScrollbar(axis);
+    }
+
+    private static native void nScrollbar(int axis); /*
+        ImGui::Scrollbar(static_cast<ImGuiAxis>(axis));
+    */
+
+    public static boolean imageButtonEx(final int id, final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final ImVec2 padding, final ImVec4 bgCol, final ImVec4 tintCol) {
+        return nImageButtonEx(id, userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, padding.x, padding.y, bgCol.x, bgCol.y, bgCol.z, bgCol.w, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
+    }
+
+    public static boolean imageButtonEx(final int id, final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float paddingX, final float paddingY, final float bgColX, final float bgColY, final float bgColZ, final float bgColW, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
+        return nImageButtonEx(id, userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, paddingX, paddingY, bgColX, bgColY, bgColZ, bgColW, tintColX, tintColY, tintColZ, tintColW);
+    }
+
+    private static native boolean nImageButtonEx(int id, long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float paddingX, float paddingY, float bgColX, float bgColY, float bgColZ, float bgColW, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
+        ImVec2 size = ImVec2(sizeX, sizeY);
+        ImVec2 uv0 = ImVec2(uv0X, uv0Y);
+        ImVec2 uv1 = ImVec2(uv1X, uv1Y);
+        ImVec2 padding = ImVec2(paddingX, paddingY);
+        ImVec4 bgCol = ImVec4(bgColX, bgColY, bgColZ, bgColW);
+        ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
+        auto _result = ImGui::ImageButtonEx((ImGuiID)id, (ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1, padding, bgCol, tintCol);
+        return _result;
+    */
+
+    public static void separatorEx(final int imGuiSeparatorFlags) {
+        nSeparatorEx(imGuiSeparatorFlags);
+    }
+
+    private static native void nSeparatorEx(int imGuiSeparatorFlags); /*
+        ImGui::SeparatorEx(static_cast<ImGuiSeparatorFlags_>(imGuiSeparatorFlags));
+    */
+
+    public static ImRect getWindowScrollbarRect(final ImGuiWindow imGuiWindow, final int axis) {
+        final ImRect dst = new ImRect();
+        nGetWindowScrollbarRect(dst, imGuiWindow.ptr, axis);
+        return dst;
+    }
+
+    public static void getWindowScrollbarRect(final ImRect dst, final ImGuiWindow imGuiWindow, final int axis) {
+        nGetWindowScrollbarRect(dst, imGuiWindow.ptr, axis);
+    }
+
+    private static native void nGetWindowScrollbarRect(ImRect dst, long imGuiWindow, int axis); /*
+        Jni::ImRectCpy(env, ImGui::GetWindowScrollbarRect(reinterpret_cast<ImGuiWindow*>(imGuiWindow), static_cast<ImGuiAxis>(axis)), dst);
+    */
+
+    public static int getWindowScrollbarID(final ImGuiWindow window, final int axis) {
+        return nGetWindowScrollbarID(window.ptr, axis);
+    }
+
+    private static native int nGetWindowScrollbarID(long window, int axis); /*
+        return ImGui::GetWindowScrollbarID(reinterpret_cast<ImGuiWindow*>(window), static_cast<ImGuiAxis>(axis));
+    */
+
+    public static int getWindowResizeCornerID(final ImGuiWindow window, final int n) {
+        return nGetWindowResizeCornerID(window.ptr, n);
+    }
+
+    private static native int nGetWindowResizeCornerID(long window, int n); /*
+        return ImGui::GetWindowResizeCornerID(reinterpret_cast<ImGuiWindow*>(window), n);
+    */
+
+    public static int getWindowResizeBorderID(final ImGuiWindow window, final int dir) {
+        return nGetWindowResizeBorderID(window.ptr, dir);
+    }
+
+    private static native int nGetWindowResizeBorderID(long window, int dir); /*
+        return ImGui::GetWindowResizeBorderID(reinterpret_cast<ImGuiWindow*>(window), static_cast<ImGuiDir>(dir));
+    */
+
     // Widgets low-level behaviors
+
+    public static boolean buttonBehavior(final ImRect bb, final int id, final ImBoolean outHovered, final ImBoolean outHeld) {
+        return nButtonBehavior(bb.min.x, bb.min.y, bb.max.x, bb.max.y, id, outHovered != null ? outHovered.getData() : null, outHeld != null ? outHeld.getData() : null);
+    }
+
+    public static boolean buttonBehavior(final float bbMinX, final float bbMinY, final float bbMaxX, final float bbMaxY, final int id, final ImBoolean outHovered, final ImBoolean outHeld) {
+        return nButtonBehavior(bbMinX, bbMinY, bbMaxX, bbMaxY, id, outHovered != null ? outHovered.getData() : null, outHeld != null ? outHeld.getData() : null);
+    }
+
+    public static boolean buttonBehavior(final ImRect bb, final int id, final ImBoolean outHovered, final ImBoolean outHeld, final int imGuiButtonFlags) {
+        return nButtonBehavior(bb.min.x, bb.min.y, bb.max.x, bb.max.y, id, outHovered != null ? outHovered.getData() : null, outHeld != null ? outHeld.getData() : null, imGuiButtonFlags);
+    }
+
+    public static boolean buttonBehavior(final float bbMinX, final float bbMinY, final float bbMaxX, final float bbMaxY, final int id, final ImBoolean outHovered, final ImBoolean outHeld, final int imGuiButtonFlags) {
+        return nButtonBehavior(bbMinX, bbMinY, bbMaxX, bbMaxY, id, outHovered != null ? outHovered.getData() : null, outHeld != null ? outHeld.getData() : null, imGuiButtonFlags);
+    }
+
+    private static native boolean nButtonBehavior(float bbMinX, float bbMinY, float bbMaxX, float bbMaxY, int id, boolean[] obj_outHovered, boolean[] obj_outHeld); /*MANUAL
+        auto outHovered = obj_outHovered == NULL ? NULL : (bool*)env->GetPrimitiveArrayCritical(obj_outHovered, JNI_FALSE);
+        auto outHeld = obj_outHeld == NULL ? NULL : (bool*)env->GetPrimitiveArrayCritical(obj_outHeld, JNI_FALSE);
+        auto _result = ImGui::ButtonBehavior(ImRect(bbMinX, bbMinY, bbMaxX, bbMaxY), (ImGuiID)id, (outHovered != NULL ? &outHovered[0] : NULL), (outHeld != NULL ? &outHeld[0] : NULL));
+        if (outHovered != NULL) env->ReleasePrimitiveArrayCritical(obj_outHovered, outHovered, JNI_FALSE);
+        if (outHeld != NULL) env->ReleasePrimitiveArrayCritical(obj_outHeld, outHeld, JNI_FALSE);
+        return _result;
+    */
+
+    private static native boolean nButtonBehavior(float bbMinX, float bbMinY, float bbMaxX, float bbMaxY, int id, boolean[] obj_outHovered, boolean[] obj_outHeld, int imGuiButtonFlags); /*MANUAL
+        auto outHovered = obj_outHovered == NULL ? NULL : (bool*)env->GetPrimitiveArrayCritical(obj_outHovered, JNI_FALSE);
+        auto outHeld = obj_outHeld == NULL ? NULL : (bool*)env->GetPrimitiveArrayCritical(obj_outHeld, JNI_FALSE);
+        auto _result = ImGui::ButtonBehavior(ImRect(bbMinX, bbMinY, bbMaxX, bbMaxY), (ImGuiID)id, (outHovered != NULL ? &outHovered[0] : NULL), (outHeld != NULL ? &outHeld[0] : NULL), static_cast<ImGuiButtonFlags>(imGuiButtonFlags));
+        if (outHovered != NULL) env->ReleasePrimitiveArrayCritical(obj_outHovered, outHovered, JNI_FALSE);
+        if (outHeld != NULL) env->ReleasePrimitiveArrayCritical(obj_outHeld, outHeld, JNI_FALSE);
+        return _result;
+    */
 
     public static boolean splitterBehavior(final ImRect bb, final int id, final int axis, final ImFloat size1, final ImFloat size2, final float minSize1, final float minSize2) {
         return nSplitterBehavior(bb.min.x, bb.min.y, bb.max.x, bb.max.y, id, axis, size1 != null ? size1.getData() : null, size2 != null ? size2.getData() : null, minSize1, minSize2);
@@ -1176,17 +1422,4 @@ public final class ImGui extends imgui.ImGui {
         return _result;
     */
 
-    public static ImRect getWindowScrollbarRect(final ImGuiWindow imGuiWindow, final int axis) {
-        final ImRect dst = new ImRect();
-        nGetWindowScrollbarRect(dst, imGuiWindow.ptr, axis);
-        return dst;
-    }
-
-    public static void getWindowScrollbarRect(final ImRect dst, final ImGuiWindow imGuiWindow, final int axis) {
-        nGetWindowScrollbarRect(dst, imGuiWindow.ptr, axis);
-    }
-
-    private static native void nGetWindowScrollbarRect(ImRect dst, long imGuiWindow, int axis); /*
-        Jni::ImRectCpy(env, ImGui::GetWindowScrollbarRect(reinterpret_cast<ImGuiWindow*>(imGuiWindow), static_cast<ImGuiAxis>(axis)), dst);
-    */
 }
