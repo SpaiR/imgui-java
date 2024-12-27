@@ -65,9 +65,9 @@ public class ExampleCanvasEditor {
             ImGuiIO io = ImGui.getIO();
             ImDrawList drawList = ImGui.getWindowDrawList();
             drawList.addRectFilled(canvasP0.x, canvasP0.y, canvasP1.x, canvasP1.y,
-                ImColor.intToColor(50, 50, 50, 255));
+                ImColor.rgba(50, 50, 50, 255));
             drawList.addRect(canvasP0.x, canvasP0.y, canvasP1.x, canvasP1.y,
-                ImColor.intToColor(255, 255, 255, 255));
+                ImColor.rgba(255, 255, 255, 255));
 
             // This will catch our interactions
             ImGui.invisibleButton("canvas", canvasSize.x, canvasSize.y,
@@ -112,27 +112,27 @@ public class ExampleCanvasEditor {
             float GRID_STEP = 64.0f;
             for (float x = fmodf(scrolling.x, GRID_STEP); x < canvasSize.x; x += GRID_STEP) {
                 drawList.addLine(canvasP0.x + x, canvasP0.y, canvasP0.x + x, canvasP1.y,
-                    ImColor.intToColor(200, 200, 200, 40));
+                    ImColor.rgba(200, 200, 200, 40));
             }
             for (float y = fmodf(scrolling.y, GRID_STEP); y < canvasSize.y; y += GRID_STEP) {
                 drawList.addLine(canvasP0.x, canvasP0.y + y, canvasP1.x, canvasP0.y + y,
-                    ImColor.intToColor(200, 200, 200, 40));
+                    ImColor.rgba(200, 200, 200, 40));
             }
             for (int n = 0; n < pointList.size(); n += 2) {
                 drawList.addLine(origin.x + pointList.get(n).x, origin.y + pointList.get(n).y,
                     origin.x + pointList.get(n + 1).x, origin.y + pointList.get(n + 1).y,
-                    ImColor.intToColor(255, 255, 0, 255), thickness);
+                    ImColor.rgba(255, 255, 0, 255), thickness);
             }
             drawList.popClipRect();
 
             // Menu properties
             if (ImGui.beginPopup("context")) {
                 addingLine = false;
-                if (ImGui.menuItem("Remove one", "", false, pointList.size() > 0)) {
+                if (ImGui.menuItem("Remove one", "", false, !pointList.isEmpty())) {
                     pointList.remove(pointList.size() - 1);
                     pointList.remove(pointList.size() - 1);
                 }
-                if (ImGui.menuItem("Remove all", "", false, pointList.size() > 0)) {
+                if (ImGui.menuItem("Remove all", "", false, !pointList.isEmpty())) {
                     pointList.clear();
                 }
                 ImGui.endPopup();

@@ -7,8 +7,8 @@ ext {
 }
 
 allprojects {
-    group 'imgui-java'
-    version 'git describe --tags --always'.execute().text.trim().substring(1)
+    group = 'imgui-java'
+    version = 'git describe --tags --always'.execute().text.trim().substring(1)
 
     repositories {
         mavenCentral()
@@ -21,16 +21,19 @@ allprojects {
                 into 'META-INF'
             }
 
+            def jdkMetadata = tasks.withType(JavaCompile).find().javaCompiler.get().metadata
+            def buildJdk = "${jdkMetadata.javaRuntimeVersion} (${jdkMetadata.vendor})".toString()
+
             manifest {
                 attributes (
                         'Implementation-Title': project.name,
                         'Implementation-Version': project.version,
                         'Build-Timestamp': new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(System.currentTimeMillis()),
                         'Build-Revision': 'git rev-parse HEAD'.execute().text.trim(),
-                        'Build-Jdk': "${System.getProperty('java.version')} (${System.getProperty('java.vendor')})",
+                        'Build-Jdk': buildJdk,
                         'Source-Compatibility': tasks.withType(JavaCompile).find().sourceCompatibility,
                         'Target-Compatibility': tasks.withType(JavaCompile).find().targetCompatibility,
-                        'Created-By': "Gradle ${gradle.gradleVersion}"
+                        'Created-By': "Gradle ${gradle.gradleVersion} "
                 )
             }
         }
