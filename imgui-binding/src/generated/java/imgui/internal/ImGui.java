@@ -363,20 +363,20 @@ public final class ImGui extends imgui.ImGui {
 
     // Init
 
-    public static void initialize(final ImGuiContext context) {
-        nInitialize(context.ptr);
+    public static void initialize() {
+        nInitialize();
     }
 
-    private static native void nInitialize(long context); /*
-        ImGui::Initialize(reinterpret_cast<ImGuiContext*>(context));
+    private static native void nInitialize(); /*
+        ImGui::Initialize();
     */
 
-    public static void shutdown(final ImGuiContext context) {
-        nShutdown(context.ptr);
+    public static void shutdown() {
+        nShutdown();
     }
 
-    private static native void nShutdown(long context); /*
-        ImGui::Shutdown(reinterpret_cast<ImGuiContext*>(context));
+    private static native void nShutdown(); /*
+        ImGui::Shutdown();
     */
 
     // NewFrame

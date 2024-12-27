@@ -3,7 +3,7 @@
     "source" : "include/imgui/misc/freetype/imgui_freetype.h",
     "hash" : "5976473c3ad2fbe2f0386eaa9019d4e0",
     "url" : "https://github.com/ocornut/imgui",
-    "revision" : "1ee252772ae9c0a971d06257bb5c89f628fa696a"
+    "revision" : "9cd9c2eff99877a3f10a7f9c2a3a5b9c15ea36c6"
   },
   "decls" : [ {
     "@type" : "AstRecordDecl",

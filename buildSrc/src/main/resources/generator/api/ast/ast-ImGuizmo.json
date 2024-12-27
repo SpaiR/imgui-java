@@ -1,9 +1,9 @@
 {
   "info" : {
     "source" : "include/imguizmo/ImGuizmo.h",
-    "hash" : "e4cff3bc8014e2bccae881f1b0535298",
+    "hash" : "f3ed04e44a5959358d2d9966b66f2f69",
     "url" : "https://github.com/CedricGuillemet/ImGuizmo.git",
-    "revision" : "f7bbbe39971d9d45816417a70e9b53a0f698c56e"
+    "revision" : "e2bc419c8826a3d632d3974aab201b0fee770263"
   },
   "decls" : [ {
     "@type" : "AstNamespaceDecl",
@@ -418,25 +418,61 @@
         "evaluatedValue" : 1024
       }, {
         "@type" : "AstEnumConstantDecl",
-        "name" : "TRANSLATE",
+        "name" : "SCALE_XU",
         "qualType" : "ImGuizmo::OPERATION",
         "order" : 11,
+        "value" : "(1u << 11)",
+        "evaluatedValue" : 2048
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "SCALE_YU",
+        "qualType" : "ImGuizmo::OPERATION",
+        "order" : 12,
+        "value" : "(1u << 12)",
+        "evaluatedValue" : 4096
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "SCALE_ZU",
+        "qualType" : "ImGuizmo::OPERATION",
+        "order" : 13,
+        "value" : "(1u << 13)",
+        "evaluatedValue" : 8192
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "TRANSLATE",
+        "qualType" : "ImGuizmo::OPERATION",
+        "order" : 14,
         "value" : "TRANSLATE_X | TRANSLATE_Y | TRANSLATE_Z",
         "evaluatedValue" : 7
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "ROTATE",
         "qualType" : "ImGuizmo::OPERATION",
-        "order" : 12,
+        "order" : 15,
         "value" : "ROTATE_X | ROTATE_Y | ROTATE_Z | ROTATE_SCREEN",
         "evaluatedValue" : 120
       }, {
         "@type" : "AstEnumConstantDecl",
         "name" : "SCALE",
         "qualType" : "ImGuizmo::OPERATION",
-        "order" : 13,
+        "order" : 16,
         "value" : "SCALE_X | SCALE_Y | SCALE_Z",
         "evaluatedValue" : 896
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "SCALEU",
+        "docComment" : "universal",
+        "qualType" : "ImGuizmo::OPERATION",
+        "order" : 17,
+        "value" : "SCALE_XU | SCALE_YU | SCALE_ZU",
+        "evaluatedValue" : 14336
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "UNIVERSAL",
+        "qualType" : "ImGuizmo::OPERATION",
+        "order" : 18,
+        "value" : "TRANSLATE | ROTATE | SCALEU",
+        "evaluatedValue" : 14463
       } ]
     }, {
       "@type" : "AstEnumDecl",
@@ -550,6 +586,65 @@
           }, {
             "@type" : "AstTextComment",
             "text" : " other software are using the same mechanics. But just in case, you are now warned!"
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "ViewManipulate",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "view",
+        "qualType" : "float *",
+        "desugaredQualType" : "float *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "projection",
+        "qualType" : "const float *",
+        "desugaredQualType" : "const float *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "operation",
+        "qualType" : "OPERATION",
+        "desugaredQualType" : "ImGuizmo::OPERATION"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "mode",
+        "qualType" : "MODE",
+        "desugaredQualType" : "ImGuizmo::MODE"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "matrix",
+        "qualType" : "float *",
+        "desugaredQualType" : "float *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "length",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "position",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "size",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "backgroundColor",
+        "qualType" : "int",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " use this version if you did not call Manipulate before and you are just using ViewManipulate"
           } ]
         } ]
       } ]

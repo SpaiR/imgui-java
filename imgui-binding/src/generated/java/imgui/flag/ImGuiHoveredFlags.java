@@ -81,6 +81,13 @@ public final class ImGuiHoveredFlags {
     public static final int AllowWhenDisabled = 512;
 
     /**
+     * Disable using gamepad/keyboard navigation state when active, always query mouse.
+     *
+     * <p>Definition: {@code 1 << 10}
+     */
+    public static final int NoNavOverride = 1024;
+
+    /**
      * Definition: {@code ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenOverlapped}
      */
     public static final int RectOnly = 416;

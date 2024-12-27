@@ -83,12 +83,18 @@ public final class ImGuiCol {
 
     public static final int SeparatorActive = 29;
 
+    /**
+     * Resize grip in lower-right and lower-left corners of windows.
+     */
     public static final int ResizeGrip = 30;
 
     public static final int ResizeGripHovered = 31;
 
     public static final int ResizeGripActive = 32;
 
+    /**
+     * TabItem in a TabBar
+     */
     public static final int Tab = 33;
 
     public static final int TabHovered = 34;
@@ -144,6 +150,9 @@ public final class ImGuiCol {
 
     public static final int TextSelectedBg = 49;
 
+    /**
+     * Rectangle highlighting a drop target
+     */
     public static final int DragDropTarget = 50;
 
     /**

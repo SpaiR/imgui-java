@@ -239,6 +239,12 @@ public class ImGui {
     public static native void ShowMetricsWindow(@OptArg ImBoolean pOpen);
 
     /**
+     * Create Debug Log window. display a simplified log of important dear imgui events.
+     */
+    @BindingMethod
+    public static native void ShowDebugLogWindow(@OptArg ImBoolean pOpen);
+
+    /**
      * Create Stack Tool window. hover items with mouse to query information about the source of their unique ID.
      */
     @BindingMethod
@@ -1895,13 +1901,11 @@ public class ImGui {
     public static native boolean IsPopupOpen(String strId, @OptArg int imGuiPopupFlags);
 
     // Tables
-    // [BETA API] API may evolve slightly! If you use this, please update to the next version when it comes out!
     // - Full-featured replacement for old Columns API.
-    // - See Demo->Tables for demo code.
-    // - See top of imgui_tables.cpp for general commentary.
+    // - See Demo->Tables for demo code. See top of imgui_tables.cpp for general commentary.
     // - See ImGuiTableFlags_ and ImGuiTableColumnFlags_ enums for a description of available flags.
     // The typical call flow is:
-    // - 1. Call BeginTable().
+    // - 1. Call BeginTable(), early out if returning false.
     // - 2. Optionally call TableSetupColumn() to submit column name/flags/defaults.
     // - 3. Optionally call TableSetupScrollFreeze() to request scroll freezing of columns/rows.
     // - 4. Optionally call TableHeadersRow() to submit a header row. Names are pulled from TableSetupColumn() data.
@@ -1977,13 +1981,17 @@ public class ImGui {
     @BindingMethod
     public static native void TableHeader(String label);
 
-    // Tables: Sorting
-    // - Call TableGetSortSpecs() to retrieve latest sort specs for the table. NULL when not sorting.
-    // - When 'SpecsDirty == true' you should sort your data. It will be true when sorting specs have changed
-    //   since last call, or the first time. Make sure to set 'SpecsDirty = false' after sorting, else you may
-    //   wastefully sort your data every frame!
-    // - Lifetime: don't hold on this pointer over multiple frames or past any subsequent call to BeginTable().
+    // Tables: Sorting & Miscellaneous functions
+    // - Sorting: call TableGetSortSpecs() to retrieve latest sort specs for the table. NULL when not sorting.
+    //   When 'sort_specs->SpecsDirty == true' you should sort your data. It will be true when sorting specs have
+    //   changed since last call, or the first time. Make sure to set 'SpecsDirty = false' after sorting,
+    //   else you may wastefully sort your data every frame!
+    // - Functions args 'int column_n' treat the default value of -1 as the same as passing the current column index.
 
+    /**
+     * Get latest sort specs for the table (NULL if not sorting).
+     * Lifetime: don't hold on this pointer over multiple frames or past any subsequent call to BeginTable().
+     */
     @BindingMethod
     public static native ImGuiTableSortSpecs TableGetSortSpecs();
 
@@ -2523,6 +2531,22 @@ public class ImGui {
     @ReturnValue(isStatic = true)
     public static native ImGuiViewport GetMainViewport();
 
+    // Background/Foreground Draw Lists
+
+    /**
+     * Get background draw list for the viewport associated to the current window.
+     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
+     */
+    @BindingMethod
+    public static native ImDrawList GetBackgroundDrawList(@OptArg ImGuiViewport viewport);
+
+    /**
+     * Get foreground draw list for the viewport associated to the current window.
+     * This draw list will be the last rendered one. Useful to quickly draw shapes/text over dear imgui contents.
+     */
+    @BindingMethod
+    public static native ImDrawList GetForegroundDrawList(@OptArg ImGuiViewport viewport);
+
     // Miscellaneous Utilities
 
     /**
@@ -2549,19 +2573,7 @@ public class ImGui {
     @BindingMethod
     public static native int GetFrameCount();
 
-    /**
-     * Get background draw list for the viewport associated to the current window.
-     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
-     */
-    @BindingMethod
-    public static native ImDrawList GetBackgroundDrawList(@OptArg ImGuiViewport viewport);
 
-    /**
-     * Get foreground draw list for the viewport associated to the current window.
-     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
-     */
-    @BindingMethod
-    public static native ImDrawList GetForegroundDrawList(@OptArg ImGuiViewport viewport);
 
     // TODO GetDrawListSharedData
 
@@ -2667,12 +2679,12 @@ public class ImGui {
     public static native String GetKeyName(@ArgValue(staticCast = "ImGuiKey") int key);
 
     /**
-     * Attention: misleading name! manually override io.WantCaptureKeyboard flag next frame (said flag is entirely left for your application to handle).
-     * e.g. force capture keyboard when your widget is being hovered.
-     * This is equivalent to setting "io.WantCaptureKeyboard = wantCaptureKeyboardValue"; after the next NewFrame() call.
+     * Override io.WantCaptureKeyboard flag next frame (said flag is left for your application to handle,
+     * typically when true it instructs your app to ignore inputs). e.g. force capture keyboard when your widget is being hovered.
+     * This is equivalent to setting "io.WantCaptureKeyboard = want_capture_keyboard"; after the next NewFrame() call.
      */
     @BindingMethod
-    public static native void CaptureKeyboardFromApp(@OptArg boolean wantCaptureKeyboardValue);
+    public static native void SetNextFrameWantCaptureKeyboard(boolean wantCaptureKeyboard);
 
     // Inputs Utilities: Mouse
     // - To refer to a mouse button, you may use named enums in your code e.g. ImGuiMouseButton_Left, ImGuiMouseButton_Right.
@@ -2769,11 +2781,12 @@ public class ImGui {
     public static native void SetMouseCursor(int type);
 
     /**
-     * Attention: misleading name! manually override io.WantCaptureMouse flag next frame (said flag is entirely left for your application to handle).
-     * This is equivalent to setting "io.WantCaptureMouse = wantCaptureMouseValue;" after the next NewFrame() call.
+     *  Override io.WantCaptureMouse flag next frame (said flag is left for your application to handle,
+     *  typical when true it instucts your app to ignore inputs).
+     *  This is equivalent to setting "io.WantCaptureMouse = want_capture_mouse;" after the next NewFrame() call.
      */
     @BindingMethod
-    public static native void CaptureMouseFromApp(@OptArg boolean wantCaptureMouseValue);
+    public static native void SetNextFrameWantCaptureMouse(boolean wantCaptureMouse);
 
     // Clipboard Utilities
     // - Also see the LogToClipboard() function to capture GUI into clipboard, or easily output text data to the clipboard.
@@ -2814,7 +2827,9 @@ public class ImGui {
     public static native String SaveIniSettingsToMemory(@OptArg @ArgValue(callPrefix = "(size_t*)&") long outIniSize);
 
     // Debug Utilities
-    // - This is used by the IMGUI_CHECKVERSION() macro.
+
+    @BindingMethod
+    public static native void DebugTextEncoding(String text);
 
     @BindingMethod
     public static native boolean DebugCheckVersionAndDataLayout(String versionStr, int szIo, int szStyle, int szVec2, int szVec4, int szDrawVert, int szDrawIdx);

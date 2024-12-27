@@ -4,8 +4,8 @@ package imgui.flag;
 /**
  * To test io.KeyMods (which is a combination of individual fields io.KeyCtrl, io.KeyShift, io.KeyAlt set by user/backend)
  */
-public final class ImGuiKeyModFlags {
-    private ImGuiKeyModFlags() {
+public final class ImGuiModFlags {
+    private ImGuiModFlags() {
     }
 
     /**
@@ -24,7 +24,9 @@ public final class ImGuiKeyModFlags {
     public static final int Shift = 2;
 
     /**
-     * Definition: {@code 1 << 2}
+     * Menu
+     *
+     * <p>Definition: {@code 1 << 2}
      */
     public static final int Alt = 4;
 

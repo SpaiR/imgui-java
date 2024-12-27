@@ -207,7 +207,8 @@ public final class ImDrawList extends ImGuiStruct {
     */
 
     // Primitives
-    // - For rectangular primitives, "pMin" and "pMax" represent the upper-left and lower-right corners.
+    // - Filled shapes must always use clockwise winding order. The anti-aliasing fringe depends on it. Counter-clockwise shapes will have "inward" anti-aliasing.
+    // - For rectangular primitives, "p_min" and "p_max" represent the upper-left and lower-right corners.
     // - For circle primitives, use "num_segments == 0" to automatically calculate tessellation (preferred).
     //   In older versions (until Dear ImGui 1.77) the AddCircle functions defaulted to num_segments == 12.
     //   In future versions we will use textures to provide cheaper and higher-quality circles.
@@ -770,9 +771,6 @@ public final class ImDrawList extends ImGuiStruct {
         THIS->AddPolyline(points, numPoint, col, imDrawFlags, thickness);
     */
 
-    /**
-     * Note: Anti-aliased filling requires points to be in clockwise order.
-     */
     public void addConvexPolyFilled(final ImVec2[] points, final int numPoints, final int col) {
         nAddConvexPolyFilled(points, numPoints, col);
     }
@@ -1084,6 +1082,7 @@ public final class ImDrawList extends ImGuiStruct {
     */
 
     // Stateful path API, add points then finish with PathFillConvex() or PathStroke()
+    // - Filled shapes must always use clockwise winding order. The anti-aliasing fringe depends on it. Counter-clockwise shapes will have "inward" anti-aliasing.
 
     public void pathClear() {
         nPathClear();
