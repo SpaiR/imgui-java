@@ -109,7 +109,7 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-     * Main display size, in pixels (generally == {@code GetMainViewport()->Size})
+     * Main display size, in pixels (generally == {@code GetMainViewport()->Size}). May change every frame.
      */
     public ImVec2 getDisplaySize() {
         final ImVec2 dst = new ImVec2();
@@ -118,35 +118,35 @@ public final class ImGuiIO extends ImGuiStruct {
     }
 
     /**
-     * Main display size, in pixels (generally == {@code GetMainViewport()->Size})
+     * Main display size, in pixels (generally == {@code GetMainViewport()->Size}). May change every frame.
      */
     public float getDisplaySizeX() {
         return nGetDisplaySizeX();
     }
 
     /**
-     * Main display size, in pixels (generally == {@code GetMainViewport()->Size})
+     * Main display size, in pixels (generally == {@code GetMainViewport()->Size}). May change every frame.
      */
     public float getDisplaySizeY() {
         return nGetDisplaySizeY();
     }
 
     /**
-     * Main display size, in pixels (generally == {@code GetMainViewport()->Size})
+     * Main display size, in pixels (generally == {@code GetMainViewport()->Size}). May change every frame.
      */
     public void getDisplaySize(final ImVec2 dst) {
         nGetDisplaySize(dst);
     }
 
     /**
-     * Main display size, in pixels (generally == {@code GetMainViewport()->Size})
+     * Main display size, in pixels (generally == {@code GetMainViewport()->Size}). May change every frame.
      */
     public void setDisplaySize(final ImVec2 value) {
         nSetDisplaySize(value.x, value.y);
     }
 
     /**
-     * Main display size, in pixels (generally == {@code GetMainViewport()->Size})
+     * Main display size, in pixels (generally == {@code GetMainViewport()->Size}). May change every frame.
      */
     public void setDisplaySize(final float valueX, final float valueY) {
         nSetDisplaySize(valueX, valueY);
@@ -170,14 +170,14 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-     * Time elapsed since last frame, in seconds.
+     * Time elapsed since last frame, in seconds. May change every frame.
      */
     public float getDeltaTime() {
         return nGetDeltaTime();
     }
 
     /**
-     * Time elapsed since last frame, in seconds.
+     * Time elapsed since last frame, in seconds. May change every frame.
      */
     public void setDeltaTime(final float value) {
         nSetDeltaTime(value);
@@ -1084,6 +1084,39 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
+     * [Optional] Specify index for legacy {@code <1.87} IsKeyXXX() functions with native indices + specify native keycode, scancode.
+     */
+    public void setKeyEventNativeData(final int key, final int nativeKeycode, final int nativeScancode) {
+        nSetKeyEventNativeData(key, nativeKeycode, nativeScancode);
+    }
+
+    /**
+     * [Optional] Specify index for legacy {@code <1.87} IsKeyXXX() functions with native indices + specify native keycode, scancode.
+     */
+    public void setKeyEventNativeData(final int key, final int nativeKeycode, final int nativeScancode, final int nativeLegacyIndex) {
+        nSetKeyEventNativeData(key, nativeKeycode, nativeScancode, nativeLegacyIndex);
+    }
+
+    private native void nSetKeyEventNativeData(int key, int nativeKeycode, int nativeScancode); /*
+        THIS->SetKeyEventNativeData(static_cast<ImGuiKey>(key), nativeKeycode, nativeScancode);
+    */
+
+    private native void nSetKeyEventNativeData(int key, int nativeKeycode, int nativeScancode, int nativeLegacyIndex); /*
+        THIS->SetKeyEventNativeData(static_cast<ImGuiKey>(key), nativeKeycode, nativeScancode, nativeLegacyIndex);
+    */
+
+    /**
+     * Set master flag for accepting key/mouse/text events (default to true). Useful if you have native dialog boxes that are interrupting your application loop/refresh, and you want to disable events being queued while your app is frozen.
+     */
+    public void setAppAcceptingEvents(final boolean acceptingEvents) {
+        nSetAppAcceptingEvents(acceptingEvents);
+    }
+
+    private native void nSetAppAcceptingEvents(boolean acceptingEvents); /*
+        THIS->SetAppAcceptingEvents(acceptingEvents);
+    */
+
+    /**
      * [Internal] Clear the text input buffer manually
      */
     public void clearInputCharacters() {
@@ -1103,28 +1136,6 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nClearInputKeys(); /*
         THIS->ClearInputKeys();
-    */
-
-    /**
-     * [Optional] Specify index for legacy before 1.87 IsKeyXXX() functions with native indices + specify native keycode, scancode.
-     */
-    public void setKeyEventNativeData(final int key, final int nativeKeycode, final int nativeScancode) {
-        nSetKeyEventNativeData(key, nativeKeycode, nativeScancode);
-    }
-
-    /**
-     * [Optional] Specify index for legacy before 1.87 IsKeyXXX() functions with native indices + specify native keycode, scancode.
-     */
-    public void setKeyEventNativeData(final int key, final int nativeKeycode, final int nativeScancode, final int nativeLegacyIndex) {
-        nSetKeyEventNativeData(key, nativeKeycode, nativeScancode, nativeLegacyIndex);
-    }
-
-    private native void nSetKeyEventNativeData(int key, int nativeKeycode, int nativeScancode); /*
-        THIS->SetKeyEventNativeData(static_cast<ImGuiKey>(key), nativeKeycode, nativeScancode);
-    */
-
-    private native void nSetKeyEventNativeData(int key, int nativeKeycode, int nativeScancode, int nativeLegacyIndex); /*
-        THIS->SetKeyEventNativeData(static_cast<ImGuiKey>(key), nativeKeycode, nativeScancode, nativeLegacyIndex);
     */
 
     //------------------------------------------------------------------
@@ -1556,6 +1567,7 @@ public final class ImGuiIO extends ImGuiStruct {
 
     /**
      * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
+     * This used to be [512] sized. It is now ImGuiKey_COUNT to allow legacy io.KeysDown[GetKeyIndex(...)] to work without an overflow.
      */
     @Deprecated
     public boolean[] getKeysDown() {
@@ -1564,6 +1576,7 @@ public final class ImGuiIO extends ImGuiStruct {
 
     /**
      * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
+     * This used to be [512] sized. It is now ImGuiKey_COUNT to allow legacy io.KeysDown[GetKeyIndex(...)] to work without an overflow.
      */
     @Deprecated
     public boolean getKeysDown(final int idx) {
@@ -1572,6 +1585,7 @@ public final class ImGuiIO extends ImGuiStruct {
 
     /**
      * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
+     * This used to be [512] sized. It is now ImGuiKey_COUNT to allow legacy io.KeysDown[GetKeyIndex(...)] to work without an overflow.
      */
     @Deprecated
     public void setKeysDown(final boolean[] value) {
@@ -1580,6 +1594,7 @@ public final class ImGuiIO extends ImGuiStruct {
 
     /**
      * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
+     * This used to be [512] sized. It is now ImGuiKey_COUNT to allow legacy io.KeysDown[GetKeyIndex(...)] to work without an overflow.
      */
     @Deprecated
     public void setKeysDown(final int idx, final boolean value) {
@@ -1588,11 +1603,11 @@ public final class ImGuiIO extends ImGuiStruct {
 
     @Deprecated
     private native boolean[] nGetKeysDown(); /*
-        jboolean jBuf[512];
-        for (int i = 0; i < 512; i++)
+        jboolean jBuf[ImGuiKey_COUNT];
+        for (int i = 0; i < ImGuiKey_COUNT; i++)
             jBuf[i] = THIS->KeysDown[i];
-        jbooleanArray result = env->NewBooleanArray(512);
-        env->SetBooleanArrayRegion(result, 0, 512, jBuf);
+        jbooleanArray result = env->NewBooleanArray(ImGuiKey_COUNT);
+        env->SetBooleanArrayRegion(result, 0, ImGuiKey_COUNT, jBuf);
         return result;
     */
 
@@ -1603,7 +1618,7 @@ public final class ImGuiIO extends ImGuiStruct {
 
     @Deprecated
     private native void nSetKeysDown(boolean[] value); /*
-        for (int i = 0; i < 512; i++)
+        for (int i = 0; i < ImGuiKey_COUNT; i++)
             THIS->KeysDown[i] = value[i];
     */
 
@@ -1961,28 +1976,6 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nSetKeyMods(int value); /*
         THIS->KeyMods = value;
-    */
-
-    /**
-     * Key mods flags (from previous frame)
-     */
-    public int getKeyModsPrev() {
-        return nGetKeyModsPrev();
-    }
-
-    /**
-     * Key mods flags (from previous frame)
-     */
-    public void setKeyModsPrev(final int value) {
-        nSetKeyModsPrev(value);
-    }
-
-    private native int nGetKeyModsPrev(); /*
-        return THIS->KeyModsPrev;
-    */
-
-    private native void nSetKeyModsPrev(int value); /*
-        THIS->KeyModsPrev = value;
     */
 
     /**
@@ -2782,20 +2775,26 @@ public final class ImGuiIO extends ImGuiStruct {
         THIS->PenPressure = value;
     */
 
+    /**
+     * Only modify via AddFocusEvent().
+     */
     public boolean getAppFocusLost() {
         return nGetAppFocusLost();
-    }
-
-    public void setAppFocusLost(final boolean value) {
-        nSetAppFocusLost(value);
     }
 
     private native boolean nGetAppFocusLost(); /*
         return THIS->AppFocusLost;
     */
 
-    private native void nSetAppFocusLost(boolean value); /*
-        THIS->AppFocusLost = value;
+    /**
+     * Only modify via SetAppAcceptingEvents().
+     */
+    public boolean getAppAcceptingEvents() {
+        return nGetAppAcceptingEvents();
+    }
+
+    private native boolean nGetAppAcceptingEvents(); /*
+        return THIS->AppAcceptingEvents;
     */
 
     /**

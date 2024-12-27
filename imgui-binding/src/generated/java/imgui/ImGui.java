@@ -340,6 +340,30 @@ public class ImGui {
     */
 
     /**
+     * Create Debug Log window. display a simplified log of important dear imgui events.
+     */
+    public static void showDebugLogWindow() {
+        nShowDebugLogWindow();
+    }
+
+    /**
+     * Create Debug Log window. display a simplified log of important dear imgui events.
+     */
+    public static void showDebugLogWindow(final ImBoolean pOpen) {
+        nShowDebugLogWindow(pOpen != null ? pOpen.getData() : null);
+    }
+
+    private static native void nShowDebugLogWindow(); /*
+        ImGui::ShowDebugLogWindow();
+    */
+
+    private static native void nShowDebugLogWindow(boolean[] pOpen); /*MANUAL
+        auto pOpen = obj_pOpen == NULL ? NULL : (bool*)env->GetPrimitiveArrayCritical(obj_pOpen, JNI_FALSE);
+        ImGui::ShowDebugLogWindow((pOpen != NULL ? &pOpen[0] : NULL));
+        if (pOpen != NULL) env->ReleasePrimitiveArrayCritical(obj_pOpen, pOpen, JNI_FALSE);
+    */
+
+    /**
      * Create Stack Tool window. hover items with mouse to query information about the source of their unique ID.
      */
     public static void showStackToolWindow() {
@@ -10662,13 +10686,11 @@ public class ImGui {
     */
 
     // Tables
-    // [BETA API] API may evolve slightly! If you use this, please update to the next version when it comes out!
     // - Full-featured replacement for old Columns API.
-    // - See Demo->Tables for demo code.
-    // - See top of imgui_tables.cpp for general commentary.
+    // - See Demo->Tables for demo code. See top of imgui_tables.cpp for general commentary.
     // - See ImGuiTableFlags_ and ImGuiTableColumnFlags_ enums for a description of available flags.
     // The typical call flow is:
-    // - 1. Call BeginTable().
+    // - 1. Call BeginTable(), early out if returning false.
     // - 2. Optionally call TableSetupColumn() to submit column name/flags/defaults.
     // - 3. Optionally call TableSetupScrollFreeze() to request scroll freezing of columns/rows.
     // - 4. Optionally call TableHeadersRow() to submit a header row. Names are pulled from TableSetupColumn() data.
@@ -10960,13 +10982,17 @@ public class ImGui {
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
     */
 
-    // Tables: Sorting
-    // - Call TableGetSortSpecs() to retrieve latest sort specs for the table. NULL when not sorting.
-    // - When 'SpecsDirty == true' you should sort your data. It will be true when sorting specs have changed
-    //   since last call, or the first time. Make sure to set 'SpecsDirty = false' after sorting, else you may
-    //   wastefully sort your data every frame!
-    // - Lifetime: don't hold on this pointer over multiple frames or past any subsequent call to BeginTable().
+    // Tables: Sorting & Miscellaneous functions
+    // - Sorting: call TableGetSortSpecs() to retrieve latest sort specs for the table. NULL when not sorting.
+    //   When 'sort_specs->SpecsDirty == true' you should sort your data. It will be true when sorting specs have
+    //   changed since last call, or the first time. Make sure to set 'SpecsDirty = false' after sorting,
+    //   else you may wastefully sort your data every frame!
+    // - Functions args 'int column_n' treat the default value of -1 as the same as passing the current column index.
 
+    /**
+     * Get latest sort specs for the table (NULL if not sorting).
+     * Lifetime: don't hold on this pointer over multiple frames or past any subsequent call to BeginTable().
+     */
     public static ImGuiTableSortSpecs tableGetSortSpecs() {
         return new ImGuiTableSortSpecs(nTableGetSortSpecs());
     }
@@ -12344,6 +12370,56 @@ public class ImGui {
         return (uintptr_t)ImGui::GetMainViewport();
     */
 
+    // Background/Foreground Draw Lists
+
+    /**
+     * Get background draw list for the viewport associated to the current window.
+     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
+     */
+    public static ImDrawList getBackgroundDrawList() {
+        return new ImDrawList(nGetBackgroundDrawList());
+    }
+
+    /**
+     * Get background draw list for the viewport associated to the current window.
+     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
+     */
+    public static ImDrawList getBackgroundDrawList(final ImGuiViewport viewport) {
+        return new ImDrawList(nGetBackgroundDrawList(viewport.ptr));
+    }
+
+    private static native long nGetBackgroundDrawList(); /*
+        return (uintptr_t)ImGui::GetBackgroundDrawList();
+    */
+
+    private static native long nGetBackgroundDrawList(long viewport); /*
+        return (uintptr_t)ImGui::GetBackgroundDrawList(reinterpret_cast<ImGuiViewport*>(viewport));
+    */
+
+    /**
+     * Get foreground draw list for the viewport associated to the current window.
+     * This draw list will be the last rendered one. Useful to quickly draw shapes/text over dear imgui contents.
+     */
+    public static ImDrawList getForegroundDrawList() {
+        return new ImDrawList(nGetForegroundDrawList());
+    }
+
+    /**
+     * Get foreground draw list for the viewport associated to the current window.
+     * This draw list will be the last rendered one. Useful to quickly draw shapes/text over dear imgui contents.
+     */
+    public static ImDrawList getForegroundDrawList(final ImGuiViewport viewport) {
+        return new ImDrawList(nGetForegroundDrawList(viewport.ptr));
+    }
+
+    private static native long nGetForegroundDrawList(); /*
+        return (uintptr_t)ImGui::GetForegroundDrawList();
+    */
+
+    private static native long nGetForegroundDrawList(long viewport); /*
+        return (uintptr_t)ImGui::GetForegroundDrawList(reinterpret_cast<ImGuiViewport*>(viewport));
+    */
+
     // Miscellaneous Utilities
 
     /**
@@ -12409,53 +12485,7 @@ public class ImGui {
         return ImGui::GetFrameCount();
     */
 
-    /**
-     * Get background draw list for the viewport associated to the current window.
-     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
-     */
-    public static ImDrawList getBackgroundDrawList() {
-        return new ImDrawList(nGetBackgroundDrawList());
-    }
 
-    /**
-     * Get background draw list for the viewport associated to the current window.
-     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
-     */
-    public static ImDrawList getBackgroundDrawList(final ImGuiViewport viewport) {
-        return new ImDrawList(nGetBackgroundDrawList(viewport.ptr));
-    }
-
-    private static native long nGetBackgroundDrawList(); /*
-        return (uintptr_t)ImGui::GetBackgroundDrawList();
-    */
-
-    private static native long nGetBackgroundDrawList(long viewport); /*
-        return (uintptr_t)ImGui::GetBackgroundDrawList(reinterpret_cast<ImGuiViewport*>(viewport));
-    */
-
-    /**
-     * Get foreground draw list for the viewport associated to the current window.
-     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
-     */
-    public static ImDrawList getForegroundDrawList() {
-        return new ImDrawList(nGetForegroundDrawList());
-    }
-
-    /**
-     * Get foreground draw list for the viewport associated to the current window.
-     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
-     */
-    public static ImDrawList getForegroundDrawList(final ImGuiViewport viewport) {
-        return new ImDrawList(nGetForegroundDrawList(viewport.ptr));
-    }
-
-    private static native long nGetForegroundDrawList(); /*
-        return (uintptr_t)ImGui::GetForegroundDrawList();
-    */
-
-    private static native long nGetForegroundDrawList(long viewport); /*
-        return (uintptr_t)ImGui::GetForegroundDrawList(reinterpret_cast<ImGuiViewport*>(viewport));
-    */
 
     // TODO GetDrawListSharedData
 
@@ -12859,29 +12889,16 @@ public class ImGui {
     */
 
     /**
-     * Attention: misleading name! manually override io.WantCaptureKeyboard flag next frame (said flag is entirely left for your application to handle).
-     * e.g. force capture keyboard when your widget is being hovered.
-     * This is equivalent to setting "io.WantCaptureKeyboard = wantCaptureKeyboardValue"; after the next NewFrame() call.
+     * Override io.WantCaptureKeyboard flag next frame (said flag is left for your application to handle,
+     * typically when true it instructs your app to ignore inputs). e.g. force capture keyboard when your widget is being hovered.
+     * This is equivalent to setting "io.WantCaptureKeyboard = want_capture_keyboard"; after the next NewFrame() call.
      */
-    public static void captureKeyboardFromApp() {
-        nCaptureKeyboardFromApp();
+    public static void setNextFrameWantCaptureKeyboard(final boolean wantCaptureKeyboard) {
+        nSetNextFrameWantCaptureKeyboard(wantCaptureKeyboard);
     }
 
-    /**
-     * Attention: misleading name! manually override io.WantCaptureKeyboard flag next frame (said flag is entirely left for your application to handle).
-     * e.g. force capture keyboard when your widget is being hovered.
-     * This is equivalent to setting "io.WantCaptureKeyboard = wantCaptureKeyboardValue"; after the next NewFrame() call.
-     */
-    public static void captureKeyboardFromApp(final boolean wantCaptureKeyboardValue) {
-        nCaptureKeyboardFromApp(wantCaptureKeyboardValue);
-    }
-
-    private static native void nCaptureKeyboardFromApp(); /*
-        ImGui::CaptureKeyboardFromApp();
-    */
-
-    private static native void nCaptureKeyboardFromApp(boolean wantCaptureKeyboardValue); /*
-        ImGui::CaptureKeyboardFromApp(wantCaptureKeyboardValue);
+    private static native void nSetNextFrameWantCaptureKeyboard(boolean wantCaptureKeyboard); /*
+        ImGui::SetNextFrameWantCaptureKeyboard(wantCaptureKeyboard);
     */
 
     // Inputs Utilities: Mouse
@@ -13323,27 +13340,16 @@ public class ImGui {
     */
 
     /**
-     * Attention: misleading name! manually override io.WantCaptureMouse flag next frame (said flag is entirely left for your application to handle).
-     * This is equivalent to setting "io.WantCaptureMouse = wantCaptureMouseValue;" after the next NewFrame() call.
+     * Override io.WantCaptureMouse flag next frame (said flag is left for your application to handle,
+     * typical when true it instucts your app to ignore inputs).
+     * This is equivalent to setting "io.WantCaptureMouse = want_capture_mouse;" after the next NewFrame() call.
      */
-    public static void captureMouseFromApp() {
-        nCaptureMouseFromApp();
+    public static void setNextFrameWantCaptureMouse(final boolean wantCaptureMouse) {
+        nSetNextFrameWantCaptureMouse(wantCaptureMouse);
     }
 
-    /**
-     * Attention: misleading name! manually override io.WantCaptureMouse flag next frame (said flag is entirely left for your application to handle).
-     * This is equivalent to setting "io.WantCaptureMouse = wantCaptureMouseValue;" after the next NewFrame() call.
-     */
-    public static void captureMouseFromApp(final boolean wantCaptureMouseValue) {
-        nCaptureMouseFromApp(wantCaptureMouseValue);
-    }
-
-    private static native void nCaptureMouseFromApp(); /*
-        ImGui::CaptureMouseFromApp();
-    */
-
-    private static native void nCaptureMouseFromApp(boolean wantCaptureMouseValue); /*
-        ImGui::CaptureMouseFromApp(wantCaptureMouseValue);
+    private static native void nSetNextFrameWantCaptureMouse(boolean wantCaptureMouse); /*
+        ImGui::SetNextFrameWantCaptureMouse(wantCaptureMouse);
     */
 
     // Clipboard Utilities
@@ -13448,7 +13454,16 @@ public class ImGui {
     */
 
     // Debug Utilities
-    // - This is used by the IMGUI_CHECKVERSION() macro.
+
+    public static void debugTextEncoding(final String text) {
+        nDebugTextEncoding(text);
+    }
+
+    private static native void nDebugTextEncoding(String text); /*MANUAL
+        auto text = obj_text == NULL ? NULL : (char*)env->GetStringUTFChars(obj_text, JNI_FALSE);
+        ImGui::DebugTextEncoding(text);
+        if (text != NULL) env->ReleaseStringUTFChars(obj_text, text);
+    */
 
     public static boolean debugCheckVersionAndDataLayout(final String versionStr, final int szIo, final int szStyle, final int szVec2, final int szVec4, final int szDrawVert, final int szDrawIdx) {
         return nDebugCheckVersionAndDataLayout(versionStr, szIo, szStyle, szVec2, szVec4, szDrawVert, szDrawIdx);

@@ -1,9 +1,9 @@
 {
   "info" : {
     "source" : "include/implot/implot.h",
-    "hash" : "6e0fc20ccc37bde10554043e3172d7ac",
+    "hash" : "f19dc7eec5a86e8bacc8c0d2257b2ec2",
     "url" : "https://github.com/epezent/implot.git",
-    "revision" : "b47c8bacdbc78bc521691f70666f13924bb522ab"
+    "revision" : "116024321845529bd9aacaa00216d91f15b430e2"
   },
   "decls" : [ {
     "@type" : "AstRecordDecl",

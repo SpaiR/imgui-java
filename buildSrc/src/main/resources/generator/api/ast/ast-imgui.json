@@ -1,9 +1,9 @@
 {
   "info" : {
     "source" : "include/imgui/imgui.h",
-    "hash" : "76f421743dc699b039d2dd2dc2a13f8e",
+    "hash" : "8886efea5fb276ad2573e1d271abf274",
     "url" : "https://github.com/ocornut/imgui",
-    "revision" : "1ee252772ae9c0a971d06257bb5c89f628fa696a"
+    "revision" : "9cd9c2eff99877a3f10a7f9c2a3a5b9c15ea36c6"
   },
   "decls" : [ {
     "@type" : "AstRecordDecl",
@@ -209,6 +209,17 @@
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "ShowMetricsWindow",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "p_open",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "NULL"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "ShowDebugLogWindow",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
@@ -1557,8 +1568,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "args",
-        "qualType" : "__va_list_tag *",
-        "desugaredQualType" : "__va_list_tag *"
+        "qualType" : "va_list",
+        "desugaredQualType" : "char *"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "#FORMAT_ATTR_MARKER#",
@@ -1602,8 +1613,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "args",
-        "qualType" : "__va_list_tag *",
-        "desugaredQualType" : "__va_list_tag *"
+        "qualType" : "va_list",
+        "desugaredQualType" : "char *"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "#FORMAT_ATTR_MARKER#",
@@ -1637,8 +1648,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "args",
-        "qualType" : "__va_list_tag *",
-        "desugaredQualType" : "__va_list_tag *"
+        "qualType" : "va_list",
+        "desugaredQualType" : "char *"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "#FORMAT_ATTR_MARKER#",
@@ -1672,8 +1683,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "args",
-        "qualType" : "__va_list_tag *",
-        "desugaredQualType" : "__va_list_tag *"
+        "qualType" : "va_list",
+        "desugaredQualType" : "char *"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "#FORMAT_ATTR_MARKER#",
@@ -1717,8 +1728,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "args",
-        "qualType" : "__va_list_tag *",
-        "desugaredQualType" : "__va_list_tag *"
+        "qualType" : "va_list",
+        "desugaredQualType" : "char *"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "#FORMAT_ATTR_MARKER#",
@@ -1752,8 +1763,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "args",
-        "qualType" : "__va_list_tag *",
-        "desugaredQualType" : "__va_list_tag *"
+        "qualType" : "va_list",
+        "desugaredQualType" : "char *"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "#FORMAT_ATTR_MARKER#",
@@ -4002,9 +4013,9 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "size",
-        "qualType" : "ImVec2",
-        "desugaredQualType" : "ImVec2",
-        "defaultValue" : "= ImVec2(0, 0)"
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &",
+        "defaultValue" : "ImVec2(0, 0)"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -4095,8 +4106,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "args",
-        "qualType" : "__va_list_tag *",
-        "desugaredQualType" : "__va_list_tag *"
+        "qualType" : "va_list",
+        "desugaredQualType" : "char *"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "#FORMAT_ATTR_MARKER#",
@@ -4120,8 +4131,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "args",
-        "qualType" : "__va_list_tag *",
-        "desugaredQualType" : "__va_list_tag *"
+        "qualType" : "va_list",
+        "desugaredQualType" : "char *"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "#FORMAT_ATTR_MARKER#",
@@ -4216,8 +4227,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "args",
-        "qualType" : "__va_list_tag *",
-        "desugaredQualType" : "__va_list_tag *"
+        "qualType" : "va_list",
+        "desugaredQualType" : "char *"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "#FORMAT_ATTR_MARKER#",
@@ -4246,8 +4257,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "args",
-        "qualType" : "__va_list_tag *",
-        "desugaredQualType" : "__va_list_tag *"
+        "qualType" : "va_list",
+        "desugaredQualType" : "char *"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "#FORMAT_ATTR_MARKER#",
@@ -5001,8 +5012,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "args",
-        "qualType" : "__va_list_tag *",
-        "desugaredQualType" : "__va_list_tag *"
+        "qualType" : "va_list",
+        "desugaredQualType" : "char *"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "#FORMAT_ATTR_MARKER#",
@@ -5299,10 +5310,7 @@
             "text" : " - Full-featured replacement for old Columns API."
           }, {
             "@type" : "AstTextComment",
-            "text" : " - See Demo->Tables for demo code."
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - See top of imgui_tables.cpp for general commentary."
+            "text" : " - See Demo->Tables for demo code. See top of imgui_tables.cpp for general commentary."
           }, {
             "@type" : "AstTextComment",
             "text" : " - See ImGuiTableFlags_ and ImGuiTableColumnFlags_ enums for a description of available flags."
@@ -5311,7 +5319,7 @@
             "text" : " The typical call flow is:"
           }, {
             "@type" : "AstTextComment",
-            "text" : " - 1. Call BeginTable()."
+            "text" : " - 1. Call BeginTable(), early out if returning false."
           }, {
             "@type" : "AstTextComment",
             "text" : " - 2. Optionally call TableSetupColumn() to submit column name/flags/defaults."
@@ -5504,42 +5512,35 @@
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Tables: Sorting"
+            "text" : " Tables: Sorting "
           }, {
             "@type" : "AstTextComment",
-            "text" : " - Call TableGetSortSpecs() to retrieve latest sort specs for the table. NULL when not sorting."
+            "text" : "&"
           }, {
             "@type" : "AstTextComment",
-            "text" : " - When 'SpecsDirty == true' you should sort your data. It will be true when sorting specs have changed"
+            "text" : " Miscellaneous functions"
           }, {
             "@type" : "AstTextComment",
-            "text" : "   since last call, or the first time. Make sure to set 'SpecsDirty = false' after sorting, else you may"
+            "text" : " - Sorting: call TableGetSortSpecs() to retrieve latest sort specs for the table. NULL when not sorting."
           }, {
             "@type" : "AstTextComment",
-            "text" : "   wastefully sort your data every frame!"
+            "text" : "   When 'sort_specs->SpecsDirty == true' you should sort your data. It will be true when sorting specs have"
           }, {
             "@type" : "AstTextComment",
-            "text" : " - Lifetime: don't hold on this pointer over multiple frames or past any subsequent call to BeginTable()."
-          } ]
-        } ]
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "TableGetColumnCount",
-      "resultType" : "int",
-      "decls" : [ {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
+            "text" : "   changed since last call, or the first time. Make sure to set 'SpecsDirty = false' after sorting,"
+          }, {
             "@type" : "AstTextComment",
-            "text" : " Tables: Miscellaneous functions"
+            "text" : "   else you may wastefully sort your data every frame!"
           }, {
             "@type" : "AstTextComment",
             "text" : " - Functions args 'int column_n' treat the default value of -1 as the same as passing the current column index."
           } ]
         } ]
       } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "TableGetColumnCount",
+      "resultType" : "int"
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "TableGetColumnIndex",
@@ -6005,8 +6006,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "args",
-        "qualType" : "__va_list_tag *",
-        "desugaredQualType" : "__va_list_tag *"
+        "qualType" : "va_list",
+        "desugaredQualType" : "char *"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "#FORMAT_ATTR_MARKER#",
@@ -6322,6 +6323,44 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
+      "name" : "GetBackgroundDrawList",
+      "resultType" : "ImDrawList *",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Background/Foreground Draw Lists"
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "GetForegroundDrawList",
+      "resultType" : "ImDrawList *"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "GetBackgroundDrawList",
+      "resultType" : "ImDrawList *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "viewport",
+        "qualType" : "ImGuiViewport *",
+        "desugaredQualType" : "ImGuiViewport *"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "GetForegroundDrawList",
+      "resultType" : "ImDrawList *",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "viewport",
+        "qualType" : "ImGuiViewport *",
+        "desugaredQualType" : "ImGuiViewport *"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
       "name" : "IsRectVisible",
       "resultType" : "bool",
       "decls" : [ {
@@ -6362,34 +6401,6 @@
       "@type" : "AstFunctionDecl",
       "name" : "GetFrameCount",
       "resultType" : "int"
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "GetBackgroundDrawList",
-      "resultType" : "ImDrawList *"
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "GetForegroundDrawList",
-      "resultType" : "ImDrawList *"
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "GetBackgroundDrawList",
-      "resultType" : "ImDrawList *",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "viewport",
-        "qualType" : "ImGuiViewport *",
-        "desugaredQualType" : "ImGuiViewport *"
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "GetForegroundDrawList",
-      "resultType" : "ImDrawList *",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "viewport",
-        "qualType" : "ImGuiViewport *",
-        "desugaredQualType" : "ImGuiViewport *"
-      } ]
     }, {
       "@type" : "AstFunctionDecl",
       "name" : "GetDrawListSharedData",
@@ -6677,14 +6688,13 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "name" : "CaptureKeyboardFromApp",
+      "name" : "SetNextFrameWantCaptureKeyboard",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "name" : "want_capture_keyboard_value",
+        "name" : "want_capture_keyboard",
         "qualType" : "bool",
-        "desugaredQualType" : "bool",
-        "defaultValue" : "true"
+        "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6864,14 +6874,13 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "name" : "CaptureMouseFromApp",
+      "name" : "SetNextFrameWantCaptureMouse",
       "resultType" : "void",
       "decls" : [ {
         "@type" : "AstParmVarDecl",
-        "name" : "want_capture_mouse_value",
+        "name" : "want_capture_mouse",
         "qualType" : "bool",
-        "desugaredQualType" : "bool",
-        "defaultValue" : "true"
+        "desugaredQualType" : "bool"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -6967,6 +6976,25 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
+      "name" : "DebugTextEncoding",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "text",
+        "qualType" : "const char *",
+        "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Debug Utilities"
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
       "name" : "DebugCheckVersionAndDataLayout",
       "resultType" : "bool",
       "decls" : [ {
@@ -7004,18 +7032,6 @@
         "name" : "sz_drawidx",
         "qualType" : "size_t",
         "desugaredQualType" : "unsigned long"
-      }, {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Debug Utilities"
-          }, {
-            "@type" : "AstTextComment",
-            "text" : " - This is used by the IMGUI_CHECKVERSION() macro."
-          } ]
-        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -9054,16 +9070,24 @@
       "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiHoveredFlags_RectOnly",
+      "name" : "ImGuiHoveredFlags_NoNavOverride",
+      "docComment" : "Disable using gamepad/keyboard navigation state when active, always query mouse.",
       "qualType" : "ImGuiHoveredFlags_",
       "order" : 10,
+      "value" : "1 << 10",
+      "evaluatedValue" : 1024
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiHoveredFlags_RectOnly",
+      "qualType" : "ImGuiHoveredFlags_",
+      "order" : 11,
       "value" : "ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenOverlapped",
       "evaluatedValue" : 416
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiHoveredFlags_RootAndChildWindows",
       "qualType" : "ImGuiHoveredFlags_",
-      "order" : 11,
+      "order" : 12,
       "value" : "ImGuiHoveredFlags_RootWindow | ImGuiHoveredFlags_ChildWindows",
       "evaluatedValue" : 3
     } ]
@@ -9424,6 +9448,24 @@
     "@type" : "AstEnumDecl",
     "name" : "ImGuiKey_",
     "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Keys value 0 to 511 are left unused as legacy native/opaque key values ("
+        }, {
+          "@type" : "AstTextComment",
+          "text" : "<"
+        }, {
+          "@type" : "AstTextComment",
+          "text" : " 1.87)"
+        }, {
+          "@type" : "AstTextComment",
+          "text" : " Keys value >= 512 are named keys (>= 1.87)"
+        } ]
+      } ]
+    }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_None",
       "docComment" : "Keyboard",
@@ -10245,28 +10287,28 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_ModCtrl",
-      "docComment" : "Keyboard Modifiers - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...",
+      "docComment" : "Keyboard Modifiers (explicitly submitted by backend via AddKeyEvent() calls) - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...",
       "qualType" : "ImGuiKey_",
       "order" : 130,
       "evaluatedValue" : 641
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_ModShift",
-      "docComment" : "Keyboard Modifiers - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...",
+      "docComment" : "Keyboard Modifiers (explicitly submitted by backend via AddKeyEvent() calls) - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...",
       "qualType" : "ImGuiKey_",
       "order" : 131,
       "evaluatedValue" : 642
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_ModAlt",
-      "docComment" : "Keyboard Modifiers - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...",
+      "docComment" : "Keyboard Modifiers (explicitly submitted by backend via AddKeyEvent() calls) - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...",
       "qualType" : "ImGuiKey_",
       "order" : 132,
       "evaluatedValue" : 643
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_ModSuper",
-      "docComment" : "Keyboard Modifiers - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...",
+      "docComment" : "Keyboard Modifiers (explicitly submitted by backend via AddKeyEvent() calls) - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...",
       "qualType" : "ImGuiKey_",
       "order" : 133,
       "evaluatedValue" : 644
@@ -10312,7 +10354,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiKey_KeysData_OFFSET",
-      "docComment" : "First key stored in KeysData[0]",
+      "docComment" : "First key stored in io.KeysData[0]. Accesses to io.KeysData[] must use (key - ImGuiKey_KeysData_OFFSET).",
       "qualType" : "ImGuiKey_",
       "order" : 139,
       "value" : "0",
@@ -10328,7 +10370,7 @@
     } ]
   }, {
     "@type" : "AstEnumDecl",
-    "name" : "ImGuiKeyModFlags_",
+    "name" : "ImGuiModFlags_",
     "decls" : [ {
       "@type" : "AstFullComment",
       "decls" : [ {
@@ -10340,37 +10382,38 @@
       } ]
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiKeyModFlags_None",
-      "qualType" : "ImGuiKeyModFlags_",
+      "name" : "ImGuiModFlags_None",
+      "qualType" : "ImGuiModFlags_",
       "order" : 0,
       "value" : "0",
       "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiKeyModFlags_Ctrl",
-      "qualType" : "ImGuiKeyModFlags_",
+      "name" : "ImGuiModFlags_Ctrl",
+      "qualType" : "ImGuiModFlags_",
       "order" : 1,
       "value" : "1 << 0",
       "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiKeyModFlags_Shift",
-      "qualType" : "ImGuiKeyModFlags_",
+      "name" : "ImGuiModFlags_Shift",
+      "qualType" : "ImGuiModFlags_",
       "order" : 2,
       "value" : "1 << 1",
       "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiKeyModFlags_Alt",
-      "qualType" : "ImGuiKeyModFlags_",
+      "name" : "ImGuiModFlags_Alt",
+      "docComment" : "Menu",
+      "qualType" : "ImGuiModFlags_",
       "order" : 3,
       "value" : "1 << 2",
       "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiKeyModFlags_Super",
+      "name" : "ImGuiModFlags_Super",
       "docComment" : "Cmd/Super/Windows key",
-      "qualType" : "ImGuiKeyModFlags_",
+      "qualType" : "ImGuiModFlags_",
       "order" : 4,
       "value" : "1 << 3",
       "evaluatedValue" : 8
@@ -10385,6 +10428,9 @@
         "decls" : [ {
           "@type" : "AstTextComment",
           "text" : " Gamepad/Keyboard navigation"
+        }, {
+          "@type" : "AstTextComment",
+          "text" : " Since >= 1.87 backends you generally don't need to care about this enum since io.NavInputs[] is setup automatically. This might become private/internal some day."
         }, {
           "@type" : "AstTextComment",
           "text" : " Keyboard: Set io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard to enable. NewFrame() will automatically fill io.NavInputs[] based on your io.AddKeyEvent() calls."
@@ -10929,6 +10975,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_ResizeGrip",
+      "docComment" : "Resize grip in lower-right and lower-left corners of windows.",
       "qualType" : "ImGuiCol_",
       "order" : 30,
       "evaluatedValue" : 30
@@ -10947,6 +10994,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_Tab",
+      "docComment" : "TabItem in a TabBar",
       "qualType" : "ImGuiCol_",
       "order" : 33,
       "evaluatedValue" : 33
@@ -11056,6 +11104,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImGuiCol_DragDropTarget",
+      "docComment" : "Rectangle highlighting a drop target",
       "qualType" : "ImGuiCol_",
       "order" : 50,
       "evaluatedValue" : 50
@@ -11115,7 +11164,7 @@
           "text" : " - Tip: Use your programming IDE navigation facilities on the names in the _second column_ below to find the actual members and their description."
         }, {
           "@type" : "AstTextComment",
-          "text" : "   In Visual Studio IDE: CTRL+comma (\"Edit.NavigateTo\") can follow symbols in comments, whereas CTRL+F12 (\"Edit.GoToImplementation\") cannot."
+          "text" : "   In Visual Studio IDE: CTRL+comma (\"Edit.GoToAll\") can follow symbols in comments, whereas CTRL+F12 (\"Edit.GoToImplementation\") cannot."
         }, {
           "@type" : "AstTextComment",
           "text" : "   With Visual Assist installed: ALT+G (\"VAssistX.GoToImplementation\") can also follow symbols in comments."
@@ -12553,14 +12602,6 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
-      "name" : "ClearInputCharacters",
-      "resultType" : "void"
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "ClearInputKeys",
-      "resultType" : "void"
-    }, {
-      "@type" : "AstFunctionDecl",
       "name" : "SetKeyEventNativeData",
       "resultType" : "void",
       "decls" : [ {
@@ -12585,6 +12626,24 @@
         "desugaredQualType" : "int",
         "defaultValue" : "-1"
       } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "SetAppAcceptingEvents",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "accepting_events",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "ClearInputCharacters",
+      "resultType" : "void"
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "ClearInputKeys",
+      "resultType" : "void"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "WantCaptureMouse",
@@ -12663,8 +12722,8 @@
     }, {
       "@type" : "AstFieldDecl",
       "name" : "KeysDown",
-      "qualType" : "bool[512]",
-      "desugaredQualType" : "bool[512]"
+      "qualType" : "bool[645]",
+      "desugaredQualType" : "bool[645]"
     }, {
       "@type" : "AstFieldDecl",
       "name" : "MousePos",
@@ -12718,12 +12777,7 @@
     }, {
       "@type" : "AstFieldDecl",
       "name" : "KeyMods",
-      "qualType" : "ImGuiKeyModFlags",
-      "desugaredQualType" : "int"
-    }, {
-      "@type" : "AstFieldDecl",
-      "name" : "KeyModsPrev",
-      "qualType" : "ImGuiKeyModFlags",
+      "qualType" : "ImGuiModFlags",
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
@@ -12823,6 +12877,11 @@
     }, {
       "@type" : "AstFieldDecl",
       "name" : "AppFocusLost",
+      "qualType" : "bool",
+      "desugaredQualType" : "bool"
+    }, {
+      "@type" : "AstFieldDecl",
+      "name" : "AppAcceptingEvents",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
     }, {
@@ -13476,8 +13535,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "args",
-        "qualType" : "__va_list_tag *",
-        "desugaredQualType" : "__va_list_tag *"
+        "qualType" : "va_list",
+        "desugaredQualType" : "char *"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "#FORMAT_ATTR_MARKER#",
@@ -14407,7 +14466,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImDrawListFlags_AntiAliasedLinesUseTex",
-      "docComment" : "Enable anti-aliased lines/borders using textures when possible. Require backend to render with bilinear filtering.",
+      "docComment" : "Enable anti-aliased lines/borders using textures when possible. Require backend to render with bilinear filtering (NOT point/nearest filtering).",
       "qualType" : "ImDrawListFlags_",
       "order" : 2,
       "value" : "1 << 1",
@@ -14492,13 +14551,13 @@
       "decls" : [ {
         "@type" : "AstParmVarDecl",
         "name" : "clip_rect_min",
-        "qualType" : "ImVec2",
-        "desugaredQualType" : "ImVec2"
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "clip_rect_max",
-        "qualType" : "ImVec2",
-        "desugaredQualType" : "ImVec2"
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "intersect_with_current_clip_rect",
@@ -14568,6 +14627,9 @@
           "decls" : [ {
             "@type" : "AstTextComment",
             "text" : " Primitives"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - Filled shapes must always use clockwise winding order. The anti-aliasing fringe depends on it. Counter-clockwise shapes will have \"inward\" anti-aliasing."
           }, {
             "@type" : "AstTextComment",
             "text" : " - For rectangular primitives, \"p_min\" and \"p_max\" represent the upper-left and lower-right corners."
@@ -15301,6 +15363,9 @@
           "decls" : [ {
             "@type" : "AstTextComment",
             "text" : " Stateful path API, add points then finish with PathFillConvex() or PathStroke()"
+          }, {
+            "@type" : "AstTextComment",
+            "text" : " - Filled shapes must always use clockwise winding order. The anti-aliasing fringe depends on it. Counter-clockwise shapes will have \"inward\" anti-aliasing."
           } ]
         } ]
       } ]
@@ -16287,7 +16352,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImFontAtlasFlags_NoBakedLines",
-      "docComment" : "Don't build thick line textures into the atlas (save a little texture memory). The AntiAliasedLinesUseTex features uses them, otherwise they will be rendered using polygons (more expensive for CPU/GPU).",
+      "docComment" : "Don't build thick line textures into the atlas (save a little texture memory, allow support for point/nearest filtering). The AntiAliasedLinesUseTex features uses them, otherwise they will be rendered using polygons (more expensive for CPU/GPU).",
       "qualType" : "ImFontAtlasFlags_",
       "order" : 3,
       "value" : "1 << 2",
@@ -17135,8 +17200,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "pos",
-        "qualType" : "ImVec2",
-        "desugaredQualType" : "ImVec2"
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "col",
@@ -17165,8 +17230,8 @@
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "pos",
-        "qualType" : "ImVec2",
-        "desugaredQualType" : "ImVec2"
+        "qualType" : "const ImVec2 &",
+        "desugaredQualType" : "const ImVec2 &"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "col",
@@ -17839,6 +17904,37 @@
     "@type" : "AstNamespaceDecl",
     "name" : "ImGui",
     "decls" : [ {
+      "@type" : "AstFunctionDecl",
+      "name" : "CaptureKeyboardFromApp",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "want_capture_keyboard",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool",
+        "defaultValue" : "true"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " OBSOLETED in 1.88 (from May 2022)"
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "CaptureMouseFromApp",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "want_capture_mouse",
+        "qualType" : "bool",
+        "desugaredQualType" : "bool",
+        "defaultValue" : "true"
+      } ]
+    }, {
       "@type" : "AstFunctionDecl",
       "name" : "CalcListClipping",
       "resultType" : "void",
@@ -18566,6 +18662,45 @@
       "order" : 9,
       "value" : "ImDrawCornerFlags_TopRight | ImDrawCornerFlags_BotRight",
       "evaluatedValue" : 160
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImGuiKeyModFlags_",
+    "decls" : [ {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKeyModFlags_None",
+      "qualType" : "ImGuiKeyModFlags_",
+      "order" : 0,
+      "value" : "ImGuiModFlags_None",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKeyModFlags_Ctrl",
+      "qualType" : "ImGuiKeyModFlags_",
+      "order" : 1,
+      "value" : "ImGuiModFlags_Ctrl",
+      "evaluatedValue" : 1
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKeyModFlags_Shift",
+      "qualType" : "ImGuiKeyModFlags_",
+      "order" : 2,
+      "value" : "ImGuiModFlags_Shift",
+      "evaluatedValue" : 2
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKeyModFlags_Alt",
+      "qualType" : "ImGuiKeyModFlags_",
+      "order" : 3,
+      "value" : "ImGuiModFlags_Alt",
+      "evaluatedValue" : 4
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiKeyModFlags_Super",
+      "qualType" : "ImGuiKeyModFlags_",
+      "order" : 4,
+      "value" : "ImGuiModFlags_Super",
+      "evaluatedValue" : 8
     } ]
   } ]
 }

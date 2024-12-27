@@ -30,6 +30,7 @@ import org.lwjgl.glfw.GLFWGamepadState;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWMonitorCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
+import org.lwjgl.glfw.GLFWNativeCocoa;
 import org.lwjgl.glfw.GLFWNativeWin32;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -575,6 +576,22 @@ public class ImGuiImplGlfw {
         }
     }
 
+    protected int keyToModifier(final int key) {
+        if (key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_RIGHT_CONTROL) {
+            return GLFW_MOD_CONTROL;
+        }
+        if (key == GLFW_KEY_LEFT_SHIFT || key == GLFW_KEY_RIGHT_SHIFT) {
+            return GLFW_MOD_SHIFT;
+        }
+        if (key == GLFW_KEY_LEFT_ALT || key == GLFW_KEY_RIGHT_ALT) {
+            return GLFW_MOD_ALT;
+        }
+        if (key == GLFW_KEY_LEFT_SUPER || key == GLFW_KEY_RIGHT_SUPER) {
+            return GLFW_MOD_SUPER;
+        }
+        return 0;
+    }
+
     protected void updateKeyModifiers(final int mods) {
         final ImGuiIO io = ImGui.getIO();
         io.addKeyEvent(ImGuiKey.ModCtrl, (mods & GLFW_MOD_CONTROL) != 0);
@@ -627,6 +644,8 @@ public class ImGuiImplGlfw {
                 resultKey = GLFW_KEY_0 + (keyName.charAt(0) - '0');
             } else if (keyName.charAt(0) >= 'A' && keyName.charAt(0) <= 'Z') {
                 resultKey = GLFW_KEY_A + (keyName.charAt(0) - 'A');
+            } else if (keyName.charAt(0) >= 'a' && keyName.charAt(0) <= 'z') {
+                resultKey = GLFW_KEY_A + (keyName.charAt(0) - 'a');
             } else {
                 final int index = props.charNames.indexOf(keyName.charAt(0));
                 if (index != -1) {
@@ -647,7 +666,17 @@ public class ImGuiImplGlfw {
             return;
         }
 
-        updateKeyModifiers(mods);
+        {
+            int keyModifiers = mods;
+
+            // Workaround: X11 does not include current pressed/released modifier key in 'mods' flags. https://github.com/glfw/glfw/issues/1630
+            final int keycodeToMod = keyToModifier(keycode);
+            if (keycodeToMod != 0) {
+                keyModifiers = (action == GLFW_PRESS) ? (mods | keycodeToMod) : (mods & ~keycodeToMod);
+            }
+
+            updateKeyModifiers(keyModifiers);
+        }
 
         if (keycode >= 0 && keycode < data.keyOwnerWindows.length) {
             data.keyOwnerWindows[keycode] = (action == GLFW_PRESS) ? window : -1;
@@ -840,6 +869,9 @@ public class ImGuiImplGlfw {
         mainViewport.setPlatformHandle(window);
         if (IS_WINDOWS) {
             mainViewport.setPlatformHandleRaw(GLFWNativeWin32.glfwGetWin32Window(window));
+        }
+        if (IS_APPLE) {
+            mainViewport.setPlatformHandleRaw(GLFWNativeCocoa.glfwGetCocoaWindow(window));
         }
         if (io.hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
             initPlatformInterface();
@@ -1206,6 +1238,8 @@ public class ImGuiImplGlfw {
 
             if (IS_WINDOWS) {
                 vp.setPlatformHandleRaw(GLFWNativeWin32.glfwGetWin32Window(vd.window));
+            } else if (IS_APPLE) {
+                vp.setPlatformHandleRaw(GLFWNativeCocoa.glfwGetCocoaWindow(vd.window));
             }
 
             glfwSetWindowPos(vd.window, (int) vp.getPosX(), (int) vp.getPosY());

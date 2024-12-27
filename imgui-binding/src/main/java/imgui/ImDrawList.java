@@ -62,7 +62,8 @@ public final class ImDrawList extends ImGuiStruct {
     public native ImVec2 GetClipRectMax();
 
     // Primitives
-    // - For rectangular primitives, "pMin" and "pMax" represent the upper-left and lower-right corners.
+    // - Filled shapes must always use clockwise winding order. The anti-aliasing fringe depends on it. Counter-clockwise shapes will have "inward" anti-aliasing.
+    // - For rectangular primitives, "p_min" and "p_max" represent the upper-left and lower-right corners.
     // - For circle primitives, use "num_segments == 0" to automatically calculate tessellation (preferred).
     //   In older versions (until Dear ImGui 1.77) the AddCircle functions defaulted to num_segments == 12.
     //   In future versions we will use textures to provide cheaper and higher-quality circles.
@@ -113,9 +114,6 @@ public final class ImDrawList extends ImGuiStruct {
     @BindingMethod
     public native void AddPolyline(ImVec2[] points, int numPoint, int col, int imDrawFlags, float thickness);
 
-    /**
-     * Note: Anti-aliased filling requires points to be in clockwise order.
-     */
     @BindingMethod
     public native void AddConvexPolyFilled(ImVec2[] points, int numPoints, int col);
 
@@ -146,6 +144,7 @@ public final class ImDrawList extends ImGuiStruct {
     public native void AddImageRounded(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long textureID, ImVec2 pMin, ImVec2 pMax, ImVec2 uvMin, ImVec2 uvMax, int col, float rounding, @OptArg int imDrawFlags);
 
     // Stateful path API, add points then finish with PathFillConvex() or PathStroke()
+    // - Filled shapes must always use clockwise winding order. The anti-aliasing fringe depends on it. Counter-clockwise shapes will have "inward" anti-aliasing.
 
     @BindingMethod
     public native void PathClear();

@@ -66,6 +66,21 @@ public final class Operation {
     public static final int BOUNDS = 1024;
 
     /**
+     * Definition: {@code (1u << 11)}
+     */
+    public static final int SCALE_XU = 2048;
+
+    /**
+     * Definition: {@code (1u << 12)}
+     */
+    public static final int SCALE_YU = 4096;
+
+    /**
+     * Definition: {@code (1u << 13)}
+     */
+    public static final int SCALE_ZU = 8192;
+
+    /**
      * Definition: {@code TRANSLATE_X | TRANSLATE_Y | TRANSLATE_Z}
      */
     public static final int TRANSLATE = 7;
@@ -79,4 +94,16 @@ public final class Operation {
      * Definition: {@code SCALE_X | SCALE_Y | SCALE_Z}
      */
     public static final int SCALE = 896;
+
+    /**
+     * universal
+     *
+     * <p>Definition: {@code SCALE_XU | SCALE_YU | SCALE_ZU}
+     */
+    public static final int SCALEU = 14336;
+
+    /**
+     * Definition: {@code TRANSLATE | ROTATE | SCALEU}
+     */
+    public static final int UNIVERSAL = 14463;
 }

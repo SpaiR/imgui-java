@@ -258,7 +258,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
 
     /**
      * Enable anti-aliased lines/borders using textures where possible.
-     * Require backend to render with bilinear filtering.
+     * Require backend to render with bilinear filtering (NOT point/nearest filtering).
      * Latched at the beginning of the frame (copied to ImDrawList).
      */
     @BindingField

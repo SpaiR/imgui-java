@@ -127,10 +127,10 @@ public final class ImGui extends imgui.ImGui {
     // Init
 
     @BindingMethod
-    public static native void Initialize(ImGuiContext context);
+    public static native void Initialize();
 
     @BindingMethod
-    public static native void Shutdown(ImGuiContext context);
+    public static native void Shutdown();
 
     // NewFrame
 

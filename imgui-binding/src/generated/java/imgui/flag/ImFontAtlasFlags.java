@@ -28,7 +28,7 @@ public final class ImFontAtlasFlags {
     public static final int NoMouseCursors = 2;
 
     /**
-     * Don't build thick line textures into the atlas (save a little texture memory). The AntiAliasedLinesUseTex features uses them, otherwise they will be rendered using polygons (more expensive for CPU/GPU).
+     * Don't build thick line textures into the atlas (save a little texture memory, allow support for point/nearest filtering). The AntiAliasedLinesUseTex features uses them, otherwise they will be rendered using polygons (more expensive for CPU/GPU).
      *
      * <p>Definition: {@code 1 << 2}
      */

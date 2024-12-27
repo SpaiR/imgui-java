@@ -43,13 +43,13 @@ public final class ImGuiIO extends ImGuiStruct {
     public int BackendFlags;
 
     /**
-     * Main display size, in pixels (generally == {@code GetMainViewport()->Size})
+     * Main display size, in pixels (generally == {@code GetMainViewport()->Size}). May change every frame.
      */
     @BindingField
     public ImVec2 DisplaySize;
 
     /**
-     * Time elapsed since last frame, in seconds.
+     * Time elapsed since last frame, in seconds. May change every frame.
      */
     @BindingField
     public float DeltaTime;
@@ -351,6 +351,18 @@ public final class ImGuiIO extends ImGuiStruct {
     public native void AddInputCharactersUTF8(String str);
 
     /**
+     * [Optional] Specify index for legacy {@code <1.87} IsKeyXXX() functions with native indices + specify native keycode, scancode.
+     */
+    @BindingMethod
+    public native void SetKeyEventNativeData(@ArgValue(staticCast = "ImGuiKey") int key, int nativeKeycode, int nativeScancode, @OptArg int nativeLegacyIndex);
+
+    /**
+     * Set master flag for accepting key/mouse/text events (default to true). Useful if you have native dialog boxes that are interrupting your application loop/refresh, and you want to disable events being queued while your app is frozen.
+     */
+    @BindingMethod
+    public native void SetAppAcceptingEvents(boolean acceptingEvents);
+
+    /**
      * [Internal] Clear the text input buffer manually
      */
     @BindingMethod
@@ -361,12 +373,6 @@ public final class ImGuiIO extends ImGuiStruct {
      */
     @BindingMethod
     public native void ClearInputKeys();
-
-    /**
-     * [Optional] Specify index for legacy before 1.87 IsKeyXXX() functions with native indices + specify native keycode, scancode.
-     */
-    @BindingMethod
-    public native void SetKeyEventNativeData(@ArgValue(staticCast = "ImGuiKey") int key, int nativeKeycode, int nativeScancode, @OptArg int nativeLegacyIndex);
 
     //------------------------------------------------------------------
     // Output - Updated by NewFrame() or EndFrame()/Render()
@@ -476,9 +482,10 @@ public final class ImGuiIO extends ImGuiStruct {
 
     /**
      * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
+     * This used to be [512] sized. It is now ImGuiKey_COUNT to allow legacy io.KeysDown[GetKeyIndex(...)] to work without an overflow.
      */
     @BindingField
-    @TypeArray(type = "boolean", size = "512")
+    @TypeArray(type = "boolean", size = "ImGuiKey_COUNT")
     @Deprecated
     public boolean[] KeysDown;
 
@@ -558,12 +565,6 @@ public final class ImGuiIO extends ImGuiStruct {
      */
     @BindingField
     public int KeyMods;
-
-    /**
-     * Key mods flags (from previous frame)
-     */
-    @BindingField
-    public int KeyModsPrev;
 
     /**
      * Key state for all known keys. Use IsKeyXXX() functions to access this.
@@ -689,8 +690,17 @@ public final class ImGuiIO extends ImGuiStruct {
     @BindingField
     public float PenPressure;
 
-    @BindingField
+    /**
+     * Only modify via AddFocusEvent().
+     */
+    @BindingField(accessors = BindingField.Accessor.GETTER)
     public boolean AppFocusLost;
+
+    /**
+     * Only modify via SetAppAcceptingEvents().
+     */
+    @BindingField(accessors = BindingField.Accessor.GETTER)
+    public boolean AppAcceptingEvents;
 
     /**
      * -1: unknown, 0: using AddKeyEvent(), 1: using legacy io.KeysDown[]
