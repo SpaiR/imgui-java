@@ -8,8 +8,6 @@ import imgui.binding.annotation.BindingSource;
 import imgui.binding.annotation.OptArg;
 import imgui.binding.annotation.ReturnValue;
 import imgui.callback.ImGuiInputTextCallback;
-import imgui.flag.ImGuiDragDropFlags;
-import imgui.flag.ImGuiInputTextFlags;
 import imgui.internal.ImGuiContext;
 import imgui.type.ImBoolean;
 import imgui.type.ImDouble;
@@ -1401,34 +1399,55 @@ public class ImGui {
     }
 
     private static boolean preInputText(final boolean multiline, final String label, final String hint, final ImString text, final float width, final float height) {
-        return preInputText(multiline, label, hint, text, width, height, ImGuiInputTextFlags.None);
+        return preInputText(multiline, label, hint, text, width, height, 0/*ImGuiInputTextFlags.None*/);
     }
 
     private static boolean preInputText(final boolean multiline, final String label, final String hint, final ImString text, final float width, final float height, final int flags) {
         return preInputText(multiline, label, hint, text, width, height, flags, null);
     }
 
-    private static boolean preInputText(final boolean multiline, final String label, final String hint, final ImString text, final float width, final float height, final int flagsV, final ImGuiInputTextCallback callback) {
+    private static boolean preInputText(final boolean multiline, final String label, final String hint, final ImString text, final float width, final float height, final int flags, final ImGuiInputTextCallback callback) {
         final ImString.InputData inputData = text.inputData;
-        int flags = flagsV;
-
-        if (inputData.isResizable) {
-            flags |= ImGuiInputTextFlags.CallbackResize;
-        }
-
-        if (!inputData.allowedChars.isEmpty()) {
-            flags |= ImGuiInputTextFlags.CallbackCharFilter;
-        }
 
         String hintLabel = hint;
         if (hintLabel == null) {
             hintLabel = "";
         }
 
-        return nInputText(multiline, hint != null, label, hintLabel, text, text.getData(), text.getData().length, width, height, flags, inputData, inputData.allowedChars, callback);
+        return nInputText(
+            multiline,
+            hint != null,
+            label,
+            hintLabel,
+            text,
+            text.getData(),
+            text.getData().length,
+            width,
+            height,
+            flags,
+            inputData,
+            inputData.allowedChars,
+            inputData.isResizable,
+            callback
+        );
     }
 
-    private static native boolean nInputText(boolean multiline, boolean hint, String label, String hintLabel, ImString imString, byte[] buf, int maxSize, float width, float height, int flags, ImString.InputData textInputData, String allowedChars, ImGuiInputTextCallback callback); /*
+    private static native boolean nInputText(
+        boolean multiline,
+        boolean hint,
+        String label,
+        String hintLabel,
+        ImString imString,
+        byte[] buf,
+        int maxSize,
+        float width,
+        float height,
+        int flagsV,
+        ImString.InputData textInputData,
+        String allowedChars,
+        boolean isResizable,
+        ImGuiInputTextCallback callback
+    ); /*
         InputTextCallbackUserData userData;
         userData.imString = &imString;
         userData.maxSize = maxSize;
@@ -1438,6 +1457,14 @@ public class ImGui {
         userData.env = env;
         userData.allowedChars = allowedChars;
         userData.handler = callback != NULL ? &callback : NULL;
+
+        int flags = flagsV;
+        if (isResizable) {
+            flags |= ImGuiInputTextFlags_CallbackResize;
+        }
+        if (strlen(allowedChars) > 0) {
+            flags |= ImGuiInputTextFlags_CallbackCharFilter;
+        }
 
         bool valueChanged;
 
@@ -2238,14 +2265,14 @@ public class ImGui {
      * Accept contents of a given type. If ImGuiDragDropFlags_AcceptBeforeDelivery is set you can peek into the payload before the mouse button is released.
      */
     public static <T> T acceptDragDropPayload(final String dataType) {
-        return acceptDragDropPayload(dataType, ImGuiDragDropFlags.None);
+        return acceptDragDropPayload(dataType, 0/*ImGuiDragDropFlags.None*/);
     }
 
     /**
      * Type safe alternative for {@link #acceptDragDropPayload(String)}, since it checks assignability of the accepted class.
      */
     public static <T> T acceptDragDropPayload(final String dataType, final Class<T> aClass) {
-        return acceptDragDropPayload(dataType, ImGuiDragDropFlags.None, aClass);
+        return acceptDragDropPayload(dataType, 0/*ImGuiDragDropFlags.None*/, aClass);
     }
 
     /**
@@ -2275,7 +2302,7 @@ public class ImGui {
      * Binding alternative for {@link #acceptDragDropPayload(String)}, which uses payload class as a unique identifier.
      */
     public static <T> T acceptDragDropPayload(final Class<T> aClass) {
-        return acceptDragDropPayload(String.valueOf(aClass.hashCode()), ImGuiDragDropFlags.None, aClass);
+        return acceptDragDropPayload(String.valueOf(aClass.hashCode()), 0/*ImGuiDragDropFlags.None*/, aClass);
     }
 
     /**
