@@ -32,7 +32,7 @@ public final class ImGuiTreeNodeFlags {
      *
      * <p>Definition: {@code 1 << 2}
      */
-    public static final int AllowItemOverlap = 4;
+    public static final int AllowOverlap = 4;
 
     /**
      * Don't do a TreePush() when open (e.g. for CollapsingHeader) = no extra indent nor pushing on ID stack
@@ -77,7 +77,7 @@ public final class ImGuiTreeNodeFlags {
     public static final int Leaf = 256;
 
     /**
-     * Display a bullet instead of arrow
+     * Display a bullet instead of arrow. IMPORTANT: node can still be marked open/close if you don't set the _Leaf flag!
      *
      * <p>Definition: {@code 1 << 9}
      */
@@ -117,4 +117,11 @@ public final class ImGuiTreeNodeFlags {
      * <p>Definition: {@code ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_NoAutoOpenOnLog}
      */
     public static final int CollapsingHeader = 26;
+
+    /**
+     * Renamed in 1.89.7
+     *
+     * <p>Definition: {@code ImGuiTreeNodeFlags_AllowOverlap}
+     */
+    public static final int AllowItemOverlap = 4;
 }

@@ -139,5 +139,25 @@ public final class ImGuiStyleVar {
      */
     public static final int SelectableTextAlign = 24;
 
-    public static final int COUNT = 25;
+    /**
+     * float  SeparatorTextBorderSize
+     */
+    public static final int SeparatorTextBorderSize = 25;
+
+    /**
+     * ImVec2    SeparatorTextAlign
+     */
+    public static final int SeparatorTextAlign = 26;
+
+    /**
+     * ImVec2    SeparatorTextPadding
+     */
+    public static final int SeparatorTextPadding = 27;
+
+    /**
+     * float     DockingSeparatorSize
+     */
+    public static final int DockingSeparatorSize = 28;
+
+    public static final int COUNT = 29;
 }

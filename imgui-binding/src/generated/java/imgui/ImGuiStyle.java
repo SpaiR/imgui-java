@@ -182,7 +182,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     /**
-     * Minimum window size. This is a global setting. If you want to constraint individual windows, use SetNextWindowSizeConstraints().
+     * Minimum window size. This is a global setting. If you want to constrain individual windows, use SetNextWindowSizeConstraints().
      */
     public ImVec2 getWindowMinSize() {
         final ImVec2 dst = new ImVec2();
@@ -191,35 +191,35 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     }
 
     /**
-     * Minimum window size. This is a global setting. If you want to constraint individual windows, use SetNextWindowSizeConstraints().
+     * Minimum window size. This is a global setting. If you want to constrain individual windows, use SetNextWindowSizeConstraints().
      */
     public float getWindowMinSizeX() {
         return nGetWindowMinSizeX();
     }
 
     /**
-     * Minimum window size. This is a global setting. If you want to constraint individual windows, use SetNextWindowSizeConstraints().
+     * Minimum window size. This is a global setting. If you want to constrain individual windows, use SetNextWindowSizeConstraints().
      */
     public float getWindowMinSizeY() {
         return nGetWindowMinSizeY();
     }
 
     /**
-     * Minimum window size. This is a global setting. If you want to constraint individual windows, use SetNextWindowSizeConstraints().
+     * Minimum window size. This is a global setting. If you want to constrain individual windows, use SetNextWindowSizeConstraints().
      */
     public void getWindowMinSize(final ImVec2 dst) {
         nGetWindowMinSize(dst);
     }
 
     /**
-     * Minimum window size. This is a global setting. If you want to constraint individual windows, use SetNextWindowSizeConstraints().
+     * Minimum window size. This is a global setting. If you want to constrain individual windows, use SetNextWindowSizeConstraints().
      */
     public void setWindowMinSize(final ImVec2 value) {
         nSetWindowMinSize(value.x, value.y);
     }
 
     /**
-     * Minimum window size. This is a global setting. If you want to constraint individual windows, use SetNextWindowSizeConstraints().
+     * Minimum window size. This is a global setting. If you want to constrain individual windows, use SetNextWindowSizeConstraints().
      */
     public void setWindowMinSize(final float valueX, final float valueY) {
         nSetWindowMinSize(valueX, valueY);
@@ -641,7 +641,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     /**
-     * Padding within a table cell.
+     * Padding within a table cell. CellPadding.y may be altered between different rows.
      */
     public ImVec2 getCellPadding() {
         final ImVec2 dst = new ImVec2();
@@ -650,35 +650,35 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     }
 
     /**
-     * Padding within a table cell.
+     * Padding within a table cell. CellPadding.y may be altered between different rows.
      */
     public float getCellPaddingX() {
         return nGetCellPaddingX();
     }
 
     /**
-     * Padding within a table cell.
+     * Padding within a table cell. CellPadding.y may be altered between different rows.
      */
     public float getCellPaddingY() {
         return nGetCellPaddingY();
     }
 
     /**
-     * Padding within a table cell.
+     * Padding within a table cell. CellPadding.y may be altered between different rows.
      */
     public void getCellPadding(final ImVec2 dst) {
         nGetCellPadding(dst);
     }
 
     /**
-     * Padding within a table cell.
+     * Padding within a table cell. CellPadding.y may be altered between different rows.
      */
     public void setCellPadding(final ImVec2 value) {
         nSetCellPadding(value.x, value.y);
     }
 
     /**
-     * Padding within a table cell.
+     * Padding within a table cell. CellPadding.y may be altered between different rows.
      */
     public void setCellPadding(final float valueX, final float valueY) {
         nSetCellPadding(valueX, valueY);
@@ -967,7 +967,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     /**
-     * Minimum width for close button to appears on an unselected tab when hovered.
+     * Minimum width for close button to appear on an unselected tab when hovered.
      * Set to 0.0f to always show when hovering, set to FLT_MAX to never show close button unless selected.
      */
     public float getTabMinWidthForCloseButton() {
@@ -975,7 +975,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     }
 
     /**
-     * Minimum width for close button to appears on an unselected tab when hovered.
+     * Minimum width for close button to appear on an unselected tab when hovered.
      * Set to 0.0f to always show when hovering, set to FLT_MAX to never show close button unless selected.
      */
     public void setTabMinWidthForCloseButton(final float value) {
@@ -1141,6 +1141,150 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     /**
+     * Thickkness of border in SeparatorText()
+     */
+    public float getSeparatorTextBorderSize() {
+        return nGetSeparatorTextBorderSize();
+    }
+
+    /**
+     * Thickkness of border in SeparatorText()
+     */
+    public void setSeparatorTextBorderSize(final float value) {
+        nSetSeparatorTextBorderSize(value);
+    }
+
+    private native float nGetSeparatorTextBorderSize(); /*
+        return THIS->SeparatorTextBorderSize;
+    */
+
+    private native void nSetSeparatorTextBorderSize(float value); /*
+        THIS->SeparatorTextBorderSize = value;
+    */
+
+    /**
+     * Alignment of text within the separator. Defaults to (0.0f, 0.5f) (left aligned, center).
+     */
+    public ImVec2 getSeparatorTextAlign() {
+        final ImVec2 dst = new ImVec2();
+        nGetSeparatorTextAlign(dst);
+        return dst;
+    }
+
+    /**
+     * Alignment of text within the separator. Defaults to (0.0f, 0.5f) (left aligned, center).
+     */
+    public float getSeparatorTextAlignX() {
+        return nGetSeparatorTextAlignX();
+    }
+
+    /**
+     * Alignment of text within the separator. Defaults to (0.0f, 0.5f) (left aligned, center).
+     */
+    public float getSeparatorTextAlignY() {
+        return nGetSeparatorTextAlignY();
+    }
+
+    /**
+     * Alignment of text within the separator. Defaults to (0.0f, 0.5f) (left aligned, center).
+     */
+    public void getSeparatorTextAlign(final ImVec2 dst) {
+        nGetSeparatorTextAlign(dst);
+    }
+
+    /**
+     * Alignment of text within the separator. Defaults to (0.0f, 0.5f) (left aligned, center).
+     */
+    public void setSeparatorTextAlign(final ImVec2 value) {
+        nSetSeparatorTextAlign(value.x, value.y);
+    }
+
+    /**
+     * Alignment of text within the separator. Defaults to (0.0f, 0.5f) (left aligned, center).
+     */
+    public void setSeparatorTextAlign(final float valueX, final float valueY) {
+        nSetSeparatorTextAlign(valueX, valueY);
+    }
+
+    private native void nGetSeparatorTextAlign(ImVec2 dst); /*
+        Jni::ImVec2Cpy(env, THIS->SeparatorTextAlign, dst);
+    */
+
+    private native float nGetSeparatorTextAlignX(); /*
+        return THIS->SeparatorTextAlign.x;
+    */
+
+    private native float nGetSeparatorTextAlignY(); /*
+        return THIS->SeparatorTextAlign.y;
+    */
+
+    private native void nSetSeparatorTextAlign(float valueX, float valueY); /*MANUAL
+        ImVec2 value = ImVec2(valueX, valueY);
+        THIS->SeparatorTextAlign = value;
+    */
+
+    /**
+     * Horizontal offset of text from each edge of the separator + spacing on other axis. Generally small values. .y is recommended to be == FramePadding.y.
+     */
+    public ImVec2 getSeparatorTextPadding() {
+        final ImVec2 dst = new ImVec2();
+        nGetSeparatorTextPadding(dst);
+        return dst;
+    }
+
+    /**
+     * Horizontal offset of text from each edge of the separator + spacing on other axis. Generally small values. .y is recommended to be == FramePadding.y.
+     */
+    public float getSeparatorTextPaddingX() {
+        return nGetSeparatorTextPaddingX();
+    }
+
+    /**
+     * Horizontal offset of text from each edge of the separator + spacing on other axis. Generally small values. .y is recommended to be == FramePadding.y.
+     */
+    public float getSeparatorTextPaddingY() {
+        return nGetSeparatorTextPaddingY();
+    }
+
+    /**
+     * Horizontal offset of text from each edge of the separator + spacing on other axis. Generally small values. .y is recommended to be == FramePadding.y.
+     */
+    public void getSeparatorTextPadding(final ImVec2 dst) {
+        nGetSeparatorTextPadding(dst);
+    }
+
+    /**
+     * Horizontal offset of text from each edge of the separator + spacing on other axis. Generally small values. .y is recommended to be == FramePadding.y.
+     */
+    public void setSeparatorTextPadding(final ImVec2 value) {
+        nSetSeparatorTextPadding(value.x, value.y);
+    }
+
+    /**
+     * Horizontal offset of text from each edge of the separator + spacing on other axis. Generally small values. .y is recommended to be == FramePadding.y.
+     */
+    public void setSeparatorTextPadding(final float valueX, final float valueY) {
+        nSetSeparatorTextPadding(valueX, valueY);
+    }
+
+    private native void nGetSeparatorTextPadding(ImVec2 dst); /*
+        Jni::ImVec2Cpy(env, THIS->SeparatorTextPadding, dst);
+    */
+
+    private native float nGetSeparatorTextPaddingX(); /*
+        return THIS->SeparatorTextPadding.x;
+    */
+
+    private native float nGetSeparatorTextPaddingY(); /*
+        return THIS->SeparatorTextPadding.y;
+    */
+
+    private native void nSetSeparatorTextPadding(float valueX, float valueY); /*MANUAL
+        ImVec2 value = ImVec2(valueX, valueY);
+        THIS->SeparatorTextPadding = value;
+    */
+
+    /**
      * Window position are clamped to be visible within the display area by at least this amount. Only applies to regular windows.
      */
     public ImVec2 getDisplayWindowPadding() {
@@ -1266,6 +1410,28 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     private native void nSetDisplaySafeAreaPadding(float valueX, float valueY); /*MANUAL
         ImVec2 value = ImVec2(valueX, valueY);
         THIS->DisplaySafeAreaPadding = value;
+    */
+
+    /**
+     * Thickness of resizing border between docked windows
+     */
+    public float getDockingSeparatorSize() {
+        return nGetDockingSeparatorSize();
+    }
+
+    /**
+     * Thickness of resizing border between docked windows
+     */
+    public void setDockingSeparatorSize(final float value) {
+        nSetDockingSeparatorSize(value);
+    }
+
+    private native float nGetDockingSeparatorSize(); /*
+        return THIS->DockingSeparatorSize;
+    */
+
+    private native void nSetDockingSeparatorSize(float value); /*
+        THIS->DockingSeparatorSize = value;
     */
 
     /**
@@ -1446,6 +1612,119 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
 
     public native void setColor(int col, int value); /*
         THIS->Colors[col] = ImColor(value);
+    */
+
+    // Behaviors
+    // (It is possible to modify those fields mid-frame if specific behavior need it, unlike e.g. configuration fields in ImGuiIO)
+
+    /**
+     * Delay for IsItemHovered(ImGuiHoveredFlags_Stationary). Time required to consider mouse stationary.
+     */
+    public float getHoverStationaryDelay() {
+        return nGetHoverStationaryDelay();
+    }
+
+    /**
+     * Delay for IsItemHovered(ImGuiHoveredFlags_Stationary). Time required to consider mouse stationary.
+     */
+    public void setHoverStationaryDelay(final float value) {
+        nSetHoverStationaryDelay(value);
+    }
+
+    private native float nGetHoverStationaryDelay(); /*
+        return THIS->HoverStationaryDelay;
+    */
+
+    private native void nSetHoverStationaryDelay(float value); /*
+        THIS->HoverStationaryDelay = value;
+    */
+
+    /**
+     * Delay for IsItemHovered(ImGuiHoveredFlags_DelayShort). Usually used along with HoverStationaryDelay.
+     */
+    public float getHoverDelayShort() {
+        return nGetHoverDelayShort();
+    }
+
+    /**
+     * Delay for IsItemHovered(ImGuiHoveredFlags_DelayShort). Usually used along with HoverStationaryDelay.
+     */
+    public void setHoverDelayShort(final float value) {
+        nSetHoverDelayShort(value);
+    }
+
+    private native float nGetHoverDelayShort(); /*
+        return THIS->HoverDelayShort;
+    */
+
+    private native void nSetHoverDelayShort(float value); /*
+        THIS->HoverDelayShort = value;
+    */
+
+    /**
+     * Delay for IsItemHovered(ImGuiHoveredFlags_DelayNormal). "
+     */
+    public float getHoverDelayNormal() {
+        return nGetHoverDelayNormal();
+    }
+
+    /**
+     * Delay for IsItemHovered(ImGuiHoveredFlags_DelayNormal). "
+     */
+    public void setHoverDelayNormal(final float value) {
+        nSetHoverDelayNormal(value);
+    }
+
+    private native float nGetHoverDelayNormal(); /*
+        return THIS->HoverDelayNormal;
+    */
+
+    private native void nSetHoverDelayNormal(float value); /*
+        THIS->HoverDelayNormal = value;
+    */
+
+    /**
+     * Default flags when using IsItemHovered(ImGuiHoveredFlags_ForTooltip) or BeginItemTooltip()/SetItemTooltip() while using mouse.
+     */
+    public int getHoverFlagsForTooltipMouse() {
+        return nGetHoverFlagsForTooltipMouse();
+    }
+
+    /**
+     * Default flags when using IsItemHovered(ImGuiHoveredFlags_ForTooltip) or BeginItemTooltip()/SetItemTooltip() while using mouse.
+     */
+    public void setHoverFlagsForTooltipMouse(final int value) {
+        nSetHoverFlagsForTooltipMouse(value);
+    }
+
+    private native int nGetHoverFlagsForTooltipMouse(); /*
+        return THIS->HoverFlagsForTooltipMouse;
+    */
+
+    private native void nSetHoverFlagsForTooltipMouse(int value); /*
+        THIS->HoverFlagsForTooltipMouse = value;
+    */
+
+    /**
+     * Default flags when using IsItemHovered(ImGuiHoveredFlags_ForTooltip) or BeginItemTooltip()/SetItemTooltip() while using keyboard/gamepad.
+     */
+    public int getHoverFlagsForTooltipNav() {
+        return nGetHoverFlagsForTooltipNav();
+    }
+
+    /**
+     * Default flags when using IsItemHovered(ImGuiHoveredFlags_ForTooltip) or BeginItemTooltip()/SetItemTooltip() while using keyboard/gamepad.
+     */
+    public void setHoverFlagsForTooltipNav(final int value) {
+        nSetHoverFlagsForTooltipNav(value);
+    }
+
+    private native int nGetHoverFlagsForTooltipNav(); /*
+        return THIS->HoverFlagsForTooltipNav;
+    */
+
+    private native void nSetHoverFlagsForTooltipNav(int value); /*
+        THIS->HoverFlagsForTooltipNav = value;
     */
 
     public void scaleAllSizes(final float scaleFactor) {

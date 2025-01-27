@@ -10,6 +10,7 @@ import imgui.binding.annotation.ReturnValue;
 import imgui.binding.annotation.TypeArray;
 import imgui.callback.ImStrConsumer;
 import imgui.callback.ImStrSupplier;
+import imgui.internal.ImGuiContext;
 
 /**
  * Communicate most settings and inputs/outputs to Dear ImGui using this structure.
@@ -71,36 +72,6 @@ public final class ImGuiIO extends ImGuiStruct {
      */
     @BindingField
     public String LogFilename;
-
-    /**
-     * Time for a double-click, in seconds.
-     */
-    @BindingField
-    public float MouseDoubleClickTime;
-
-    /**
-     * Distance threshold to stay in to validate a double-click, in pixels.
-     */
-    @BindingField
-    public float MouseDoubleClickMaxDist;
-
-    /**
-     * Distance threshold before considering we are dragging.
-     */
-    @BindingField
-    public float MouseDragThreshold;
-
-    /**
-     * When holding a key/button, time before it starts repeating, in seconds (for buttons in Repeat mode, etc.).
-     */
-    @BindingField
-    public float KeyRepeatDelay;
-
-    /**
-     * When holding a key/button, rate at which it repeats, in seconds.
-     */
-    @BindingField
-    public float KeyRepeatRate;
 
     /**
      * Font atlas: load, rasterize and pack one or more fonts into a single texture.
@@ -212,6 +183,12 @@ public final class ImGuiIO extends ImGuiStruct {
     public boolean ConfigInputTextCursorBlink;
 
     /**
+     * [BETA] Pressing Enter will keep item active and select contents (single-line only).
+     */
+    @BindingField
+    public boolean ConfigInputTextEnterKeepActive;
+
+    /**
      * [BETA] Enable turning DragXXX widgets into text input with a simple mouse click-release (without moving). Not desirable on devices without a keyboard.
      */
     @BindingField
@@ -236,6 +213,78 @@ public final class ImGuiIO extends ImGuiStruct {
      */
     @BindingField
     public boolean ConfigMemoryCompactTimer;
+
+    // Inputs Behaviors
+    // (other variables, ones which are expected to be tweaked within UI code, are exposed in ImGuiStyle)
+
+
+    /**
+     * Time for a double-click, in seconds.
+     */
+    @BindingField
+    public float MouseDoubleClickTime;
+
+    /**
+     * Distance threshold to stay in to validate a double-click, in pixels.
+     */
+    @BindingField
+    public float MouseDoubleClickMaxDist;
+
+    /**
+     * Distance threshold before considering we are dragging.
+     */
+    @BindingField
+    public float MouseDragThreshold;
+
+    /**
+     * When holding a key/button, time before it starts repeating, in seconds (for buttons in Repeat mode, etc.).
+     */
+    @BindingField
+    public float KeyRepeatDelay;
+
+    /**
+     * When holding a key/button, rate at which it repeats, in seconds.
+     */
+    @BindingField
+    public float KeyRepeatRate;
+
+    //------------------------------------------------------------------
+    // Debug options
+    //------------------------------------------------------------------
+
+    /**
+     * Tools to test correct Begin/End and BeginChild/EndChild behaviors.
+     * Presently Begin()/End() and BeginChild()/EndChild() needs to ALWAYS be called in tandem, regardless of return value of BeginXXX()
+     * This is inconsistent with other BeginXXX functions and create confusion for many users.
+     * We expect to update the API eventually. In the meanwhile we provide tools to facilitate checking user-code behavior.
+     * First-time calls to Begin()/BeginChild() will return false. NEEDS TO BE SET AT APPLICATION BOOT TIME if you don't want to miss windows.
+     */
+    @BindingField
+    public boolean ConfigDebugBeginReturnValueOnce;
+
+    /**
+     * Some calls to Begin()/BeginChild() will return false. Will cycle through window depths then repeat.
+     * Suggested use: add "io.ConfigDebugBeginReturnValue = io.KeyShift" in your main loop then occasionally press SHIFT.
+     * Windows should be flickering while running.
+     */
+    @BindingField
+    public boolean ConfigDebugBeginReturnValueLoop;
+
+    /**
+     * Option to deactivate io.AddFocusEvent(false) handling. May facilitate interactions with a debugger when focus loss leads to clearing inputs data.
+     * Backends may have other side-effects on focus loss, so this will reduce side-effects but not necessary remove all of them.
+     * Consider using e.g. Win32's IsDebuggerPresent() as an additional filter (or see ImOsIsDebuggerPresent() in imgui_test_engine/imgui_te_utils.cpp for a Unix compatible version).
+     * Ignore io.AddFocusEvent(false), consequently not calling io.ClearInputKeys() in input processing.
+     */
+    @BindingField
+    public boolean ConfigDebugIgnoreFocusLoss;
+
+    /**
+     * Option to audit .ini data
+     * Save .ini data with extra comments (particularly helpful for Docking, but makes saving slower)
+     */
+    @BindingField
+    public boolean ConfigDebugIniSettings;
 
     //------------------------------------------------------------------
     // Platform Functions
@@ -284,6 +333,13 @@ public final class ImGuiIO extends ImGuiStruct {
         THIS->GetClipboardTextFn = getClipboardTextStub;
     */
 
+    /**
+     * Optional: Platform locale
+     * [Experimental] Configure decimal point e.g. '.' or ',' useful for some languages (e.g. German), generally pulled from *localeconv()->decimal_point
+     */
+    @BindingField
+    public short PlatformLocaleDecimalPoint;
+
     //------------------------------------------------------------------
     // Input - Call before calling NewFrame()
     //------------------------------------------------------------------
@@ -315,10 +371,16 @@ public final class ImGuiIO extends ImGuiStruct {
     public native void AddMouseButtonEvent(int button, boolean down);
 
     /**
-     * Queue a mouse wheel update
+     * Queue a mouse wheel update. wheel_y<0: scroll down, wheel_y>0: scroll up, wheel_x<0: scroll right, wheel_x>0: scroll left.
      */
     @BindingMethod
     public native void AddMouseWheelEvent(float whX, float whY);
+
+    /**
+     * Queue a mouse source change (Mouse/TouchScreen/Pen)
+     */
+    @BindingMethod
+    public native void AddMouseSourceEvent(int source);
 
     /**
      * Queue a mouse hovered viewport. Requires backend to set ImGuiBackendFlags_HasMouseHoveredViewport to call this (for multi-viewport support).
@@ -339,13 +401,13 @@ public final class ImGuiIO extends ImGuiStruct {
     public native void AddInputCharacter(@ArgValue(callPrefix = "(unsigned int)") int c);
 
     /**
-     * Queue new character input from an UTF-16 character, it can be a surrogate
+     * Queue new character input from a UTF-16 character, it can be a surrogate
      */
     @BindingMethod
     public native void AddInputCharacterUTF16(@ArgValue(callPrefix = "(ImWchar16)") short c);
 
     /**
-     * Queue new characters input from an UTF-8 string.
+     * Queue new characters input from a UTF-8 string.
      */
     @BindingMethod
     public native void AddInputCharactersUTF8(String str);
@@ -363,16 +425,16 @@ public final class ImGuiIO extends ImGuiStruct {
     public native void SetAppAcceptingEvents(boolean acceptingEvents);
 
     /**
+     * Clear all incoming events.
+     */
+    @BindingMethod
+    public native void ClearEventsQueue();
+
+    /**
      * [Internal] Clear the text input buffer manually
      */
     @BindingMethod
     public native void ClearInputCharacters();
-
-    /**
-     * [Internal] Release all keys
-     */
-    @BindingMethod
-    public native void ClearInputKeys();
 
     //------------------------------------------------------------------
     // Output - Updated by NewFrame() or EndFrame()/Render()
@@ -430,8 +492,9 @@ public final class ImGuiIO extends ImGuiStruct {
     public boolean NavVisible;
 
     /**
-     * Application framerate estimate, in frame per second. Solely for convenience. Rolling average estimation based on io.DeltaTime over 120 frames.
-     * Solely for convenience. Rolling average estimation based on IO.DeltaTime over 120 frames
+     * Estimate of application framerate (rolling average over 60 frames, based on io.DeltaTime), in frame per second.
+     * Solely for convenience.
+     * Slow applications may not want to use a moving average or may want to reset underlying buffers occasionally.
      */
     @BindingField
     public float Framerate;
@@ -489,9 +552,23 @@ public final class ImGuiIO extends ImGuiStruct {
     @Deprecated
     public boolean[] KeysDown;
 
+    /**
+     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
+     */
+    @BindingField
+    @TypeArray(type = "float", size = "512")
+    public float[] NavInputs;
+
     //------------------------------------------------------------------
     // [Internal] Dear ImGui will maintain those fields. Forward compatibility not guaranteed!
     //------------------------------------------------------------------
+
+    /**
+     * Parent UI context (needs to be set explicitly by parent).
+     */
+    @BindingField
+    @ReturnValue(isStatic = true)
+    public ImGuiContext Ctx;
 
     /**
      * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
@@ -550,13 +627,6 @@ public final class ImGuiIO extends ImGuiStruct {
      */
     @BindingField
     public boolean KeySuper;
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    @BindingField
-    @TypeArray(type = "float", size = "512")
-    public float[] NavInputs;
 
     // Other state maintained from data above + IO function calls
 
@@ -649,6 +719,13 @@ public final class ImGuiIO extends ImGuiStruct {
     public boolean[] MouseDownOwnedUnlessPopupClose;
 
     /**
+     * On a non-Mac system, holding SHIFT requests WheelY to perform the equivalent of a WheelX event.
+     * On a Mac system this is already enforced by the system.
+     */
+    @BindingField
+    public boolean MouseWheelRequestAxisSwap;
+
+    /**
      * Duration the mouse button has been down (0.0f == just clicked)
      */
     @BindingField
@@ -675,14 +752,6 @@ public final class ImGuiIO extends ImGuiStruct {
     @BindingField
     @TypeArray(type = "float", size = "5")
     public float[] MouseDragMaxDistanceSqr;
-
-    @BindingField
-    @TypeArray(type = "float", size = "ImGuiNavInput_COUNT")
-    public float[] NavInputsDownDuration;
-
-    @BindingField
-    @TypeArray(type = "float", size = "ImGuiNavInput_COUNT")
-    public float[] NavInputsDownDurationPrev;
 
     /**
      * Touch/Pen pressure (0.0f to 1.0f, should be {@code >}0.0f only when MouseDown[0] == true). Helper storage currently unused by Dear ImGui.

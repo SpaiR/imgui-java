@@ -1,6 +1,7 @@
 package imgui;
 
 import imgui.binding.ImGuiStruct;
+import imgui.internal.ImGuiContext;
 
 /**
  * Shared state of InputText(), passed as an argument to your callback when a ImGuiInputTextFlags_Callback* flag is used.<p>
@@ -22,6 +23,31 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
         #include "_common.h"
         #define THIS ((ImGuiInputTextCallbackData*)STRUCT_PTR)
      */
+
+    private static final ImGuiContext _GETCTX_1 = new ImGuiContext(0);
+
+    /**
+     * Parent UI context
+     */
+    public ImGuiContext getCtx() {
+        _GETCTX_1.ptr = nGetCtx();
+        return _GETCTX_1;
+    }
+
+    /**
+     * Parent UI context
+     */
+    public void setCtx(final ImGuiContext value) {
+        nSetCtx(value.ptr);
+    }
+
+    private native long nGetCtx(); /*
+        return (uintptr_t)THIS->Ctx;
+    */
+
+    private native void nSetCtx(long value); /*
+        THIS->Ctx = reinterpret_cast<ImGuiContext*>(value);
+    */
 
     /**
      * One ImGuiInputTextFlags_Callback*

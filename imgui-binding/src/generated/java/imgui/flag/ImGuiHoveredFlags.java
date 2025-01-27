@@ -67,33 +67,87 @@ public final class ImGuiHoveredFlags {
     public static final int AllowWhenBlockedByActiveItem = 128;
 
     /**
-     * IsItemHovered() only: Return true even if the position is obstructed or overlapped by another window
+     * IsItemHovered() only: Return true even if the item uses AllowOverlap mode and is overlapped by another hoverable item.
      *
      * <p>Definition: {@code 1 << 8}
      */
-    public static final int AllowWhenOverlapped = 256;
+    public static final int AllowWhenOverlappedByItem = 256;
+
+    /**
+     * IsItemHovered() only: Return true even if the position is obstructed or overlapped by another window.
+     *
+     * <p>Definition: {@code 1 << 9}
+     */
+    public static final int AllowWhenOverlappedByWindow = 512;
 
     /**
      * IsItemHovered() only: Return true even if the item is disabled
      *
-     * <p>Definition: {@code 1 << 9}
-     */
-    public static final int AllowWhenDisabled = 512;
-
-    /**
-     * Disable using gamepad/keyboard navigation state when active, always query mouse.
-     *
      * <p>Definition: {@code 1 << 10}
      */
-    public static final int NoNavOverride = 1024;
+    public static final int AllowWhenDisabled = 1024;
+
+    /**
+     * IsItemHovered() only: Disable using gamepad/keyboard navigation state when active, always query mouse
+     *
+     * <p>Definition: {@code 1 << 11}
+     */
+    public static final int NoNavOverride = 2048;
+
+    /**
+     * Definition: {@code ImGuiHoveredFlags_AllowWhenOverlappedByItem | ImGuiHoveredFlags_AllowWhenOverlappedByWindow}
+     */
+    public static final int AllowWhenOverlapped = 768;
 
     /**
      * Definition: {@code ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem | ImGuiHoveredFlags_AllowWhenOverlapped}
      */
-    public static final int RectOnly = 416;
+    public static final int RectOnly = 928;
 
     /**
      * Definition: {@code ImGuiHoveredFlags_RootWindow | ImGuiHoveredFlags_ChildWindows}
      */
     public static final int RootAndChildWindows = 3;
+
+    /**
+     * Shortcut for standard flags when using IsItemHovered() + SetTooltip() sequence.
+     *
+     * <p>Definition: {@code 1 << 12}
+     */
+    public static final int ForTooltip = 4096;
+
+    /**
+     * Require mouse to be stationary for style.HoverStationaryDelay (~0.15 sec) _at least one time_. After this, can move on same item/window. Using the stationary test tends to reduces the need for a long delay.
+     *
+     * <p>Definition: {@code 1 << 13}
+     */
+    public static final int Stationary = 8192;
+
+    /**
+     * IsItemHovered() only: Return true immediately (default). As this is the default you generally ignore this.
+     *
+     * <p>Definition: {@code 1 << 14}
+     */
+    public static final int DelayNone = 16384;
+
+    /**
+     * IsItemHovered() only: Return true after style.HoverDelayShort elapsed (~0.15 sec) (shared between items) + requires mouse to be stationary for style.HoverStationaryDelay (once per item).
+     *
+     * <p>Definition: {@code 1 << 15}
+     */
+    public static final int DelayShort = 32768;
+
+    /**
+     * IsItemHovered() only: Return true after style.HoverDelayNormal elapsed (~0.40 sec) (shared between items) + requires mouse to be stationary for style.HoverStationaryDelay (once per item).
+     *
+     * <p>Definition: {@code 1 << 16}
+     */
+    public static final int DelayNormal = 65536;
+
+    /**
+     * IsItemHovered() only: Disable shared delay system where moving from one item to the next keeps the previous timer for a short time (standard for tooltips with long delays)
+     *
+     * <p>Definition: {@code 1 << 17}
+     */
+    public static final int NoSharedDelay = 131072;
 }

@@ -102,11 +102,11 @@ public final class ImGuiButtonFlags {
     public static final int FlattenChildren = 2048;
 
     /**
-     * require previous frame HoveredId to either match id or be null before being usable, use along with SetItemAllowOverlap()
+     * require previous frame HoveredId to either match id or be null before being usable.
      *
      * <p>Definition: {@code 1 << 12}
      */
-    public static final int AllowItemOverlap = 4096;
+    public static final int AllowOverlap = 4096;
 
     /**
      * disable automatically closing parent popup on press // [UNUSED]
@@ -137,7 +137,7 @@ public final class ImGuiButtonFlags {
     public static final int NoHoldingActiveId = 131072;
 
     /**
-     * don't override navigation focus when activated
+     * don't override navigation focus when activated (FIXME: this is essentially used everytime an item uses ImGuiItemFlags_NoNav, but because legacy specs don't requires LastItemData to be set ButtonBehavior(), we can't poll g.LastItemData.InFlags)
      *
      * <p>Definition: {@code 1 << 18}
      */
@@ -149,6 +149,20 @@ public final class ImGuiButtonFlags {
      * <p>Definition: {@code 1 << 19}
      */
     public static final int NoHoveredOnFocus = 524288;
+
+    /**
+     * don't set key/input owner on the initial click (note: mouse buttons are keys! often, the key in question will be ImGuiKey_MouseLeft!)
+     *
+     * <p>Definition: {@code 1 << 20}
+     */
+    public static final int NoSetKeyOwner = 1048576;
+
+    /**
+     * don't test key/input owner when polling the key (note: mouse buttons are keys! often, the key in question will be ImGuiKey_MouseLeft!)
+     *
+     * <p>Definition: {@code 1 << 21}
+     */
+    public static final int NoTestKeyOwner = 2097152;
 
     /**
      * Definition: {@code ImGuiButtonFlags_PressedOnClick | ImGuiButtonFlags_PressedOnClickRelease | ImGuiButtonFlags_PressedOnClickReleaseAnywhere | ImGuiButtonFlags_PressedOnRelease | ImGuiButtonFlags_PressedOnDoubleClick | ImGuiButtonFlags_PressedOnDragDropHold}

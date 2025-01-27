@@ -18,7 +18,7 @@ public final class ImGuiCond {
     public static final int None = 0;
 
     /**
-     * No condition (always set the variable)
+     * No condition (always set the variable), same as _None
      *
      * <p>Definition: {@code 1 << 0}
      */

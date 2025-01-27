@@ -2,7 +2,11 @@ package imgui.flag;
 
 
 /**
- * User fill ImGuiIO.KeyMap[] array with indices into the ImGuiIO.KeysDown[512] array
+ * A key identifier (ImGuiKey_XXX or ImGuiMod_XXX value): can represent Keyboard, Mouse and Gamepad values.
+ * All our named keys are {@code >=} 512. Keys value 0 to 511 are left unused as legacy native/opaque key values ({@code <} 1.87).
+ * Since {@code >=} 1.89 we increased typing (went from int to enum), some legacy code may need a cast to ImGuiKey.
+ * Read details about the 1.87 and 1.89 transition : https://github.com/ocornut/imgui/issues/4921
+ * Note that "Keys" related to physical keys and are not the same concept as input "Characters", the later are submitted via io.AddInputCharacter().
  */
 public final class ImGuiKey {
     private ImGuiKey() {
@@ -264,184 +268,296 @@ public final class ImGuiKey {
     public static final int KeypadEqual = 616;
 
     /**
-     * Menu (Xbox)          + (Switch)   Start/Options (PS) // --
+     * Menu (Xbox)      + (Switch)   Start/Options (PS)
      */
     public static final int GamepadStart = 617;
 
     /**
-     * View (Xbox)          - (Switch)   Share (PS)         // --
+     * View (Xbox)      - (Switch)   Share (PS)
      */
     public static final int GamepadBack = 618;
 
     /**
-     * Y (Xbox)             X (Switch)   Triangle (PS)      // {@code ->} ImGuiNavInput_Input
+     * X (Xbox)         Y (Switch)   Square (PS)        // Tap: Toggle Menu. Hold: Windowing mode (Focus/Move/Resize windows)
      */
-    public static final int GamepadFaceUp = 619;
+    public static final int GamepadFaceLeft = 619;
 
     /**
-     * A (Xbox)             B (Switch)   Cross (PS)         // {@code ->} ImGuiNavInput_Activate
+     * B (Xbox)         A (Switch)   Circle (PS)        // Cancel / Close / Exit
      */
-    public static final int GamepadFaceDown = 620;
+    public static final int GamepadFaceRight = 620;
 
     /**
-     * X (Xbox)             Y (Switch)   Square (PS)        // {@code ->} ImGuiNavInput_Menu
+     * Y (Xbox)         X (Switch)   Triangle (PS)      // Text Input / On-screen Keyboard
      */
-    public static final int GamepadFaceLeft = 621;
+    public static final int GamepadFaceUp = 621;
 
     /**
-     * B (Xbox)             A (Switch)   Circle (PS)        // {@code ->} ImGuiNavInput_Cancel
+     * A (Xbox)         B (Switch)   Cross (PS)         // Activate / Open / Toggle / Tweak
      */
-    public static final int GamepadFaceRight = 622;
+    public static final int GamepadFaceDown = 622;
 
     /**
-     * D-pad Up                                             // {@code ->} ImGuiNavInput_DpadUp
+     * D-pad Left                                       // Move / Tweak / Resize Window (in Windowing mode)
      */
-    public static final int GamepadDpadUp = 623;
+    public static final int GamepadDpadLeft = 623;
 
     /**
-     * D-pad Down                                           // {@code ->} ImGuiNavInput_DpadDown
+     * D-pad Right                                      // Move / Tweak / Resize Window (in Windowing mode)
      */
-    public static final int GamepadDpadDown = 624;
+    public static final int GamepadDpadRight = 624;
 
     /**
-     * D-pad Left                                           // {@code ->} ImGuiNavInput_DpadLeft
+     * D-pad Up                                         // Move / Tweak / Resize Window (in Windowing mode)
      */
-    public static final int GamepadDpadLeft = 625;
+    public static final int GamepadDpadUp = 625;
 
     /**
-     * D-pad Right                                          // {@code ->} ImGuiNavInput_DpadRight
+     * D-pad Down                                       // Move / Tweak / Resize Window (in Windowing mode)
      */
-    public static final int GamepadDpadRight = 626;
+    public static final int GamepadDpadDown = 626;
 
     /**
-     * L Bumper (Xbox)      L (Switch)   L1 (PS)            // {@code ->} ImGuiNavInput_FocusPrev + ImGuiNavInput_TweakSlow
+     * L Bumper (Xbox)  L (Switch)   L1 (PS)            // Tweak Slower / Focus Previous (in Windowing mode)
      */
     public static final int GamepadL1 = 627;
 
     /**
-     * R Bumper (Xbox)      R (Switch)   R1 (PS)            // {@code ->} ImGuiNavInput_FocusNext + ImGuiNavInput_TweakFast
+     * R Bumper (Xbox)  R (Switch)   R1 (PS)            // Tweak Faster / Focus Next (in Windowing mode)
      */
     public static final int GamepadR1 = 628;
 
     /**
-     * L Trigger (Xbox)     ZL (Switch)  L2 (PS) [Analog]
+     * L Trig. (Xbox)   ZL (Switch)  L2 (PS) [Analog]
      */
     public static final int GamepadL2 = 629;
 
     /**
-     * R Trigger (Xbox)     ZR (Switch)  R2 (PS) [Analog]
+     * R Trig. (Xbox)   ZR (Switch)  R2 (PS) [Analog]
      */
     public static final int GamepadR2 = 630;
 
     /**
-     * L Thumbstick (Xbox)  L3 (Switch)  L3 (PS)
+     * L Stick (Xbox)   L3 (Switch)  L3 (PS)
      */
     public static final int GamepadL3 = 631;
 
     /**
-     * R Thumbstick (Xbox)  R3 (Switch)  R3 (PS)
+     * R Stick (Xbox)   R3 (Switch)  R3 (PS)
      */
     public static final int GamepadR3 = 632;
 
     /**
-     * [Analog]                                             // {@code ->} ImGuiNavInput_LStickUp
+     * [Analog]                                         // Move Window (in Windowing mode)
      */
-    public static final int GamepadLStickUp = 633;
+    public static final int GamepadLStickLeft = 633;
 
     /**
-     * [Analog]                                             // {@code ->} ImGuiNavInput_LStickDown
+     * [Analog]                                         // Move Window (in Windowing mode)
      */
-    public static final int GamepadLStickDown = 634;
+    public static final int GamepadLStickRight = 634;
 
     /**
-     * [Analog]                                             // {@code ->} ImGuiNavInput_LStickLeft
+     * [Analog]                                         // Move Window (in Windowing mode)
      */
-    public static final int GamepadLStickLeft = 635;
+    public static final int GamepadLStickUp = 635;
 
     /**
-     * [Analog]                                             // {@code ->} ImGuiNavInput_LStickRight
+     * [Analog]                                         // Move Window (in Windowing mode)
      */
-    public static final int GamepadLStickRight = 636;
-
-    /**
-     * [Analog]
-     */
-    public static final int GamepadRStickUp = 637;
+    public static final int GamepadLStickDown = 636;
 
     /**
      * [Analog]
      */
-    public static final int GamepadRStickDown = 638;
+    public static final int GamepadRStickLeft = 637;
 
     /**
      * [Analog]
      */
-    public static final int GamepadRStickLeft = 639;
+    public static final int GamepadRStickRight = 638;
 
     /**
      * [Analog]
      */
-    public static final int GamepadRStickRight = 640;
+    public static final int GamepadRStickUp = 639;
 
     /**
-     * Keyboard Modifiers (explicitly submitted by backend via AddKeyEvent() calls) - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...
+     * [Analog]
      */
-    public static final int ModCtrl = 641;
+    public static final int GamepadRStickDown = 640;
 
     /**
-     * Keyboard Modifiers (explicitly submitted by backend via AddKeyEvent() calls) - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...
+     * Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls) - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
      */
-    public static final int ModShift = 642;
+    public static final int MouseLeft = 641;
 
     /**
-     * Keyboard Modifiers (explicitly submitted by backend via AddKeyEvent() calls) - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...
+     * Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls) - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
      */
-    public static final int ModAlt = 643;
+    public static final int MouseRight = 642;
 
     /**
-     * Keyboard Modifiers (explicitly submitted by backend via AddKeyEvent() calls) - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...
+     * Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls) - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
      */
-    public static final int ModSuper = 644;
+    public static final int MouseMiddle = 643;
 
     /**
-     * No valid ImGuiKey is ever greater than this value
+     * Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls) - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
      */
-    public static final int COUNT = 645;
+    public static final int MouseX1 = 644;
 
     /**
-     * [Internal] Prior to 1.87 we required user to fill io.KeysDown[512] using their own native index + a io.KeyMap[] array. We are ditching this method but keeping a legacy path for user code doing e.g. IsKeyPressed(MY_NATIVE_KEY_CODE)
+     * Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls) - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
+     */
+    public static final int MouseX2 = 645;
+
+    /**
+     * Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls) - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
+     */
+    public static final int MouseWheelX = 646;
+
+    /**
+     * Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls) - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
+     */
+    public static final int MouseWheelY = 647;
+
+    /**
+     * [Internal] Reserved for mod storage
+     */
+    public static final int ReservedForModCtrl = 648;
+
+    /**
+     * [Internal] Reserved for mod storage
+     */
+    public static final int ReservedForModShift = 649;
+
+    /**
+     * [Internal] Reserved for mod storage
+     */
+    public static final int ReservedForModAlt = 650;
+
+    /**
+     * [Internal] Reserved for mod storage
+     */
+    public static final int ReservedForModSuper = 651;
+
+    /**
+     * [Internal] Reserved for mod storage
+     */
+    public static final int COUNT = 652;
+
+    /**
+     * Keyboard Modifiers (explicitly submitted by backend via AddKeyEvent() calls) - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every key (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiMod_Ctrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...
+     *
+     * <p>Definition: {@code 0}
+     */
+    public static final int ImGuiMod_None = 0;
+
+    /**
+     * Ctrl
+     *
+     * <p>Definition: {@code 1 << 12}
+     */
+    public static final int ImGuiMod_Ctrl = 4096;
+
+    /**
+     * Shift
+     *
+     * <p>Definition: {@code 1 << 13}
+     */
+    public static final int ImGuiMod_Shift = 8192;
+
+    /**
+     * Option/Menu
+     *
+     * <p>Definition: {@code 1 << 14}
+     */
+    public static final int ImGuiMod_Alt = 16384;
+
+    /**
+     * Cmd/Super/Windows
+     *
+     * <p>Definition: {@code 1 << 15}
+     */
+    public static final int ImGuiMod_Super = 32768;
+
+    /**
+     * Alias for Ctrl (non-macOS) _or_ Super (macOS).
+     *
+     * <p>Definition: {@code 1 << 11}
+     */
+    public static final int ImGuiMod_Shortcut = 2048;
+
+    /**
+     * 5-bits
+     *
+     * <p>Definition: {@code 0xF800}
+     */
+    public static final int ImGuiMod_Mask_ = 63488;
+
+    /**
+     * [Internal] Prior to 1.87 we required user to fill io.KeysDown[512] using their own native index + the io.KeyMap[] array. We are ditching this method but keeping a legacy path for user code doing e.g. IsKeyPressed(MY_NATIVE_KEY_CODE) If you need to iterate all keys (for e.g. an input mapper) you may use ImGuiKey_NamedKey_BEGIN..ImGuiKey_NamedKey_END.
      *
      * <p>Definition: {@code 512}
      */
     public static final int NamedKey_BEGIN = 512;
 
     /**
-     * [Internal] Prior to 1.87 we required user to fill io.KeysDown[512] using their own native index + a io.KeyMap[] array. We are ditching this method but keeping a legacy path for user code doing e.g. IsKeyPressed(MY_NATIVE_KEY_CODE)
+     * [Internal] Prior to 1.87 we required user to fill io.KeysDown[512] using their own native index + the io.KeyMap[] array. We are ditching this method but keeping a legacy path for user code doing e.g. IsKeyPressed(MY_NATIVE_KEY_CODE) If you need to iterate all keys (for e.g. an input mapper) you may use ImGuiKey_NamedKey_BEGIN..ImGuiKey_NamedKey_END.
      *
      * <p>Definition: {@code ImGuiKey_COUNT}
      */
-    public static final int NamedKey_END = 645;
+    public static final int NamedKey_END = 652;
 
     /**
-     * [Internal] Prior to 1.87 we required user to fill io.KeysDown[512] using their own native index + a io.KeyMap[] array. We are ditching this method but keeping a legacy path for user code doing e.g. IsKeyPressed(MY_NATIVE_KEY_CODE)
+     * [Internal] Prior to 1.87 we required user to fill io.KeysDown[512] using their own native index + the io.KeyMap[] array. We are ditching this method but keeping a legacy path for user code doing e.g. IsKeyPressed(MY_NATIVE_KEY_CODE) If you need to iterate all keys (for e.g. an input mapper) you may use ImGuiKey_NamedKey_BEGIN..ImGuiKey_NamedKey_END.
      *
      * <p>Definition: {@code ImGuiKey_NamedKey_END - ImGuiKey_NamedKey_BEGIN}
      */
-    public static final int NamedKey_COUNT = 133;
+    public static final int NamedKey_COUNT = 140;
 
     /**
      * Size of KeysData[]: hold legacy 0..512 keycodes + named keys
      *
      * <p>Definition: {@code ImGuiKey_COUNT}
      */
-    public static final int KeysData_SIZE = 645;
+    public static final int KeysData_SIZE = 652;
 
     /**
-     * First key stored in io.KeysData[0]. Accesses to io.KeysData[] must use (key - ImGuiKey_KeysData_OFFSET).
+     * Accesses to io.KeysData[] must use (key - ImGuiKey_KeysData_OFFSET) index.
      *
      * <p>Definition: {@code 0}
      */
     public static final int KeysData_OFFSET = 0;
+
+    /**
+     * Renamed in 1.89
+     *
+     * <p>Definition: {@code ImGuiMod_Ctrl}
+     */
+    public static final int ModCtrl = 4096;
+
+    /**
+     * Renamed in 1.89
+     *
+     * <p>Definition: {@code ImGuiMod_Shift}
+     */
+    public static final int ModShift = 8192;
+
+    /**
+     * Renamed in 1.89
+     *
+     * <p>Definition: {@code ImGuiMod_Alt}
+     */
+    public static final int ModAlt = 16384;
+
+    /**
+     * Renamed in 1.89
+     *
+     * <p>Definition: {@code ImGuiMod_Super}
+     */
+    public static final int ModSuper = 32768;
 
     /**
      * Renamed in 1.87

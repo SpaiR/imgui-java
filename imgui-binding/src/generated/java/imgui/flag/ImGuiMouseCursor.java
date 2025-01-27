@@ -30,7 +30,7 @@ public final class ImGuiMouseCursor {
     public static final int ResizeAll = 2;
 
     /**
-     * When hovering over an horizontal border
+     * When hovering over a horizontal border
      */
     public static final int ResizeNS = 3;
 

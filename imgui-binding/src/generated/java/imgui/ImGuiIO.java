@@ -3,6 +3,7 @@ package imgui;
 import imgui.binding.ImGuiStruct;
 import imgui.callback.ImStrConsumer;
 import imgui.callback.ImStrSupplier;
+import imgui.internal.ImGuiContext;
 
 /**
  * Communicate most settings and inputs/outputs to Dear ImGui using this structure.
@@ -259,116 +260,6 @@ public final class ImGuiIO extends ImGuiStruct {
         auto value = obj_value == NULL ? NULL : (char*)env->GetStringUTFChars(obj_value, JNI_FALSE);
         SET_STRING_FIELD(THIS->LogFilename, value);
         if (value != NULL) env->ReleaseStringUTFChars(obj_value, value);
-    */
-
-    /**
-     * Time for a double-click, in seconds.
-     */
-    public float getMouseDoubleClickTime() {
-        return nGetMouseDoubleClickTime();
-    }
-
-    /**
-     * Time for a double-click, in seconds.
-     */
-    public void setMouseDoubleClickTime(final float value) {
-        nSetMouseDoubleClickTime(value);
-    }
-
-    private native float nGetMouseDoubleClickTime(); /*
-        return THIS->MouseDoubleClickTime;
-    */
-
-    private native void nSetMouseDoubleClickTime(float value); /*
-        THIS->MouseDoubleClickTime = value;
-    */
-
-    /**
-     * Distance threshold to stay in to validate a double-click, in pixels.
-     */
-    public float getMouseDoubleClickMaxDist() {
-        return nGetMouseDoubleClickMaxDist();
-    }
-
-    /**
-     * Distance threshold to stay in to validate a double-click, in pixels.
-     */
-    public void setMouseDoubleClickMaxDist(final float value) {
-        nSetMouseDoubleClickMaxDist(value);
-    }
-
-    private native float nGetMouseDoubleClickMaxDist(); /*
-        return THIS->MouseDoubleClickMaxDist;
-    */
-
-    private native void nSetMouseDoubleClickMaxDist(float value); /*
-        THIS->MouseDoubleClickMaxDist = value;
-    */
-
-    /**
-     * Distance threshold before considering we are dragging.
-     */
-    public float getMouseDragThreshold() {
-        return nGetMouseDragThreshold();
-    }
-
-    /**
-     * Distance threshold before considering we are dragging.
-     */
-    public void setMouseDragThreshold(final float value) {
-        nSetMouseDragThreshold(value);
-    }
-
-    private native float nGetMouseDragThreshold(); /*
-        return THIS->MouseDragThreshold;
-    */
-
-    private native void nSetMouseDragThreshold(float value); /*
-        THIS->MouseDragThreshold = value;
-    */
-
-    /**
-     * When holding a key/button, time before it starts repeating, in seconds (for buttons in Repeat mode, etc.).
-     */
-    public float getKeyRepeatDelay() {
-        return nGetKeyRepeatDelay();
-    }
-
-    /**
-     * When holding a key/button, time before it starts repeating, in seconds (for buttons in Repeat mode, etc.).
-     */
-    public void setKeyRepeatDelay(final float value) {
-        nSetKeyRepeatDelay(value);
-    }
-
-    private native float nGetKeyRepeatDelay(); /*
-        return THIS->KeyRepeatDelay;
-    */
-
-    private native void nSetKeyRepeatDelay(float value); /*
-        THIS->KeyRepeatDelay = value;
-    */
-
-    /**
-     * When holding a key/button, rate at which it repeats, in seconds.
-     */
-    public float getKeyRepeatRate() {
-        return nGetKeyRepeatRate();
-    }
-
-    /**
-     * When holding a key/button, rate at which it repeats, in seconds.
-     */
-    public void setKeyRepeatRate(final float value) {
-        nSetKeyRepeatRate(value);
-    }
-
-    private native float nGetKeyRepeatRate(); /*
-        return THIS->KeyRepeatRate;
-    */
-
-    private native void nSetKeyRepeatRate(float value); /*
-        THIS->KeyRepeatRate = value;
     */
 
     private static final ImFontAtlas _GETFONTS_1 = new ImFontAtlas(0);
@@ -794,6 +685,28 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
+     * [BETA] Pressing Enter will keep item active and select contents (single-line only).
+     */
+    public boolean getConfigInputTextEnterKeepActive() {
+        return nGetConfigInputTextEnterKeepActive();
+    }
+
+    /**
+     * [BETA] Pressing Enter will keep item active and select contents (single-line only).
+     */
+    public void setConfigInputTextEnterKeepActive(final boolean value) {
+        nSetConfigInputTextEnterKeepActive(value);
+    }
+
+    private native boolean nGetConfigInputTextEnterKeepActive(); /*
+        return THIS->ConfigInputTextEnterKeepActive;
+    */
+
+    private native void nSetConfigInputTextEnterKeepActive(boolean value); /*
+        THIS->ConfigInputTextEnterKeepActive = value;
+    */
+
+    /**
      * [BETA] Enable turning DragXXX widgets into text input with a simple mouse click-release (without moving). Not desirable on devices without a keyboard.
      */
     public boolean getConfigDragClickToInputText() {
@@ -885,6 +798,232 @@ public final class ImGuiIO extends ImGuiStruct {
         THIS->ConfigMemoryCompactTimer = value;
     */
 
+    // Inputs Behaviors
+    // (other variables, ones which are expected to be tweaked within UI code, are exposed in ImGuiStyle)
+
+
+    /**
+     * Time for a double-click, in seconds.
+     */
+    public float getMouseDoubleClickTime() {
+        return nGetMouseDoubleClickTime();
+    }
+
+    /**
+     * Time for a double-click, in seconds.
+     */
+    public void setMouseDoubleClickTime(final float value) {
+        nSetMouseDoubleClickTime(value);
+    }
+
+    private native float nGetMouseDoubleClickTime(); /*
+        return THIS->MouseDoubleClickTime;
+    */
+
+    private native void nSetMouseDoubleClickTime(float value); /*
+        THIS->MouseDoubleClickTime = value;
+    */
+
+    /**
+     * Distance threshold to stay in to validate a double-click, in pixels.
+     */
+    public float getMouseDoubleClickMaxDist() {
+        return nGetMouseDoubleClickMaxDist();
+    }
+
+    /**
+     * Distance threshold to stay in to validate a double-click, in pixels.
+     */
+    public void setMouseDoubleClickMaxDist(final float value) {
+        nSetMouseDoubleClickMaxDist(value);
+    }
+
+    private native float nGetMouseDoubleClickMaxDist(); /*
+        return THIS->MouseDoubleClickMaxDist;
+    */
+
+    private native void nSetMouseDoubleClickMaxDist(float value); /*
+        THIS->MouseDoubleClickMaxDist = value;
+    */
+
+    /**
+     * Distance threshold before considering we are dragging.
+     */
+    public float getMouseDragThreshold() {
+        return nGetMouseDragThreshold();
+    }
+
+    /**
+     * Distance threshold before considering we are dragging.
+     */
+    public void setMouseDragThreshold(final float value) {
+        nSetMouseDragThreshold(value);
+    }
+
+    private native float nGetMouseDragThreshold(); /*
+        return THIS->MouseDragThreshold;
+    */
+
+    private native void nSetMouseDragThreshold(float value); /*
+        THIS->MouseDragThreshold = value;
+    */
+
+    /**
+     * When holding a key/button, time before it starts repeating, in seconds (for buttons in Repeat mode, etc.).
+     */
+    public float getKeyRepeatDelay() {
+        return nGetKeyRepeatDelay();
+    }
+
+    /**
+     * When holding a key/button, time before it starts repeating, in seconds (for buttons in Repeat mode, etc.).
+     */
+    public void setKeyRepeatDelay(final float value) {
+        nSetKeyRepeatDelay(value);
+    }
+
+    private native float nGetKeyRepeatDelay(); /*
+        return THIS->KeyRepeatDelay;
+    */
+
+    private native void nSetKeyRepeatDelay(float value); /*
+        THIS->KeyRepeatDelay = value;
+    */
+
+    /**
+     * When holding a key/button, rate at which it repeats, in seconds.
+     */
+    public float getKeyRepeatRate() {
+        return nGetKeyRepeatRate();
+    }
+
+    /**
+     * When holding a key/button, rate at which it repeats, in seconds.
+     */
+    public void setKeyRepeatRate(final float value) {
+        nSetKeyRepeatRate(value);
+    }
+
+    private native float nGetKeyRepeatRate(); /*
+        return THIS->KeyRepeatRate;
+    */
+
+    private native void nSetKeyRepeatRate(float value); /*
+        THIS->KeyRepeatRate = value;
+    */
+
+    //------------------------------------------------------------------
+    // Debug options
+    //------------------------------------------------------------------
+
+    /**
+     * Tools to test correct Begin/End and BeginChild/EndChild behaviors.
+     * Presently Begin()/End() and BeginChild()/EndChild() needs to ALWAYS be called in tandem, regardless of return value of BeginXXX()
+     * This is inconsistent with other BeginXXX functions and create confusion for many users.
+     * We expect to update the API eventually. In the meanwhile we provide tools to facilitate checking user-code behavior.
+     * First-time calls to Begin()/BeginChild() will return false. NEEDS TO BE SET AT APPLICATION BOOT TIME if you don't want to miss windows.
+     */
+    public boolean getConfigDebugBeginReturnValueOnce() {
+        return nGetConfigDebugBeginReturnValueOnce();
+    }
+
+    /**
+     * Tools to test correct Begin/End and BeginChild/EndChild behaviors.
+     * Presently Begin()/End() and BeginChild()/EndChild() needs to ALWAYS be called in tandem, regardless of return value of BeginXXX()
+     * This is inconsistent with other BeginXXX functions and create confusion for many users.
+     * We expect to update the API eventually. In the meanwhile we provide tools to facilitate checking user-code behavior.
+     * First-time calls to Begin()/BeginChild() will return false. NEEDS TO BE SET AT APPLICATION BOOT TIME if you don't want to miss windows.
+     */
+    public void setConfigDebugBeginReturnValueOnce(final boolean value) {
+        nSetConfigDebugBeginReturnValueOnce(value);
+    }
+
+    private native boolean nGetConfigDebugBeginReturnValueOnce(); /*
+        return THIS->ConfigDebugBeginReturnValueOnce;
+    */
+
+    private native void nSetConfigDebugBeginReturnValueOnce(boolean value); /*
+        THIS->ConfigDebugBeginReturnValueOnce = value;
+    */
+
+    /**
+     * Some calls to Begin()/BeginChild() will return false. Will cycle through window depths then repeat.
+     * Suggested use: add "io.ConfigDebugBeginReturnValue = io.KeyShift" in your main loop then occasionally press SHIFT.
+     * Windows should be flickering while running.
+     */
+    public boolean getConfigDebugBeginReturnValueLoop() {
+        return nGetConfigDebugBeginReturnValueLoop();
+    }
+
+    /**
+     * Some calls to Begin()/BeginChild() will return false. Will cycle through window depths then repeat.
+     * Suggested use: add "io.ConfigDebugBeginReturnValue = io.KeyShift" in your main loop then occasionally press SHIFT.
+     * Windows should be flickering while running.
+     */
+    public void setConfigDebugBeginReturnValueLoop(final boolean value) {
+        nSetConfigDebugBeginReturnValueLoop(value);
+    }
+
+    private native boolean nGetConfigDebugBeginReturnValueLoop(); /*
+        return THIS->ConfigDebugBeginReturnValueLoop;
+    */
+
+    private native void nSetConfigDebugBeginReturnValueLoop(boolean value); /*
+        THIS->ConfigDebugBeginReturnValueLoop = value;
+    */
+
+    /**
+     * Option to deactivate io.AddFocusEvent(false) handling. May facilitate interactions with a debugger when focus loss leads to clearing inputs data.
+     * Backends may have other side-effects on focus loss, so this will reduce side-effects but not necessary remove all of them.
+     * Consider using e.g. Win32's IsDebuggerPresent() as an additional filter (or see ImOsIsDebuggerPresent() in imgui_test_engine/imgui_te_utils.cpp for a Unix compatible version).
+     * Ignore io.AddFocusEvent(false), consequently not calling io.ClearInputKeys() in input processing.
+     */
+    public boolean getConfigDebugIgnoreFocusLoss() {
+        return nGetConfigDebugIgnoreFocusLoss();
+    }
+
+    /**
+     * Option to deactivate io.AddFocusEvent(false) handling. May facilitate interactions with a debugger when focus loss leads to clearing inputs data.
+     * Backends may have other side-effects on focus loss, so this will reduce side-effects but not necessary remove all of them.
+     * Consider using e.g. Win32's IsDebuggerPresent() as an additional filter (or see ImOsIsDebuggerPresent() in imgui_test_engine/imgui_te_utils.cpp for a Unix compatible version).
+     * Ignore io.AddFocusEvent(false), consequently not calling io.ClearInputKeys() in input processing.
+     */
+    public void setConfigDebugIgnoreFocusLoss(final boolean value) {
+        nSetConfigDebugIgnoreFocusLoss(value);
+    }
+
+    private native boolean nGetConfigDebugIgnoreFocusLoss(); /*
+        return THIS->ConfigDebugIgnoreFocusLoss;
+    */
+
+    private native void nSetConfigDebugIgnoreFocusLoss(boolean value); /*
+        THIS->ConfigDebugIgnoreFocusLoss = value;
+    */
+
+    /**
+     * Option to audit .ini data
+     * Save .ini data with extra comments (particularly helpful for Docking, but makes saving slower)
+     */
+    public boolean getConfigDebugIniSettings() {
+        return nGetConfigDebugIniSettings();
+    }
+
+    /**
+     * Option to audit .ini data
+     * Save .ini data with extra comments (particularly helpful for Docking, but makes saving slower)
+     */
+    public void setConfigDebugIniSettings(final boolean value) {
+        nSetConfigDebugIniSettings(value);
+    }
+
+    private native boolean nGetConfigDebugIniSettings(); /*
+        return THIS->ConfigDebugIniSettings;
+    */
+
+    private native void nSetConfigDebugIniSettings(boolean value); /*
+        THIS->ConfigDebugIniSettings = value;
+    */
+
     //------------------------------------------------------------------
     // Platform Functions
     //------------------------------------------------------------------
@@ -965,6 +1104,30 @@ public final class ImGuiIO extends ImGuiStruct {
         THIS->GetClipboardTextFn = getClipboardTextStub;
     */
 
+    /**
+     * Optional: Platform locale
+     * [Experimental] Configure decimal point e.g. '.' or ',' useful for some languages (e.g. German), generally pulled from *localeconv()->decimal_point
+     */
+    public short getPlatformLocaleDecimalPoint() {
+        return nGetPlatformLocaleDecimalPoint();
+    }
+
+    /**
+     * Optional: Platform locale
+     * [Experimental] Configure decimal point e.g. '.' or ',' useful for some languages (e.g. German), generally pulled from *localeconv()->decimal_point
+     */
+    public void setPlatformLocaleDecimalPoint(final short value) {
+        nSetPlatformLocaleDecimalPoint(value);
+    }
+
+    private native short nGetPlatformLocaleDecimalPoint(); /*
+        return THIS->PlatformLocaleDecimalPoint;
+    */
+
+    private native void nSetPlatformLocaleDecimalPoint(short value); /*
+        THIS->PlatformLocaleDecimalPoint = value;
+    */
+
     //------------------------------------------------------------------
     // Input - Call before calling NewFrame()
     //------------------------------------------------------------------
@@ -1016,7 +1179,7 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-     * Queue a mouse wheel update
+     * Queue a mouse wheel update. wheel_y<0: scroll down, wheel_y>0: scroll up, wheel_x<0: scroll right, wheel_x>0: scroll left.
      */
     public void addMouseWheelEvent(final float whX, final float whY) {
         nAddMouseWheelEvent(whX, whY);
@@ -1024,6 +1187,17 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nAddMouseWheelEvent(float whX, float whY); /*
         THIS->AddMouseWheelEvent(whX, whY);
+    */
+
+    /**
+     * Queue a mouse source change (Mouse/TouchScreen/Pen)
+     */
+    public void addMouseSourceEvent(final int source) {
+        nAddMouseSourceEvent(source);
+    }
+
+    private native void nAddMouseSourceEvent(int source); /*
+        THIS->AddMouseSourceEvent(source);
     */
 
     /**
@@ -1060,7 +1234,7 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-     * Queue new character input from an UTF-16 character, it can be a surrogate
+     * Queue new character input from a UTF-16 character, it can be a surrogate
      */
     public void addInputCharacterUTF16(final short c) {
         nAddInputCharacterUTF16(c);
@@ -1071,7 +1245,7 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-     * Queue new characters input from an UTF-8 string.
+     * Queue new characters input from a UTF-8 string.
      */
     public void addInputCharactersUTF8(final String str) {
         nAddInputCharactersUTF8(str);
@@ -1117,6 +1291,17 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
+     * Clear all incoming events.
+     */
+    public void clearEventsQueue() {
+        nClearEventsQueue();
+    }
+
+    private native void nClearEventsQueue(); /*
+        THIS->ClearEventsQueue();
+    */
+
+    /**
      * [Internal] Clear the text input buffer manually
      */
     public void clearInputCharacters() {
@@ -1125,17 +1310,6 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nClearInputCharacters(); /*
         THIS->ClearInputCharacters();
-    */
-
-    /**
-     * [Internal] Release all keys
-     */
-    public void clearInputKeys() {
-        nClearInputKeys();
-    }
-
-    private native void nClearInputKeys(); /*
-        THIS->ClearInputKeys();
     */
 
     //------------------------------------------------------------------
@@ -1313,16 +1487,18 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-     * Application framerate estimate, in frame per second. Solely for convenience. Rolling average estimation based on io.DeltaTime over 120 frames.
-     * Solely for convenience. Rolling average estimation based on IO.DeltaTime over 120 frames
+     * Estimate of application framerate (rolling average over 60 frames, based on io.DeltaTime), in frame per second.
+     * Solely for convenience.
+     * Slow applications may not want to use a moving average or may want to reset underlying buffers occasionally.
      */
     public float getFramerate() {
         return nGetFramerate();
     }
 
     /**
-     * Application framerate estimate, in frame per second. Solely for convenience. Rolling average estimation based on io.DeltaTime over 120 frames.
-     * Solely for convenience. Rolling average estimation based on IO.DeltaTime over 120 frames
+     * Estimate of application framerate (rolling average over 60 frames, based on io.DeltaTime), in frame per second.
+     * Solely for convenience.
+     * Slow applications may not want to use a moving average or may want to reset underlying buffers occasionally.
      */
     public void setFramerate(final float value) {
         nSetFramerate(value);
@@ -1627,9 +1803,84 @@ public final class ImGuiIO extends ImGuiStruct {
         THIS->KeysDown[idx] = value;
     */
 
+    /**
+     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
+     */
+    public float[] getNavInputs() {
+        return nGetNavInputs();
+    }
+
+    /**
+     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
+     */
+    public float getNavInputs(final int idx) {
+        return nGetNavInputs(idx);
+    }
+
+    /**
+     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
+     */
+    public void setNavInputs(final float[] value) {
+        nSetNavInputs(value);
+    }
+
+    /**
+     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
+     */
+    public void setNavInputs(final int idx, final float value) {
+        nSetNavInputs(idx, value);
+    }
+
+    private native float[] nGetNavInputs(); /*
+        jfloat jBuf[512];
+        for (int i = 0; i < 512; i++)
+            jBuf[i] = THIS->NavInputs[i];
+        jfloatArray result = env->NewFloatArray(512);
+        env->SetFloatArrayRegion(result, 0, 512, jBuf);
+        return result;
+    */
+
+    private native float nGetNavInputs(int idx); /*
+        return THIS->NavInputs[idx];
+    */
+
+    private native void nSetNavInputs(float[] value); /*
+        for (int i = 0; i < 512; i++)
+            THIS->NavInputs[i] = value[i];
+    */
+
+    private native float nSetNavInputs(int idx, float value); /*
+        THIS->NavInputs[idx] = value;
+    */
+
     //------------------------------------------------------------------
     // [Internal] Dear ImGui will maintain those fields. Forward compatibility not guaranteed!
     //------------------------------------------------------------------
+
+    private static final ImGuiContext _GETCTX_1 = new ImGuiContext(0);
+
+    /**
+     * Parent UI context (needs to be set explicitly by parent).
+     */
+    public ImGuiContext getCtx() {
+        _GETCTX_1.ptr = nGetCtx();
+        return _GETCTX_1;
+    }
+
+    /**
+     * Parent UI context (needs to be set explicitly by parent).
+     */
+    public void setCtx(final ImGuiContext value) {
+        nSetCtx(value.ptr);
+    }
+
+    private native long nGetCtx(); /*
+        return (uintptr_t)THIS->Ctx;
+    */
+
+    private native void nSetCtx(long value); /*
+        THIS->Ctx = reinterpret_cast<ImGuiContext*>(value);
+    */
 
     /**
      * Mouse position, in pixels. Set to ImVec2(-FLT_MAX, -FLT_MAX) if mouse is unavailable (on another screen, etc.)
@@ -1902,56 +2153,6 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nSetKeySuper(boolean value); /*
         THIS->KeySuper = value;
-    */
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    public float[] getNavInputs() {
-        return nGetNavInputs();
-    }
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    public float getNavInputs(final int idx) {
-        return nGetNavInputs(idx);
-    }
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    public void setNavInputs(final float[] value) {
-        nSetNavInputs(value);
-    }
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    public void setNavInputs(final int idx, final float value) {
-        nSetNavInputs(idx, value);
-    }
-
-    private native float[] nGetNavInputs(); /*
-        jfloat jBuf[512];
-        for (int i = 0; i < 512; i++)
-            jBuf[i] = THIS->NavInputs[i];
-        jfloatArray result = env->NewFloatArray(512);
-        env->SetFloatArrayRegion(result, 0, 512, jBuf);
-        return result;
-    */
-
-    private native float nGetNavInputs(int idx); /*
-        return THIS->NavInputs[idx];
-    */
-
-    private native void nSetNavInputs(float[] value); /*
-        for (int i = 0; i < 512; i++)
-            THIS->NavInputs[i] = value[i];
-    */
-
-    private native float nSetNavInputs(int idx, float value); /*
-        THIS->NavInputs[idx] = value;
     */
 
     // Other state maintained from data above + IO function calls
@@ -2506,6 +2707,30 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
+     * On a non-Mac system, holding SHIFT requests WheelY to perform the equivalent of a WheelX event.
+     * On a Mac system this is already enforced by the system.
+     */
+    public boolean getMouseWheelRequestAxisSwap() {
+        return nGetMouseWheelRequestAxisSwap();
+    }
+
+    /**
+     * On a non-Mac system, holding SHIFT requests WheelY to perform the equivalent of a WheelX event.
+     * On a Mac system this is already enforced by the system.
+     */
+    public void setMouseWheelRequestAxisSwap(final boolean value) {
+        nSetMouseWheelRequestAxisSwap(value);
+    }
+
+    private native boolean nGetMouseWheelRequestAxisSwap(); /*
+        return THIS->MouseWheelRequestAxisSwap;
+    */
+
+    private native void nSetMouseWheelRequestAxisSwap(boolean value); /*
+        THIS->MouseWheelRequestAxisSwap = value;
+    */
+
+    /**
      * Duration the mouse button has been down (0.0f == just clicked)
      */
     public float[] getMouseDownDuration() {
@@ -2675,82 +2900,6 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native float nSetMouseDragMaxDistanceSqr(int idx, float value); /*
         THIS->MouseDragMaxDistanceSqr[idx] = value;
-    */
-
-    public float[] getNavInputsDownDuration() {
-        return nGetNavInputsDownDuration();
-    }
-
-    public float getNavInputsDownDuration(final int idx) {
-        return nGetNavInputsDownDuration(idx);
-    }
-
-    public void setNavInputsDownDuration(final float[] value) {
-        nSetNavInputsDownDuration(value);
-    }
-
-    public void setNavInputsDownDuration(final int idx, final float value) {
-        nSetNavInputsDownDuration(idx, value);
-    }
-
-    private native float[] nGetNavInputsDownDuration(); /*
-        jfloat jBuf[ImGuiNavInput_COUNT];
-        for (int i = 0; i < ImGuiNavInput_COUNT; i++)
-            jBuf[i] = THIS->NavInputsDownDuration[i];
-        jfloatArray result = env->NewFloatArray(ImGuiNavInput_COUNT);
-        env->SetFloatArrayRegion(result, 0, ImGuiNavInput_COUNT, jBuf);
-        return result;
-    */
-
-    private native float nGetNavInputsDownDuration(int idx); /*
-        return THIS->NavInputsDownDuration[idx];
-    */
-
-    private native void nSetNavInputsDownDuration(float[] value); /*
-        for (int i = 0; i < ImGuiNavInput_COUNT; i++)
-            THIS->NavInputsDownDuration[i] = value[i];
-    */
-
-    private native float nSetNavInputsDownDuration(int idx, float value); /*
-        THIS->NavInputsDownDuration[idx] = value;
-    */
-
-    public float[] getNavInputsDownDurationPrev() {
-        return nGetNavInputsDownDurationPrev();
-    }
-
-    public float getNavInputsDownDurationPrev(final int idx) {
-        return nGetNavInputsDownDurationPrev(idx);
-    }
-
-    public void setNavInputsDownDurationPrev(final float[] value) {
-        nSetNavInputsDownDurationPrev(value);
-    }
-
-    public void setNavInputsDownDurationPrev(final int idx, final float value) {
-        nSetNavInputsDownDurationPrev(idx, value);
-    }
-
-    private native float[] nGetNavInputsDownDurationPrev(); /*
-        jfloat jBuf[ImGuiNavInput_COUNT];
-        for (int i = 0; i < ImGuiNavInput_COUNT; i++)
-            jBuf[i] = THIS->NavInputsDownDurationPrev[i];
-        jfloatArray result = env->NewFloatArray(ImGuiNavInput_COUNT);
-        env->SetFloatArrayRegion(result, 0, ImGuiNavInput_COUNT, jBuf);
-        return result;
-    */
-
-    private native float nGetNavInputsDownDurationPrev(int idx); /*
-        return THIS->NavInputsDownDurationPrev[idx];
-    */
-
-    private native void nSetNavInputsDownDurationPrev(float[] value); /*
-        for (int i = 0; i < ImGuiNavInput_COUNT; i++)
-            THIS->NavInputsDownDurationPrev[i] = value[i];
-    */
-
-    private native float nSetNavInputsDownDurationPrev(int idx, float value); /*
-        THIS->NavInputsDownDurationPrev[idx] = value;
     */
 
     /**

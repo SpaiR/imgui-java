@@ -14,14 +14,14 @@ public final class ImGuiConfigFlags {
     public static final int None = 0;
 
     /**
-     * Master keyboard navigation enable flag. NewFrame() will automatically fill io.NavInputs[] based on io.AddKeyEvent() calls
+     * Master keyboard navigation enable flag. Enable full Tabbing + directional arrows + space/enter to activate.
      *
      * <p>Definition: {@code 1 << 0}
      */
     public static final int NavEnableKeyboard = 1;
 
     /**
-     * Master gamepad navigation enable flag. This is mostly to instruct your imgui backend to fill io.NavInputs[]. Backend also needs to set ImGuiBackendFlags_HasGamepad.
+     * Master gamepad navigation enable flag. Backend also needs to set ImGuiBackendFlags_HasGamepad.
      *
      * <p>Definition: {@code 1 << 1}
      */

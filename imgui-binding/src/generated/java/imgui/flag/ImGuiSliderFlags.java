@@ -44,11 +44,4 @@ public final class ImGuiSliderFlags {
      * <p>Definition: {@code 0x7000000F}
      */
     public static final int InvalidMask_ = 1879048207;
-
-    /**
-     * [renamed in 1.79]
-     *
-     * <p>Definition: {@code ImGuiSliderFlags_AlwaysClamp}
-     */
-    public static final int ClampOnInput = 16;
 }

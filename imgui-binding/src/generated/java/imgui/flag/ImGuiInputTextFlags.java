@@ -154,9 +154,9 @@ public final class ImGuiInputTextFlags {
     public static final int CallbackEdit = 524288;
 
     /**
-     * [renamed in 1.82] name was not matching behavior
+     * Escape key clears content if not empty, and deactivate otherwise (contrast to default behavior of Escape to revert)
      *
-     * <p>Definition: {@code ImGuiInputTextFlags_AlwaysOverwrite}
+     * <p>Definition: {@code 1 << 20}
      */
-    public static final int AlwaysInsertMode = 8192;
+    public static final int EscapeClearsAll = 1048576;
 }

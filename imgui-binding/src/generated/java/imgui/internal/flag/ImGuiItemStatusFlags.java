@@ -72,4 +72,11 @@ public class ImGuiItemStatusFlags {
      * <p>Definition: {@code 1 << 8}
      */
     public static final int FocusedByTabbing = 256;
+
+    /**
+     * [WIP] Set when item is overlapping the current clipping rectangle (Used internally. Please don't use yet: API/system will change as we refactor Itemadd()).
+     *
+     * <p>Definition: {@code 1 << 9}
+     */
+    public static final int Visible = 512;
 }

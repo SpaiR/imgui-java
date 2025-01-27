@@ -614,14 +614,6 @@ public final class ImGui extends imgui.ImGui {
 
     // Basic Accessors
 
-    public static int getItemID() {
-        return nGetItemID();
-    }
-
-    private static native int nGetItemID(); /*
-        return ImGui::GetItemID();
-    */
-
     public static int getItemStatusFlags() {
         return nGetItemStatusFlags();
     }

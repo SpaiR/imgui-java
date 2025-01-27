@@ -331,6 +331,25 @@ public final class ImDrawData extends ImGuiStruct {
 
     // Functions
 
+    public void clear() {
+        nClear();
+    }
+
+    private native void nClear(); /*
+        THIS->Clear();
+    */
+
+    /**
+     * Helper to add an external draw list into an existing ImDrawData.
+     */
+    public void addDrawList(final ImDrawList drawList) {
+        nAddDrawList(drawList.ptr);
+    }
+
+    private native void nAddDrawList(long drawList); /*
+        THIS->AddDrawList(reinterpret_cast<ImDrawList*>(drawList));
+    */
+
     /**
      * Helper to convert all buffers from indexed to non-indexed, in case you cannot render indexed. Note: this is slow and most likely a waste of resources.
      * Always prefer indexed rendering!

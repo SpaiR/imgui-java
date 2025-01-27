@@ -4,6 +4,8 @@ import imgui.binding.ImGuiStruct;
 import imgui.binding.annotation.BindingField;
 import imgui.binding.annotation.BindingMethod;
 import imgui.binding.annotation.BindingSource;
+import imgui.binding.annotation.ReturnValue;
+import imgui.internal.ImGuiContext;
 
 /**
  * Shared state of InputText(), passed as an argument to your callback when a ImGuiInputTextFlags_Callback* flag is used.<p>
@@ -26,6 +28,13 @@ public class ImGuiInputTextCallbackData extends ImGuiStruct {
         #include "_common.h"
         #define THIS ((ImGuiInputTextCallbackData*)STRUCT_PTR)
      */
+
+    /**
+     * Parent UI context
+     */
+    @BindingField
+    @ReturnValue(isStatic = true)
+    public ImGuiContext Ctx;
 
     /**
      * One ImGuiInputTextFlags_Callback*

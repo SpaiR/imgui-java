@@ -192,9 +192,6 @@ public final class ImGui extends imgui.ImGui {
     // Basic Accessors
 
     @BindingMethod
-    public static native int GetItemID();
-
-    @BindingMethod
     public static native int GetItemStatusFlags();
 
     @BindingMethod
