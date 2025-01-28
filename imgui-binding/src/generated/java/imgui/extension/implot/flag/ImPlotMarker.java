@@ -13,7 +13,7 @@ public final class ImPlotMarker {
     public static final int None = -1;
 
     /**
-     * a circle marker
+     * a circle marker (default)
      */
     public static final int Circle = 0;
 

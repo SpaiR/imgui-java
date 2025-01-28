@@ -53,4 +53,11 @@ public final class ImPlotLegendFlags {
      * <p>Definition: {@code 1 << 5}
      */
     public static final int Horizontal = 32;
+
+    /**
+     * legend entries will be displayed in alphabetical order
+     *
+     * <p>Definition: {@code 1 << 6}
+     */
+    public static final int Sort = 64;
 }

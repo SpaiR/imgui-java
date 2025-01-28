@@ -923,22 +923,6 @@ public final class ImPlotStyle extends ImGuiStructDestroyable {
         THIS->Colormap = value;
     */
 
-    public boolean getAntiAliasedLines() {
-        return nGetAntiAliasedLines();
-    }
-
-    public void setAntiAliasedLines(final boolean value) {
-        nSetAntiAliasedLines(value);
-    }
-
-    private native boolean nGetAntiAliasedLines(); /*
-        return THIS->AntiAliasedLines;
-    */
-
-    private native void nSetAntiAliasedLines(boolean value); /*
-        THIS->AntiAliasedLines = value;
-    */
-
     public boolean getUseLocalTime() {
         return nGetUseLocalTime();
     }

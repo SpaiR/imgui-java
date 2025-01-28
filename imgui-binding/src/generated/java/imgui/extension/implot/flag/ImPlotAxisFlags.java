@@ -13,7 +13,7 @@ public final class ImPlotAxisFlags {
     public static final int None = 0;
 
     /**
-     * the axis label will not be displayed (axis labels also hidden if the supplied string name is NULL)
+     * the axis label will not be displayed (axis labels are also hidden if the supplied string name is nullptr)
      *
      * <p>Definition: {@code 1 << 0}
      */
@@ -55,32 +55,32 @@ public final class ImPlotAxisFlags {
     public static final int NoMenus = 32;
 
     /**
-     * axis ticks and labels will be rendered on conventionally opposite side (i.e, right or top)
+     * the user will not be able to switch the axis side by dragging it
      *
      * <p>Definition: {@code 1 << 6}
      */
-    public static final int Opposite = 64;
+    public static final int NoSideSwitch = 64;
 
     /**
-     * grid lines will be displayed in the foreground (i.e. on top of data) in stead of the background
+     * the axis will not have its background highlighted when hovered or held
      *
      * <p>Definition: {@code 1 << 7}
      */
-    public static final int Foreground = 128;
+    public static final int NoHighlight = 128;
 
     /**
-     * a logartithmic (base 10) axis scale will be used (mutually exclusive with ImPlotAxisFlags_Time)
+     * axis ticks and labels will be rendered on the conventionally opposite side (i.e, right or top)
      *
      * <p>Definition: {@code 1 << 8}
      */
-    public static final int LogScale = 256;
+    public static final int Opposite = 256;
 
     /**
-     * axis will display date/time formatted labels (mutually exclusive with ImPlotAxisFlags_LogScale)
+     * grid lines will be displayed in the foreground (i.e. on top of data) instead of the background
      *
      * <p>Definition: {@code 1 << 9}
      */
-    public static final int Time = 512;
+    public static final int Foreground = 512;
 
     /**
      * the axis will be inverted
@@ -104,23 +104,30 @@ public final class ImPlotAxisFlags {
     public static final int RangeFit = 4096;
 
     /**
-     * the axis minimum value will be locked when panning/zooming
+     * panning in a locked or constrained state will cause the axis to stretch if possible
      *
      * <p>Definition: {@code 1 << 13}
      */
-    public static final int LockMin = 8192;
+    public static final int PanStretch = 8192;
+
+    /**
+     * the axis minimum value will be locked when panning/zooming
+     *
+     * <p>Definition: {@code 1 << 14}
+     */
+    public static final int LockMin = 16384;
 
     /**
      * the axis maximum value will be locked when panning/zooming
      *
-     * <p>Definition: {@code 1 << 14}
+     * <p>Definition: {@code 1 << 15}
      */
-    public static final int LockMax = 16384;
+    public static final int LockMax = 32768;
 
     /**
      * Definition: {@code ImPlotAxisFlags_LockMin | ImPlotAxisFlags_LockMax}
      */
-    public static final int Lock = 24576;
+    public static final int Lock = 49152;
 
     /**
      * Definition: {@code ImPlotAxisFlags_NoLabel | ImPlotAxisFlags_NoGridLines | ImPlotAxisFlags_NoTickMarks | ImPlotAxisFlags_NoTickLabels}
@@ -130,5 +137,5 @@ public final class ImPlotAxisFlags {
     /**
      * Definition: {@code ImPlotAxisFlags_NoGridLines | ImPlotAxisFlags_Opposite}
      */
-    public static final int AuxDefault = 66;
+    public static final int AuxDefault = 258;
 }
