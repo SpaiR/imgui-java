@@ -24,6 +24,7 @@ import static org.lwjgl.opengl.GL20.glGetUniformLocation;
 import static org.lwjgl.opengl.GL32.GL_ACTIVE_TEXTURE;
 import static org.lwjgl.opengl.GL32.GL_ARRAY_BUFFER;
 import static org.lwjgl.opengl.GL32.GL_ARRAY_BUFFER_BINDING;
+import static org.lwjgl.opengl.GL32.GL_BACK;
 import static org.lwjgl.opengl.GL32.GL_BLEND;
 import static org.lwjgl.opengl.GL32.GL_BLEND_DST_ALPHA;
 import static org.lwjgl.opengl.GL32.GL_BLEND_DST_RGB;
@@ -33,6 +34,8 @@ import static org.lwjgl.opengl.GL32.GL_BLEND_SRC_ALPHA;
 import static org.lwjgl.opengl.GL32.GL_BLEND_SRC_RGB;
 import static org.lwjgl.opengl.GL32.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL32.GL_COMPILE_STATUS;
+import static org.lwjgl.opengl.GL32.GL_CONTEXT_COMPATIBILITY_PROFILE_BIT;
+import static org.lwjgl.opengl.GL32.GL_CONTEXT_PROFILE_MASK;
 import static org.lwjgl.opengl.GL32.GL_CULL_FACE;
 import static org.lwjgl.opengl.GL32.GL_CURRENT_PROGRAM;
 import static org.lwjgl.opengl.GL32.GL_DEPTH_TEST;
@@ -41,6 +44,7 @@ import static org.lwjgl.opengl.GL32.GL_FALSE;
 import static org.lwjgl.opengl.GL32.GL_FILL;
 import static org.lwjgl.opengl.GL32.GL_FLOAT;
 import static org.lwjgl.opengl.GL32.GL_FRAGMENT_SHADER;
+import static org.lwjgl.opengl.GL32.GL_FRONT;
 import static org.lwjgl.opengl.GL32.GL_FRONT_AND_BACK;
 import static org.lwjgl.opengl.GL32.GL_FUNC_ADD;
 import static org.lwjgl.opengl.GL32.GL_INFO_LOG_LENGTH;
@@ -66,13 +70,14 @@ import static org.lwjgl.opengl.GL32.GL_TEXTURE_MIN_FILTER;
 import static org.lwjgl.opengl.GL32.GL_TRIANGLES;
 import static org.lwjgl.opengl.GL32.GL_TRUE;
 import static org.lwjgl.opengl.GL32.GL_UNPACK_ALIGNMENT;
+import static org.lwjgl.opengl.GL32.GL_UNPACK_ROW_LENGTH;
 import static org.lwjgl.opengl.GL32.GL_UNPACK_SKIP_PIXELS;
 import static org.lwjgl.opengl.GL32.GL_UNPACK_SKIP_ROWS;
-import static org.lwjgl.opengl.GL32.GL_UNPACK_ROW_LENGTH;
 import static org.lwjgl.opengl.GL32.GL_UNSIGNED_BYTE;
 import static org.lwjgl.opengl.GL32.GL_UNSIGNED_INT;
 import static org.lwjgl.opengl.GL32.GL_UNSIGNED_SHORT;
 import static org.lwjgl.opengl.GL32.GL_UPPER_LEFT;
+import static org.lwjgl.opengl.GL32.GL_VERSION;
 import static org.lwjgl.opengl.GL32.GL_VERTEX_ARRAY_BINDING;
 import static org.lwjgl.opengl.GL32.GL_VERTEX_SHADER;
 import static org.lwjgl.opengl.GL32.GL_VIEWPORT;
@@ -102,11 +107,14 @@ import static org.lwjgl.opengl.GL32.glEnableVertexAttribArray;
 import static org.lwjgl.opengl.GL32.glGenBuffers;
 import static org.lwjgl.opengl.GL32.glGenTextures;
 import static org.lwjgl.opengl.GL32.glGenVertexArrays;
+import static org.lwjgl.opengl.GL32.glGetInteger;
 import static org.lwjgl.opengl.GL32.glGetIntegerv;
 import static org.lwjgl.opengl.GL32.glGetProgramInfoLog;
 import static org.lwjgl.opengl.GL32.glGetShaderInfoLog;
 import static org.lwjgl.opengl.GL32.glGetShaderiv;
+import static org.lwjgl.opengl.GL32.glGetString;
 import static org.lwjgl.opengl.GL32.glIsEnabled;
+import static org.lwjgl.opengl.GL32.glIsProgram;
 import static org.lwjgl.opengl.GL32.glLinkProgram;
 import static org.lwjgl.opengl.GL32.glPixelStorei;
 import static org.lwjgl.opengl.GL32.glPolygonMode;
@@ -145,6 +153,10 @@ public class ImGuiImplGl3 {
      */
     protected static class Data {
         protected int glVersion = 0; // Extracted at runtime using GL_MAJOR_VERSION, GL_MINOR_VERSION queries (e.g. 320 for GL 3.2)
+//        protected boolean glProfileIsES2;
+//        protected boolean glProfileIsES3;
+        protected boolean glProfileIsCompat;
+        protected int glProfileMask;
         protected String glslVersion = "";
         protected int fontTexture = 0;
         protected int shaderHandle = 0;
@@ -246,12 +258,21 @@ public class ImGuiImplGl3 {
         final ImGuiIO io = ImGui.getIO();
         io.setBackendRendererName("imgui-java_impl_opengl3");
 
-        {
-            final int[] major = new int[1];
-            final int[] minor = new int[1];
-            glGetIntegerv(GL_MAJOR_VERSION, major);
-            glGetIntegerv(GL_MINOR_VERSION, minor);
-            data.glVersion = major[0] * 100 + minor[0] * 10;
+        { // Desktop or GLES 3
+            int major = glGetInteger(GL_MAJOR_VERSION);
+            int minor = glGetInteger(GL_MINOR_VERSION);
+            if (major == 0 && minor == 0) {
+                // Query GL_VERSION in desktop GL 2.x, the string will start with "<major>.<minor>"
+                final String glVersion = glGetString(GL_VERSION);
+                if (glVersion != null) {
+                    final String[] glVersions = glVersion.split("\\.");
+                    major = Integer.parseInt(glVersions[0]);
+                    minor = Integer.parseInt(glVersions[1]);
+                }
+            }
+            data.glVersion = major * 100 + minor * 10;
+            data.glProfileMask = glGetInteger(GL_CONTEXT_PROFILE_MASK);
+            data.glProfileIsCompat = (data.glProfileMask & GL_CONTEXT_COMPATIBILITY_PROFILE_BIT) != 0;
         }
 
         // We can honor the ImDrawCmd::VtxOffset field, allowing for large meshes.
@@ -296,6 +317,7 @@ public class ImGuiImplGl3 {
         destroyDeviceObjects();
 
         io.setBackendRendererName(null);
+        io.removeBackendFlags(ImGuiBackendFlags.RendererHasVtxOffset | ImGuiBackendFlags.RendererHasViewports);
         data = null;
     }
 
@@ -498,7 +520,10 @@ public class ImGuiImplGl3 {
         glDeleteVertexArrays(vertexArrayObject);
 
         // Restore modified GL state
-        glUseProgram(props.lastProgram[0]);
+        // This "glIsProgram()" check is required because if the program is "pending deletion" at the time of binding backup, it will have been deleted by now and will cause an OpenGL error. See #6220.
+        if (props.lastProgram[0] == 0 || glIsProgram(props.lastProgram[0])) {
+            glUseProgram(props.lastProgram[0]);
+        }
         glBindTexture(GL_TEXTURE_2D, props.lastTexture[0]);
         if (data.glVersion >= 330) {
             glBindSampler(0, props.lastSampler[0]);
@@ -525,7 +550,10 @@ public class ImGuiImplGl3 {
                 glDisable(GL_PRIMITIVE_RESTART);
             }
         }
-        if (data.glVersion >= 200) {
+        if (data.glVersion <= 310 || data.glProfileIsCompat) {
+            glPolygonMode(GL_FRONT, props.lastPolygonMode[0]);
+            glPolygonMode(GL_BACK, props.lastPolygonMode[1]);
+        } else {
             glPolygonMode(GL_FRONT_AND_BACK, props.lastPolygonMode[0]);
         }
         glViewport(props.lastViewport[0], props.lastViewport[1], props.lastViewport[2], props.lastViewport[3]);
