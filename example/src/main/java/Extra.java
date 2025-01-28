@@ -10,7 +10,7 @@ public class Extra {
     private static final ImBoolean SHOW_IMPLOT_DEMO_WINDOW = new ImBoolean(false);
     private static final ImBoolean SHOW_IMGUIZMO_DEMO = new ImBoolean(false);
 //    private static final ImBoolean SHOW_IMGUI_COLOR_TEXT_EDIT_WINDOW = new ImBoolean(false);
-    private static final ImBoolean SHOW_IMGUI_FILE_DIALOG_WINDOW = new ImBoolean(false);
+//    private static final ImBoolean SHOW_IMGUI_FILE_DIALOG_WINDOW = new ImBoolean(false);
     private static final ImBoolean SHOW_IMGUI_MEMORY_EDITOR_WINDOW = new ImBoolean(false);
     private static final ImBoolean SHOW_IMGUI_CANVAS_EDITOR_WINDOW = new ImBoolean(false);
     private static final ImBoolean SHOW_IMGUI_INPUT_CALLBACK_WINDOW = new ImBoolean(false);
@@ -27,7 +27,7 @@ public class Extra {
         ImGui.checkbox("Show ImPlot Demo Window", SHOW_IMPLOT_DEMO_WINDOW);
         ImGui.checkbox("Show ImGuizmo Demo Window", SHOW_IMGUIZMO_DEMO);
 //        ImGui.checkbox("Show ImGuiColorTextEdit Demo Window", SHOW_IMGUI_COLOR_TEXT_EDIT_WINDOW);
-        ImGui.checkbox("Show ImGuiFileDialog Demo Window", SHOW_IMGUI_FILE_DIALOG_WINDOW);
+//        ImGui.checkbox("Show ImGuiFileDialog Demo Window", SHOW_IMGUI_FILE_DIALOG_WINDOW);
         ImGui.checkbox("Show ImGui MemoryEditor Demo Window", SHOW_IMGUI_MEMORY_EDITOR_WINDOW);
         ImGui.checkbox("Show ImGui Canvas Demo Window", SHOW_IMGUI_CANVAS_EDITOR_WINDOW);
         ImGui.checkbox("Show Imgui InputText Callback Window", SHOW_IMGUI_INPUT_CALLBACK_WINDOW);
@@ -61,9 +61,9 @@ public class Extra {
 //            ExampleImGuiColorTextEdit.show(SHOW_IMGUI_COLOR_TEXT_EDIT_WINDOW);
 //        }
 
-        if (SHOW_IMGUI_FILE_DIALOG_WINDOW.get()) {
-            ExampleImGuiFileDialog.show(SHOW_IMGUI_FILE_DIALOG_WINDOW);
-        }
+//        if (SHOW_IMGUI_FILE_DIALOG_WINDOW.get()) {
+//            ExampleImGuiFileDialog.show(SHOW_IMGUI_FILE_DIALOG_WINDOW);
+//        }
 
         if (SHOW_IMGUI_MEMORY_EDITOR_WINDOW.get()) {
             ExampleImGuiMemoryEditor.show(SHOW_IMGUI_MEMORY_EDITOR_WINDOW);
