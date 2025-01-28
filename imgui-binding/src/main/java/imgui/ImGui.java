@@ -674,9 +674,6 @@ public class ImGui {
     @BindingMethod
     public static native void PopTabStop();
 
-    @BindingMethod
-    public static native void PopAllowKeyboardFocus();
-
     /**
      * In 'repeat' mode, Button*() functions return repeated true in a typematic manner (using io.KeyRepeatDelay/io.KeyRepeatRate setting).
      * Note that you can call IsItemActive() after any Button() to tell if the button is held in the current frame.

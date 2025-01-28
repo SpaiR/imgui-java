@@ -1197,7 +1197,7 @@ public final class ImGuiIO extends ImGuiStruct {
     }
 
     private native void nAddMouseSourceEvent(int source); /*
-        THIS->AddMouseSourceEvent(source);
+        THIS->AddMouseSourceEvent(static_cast<ImGuiMouseSource>(source));
     */
 
     /**
@@ -1299,17 +1299,6 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nClearEventsQueue(); /*
         THIS->ClearEventsQueue();
-    */
-
-    /**
-     * [Internal] Clear the text input buffer manually
-     */
-    public void clearInputCharacters() {
-        nClearInputCharacters();
-    }
-
-    private native void nClearInputCharacters(); /*
-        THIS->ClearInputCharacters();
     */
 
     //------------------------------------------------------------------

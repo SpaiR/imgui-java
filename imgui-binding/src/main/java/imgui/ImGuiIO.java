@@ -380,7 +380,7 @@ public final class ImGuiIO extends ImGuiStruct {
      * Queue a mouse source change (Mouse/TouchScreen/Pen)
      */
     @BindingMethod
-    public native void AddMouseSourceEvent(int source);
+    public native void AddMouseSourceEvent(@ArgValue(staticCast = "ImGuiMouseSource") int source);
 
     /**
      * Queue a mouse hovered viewport. Requires backend to set ImGuiBackendFlags_HasMouseHoveredViewport to call this (for multi-viewport support).
@@ -429,12 +429,6 @@ public final class ImGuiIO extends ImGuiStruct {
      */
     @BindingMethod
     public native void ClearEventsQueue();
-
-    /**
-     * [Internal] Clear the text input buffer manually
-     */
-    @BindingMethod
-    public native void ClearInputCharacters();
 
     //------------------------------------------------------------------
     // Output - Updated by NewFrame() or EndFrame()/Render()
