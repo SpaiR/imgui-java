@@ -1,3 +1,4 @@
+/*
 import imgui.ImGui;
 import imgui.extension.texteditor.TextEditor;
 import imgui.extension.texteditor.TextEditorCoordinates;
@@ -136,3 +137,4 @@ public class ExampleImGuiColorTextEdit {
         }
     }
 }
+*/

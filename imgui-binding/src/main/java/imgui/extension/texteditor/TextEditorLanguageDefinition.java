@@ -4,11 +4,13 @@ import imgui.binding.ImGuiStructDestroyable;
 import imgui.binding.annotation.BindingField;
 import imgui.binding.annotation.BindingMethod;
 import imgui.binding.annotation.BindingSource;
+import imgui.binding.annotation.ExcludedSource;
 import imgui.binding.annotation.ReturnValue;
 import imgui.binding.annotation.TypeStdString;
 
 import java.util.Map;
 
+@ExcludedSource
 @BindingSource
 public final class TextEditorLanguageDefinition extends ImGuiStructDestroyable {
     public TextEditorLanguageDefinition() {

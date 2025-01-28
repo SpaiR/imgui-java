@@ -18,7 +18,7 @@ class GenerateLibs extends DefaultTask {
         'include/imgui-node-editor',
         'include/imguizmo',
         'include/implot',
-        'include/ImGuiColorTextEdit',
+//        'include/ImGuiColorTextEdit',
         'include/ImGuiFileDialog',
         'include/imgui_club/imgui_memory_editor',
         'include/imgui-knobs'

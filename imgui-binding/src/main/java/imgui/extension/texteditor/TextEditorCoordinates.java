@@ -1,7 +1,10 @@
 package imgui.extension.texteditor;
 
+import imgui.binding.annotation.ExcludedSource;
+
 import java.util.Objects;
 
+@ExcludedSource
 public final class TextEditorCoordinates implements Cloneable {
     public int mLine;
     public int mColumn;
