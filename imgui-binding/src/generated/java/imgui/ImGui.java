@@ -1219,14 +1219,14 @@ public class ImGui {
     */
 
     /**
-     * Set next window scrolling value (use < 0.0f to not affect a given axis).
+     * Set next window scrolling value (use {@code < 0.0f} to not affect a given axis).
      */
     public static void setNextWindowScroll(final ImVec2 scroll) {
         nSetNextWindowScroll(scroll.x, scroll.y);
     }
 
     /**
-     * Set next window scrolling value (use < 0.0f to not affect a given axis).
+     * Set next window scrolling value (use {@code < 0.0f} to not affect a given axis).
      */
     public static void setNextWindowScroll(final float scrollX, final float scrollY) {
         nSetNextWindowScroll(scrollX, scrollY);
@@ -9534,8 +9534,8 @@ public class ImGui {
     // - This is essentially a thin wrapper to using BeginChild/EndChild with some stylistic changes.
     // - The BeginListBox()/EndListBox() api allows you to manage your contents and selection state however you want it, by creating e.g. Selectable() or any items.
     // - The simplified/old ListBox() api are helpers over BeginListBox()/EndListBox() which are kept available for convenience purpose. This is analoguous to how Combos are created.
-    // - Choose frame width:   size.x > 0.0f: custom  /  size.x < 0.0f or -FLT_MIN: right-align   /  size.x = 0.0f (default): use current ItemWidth
-    // - Choose frame height:  size.y > 0.0f: custom  /  size.y < 0.0f or -FLT_MIN: bottom-align  /  size.y = 0.0f (default): arbitrary default height which can fit ~7 items
+    // - Choose frame width:   size.x > 0.0f: custom  /  size.{@code x {@code <} 0.0f} or -FLT_MIN: right-align   /  size.x = 0.0f (default): use current ItemWidth
+    // - Choose frame height:  size.y > 0.0f: custom  /  size.y {@code < 0.0f} or -FLT_MIN: bottom-align  /  size.y = 0.0f (default): arbitrary default height which can fit ~7 items
 
     /**
      * Open a framed scrolling region.

@@ -1106,7 +1106,7 @@ public final class ImGuiIO extends ImGuiStruct {
 
     /**
      * Optional: Platform locale
-     * [Experimental] Configure decimal point e.g. '.' or ',' useful for some languages (e.g. German), generally pulled from *localeconv()->decimal_point
+     * [Experimental] Configure decimal point e.g. '.' or ',' useful for some languages (e.g. German), generally pulled from {@code *localeconv()->decimal_point}
      */
     public short getPlatformLocaleDecimalPoint() {
         return nGetPlatformLocaleDecimalPoint();
@@ -1114,7 +1114,7 @@ public final class ImGuiIO extends ImGuiStruct {
 
     /**
      * Optional: Platform locale
-     * [Experimental] Configure decimal point e.g. '.' or ',' useful for some languages (e.g. German), generally pulled from *localeconv()->decimal_point
+     * [Experimental] Configure decimal point e.g. '.' or ',' useful for some languages (e.g. German), generally pulled from {@code *localeconv()->decimal_point}
      */
     public void setPlatformLocaleDecimalPoint(final short value) {
         nSetPlatformLocaleDecimalPoint(value);
@@ -1179,7 +1179,7 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-     * Queue a mouse wheel update. wheel_y<0: scroll down, wheel_y>0: scroll up, wheel_x<0: scroll right, wheel_x>0: scroll left.
+     * Queue a mouse wheel update.
      */
     public void addMouseWheelEvent(final float whX, final float whY) {
         nAddMouseWheelEvent(whX, whY);

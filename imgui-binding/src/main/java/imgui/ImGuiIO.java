@@ -335,7 +335,7 @@ public final class ImGuiIO extends ImGuiStruct {
 
     /**
      * Optional: Platform locale
-     * [Experimental] Configure decimal point e.g. '.' or ',' useful for some languages (e.g. German), generally pulled from *localeconv()->decimal_point
+     * [Experimental] Configure decimal point e.g. '.' or ',' useful for some languages (e.g. German), generally pulled from {@code *localeconv()->decimal_point}
      */
     @BindingField
     public short PlatformLocaleDecimalPoint;
@@ -371,7 +371,7 @@ public final class ImGuiIO extends ImGuiStruct {
     public native void AddMouseButtonEvent(int button, boolean down);
 
     /**
-     * Queue a mouse wheel update. wheel_y<0: scroll down, wheel_y>0: scroll up, wheel_x<0: scroll right, wheel_x>0: scroll left.
+     * Queue a mouse wheel update.
      */
     @BindingMethod
     public native void AddMouseWheelEvent(float whX, float whY);

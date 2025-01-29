@@ -189,7 +189,7 @@ public final class ImPlot {
 
     /**
      * Sets an axis range limits. If ImPlotCond_Always is used, the axes limits will be locked.
-     * Inversion with v_min > v_max is not supported; use SetupAxisLimits instead.
+     * Inversion with {@code v_min > v_max} is not supported; use SetupAxisLimits instead.
      */
     @BindingMethod
     public static native void SetupAxisLimits(int axis, double vMin, double vMax, @OptArg int cond);

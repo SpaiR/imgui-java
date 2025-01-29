@@ -405,7 +405,7 @@ public final class ImPlot {
 
     /**
      * Sets an axis range limits. If ImPlotCond_Always is used, the axes limits will be locked.
-     * Inversion with v_min > v_max is not supported; use SetupAxisLimits instead.
+     * Inversion with {@code v_min > v_max} is not supported; use SetupAxisLimits instead.
      */
     public static void setupAxisLimits(final int axis, final double vMin, final double vMax) {
         nSetupAxisLimits(axis, vMin, vMax);
@@ -413,7 +413,7 @@ public final class ImPlot {
 
     /**
      * Sets an axis range limits. If ImPlotCond_Always is used, the axes limits will be locked.
-     * Inversion with v_min > v_max is not supported; use SetupAxisLimits instead.
+     * Inversion with {@code v_min > v_max} is not supported; use SetupAxisLimits instead.
      */
     public static void setupAxisLimits(final int axis, final double vMin, final double vMax, final int cond) {
         nSetupAxisLimits(axis, vMin, vMax, cond);
