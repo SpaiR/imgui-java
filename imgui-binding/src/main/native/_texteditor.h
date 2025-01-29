@@ -10,6 +10,6 @@
 #include <regex>
 
 #include "_common.h"
-#include "TextEditor.h"
+//#include "TextEditor.h"
 
 #include "jni_texteditor.h"
