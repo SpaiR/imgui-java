@@ -144,6 +144,12 @@ public final class ImGuiViewport extends ImGuiStruct {
     */
 
     /**
+     * Platform window has been created (Platform_CreateWindow() has been called). This is false during the first frame where a viewport is being created.
+     */
+    @BindingField
+    public boolean PlatformWindowCreated;
+
+    /**
      * Platform window requested move (e.g. window was moved by the OS / host window manager, authoritative position will be OS window position).
      */
     @BindingField

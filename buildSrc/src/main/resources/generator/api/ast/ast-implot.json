@@ -1,9 +1,9 @@
 {
   "info" : {
     "source" : "include/implot/implot.h",
-    "hash" : "f19dc7eec5a86e8bacc8c0d2257b2ec2",
+    "hash" : "7503718ef8ef1a6302f0083bfdc0997f",
     "url" : "https://github.com/epezent/implot.git",
-    "revision" : "116024321845529bd9aacaa00216d91f15b430e2"
+    "revision" : "18c72431f8265e2b0b5378a3a73d8a883b2175ff"
   },
   "decls" : [ {
     "@type" : "AstRecordDecl",
@@ -183,17 +183,9 @@
       "evaluatedValue" : 512
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImPlotFlags_AntiAliased",
-      "docComment" : "plot items will be software anti-aliased (not recommended for high density plots, prefer MSAA)",
-      "qualType" : "ImPlotFlags_",
-      "order" : 11,
-      "value" : "1 << 10",
-      "evaluatedValue" : 1024
-    }, {
-      "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_CanvasOnly",
       "qualType" : "ImPlotFlags_",
-      "order" : 12,
+      "order" : 11,
       "value" : "ImPlotFlags_NoTitle | ImPlotFlags_NoLegend | ImPlotFlags_NoMenus | ImPlotFlags_NoBoxSelect | ImPlotFlags_NoMouseText",
       "evaluatedValue" : 55
     } ]
@@ -220,7 +212,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_NoLabel",
-      "docComment" : "the axis label will not be displayed (axis labels also hidden if the supplied string name is NULL)",
+      "docComment" : "the axis label will not be displayed (axis labels are also hidden if the supplied string name is nullptr)",
       "qualType" : "ImPlotAxisFlags_",
       "order" : 1,
       "value" : "1 << 0",
@@ -267,32 +259,32 @@
       "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImPlotAxisFlags_Opposite",
-      "docComment" : "axis ticks and labels will be rendered on conventionally opposite side (i.e, right or top)",
+      "name" : "ImPlotAxisFlags_NoSideSwitch",
+      "docComment" : "the user will not be able to switch the axis side by dragging it",
       "qualType" : "ImPlotAxisFlags_",
       "order" : 7,
       "value" : "1 << 6",
       "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImPlotAxisFlags_Foreground",
-      "docComment" : "grid lines will be displayed in the foreground (i.e. on top of data) in stead of the background",
+      "name" : "ImPlotAxisFlags_NoHighlight",
+      "docComment" : "the axis will not have its background highlighted when hovered or held",
       "qualType" : "ImPlotAxisFlags_",
       "order" : 8,
       "value" : "1 << 7",
       "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImPlotAxisFlags_LogScale",
-      "docComment" : "a logartithmic (base 10) axis scale will be used (mutually exclusive with ImPlotAxisFlags_Time)",
+      "name" : "ImPlotAxisFlags_Opposite",
+      "docComment" : "axis ticks and labels will be rendered on the conventionally opposite side (i.e, right or top)",
       "qualType" : "ImPlotAxisFlags_",
       "order" : 9,
       "value" : "1 << 8",
       "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImPlotAxisFlags_Time",
-      "docComment" : "axis will display date/time formatted labels (mutually exclusive with ImPlotAxisFlags_LogScale)",
+      "name" : "ImPlotAxisFlags_Foreground",
+      "docComment" : "grid lines will be displayed in the foreground (i.e. on top of data) instead of the background",
       "qualType" : "ImPlotAxisFlags_",
       "order" : 10,
       "value" : "1 << 9",
@@ -323,41 +315,49 @@
       "evaluatedValue" : 4096
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImPlotAxisFlags_LockMin",
-      "docComment" : "the axis minimum value will be locked when panning/zooming",
+      "name" : "ImPlotAxisFlags_PanStretch",
+      "docComment" : "panning in a locked or constrained state will cause the axis to stretch if possible",
       "qualType" : "ImPlotAxisFlags_",
       "order" : 14,
       "value" : "1 << 13",
       "evaluatedValue" : 8192
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImPlotAxisFlags_LockMax",
-      "docComment" : "the axis maximum value will be locked when panning/zooming",
+      "name" : "ImPlotAxisFlags_LockMin",
+      "docComment" : "the axis minimum value will be locked when panning/zooming",
       "qualType" : "ImPlotAxisFlags_",
       "order" : 15,
       "value" : "1 << 14",
       "evaluatedValue" : 16384
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImPlotAxisFlags_Lock",
+      "name" : "ImPlotAxisFlags_LockMax",
+      "docComment" : "the axis maximum value will be locked when panning/zooming",
       "qualType" : "ImPlotAxisFlags_",
       "order" : 16,
+      "value" : "1 << 15",
+      "evaluatedValue" : 32768
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotAxisFlags_Lock",
+      "qualType" : "ImPlotAxisFlags_",
+      "order" : 17,
       "value" : "ImPlotAxisFlags_LockMin | ImPlotAxisFlags_LockMax",
-      "evaluatedValue" : 24576
+      "evaluatedValue" : 49152
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_NoDecorations",
       "qualType" : "ImPlotAxisFlags_",
-      "order" : 17,
+      "order" : 18,
       "value" : "ImPlotAxisFlags_NoLabel | ImPlotAxisFlags_NoGridLines | ImPlotAxisFlags_NoTickMarks | ImPlotAxisFlags_NoTickLabels",
       "evaluatedValue" : 15
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotAxisFlags_AuxDefault",
       "qualType" : "ImPlotAxisFlags_",
-      "order" : 18,
+      "order" : 19,
       "value" : "ImPlotAxisFlags_NoGridLines | ImPlotAxisFlags_Opposite",
-      "evaluatedValue" : 66
+      "evaluatedValue" : 258
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -368,7 +368,7 @@
         "@type" : "AstParagraphComment",
         "decls" : [ {
           "@type" : "AstTextComment",
-          "text" : " Options for subplots (see BeginSubplot)."
+          "text" : " Options for subplots (see BeginSubplot)"
         } ]
       } ]
     }, {
@@ -536,6 +536,14 @@
       "order" : 6,
       "value" : "1 << 5",
       "evaluatedValue" : 32
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotLegendFlags_Sort",
+      "docComment" : "legend entries will be displayed in alphabetical order",
+      "qualType" : "ImPlotLegendFlags_",
+      "order" : 7,
+      "value" : "1 << 6",
+      "evaluatedValue" : 64
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -637,6 +645,264 @@
     } ]
   }, {
     "@type" : "AstEnumDecl",
+    "name" : "ImPlotColormapScaleFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for ColormapScale"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotColormapScaleFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotColormapScaleFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotColormapScaleFlags_NoLabel",
+      "docComment" : "the colormap axis label will not be displayed",
+      "qualType" : "ImPlotColormapScaleFlags_",
+      "order" : 1,
+      "value" : "1 << 0",
+      "evaluatedValue" : 1
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotColormapScaleFlags_Opposite",
+      "docComment" : "render the colormap label and tick labels on the opposite side",
+      "qualType" : "ImPlotColormapScaleFlags_",
+      "order" : 2,
+      "value" : "1 << 1",
+      "evaluatedValue" : 2
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotColormapScaleFlags_Invert",
+      "docComment" : "invert the colormap bar and axis scale (this only affects rendering; if you only want to reverse the scale mapping, make scale_min > scale_max)",
+      "qualType" : "ImPlotColormapScaleFlags_",
+      "order" : 3,
+      "value" : "1 << 2",
+      "evaluatedValue" : 4
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotItemFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for ANY PlotX function"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotItemFlags_None",
+      "qualType" : "ImPlotItemFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotItemFlags_NoLegend",
+      "docComment" : "the item won't have a legend entry displayed",
+      "qualType" : "ImPlotItemFlags_",
+      "order" : 1,
+      "value" : "1 << 0",
+      "evaluatedValue" : 1
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotItemFlags_NoFit",
+      "docComment" : "the item won't be considered for plot fits",
+      "qualType" : "ImPlotItemFlags_",
+      "order" : 2,
+      "value" : "1 << 1",
+      "evaluatedValue" : 2
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotLineFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotLine"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotLineFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotLineFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotLineFlags_Segments",
+      "docComment" : "a line segment will be rendered from every two consecutive points",
+      "qualType" : "ImPlotLineFlags_",
+      "order" : 1,
+      "value" : "1 << 10",
+      "evaluatedValue" : 1024
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotLineFlags_Loop",
+      "docComment" : "the last and first point will be connected to form a closed loop",
+      "qualType" : "ImPlotLineFlags_",
+      "order" : 2,
+      "value" : "1 << 11",
+      "evaluatedValue" : 2048
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotLineFlags_SkipNaN",
+      "docComment" : "NaNs values will be skipped instead of rendered as missing data",
+      "qualType" : "ImPlotLineFlags_",
+      "order" : 3,
+      "value" : "1 << 12",
+      "evaluatedValue" : 4096
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotLineFlags_NoClip",
+      "docComment" : "markers (if displayed) on the edge of a plot will not be clipped",
+      "qualType" : "ImPlotLineFlags_",
+      "order" : 4,
+      "value" : "1 << 13",
+      "evaluatedValue" : 8192
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotLineFlags_Shaded",
+      "docComment" : "a filled region between the line and horizontal origin will be rendered; use PlotShaded for more advanced cases",
+      "qualType" : "ImPlotLineFlags_",
+      "order" : 5,
+      "value" : "1 << 14",
+      "evaluatedValue" : 16384
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotScatterFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotScatter"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotScatterFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotScatterFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotScatterFlags_NoClip",
+      "docComment" : "markers on the edge of a plot will not be clipped",
+      "qualType" : "ImPlotScatterFlags_",
+      "order" : 1,
+      "value" : "1 << 10",
+      "evaluatedValue" : 1024
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotStairsFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotStairs"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotStairsFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotStairsFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotStairsFlags_PreStep",
+      "docComment" : "the y value is continued constantly to the left from every x position, i.e. the interval (x[i-1], x[i]] has the value y[i]",
+      "qualType" : "ImPlotStairsFlags_",
+      "order" : 1,
+      "value" : "1 << 10",
+      "evaluatedValue" : 1024
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotStairsFlags_Shaded",
+      "docComment" : "a filled region between the stairs and horizontal origin will be rendered; use PlotShaded for more advanced cases",
+      "qualType" : "ImPlotStairsFlags_",
+      "order" : 2,
+      "value" : "1 << 11",
+      "evaluatedValue" : 2048
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotShadedFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotShaded (placeholder)"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotShadedFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotShadedFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotBarsFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotBars"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotBarsFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotBarsFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotBarsFlags_Horizontal",
+      "docComment" : "bars will be rendered horizontally on the current y-axis",
+      "qualType" : "ImPlotBarsFlags_",
+      "order" : 1,
+      "value" : "1 << 10",
+      "evaluatedValue" : 1024
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
     "name" : "ImPlotBarGroupsFlags_",
     "decls" : [ {
       "@type" : "AstFullComment",
@@ -644,7 +910,7 @@
         "@type" : "AstParagraphComment",
         "decls" : [ {
           "@type" : "AstTextComment",
-          "text" : " Flags for ImPlot::PlotBarGroups"
+          "text" : " Flags for PlotBarGroups"
         } ]
       } ]
     }, {
@@ -657,12 +923,318 @@
       "evaluatedValue" : 0
     }, {
       "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotBarGroupsFlags_Horizontal",
+      "docComment" : "bar groups will be rendered horizontally on the current y-axis",
+      "qualType" : "ImPlotBarGroupsFlags_",
+      "order" : 1,
+      "value" : "1 << 10",
+      "evaluatedValue" : 1024
+    }, {
+      "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotBarGroupsFlags_Stacked",
       "docComment" : "items in a group will be stacked on top of each other",
       "qualType" : "ImPlotBarGroupsFlags_",
+      "order" : 2,
+      "value" : "1 << 11",
+      "evaluatedValue" : 2048
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotErrorBarsFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotErrorBars"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotErrorBarsFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotErrorBarsFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotErrorBarsFlags_Horizontal",
+      "docComment" : "error bars will be rendered horizontally on the current y-axis",
+      "qualType" : "ImPlotErrorBarsFlags_",
       "order" : 1,
-      "value" : "1 << 0",
-      "evaluatedValue" : 1
+      "value" : "1 << 10",
+      "evaluatedValue" : 1024
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotStemsFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotStems"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotStemsFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotStemsFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotStemsFlags_Horizontal",
+      "docComment" : "stems will be rendered horizontally on the current y-axis",
+      "qualType" : "ImPlotStemsFlags_",
+      "order" : 1,
+      "value" : "1 << 10",
+      "evaluatedValue" : 1024
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotInfLinesFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotInfLines"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotInfLinesFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotInfLinesFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotInfLinesFlags_Horizontal",
+      "docComment" : "lines will be rendered horizontally on the current y-axis",
+      "qualType" : "ImPlotInfLinesFlags_",
+      "order" : 1,
+      "value" : "1 << 10",
+      "evaluatedValue" : 1024
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotPieChartFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotPieChart"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotPieChartFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotPieChartFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotPieChartFlags_Normalize",
+      "docComment" : "force normalization of pie chart values (i.e. always make a full circle if sum < 0)",
+      "qualType" : "ImPlotPieChartFlags_",
+      "order" : 1,
+      "value" : "1 << 10",
+      "evaluatedValue" : 1024
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotHeatmapFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotHeatmap"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotHeatmapFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotHeatmapFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotHeatmapFlags_ColMajor",
+      "docComment" : "data will be read in column major order",
+      "qualType" : "ImPlotHeatmapFlags_",
+      "order" : 1,
+      "value" : "1 << 10",
+      "evaluatedValue" : 1024
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotHistogramFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotHistogram and PlotHistogram2D"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotHistogramFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotHistogramFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotHistogramFlags_Horizontal",
+      "docComment" : "histogram bars will be rendered horizontally (not supported by PlotHistogram2D)",
+      "qualType" : "ImPlotHistogramFlags_",
+      "order" : 1,
+      "value" : "1 << 10",
+      "evaluatedValue" : 1024
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotHistogramFlags_Cumulative",
+      "docComment" : "each bin will contain its count plus the counts of all previous bins (not supported by PlotHistogram2D)",
+      "qualType" : "ImPlotHistogramFlags_",
+      "order" : 2,
+      "value" : "1 << 11",
+      "evaluatedValue" : 2048
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotHistogramFlags_Density",
+      "docComment" : "counts will be normalized, i.e. the PDF will be visualized, or the CDF will be visualized if Cumulative is also set",
+      "qualType" : "ImPlotHistogramFlags_",
+      "order" : 3,
+      "value" : "1 << 12",
+      "evaluatedValue" : 4096
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotHistogramFlags_NoOutliers",
+      "docComment" : "exclude values outside the specifed histogram range from the count toward normalizing and cumulative counts",
+      "qualType" : "ImPlotHistogramFlags_",
+      "order" : 4,
+      "value" : "1 << 13",
+      "evaluatedValue" : 8192
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotHistogramFlags_ColMajor",
+      "docComment" : "data will be read in column major order (not supported by PlotHistogram)",
+      "qualType" : "ImPlotHistogramFlags_",
+      "order" : 5,
+      "value" : "1 << 14",
+      "evaluatedValue" : 16384
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotDigitalFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotDigital (placeholder)"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotDigitalFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotDigitalFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotImageFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotImage (placeholder)"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotImageFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotImageFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotTextFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotText"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotTextFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotTextFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotTextFlags_Vertical",
+      "docComment" : "text will be rendered vertically",
+      "qualType" : "ImPlotTextFlags_",
+      "order" : 1,
+      "value" : "1 << 10",
+      "evaluatedValue" : 1024
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
+    "name" : "ImPlotDummyFlags_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Flags for PlotDummy (placeholder)"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotDummyFlags_None",
+      "docComment" : "default",
+      "qualType" : "ImPlotDummyFlags_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -1074,6 +1646,48 @@
     } ]
   }, {
     "@type" : "AstEnumDecl",
+    "name" : "ImPlotScale_",
+    "decls" : [ {
+      "@type" : "AstFullComment",
+      "decls" : [ {
+        "@type" : "AstParagraphComment",
+        "decls" : [ {
+          "@type" : "AstTextComment",
+          "text" : " Axis scale"
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotScale_Linear",
+      "docComment" : "default linear scale",
+      "qualType" : "ImPlotScale_",
+      "order" : 0,
+      "value" : "0",
+      "evaluatedValue" : 0
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotScale_Time",
+      "docComment" : "date/time scale",
+      "qualType" : "ImPlotScale_",
+      "order" : 1,
+      "evaluatedValue" : 1
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotScale_Log10",
+      "docComment" : "base 10 logartithmic scale",
+      "qualType" : "ImPlotScale_",
+      "order" : 2,
+      "evaluatedValue" : 2
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotScale_SymLog",
+      "docComment" : "symmetric log scale",
+      "qualType" : "ImPlotScale_",
+      "order" : 3,
+      "evaluatedValue" : 3
+    } ]
+  }, {
+    "@type" : "AstEnumDecl",
     "name" : "ImPlotMarker_",
     "decls" : [ {
       "@type" : "AstFullComment",
@@ -1095,7 +1709,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotMarker_Circle",
-      "docComment" : "a circle marker",
+      "docComment" : "a circle marker (default)",
       "qualType" : "ImPlotMarker_",
       "order" : 1,
       "evaluatedValue" : 0
@@ -1754,11 +2368,6 @@
       "desugaredQualType" : "int"
     }, {
       "@type" : "AstFieldDecl",
-      "name" : "AntiAliasedLines",
-      "qualType" : "bool",
-      "desugaredQualType" : "bool"
-    }, {
-      "@type" : "AstFieldDecl",
       "name" : "UseLocalTime",
       "qualType" : "bool",
       "desugaredQualType" : "bool"
@@ -1879,7 +2488,7 @@
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Destroys an ImPlot context. Call this before ImGui::DestroyContext. NULL = destroy current context."
+            "text" : " Destroys an ImPlot context. Call this before ImGui::DestroyContext. nullptr = destroy current context."
           } ]
         } ]
       } ]
@@ -1893,7 +2502,7 @@
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Returns the current ImPlot context. NULL if no context has ben set."
+            "text" : " Returns the current ImPlot context. nullptr if no context has ben set."
           } ]
         } ]
       } ]
@@ -1964,7 +2573,7 @@
         "name" : "flags",
         "qualType" : "ImPlotFlags",
         "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotFlags_None"
+        "defaultValue" : "0"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -2066,7 +2675,7 @@
         "name" : "flags",
         "qualType" : "ImPlotSubplotFlags",
         "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotSubplotFlags_None"
+        "defaultValue" : "0"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "row_ratios",
@@ -2264,14 +2873,14 @@
         "name" : "flags",
         "qualType" : "ImPlotAxisFlags",
         "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotAxisFlags_None"
+        "defaultValue" : "0"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Enables an axis or sets the label and/or flags for an existing axis. Leave #label = NULL for no label."
+            "text" : " Enables an axis or sets the label and/or flags for an existing axis. Leave #label = nullptr for no label."
           } ]
         } ]
       } ]
@@ -2306,7 +2915,7 @@
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Sets an axis range limits. If ImPlotCond_Always is used, the axes limits will be locked."
+            "text" : " Sets an axis range limits. If ImPlotCond_Always is used, the axes limits will be locked. Inversion with v_min > v_max is not supported; use SetupAxisLimits instead."
           } ]
         } ]
       } ]
@@ -2335,7 +2944,7 @@
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Links an axis range limits to external values. Set to NULL for no linkage. The pointer data must remain valid until EndPlot."
+            "text" : " Links an axis range limits to external values. Set to nullptr for no linkage. The pointer data must remain valid until EndPlot."
           } ]
         } ]
       } ]
@@ -2376,7 +2985,7 @@
         "@type" : "AstParmVarDecl",
         "name" : "formatter",
         "qualType" : "ImPlotFormatter",
-        "desugaredQualType" : "void (*)(double, char *, int, void *)"
+        "desugaredQualType" : "int (*)(double, char *, int, void *)"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "data",
@@ -2482,6 +3091,123 @@
       } ]
     }, {
       "@type" : "AstFunctionDecl",
+      "name" : "SetupAxisScale",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "axis",
+        "qualType" : "ImAxis",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "scale",
+        "qualType" : "ImPlotScale",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Sets an axis' scale using built-in options."
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "SetupAxisScale",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "axis",
+        "qualType" : "ImAxis",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "forward",
+        "qualType" : "ImPlotTransform",
+        "desugaredQualType" : "double (*)(double, void *)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "inverse",
+        "qualType" : "ImPlotTransform",
+        "desugaredQualType" : "double (*)(double, void *)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "data",
+        "qualType" : "void *",
+        "desugaredQualType" : "void *",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Sets an axis' scale using user supplied forward and inverse transfroms."
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "SetupAxisLimitsConstraints",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "axis",
+        "qualType" : "ImAxis",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "v_min",
+        "qualType" : "double",
+        "desugaredQualType" : "double"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "v_max",
+        "qualType" : "double",
+        "desugaredQualType" : "double"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Sets an axis' limits constraints."
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "SetupAxisZoomConstraints",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "axis",
+        "qualType" : "ImAxis",
+        "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "z_min",
+        "qualType" : "double",
+        "desugaredQualType" : "double"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "z_max",
+        "qualType" : "double",
+        "desugaredQualType" : "double"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Sets an axis' zoom constraints."
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
       "name" : "SetupAxes",
       "resultType" : "void",
       "decls" : [ {
@@ -2499,13 +3225,13 @@
         "name" : "x_flags",
         "qualType" : "ImPlotAxisFlags",
         "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotAxisFlags_None"
+        "defaultValue" : "0"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "y_flags",
         "qualType" : "ImPlotAxisFlags",
         "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotAxisFlags_None"
+        "defaultValue" : "0"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -2570,7 +3296,7 @@
         "name" : "flags",
         "qualType" : "ImPlotLegendFlags",
         "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotLegendFlags_None"
+        "defaultValue" : "0"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -2595,7 +3321,7 @@
         "name" : "flags",
         "qualType" : "ImPlotMouseTextFlags",
         "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotMouseTextFlags_None"
+        "defaultValue" : "0"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -2683,7 +3409,7 @@
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Links an upcoming axis range limits to external values. Set to NULL for no linkage. The pointer data must remain valid until EndPlot!"
+            "text" : " Links an upcoming axis range limits to external values. Set to nullptr for no linkage. The pointer data must remain valid until EndPlot!"
           } ]
         } ]
       } ]
@@ -2773,7 +3499,7 @@
         "@type" : "AstParmVarDecl",
         "name" : "getter",
         "qualType" : "ImPlotGetter",
-        "desugaredQualType" : "ImPlotPoint (*)(void *, int)"
+        "desugaredQualType" : "ImPlotPoint (*)(int, void *)"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "data",
@@ -2784,6 +3510,12 @@
         "name" : "count",
         "qualType" : "int",
         "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImPlotLineFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2798,7 +3530,7 @@
         "@type" : "AstParmVarDecl",
         "name" : "getter",
         "qualType" : "ImPlotGetter",
-        "desugaredQualType" : "ImPlotPoint (*)(void *, int)"
+        "desugaredQualType" : "ImPlotPoint (*)(int, void *)"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "data",
@@ -2809,6 +3541,12 @@
         "name" : "count",
         "qualType" : "int",
         "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImPlotScatterFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2823,7 +3561,7 @@
         "@type" : "AstParmVarDecl",
         "name" : "getter",
         "qualType" : "ImPlotGetter",
-        "desugaredQualType" : "ImPlotPoint (*)(void *, int)"
+        "desugaredQualType" : "ImPlotPoint (*)(int, void *)"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "data",
@@ -2834,6 +3572,12 @@
         "name" : "count",
         "qualType" : "int",
         "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImPlotStairsFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2848,7 +3592,7 @@
         "@type" : "AstParmVarDecl",
         "name" : "getter1",
         "qualType" : "ImPlotGetter",
-        "desugaredQualType" : "ImPlotPoint (*)(void *, int)"
+        "desugaredQualType" : "ImPlotPoint (*)(int, void *)"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "data1",
@@ -2858,7 +3602,7 @@
         "@type" : "AstParmVarDecl",
         "name" : "getter2",
         "qualType" : "ImPlotGetter",
-        "desugaredQualType" : "ImPlotPoint (*)(void *, int)"
+        "desugaredQualType" : "ImPlotPoint (*)(int, void *)"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "data2",
@@ -2869,6 +3613,12 @@
         "name" : "count",
         "qualType" : "int",
         "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImPlotShadedFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2883,7 +3633,7 @@
         "@type" : "AstParmVarDecl",
         "name" : "getter",
         "qualType" : "ImPlotGetter",
-        "desugaredQualType" : "ImPlotPoint (*)(void *, int)"
+        "desugaredQualType" : "ImPlotPoint (*)(int, void *)"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "data",
@@ -2896,39 +3646,15 @@
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "bar_width",
+        "name" : "bar_size",
         "qualType" : "double",
         "desugaredQualType" : "double"
-      } ]
-    }, {
-      "@type" : "AstFunctionDecl",
-      "name" : "PlotBarsHG",
-      "resultType" : "void",
-      "decls" : [ {
-        "@type" : "AstParmVarDecl",
-        "name" : "label_id",
-        "qualType" : "const char *",
-        "desugaredQualType" : "const char *"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "getter",
-        "qualType" : "ImPlotGetter",
-        "desugaredQualType" : "ImPlotPoint (*)(void *, int)"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "data",
-        "qualType" : "void *",
-        "desugaredQualType" : "void *"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "count",
-        "qualType" : "int",
-        "desugaredQualType" : "int"
-      }, {
-        "@type" : "AstParmVarDecl",
-        "name" : "bar_height",
-        "qualType" : "double",
-        "desugaredQualType" : "double"
+        "name" : "flags",
+        "qualType" : "ImPlotBarsFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2943,7 +3669,7 @@
         "@type" : "AstParmVarDecl",
         "name" : "getter",
         "qualType" : "ImPlotGetter",
-        "desugaredQualType" : "ImPlotPoint (*)(void *, int)"
+        "desugaredQualType" : "ImPlotPoint (*)(int, void *)"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "data",
@@ -2954,6 +3680,12 @@
         "name" : "count",
         "qualType" : "int",
         "desugaredQualType" : "int"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImPlotDigitalFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -2998,6 +3730,12 @@
         "desugaredQualType" : "const int &",
         "defaultValue" : "ImVec4(1,1,1,1)"
       }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImPlotImageFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3028,16 +3766,16 @@
         "desugaredQualType" : "double"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "vertical",
-        "qualType" : "bool",
-        "desugaredQualType" : "bool",
-        "defaultValue" : "false"
-      }, {
-        "@type" : "AstParmVarDecl",
         "name" : "pix_offset",
         "qualType" : "const int &",
         "desugaredQualType" : "const int &",
         "defaultValue" : "ImVec2(0,0)"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImPlotTextFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -3057,6 +3795,12 @@
         "name" : "label_id",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImPlotDummyFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -3102,7 +3846,7 @@
         "name" : "flags",
         "qualType" : "ImPlotDragToolFlags",
         "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotDragToolFlags_None"
+        "defaultValue" : "0"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -3143,7 +3887,7 @@
         "name" : "flags",
         "qualType" : "ImPlotDragToolFlags",
         "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotDragToolFlags_None"
+        "defaultValue" : "0"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -3184,7 +3928,7 @@
         "name" : "flags",
         "qualType" : "ImPlotDragToolFlags",
         "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotDragToolFlags_None"
+        "defaultValue" : "0"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -3206,22 +3950,22 @@
         "desugaredQualType" : "int"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "x_min",
+        "name" : "x1",
         "qualType" : "double *",
         "desugaredQualType" : "double *"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "y_min",
+        "name" : "y1",
         "qualType" : "double *",
         "desugaredQualType" : "double *"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "x_max",
+        "name" : "x2",
         "qualType" : "double *",
         "desugaredQualType" : "double *"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "y_max",
+        "name" : "y2",
         "qualType" : "double *",
         "desugaredQualType" : "double *"
       }, {
@@ -3234,7 +3978,7 @@
         "name" : "flags",
         "qualType" : "ImPlotDragToolFlags",
         "desugaredQualType" : "int",
-        "defaultValue" : "ImPlotDragToolFlags_None"
+        "defaultValue" : "0"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -3261,7 +4005,7 @@
         "desugaredQualType" : "double"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "color",
+        "name" : "col",
         "qualType" : "const int &",
         "desugaredQualType" : "const int &"
       }, {
@@ -3301,7 +4045,7 @@
         "desugaredQualType" : "double"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "color",
+        "name" : "col",
         "qualType" : "const int &",
         "desugaredQualType" : "const int &"
       }, {
@@ -3331,7 +4075,7 @@
         "desugaredQualType" : "double"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "color",
+        "name" : "col",
         "qualType" : "const int &",
         "desugaredQualType" : "const int &"
       }, {
@@ -4482,7 +5226,7 @@
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Returns a null terminated string name for a colormap given an index. Returns NULL if index is invalid."
+            "text" : " Returns a null terminated string name for a colormap given an index. Returns nullptr if index is invalid."
           } ]
         } ]
       } ]
@@ -4677,23 +5421,29 @@
         "defaultValue" : "ImVec2(0,0)"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "cmap",
-        "qualType" : "ImPlotColormap",
-        "desugaredQualType" : "int",
-        "defaultValue" : "IMPLOT_AUTO"
-      }, {
-        "@type" : "AstParmVarDecl",
         "name" : "format",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *",
         "defaultValue" : "\"%g\""
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "flags",
+        "qualType" : "ImPlotColormapScaleFlags",
+        "desugaredQualType" : "int",
+        "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "cmap",
+        "qualType" : "ImPlotColormap",
+        "desugaredQualType" : "int",
+        "defaultValue" : "IMPLOT_AUTO"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Shows a vertical color scale with linear spaced ticks using the specified color map. Use double hashes to hide label (e.g. \"##NoLabel\")."
+            "text" : " Shows a vertical color scale with linear spaced ticks using the specified color map. Use double hashes to hide label (e.g. \"##NoLabel\"). If scale_min > scale_max, the scale to color mapping will be reversed."
           } ]
         } ]
       } ]
@@ -4795,7 +5545,7 @@
             "text" : " item colors will NOT update. If you need item colors to resample the new colormap, then use this"
           }, {
             "@type" : "AstTextComment",
-            "text" : " function to bust the cached colors. If #plot_title_id is NULL, then every item in EVERY existing plot"
+            "text" : " function to bust the cached colors. If #plot_title_id is nullptr, then every item in EVERY existing plot"
           }, {
             "@type" : "AstTextComment",
             "text" : " will be cache busted. Otherwise only the plot specified by #plot_title_id will be busted. For the"

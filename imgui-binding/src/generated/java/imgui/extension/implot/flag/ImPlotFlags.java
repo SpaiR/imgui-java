@@ -83,13 +83,6 @@ public final class ImPlotFlags {
     public static final int Crosshairs = 512;
 
     /**
-     * plot items will be software anti-aliased (not recommended for high density plots, prefer MSAA)
-     *
-     * <p>Definition: {@code 1 << 10}
-     */
-    public static final int AntiAliased = 1024;
-
-    /**
      * Definition: {@code ImPlotFlags_NoTitle | ImPlotFlags_NoLegend | ImPlotFlags_NoMenus | ImPlotFlags_NoBoxSelect | ImPlotFlags_NoMouseText}
      */
     public static final int CanvasOnly = 55;

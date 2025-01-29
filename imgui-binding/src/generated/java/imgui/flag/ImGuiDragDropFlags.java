@@ -14,14 +14,14 @@ public final class ImGuiDragDropFlags {
     public static final int None = 0;
 
     /**
-     * By default, a successful call to BeginDragDropSource opens a tooltip so you can display a preview or description of the source contents. This flag disable this behavior.
+     * Disable preview tooltip. By default, a successful call to BeginDragDropSource opens a tooltip so you can display a preview or description of the source contents. This flag disables this behavior.
      *
      * <p>Definition: {@code 1 << 0}
      */
     public static final int SourceNoPreviewTooltip = 1;
 
     /**
-     * By default, when dragging we clear data so that IsItemHovered() will return false, to avoid subsequent user code submitting tooltips. This flag disable this behavior so you can still call IsItemHovered() on the source item.
+     * By default, when dragging we clear data so that IsItemHovered() will return false, to avoid subsequent user code submitting tooltips. This flag disables this behavior so you can still call IsItemHovered() on the source item.
      *
      * <p>Definition: {@code 1 << 1}
      */

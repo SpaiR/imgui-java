@@ -150,14 +150,14 @@ public final class ImGuiTableFlags {
     public static final int Borders = 1920;
 
     /**
-     * [ALPHA] Disable vertical borders in columns Body (borders will always appears in Headers). {@code ->} May move to style
+     * [ALPHA] Disable vertical borders in columns Body (borders will always appear in Headers). {@code ->} May move to style
      *
      * <p>Definition: {@code 1 << 11}
      */
     public static final int NoBordersInBody = 2048;
 
     /**
-     * [ALPHA] Disable vertical borders in columns Body until hovered for resize (borders will always appears in Headers). {@code ->} May move to style
+     * [ALPHA] Disable vertical borders in columns Body until hovered for resize (borders will always appear in Headers). {@code ->} May move to style
      *
      * <p>Definition: {@code 1 << 12}
      */
@@ -227,14 +227,14 @@ public final class ImGuiTableFlags {
     public static final int NoClip = 1048576;
 
     /**
-     * Default if BordersOuterV is on. Enable outer-most padding. Generally desirable if you have headers.
+     * Default if BordersOuterV is on. Enable outermost padding. Generally desirable if you have headers.
      *
      * <p>Definition: {@code 1 << 21}
      */
     public static final int PadOuterX = 2097152;
 
     /**
-     * Default if BordersOuterV is off. Disable outer-most padding.
+     * Default if BordersOuterV is off. Disable outermost padding.
      *
      * <p>Definition: {@code 1 << 22}
      */
@@ -248,7 +248,7 @@ public final class ImGuiTableFlags {
     public static final int NoPadInnerX = 8388608;
 
     /**
-     * Enable horizontal scrolling. Require 'outer_size' parameter of BeginTable() to specify the container size. Changes default sizing policy. Because this create a child window, ScrollY is currently generally recommended when using ScrollX.
+     * Enable horizontal scrolling. Require 'outer_size' parameter of BeginTable() to specify the container size. Changes default sizing policy. Because this creates a child window, ScrollY is currently generally recommended when using ScrollX.
      *
      * <p>Definition: {@code 1 << 24}
      */

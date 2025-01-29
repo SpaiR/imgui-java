@@ -5,11 +5,13 @@ import imgui.binding.ImGuiStructDestroyable;
 import imgui.binding.annotation.ArgValue;
 import imgui.binding.annotation.BindingMethod;
 import imgui.binding.annotation.BindingSource;
+import imgui.binding.annotation.ExcludedSource;
 import imgui.binding.annotation.OptArg;
 import imgui.binding.annotation.ReturnValue;
 
 import java.util.Map;
 
+@ExcludedSource
 @BindingSource
 public final class TextEditor extends ImGuiStructDestroyable {
     public TextEditor() {

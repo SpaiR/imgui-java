@@ -499,7 +499,14 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
         return IMGUI_PLATFORM_IO->Monitors.Size;
     */
 
-    public native void pushMonitors(float mainPosX, float mainPosY, float mainSizeX, float mainSizeY, float workPosX, float workPosY, float workSizeX, float workSizeY, float dpiScale); /*
+    public native void pushMonitors(
+        long platformHandle,
+        float mainPosX, float mainPosY,
+        float mainSizeX, float mainSizeY,
+        float workPosX, float workPosY,
+        float workSizeX, float workSizeY,
+        float dpiScale
+    ); /*
         ImGuiPlatformMonitor monitor;
 
         monitor.MainPos = ImVec2(mainPosX, mainPosY);
@@ -509,6 +516,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
         monitor.WorkSize = ImVec2(workSizeX, workSizeY);
 
         monitor.DpiScale = dpiScale;
+        monitor.PlatformHandle = (void*)platformHandle;
 
         IMGUI_PLATFORM_IO->Monitors.push_back(monitor);
     */

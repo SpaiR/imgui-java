@@ -1,9 +1,9 @@
 {
   "info" : {
     "source" : "include/imguizmo/ImGuizmo.h",
-    "hash" : "f3ed04e44a5959358d2d9966b66f2f69",
+    "hash" : "86c265f6f4ce4a91b09950758f209579",
     "url" : "https://github.com/CedricGuillemet/ImGuizmo.git",
-    "revision" : "e2bc419c8826a3d632d3974aab201b0fee770263"
+    "revision" : "ba662b119d64f9ab700bb2cd7b2781f9044f5565"
   },
   "decls" : [ {
     "@type" : "AstNamespaceDecl",
@@ -98,6 +98,20 @@
           "decls" : [ {
             "@type" : "AstTextComment",
             "text" : " return true if mouse IsOver or if the gizmo is in moving state"
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "IsUsingAny",
+      "resultType" : "bool",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " return true if any gizmo is in moving state"
           } ]
         } ]
       } ]
@@ -712,6 +726,206 @@
           } ]
         } ]
       } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "SetAxisLimit",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "value",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Configure the limit where axis are hidden"
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "SetPlaneLimit",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "value",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Configure the limit where planes are hiden"
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstEnumDecl",
+      "name" : "COLOR",
+      "decls" : [ {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "DIRECTION_X",
+        "docComment" : "directionColor[0]",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 0,
+        "evaluatedValue" : 0
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "DIRECTION_Y",
+        "docComment" : "directionColor[1]",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 1,
+        "evaluatedValue" : 1
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "DIRECTION_Z",
+        "docComment" : "directionColor[2]",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 2,
+        "evaluatedValue" : 2
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "PLANE_X",
+        "docComment" : "planeColor[0]",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 3,
+        "evaluatedValue" : 3
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "PLANE_Y",
+        "docComment" : "planeColor[1]",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 4,
+        "evaluatedValue" : 4
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "PLANE_Z",
+        "docComment" : "planeColor[2]",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 5,
+        "evaluatedValue" : 5
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "SELECTION",
+        "docComment" : "selectionColor",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 6,
+        "evaluatedValue" : 6
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "INACTIVE",
+        "docComment" : "inactiveColor",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 7,
+        "evaluatedValue" : 7
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "TRANSLATION_LINE",
+        "docComment" : "translationLineColor",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 8,
+        "evaluatedValue" : 8
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "SCALE_LINE",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 9,
+        "evaluatedValue" : 9
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "ROTATION_USING_BORDER",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 10,
+        "evaluatedValue" : 10
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "ROTATION_USING_FILL",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 11,
+        "evaluatedValue" : 11
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "HATCHED_AXIS_LINES",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 12,
+        "evaluatedValue" : 12
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "TEXT",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 13,
+        "evaluatedValue" : 13
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "TEXT_SHADOW",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 14,
+        "evaluatedValue" : 14
+      }, {
+        "@type" : "AstEnumConstantDecl",
+        "name" : "COUNT",
+        "qualType" : "ImGuizmo::COLOR",
+        "order" : 15,
+        "evaluatedValue" : 15
+      } ]
+    }, {
+      "@type" : "AstRecordDecl",
+      "name" : "Style",
+      "decls" : [ {
+        "@type" : "AstFieldDecl",
+        "name" : "TranslationLineThickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstFieldDecl",
+        "name" : "TranslationLineArrowSize",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstFieldDecl",
+        "name" : "RotationLineThickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstFieldDecl",
+        "name" : "RotationOuterLineThickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstFieldDecl",
+        "name" : "ScaleLineThickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstFieldDecl",
+        "name" : "ScaleLineCircleSize",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstFieldDecl",
+        "name" : "HatchedAxisLineThickness",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstFieldDecl",
+        "name" : "CenterCircleSize",
+        "qualType" : "float",
+        "desugaredQualType" : "float"
+      }, {
+        "@type" : "AstFieldDecl",
+        "name" : "Colors",
+        "qualType" : "int[15]",
+        "desugaredQualType" : "int[15]"
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "GetStyle",
+      "resultType" : "Style &"
     } ]
   } ]
 }

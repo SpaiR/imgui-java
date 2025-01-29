@@ -10,12 +10,14 @@ public final class ImGuiItemFlags {
     }
 
     /**
-     * Definition: {@code 0}
+     * Controlled by user
+     *
+     * <p>Definition: {@code 0}
      */
     public static final int None = 0;
 
     /**
-     * false     // Disable keyboard tabbing (FIXME: should merge with _NoNav)
+     * false     // Disable keyboard tabbing. This is a "lighter" version of ImGuiItemFlags_NoNav.
      *
      * <p>Definition: {@code 1 << 0}
      */
@@ -36,7 +38,7 @@ public final class ImGuiItemFlags {
     public static final int Disabled = 4;
 
     /**
-     * false     // Disable keyboard/gamepad directional navigation (FIXME: should merge with _NoTabStop)
+     * false     // Disable any form of focusing (keyboard/gamepad directional navigation and SetKeyboardFocusHere() calls)
      *
      * <p>Definition: {@code 1 << 3}
      */
@@ -71,9 +73,23 @@ public final class ImGuiItemFlags {
     public static final int ReadOnly = 128;
 
     /**
-     * false     // [WIP] Auto-activate input mode when tab focused. Currently only used and supported by a few items before it becomes a generic feature.
+     * false     // Disable hoverable check in ItemHoverable()
      *
      * <p>Definition: {@code 1 << 8}
      */
-    public static final int Inputable = 256;
+    public static final int NoWindowHoverableCheck = 256;
+
+    /**
+     * false     // Allow being overlapped by another widget. Not-hovered to Hovered transition deferred by a frame.
+     *
+     * <p>Definition: {@code 1 << 9}
+     */
+    public static final int AllowOverlap = 512;
+
+    /**
+     * false     // [WIP] Auto-activate input mode when tab focused. Currently only used and supported by a few items before it becomes a generic feature.
+     *
+     * <p>Definition: {@code 1 << 10}
+     */
+    public static final int Inputable = 1024;
 }

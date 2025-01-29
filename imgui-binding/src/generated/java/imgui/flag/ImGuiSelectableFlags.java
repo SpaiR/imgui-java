@@ -14,7 +14,7 @@ public final class ImGuiSelectableFlags {
     public static final int None = 0;
 
     /**
-     * Clicking this don't close parent popup window
+     * Clicking this doesn't close parent popup window
      *
      * <p>Definition: {@code 1 << 0}
      */
@@ -45,6 +45,13 @@ public final class ImGuiSelectableFlags {
      * (WIP) Hit testing to allow subsequent widgets to overlap this one
      *
      * <p>Definition: {@code 1 << 4}
+     */
+    public static final int AllowOverlap = 16;
+
+    /**
+     * Renamed in 1.89.7
+     *
+     * <p>Definition: {@code ImGuiSelectableFlags_AllowOverlap}
      */
     public static final int AllowItemOverlap = 16;
 }

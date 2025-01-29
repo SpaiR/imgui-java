@@ -150,26 +150,52 @@ public final class ImFont extends ImGuiStructDestroyable {
         THIS->EllipsisChar = value;
     */
 
-    /**
-     * Character used for ellipsis rendering (if a single '...' character isn't found)
-     */
-    public short getDotChar() {
-        return nGetDotChar();
+    public short getEllipsisCharCount() {
+        return nGetEllipsisCharCount();
     }
 
-    /**
-     * Character used for ellipsis rendering (if a single '...' character isn't found)
-     */
-    public void setDotChar(final short value) {
-        nSetDotChar(value);
+    public void setEllipsisCharCount(final short value) {
+        nSetEllipsisCharCount(value);
     }
 
-    private native short nGetDotChar(); /*
-        return THIS->DotChar;
+    private native short nGetEllipsisCharCount(); /*
+        return THIS->EllipsisCharCount;
     */
 
-    private native void nSetDotChar(short value); /*
-        THIS->DotChar = value;
+    private native void nSetEllipsisCharCount(short value); /*
+        THIS->EllipsisCharCount = value;
+    */
+
+    public float getEllipsisWidth() {
+        return nGetEllipsisWidth();
+    }
+
+    public void setEllipsisWidth(final float value) {
+        nSetEllipsisWidth(value);
+    }
+
+    private native float nGetEllipsisWidth(); /*
+        return THIS->EllipsisWidth;
+    */
+
+    private native void nSetEllipsisWidth(float value); /*
+        THIS->EllipsisWidth = value;
+    */
+
+    public float getEllipsisCharStep() {
+        return nGetEllipsisCharStep();
+    }
+
+    public void setEllipsisCharStep(final float value) {
+        nSetEllipsisCharStep(value);
+    }
+
+    private native float nGetEllipsisCharStep(); /*
+        return THIS->EllipsisCharStep;
+    */
+
+    private native void nSetEllipsisCharStep(float value); /*
+        THIS->EllipsisCharStep = value;
     */
 
     public boolean getDirtyLookupTables() {

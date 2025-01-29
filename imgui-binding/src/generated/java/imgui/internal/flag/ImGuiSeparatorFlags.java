@@ -21,7 +21,9 @@ public class ImGuiSeparatorFlags {
     public static final int Vertical = 2;
 
     /**
-     * Definition: {@code 1 << 2}
+     * Make separator cover all columns of a legacy Columns() set.
+     *
+     * <p>Definition: {@code 1 << 2}
      */
     public static final int SpanAllColumns = 4;
 }

@@ -28,7 +28,7 @@ public final class ImGuiViewportFlags {
     public static final int IsPlatformMonitor = 2;
 
     /**
-     * Platform Window: is created/managed by the application (rather than a dear imgui backend)
+     * Platform Window: Was created/managed by the user application? (rather than our backend)
      *
      * <p>Definition: {@code 1 << 2}
      */
@@ -77,30 +77,37 @@ public final class ImGuiViewportFlags {
     public static final int NoRendererClear = 256;
 
     /**
-     * Platform Window: Display on top (for tooltips only).
+     * Platform Window: Avoid merging this window into another host window. This can only be set via ImGuiWindowClass viewport flags override (because we need to now ahead if we are going to create a viewport in the first place!).
      *
      * <p>Definition: {@code 1 << 9}
      */
-    public static final int TopMost = 512;
+    public static final int NoAutoMerge = 512;
+
+    /**
+     * Platform Window: Display on top (for tooltips only).
+     *
+     * <p>Definition: {@code 1 << 10}
+     */
+    public static final int TopMost = 1024;
+
+    /**
+     * Viewport can host multiple imgui windows (secondary viewports are associated to a single window). // FIXME: In practice there's still probably code making the assumption that this is always and only on the MainViewport. Will fix once we add support for "no main viewport".
+     *
+     * <p>Definition: {@code 1 << 11}
+     */
+    public static final int CanHostOtherWindows = 2048;
 
     /**
      * Platform Window: Window is minimized, can skip render. When minimized we tend to avoid using the viewport pos/size for clipping window or testing if they are contained in the viewport.
      *
-     * <p>Definition: {@code 1 << 10}
-     */
-    public static final int Minimized = 1024;
-
-    /**
-     * Platform Window: Avoid merging this window into another host window. This can only be set via ImGuiWindowClass viewport flags override (because we need to now ahead if we are going to create a viewport in the first place!).
-     *
-     * <p>Definition: {@code 1 << 11}
-     */
-    public static final int NoAutoMerge = 2048;
-
-    /**
-     * Main viewport: can host multiple imgui windows (secondary viewports are associated to a single window).
-     *
      * <p>Definition: {@code 1 << 12}
      */
-    public static final int CanHostOtherWindows = 4096;
+    public static final int IsMinimized = 4096;
+
+    /**
+     * Platform Window: Window is focused (last call to Platform_GetWindowFocus() returned true)
+     *
+     * <p>Definition: {@code 1 << 13}
+     */
+    public static final int IsFocused = 8192;
 }

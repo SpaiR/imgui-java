@@ -36,6 +36,7 @@ import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowFocusCallback;
 import org.lwjgl.system.Callback;
+import org.lwjgl.system.MemoryUtil;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -182,10 +183,6 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_W;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_X;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_Y;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_Z;
-import static org.lwjgl.glfw.GLFW.GLFW_MOD_ALT;
-import static org.lwjgl.glfw.GLFW.GLFW_MOD_CONTROL;
-import static org.lwjgl.glfw.GLFW.GLFW_MOD_SHIFT;
-import static org.lwjgl.glfw.GLFW.GLFW_MOD_SUPER;
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_PASSTHROUGH;
 import static org.lwjgl.glfw.GLFW.GLFW_NOT_ALLOWED_CURSOR;
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
@@ -194,6 +191,9 @@ import static org.lwjgl.glfw.GLFW.GLFW_RESIZE_ALL_CURSOR;
 import static org.lwjgl.glfw.GLFW.GLFW_RESIZE_NESW_CURSOR;
 import static org.lwjgl.glfw.GLFW.GLFW_RESIZE_NWSE_CURSOR;
 import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
+import static org.lwjgl.glfw.GLFW.GLFW_VERSION_MAJOR;
+import static org.lwjgl.glfw.GLFW.GLFW_VERSION_MINOR;
+import static org.lwjgl.glfw.GLFW.GLFW_VERSION_REVISION;
 import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
 import static org.lwjgl.glfw.GLFW.GLFW_VRESIZE_CURSOR;
 import static org.lwjgl.glfw.GLFW.glfwCreateStandardCursor;
@@ -203,18 +203,19 @@ import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
 import static org.lwjgl.glfw.GLFW.glfwFocusWindow;
 import static org.lwjgl.glfw.GLFW.glfwGetClipboardString;
 import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
+import static org.lwjgl.glfw.GLFW.glfwGetError;
 import static org.lwjgl.glfw.GLFW.glfwGetFramebufferSize;
 import static org.lwjgl.glfw.GLFW.glfwGetGamepadState;
 import static org.lwjgl.glfw.GLFW.glfwGetInputMode;
 import static org.lwjgl.glfw.GLFW.glfwGetJoystickAxes;
 import static org.lwjgl.glfw.GLFW.glfwGetJoystickButtons;
+import static org.lwjgl.glfw.GLFW.glfwGetKey;
 import static org.lwjgl.glfw.GLFW.glfwGetKeyName;
 import static org.lwjgl.glfw.GLFW.glfwGetMonitorContentScale;
 import static org.lwjgl.glfw.GLFW.glfwGetMonitorPos;
 import static org.lwjgl.glfw.GLFW.glfwGetMonitorWorkarea;
 import static org.lwjgl.glfw.GLFW.glfwGetMonitors;
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
-import static org.lwjgl.glfw.GLFW.glfwGetVersion;
 import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowAttrib;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowPos;
@@ -272,6 +273,7 @@ public class ImGuiImplGlfw {
         protected ImVec2 lastValidMousePos = new ImVec2();
         protected long[] keyOwnerWindows = new long[GLFW_KEY_LAST];
         protected boolean installedCallbacks = false;
+        protected boolean callbacksChainForAllWindows = false;
         protected boolean wantUpdateMonitors = true;
 
         // Chain GLFW callbacks: our callbacks will call the user's previously installed callbacks, if any.
@@ -283,6 +285,10 @@ public class ImGuiImplGlfw {
         protected GLFWKeyCallback prevUserCallbackKey = null;
         protected GLFWCharCallback prevUserCallbackChar = null;
         protected GLFWMonitorCallback prevUserCallbackMonitor = null;
+
+        // This field is required to use GLFW with touch screens on Windows.
+        // For compatibility reasons it was added here as a comment. But we don't use somewhere in the binding implementation.
+        // protected long glfwWndProc;
     }
 
     /**
@@ -325,20 +331,22 @@ public class ImGuiImplGlfw {
     protected Data data = null;
     private final Properties props = new Properties();
 
-    // Some features may be available only from a specific version
-    private boolean glfwHawWindowTopmost;
-    private boolean glfwHasWindowHovered;
-    private boolean glfwHasWindowAlpha;
-    private boolean glfwHasPerMonitorDpi;
-    // private boolean glfwHasVulkan; TODO: I want to believe...
-    private boolean glfwHasFocusWindow;
-    private boolean glfwHasFocusOnShow;
-    private boolean glfwHasMonitorWorkArea;
-    private boolean glfwHasOsxWindowPosFix;
-    private boolean glfwHasNewCursors;
-    private boolean glfwHasMousePassthrough;
-    private boolean glfwHasGamepadApi;
-    private boolean glfwHasGetKeyName;
+    // We gather version tests as define in order to easily see which features are version-dependent.
+    protected static final int glfwVersionCombined = GLFW_VERSION_MAJOR * 1000 + GLFW_VERSION_MINOR * 100 + GLFW_VERSION_REVISION;
+    protected static final boolean glfwHawWindowTopmost = glfwVersionCombined >= 3200; // 3.2+ GLFW_FLOATING
+    protected static final boolean glfwHasWindowHovered = glfwVersionCombined >= 3300; // 3.3+ GLFW_HOVERED
+    protected static final boolean glfwHasWindowAlpha = glfwVersionCombined >= 3300; // 3.3+ glfwSetWindowOpacity
+    protected static final boolean glfwHasPerMonitorDpi = glfwVersionCombined >= 3300; // 3.3+ glfwGetMonitorContentScale
+    // protected boolean glfwHasVulkan; TODO: I want to believe...
+    protected static final boolean glfwHasFocusWindow = glfwVersionCombined >= 3200; // 3.2+ glfwFocusWindow
+    protected static final boolean glfwHasFocusOnShow = glfwVersionCombined >= 3300; // 3.3+ GLFW_FOCUS_ON_SHOW
+    protected static final boolean glfwHasMonitorWorkArea = glfwVersionCombined >= 3300; // 3.3+ glfwGetMonitorWorkarea
+    protected static final boolean glfwHasOsxWindowPosFix = glfwVersionCombined >= 3301; // 3.3.1+ Fixed: Resizing window repositions it on MacOS #1553
+    protected static final boolean glfwHasNewCursors = glfwVersionCombined >= 3400; // 3.4+ GLFW_RESIZE_ALL_CURSOR, GLFW_RESIZE_NESW_CURSOR, GLFW_RESIZE_NWSE_CURSOR, GLFW_NOT_ALLOWED_CURSOR
+    protected static final boolean glfwHasMousePassthrough = glfwVersionCombined >= 3400; // 3.4+ GLFW_MOUSE_PASSTHROUGH
+    protected static final boolean glfwHasGamepadApi = glfwVersionCombined >= 3300; // 3.3+ glfwGetGamepadState() new api
+    protected static final boolean glfwHasGetKeyName = glfwVersionCombined >= 3200; // 3.2+ glfwGetKeyName()
+    protected static final boolean glfwHasGetError = glfwVersionCombined >= 3300; // 3.3+ glfwGetError()
 
     protected ImStrSupplier getClipboardTextFn() {
         return new ImStrSupplier() {
@@ -576,36 +584,26 @@ public class ImGuiImplGlfw {
         }
     }
 
-    protected int keyToModifier(final int key) {
-        if (key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_RIGHT_CONTROL) {
-            return GLFW_MOD_CONTROL;
-        }
-        if (key == GLFW_KEY_LEFT_SHIFT || key == GLFW_KEY_RIGHT_SHIFT) {
-            return GLFW_MOD_SHIFT;
-        }
-        if (key == GLFW_KEY_LEFT_ALT || key == GLFW_KEY_RIGHT_ALT) {
-            return GLFW_MOD_ALT;
-        }
-        if (key == GLFW_KEY_LEFT_SUPER || key == GLFW_KEY_RIGHT_SUPER) {
-            return GLFW_MOD_SUPER;
-        }
-        return 0;
+    // X11 does not include current pressed/released modifier key in 'mods' flags submitted by GLFW
+    // See https://github.com/ocornut/imgui/issues/6034 and https://github.com/glfw/glfw/issues/1630
+    protected void updateKeyModifiers(final long window) {
+        final ImGuiIO io = ImGui.getIO();
+        io.addKeyEvent(ImGuiKey.ModCtrl, (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) || (glfwGetKey(window, GLFW_KEY_RIGHT_CONTROL) == GLFW_PRESS));
+        io.addKeyEvent(ImGuiKey.ModShift, (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) || (glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS));
+        io.addKeyEvent(ImGuiKey.ModAlt, (glfwGetKey(window, GLFW_KEY_LEFT_ALT) == GLFW_PRESS) || (glfwGetKey(window, GLFW_KEY_RIGHT_ALT) == GLFW_PRESS));
+        io.addKeyEvent(ImGuiKey.ModSuper, (glfwGetKey(window, GLFW_KEY_LEFT_SUPER) == GLFW_PRESS) || (glfwGetKey(window, GLFW_KEY_RIGHT_SUPER) == GLFW_PRESS));
     }
 
-    protected void updateKeyModifiers(final int mods) {
-        final ImGuiIO io = ImGui.getIO();
-        io.addKeyEvent(ImGuiKey.ModCtrl, (mods & GLFW_MOD_CONTROL) != 0);
-        io.addKeyEvent(ImGuiKey.ModShift, (mods & GLFW_MOD_SHIFT) != 0);
-        io.addKeyEvent(ImGuiKey.ModAlt, (mods & GLFW_MOD_ALT) != 0);
-        io.addKeyEvent(ImGuiKey.ModSuper, (mods & GLFW_MOD_SUPER) != 0);
+    protected boolean shouldChainCallback(final long window) {
+        return data.callbacksChainForAllWindows ? true : (window == data.window);
     }
 
     public void mouseButtonCallback(final long window, final int button, final int action, final int mods) {
-        if (data.prevUserCallbackMousebutton != null && window == data.window) {
+        if (data.prevUserCallbackMousebutton != null && shouldChainCallback(window)) {
             data.prevUserCallbackMousebutton.invoke(window, button, action, mods);
         }
 
-        updateKeyModifiers(mods);
+        updateKeyModifiers(window);
 
         final ImGuiIO io = ImGui.getIO();
         if (button >= 0 && button < ImGuiMouseButton.COUNT) {
@@ -614,7 +612,7 @@ public class ImGuiImplGlfw {
     }
 
     public void scrollCallback(final long window, final double xOffset, final double yOffset) {
-        if (data.prevUserCallbackScroll != null && window == data.window) {
+        if (data.prevUserCallbackScroll != null && shouldChainCallback(window)) {
             data.prevUserCallbackScroll.invoke(window, xOffset, yOffset);
         }
 
@@ -638,7 +636,7 @@ public class ImGuiImplGlfw {
 
         int resultKey = key;
         final String keyName = glfwGetKeyName(key, scancode);
-
+        eatErrors();
         if (keyName != null && keyName.length() > 2 && keyName.charAt(0) != 0 && keyName.charAt(1) == 0) {
             if (keyName.charAt(0) >= '0' && keyName.charAt(0) <= '9') {
                 resultKey = GLFW_KEY_0 + (keyName.charAt(0) - '0');
@@ -657,8 +655,16 @@ public class ImGuiImplGlfw {
         return resultKey;
     }
 
+    protected void eatErrors() {
+        if (glfwHasGetError) { // Eat errors (see #5908)
+            final PointerBuffer pb = MemoryUtil.memAllocPointer(1);
+            glfwGetError(pb);
+            MemoryUtil.memFree(pb);
+        }
+    }
+
     public void keyCallback(final long window, final int keycode, final int scancode, final int action, final int mods) {
-        if (data.prevUserCallbackKey != null && window == data.window) {
+        if (data.prevUserCallbackKey != null && shouldChainCallback(window)) {
             data.prevUserCallbackKey.invoke(window, keycode, scancode, action, mods);
         }
 
@@ -666,17 +672,7 @@ public class ImGuiImplGlfw {
             return;
         }
 
-        {
-            int keyModifiers = mods;
-
-            // Workaround: X11 does not include current pressed/released modifier key in 'mods' flags. https://github.com/glfw/glfw/issues/1630
-            final int keycodeToMod = keyToModifier(keycode);
-            if (keycodeToMod != 0) {
-                keyModifiers = (action == GLFW_PRESS) ? (mods | keycodeToMod) : (mods & ~keycodeToMod);
-            }
-
-            updateKeyModifiers(keyModifiers);
-        }
+        updateKeyModifiers(window);
 
         if (keycode >= 0 && keycode < data.keyOwnerWindows.length) {
             data.keyOwnerWindows[keycode] = (action == GLFW_PRESS) ? window : -1;
@@ -691,7 +687,7 @@ public class ImGuiImplGlfw {
     }
 
     public void windowFocusCallback(final long window, final boolean focused) {
-        if (data.prevUserCallbackWindowFocus != null && window == data.window) {
+        if (data.prevUserCallbackWindowFocus != null && shouldChainCallback(window)) {
             data.prevUserCallbackWindowFocus.invoke(window, focused);
         }
 
@@ -699,7 +695,7 @@ public class ImGuiImplGlfw {
     }
 
     public void cursorPosCallback(final long window, final double x, final double y) {
-        if (data.prevUserCallbackCursorPos != null && window == data.window) {
+        if (data.prevUserCallbackCursorPos != null && shouldChainCallback(window)) {
             data.prevUserCallbackCursorPos.invoke(window, x, y);
         }
 
@@ -721,7 +717,7 @@ public class ImGuiImplGlfw {
     // Workaround: X11 seems to send spurious Leave/Enter events which would make us lose our position,
     // so we back it up and restore on Leave/Enter (see https://github.com/ocornut/imgui/issues/4984)
     public void cursorEnterCallback(final long window, final boolean entered) {
-        if (data.prevUserCallbackCursorEnter != null && window == data.window) {
+        if (data.prevUserCallbackCursorEnter != null && shouldChainCallback(window)) {
             data.prevUserCallbackCursorEnter.invoke(window, entered);
         }
 
@@ -738,7 +734,7 @@ public class ImGuiImplGlfw {
     }
 
     public void charCallback(final long window, final int c) {
-        if (data.prevUserCallbackChar != null && window == data.window) {
+        if (data.prevUserCallbackChar != null && shouldChainCallback(window)) {
             data.prevUserCallbackChar.invoke(window, c);
         }
 
@@ -787,35 +783,21 @@ public class ImGuiImplGlfw {
         data.prevUserCallbackMonitor = null;
     }
 
+    /**
+     * Set to 'true' to enable chaining installed callbacks for all windows (including secondary viewports created by backends or by user.
+     * This is 'false' by default meaning we only chain callbacks for the main viewport.
+     * We cannot set this to 'true' by default because user callbacks code may be not testing the 'window' parameter of their callback.
+     * If you set this to 'true' your user callback code will need to make sure you are testing the 'window' parameter.
+     */
+    public void setCallbacksChainForAllWindows(final boolean chainForAllWindows) {
+        data.callbacksChainForAllWindows = chainForAllWindows;
+    }
+
     protected Data newData() {
         return new Data();
     }
 
     public boolean init(final long window, final boolean installCallbacks) {
-        // On the Dear ImGui backend side version resolving is done with the usage of defines.
-        {
-            final int[] major = new int[1];
-            final int[] minor = new int[1];
-            final int[] rev = new int[1];
-            glfwGetVersion(major, minor, rev);
-
-            final int version = major[0] * 1000 + minor[0] * 100 + rev[0] * 10;
-
-            glfwHawWindowTopmost = version >= 3200;
-            glfwHasWindowHovered = version >= 3300;
-            glfwHasWindowAlpha = version >= 3300;
-            glfwHasPerMonitorDpi = version >= 3300;
-            // glfwHasVulkan = version >= 3200; TODO: I want to believe...
-            glfwHasFocusWindow = version >= 3200;
-            glfwHasFocusOnShow = version >= 3300;
-            glfwHasMonitorWorkArea = version >= 3300;
-            glfwHasOsxWindowPosFix = version >= 3310;
-            glfwHasNewCursors = version >= 3400;
-            glfwHasMousePassthrough = version >= 3400;
-            glfwHasGamepadApi = version >= 3300;
-            glfwHasGetKeyName = version >= 3200;
-        }
-
         final ImGuiIO io = ImGui.getIO();
 
         io.setBackendPlatformName("imgui-java_impl_glfw");
@@ -854,6 +836,7 @@ public class ImGuiImplGlfw {
             data.mouseCursors[ImGuiMouseCursor.NotAllowed] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
         }
         glfwSetErrorCallback(prevErrorCallback);
+        eatErrors();
 
         // Chain GLFW callbacks: our callbacks will call the user's previously installed callbacks, if any.
         if (installCallbacks) {
@@ -895,6 +878,8 @@ public class ImGuiImplGlfw {
 
         io.setBackendPlatformName(null);
         data = null;
+        io.removeBackendFlags(ImGuiBackendFlags.HasMouseCursors | ImGuiBackendFlags.HasSetMousePos | ImGuiBackendFlags.HasGamepad
+            | ImGuiBackendFlags.PlatformHasViewports | ImGuiBackendFlags.HasMouseHoveredViewport);
     }
 
     protected void updateMouseData() {
@@ -1043,10 +1028,10 @@ public class ImGuiImplGlfw {
         io.addBackendFlags(ImGuiBackendFlags.HasGamepad);
         mapButton.run(ImGuiKey.GamepadStart, GLFW_GAMEPAD_BUTTON_START, 7);
         mapButton.run(ImGuiKey.GamepadBack, GLFW_GAMEPAD_BUTTON_BACK, 6);
-        mapButton.run(ImGuiKey.GamepadFaceDown, GLFW_GAMEPAD_BUTTON_A, 0);     // Xbox A, PS Cross
-        mapButton.run(ImGuiKey.GamepadFaceRight, GLFW_GAMEPAD_BUTTON_B, 1);     // Xbox B, PS Circle
         mapButton.run(ImGuiKey.GamepadFaceLeft, GLFW_GAMEPAD_BUTTON_X, 2);     // Xbox X, PS Square
+        mapButton.run(ImGuiKey.GamepadFaceRight, GLFW_GAMEPAD_BUTTON_B, 1);     // Xbox B, PS Circle
         mapButton.run(ImGuiKey.GamepadFaceUp, GLFW_GAMEPAD_BUTTON_Y, 3);     // Xbox Y, PS Triangle
+        mapButton.run(ImGuiKey.GamepadFaceDown, GLFW_GAMEPAD_BUTTON_A, 0);     // Xbox A, PS Cross
         mapButton.run(ImGuiKey.GamepadDpadLeft, GLFW_GAMEPAD_BUTTON_DPAD_LEFT, 13);
         mapButton.run(ImGuiKey.GamepadDpadRight, GLFW_GAMEPAD_BUTTON_DPAD_RIGHT, 11);
         mapButton.run(ImGuiKey.GamepadDpadUp, GLFW_GAMEPAD_BUTTON_DPAD_UP, 10);
@@ -1069,9 +1054,14 @@ public class ImGuiImplGlfw {
 
     protected void updateMonitors() {
         final ImGuiPlatformIO platformIO = ImGui.getPlatformIO();
+        data.wantUpdateMonitors = false;
+
         final PointerBuffer monitors = glfwGetMonitors();
         if (monitors == null) {
             System.err.println("Unable to get monitors!");
+            return;
+        }
+        if (monitors.limit() == 0) { // Preserve existing monitor list if there are none. Happens on macOS sleeping (#5683)
             return;
         }
 
@@ -1082,8 +1072,7 @@ public class ImGuiImplGlfw {
 
             final GLFWVidMode vidMode = glfwGetVideoMode(monitor);
             if (vidMode == null) {
-                System.err.println("Unable to get video mode!");
-                return;
+                continue;
             }
 
             glfwGetMonitorPos(monitor, props.monitorX, props.monitorY);
@@ -1118,10 +1107,8 @@ public class ImGuiImplGlfw {
                 dpiScale = props.monitorContentScaleX[0];
             }
 
-            platformIO.pushMonitors(mainPosX, mainPosY, mainSizeX, mainSizeY, workPosX, workPosY, workSizeX, workSizeY, dpiScale);
+            platformIO.pushMonitors(monitor, mainPosX, mainPosY, mainSizeX, mainSizeY, workPosX, workPosY, workSizeX, workSizeY, dpiScale);
         }
-
-        data.wantUpdateMonitors = false;
     }
 
     public void newFrame() {
@@ -1142,7 +1129,11 @@ public class ImGuiImplGlfw {
         }
 
         // Setup time step
-        final double currentTime = glfwGetTime();
+        // (Accept glfwGetTime() not returning a monotonically increasing value. Seems to happens on disconnecting peripherals and probably on VMs and Emscripten, see #6491, #6189, #6114, #3644)
+        double currentTime = glfwGetTime();
+        if (currentTime <= data.time) {
+            currentTime = data.time + 0.00001f;
+        }
         io.setDeltaTime(data.time > 0.0 ? (float) (currentTime - data.time) : 1.0f / 60.0f);
         data.time = currentTime;
 

@@ -120,9 +120,6 @@ public final class ImPlotStyle extends ImGuiStructDestroyable {
     public int Colormap;
 
     @BindingField
-    public boolean AntiAliasedLines;
-
-    @BindingField
     public boolean UseLocalTime;
 
     @BindingField

@@ -610,6 +610,13 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
     */
 
     /**
+     * Default + Greek and Coptic
+     */
+    public native short[] getGlyphRangesGreek(); /*
+        RETURN_GLYPH_2_SHORT(THIS->GetGlyphRangesGreek());
+    */
+
+    /**
      * Default + Korean characters
      */
     public native short[] getGlyphRangesKorean(); /*

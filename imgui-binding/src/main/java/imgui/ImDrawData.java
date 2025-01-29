@@ -199,6 +199,15 @@ public final class ImDrawData extends ImGuiStruct {
 
     // Functions
 
+    @BindingMethod
+    public native void Clear();
+
+    /**
+     * Helper to add an external draw list into an existing ImDrawData.
+     */
+    @BindingMethod
+    public native void AddDrawList(ImDrawList drawList);
+
     /**
      * Helper to convert all buffers from indexed to non-indexed, in case you cannot render indexed. Note: this is slow and most likely a waste of resources.
      * Always prefer indexed rendering!

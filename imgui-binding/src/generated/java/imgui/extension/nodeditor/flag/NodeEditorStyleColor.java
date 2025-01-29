@@ -25,21 +25,23 @@ public final class NodeEditorStyleColor {
 
     public static final int SelLinkBorder = 9;
 
-    public static final int LinkSelRect = 10;
+    public static final int HighlightLinkBorder = 10;
 
-    public static final int LinkSelRectBorder = 11;
+    public static final int LinkSelRect = 11;
 
-    public static final int PinRect = 12;
+    public static final int LinkSelRectBorder = 12;
 
-    public static final int PinRectBorder = 13;
+    public static final int PinRect = 13;
 
-    public static final int Flow = 14;
+    public static final int PinRectBorder = 14;
 
-    public static final int FlowMarker = 15;
+    public static final int Flow = 15;
 
-    public static final int GroupBg = 16;
+    public static final int FlowMarker = 16;
 
-    public static final int GroupBorder = 17;
+    public static final int GroupBg = 17;
 
-    public static final int Count = 18;
+    public static final int GroupBorder = 18;
+
+    public static final int Count = 19;
 }

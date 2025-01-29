@@ -51,5 +51,13 @@ public final class NodeEditorStyleVar {
 
     public static final int GroupBorderWidth = 22;
 
-    public static final int Count = 23;
+    public static final int HighlightConnectedLinks = 23;
+
+    public static final int SnapLinkToPinDir = 24;
+
+    public static final int HoveredNodeBorderOffset = 25;
+
+    public static final int SelectedNodeBorderOffset = 26;
+
+    public static final int Count = 27;
 }

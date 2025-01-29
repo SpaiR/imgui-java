@@ -74,11 +74,14 @@ public final class ImFont extends ImGuiStructDestroyable {
     @BindingField
     public short EllipsisChar;
 
-    /**
-     * Character used for ellipsis rendering (if a single '...' character isn't found)
-     */
     @BindingField
-    public short DotChar;
+    public short EllipsisCharCount;
+
+    @BindingField
+    public float EllipsisWidth;
+
+    @BindingField
+    public float EllipsisCharStep;
 
     @BindingField
     public boolean DirtyLookupTables;

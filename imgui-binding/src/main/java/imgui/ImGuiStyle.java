@@ -67,7 +67,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     public float WindowBorderSize;
 
     /**
-     * Minimum window size. This is a global setting. If you want to constraint individual windows, use SetNextWindowSizeConstraints().
+     * Minimum window size. This is a global setting. If you want to constrain individual windows, use SetNextWindowSizeConstraints().
      */
     @BindingField
     public ImVec2 WindowMinSize;
@@ -139,7 +139,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     public ImVec2 ItemInnerSpacing;
 
     /**
-     * Padding within a table cell.
+     * Padding within a table cell. CellPadding.y may be altered between different rows.
      */
     @BindingField
     public ImVec2 CellPadding;
@@ -206,7 +206,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     public float TabBorderSize;
 
     /**
-     * Minimum width for close button to appears on an unselected tab when hovered.
+     * Minimum width for close button to appear on an unselected tab when hovered.
      * Set to 0.0f to always show when hovering, set to FLT_MAX to never show close button unless selected.
      */
     @BindingField
@@ -232,6 +232,24 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     public ImVec2 SelectableTextAlign;
 
     /**
+     * Thickkness of border in SeparatorText()
+     */
+    @BindingField
+    public float SeparatorTextBorderSize;
+
+    /**
+     * Alignment of text within the separator. Defaults to (0.0f, 0.5f) (left aligned, center).
+     */
+    @BindingField
+    public ImVec2 SeparatorTextAlign;
+
+    /**
+     * Horizontal offset of text from each edge of the separator + spacing on other axis. Generally small values. .y is recommended to be == FramePadding.y.
+     */
+    @BindingField
+    public ImVec2 SeparatorTextPadding;
+
+    /**
      * Window position are clamped to be visible within the display area by at least this amount. Only applies to regular windows.
      */
     @BindingField
@@ -243,6 +261,12 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
      */
     @BindingField
     public ImVec2 DisplaySafeAreaPadding;
+
+    /**
+     * Thickness of resizing border between docked windows
+     */
+    @BindingField
+    public float DockingSeparatorSize;
 
     /**
      * Scale software rendered mouse cursor (when io.MouseDrawCursor is enabled). May be removed later.
@@ -310,6 +334,39 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     public native void setColor(int col, int value); /*
         THIS->Colors[col] = ImColor(value);
     */
+
+    // Behaviors
+    // (It is possible to modify those fields mid-frame if specific behavior need it, unlike e.g. configuration fields in ImGuiIO)
+
+    /**
+     * Delay for IsItemHovered(ImGuiHoveredFlags_Stationary). Time required to consider mouse stationary.
+     */
+    @BindingField
+    public float HoverStationaryDelay;
+
+    /**
+     * Delay for IsItemHovered(ImGuiHoveredFlags_DelayShort). Usually used along with HoverStationaryDelay.
+     */
+    @BindingField
+    public float HoverDelayShort;
+
+    /**
+     * Delay for IsItemHovered(ImGuiHoveredFlags_DelayNormal). "
+     */
+    @BindingField
+    public float HoverDelayNormal;
+
+    /**
+     * Default flags when using IsItemHovered(ImGuiHoveredFlags_ForTooltip) or BeginItemTooltip()/SetItemTooltip() while using mouse.
+     */
+    @BindingField
+    public int HoverFlagsForTooltipMouse;
+
+    /**
+     * Default flags when using IsItemHovered(ImGuiHoveredFlags_ForTooltip) or BeginItemTooltip()/SetItemTooltip() while using keyboard/gamepad.
+     */
+    @BindingField
+    public int HoverFlagsForTooltipNav;
 
     @BindingMethod
     public native void ScaleAllSizes(float scaleFactor);

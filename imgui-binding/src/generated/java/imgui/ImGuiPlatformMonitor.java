@@ -294,6 +294,20 @@ public final class ImGuiPlatformMonitor extends ImGuiStruct {
         THIS->DpiScale = value;
     */
 
+    /**
+     * Backend dependant data (e.g. HMONITOR, GLFWmonitor*, SDL Display Index, NSScreen*)
+     */
+    public native void setPlatformHandle(long platformHandle); /*
+        THIS->PlatformHandle = (void*)platformHandle;
+    */
+
+    /**
+     * Backend dependant data (e.g. HMONITOR, GLFWmonitor*, SDL Display Index, NSScreen*)
+     */
+    public native long getPlatformHandle(); /*
+        return (uintptr_t)THIS->PlatformHandle;
+    */
+
     /*JNI
         #undef THIS
      */

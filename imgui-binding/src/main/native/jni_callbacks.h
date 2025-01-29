@@ -26,5 +26,5 @@ namespace Jni
 
     jfloat CallImPlatformFuncViewportSuppFloat(JNIEnv* env, jobject func, jobject vp);
 
-    void CallImGuiFileDialogPaneFun(JNIEnv* env, jobject func, const char* filter, long user_datas, bool canWeContinue);
+//    void CallImGuiFileDialogPaneFun(JNIEnv* env, jobject func, const char* filter, long user_datas, bool canWeContinue);
 }
