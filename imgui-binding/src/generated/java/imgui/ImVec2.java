@@ -31,9 +31,7 @@ public final class ImVec2 implements Cloneable {
     }
 
     public ImVec2 plus(final float x, final float y) {
-        this.x += x;
-        this.y += y;
-        return this;
+        return new ImVec2(this.x + x, this.y + y);
     }
 
     public ImVec2 plus(final ImVec2 value) {
@@ -41,9 +39,7 @@ public final class ImVec2 implements Cloneable {
     }
 
     public ImVec2 minus(final float x, final float y) {
-        this.x -= x;
-        this.y -= y;
-        return this;
+        return new ImVec2(this.x - x, this.y -y);
     }
 
     public ImVec2 minus(final ImVec2 value) {
@@ -51,13 +47,19 @@ public final class ImVec2 implements Cloneable {
     }
 
     public ImVec2 times(final float x, final float y) {
-        this.x *= x;
-        this.y *= y;
-        return this;
+        return new ImVec2(this.x * x, this.y * y);
     }
 
     public ImVec2 times(final ImVec2 value) {
         return times(value.x, value.y);
+    }
+
+    public ImVec2 div(final float x, final float y) {
+        return new ImVec2(this.x / x, this.y / y);
+    }
+
+    public ImVec2 div(final ImVec2 value) {
+        return div(value.x, value.y);
     }
 
     @Override

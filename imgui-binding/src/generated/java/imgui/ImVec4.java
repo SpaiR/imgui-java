@@ -35,11 +35,7 @@ public final class ImVec4 implements Cloneable {
     }
 
     public ImVec4 plus(final float x, final float y, final float z, final float w) {
-        this.x += x;
-        this.y += y;
-        this.z += z;
-        this.w += w;
-        return this;
+        return new ImVec4(this.x + x, this.y + y, this.z + z, this.w + w);
     }
 
     public ImVec4 plus(final ImVec4 value) {
@@ -47,11 +43,7 @@ public final class ImVec4 implements Cloneable {
     }
 
     public ImVec4 minus(final float x, final float y, final float z, final float w) {
-        this.x -= x;
-        this.y -= y;
-        this.z -= z;
-        this.w -= w;
-        return this;
+        return new ImVec4(this.x - x, this.y - y, this.z - z, this.w - w);
     }
 
     public ImVec4 minus(final ImVec4 value) {
@@ -59,15 +51,19 @@ public final class ImVec4 implements Cloneable {
     }
 
     public ImVec4 times(final float x, final float y, final float z, final float w) {
-        this.x *= x;
-        this.y *= y;
-        this.z *= z;
-        this.w *= w;
-        return this;
+        return new ImVec4(this.x * x, this.y * y, this.z * z, this.w * w);
     }
 
     public ImVec4 times(final ImVec4 value) {
         return times(value.x, value.y, value.z, value.w);
+    }
+
+    public ImVec4 div(final float x, final float y, final float z, final float w) {
+        return new ImVec4(this.x / x, this.y / y, this.z / z, this.w / w);
+    }
+
+    public ImVec4 div(final ImVec4 value) {
+        return div(value.x, value.y, value.z, value.w);
     }
 
     @Override
