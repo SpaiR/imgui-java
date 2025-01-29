@@ -21,8 +21,8 @@ c391d0ae526a3418f89aad1e0e579140eee09c5c  imgui-binding/src/main/java/imgui/ImGu
 236b74d696312b390648f046805a9836a59b869a  imgui-binding/src/main/java/imgui/ImGuiTextFilter.java
 91db9680f397659921bdb1060541d5ea0272904d  imgui-binding/src/main/java/imgui/ImGuiViewport.java
 2adcc213bb0d96ff1a8dec7fb6556d82a076b1e9  imgui-binding/src/main/java/imgui/ImGuiWindowClass.java
-de70c1852d5e89f2ce89af7962ecd5cabe3851e1  imgui-binding/src/main/java/imgui/ImVec2.java
-b236162b77cec3e67400ee402620f1a056470313  imgui-binding/src/main/java/imgui/ImVec4.java
+4c7aaed3004e9b2b001532d11eef6afae9c06ff1  imgui-binding/src/main/java/imgui/ImVec2.java
+9045857e582bc103a47869d7696b3f8ffa9ca32f  imgui-binding/src/main/java/imgui/ImVec4.java
 47a690530a965c51ea580cd7b9760b55836ab4f3  imgui-binding/src/main/java/imgui/assertion/ImAssertCallback.java
 c902069596a551954b31ba7786060f92b460bce1  imgui-binding/src/main/java/imgui/binding/ImGuiStruct.java
 171b6e4e7eeb969c07b86f2ed532955d05705139  imgui-binding/src/main/java/imgui/binding/ImGuiStructDestroyable.java
@@ -228,8 +228,8 @@ bb4adf76978bf9f5519991e2e0ef5c34a2a907f7  imgui-binding/src/generated/java/imgui
 bac9d3739698357020bd0d06f21bed67b57f9d19  imgui-binding/src/generated/java/imgui/ImGuiTextFilter.java
 e5ebb79661d82ce3d3640ac0efcf7e9645cb5eff  imgui-binding/src/generated/java/imgui/ImGuiViewport.java
 bdb1c07b374e5bc84328b28cf82c3823ef61fe17  imgui-binding/src/generated/java/imgui/ImGuiWindowClass.java
-de70c1852d5e89f2ce89af7962ecd5cabe3851e1  imgui-binding/src/generated/java/imgui/ImVec2.java
-b236162b77cec3e67400ee402620f1a056470313  imgui-binding/src/generated/java/imgui/ImVec4.java
+4c7aaed3004e9b2b001532d11eef6afae9c06ff1  imgui-binding/src/generated/java/imgui/ImVec2.java
+9045857e582bc103a47869d7696b3f8ffa9ca32f  imgui-binding/src/generated/java/imgui/ImVec4.java
 47a690530a965c51ea580cd7b9760b55836ab4f3  imgui-binding/src/generated/java/imgui/assertion/ImAssertCallback.java
 c902069596a551954b31ba7786060f92b460bce1  imgui-binding/src/generated/java/imgui/binding/ImGuiStruct.java
 171b6e4e7eeb969c07b86f2ed532955d05705139  imgui-binding/src/generated/java/imgui/binding/ImGuiStructDestroyable.java
