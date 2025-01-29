@@ -12242,11 +12242,11 @@ public class ImGui {
     /**
      * Get ID of last item (~~ often same ImGui::GetID(label) beforehand)
      */
-    public static long getItemID() {
+    public static int getItemID() {
         return nGetItemID();
     }
 
-    private static native long nGetItemID(); /*
+    private static native int nGetItemID(); /*
         return ImGui::GetItemID();
     */
 

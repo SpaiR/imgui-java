@@ -2557,7 +2557,7 @@ public class ImGui {
      * Get ID of last item (~~ often same ImGui::GetID(label) beforehand)
      */
     @BindingMethod
-    public static native long GetItemID();
+    public static native int GetItemID();
 
     /**
      * Get upper-left bounding rectangle of the last item (screen space)

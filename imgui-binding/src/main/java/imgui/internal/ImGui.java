@@ -90,10 +90,10 @@ public final class ImGui extends imgui.ImGui {
     // Windows: Display Order and Focus Order
 
     @BindingMethod
-    public static native void FocusWindow(ImGuiWindow window);
+    public static native void FocusWindow(ImGuiWindow window, @OptArg @ArgValue(staticCast = "ImGuiFocusRequestFlags") int flags);
 
     @BindingMethod
-    public static native void FocusTopMostWindowUnderOne(ImGuiWindow underThisWindow, ImGuiWindow ignoreWindow);
+    public static native void FocusTopMostWindowUnderOne(ImGuiWindow underThisWindow, ImGuiWindow ignoreWindow, ImGuiViewport filterViewport, @ArgValue(staticCast = "ImGuiFocusRequestFlags") int flags);
 
     @BindingMethod
     public static native void BringWindowToFocusFront(ImGuiWindow window);
@@ -241,7 +241,10 @@ public final class ImGui extends imgui.ImGui {
     // TODO: ItemAdd
 
     @BindingMethod
-    public static native boolean ItemHoverable(ImRect bb, int id);
+    public static native boolean ItemHoverable(ImRect bb, int id, @ArgValue(staticCast = "ImGuiItemFlags") int itemFlags);
+
+    @BindingMethod
+    public static native boolean IsWindowContentHoverable(ImGuiWindow window, @ArgValue(staticCast = "ImGuiHoveredFlags") int flags);
 
     @BindingMethod
     public static native boolean IsClippedEx(ImRect bb, int id);
@@ -335,25 +338,43 @@ public final class ImGui extends imgui.ImGui {
     // Widgets
 
     @BindingMethod
-    public static native void TextEx(String beginText, @OptArg String endText, @OptArg @ArgValue(staticCast = "ImGuiTextFlags_") int imGuiTextFlags);
+    public static native void TextEx(String beginText, @OptArg String endText, @OptArg @ArgValue(staticCast = "ImGuiTextFlags") int flags);
 
     @BindingMethod
-    public static native boolean ButtonEx(String label, @OptArg(callValue = "ImVec2(0,0)") ImVec2 size, @OptArg @ArgValue(staticCast = "ImGuiButtonFlags") int imGuiButtonFlags);
+    public static native boolean ButtonEx(String label, @OptArg(callValue = "ImVec2(0,0)") ImVec2 size, @OptArg @ArgValue(staticCast = "ImGuiButtonFlags") int flags);
+
+    @BindingMethod
+    public static native boolean ArrowButtonEx(String strId,
+                                               @ArgValue(staticCast = "ImGuiDir") int dir,
+                                               ImVec2 size,
+                                               @OptArg @ArgValue(staticCast = "ImGuiButtonFlags") int flags);
+
+    @BindingMethod
+    public static native boolean ImageButtonEx(@ArgValue(callPrefix = "(ImGuiID)") int id,
+                                               @ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long textureId,
+                                               ImVec2 size,
+                                               ImVec2 uv0,
+                                               ImVec2 uv1,
+                                               ImVec4 bgCol,
+                                               ImVec4 tintCol,
+                                               @ArgValue(staticCast = "ImGuiButtonFlags") int flags);
+
+    @BindingMethod
+    public static native void SeparatorEx(@ArgValue(staticCast = "ImGuiSeparatorFlags") int flags, @OptArg float thickness);
+
+    @BindingMethod
+    public static native void SeparatorTextEx(@ArgValue(callPrefix = "(ImGuiID)") int id, String label, String labelEnd, float extraWidth);
+
+    // Widgets: Window Decorations
 
     @BindingMethod
     public static native boolean CloseButton(@ArgValue(callPrefix = "(ImGuiID)") int id, ImVec2 pos);
 
     @BindingMethod
-    public static native boolean ArrowButtonEx(String strId, @ArgValue(staticCast = "ImGuiDir") int imGuiDir, ImVec2 size, @OptArg @ArgValue(staticCast = "ImGuiButtonFlags") int imGuiButtonFlags);
+    public static native boolean CollapseButton(@ArgValue(callPrefix = "(ImGuiID)") int id, ImVec2 pos, ImGuiDockNode dockNode);
 
     @BindingMethod
     public static native void Scrollbar(@ArgValue(staticCast = "ImGuiAxis") int axis);
-
-    @BindingMethod
-    public static native boolean ImageButtonEx(@ArgValue(callPrefix = "(ImGuiID)") int id, @ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 size, ImVec2 uv0, ImVec2 uv1, ImVec2 padding, ImVec4 bgCol, ImVec4 tintCol);
-
-    @BindingMethod
-    public static native void SeparatorEx(@ArgValue(staticCast = "ImGuiSeparatorFlags_") int imGuiSeparatorFlags);
 
     @BindingMethod
     public static native ImRect GetWindowScrollbarRect(ImGuiWindow imGuiWindow, @ArgValue(staticCast = "ImGuiAxis") int axis);
