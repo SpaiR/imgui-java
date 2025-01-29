@@ -73,8 +73,8 @@ public class ExampleImGuiNodeEditor {
                         source.outputNodeId = target.nodeId;
                     }
                 }
+                NodeEditor.endCreate();
             }
-            NodeEditor.endCreate();
 
             int uniqueLinkId = 1;
             for (Graph.GraphNode node : graph.nodes.values()) {

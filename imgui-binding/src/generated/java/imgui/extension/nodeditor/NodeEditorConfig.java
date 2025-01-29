@@ -35,6 +35,22 @@ public final class NodeEditorConfig extends ImGuiStructDestroyable {
         if (value != NULL) env->ReleaseStringUTFChars(obj_value, value);
     */
 
+    public int getCanvasSizeMode() {
+        return nGetCanvasSizeMode();
+    }
+
+    public void setCanvasSizeMode(final int value) {
+        nSetCanvasSizeMode(value);
+    }
+
+    public native int nGetCanvasSizeMode(); /*
+        return static_cast<int>(THIS->CanvasSizeMode);
+    */
+
+    public native void nSetCanvasSizeMode(int value); /*
+        THIS->CanvasSizeMode = static_cast<ax::NodeEditor::CanvasSizeMode>(value);
+    */
+
     public int getDragButtonIndex() {
         return nGetDragButtonIndex();
     }
@@ -97,6 +113,38 @@ public final class NodeEditorConfig extends ImGuiStructDestroyable {
 
     private native void nSetContextMenuButtonIndex(int value); /*
         THIS->ContextMenuButtonIndex = value;
+    */
+
+    public boolean getEnableSmoothZoom() {
+        return nGetEnableSmoothZoom();
+    }
+
+    public void setEnableSmoothZoom(final boolean value) {
+        nSetEnableSmoothZoom(value);
+    }
+
+    private native boolean nGetEnableSmoothZoom(); /*
+        return THIS->EnableSmoothZoom;
+    */
+
+    private native void nSetEnableSmoothZoom(boolean value); /*
+        THIS->EnableSmoothZoom = value;
+    */
+
+    public float getSmoothZoomPower() {
+        return nGetSmoothZoomPower();
+    }
+
+    public void setSmoothZoomPower(final float value) {
+        nSetSmoothZoomPower(value);
+    }
+
+    private native float nGetSmoothZoomPower(); /*
+        return THIS->SmoothZoomPower;
+    */
+
+    private native void nSetSmoothZoomPower(float value); /*
+        THIS->SmoothZoomPower = value;
     */
 
     /*JNI

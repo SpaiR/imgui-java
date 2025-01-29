@@ -31,7 +31,13 @@ public final class NodeEditorStyle extends ImGuiStruct {
     public float HoveredNodeBorderWidth;
 
     @BindingField
+    public float HoverNodeBorderOffset;
+
+    @BindingField
     public float SelectedNodeBorderWidth;
+
+    @BindingField
+    public float SelectedNodeBorderOffset;
 
     @BindingField
     public float PinRounding;
@@ -86,6 +92,12 @@ public final class NodeEditorStyle extends ImGuiStruct {
 
     @BindingField
     public float GroupBorderWidth;
+
+    @BindingField
+    public float HighlightConnectedLinks;
+
+    @BindingField
+    public float SnapLinkToPinDir;
 
     @BindingField
     @TypeArray(type = "ImVec4", size = "ax::NodeEditor::StyleColor_Count")

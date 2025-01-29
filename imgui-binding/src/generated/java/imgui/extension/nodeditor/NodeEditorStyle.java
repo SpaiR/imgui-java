@@ -121,6 +121,22 @@ public final class NodeEditorStyle extends ImGuiStruct {
         THIS->HoveredNodeBorderWidth = value;
     */
 
+    public float getHoverNodeBorderOffset() {
+        return nGetHoverNodeBorderOffset();
+    }
+
+    public void setHoverNodeBorderOffset(final float value) {
+        nSetHoverNodeBorderOffset(value);
+    }
+
+    private native float nGetHoverNodeBorderOffset(); /*
+        return THIS->HoverNodeBorderOffset;
+    */
+
+    private native void nSetHoverNodeBorderOffset(float value); /*
+        THIS->HoverNodeBorderOffset = value;
+    */
+
     public float getSelectedNodeBorderWidth() {
         return nGetSelectedNodeBorderWidth();
     }
@@ -135,6 +151,22 @@ public final class NodeEditorStyle extends ImGuiStruct {
 
     private native void nSetSelectedNodeBorderWidth(float value); /*
         THIS->SelectedNodeBorderWidth = value;
+    */
+
+    public float getSelectedNodeBorderOffset() {
+        return nGetSelectedNodeBorderOffset();
+    }
+
+    public void setSelectedNodeBorderOffset(final float value) {
+        nSetSelectedNodeBorderOffset(value);
+    }
+
+    private native float nGetSelectedNodeBorderOffset(); /*
+        return THIS->SelectedNodeBorderOffset;
+    */
+
+    private native void nSetSelectedNodeBorderOffset(float value); /*
+        THIS->SelectedNodeBorderOffset = value;
     */
 
     public float getPinRounding() {
@@ -558,6 +590,38 @@ public final class NodeEditorStyle extends ImGuiStruct {
 
     private native void nSetGroupBorderWidth(float value); /*
         THIS->GroupBorderWidth = value;
+    */
+
+    public float getHighlightConnectedLinks() {
+        return nGetHighlightConnectedLinks();
+    }
+
+    public void setHighlightConnectedLinks(final float value) {
+        nSetHighlightConnectedLinks(value);
+    }
+
+    private native float nGetHighlightConnectedLinks(); /*
+        return THIS->HighlightConnectedLinks;
+    */
+
+    private native void nSetHighlightConnectedLinks(float value); /*
+        THIS->HighlightConnectedLinks = value;
+    */
+
+    public float getSnapLinkToPinDir() {
+        return nGetSnapLinkToPinDir();
+    }
+
+    public void setSnapLinkToPinDir(final float value) {
+        nSetSnapLinkToPinDir(value);
+    }
+
+    private native float nGetSnapLinkToPinDir(); /*
+        return THIS->SnapLinkToPinDir;
+    */
+
+    private native void nSetSnapLinkToPinDir(float value); /*
+        THIS->SnapLinkToPinDir = value;
     */
 
     public ImVec4[] getColors() {

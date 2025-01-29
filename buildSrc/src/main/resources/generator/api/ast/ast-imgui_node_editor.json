@@ -1,9 +1,9 @@
 {
   "info" : {
     "source" : "include/imgui-node-editor/imgui_node_editor.h",
-    "hash" : "0f066843f1362eeb6d7ee7b7f4fad24f",
+    "hash" : "22122655801cd34b78703e44a74d5ee9",
     "url" : "https://github.com/thedmd/imgui-node-editor",
-    "revision" : "d79ebdeb2375fa6c1f88a40e52e7d08c8d472b62"
+    "revision" : "b302971455b3719ec9b5fb94b2f92d27c62b9ff0"
   },
   "decls" : [ {
     "@type" : "AstNamespaceDecl",
@@ -32,6 +32,72 @@
               "text" : "------------------------------------------------------------------------------"
             } ]
           } ]
+        } ]
+      }, {
+        "@type" : "AstEnumDecl",
+        "name" : "PinKind",
+        "decls" : [ {
+          "@type" : "AstFullComment",
+          "decls" : [ {
+            "@type" : "AstParagraphComment",
+            "decls" : [ {
+              "@type" : "AstTextComment",
+              "text" : "------------------------------------------------------------------------------"
+            } ]
+          } ]
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "name" : "Input",
+          "qualType" : "ax::NodeEditor::PinKind",
+          "order" : 0,
+          "evaluatedValue" : 0
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "name" : "Output",
+          "qualType" : "ax::NodeEditor::PinKind",
+          "order" : 1,
+          "evaluatedValue" : 1
+        } ]
+      }, {
+        "@type" : "AstEnumDecl",
+        "name" : "FlowDirection",
+        "decls" : [ {
+          "@type" : "AstEnumConstantDecl",
+          "name" : "Forward",
+          "qualType" : "ax::NodeEditor::FlowDirection",
+          "order" : 0,
+          "evaluatedValue" : 0
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "name" : "Backward",
+          "qualType" : "ax::NodeEditor::FlowDirection",
+          "order" : 1,
+          "evaluatedValue" : 1
+        } ]
+      }, {
+        "@type" : "AstEnumDecl",
+        "name" : "CanvasSizeMode",
+        "decls" : [ {
+          "@type" : "AstEnumConstantDecl",
+          "name" : "FitVerticalView",
+          "docComment" : "Previous view will be scaled to fit new view on Y axis",
+          "qualType" : "ax::NodeEditor::CanvasSizeMode",
+          "order" : 0,
+          "evaluatedValue" : 0
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "name" : "FitHorizontalView",
+          "docComment" : "Previous view will be scaled to fit new view on X axis",
+          "qualType" : "ax::NodeEditor::CanvasSizeMode",
+          "order" : 1,
+          "evaluatedValue" : 1
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "name" : "CenterOnly",
+          "docComment" : "Previous view will be centered on new view",
+          "qualType" : "ax::NodeEditor::CanvasSizeMode",
+          "order" : 2,
+          "evaluatedValue" : 2
         } ]
       }, {
         "@type" : "AstEnumDecl",
@@ -82,11 +148,25 @@
           "evaluatedValue" : 8
         }, {
           "@type" : "AstEnumConstantDecl",
-          "name" : "User",
+          "name" : "AddNode",
           "qualType" : "ax::NodeEditor::SaveReasonFlags",
           "order" : 5,
           "value" : "0x00000010",
           "evaluatedValue" : 16
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "name" : "RemoveNode",
+          "qualType" : "ax::NodeEditor::SaveReasonFlags",
+          "order" : 6,
+          "value" : "0x00000020",
+          "evaluatedValue" : 32
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "name" : "User",
+          "qualType" : "ax::NodeEditor::SaveReasonFlags",
+          "order" : 7,
+          "value" : "0x00000040",
+          "evaluatedValue" : 64
         } ]
       }, {
         "@type" : "AstRecordDecl",
@@ -133,6 +213,16 @@
           "desugaredQualType" : "void *"
         }, {
           "@type" : "AstFieldDecl",
+          "name" : "CustomZoomLevels",
+          "qualType" : "int",
+          "desugaredQualType" : "int"
+        }, {
+          "@type" : "AstFieldDecl",
+          "name" : "CanvasSizeMode",
+          "qualType" : "CanvasSizeModeAlias",
+          "desugaredQualType" : "ax::NodeEditor::CanvasSizeMode"
+        }, {
+          "@type" : "AstFieldDecl",
           "name" : "DragButtonIndex",
           "qualType" : "int",
           "desugaredQualType" : "int"
@@ -151,47 +241,16 @@
           "name" : "ContextMenuButtonIndex",
           "qualType" : "int",
           "desugaredQualType" : "int"
-        } ]
-      }, {
-        "@type" : "AstEnumDecl",
-        "name" : "PinKind",
-        "decls" : [ {
-          "@type" : "AstFullComment",
-          "decls" : [ {
-            "@type" : "AstParagraphComment",
-            "decls" : [ {
-              "@type" : "AstTextComment",
-              "text" : "------------------------------------------------------------------------------"
-            } ]
-          } ]
         }, {
-          "@type" : "AstEnumConstantDecl",
-          "name" : "Input",
-          "qualType" : "ax::NodeEditor::PinKind",
-          "order" : 0,
-          "evaluatedValue" : 0
+          "@type" : "AstFieldDecl",
+          "name" : "EnableSmoothZoom",
+          "qualType" : "bool",
+          "desugaredQualType" : "bool"
         }, {
-          "@type" : "AstEnumConstantDecl",
-          "name" : "Output",
-          "qualType" : "ax::NodeEditor::PinKind",
-          "order" : 1,
-          "evaluatedValue" : 1
-        } ]
-      }, {
-        "@type" : "AstEnumDecl",
-        "name" : "FlowDirection",
-        "decls" : [ {
-          "@type" : "AstEnumConstantDecl",
-          "name" : "Forward",
-          "qualType" : "ax::NodeEditor::FlowDirection",
-          "order" : 0,
-          "evaluatedValue" : 0
-        }, {
-          "@type" : "AstEnumConstantDecl",
-          "name" : "Backward",
-          "qualType" : "ax::NodeEditor::FlowDirection",
-          "order" : 1,
-          "evaluatedValue" : 1
+          "@type" : "AstFieldDecl",
+          "name" : "SmoothZoomPower",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
         } ]
       }, {
         "@type" : "AstEnumDecl",
@@ -267,58 +326,64 @@
           "evaluatedValue" : 9
         }, {
           "@type" : "AstEnumConstantDecl",
-          "name" : "StyleColor_LinkSelRect",
+          "name" : "StyleColor_HighlightLinkBorder",
           "qualType" : "ax::NodeEditor::StyleColor",
           "order" : 10,
           "evaluatedValue" : 10
         }, {
           "@type" : "AstEnumConstantDecl",
-          "name" : "StyleColor_LinkSelRectBorder",
+          "name" : "StyleColor_LinkSelRect",
           "qualType" : "ax::NodeEditor::StyleColor",
           "order" : 11,
           "evaluatedValue" : 11
         }, {
           "@type" : "AstEnumConstantDecl",
-          "name" : "StyleColor_PinRect",
+          "name" : "StyleColor_LinkSelRectBorder",
           "qualType" : "ax::NodeEditor::StyleColor",
           "order" : 12,
           "evaluatedValue" : 12
         }, {
           "@type" : "AstEnumConstantDecl",
-          "name" : "StyleColor_PinRectBorder",
+          "name" : "StyleColor_PinRect",
           "qualType" : "ax::NodeEditor::StyleColor",
           "order" : 13,
           "evaluatedValue" : 13
         }, {
           "@type" : "AstEnumConstantDecl",
-          "name" : "StyleColor_Flow",
+          "name" : "StyleColor_PinRectBorder",
           "qualType" : "ax::NodeEditor::StyleColor",
           "order" : 14,
           "evaluatedValue" : 14
         }, {
           "@type" : "AstEnumConstantDecl",
-          "name" : "StyleColor_FlowMarker",
+          "name" : "StyleColor_Flow",
           "qualType" : "ax::NodeEditor::StyleColor",
           "order" : 15,
           "evaluatedValue" : 15
         }, {
           "@type" : "AstEnumConstantDecl",
-          "name" : "StyleColor_GroupBg",
+          "name" : "StyleColor_FlowMarker",
           "qualType" : "ax::NodeEditor::StyleColor",
           "order" : 16,
           "evaluatedValue" : 16
         }, {
           "@type" : "AstEnumConstantDecl",
-          "name" : "StyleColor_GroupBorder",
+          "name" : "StyleColor_GroupBg",
           "qualType" : "ax::NodeEditor::StyleColor",
           "order" : 17,
           "evaluatedValue" : 17
         }, {
           "@type" : "AstEnumConstantDecl",
-          "name" : "StyleColor_Count",
+          "name" : "StyleColor_GroupBorder",
           "qualType" : "ax::NodeEditor::StyleColor",
           "order" : 18,
           "evaluatedValue" : 18
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "name" : "StyleColor_Count",
+          "qualType" : "ax::NodeEditor::StyleColor",
+          "order" : 19,
+          "evaluatedValue" : 19
         } ]
       }, {
         "@type" : "AstEnumDecl",
@@ -463,10 +528,34 @@
           "evaluatedValue" : 22
         }, {
           "@type" : "AstEnumConstantDecl",
-          "name" : "StyleVar_Count",
+          "name" : "StyleVar_HighlightConnectedLinks",
           "qualType" : "ax::NodeEditor::StyleVar",
           "order" : 23,
           "evaluatedValue" : 23
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "name" : "StyleVar_SnapLinkToPinDir",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 24,
+          "evaluatedValue" : 24
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "name" : "StyleVar_HoveredNodeBorderOffset",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 25,
+          "evaluatedValue" : 25
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "name" : "StyleVar_SelectedNodeBorderOffset",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 26,
+          "evaluatedValue" : 26
+        }, {
+          "@type" : "AstEnumConstantDecl",
+          "name" : "StyleVar_Count",
+          "qualType" : "ax::NodeEditor::StyleVar",
+          "order" : 27,
+          "evaluatedValue" : 27
         } ]
       }, {
         "@type" : "AstRecordDecl",
@@ -493,7 +582,17 @@
           "desugaredQualType" : "float"
         }, {
           "@type" : "AstFieldDecl",
+          "name" : "HoverNodeBorderOffset",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
           "name" : "SelectedNodeBorderWidth",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "name" : "SelectedNodeBorderOffset",
           "qualType" : "float",
           "desugaredQualType" : "float"
         }, {
@@ -588,9 +687,19 @@
           "desugaredQualType" : "float"
         }, {
           "@type" : "AstFieldDecl",
+          "name" : "HighlightConnectedLinks",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
+          "name" : "SnapLinkToPinDir",
+          "qualType" : "float",
+          "desugaredQualType" : "float"
+        }, {
+          "@type" : "AstFieldDecl",
           "name" : "Colors",
-          "qualType" : "int[18]",
-          "desugaredQualType" : "int[18]"
+          "qualType" : "int[19]",
+          "desugaredQualType" : "int[19]"
         } ]
       }, {
         "@type" : "AstRecordDecl",
@@ -648,6 +757,17 @@
           "name" : "ctx",
           "qualType" : "EditorContext *",
           "desugaredQualType" : "EditorContext *"
+        } ]
+      }, {
+        "@type" : "AstFunctionDecl",
+        "name" : "GetConfig",
+        "resultType" : "const Config &",
+        "decls" : [ {
+          "@type" : "AstParmVarDecl",
+          "name" : "ctx",
+          "qualType" : "EditorContext *",
+          "desugaredQualType" : "EditorContext *",
+          "defaultValue" : "nullptr"
         } ]
       }, {
         "@type" : "AstFunctionDecl",
@@ -1612,6 +1732,14 @@
         "@type" : "AstFunctionDecl",
         "name" : "IsBackgroundDoubleClicked",
         "resultType" : "bool"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "name" : "GetBackgroundClickButtonIndex",
+        "resultType" : "int"
+      }, {
+        "@type" : "AstFunctionDecl",
+        "name" : "GetBackgroundDoubleClickButtonIndex",
+        "resultType" : "int"
       }, {
         "@type" : "AstFunctionDecl",
         "name" : "GetLinkPins",
