@@ -1726,7 +1726,7 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     @Deprecated
-    private native int nSetKeyMap(int idx, int value); /*
+    private native void nSetKeyMap(int idx, int value); /*
         THIS->KeyMap[idx] = value;
     */
 
@@ -1788,7 +1788,7 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     @Deprecated
-    private native boolean nSetKeysDown(int idx, boolean value); /*
+    private native void nSetKeysDown(int idx, boolean value); /*
         THIS->KeysDown[idx] = value;
     */
 
@@ -1838,7 +1838,7 @@ public final class ImGuiIO extends ImGuiStruct {
             THIS->NavInputs[i] = value[i];
     */
 
-    private native float nSetNavInputs(int idx, float value); /*
+    private native void nSetNavInputs(int idx, float value); /*
         THIS->NavInputs[idx] = value;
     */
 
@@ -1982,7 +1982,7 @@ public final class ImGuiIO extends ImGuiStruct {
             THIS->MouseDown[i] = value[i];
     */
 
-    private native boolean nSetMouseDown(int idx, boolean value); /*
+    private native void nSetMouseDown(int idx, boolean value); /*
         THIS->MouseDown[idx] = value;
     */
 
@@ -2341,7 +2341,7 @@ public final class ImGuiIO extends ImGuiStruct {
             THIS->MouseClickedTime[i] = value[i];
     */
 
-    private native double nSetMouseClickedTime(int idx, double value); /*
+    private native void nSetMouseClickedTime(int idx, double value); /*
         THIS->MouseClickedTime[idx] = value;
     */
 
@@ -2391,7 +2391,7 @@ public final class ImGuiIO extends ImGuiStruct {
             THIS->MouseClicked[i] = value[i];
     */
 
-    private native boolean nSetMouseClicked(int idx, boolean value); /*
+    private native void nSetMouseClicked(int idx, boolean value); /*
         THIS->MouseClicked[idx] = value;
     */
 
@@ -2441,7 +2441,7 @@ public final class ImGuiIO extends ImGuiStruct {
             THIS->MouseDoubleClicked[i] = value[i];
     */
 
-    private native boolean nSetMouseDoubleClicked(int idx, boolean value); /*
+    private native void nSetMouseDoubleClicked(int idx, boolean value); /*
         THIS->MouseDoubleClicked[idx] = value;
     */
 
@@ -2491,7 +2491,7 @@ public final class ImGuiIO extends ImGuiStruct {
             THIS->MouseClickedCount[i] = value[i];
     */
 
-    private native int nSetMouseClickedCount(int idx, int value); /*
+    private native void nSetMouseClickedCount(int idx, int value); /*
         THIS->MouseClickedCount[idx] = value;
     */
 
@@ -2541,7 +2541,7 @@ public final class ImGuiIO extends ImGuiStruct {
             THIS->MouseClickedLastCount[i] = value[i];
     */
 
-    private native int nSetMouseClickedLastCount(int idx, int value); /*
+    private native void nSetMouseClickedLastCount(int idx, int value); /*
         THIS->MouseClickedLastCount[idx] = value;
     */
 
@@ -2591,7 +2591,7 @@ public final class ImGuiIO extends ImGuiStruct {
             THIS->MouseReleased[i] = value[i];
     */
 
-    private native boolean nSetMouseReleased(int idx, boolean value); /*
+    private native void nSetMouseReleased(int idx, boolean value); /*
         THIS->MouseReleased[idx] = value;
     */
 
@@ -2641,7 +2641,7 @@ public final class ImGuiIO extends ImGuiStruct {
             THIS->MouseDownOwned[i] = value[i];
     */
 
-    private native boolean nSetMouseDownOwned(int idx, boolean value); /*
+    private native void nSetMouseDownOwned(int idx, boolean value); /*
         THIS->MouseDownOwned[idx] = value;
     */
 
@@ -2691,7 +2691,7 @@ public final class ImGuiIO extends ImGuiStruct {
             THIS->MouseDownOwnedUnlessPopupClose[i] = value[i];
     */
 
-    private native boolean nSetMouseDownOwnedUnlessPopupClose(int idx, boolean value); /*
+    private native void nSetMouseDownOwnedUnlessPopupClose(int idx, boolean value); /*
         THIS->MouseDownOwnedUnlessPopupClose[idx] = value;
     */
 
@@ -2765,7 +2765,7 @@ public final class ImGuiIO extends ImGuiStruct {
             THIS->MouseDownDuration[i] = value[i];
     */
 
-    private native float nSetMouseDownDuration(int idx, float value); /*
+    private native void nSetMouseDownDuration(int idx, float value); /*
         THIS->MouseDownDuration[idx] = value;
     */
 
@@ -2815,7 +2815,7 @@ public final class ImGuiIO extends ImGuiStruct {
             THIS->MouseDownDurationPrev[i] = value[i];
     */
 
-    private native float nSetMouseDownDurationPrev(int idx, float value); /*
+    private native void nSetMouseDownDurationPrev(int idx, float value); /*
         THIS->MouseDownDurationPrev[idx] = value;
     */
 
@@ -2887,7 +2887,7 @@ public final class ImGuiIO extends ImGuiStruct {
             THIS->MouseDragMaxDistanceSqr[i] = value[i];
     */
 
-    private native float nSetMouseDragMaxDistanceSqr(int idx, float value); /*
+    private native void nSetMouseDragMaxDistanceSqr(int idx, float value); /*
         THIS->MouseDragMaxDistanceSqr[idx] = value;
     */
 

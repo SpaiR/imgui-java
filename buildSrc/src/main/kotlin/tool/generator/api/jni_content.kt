@@ -657,7 +657,6 @@ private fun createFieldSetContent(field: CtField<*>): List<String> {
                     setType<Nothing>(f.createTypeParam(arrayType))
                     setSimpleName<Nothing>("value")
                 })
-                setArrayIdx.setType<Nothing>(f.createTypeParam(arrayType))
                 setArrayIdx.setBody<Nothing>(f.createCodeSnippet("$PTR_JNI_THIS->${field.getCallName()}[idx] = value"))
 
                 result += setArrayIdx.prettyprint(false)

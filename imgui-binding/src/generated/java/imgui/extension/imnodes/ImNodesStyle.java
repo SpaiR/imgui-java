@@ -484,7 +484,7 @@ public final class ImNodesStyle extends ImGuiStruct {
             THIS->Colors[i] = value[i];
     */
 
-    private native int nSetColors(int idx, int value); /*
+    private native void nSetColors(int idx, int value); /*
         THIS->Colors[idx] = value;
     */
 
