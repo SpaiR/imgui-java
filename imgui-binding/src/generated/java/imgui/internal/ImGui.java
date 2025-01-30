@@ -1116,6 +1116,86 @@ public final class ImGui extends imgui.ImGui {
         ImGui::DockBuilderFinish(nodeId);
     */
 
+    // Tables: Candidates for public API
+
+    public static void tableOpenContextMenu() {
+        nTableOpenContextMenu();
+    }
+
+    public static void tableOpenContextMenu(final int columnN) {
+        nTableOpenContextMenu(columnN);
+    }
+
+    private static native void nTableOpenContextMenu(); /*
+        ImGui::TableOpenContextMenu();
+    */
+
+    private static native void nTableOpenContextMenu(int columnN); /*
+        ImGui::TableOpenContextMenu(columnN);
+    */
+
+    public static void tableSetColumnWidth(final int columnN, final float width) {
+        nTableSetColumnWidth(columnN, width);
+    }
+
+    private static native void nTableSetColumnWidth(int columnN, float width); /*
+        ImGui::TableSetColumnWidth(columnN, width);
+    */
+
+    public static void tableSetColumnSortDirection(final int columnN, final int sortDirection, final boolean appendToSortSpecs) {
+        nTableSetColumnSortDirection(columnN, sortDirection, appendToSortSpecs);
+    }
+
+    private static native void nTableSetColumnSortDirection(int columnN, int sortDirection, boolean appendToSortSpecs); /*
+        ImGui::TableSetColumnSortDirection(columnN, static_cast<ImGuiSortDirection>(sortDirection), appendToSortSpecs);
+    */
+
+    /**
+     * May use {@code (TableGetColumnFlags() & ImGuiTableColumnFlags_IsHovered)} instead. Return hovered column.
+     * Return -1 when table is not hovered. return columns_count if the unused space at the right of visible columns is hovered.
+     */
+    public static int tableGetHoveredColumn() {
+        return nTableGetHoveredColumn();
+    }
+
+    private static native int nTableGetHoveredColumn(); /*
+        return ImGui::TableGetHoveredColumn();
+    */
+
+    /**
+     * Retrieve *PREVIOUS FRAME* hovered row. This difference with TableGetHoveredColumn() is the reason why this is not public yet.
+     */
+    public static int tableGetHoveredRow() {
+        return nTableGetHoveredRow();
+    }
+
+    private static native int nTableGetHoveredRow(); /*
+        return ImGui::TableGetHoveredRow();
+    */
+
+    public static float tableGetHeaderRowHeight() {
+        return nTableGetHeaderRowHeight();
+    }
+
+    private static native float nTableGetHeaderRowHeight(); /*
+        return ImGui::TableGetHeaderRowHeight();
+    */
+
+    public static void tablePushBackgroundChannel() {
+        nTablePushBackgroundChannel();
+    }
+
+    private static native void nTablePushBackgroundChannel(); /*
+        ImGui::TablePushBackgroundChannel();
+    */
+
+    public static void tablePopBackgroundChannel() {
+        nTablePopBackgroundChannel();
+    }
+
+    private static native void nTablePopBackgroundChannel(); /*
+        ImGui::TablePopBackgroundChannel();
+    */
 
     // Widgets
 

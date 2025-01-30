@@ -334,6 +334,38 @@ public final class ImGui extends imgui.ImGui {
     @BindingMethod
     public static native void DockBuilderFinish(int nodeId);
 
+    // Tables: Candidates for public API
+
+    @BindingMethod
+    public static native void TableOpenContextMenu(@OptArg int columnN);
+
+    @BindingMethod
+    public static native void TableSetColumnWidth(int columnN, float width);
+
+    @BindingMethod
+    public static native void TableSetColumnSortDirection(int columnN, @ArgValue(staticCast = "ImGuiSortDirection") int sortDirection, boolean appendToSortSpecs);
+
+    /**
+     * May use {@code (TableGetColumnFlags() & ImGuiTableColumnFlags_IsHovered)} instead. Return hovered column.
+     * Return -1 when table is not hovered. return columns_count if the unused space at the right of visible columns is hovered.
+     */
+    @BindingMethod
+    public static native int TableGetHoveredColumn();
+
+    /**
+     * Retrieve *PREVIOUS FRAME* hovered row. This difference with TableGetHoveredColumn() is the reason why this is not public yet.
+     */
+    @BindingMethod
+    public static native int TableGetHoveredRow();
+
+    @BindingMethod
+    public static native float TableGetHeaderRowHeight();
+
+    @BindingMethod
+    public static native void TablePushBackgroundChannel();
+
+    @BindingMethod
+    public static native void TablePopBackgroundChannel();
 
     // Widgets
 
