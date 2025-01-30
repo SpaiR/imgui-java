@@ -214,11 +214,9 @@ public final class ImGuiListClipper extends ImGuiStructDestroyable {
      * @param itemsCount Use -1 to ignore (you can call Begin later).
      *                   Use INT_MAX if you don't know how many items you have (in which case the cursor won't be advanced in the final step).
      * @param callback   action to do in iterations
-     * @deprecated Use approach from the native example or {@link #forEach(Consumer)} method.
      */
-    @Deprecated
     public static void forEach(final int itemsCount, final ImListClipperCallback callback) {
-        forEach(itemsCount, -1, callback);
+        nForEach(itemsCount, -1, callback);
     }
 
     /**
@@ -227,10 +225,12 @@ public final class ImGuiListClipper extends ImGuiStructDestroyable {
      * @param itemsHeight Use -1.0f to be calculated automatically on first step.
      *                    Otherwise, pass in the distance between your items, typically GetTextLineHeightWithSpacing() or GetFrameHeightWithSpacing().
      * @param callback    action to do in iterations
-     * @deprecated Use approach from the native example or {@link #forEach(Consumer)} method.
      */
-    @Deprecated
-    public static native void forEach(int itemsCount, int itemsHeight, ImListClipperCallback callback); /*
+    public static void forEach(final int itemsCount, final int itemsHeight, final ImListClipperCallback callback) {
+        nForEach(itemsCount, itemsHeight, callback);
+    }
+
+    private static native void nForEach(int itemsCount, int itemsHeight, ImListClipperCallback callback); /*
         ImGuiListClipper clipper;
         clipper.Begin(itemsCount, itemsHeight);
         while (clipper.Step()) {
