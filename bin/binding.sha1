@@ -214,7 +214,7 @@ d686c5af2505f179a40c823bb67acc87cbb9bda9  imgui-binding/src/generated/java/imgui
 d5bd63c69c13066e97ad5dc9c4359f8f2f7d315a  imgui-binding/src/generated/java/imgui/ImFontGlyph.java
 02db135a54b6e95dfc7494d68af20cd4bd1010e9  imgui-binding/src/generated/java/imgui/ImFontGlyphRangesBuilder.java
 7014983732f1bd60c2b49ece8e2310fe89888fee  imgui-binding/src/generated/java/imgui/ImGui.java
-12564c58e2c92bc005207d787f307d740ed15413  imgui-binding/src/generated/java/imgui/ImGuiIO.java
+c82203fc56f2b34e6ffb11db41ab84614449160e  imgui-binding/src/generated/java/imgui/ImGuiIO.java
 b4cc27d51482470f2d07cf3ef069585cbd4e5887  imgui-binding/src/generated/java/imgui/ImGuiInputTextCallbackData.java
 4e99a91b6e46f7e800424dc6bf98fa9ce7d0b135  imgui-binding/src/generated/java/imgui/ImGuiKeyData.java
 c82b8b15b02a17d9ed1e1a987c4be9a2aa3d03c3  imgui-binding/src/generated/java/imgui/ImGuiListClipper.java
@@ -254,7 +254,7 @@ abbc63038b4b4b9183500ca48ffa733fae2f1d2c  imgui-binding/src/generated/java/imgui
 415fb9cd034846afad001207ad630e84dcfd1875  imgui-binding/src/generated/java/imgui/extension/imnodes/ImNodesContext.java
 9a140585e44427ad07924837a8a9d12b1b502281  imgui-binding/src/generated/java/imgui/extension/imnodes/ImNodesEditorContext.java
 4cf9d80f019cd5ce57363d580cf288facdb31a52  imgui-binding/src/generated/java/imgui/extension/imnodes/ImNodesIO.java
-643e00c1ee9fbcdef3c2053e74ce3d41a54396d3  imgui-binding/src/generated/java/imgui/extension/imnodes/ImNodesStyle.java
+9a6220ba53140f845ac893ddc36aedf856a5d29e  imgui-binding/src/generated/java/imgui/extension/imnodes/ImNodesStyle.java
 80a9ddcfcba507f6e757ec65b1111d1f7224dde2  imgui-binding/src/generated/java/imgui/extension/imnodes/flag/ImNodesAttributeFlags.java
 718f1bf5ba68bcb0a7734121e117e9d413556adb  imgui-binding/src/generated/java/imgui/extension/imnodes/flag/ImNodesCol.java
 86c0aa2bbbf5b51d33f0d9f1d379f7e2b771ee84  imgui-binding/src/generated/java/imgui/extension/imnodes/flag/ImNodesMiniMapLocation.java
