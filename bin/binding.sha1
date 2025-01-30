@@ -154,7 +154,7 @@ f2df528f066fd006e35bc77aca46e51988fbf684  imgui-binding/src/main/java/imgui/flag
 5f41e2e78e945805173dd69dd359f76fce93d82a  imgui-binding/src/main/java/imgui/flag/ImGuiTreeNodeFlags.java
 12783e8963e87af3d81c2207894d566ff0206b7c  imgui-binding/src/main/java/imgui/flag/ImGuiViewportFlags.java
 6bf01fb6e30f7baa5293deee550d843c909543b2  imgui-binding/src/main/java/imgui/flag/ImGuiWindowFlags.java
-a2d02744d65b17e57afec9528ff6b41e6f5a103a  imgui-binding/src/main/java/imgui/internal/ImGui.java
+5b0bb79b9c7b9c6569433ada36b912d515d5e7f3  imgui-binding/src/main/java/imgui/internal/ImGui.java
 103cfbb25c902fee4a654f325e69e24c8d2f0024  imgui-binding/src/main/java/imgui/internal/ImGuiContext.java
 3c56792900d92886d4758334040a29e86e4ac6dc  imgui-binding/src/main/java/imgui/internal/ImGuiDockNode.java
 fdda5bd8fedd0553e4697e88aca7d13e370e59f6  imgui-binding/src/main/java/imgui/internal/ImGuiWindow.java
@@ -342,7 +342,7 @@ b683336e1054a4617962f4341b375bdb3674c0e0  imgui-binding/src/generated/java/imgui
 04b51c3d7e213adb5b0bbb29f135b11097675cd7  imgui-binding/src/generated/java/imgui/flag/ImGuiTreeNodeFlags.java
 ddc417774e62e93a3c13a7e54b0f23814e3f6736  imgui-binding/src/generated/java/imgui/flag/ImGuiViewportFlags.java
 06996a2cd7e0dd82116251e5a530b8d56209d300  imgui-binding/src/generated/java/imgui/flag/ImGuiWindowFlags.java
-5ee4b10cc1eff1f6e7a8de8a169e037447cb7061  imgui-binding/src/generated/java/imgui/internal/ImGui.java
+f62879c53eae42922f8566569f589d3dc9af0e15  imgui-binding/src/generated/java/imgui/internal/ImGui.java
 103cfbb25c902fee4a654f325e69e24c8d2f0024  imgui-binding/src/generated/java/imgui/internal/ImGuiContext.java
 6a91da6724f693dd655248fae4f2001a25633c23  imgui-binding/src/generated/java/imgui/internal/ImGuiDockNode.java
 4572622ad082090bd369d54367b2365b88979647  imgui-binding/src/generated/java/imgui/internal/ImGuiWindow.java
