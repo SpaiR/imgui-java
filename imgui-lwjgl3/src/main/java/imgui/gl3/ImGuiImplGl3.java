@@ -11,6 +11,8 @@ import imgui.flag.ImGuiBackendFlags;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiViewportFlags;
 import imgui.type.ImInt;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GLCapabilities;
 
 import java.nio.ByteBuffer;
 import java.util.regex.Matcher;
@@ -157,6 +159,7 @@ public class ImGuiImplGl3 {
 //        protected boolean glProfileIsES3;
         protected boolean glProfileIsCompat;
         protected int glProfileMask;
+        protected GLCapabilities glCapabilities = null;
         protected String glslVersion = "";
         protected int fontTexture = 0;
         protected int shaderHandle = 0;
@@ -273,6 +276,15 @@ public class ImGuiImplGl3 {
             data.glVersion = major * 100 + minor * 10;
             data.glProfileMask = glGetInteger(GL_CONTEXT_PROFILE_MASK);
             data.glProfileIsCompat = (data.glProfileMask & GL_CONTEXT_COMPATIBILITY_PROFILE_BIT) != 0;
+            if (data.glVersion < 330) { // Ignore in higher GL versions since they support sampler objects anyway
+                try {
+                    data.glCapabilities = GL.getCapabilities();
+                } catch (IllegalStateException ignored) {
+                    // IllegalStateException – if setCapabilities has never been called in the current thread or was last called with a null value
+                    // This exception can be safely ignored as it does not impact the initialization process.
+                    // GL_ARB_sampler_objects will be unavailable (and therefore not supported) if the GL version is less than 3.3.
+                }
+            }
         }
 
         // We can honor the ImDrawCmd::VtxOffset field, allowing for large meshes.
@@ -381,7 +393,7 @@ public class ImGuiImplGl3 {
         glUniform1i(data.attribLocationTex, 0);
         glUniformMatrix4fv(data.attribLocationProjMtx, false, props.orthoProjMatrix);
 
-        if (data.glVersion >= 330) {
+        if (data.glVersion >= 330 || (data.glCapabilities != null && data.glCapabilities.GL_ARB_sampler_objects)) {
             glBindSampler(0, 0);
         }
 
@@ -421,7 +433,7 @@ public class ImGuiImplGl3 {
         glActiveTexture(GL_TEXTURE0);
         glGetIntegerv(GL_CURRENT_PROGRAM, props.lastProgram);
         glGetIntegerv(GL_TEXTURE_BINDING_2D, props.lastTexture);
-        if (data.glVersion >= 330) {
+        if (data.glVersion >= 330 || (data.glCapabilities != null && data.glCapabilities.GL_ARB_sampler_objects)) {
             glGetIntegerv(GL_SAMPLER_BINDING, props.lastSampler);
         }
         glGetIntegerv(GL_ARRAY_BUFFER_BINDING, props.lastArrayBuffer);
@@ -525,7 +537,7 @@ public class ImGuiImplGl3 {
             glUseProgram(props.lastProgram[0]);
         }
         glBindTexture(GL_TEXTURE_2D, props.lastTexture[0]);
-        if (data.glVersion >= 330) {
+        if (data.glVersion >= 330 || (data.glCapabilities != null && data.glCapabilities.GL_ARB_sampler_objects)) {
             glBindSampler(0, props.lastSampler[0]);
         }
         glActiveTexture(props.lastActiveTexture[0]);
