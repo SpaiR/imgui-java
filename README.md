@@ -376,6 +376,12 @@ Ensure you've downloaded git submodules. That could be achieved:
  - Install dependencies: `openjdk8`, `mingw-w64-gcc`, `ant`. (Package names could vary from system to system.)
  - Build with: `./gradlew imgui-binding:generateLibs -Denvs=linux -Dlocal`
  - Run with: `./gradlew example:run -PlibPath=../imgui-binding/build/libsNative/linux64`
+
+### Linux (arm64)
+
+- Check dependencies from "Linux" section and make sure you have them installed.
+- Build with: `./gradlew imgui-binding:generateLibs -Denvs=linuxarm64 -Dlocal`
+- Run with: `./gradlew example:run -PlibPath=../imgui-binding/build/libsNative/linuxarm64`
  
 ### macOS
 
@@ -389,7 +395,7 @@ Ensure you've downloaded git submodules. That could be achieved:
  - Build with: `./gradlew imgui-binding:generateLibs -Denvs=macosarm64 -Dlocal`
  - Run with: `./gradlew example:run -PlibPath=../imgui-binding/build/libsNative/macosxarm64`
 
-In `envs` parameter next values could be used `windows`, `linux` or `macos` or `macosarm64`.
+In `envs` parameter next values could be used `windows`, `linux`, `linuxarm64`, `macos` or `macosarm64`.
 
 `-Dlocal` is optional and means that natives will be built under the `./imgui-binding/build/` folder. Otherwise `/tmp/imgui` folder will be used.
 

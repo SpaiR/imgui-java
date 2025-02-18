@@ -32,6 +32,7 @@ class GenerateLibs extends DefaultTask {
     private final String[] buildEnvs = System.getProperty('envs')?.split(',')
     private final boolean forWindows = buildEnvs?.contains('windows')
     private final boolean forLinux = buildEnvs?.contains('linux')
+    private final boolean forLinuxArm64 = buildEnvs?.contains('linuxarm64')
     private final boolean forMac = buildEnvs?.contains('macos')
     private final boolean forMacArm64 = buildEnvs?.contains('macosarm64')
 
@@ -113,9 +114,11 @@ class GenerateLibs extends DefaultTask {
         }
 
         if (forLinux) {
-            def linux64 = BuildTarget.newDefaultTarget(Os.Linux, Architecture.Bitness._64)
-            addFreeTypeIfEnabled(linux64)
-            buildTargets += linux64
+            buildTargets += createLinuxTarget(Architecture.x86)
+        }
+
+        if (forLinuxArm64) {
+            buildTargets += createLinuxTarget(Architecture.ARM)
         }
 
         if (forMac) {
@@ -137,6 +140,8 @@ class GenerateLibs extends DefaultTask {
             BuildExecutor.executeAnt(jniDir + '/build-windows64.xml', commonParams)
         if (forLinux)
             BuildExecutor.executeAnt(jniDir + '/build-linux64.xml', commonParams)
+        if (forLinuxArm64)
+            BuildExecutor.executeAnt(jniDir + '/build-linuxarm64.xml', commonParams)
         if (forMac)
             BuildExecutor.executeAnt(jniDir + '/build-macosx64.xml', commonParams)
         if (forMacArm64)
@@ -148,6 +153,8 @@ class GenerateLibs extends DefaultTask {
             checkLibExist("windows64/imgui-java64.dll")
         if (forLinux)
             checkLibExist("linux64/libimgui-java64.so")
+        if (forLinuxArm64)
+            checkLibExist("linuxarm64/libimgui-java64.so")
         if (forMac)
             checkLibExist("macosx64/libimgui-java64.dylib")
         if (forMacArm64)
@@ -160,6 +167,14 @@ class GenerateLibs extends DefaultTask {
             logger.error("Failed to build $libName!")
             throw new IllegalStateException("$path does not exist")
         }
+    }
+
+    BuildTarget createLinuxTarget(Architecture arch) {
+        def linuxTarget = BuildTarget.newDefaultTarget(Os.Linux, Architecture.Bitness._64, arch)
+        linuxTarget.compilerPrefix = "" // TODO: test with GNU gcc
+        linuxTarget.libName = "libimgui-java64.so" // Lib for arm64 will be named the same for consistency
+        addFreeTypeIfEnabled(linuxTarget)
+        return linuxTarget
     }
 
     BuildTarget createMacTarget(Architecture arch) {
