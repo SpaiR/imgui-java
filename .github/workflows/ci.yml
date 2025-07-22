@@ -24,7 +24,9 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: liberica
-          java-version: 17
+          java-version: |
+            8
+            17
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -71,7 +73,9 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: liberica
-          java-version: 17
+          java-version: |
+            8
+            17
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -158,7 +162,9 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: liberica
-          java-version: 17
+          java-version: |
+            8
+            17
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
