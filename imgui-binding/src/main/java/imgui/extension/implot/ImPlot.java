@@ -812,7 +812,7 @@ public final class ImPlot {
     @BindingMethod
     public static native void PlotInfLines(String labelId,
                                            @ArgVariant(type = {"short[]", "int[]", "long[]", "float[]", "double[]"}) Void values,
-                                           @ArgValue(callValue = "LEN(values)") int count,
+                                           @ArgValue(callValue = "LEN(values)") Void count,
                                            @OptArg int flags,
                                            @OptArg int offset);
 
