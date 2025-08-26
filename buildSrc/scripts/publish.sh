@@ -42,4 +42,7 @@ publish_natives "windows"
 publish_natives "linux"
 publish_natives "macos"
 
+echo "> Nexus manual upload..."
+curl -D - -X POST -u "${NEXUS_UPD_ID}:${NEXUS_UPD_PASS}" "https://ossrh-staging-api.central.sonatype.com/manual/upload/defaultRepository/io.github.spair"
+
 echo "All modules and natives published successfully."
