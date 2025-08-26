@@ -3,7 +3,7 @@ import tool.generator.ast.task.GenerateAst
 import java.text.SimpleDateFormat
 
 ext {
-    lwjglVersion = '3.3.4'
+    lwjglVersion = '3.3.6'
 }
 
 allprojects {
