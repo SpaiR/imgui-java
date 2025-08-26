@@ -14,7 +14,7 @@ public final class ImGuiTabItemFlags {
     public static final int None = 0;
 
     /**
-     * Display a dot next to the title + tab is selected when clicking the X + closure is not assumed (will wait for user to stop submitting the tab). Otherwise closure is assumed when pressing the X, so if you keep submitting the tab may reappear at end of tab bar.
+     * Display a dot next to the title + set ImGuiTabItemFlags_NoAssumedClosure.
      *
      * <p>Definition: {@code 1 << 0}
      */
@@ -28,14 +28,14 @@ public final class ImGuiTabItemFlags {
     public static final int SetSelected = 2;
 
     /**
-     * Disable behavior of closing tabs (that are submitted with p_open != NULL) with middle mouse button. You can still repro this behavior on user's side with if (IsItemHovered() {@code &} {@code &} IsMouseClicked(2)) *p_open = false.
+     * Disable behavior of closing tabs (that are submitted with p_open != NULL) with middle mouse button. You may handle this behavior manually on user's side with if (IsItemHovered() {@code &} {@code &} IsMouseClicked(2)) *p_open = false.
      *
      * <p>Definition: {@code 1 << 2}
      */
     public static final int NoCloseWithMiddleMouseButton = 4;
 
     /**
-     * Don't call PushID(tab{@code ->}ID)/PopID() on BeginTabItem()/EndTabItem()
+     * Don't call PushID()/PopID() on BeginTabItem()/EndTabItem()
      *
      * <p>Definition: {@code 1 << 3}
      */
@@ -68,4 +68,11 @@ public final class ImGuiTabItemFlags {
      * <p>Definition: {@code 1 << 7}
      */
     public static final int Trailing = 128;
+
+    /**
+     * Tab is selected when trying to close + closure is not immediately assumed (will wait for user to stop submitting the tab). Otherwise closure is assumed when pressing the X, so if you keep submitting the tab may reappear at end of tab bar.
+     *
+     * <p>Definition: {@code 1 << 8}
+     */
+    public static final int NoAssumedClosure = 256;
 }

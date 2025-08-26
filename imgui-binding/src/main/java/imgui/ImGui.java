@@ -192,7 +192,7 @@ public class ImGui {
     public static native ImGuiIO GetIO();
 
     /**
-     * Access the Style structure (colors, sizes). Always use PushStyleCol(), PushStyleVar() to modify style mid-frame!
+     * Access the Style structure (colors, sizes). Always use PushStyleColor(), PushStyleVar() to modify style mid-frame!
      */
     @BindingMethod
     @ReturnValue(isStatic = true, callPrefix = "&")
@@ -248,7 +248,7 @@ public class ImGui {
      * Create Stack Tool window. hover items with mouse to query information about the source of their unique ID.
      */
     @BindingMethod
-    public static native void ShowStackToolWindow(@OptArg ImBoolean pOpen);
+    public static native void ShowIDStackToolWindow(@OptArg ImBoolean pOpen);
 
     /**
      * Create About window. display Dear ImGui version, credits and build/system information.
@@ -309,16 +309,15 @@ public class ImGui {
 
     // Windows
     // - Begin() = push window to the stack and start appending to it. End() = pop window from the stack.
-    // - You may append multiple times to the same window during the same frame.
-    // - Passing 'bool* pOpen != NULL' shows a window-closing widget in the upper-right corner of the window,
+    // - Passing 'bool* p_open != NULL' shows a window-closing widget in the upper-right corner of the window,
     //   which clicking will set the boolean to false when clicked.
     // - You may append multiple times to the same window during the same frame by calling Begin()/End() pairs multiple times.
     //   Some information such as 'flags' or 'p_open' will only be considered by the first call to Begin().
     // - Begin() return false to indicate the window is collapsed or fully clipped, so you may early out and omit submitting
     //   anything to the window. Always call a matching End() for each Begin() call, regardless of its return value!
-    //   [Important: due to legacy reason, this is inconsistent with most other functions such as BeginMenu/EndMenu,
-    //    BeginPopup/EndPopup, etc. where the EndXXX call should only be called if the corresponding BeginXXX function
-    //    returned true. Begin and BeginChild are the only odd ones out. Will be fixed in a future update.]
+    //   [Important: due to legacy reason, Begin/End and BeginChild/EndChild are inconsistent with all other functions
+    //    such as BeginMenu/EndMenu, BeginPopup/EndPopup, etc. where the EndXXX call should only be called if the corresponding
+    //    BeginXXX function returned true. Begin and BeginChild are the only odd ones out. Will be fixed in a future update.]
     // - Note that the bottom of window stack always contains a window called "Debug".
 
     @BindingMethod
@@ -329,18 +328,38 @@ public class ImGui {
 
     // Child Windows
     // - Use child windows to begin into a self-contained independent scrolling/clipping regions within a host window. Child windows can embed their own child.
-    // - For each independent axis of 'size': ==0.0f: use remaining host window size / >0.0f: fixed size / <0.0f: use remaining window size minus abs(size) / Each axis can use a different mode, e.g. ImVec2(0,400).
-    // - BeginChild() returns false to indicate the window is collapsed or fully clipped, so you may early out and omit submitting anything to the window.
-    //   Always call a matching EndChild() for each BeginChild() call, regardless of its return value.
-    //   [Important: due to legacy reason, this is inconsistent with most other functions such as BeginMenu/EndMenu,
-    //    BeginPopup/EndPopup, etc. where the EndXXX call should only be called if the corresponding BeginXXX function
-    //    returned true. Begin and BeginChild are the only odd ones out. Will be fixed in a future update.]
+    // - Before 1.90 (November 2023), the "ImGuiChildFlags child_flags = 0" parameter was "bool border = false".
+    //   This API is backward compatible with old code, as we guarantee that ImGuiChildFlags_Border == true.
+    //   Consider updating your old code:
+    //      BeginChild("Name", size, false)   -> Begin("Name", size, 0); or Begin("Name", size, ImGuiChildFlags_None);
+    //      BeginChild("Name", size, true)    -> Begin("Name", size, ImGuiChildFlags_Border);
+    // - Manual sizing (each axis can use a different setting e.g. ImVec2(0.0f, 400.0f)):
+    //     == 0.0f: use remaining parent window size for this axis.
+    //      > 0.0f: use specified size for this axis.
+    //      < 0.0f: right/bottom-align to specified distance from available content boundaries.
+    // - Specifying ImGuiChildFlags_AutoResizeX or ImGuiChildFlags_AutoResizeY makes the sizing automatic based on child contents.
+    //   Combining both ImGuiChildFlags_AutoResizeX _and_ ImGuiChildFlags_AutoResizeY defeats purpose of a scrolling region and is NOT recommended.
+    // - BeginChild() returns false to indicate the window is collapsed or fully clipped, so you may early out and omit submitting
+    //   anything to the window. Always call a matching EndChild() for each BeginChild() call, regardless of its return value.
+    //   [Important: due to legacy reason, Begin/End and BeginChild/EndChild are inconsistent with all other functions
+    //    such as BeginMenu/EndMenu, BeginPopup/EndPopup, etc. where the EndXXX call should only be called if the corresponding
+    //    BeginXXX function returned true. Begin and BeginChild are the only odd ones out. Will be fixed in a future update.]
 
     @BindingMethod
-    public static native boolean BeginChild(String strId, @OptArg(callValue = "ImVec2(0,0)") ImVec2 size, @OptArg(callValue = "false") boolean border, @OptArg int imGuiWindowFlags);
+    public static native boolean BeginChild(String strId, @OptArg(callValue = "ImVec2(0,0)") ImVec2 size, @OptArg(callValue = "0") int childFlags, @OptArg int windowFlags);
 
     @BindingMethod
-    public static native boolean BeginChild(int imGuiID, @OptArg(callValue = "ImVec2(0,0)") ImVec2 size, @OptArg(callValue = "false") boolean border, @OptArg int imGuiWindowFlags);
+    public static native boolean BeginChild(int id, @OptArg(callValue = "ImVec2(0,0)") ImVec2 size, @OptArg(callValue = "0") int childFlags, @OptArg int windowFlags);
+
+    @BindingMethod
+    public static native boolean BeginChild(String strId, ImVec2 size, @ArgValue(staticCast = "ImGuiChildFlags") boolean border, @OptArg int windowFlags);
+
+    /**
+     * @deprecated Use {@link #beginChild(String, ImVec2, int, int)} instead.
+     */
+    @Deprecated
+    @BindingMethod
+    public static native boolean BeginChild(int id, ImVec2 size, @ArgValue(staticCast = "ImGuiChildFlags") boolean border, @OptArg int windowFlags);
 
     @BindingMethod
     public static native void EndChild();
@@ -361,9 +380,10 @@ public class ImGui {
     public static native boolean IsWindowFocused(@OptArg int imGuiFocusedFlags);
 
     /**
-     * Is current window hovered (and typically: not blocked by a popup/modal)? see flags for options.
-     * NB: If you are trying to check whether your mouse should be dispatched to imgui or to your app,
-     * you should use the 'io.WantCaptureMouse' boolean for that! Please read the FAQ!
+     * Is current window hovered and hoverable (e.g. not blocked by a popup/modal)? See ImGuiHoveredFlags_ for options.
+     * IMPORTANT: If you are trying to check whether your mouse should be dispatched to Dear ImGui or to your underlying app,
+     * you should not use this function! Use the 'io.WantCaptureMouse' boolean for that!
+     * Refer to FAQ entry "How can I tell whether to dispatch mouse/keyboard to Dear ImGui or my application?" for details.
      */
     @BindingMethod
     public static native boolean IsWindowHovered(@OptArg int imGuiHoveredFlags);
@@ -382,13 +402,13 @@ public class ImGui {
 
     /**
      * Get current window position in screen space (note: it is unlikely you need to use this.
-     * Consider using current layout pos instead, GetScreenCursorPos())
+     * Consider using current layout pos instead, GetCursorScreenPos())
      */
     @BindingMethod
     public static native ImVec2 GetWindowPos();
 
     /**
-     * Get current window size (note: it is unlikely you need to use this. Consider using GetScreenCursorPos() and e.g. GetContentRegionAvail() instead)
+     * Get current window size (note: it is unlikely you need to use this. Consider using GetCursorScreenPos() and e.g. GetContentRegionAvail() instead)
      */
     @BindingMethod
     public static native ImVec2 GetWindowSize();
@@ -426,7 +446,8 @@ public class ImGui {
     public static native void SetNextWindowSize(ImVec2 size, @OptArg int cond);
 
     /**
-     * Set next window size limits. use -1,-1 on either X/Y axis to preserve the current size. Sizes will be rounded down.
+     * Set next window size limits. use 0.0f or FLT_MAX if you don't want limits. Use -1 for both min and max of same axis to preserve current size (which itself is a constraint).
+     * Use callback to apply non-trivial programmatic constraints.
      */
     @BindingMethod
     public static native void SetNextWindowSizeConstraints(ImVec2 sizeMin, ImVec2 sizeMax);
@@ -757,7 +778,7 @@ public class ImGui {
      * Retrieve given color with style alpha applied, packed as a 32-bit value suitable for ImDrawList.
      */
     @BindingMethod(callName = "GetColorU32")
-    public static native int GetColorU32i(@ArgValue(staticCast = "ImU32") int col);
+    public static native int GetColorU32i(@ArgValue(staticCast = "ImU32") int col, @OptArg float alphaMul);
 
     /**
      * Retrieve style color as stored in ImGuiStyle structure. use to feed back into PushStyleColor(),
@@ -766,13 +787,58 @@ public class ImGui {
     @BindingMethod
     public static native ImVec4 GetStyleColorVec4(int imGuiColIdx);
 
-    // Cursor / Layout
+    // Layout cursor positioning
     // - By "cursor" we mean the current output position.
     // - The typical widget behavior is to output themselves at the current cursor position, then move the cursor one line down.
     // - You can call SameLine() between widgets to undo the last carriage return and output at the right of the preceding widget.
     // - Attention! We currently have inconsistencies between window-local and absolute positions we will aim to fix with future API:
-    //    Window-local coordinates:   SameLine(), GetCursorPos(), SetCursorPos(), GetCursorStartPos(), GetContentRegionMax(), GetWindowContentRegion*(), PushTextWrapPos()
-    //    Absolute coordinate:        GetCursorScreenPos(), SetCursorScreenPos(), all ImDrawList:: functions.
+    //    - Absolute coordinate:        GetCursorScreenPos(), SetCursorScreenPos(), all ImDrawList:: functions. -> this is the preferred way forward.
+    //    - Window-local coordinates:   SameLine(), GetCursorPos(), SetCursorPos(), GetCursorStartPos(), GetContentRegionMax(), GetWindowContentRegion*(), PushTextWrapPos()
+    // - GetCursorScreenPos() = GetCursorPos() + GetWindowPos(). GetWindowPos() is almost only ever useful to convert from window-local to absolute coordinates.
+
+    /**
+     * Cursor position in absolute coordinates (prefer using this, also more useful to work with ImDrawList API).
+     */
+    @BindingMethod
+    public static native ImVec2 GetCursorScreenPos();
+
+    /**
+     * Cursor position in absolute coordinates.
+     */
+    @BindingMethod
+    public static native void SetCursorScreenPos(ImVec2 pos);
+
+    /**
+     * Cursor position in window coordinates (relative to window position)
+     */
+    @BindingMethod
+    public static native ImVec2 GetCursorPos();
+
+    /**
+     * Cursor position in window coordinates (relative to window position)
+     */
+    @BindingMethod
+    public static native void SetCursorPos(ImVec2 localPos);
+
+    /**
+     * Cursor position in window coordinates (relative to window position)
+     */
+    @BindingMethod
+    public static native void SetCursorPosX(float localX);
+
+    /**
+     * Cursor position in window coordinates (relative to window position)
+     */
+    @BindingMethod
+    public static native void SetCursorPosY(float localY);
+
+    /**
+     * Initial cursor position in window coordinates
+     */
+    @BindingMethod
+    public static native ImVec2 GetCursorStartPos();
+
+    // Other layout functions
 
     /**
      * Separator, generally horizontal. inside a menu bar or in horizontal layout mode, this becomes a vertical separator.
@@ -832,50 +898,6 @@ public class ImGui {
     //  other functions such as GetCursorScreenPos or everything in ImDrawList::
     //  are using the main, absolute coordinate system.
     //  GetWindowPos() + GetCursorPos() == GetCursorScreenPos() etc.)
-
-    /**
-     * Cursor position in window coordinates (relative to window position)
-     */
-    @BindingMethod
-    public static native ImVec2 GetCursorPos();
-
-    /**
-     * Cursor position in window coordinates (relative to window position)
-     */
-    @BindingMethod
-    public static native void SetCursorPos(ImVec2 pos);
-
-    /**
-     * Cursor position in window coordinates (relative to window position)
-     */
-    @BindingMethod
-    public static native void SetCursorPosX(float x);
-
-    /**
-     * Cursor position in window coordinates (relative to window position)
-     */
-    @BindingMethod
-    public static native void SetCursorPosY(float y);
-
-    /**
-     * Initial cursor position in window coordinates
-     */
-    @BindingMethod
-    public static native ImVec2 GetCursorStartPos();
-
-    /**
-     * Cursor position in absolute coordinates (useful to work with ImDrawList API).
-     * Generally top-left == GetMainViewport().Pos == (0,0) in single viewport mode,
-     * and bottom-right == GetMainViewport().Pos+Size == io.DisplaySize in single-viewport mode.
-     */
-    @BindingMethod
-    public static native ImVec2 GetCursorScreenPos();
-
-    /**
-     * Cursor position in absolute coordinates.
-     */
-    @BindingMethod
-    public static native void SetCursorScreenPos(ImVec2 pos);
 
     /**
      * Vertically align upcoming text baseline to FramePadding.y so that it will align properly to regularly framed items (call if you have text on a line before a framed item)
@@ -1046,7 +1068,7 @@ public class ImGui {
     public static native boolean Button(String label, @OptArg ImVec2 size);
 
     /**
-     * Button with FramePadding=(0,0) to easily embed within text
+     * Button with (FramePadding.y == 0) to easily embed within text
      */
     @BindingMethod
     public static native boolean SmallButton(String label);
@@ -1061,7 +1083,7 @@ public class ImGui {
      * Square button with an arrow shape
      */
     @BindingMethod
-    public static native boolean ArrowButton(String strId, int dir);
+    public static native boolean ArrowButton(String strId, @ArgValue(staticCast = "ImGuiDir") int dir);
 
     public static boolean checkbox(String label, boolean active) {
         return nCheckbox(label, active);
@@ -1103,10 +1125,10 @@ public class ImGui {
     // - Read about ImTextureID here: https://github.com/ocornut/imgui/wiki/Image-Loading-and-Displaying-Examples
 
     @BindingMethod
-    public static native void Image(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 size, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg ImVec4 tintCol, @OptArg ImVec4 borderCol);
+    public static native void Image(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 imageSize, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg ImVec4 tintCol, @OptArg ImVec4 borderCol);
 
     @BindingMethod
-    public static native boolean ImageButton(String strId, @ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 size, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg ImVec4 bgCol, @OptArg ImVec4 tintCol);
+    public static native boolean ImageButton(String strId, @ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 imageSize, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg ImVec4 bgCol, @OptArg ImVec4 tintCol);
 
 
     // Widgets: Combo Box (Dropdown)
@@ -1649,19 +1671,19 @@ public class ImGui {
     public static native boolean TreeNodeEx(@ArgValue(callPrefix = "(void*)") long ptrId, int flags, String label, Void NULL);
 
     /**
-     * ~ Indent()+PushId(). Already called by TreeNode() when returning true, but you can call TreePush/TreePop yourself if desired.
+     * ~ Indent()+PushID(). Already called by TreeNode() when returning true, but you can call TreePush/TreePop yourself if desired.
      */
     @BindingMethod
     public static native void TreePush(String strId);
 
     /**
-     * ~ Indent()+PushId(). Already called by TreeNode() when returning true, but you can call TreePush/TreePop yourself if desired.
+     * ~ Indent()+PushID(). Already called by TreeNode() when returning true, but you can call TreePush/TreePop yourself if desired.
      */
     @BindingMethod
     public static native void TreePush(@ArgValue(callPrefix = "(void*)") long ptrId);
 
     /**
-     * ~ Unindent()+PopId()
+     * ~ Unindent()+PopID()
      */
     @BindingMethod
     public static native void TreePop();
@@ -1702,11 +1724,11 @@ public class ImGui {
     public static native boolean Selectable(String label, ImBoolean pSelected, @OptArg(callValue = "0") int imGuiSelectableFlags, @OptArg ImVec2 size);
 
     // Widgets: List Boxes
-    // - This is essentially a thin wrapper to using BeginChild/EndChild with some stylistic changes.
-    // - The BeginListBox()/EndListBox() api allows you to manage your contents and selection state however you want it, by creating e.g. Selectable() or any items.
+    // - This is essentially a thin wrapper to using BeginChild/EndChild with the ImGuiChildFlags_FrameStyle flag for stylistic changes + displaying a label.
+    // - You can submit contents and manage your selection state however you want it, by creating e.g. Selectable() or any other items.
     // - The simplified/old ListBox() api are helpers over BeginListBox()/EndListBox() which are kept available for convenience purpose. This is analoguous to how Combos are created.
-    // - Choose frame width:   size.x > 0.0f: custom  /  size.{@code x {@code <} 0.0f} or -FLT_MIN: right-align   /  size.x = 0.0f (default): use current ItemWidth
-    // - Choose frame height:  size.y > 0.0f: custom  /  size.y {@code < 0.0f} or -FLT_MIN: bottom-align  /  size.y = 0.0f (default): arbitrary default height which can fit ~7 items
+    // - Choose frame width:   size.x > 0.0f: custom  /  size.x < 0.0f or -FLT_MIN: right-align   /  size.x = 0.0f (default): use current ItemWidth
+    // - Choose frame height:  size.y > 0.0f: custom  /  size.y < 0.0f or -FLT_MIN: bottom-align  /  size.y = 0.0f (default): arbitrary default height which can fit ~7 items
 
     /**
      * Open a framed scrolling region.
@@ -1808,7 +1830,8 @@ public class ImGui {
 
     // Tooltips
     // - Tooltips are windows following the mouse. They do not take focus away.
-    // - A tooltip window can contain items of any types. SetTooltip() is a shortcut for the 'if (BeginTooltip()) { Text(...); EndTooltip(); }' idiom.
+    // - A tooltip window can contain items of any types.
+    // - SetTooltip() is more or less a shortcut for the 'if (BeginTooltip()) { Text(...); EndTooltip(); }' idiom (with a subtlety that it discard any previously submitted tooltip)
 
     /**
      * Begin/append a tooltip window.
@@ -1840,7 +1863,7 @@ public class ImGui {
     public static native boolean BeginItemTooltip();
 
     /**
-     * Set a text-only tooltip if preceeding item was hovered. override any previous call to SetTooltip().
+     * Set a text-only tooltip if preceding item was hovered. override any previous call to SetTooltip().
      */
     @BindingMethod
     public static native void SetItemTooltip(String text, Void NULL);
@@ -1853,8 +1876,7 @@ public class ImGui {
     //  - You can bypass the hovering restriction by using ImGuiHoveredFlags_AllowWhenBlockedByPopup when calling IsItemHovered() or IsWindowHovered().
     //  - IMPORTANT: Popup identifiers are relative to the current ID stack, so OpenPopup and BeginPopup generally needs to be at the same level of the stack.
     //    This is sometimes leading to confusing mistakes. May rework this in the future.
-    // Popups: begin/end functions
-    //  - BeginPopup(): query popup state, if open start appending into the window. Call EndPopup() afterwards. ImGuiWindowFlags are forwarded to the window.
+    //  - BeginPopup(): query popup state, if open start appending into the window. Call EndPopup() afterwards if returned true. ImGuiWindowFlags are forwarded to the window.
     //  - BeginPopupModal(): block every interaction behind the window, cannot be closed by user, add a dimming background, has a title bar.
 
     /**
@@ -1958,16 +1980,14 @@ public class ImGui {
     //      TableNextColumn() will automatically wrap-around into the next row if needed.
     //    - IMPORTANT: Comparatively to the old Columns() API, we need to call TableNextColumn() for the first column!
     //    - Summary of possible call flow:
-    //        --------------------------------------------------------------------------------------------------------
-    //        TableNextRow() -> TableSetColumnIndex(0) -> Text("Hello 0") -> TableSetColumnIndex(1) -> Text("Hello 1")  // OK
-    //        TableNextRow() -> TableNextColumn()      -> Text("Hello 0") -> TableNextColumn()      -> Text("Hello 1")  // OK
-    //                          TableNextColumn()      -> Text("Hello 0") -> TableNextColumn()      -> Text("Hello 1")  // OK: TableNextColumn() automatically gets to next row!
-    //        TableNextRow()                           -> Text("Hello 0")                                               // Not OK! Missing TableSetColumnIndex() or TableNextColumn()! Text will not appear!
-    //        --------------------------------------------------------------------------------------------------------
+    //        - TableNextRow() -> TableSetColumnIndex(0) -> Text("Hello 0") -> TableSetColumnIndex(1) -> Text("Hello 1")  // OK
+    //        - TableNextRow() -> TableNextColumn()      -> Text("Hello 0") -> TableNextColumn()      -> Text("Hello 1")  // OK
+    //        -                   TableNextColumn()      -> Text("Hello 0") -> TableNextColumn()      -> Text("Hello 1")  // OK: TableNextColumn() automatically gets to next row!
+    //        - TableNextRow()                           -> Text("Hello 0")                                               // Not OK! Missing TableSetColumnIndex() or TableNextColumn()! Text will not appear!
     // - 5. Call EndTable()
 
     @BindingMethod
-    public static native boolean BeginTable(String id, int column, @OptArg(callValue = "0") int imGuiTableFlags, @OptArg(callValue = "ImVec2(0,0)") ImVec2 outerSize, @OptArg float innerWidth);
+    public static native boolean BeginTable(String id, int columns, @OptArg(callValue = "0") int imGuiTableFlags, @OptArg(callValue = "ImVec2(0,0)") ImVec2 outerSize, @OptArg float innerWidth);
 
     /**
      * Only call EndTable() if BeginTable() returns true!
@@ -2012,16 +2032,22 @@ public class ImGui {
     public static native void TableSetupScrollFreeze(int cols, int rows);
 
     /**
+     * Submit one header cell manually (rarely used)
+     */
+    @BindingMethod
+    public static native void TableHeader(String label);
+
+    /**
      * Submit all headers cells based on data provided to TableSetupColumn() + submit context menu
      */
     @BindingMethod
     public static native void TableHeadersRow();
 
     /**
-     * Submit one header cell manually (rarely used)
+     * Submit a row with angled headers for every column with the ImGuiTableColumnFlags_AngledHeader flag. MUST BE FIRST ROW.
      */
     @BindingMethod
-    public static native void TableHeader(String label);
+    public static native void TableAngledHeadersRow();
 
     // Tables: Sorting & Miscellaneous functions
     // - Sorting: call TableGetSortSpecs() to retrieve latest sort specs for the table. NULL when not sorting.
@@ -2076,6 +2102,12 @@ public class ImGui {
      */
     @BindingMethod
     public static native void TableSetColumnEnabled(int columnN, boolean value);
+
+    /**
+     * Return hovered column. return -1 when table is not hovered. return columns_count if the unused space at the right of visible columns is hovered. Can also use (TableGetColumnFlags() & ImGuiTableColumnFlags_IsHovered) instead.
+     */
+    @BindingMethod
+    public static native int TableGetHoveredColumn();
 
     /**
      * Change the color of a cell, row, or column. See ImGuiTableBgTarget_ flags for details.
@@ -2172,11 +2204,11 @@ public class ImGui {
     // Docking
     // [BETA API] Enable with io.ConfigFlags |= ImGuiConfigFlags_DockingEnable.
     // Note: You can use most Docking facilities without calling any API. You DO NOT need to call DockSpace() to use Docking!
-    // - Drag from window title bar or their tab to dock/undock. Hold SHIFT to disable docking/undocking.
+    // - Drag from window title bar or their tab to dock/undock. Hold SHIFT to disable docking.
     // - Drag from window menu button (upper-left button) to undock an entire node (all windows).
-    // - When io.ConfigDockingWithShift == true, you instead need to hold SHIFT to _enable_ docking/undocking.
+    // - When io.ConfigDockingWithShift == true, you instead need to hold SHIFT to enable docking.
     // About dockspaces:
-    // - Use DockSpaceOverViewport() to create an explicit dock node covering the screen or a specific viewport.
+    // - Use DockSpaceOverViewport() to create a window covering the screen or a specific viewport + a dockspace inside it.
     //   This is often used with ImGuiDockNodeFlags_PassthruCentralNode to make it transparent.
     // - Use DockSpace() to create an explicit dock node _within_ an existing window. See Docking demo for details.
     // - Important: Dockspaces need to be submitted _before_ any window they can host. Submit it early in your frame!
@@ -2184,10 +2216,10 @@ public class ImGui {
     //   e.g. if you have multiple tabs with a dockspace inside each tab: submit the non-visible dockspaces with ImGuiDockNodeFlags_KeepAliveOnly.
 
     @BindingMethod
-    public static native int DockSpace(int imGuiID, @OptArg(callValue = "ImVec2(0,0)") ImVec2 size, @OptArg(callValue = "0") int imGuiDockNodeFlags, @OptArg ImGuiWindowClass windowClass);
+    public static native int DockSpace(int dockspaceId, @OptArg(callValue = "ImVec2(0,0)") ImVec2 size, @OptArg(callValue = "0") int imGuiDockNodeFlags, @OptArg ImGuiWindowClass windowClass);
 
     @BindingMethod
-    public static native int DockSpaceOverViewport(@OptArg ImGuiViewport viewport, @OptArg(callValue = "0") int imGuiDockNodeFlags, @OptArg ImGuiWindowClass windowClass);
+    public static native int DockSpaceOverViewport(@OptArg(callValue = "0") int dockspaceId, @OptArg ImGuiViewport viewport, @OptArg(callValue = "0") int imGuiDockNodeFlags, @OptArg ImGuiWindowClass windowClass);
 
     /**
      * Set next window dock id
@@ -2378,7 +2410,7 @@ public class ImGui {
     public static native void EndDragDropTarget();
 
     /**
-     * Peek directly into the current payload from anywhere. May return NULL.
+     * Peek directly into the current payload from anywhere. returns NULL when drag and drop is finished or inactive. use ImGuiPayload::IsDataType() to test for the payload type.
      */
     @SuppressWarnings("unchecked")
     public static <T> T getDragDropPayload() {
@@ -2421,6 +2453,12 @@ public class ImGui {
         const ImGuiPayload* payload = ImGui::GetDragDropPayload();
         return payload != NULL && payload->IsDataType(dataType);
     */
+
+    // Disabling [BETA API]
+    // - Disable all user interactions and dim items visuals (applying style.DisabledAlpha over current colors)
+    // - Those can be nested but it cannot be used to enable an already disabled section (a single BeginDisabled(true) in the stack is enough to keep everything disabled)
+    // - Tooltips windows by exception are opted out of disabling.
+    // - BeginDisabled(false) essentially does nothing useful but is provided to facilitate use of boolean expressions. If you can avoid calling BeginDisabled(False)/EndDisabled() best to avoid it.
 
     /**
      * Disable all user interactions and dim items visuals (applying style.DisabledAlpha over current colors)
@@ -2592,15 +2630,15 @@ public class ImGui {
     // Background/Foreground Draw Lists
 
     /**
-     * Get background draw list for the viewport associated to the current window.
+     * Get background draw list for the given viewport or viewport associated to the current window.
      * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
      */
     @BindingMethod
     public static native ImDrawList GetBackgroundDrawList(@OptArg ImGuiViewport viewport);
 
     /**
-     * Get foreground draw list for the viewport associated to the current window.
-     * This draw list will be the last rendered one. Useful to quickly draw shapes/text over dear imgui contents.
+     * Get foreground draw list for the given viewport or viewport associated to the current window.
+     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
      */
     @BindingMethod
     public static native ImDrawList GetForegroundDrawList(@OptArg ImGuiViewport viewport);
@@ -2650,18 +2688,6 @@ public class ImGui {
     @BindingMethod
     public static native ImGuiStorage GetStateStorage();
 
-    /**
-     * Helper to create a child window / scrolling region that looks like a normal widget frame
-     */
-    @BindingMethod
-    public static native boolean BeginChildFrame(int id, ImVec2 size, @OptArg int imGuiWindowFlags);
-
-    /**
-     * Always call EndChildFrame() regardless of BeginChildFrame() return values (which indicates a collapsed/clipped window)
-     */
-    @BindingMethod
-    public static native void EndChildFrame();
-
     // Text Utilities
 
     @BindingMethod
@@ -2698,13 +2724,6 @@ public class ImGui {
     //  - with    IMGUI_DISABLE_OBSOLETE_KEYIO (this is the way forward): any use of ImGuiKey will assert with key < 512. GetKeyIndex() is pass-through and therefore deprecated (gone if IMGUI_DISABLE_OBSOLETE_KEYIO is defined).
 
     /**
-     * Map ImGuiKey_* values into user's key index. == io.KeyMap[key]
-     */
-    @BindingMethod
-    @Deprecated
-    public static native int GetKeyIndex(@ArgValue(staticCast = "ImGuiKey") int key);
-
-    /**
      * Is key being held. == io.KeysDown[user_key_index].
      */
     @BindingMethod
@@ -2721,6 +2740,13 @@ public class ImGui {
      */
     @BindingMethod
     public static native boolean IsKeyReleased(@ArgValue(staticCast = "ImGuiKey") int key);
+
+    /**
+     * Was key chord (mods + key) pressed, e.g. you can pass 'ImGuiMod_Ctrl | ImGuiKey_S' as a key-chord.
+     * This doesn't do any routing or focus check, please consider using Shortcut() function instead.
+     */
+    @BindingMethod
+    public static native boolean IsKeyChordPressed(@ArgValue(staticCast = "ImGuiKeyChord") int keyChord);
 
     /**
      * Uses provided repeat rate/delay.
@@ -2742,6 +2768,28 @@ public class ImGui {
      */
     @BindingMethod
     public static native void SetNextFrameWantCaptureKeyboard(boolean wantCaptureKeyboard);
+
+    // Inputs Utilities: Shortcut Testing & Routing [BETA]
+    // - ImGuiKeyChord = a ImGuiKey + optional ImGuiMod_Alt/ImGuiMod_Ctrl/ImGuiMod_Shift/ImGuiMod_Super.
+    //       ImGuiKey_C                          // Accepted by functions taking ImGuiKey or ImGuiKeyChord arguments)
+    //       ImGuiMod_Ctrl | ImGuiKey_C          // Accepted by functions taking ImGuiKeyChord arguments)
+    //   only ImGuiMod_XXX values are legal to combine with an ImGuiKey. You CANNOT combine two ImGuiKey values.
+    // - The general idea is that several callers may register interest in a shortcut, and only one owner gets it.
+    //      Parent   -> call Shortcut(Ctrl+S)    // When Parent is focused, Parent gets the shortcut.
+    //        Child1 -> call Shortcut(Ctrl+S)    // When Child1 is focused, Child1 gets the shortcut (Child1 overrides Parent shortcuts)
+    //        Child2 -> no call                  // When Child2 is focused, Parent gets the shortcut.
+    //   The whole system is order independent, so if Child1 makes its calls before Parent, results will be identical.
+    //   This is an important property as it facilitate working with foreign code or larger codebase.
+    // - To understand the difference:
+    //   - IsKeyChordPressed() compares mods and call IsKeyPressed() -> function has no side-effect.
+    //   - Shortcut() submits a route, routes are resolved, if it currently can be routed it calls IsKeyChordPressed() -> function has (desirable) side-effects as it can prevents another call from getting the route.
+    // - Visualize registered routes in 'Metrics/Debugger->Inputs'.
+
+    @BindingMethod
+    public static native boolean Shortcut(@ArgValue(staticCast = "ImGuiKeyChord") int keyChord, @OptArg int flags);
+
+    @BindingMethod
+    public static native void SetNextItemShortcut(@ArgValue(staticCast = "ImGuiKeyChord") int keyChord, @OptArg int flags);
 
     // Inputs Utilities: Mouse specific
     // - To refer to a mouse button, you may use named enums in your code e.g. ImGuiMouseButton_Left, ImGuiMouseButton_Right.
@@ -2809,14 +2857,14 @@ public class ImGui {
     public static native ImVec2 GetMousePosOnOpeningCurrentPopup();
 
     /**
-     * Is mouse dragging. if lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold
+     * Is mouse dragging? (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     @BindingMethod
     public static native boolean IsMouseDragging(int button, @OptArg float lockThreshold);
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     @BindingMethod
     public static native ImVec2 GetMouseDragDelta(@OptArg final int button, @OptArg final float lockThreshold);
@@ -2884,9 +2932,16 @@ public class ImGui {
     public static native String SaveIniSettingsToMemory(@OptArg @ArgValue(callPrefix = "(size_t*)&") long outIniSize);
 
     // Debug Utilities
+    // - Your main debugging friend is the ShowMetricsWindow() function, which is also accessible from Demo->Tools->Metrics Debugger
 
     @BindingMethod
     public static native void DebugTextEncoding(String text);
+
+    @BindingMethod
+    public static native void DebugFlashStyleColor(@ArgValue(staticCast = "ImGuiCol") int idx);
+
+    @BindingMethod
+    public static native void DebugStartItemPicker();
 
     @BindingMethod
     public static native boolean DebugCheckVersionAndDataLayout(String versionStr, int szIo, int szStyle, int szVec2, int szVec4, int szDrawVert, int szDrawIdx);

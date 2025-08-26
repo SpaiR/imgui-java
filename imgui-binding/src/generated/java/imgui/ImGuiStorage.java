@@ -120,17 +120,6 @@ public final class ImGuiStorage extends ImGuiStructDestroyable {
     */
 
     /**
-     * Use on your own storage if you know only integer are being stored (open/close all tree nodes)
-     */
-    public void setAllInt(final int val) {
-        nSetAllInt(val);
-    }
-
-    private native void nSetAllInt(int val); /*
-        THIS->SetAllInt(val);
-    */
-
-    /**
      * For quicker full rebuild of a storage (instead of an incremental one), you may add all your contents and then sort once.
      */
     public void buildSortByKey() {
@@ -139,6 +128,17 @@ public final class ImGuiStorage extends ImGuiStructDestroyable {
 
     private native void nBuildSortByKey(); /*
         THIS->BuildSortByKey();
+    */
+
+    /**
+     * Use on your own storage if you know only integer are being stored (open/close all tree nodes)
+     */
+    public void setAllInt(final int val) {
+        nSetAllInt(val);
+    }
+
+    private native void nSetAllInt(int val); /*
+        THIS->SetAllInt(val);
     */
 
     /*JNI

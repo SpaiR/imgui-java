@@ -67,16 +67,23 @@ public class ImGuiItemStatusFlags {
     public static final int HoveredWindow = 128;
 
     /**
-     * Set when the Focusable item just got focused by Tabbing (FIXME: to be removed soon)
+     * [WIP] Set when item is overlapping the current clipping rectangle (Used internally. Please don't use yet: API/system will change as we refactor Itemadd()).
      *
      * <p>Definition: {@code 1 << 8}
      */
-    public static final int FocusedByTabbing = 256;
+    public static final int Visible = 256;
 
     /**
-     * [WIP] Set when item is overlapping the current clipping rectangle (Used internally. Please don't use yet: API/system will change as we refactor Itemadd()).
+     * g.LastItemData.ClipRect is valid.
      *
      * <p>Definition: {@code 1 << 9}
      */
-    public static final int Visible = 512;
+    public static final int HasClipRect = 512;
+
+    /**
+     * g.LastItemData.Shortcut valid. Set by SetNextItemShortcut() {@code ->} ItemAdd().
+     *
+     * <p>Definition: {@code 1 << 10}
+     */
+    public static final int HasShortcut = 1024;
 }

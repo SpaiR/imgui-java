@@ -324,7 +324,7 @@ public final class ImGui extends imgui.ImGui {
      * Create 2 child nodes in this parent node.
      */
     @BindingMethod
-    public static native int DockBuilderSplitNode(int nodeId, int splitDir, float sizeRatioForNodeAtDir, @ArgValue(reinterpretCast = "ImGuiID*") ImInt outIdAtDir, @ArgValue(reinterpretCast = "ImGuiID*") ImInt outIdAtOppositeDir);
+    public static native int DockBuilderSplitNode(int nodeId, @ArgValue(staticCast = "ImGuiDir") int splitDir, float sizeRatioForNodeAtDir, @ArgValue(reinterpretCast = "ImGuiID*") ImInt outIdAtDir, @ArgValue(reinterpretCast = "ImGuiID*") ImInt outIdAtOppositeDir);
 
     // TODO DockBuilderCopyDockSpace, DockBuilderCopyNode
 
@@ -428,4 +428,8 @@ public final class ImGui extends imgui.ImGui {
     @BindingMethod
     public static native boolean SplitterBehavior(ImRect bb, int id, @ArgValue(staticCast = "ImGuiAxis") int axis, ImFloat size1, ImFloat size2, float minSize1, float minSize2, @OptArg float hoverExtend, @OptArg float hoverVisibilityDelay, @OptArg int bgCol);
 
+    // Shade functions (write over already created vertices)
+
+    @BindingMethod
+    public static native void ShadeVertsTransformPos(ImDrawList drawList, int vertStartIdx, int vertEndIdx, ImVec2 pivotIn, float cosA, float sinA, ImVec2 pivotOut);
 }

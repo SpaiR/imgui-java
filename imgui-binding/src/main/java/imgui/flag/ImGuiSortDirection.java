@@ -11,6 +11,6 @@ public final class ImGuiSortDirection {
     private ImGuiSortDirection() {
     }
 
-    @BindingAstEnum(file = "ast-imgui.json", qualType = "ImGuiSortDirection_")
+    @BindingAstEnum(file = "ast-imgui.json", qualType = "ImGuiSortDirection", sanitizeName = "ImGuiSortDirection_")
     public Void __;
 }

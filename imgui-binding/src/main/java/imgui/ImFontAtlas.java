@@ -80,26 +80,26 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
      * Set font_cfg.FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
      */
     @BindingMethod
-    public native ImFont AddFontFromMemoryTTF(byte[] fontData, @ArgValue(callValue = "(int)env->GetArrayLength(obj_fontData)") Void fontSize, float sizePixels, @OptArg(callValue = "NULL") ImFontConfig fontConfig, @OptArg @ArgValue(callPrefix = "(ImWchar*)") short[] glyphRanges);
+    public native ImFont AddFontFromMemoryTTF(byte[] fontData, @ArgValue(callValue = "(int)env->GetArrayLength(obj_fontData)") Void fontDataSize, float sizePixels, @OptArg(callValue = "NULL") ImFontConfig fontConfig, @OptArg @ArgValue(callPrefix = "(ImWchar*)") short[] glyphRanges);
 
     /**
      * Note: Transfer ownership of 'ttf_data' to ImFontAtlas! Will be deleted after destruction of the atlas.
      * Set font_cfg.FontDataOwnedByAtlas=false to keep ownership of your data and it won't be freed.
      */
     @BindingMethod
-    public native ImFont AddFontFromMemoryTTF(byte[] fontData, int fontSize, float sizePixels, @OptArg(callValue = "NULL") ImFontConfig fontConfig, @OptArg @ArgValue(callPrefix = "(ImWchar*)") short[] glyphRanges);
+    public native ImFont AddFontFromMemoryTTF(byte[] fontData, int fontDataSize, float sizePixels, @OptArg(callValue = "NULL") ImFontConfig fontConfig, @OptArg @ArgValue(callPrefix = "(ImWchar*)") short[] glyphRanges);
 
     /**
      * 'compressed_font_data' still owned by caller. Compress with binary_to_compressed_c.cpp.
      */
     @BindingMethod
-    public native ImFont AddFontFromMemoryCompressedTTF(byte[] compressedFontData, @ArgValue(callValue = "(int)env->GetArrayLength(obj_compressedFontData)") Void compressedFontSize, float sizePixels, @OptArg(callValue = "NULL") ImFontConfig imFontConfig, @OptArg @ArgValue(callPrefix = "(ImWchar*)") short[] glyphRanges);
+    public native ImFont AddFontFromMemoryCompressedTTF(byte[] compressedFontData, @ArgValue(callValue = "(int)env->GetArrayLength(obj_compressedFontData)") Void compressedFontDataSize, float sizePixels, @OptArg(callValue = "NULL") ImFontConfig imFontConfig, @OptArg @ArgValue(callPrefix = "(ImWchar*)") short[] glyphRanges);
 
     /**
      * 'compressed_font_data' still owned by caller. Compress with binary_to_compressed_c.cpp.
      */
     @BindingMethod
-    public native ImFont AddFontFromMemoryCompressedTTF(byte[] compressedFontData, int compressedFontSize, float sizePixels, @OptArg(callValue = "NULL") ImFontConfig imFontConfig, @OptArg @ArgValue(callPrefix = "(ImWchar*)") short[] glyphRanges);
+    public native ImFont AddFontFromMemoryCompressedTTF(byte[] compressedFontData, int compressedFontDataSize, float sizePixels, @OptArg(callValue = "NULL") ImFontConfig imFontConfig, @OptArg @ArgValue(callPrefix = "(ImWchar*)") short[] glyphRanges);
 
     /**
      * 'compressed_font_data_base85' still owned by caller. Compress with binary_to_compressed_c.cpp with -base85 parameter.
@@ -336,11 +336,12 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
     //-------------------------------------------
 
     // You can request arbitrary rectangles to be packed into the atlas, for your own purposes.
-    // After calling Build(), you can query the rectangle position and render your pixels.
-    // You can also request your rectangles to be mapped as font glyph (given a font + Unicode point),
-    // so you can render e.g. custom colorful icons and use them as regular glyphs.
-    // Read docs/FONTS.md for more details about using colorful icons.
-    // Note: this API may be redesigned later in order to support multi-monitor varying DPI settings.
+    // - After calling Build(), you can query the rectangle position and render your pixels.
+    // - If you render colored output, set 'atlas->TexPixelsUseColors = true' as this may help some backends decide of preferred texture format.
+    // - You can also request your rectangles to be mapped as font glyph (given a font + Unicode point),
+    //   so you can render e.g. custom colorful icons and use them as regular glyphs.
+    // - Read docs/FONTS.md for more details about using colorful icons.
+    // - Note: this API may be redesigned later in order to support multi-monitor varying DPI settings.
 
     @BindingMethod
     public native int AddCustomRectRegular(int width, int height);

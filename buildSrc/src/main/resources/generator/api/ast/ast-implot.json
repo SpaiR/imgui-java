@@ -1,9 +1,9 @@
 {
   "info" : {
     "source" : "include/implot/implot.h",
-    "hash" : "7503718ef8ef1a6302f0083bfdc0997f",
+    "hash" : "26beb5cb000f8e7982b3d2e46693fc78",
     "url" : "https://github.com/epezent/implot.git",
-    "revision" : "18c72431f8265e2b0b5378a3a73d8a883b2175ff"
+    "revision" : "1f7a8c0314d838a76695bccebe0f66864f507bc0"
   },
   "decls" : [ {
     "@type" : "AstRecordDecl",
@@ -151,41 +151,33 @@
       "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImPlotFlags_NoChild",
-      "docComment" : "a child window region will not be used to capture mouse scroll (can boost performance for single ImGui window applications)",
+      "name" : "ImPlotFlags_NoFrame",
+      "docComment" : "the ImGui frame will not be rendered",
       "qualType" : "ImPlotFlags_",
       "order" : 7,
       "value" : "1 << 6",
       "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImPlotFlags_NoFrame",
-      "docComment" : "the ImGui frame will not be rendered",
+      "name" : "ImPlotFlags_Equal",
+      "docComment" : "x and y axes pairs will be constrained to have the same units/pixel",
       "qualType" : "ImPlotFlags_",
       "order" : 8,
       "value" : "1 << 7",
       "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImPlotFlags_Equal",
-      "docComment" : "x and y axes pairs will be constrained to have the same units/pixel",
+      "name" : "ImPlotFlags_Crosshairs",
+      "docComment" : "the default mouse cursor will be replaced with a crosshair when hovered",
       "qualType" : "ImPlotFlags_",
       "order" : 9,
       "value" : "1 << 8",
       "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImPlotFlags_Crosshairs",
-      "docComment" : "the default mouse cursor will be replaced with a crosshair when hovered",
-      "qualType" : "ImPlotFlags_",
-      "order" : 10,
-      "value" : "1 << 9",
-      "evaluatedValue" : 512
-    }, {
-      "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_CanvasOnly",
       "qualType" : "ImPlotFlags_",
-      "order" : 11,
+      "order" : 10,
       "value" : "ImPlotFlags_NoTitle | ImPlotFlags_NoLegend | ImPlotFlags_NoMenus | ImPlotFlags_NoBoxSelect | ImPlotFlags_NoMouseText",
       "evaluatedValue" : 55
     } ]
@@ -1053,6 +1045,14 @@
       "order" : 1,
       "value" : "1 << 10",
       "evaluatedValue" : 1024
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotPieChartFlags_IgnoreHidden",
+      "docComment" : "ignore hidden slices when drawing the pie chart (as if they were not there)",
+      "qualType" : "ImPlotPieChartFlags_",
+      "order" : 2,
+      "value" : "1 << 11",
+      "evaluatedValue" : 2048
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -3303,7 +3303,7 @@
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Sets up the plot legend."
+            "text" : " Sets up the plot legend. This can also be called immediately after BeginSubplots when using ImPlotSubplotFlags_ShareItems."
           } ]
         } ]
       } ]
@@ -3848,6 +3848,24 @@
         "desugaredQualType" : "int",
         "defaultValue" : "0"
       }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "out_clicked",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "out_hovered",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "held",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "="
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3889,6 +3907,24 @@
         "desugaredQualType" : "int",
         "defaultValue" : "0"
       }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "out_clicked",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "out_hovered",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "held",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "="
+      }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
@@ -3929,6 +3965,24 @@
         "qualType" : "ImPlotDragToolFlags",
         "desugaredQualType" : "int",
         "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "out_clicked",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "out_hovered",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "held",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "="
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -3979,6 +4033,24 @@
         "qualType" : "ImPlotDragToolFlags",
         "desugaredQualType" : "int",
         "defaultValue" : "0"
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "out_clicked",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "out_hovered",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "="
+      }, {
+        "@type" : "AstParmVarDecl",
+        "name" : "held",
+        "qualType" : "bool *",
+        "desugaredQualType" : "bool *",
+        "defaultValue" : "="
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {

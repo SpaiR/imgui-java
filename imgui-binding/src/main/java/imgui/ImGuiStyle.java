@@ -81,7 +81,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     /**
      * Side of the collapsing/docking button in the title bar (None/Left/Right). Defaults to ImGuiDir_Left.
      */
-    @BindingField
+    @BindingField(staticCast = "ImGuiDir")
     public int WindowMenuButtonPosition;
 
     /**
@@ -215,7 +215,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     /**
      * Side of the color button in the ColorEdit4 widget (left/right). Defaults to ImGuiDir_Right.
      */
-    @BindingField
+    @BindingField(staticCast = "ImGuiDir")
     public int ColorButtonPosition;
 
     /**

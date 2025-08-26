@@ -1088,7 +1088,7 @@ public final class ImGui extends imgui.ImGui {
     private static native int nDockBuilderSplitNode(int nodeId, int splitDir, float sizeRatioForNodeAtDir, int[] obj_outIdAtDir, int[] obj_outIdAtOppositeDir); /*MANUAL
         auto outIdAtDir = obj_outIdAtDir == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_outIdAtDir, JNI_FALSE);
         auto outIdAtOppositeDir = obj_outIdAtOppositeDir == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_outIdAtOppositeDir, JNI_FALSE);
-        auto _result = ImGui::DockBuilderSplitNode(nodeId, splitDir, sizeRatioForNodeAtDir, reinterpret_cast<ImGuiID*>((outIdAtDir != NULL ? &outIdAtDir[0] : NULL)), reinterpret_cast<ImGuiID*>((outIdAtOppositeDir != NULL ? &outIdAtOppositeDir[0] : NULL)));
+        auto _result = ImGui::DockBuilderSplitNode(nodeId, static_cast<ImGuiDir>(splitDir), sizeRatioForNodeAtDir, reinterpret_cast<ImGuiID*>((outIdAtDir != NULL ? &outIdAtDir[0] : NULL)), reinterpret_cast<ImGuiID*>((outIdAtOppositeDir != NULL ? &outIdAtOppositeDir[0] : NULL)));
         if (outIdAtDir != NULL) env->ReleasePrimitiveArrayCritical(obj_outIdAtDir, outIdAtDir, JNI_FALSE);
         if (outIdAtOppositeDir != NULL) env->ReleasePrimitiveArrayCritical(obj_outIdAtOppositeDir, outIdAtOppositeDir, JNI_FALSE);
         return _result;
@@ -1545,4 +1545,19 @@ public final class ImGui extends imgui.ImGui {
         return _result;
     */
 
+    // Shade functions (write over already created vertices)
+
+    public static void shadeVertsTransformPos(final ImDrawList drawList, final int vertStartIdx, final int vertEndIdx, final ImVec2 pivotIn, final float cosA, final float sinA, final ImVec2 pivotOut) {
+        nShadeVertsTransformPos(drawList.ptr, vertStartIdx, vertEndIdx, pivotIn.x, pivotIn.y, cosA, sinA, pivotOut.x, pivotOut.y);
+    }
+
+    public static void shadeVertsTransformPos(final ImDrawList drawList, final int vertStartIdx, final int vertEndIdx, final float pivotInX, final float pivotInY, final float cosA, final float sinA, final float pivotOutX, final float pivotOutY) {
+        nShadeVertsTransformPos(drawList.ptr, vertStartIdx, vertEndIdx, pivotInX, pivotInY, cosA, sinA, pivotOutX, pivotOutY);
+    }
+
+    private static native void nShadeVertsTransformPos(long drawList, int vertStartIdx, int vertEndIdx, float pivotInX, float pivotInY, float cosA, float sinA, float pivotOutX, float pivotOutY); /*MANUAL
+        ImVec2 pivotIn = ImVec2(pivotInX, pivotInY);
+        ImVec2 pivotOut = ImVec2(pivotOutX, pivotOutY);
+        ImGui::ShadeVertsTransformPos(reinterpret_cast<ImDrawList*>(drawList), vertStartIdx, vertEndIdx, pivotIn, cosA, sinA, pivotOut);
+    */
 }

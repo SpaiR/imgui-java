@@ -322,7 +322,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     private native void nSetWindowMenuButtonPosition(int value); /*
-        THIS->WindowMenuButtonPosition = value;
+        THIS->WindowMenuButtonPosition = static_cast<ImGuiDir>(value);
     */
 
     /**
@@ -1009,7 +1009,7 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     private native void nSetColorButtonPosition(int value); /*
-        THIS->ColorButtonPosition = value;
+        THIS->ColorButtonPosition = static_cast<ImGuiDir>(value);
     */
 
     /**

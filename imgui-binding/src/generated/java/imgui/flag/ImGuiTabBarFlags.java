@@ -35,7 +35,7 @@ public final class ImGuiTabBarFlags {
     public static final int TabListPopupButton = 4;
 
     /**
-     * Disable behavior of closing tabs (that are submitted with p_open != NULL) with middle mouse button. You can still repro this behavior on user's side with if (IsItemHovered() {@code &} {@code &} IsMouseClicked(2)) *p_open = false.
+     * Disable behavior of closing tabs (that are submitted with p_open != NULL) with middle mouse button. You may handle this behavior manually on user's side with if (IsItemHovered() {@code &} {@code &} IsMouseClicked(2)) *p_open = false.
      *
      * <p>Definition: {@code 1 << 3}
      */
@@ -56,26 +56,33 @@ public final class ImGuiTabBarFlags {
     public static final int NoTooltip = 32;
 
     /**
-     * Resize tabs when they don't fit
+     * Draw selected overline markers over selected tab
      *
      * <p>Definition: {@code 1 << 6}
      */
-    public static final int FittingPolicyResizeDown = 64;
+    public static final int DrawSelectedOverline = 64;
+
+    /**
+     * Resize tabs when they don't fit
+     *
+     * <p>Definition: {@code 1 << 7}
+     */
+    public static final int FittingPolicyResizeDown = 128;
 
     /**
      * Add scroll buttons when tabs don't fit
      *
-     * <p>Definition: {@code 1 << 7}
+     * <p>Definition: {@code 1 << 8}
      */
-    public static final int FittingPolicyScroll = 128;
+    public static final int FittingPolicyScroll = 256;
 
     /**
      * Definition: {@code ImGuiTabBarFlags_FittingPolicyResizeDown | ImGuiTabBarFlags_FittingPolicyScroll}
      */
-    public static final int FittingPolicyMask_ = 192;
+    public static final int FittingPolicyMask_ = 384;
 
     /**
      * Definition: {@code ImGuiTabBarFlags_FittingPolicyResizeDown}
      */
-    public static final int FittingPolicyDefault_ = 64;
+    public static final int FittingPolicyDefault_ = 128;
 }

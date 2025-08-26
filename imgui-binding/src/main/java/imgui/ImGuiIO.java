@@ -253,6 +253,15 @@ public final class ImGuiIO extends ImGuiStruct {
     //------------------------------------------------------------------
 
     /**
+     * Option to enable various debug tools showing buttons that will call the IM_DEBUG_BREAK() macro.
+     * - The Item Picker tool will be available regardless of this being enabled, in order to maximize its discoverability.
+     * - Requires a debugger being attached, otherwise IM_DEBUG_BREAK() options will appear to crash your application.
+     *   e.g. io.ConfigDebugIsDebuggerPresent = ::IsDebuggerPresent() on Win32, or refer to ImOsIsDebuggerPresent() imgui_test_engine/imgui_te_utils.cpp for a Unix compatible version).
+     */
+    @BindingField
+    public boolean ConfigDebugIsDebuggerPresent;
+
+    /**
      * Tools to test correct Begin/End and BeginChild/EndChild behaviors.
      * Presently Begin()/End() and BeginChild()/EndChild() needs to ALWAYS be called in tandem, regardless of return value of BeginXXX()
      * This is inconsistent with other BeginXXX functions and create confusion for many users.
@@ -430,6 +439,18 @@ public final class ImGuiIO extends ImGuiStruct {
     @BindingMethod
     public native void ClearEventsQueue();
 
+    /**
+     * Clear current keyboard/gamepad state + current frame text input buffer. Equivalent to releasing all keys/buttons.
+     */
+    @BindingMethod
+    public native void ClearInputKeys();
+
+    /**
+     * Clear current mouse state.
+     */
+    @BindingMethod
+    public native void ClearInputMouse();
+
     //------------------------------------------------------------------
     // Output - Updated by NewFrame() or EndFrame()/Render()
     // (when reading from the io.WantCaptureMouse, io.WantCaptureKeyboard flags to dispatch your inputs, it is
@@ -518,40 +539,10 @@ public final class ImGuiIO extends ImGuiStruct {
     public int MetricsActiveWindows;
 
     /**
-     * Number of active allocations, updated by MemAlloc/MemFree based on current context. May be off if you have multiple imgui contexts.
-     */
-    @BindingField
-    public int MetricsActiveAllocations;
-
-    /**
      * Mouse delta. Note that this is zero if either current or previous position are invalid (-FLT_MAX,-FLT_MAX), so a disappearing/reappearing mouse won't have a huge delta.
      */
     @BindingField
     public ImVec2 MouseDelta;
-
-    /**
-     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
-     */
-    @BindingField
-    @TypeArray(type = "int", size = "ImGuiKey_COUNT")
-    @Deprecated
-    public int[] KeyMap;
-
-    /**
-     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
-     * This used to be [512] sized. It is now ImGuiKey_COUNT to allow legacy io.KeysDown[GetKeyIndex(...)] to work without an overflow.
-     */
-    @BindingField
-    @TypeArray(type = "boolean", size = "ImGuiKey_COUNT")
-    @Deprecated
-    public boolean[] KeysDown;
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    @BindingField
-    @TypeArray(type = "float", size = "512")
-    public float[] NavInputs;
 
     //------------------------------------------------------------------
     // [Internal] Dear ImGui will maintain those fields. Forward compatibility not guaranteed!
@@ -718,6 +709,12 @@ public final class ImGuiIO extends ImGuiStruct {
      */
     @BindingField
     public boolean MouseWheelRequestAxisSwap;
+
+    /**
+     * (OSX) Set to true when the current click was a ctrl-click that spawned a simulated right click.
+     */
+    @BindingField
+    public boolean MouseCtrlLeftAsRightClick;
 
     /**
      * Duration the mouse button has been down (0.0f == just clicked)

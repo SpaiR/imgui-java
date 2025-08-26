@@ -51,6 +51,12 @@ public final class ImGuiWindowClass extends ImGuiStructDestroyable {
     public int ParentViewportId;
 
     /**
+     * ID of parent window for shortcut focus route evaluation, e.g. Shortcut() call from Parent Window will succeed when this window is focused.
+     */
+    @BindingField
+    public int FocusRouteParentWindowId;
+
+    /**
      * Viewport flags to set when a window of this class owns a viewport.
      * This allows you to enforce OS decoration or task bar icon, override the defaults on a per-window basis.
      */

@@ -37,11 +37,4 @@ public final class ImGuiButtonFlags {
      * <p>Definition: {@code ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight | ImGuiButtonFlags_MouseButtonMiddle}
      */
     public static final int MouseButtonMask_ = 7;
-
-    /**
-     * [Internal]
-     *
-     * <p>Definition: {@code ImGuiButtonFlags_MouseButtonLeft}
-     */
-    public static final int MouseButtonDefault_ = 1;
 }

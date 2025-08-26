@@ -53,7 +53,21 @@ public final class ImGuiDragDropFlags {
      *
      * <p>Definition: {@code 1 << 5}
      */
-    public static final int SourceAutoExpirePayload = 32;
+    public static final int PayloadAutoExpire = 32;
+
+    /**
+     * Hint to specify that the payload may not be copied outside current dear imgui context.
+     *
+     * <p>Definition: {@code 1 << 6}
+     */
+    public static final int PayloadNoCrossContext = 64;
+
+    /**
+     * Hint to specify that the payload may not be copied outside current process.
+     *
+     * <p>Definition: {@code 1 << 7}
+     */
+    public static final int PayloadNoCrossProcess = 128;
 
     /**
      * AcceptDragDropPayload() will returns true even before the mouse button is released. You can then call IsDelivery() to test if the payload needs to be delivered.
@@ -82,4 +96,11 @@ public final class ImGuiDragDropFlags {
      * <p>Definition: {@code ImGuiDragDropFlags_AcceptBeforeDelivery | ImGuiDragDropFlags_AcceptNoDrawDefaultRect}
      */
     public static final int AcceptPeekOnly = 3072;
+
+    /**
+     * Renamed in 1.90.9
+     *
+     * <p>Definition: {@code ImGuiDragDropFlags_PayloadAutoExpire}
+     */
+    public static final int SourceAutoExpirePayload = 32;
 }

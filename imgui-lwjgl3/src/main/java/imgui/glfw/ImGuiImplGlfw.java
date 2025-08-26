@@ -108,7 +108,19 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_F1;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_F10;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_F11;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_F12;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_F13;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_F14;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_F15;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_F16;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_F17;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_F18;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_F19;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_F2;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_F20;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_F21;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_F22;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_F23;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_F24;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_F3;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_F4;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_F5;
@@ -288,7 +300,7 @@ public class ImGuiImplGlfw {
 
         // This field is required to use GLFW with touch screens on Windows.
         // For compatibility reasons it was added here as a comment. But we don't use somewhere in the binding implementation.
-        // protected long glfwWndProc;
+        // protected long prevWndProc;
     }
 
     /**
@@ -579,6 +591,30 @@ public class ImGuiImplGlfw {
                 return ImGuiKey.F11;
             case GLFW_KEY_F12:
                 return ImGuiKey.F12;
+            case GLFW_KEY_F13:
+                return ImGuiKey.F13;
+            case GLFW_KEY_F14:
+                return ImGuiKey.F14;
+            case GLFW_KEY_F15:
+                return ImGuiKey.F15;
+            case GLFW_KEY_F16:
+                return ImGuiKey.F16;
+            case GLFW_KEY_F17:
+                return ImGuiKey.F17;
+            case GLFW_KEY_F18:
+                return ImGuiKey.F18;
+            case GLFW_KEY_F19:
+                return ImGuiKey.F19;
+            case GLFW_KEY_F20:
+                return ImGuiKey.F20;
+            case GLFW_KEY_F21:
+                return ImGuiKey.F21;
+            case GLFW_KEY_F22:
+                return ImGuiKey.F22;
+            case GLFW_KEY_F23:
+                return ImGuiKey.F23;
+            case GLFW_KEY_F24:
+                return ImGuiKey.F24;
             default:
                 return ImGuiKey.None;
         }
