@@ -100,7 +100,7 @@ public final class ImGuiTableColumnFlags {
     public static final int NoSortDescending = 2048;
 
     /**
-     * TableHeadersRow() will not submit label for this column. Convenient for some small columns. Name will still appear in context menu.
+     * TableHeadersRow() will not submit horizontal label for this column. Convenient for some small columns. Name will still appear in context menu or in angled headers.
      *
      * <p>Definition: {@code 1 << 12}
      */
@@ -140,6 +140,13 @@ public final class ImGuiTableColumnFlags {
      * <p>Definition: {@code 1 << 17}
      */
     public static final int IndentDisable = 131072;
+
+    /**
+     * TableHeadersRow() will submit an angled header row for this column. Note this will add an extra row.
+     *
+     * <p>Definition: {@code 1 << 18}
+     */
+    public static final int AngledHeader = 262144;
 
     /**
      * Status: is enabled == not hidden by user/api (referred to as "Hide" in _DefaultHide and _NoHide) flags.

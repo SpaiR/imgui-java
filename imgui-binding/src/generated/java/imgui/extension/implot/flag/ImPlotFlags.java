@@ -55,32 +55,25 @@ public final class ImPlotFlags {
     public static final int NoBoxSelect = 32;
 
     /**
-     * a child window region will not be used to capture mouse scroll (can boost performance for single ImGui window applications)
+     * the ImGui frame will not be rendered
      *
      * <p>Definition: {@code 1 << 6}
      */
-    public static final int NoChild = 64;
-
-    /**
-     * the ImGui frame will not be rendered
-     *
-     * <p>Definition: {@code 1 << 7}
-     */
-    public static final int NoFrame = 128;
+    public static final int NoFrame = 64;
 
     /**
      * x and y axes pairs will be constrained to have the same units/pixel
      *
-     * <p>Definition: {@code 1 << 8}
+     * <p>Definition: {@code 1 << 7}
      */
-    public static final int Equal = 256;
+    public static final int Equal = 128;
 
     /**
      * the default mouse cursor will be replaced with a crosshair when hovered
      *
-     * <p>Definition: {@code 1 << 9}
+     * <p>Definition: {@code 1 << 8}
      */
-    public static final int Crosshairs = 512;
+    public static final int Crosshairs = 256;
 
     /**
      * Definition: {@code ImPlotFlags_NoTitle | ImPlotFlags_NoLegend | ImPlotFlags_NoMenus | ImPlotFlags_NoBoxSelect | ImPlotFlags_NoMouseText}

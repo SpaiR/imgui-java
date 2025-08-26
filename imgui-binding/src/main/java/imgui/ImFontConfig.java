@@ -160,6 +160,12 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
     public float RasterizerMultiply;
 
     /**
+     * DPI scale for rasterization, not altering other font metrics: make it easy to swap between e.g. a 100% and a 400% fonts for a zooming display. IMPORTANT: If you increase this it is expected that you increase font scale accordingly, otherwise quality may look lowered.
+     */
+    @BindingField
+    public float RasterizerDensity;
+
+    /**
      * Explicitly specify unicode codepoint of ellipsis character. When fonts are being merged first specified ellipsis will be used.
      */
     @BindingField

@@ -21,7 +21,7 @@ public final class ImGuiSelectableFlags {
     public static final int DontClosePopups = 1;
 
     /**
-     * Selectable frame can span all columns (text will still fit in current column)
+     * Frame will span all columns of its container table (text will still fit in current column)
      *
      * <p>Definition: {@code 1 << 1}
      */

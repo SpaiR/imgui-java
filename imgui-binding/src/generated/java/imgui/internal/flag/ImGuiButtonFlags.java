@@ -39,13 +39,6 @@ public final class ImGuiButtonFlags {
     public static final int MouseButtonMask_ = 7;
 
     /**
-     * [Internal]
-     *
-     * <p>Definition: {@code ImGuiButtonFlags_MouseButtonLeft}
-     */
-    public static final int MouseButtonDefault_ = 1;
-
-    /**
      * return true on click (mouse down event)
      *
      * <p>Definition: {@code 1 << 4}
@@ -137,7 +130,7 @@ public final class ImGuiButtonFlags {
     public static final int NoHoldingActiveId = 131072;
 
     /**
-     * don't override navigation focus when activated (FIXME: this is essentially used everytime an item uses ImGuiItemFlags_NoNav, but because legacy specs don't requires LastItemData to be set ButtonBehavior(), we can't poll g.LastItemData.InFlags)
+     * don't override navigation focus when activated (FIXME: this is essentially used every time an item uses ImGuiItemFlags_NoNav, but because legacy specs don't requires LastItemData to be set ButtonBehavior(), we can't poll g.LastItemData.InFlags)
      *
      * <p>Definition: {@code 1 << 18}
      */

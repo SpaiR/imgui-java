@@ -35,6 +35,14 @@ public final class ImDrawList extends ImGuiStruct {
     @BindingField(isFlag = true)
     public int Flags;
 
+    // [Internal, used while building lists]
+
+    /**
+     * [Internal] generally == VtxBuffer.Size unless we are past 64K vertices, in which case this gets reset to 0.
+     */
+    @BindingField(accessors = BindingField.Accessor.GETTER, callName = "_VtxCurrentIdx")
+    public int VtxCurrentIdx;
+
     /**
      * Render-level scissoring.
      * This is passed down to your render function but not used for CPU-side coarse clipping.
@@ -106,16 +114,16 @@ public final class ImDrawList extends ImGuiStruct {
     public native void AddNgonFilled(ImVec2 center, float radius, int col, int num_segments);
 
     @BindingMethod
+    public native void AddEllipse(ImVec2 center, ImVec2 radius, int col, @OptArg float rot, @OptArg float numSegments, @OptArg float thickness);
+
+    @BindingMethod
+    public native void AddEllipseFilled(ImVec2 center, ImVec2 radius, int col, @OptArg float rot, @OptArg float numSegments);
+
+    @BindingMethod
     public native void AddText(ImVec2 pos, int col, String textBegin, @OptArg String textEnd);
 
     @BindingMethod
     public native void AddText(ImFont font, int fontSize, ImVec2 pos, int col, String textBegin, @OptArg(callValue = "NULL") String textEnd, @OptArg(callValue = "0.0f") float wrapWidth, @OptArg @ArgValue(callPrefix = "&") ImVec4 cpuFineClipRect);
-
-    @BindingMethod
-    public native void AddPolyline(ImVec2[] points, int numPoint, int col, int imDrawFlags, float thickness);
-
-    @BindingMethod
-    public native void AddConvexPolyFilled(ImVec2[] points, int numPoints, int col);
 
     /**
      * Cubic Bezier (4 control points)
@@ -128,6 +136,19 @@ public final class ImDrawList extends ImGuiStruct {
      */
     @BindingMethod
     public native void AddBezierQuadratic(ImVec2 p1, ImVec2 p2, ImVec2 p3, int col, float thickness, @OptArg int numSegments);
+
+    // General polygon
+    // - Only simple polygons are supported by filling functions (no self-intersections, no holes).
+    // - Concave polygon fill is more expensive than convex one: it has O(N^2) complexity. Provided as a convenience fo user but not used by main library.
+
+    @BindingMethod
+    public native void AddPolyline(ImVec2[] points, int numPoints, int col, int imDrawFlags, float thickness);
+
+    @BindingMethod
+    public native void AddConvexPolyFilled(ImVec2[] points, int numPoints, int col);
+
+    @BindingMethod
+    public native void AddConcavePolyFilled(ImVec2[] points, int numPoints, int col);
 
     // Image primitives
     // - Read FAQ to understand what ImTextureID is.
@@ -144,7 +165,8 @@ public final class ImDrawList extends ImGuiStruct {
     public native void AddImageRounded(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long textureID, ImVec2 pMin, ImVec2 pMax, ImVec2 uvMin, ImVec2 uvMax, int col, float rounding, @OptArg int imDrawFlags);
 
     // Stateful path API, add points then finish with PathFillConvex() or PathStroke()
-    // - Filled shapes must always use clockwise winding order. The anti-aliasing fringe depends on it. Counter-clockwise shapes will have "inward" anti-aliasing.
+    // - Important: filled shapes must always use clockwise winding order! The anti-aliasing fringe depends on it. Counter-clockwise shapes will have "inward" anti-aliasing.
+    //   so e.g. 'PathArcTo(center, radius, PI * -0.5f, PI)' is ok, whereas 'PathArcTo(center, radius, PI, PI * -0.5f)' won't have correct anti-aliasing when followed by PathFillConvex().
 
     @BindingMethod
     public native void PathClear();
@@ -162,6 +184,9 @@ public final class ImDrawList extends ImGuiStruct {
     public native void PathFillConvex(int col);
 
     @BindingMethod
+    public native void PathFillConcave(int col);
+
+    @BindingMethod
     public native void PathStroke(int col, @OptArg(callValue = "0") int imDrawFlags, @OptArg float thickness);
 
     @BindingMethod
@@ -172,6 +197,9 @@ public final class ImDrawList extends ImGuiStruct {
      */
     @BindingMethod
     public native void PathArcToFast(ImVec2 center, float radius, int aMinOf12, int aMaxOf12);
+
+    @BindingMethod
+    public native void PathEllipticalArcTo(ImVec2 center, ImVec2 radius, float rot, float aMin, float aMax, @OptArg int numSegments);
 
     /**
      * Cubic Bezier (4 control points)

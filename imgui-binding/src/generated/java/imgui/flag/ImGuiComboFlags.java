@@ -63,6 +63,13 @@ public final class ImGuiComboFlags {
     public static final int NoPreview = 64;
 
     /**
+     * Width dynamically calculated from preview contents
+     *
+     * <p>Definition: {@code 1 << 7}
+     */
+    public static final int WidthFitPreview = 128;
+
+    /**
      * Definition: {@code ImGuiComboFlags_HeightSmall | ImGuiComboFlags_HeightRegular | ImGuiComboFlags_HeightLarge | ImGuiComboFlags_HeightLargest}
      */
     public static final int HeightMask_ = 30;

@@ -230,7 +230,7 @@ public class ImGui {
     private static final ImGuiStyle _GETSTYLE_1 = new ImGuiStyle(0);
 
     /**
-     * Access the Style structure (colors, sizes). Always use PushStyleCol(), PushStyleVar() to modify style mid-frame!
+     * Access the Style structure (colors, sizes). Always use PushStyleColor(), PushStyleVar() to modify style mid-frame!
      */
     public static ImGuiStyle getStyle() {
         _GETSTYLE_1.ptr = nGetStyle();
@@ -366,24 +366,24 @@ public class ImGui {
     /**
      * Create Stack Tool window. hover items with mouse to query information about the source of their unique ID.
      */
-    public static void showStackToolWindow() {
-        nShowStackToolWindow();
+    public static void showIDStackToolWindow() {
+        nShowIDStackToolWindow();
     }
 
     /**
      * Create Stack Tool window. hover items with mouse to query information about the source of their unique ID.
      */
-    public static void showStackToolWindow(final ImBoolean pOpen) {
-        nShowStackToolWindow(pOpen != null ? pOpen.getData() : null);
+    public static void showIDStackToolWindow(final ImBoolean pOpen) {
+        nShowIDStackToolWindow(pOpen != null ? pOpen.getData() : null);
     }
 
-    private static native void nShowStackToolWindow(); /*
-        ImGui::ShowStackToolWindow();
+    private static native void nShowIDStackToolWindow(); /*
+        ImGui::ShowIDStackToolWindow();
     */
 
-    private static native void nShowStackToolWindow(boolean[] pOpen); /*MANUAL
+    private static native void nShowIDStackToolWindow(boolean[] pOpen); /*MANUAL
         auto pOpen = obj_pOpen == NULL ? NULL : (bool*)env->GetPrimitiveArrayCritical(obj_pOpen, JNI_FALSE);
-        ImGui::ShowStackToolWindow((pOpen != NULL ? &pOpen[0] : NULL));
+        ImGui::ShowIDStackToolWindow((pOpen != NULL ? &pOpen[0] : NULL));
         if (pOpen != NULL) env->ReleasePrimitiveArrayCritical(obj_pOpen, pOpen, JNI_FALSE);
     */
 
@@ -554,16 +554,15 @@ public class ImGui {
 
     // Windows
     // - Begin() = push window to the stack and start appending to it. End() = pop window from the stack.
-    // - You may append multiple times to the same window during the same frame.
-    // - Passing 'bool* pOpen != NULL' shows a window-closing widget in the upper-right corner of the window,
+    // - Passing 'bool* p_open != NULL' shows a window-closing widget in the upper-right corner of the window,
     //   which clicking will set the boolean to false when clicked.
     // - You may append multiple times to the same window during the same frame by calling Begin()/End() pairs multiple times.
     //   Some information such as 'flags' or 'p_open' will only be considered by the first call to Begin().
     // - Begin() return false to indicate the window is collapsed or fully clipped, so you may early out and omit submitting
     //   anything to the window. Always call a matching End() for each Begin() call, regardless of its return value!
-    //   [Important: due to legacy reason, this is inconsistent with most other functions such as BeginMenu/EndMenu,
-    //    BeginPopup/EndPopup, etc. where the EndXXX call should only be called if the corresponding BeginXXX function
-    //    returned true. Begin and BeginChild are the only odd ones out. Will be fixed in a future update.]
+    //   [Important: due to legacy reason, Begin/End and BeginChild/EndChild are inconsistent with all other functions
+    //    such as BeginMenu/EndMenu, BeginPopup/EndPopup, etc. where the EndXXX call should only be called if the corresponding
+    //    BeginXXX function returned true. Begin and BeginChild are the only odd ones out. Will be fixed in a future update.]
     // - Note that the bottom of window stack always contains a window called "Debug".
 
     public static boolean begin(final String title) {
@@ -624,12 +623,22 @@ public class ImGui {
 
     // Child Windows
     // - Use child windows to begin into a self-contained independent scrolling/clipping regions within a host window. Child windows can embed their own child.
-    // - For each independent axis of 'size': ==0.0f: use remaining host window size / >0.0f: fixed size / <0.0f: use remaining window size minus abs(size) / Each axis can use a different mode, e.g. ImVec2(0,400).
-    // - BeginChild() returns false to indicate the window is collapsed or fully clipped, so you may early out and omit submitting anything to the window.
-    //   Always call a matching EndChild() for each BeginChild() call, regardless of its return value.
-    //   [Important: due to legacy reason, this is inconsistent with most other functions such as BeginMenu/EndMenu,
-    //    BeginPopup/EndPopup, etc. where the EndXXX call should only be called if the corresponding BeginXXX function
-    //    returned true. Begin and BeginChild are the only odd ones out. Will be fixed in a future update.]
+    // - Before 1.90 (November 2023), the "ImGuiChildFlags child_flags = 0" parameter was "bool border = false".
+    //   This API is backward compatible with old code, as we guarantee that ImGuiChildFlags_Border == true.
+    //   Consider updating your old code:
+    //      BeginChild("Name", size, false)   -> Begin("Name", size, 0); or Begin("Name", size, ImGuiChildFlags_None);
+    //      BeginChild("Name", size, true)    -> Begin("Name", size, ImGuiChildFlags_Border);
+    // - Manual sizing (each axis can use a different setting e.g. ImVec2(0.0f, 400.0f)):
+    //     == 0.0f: use remaining parent window size for this axis.
+    //      > 0.0f: use specified size for this axis.
+    //      < 0.0f: right/bottom-align to specified distance from available content boundaries.
+    // - Specifying ImGuiChildFlags_AutoResizeX or ImGuiChildFlags_AutoResizeY makes the sizing automatic based on child contents.
+    //   Combining both ImGuiChildFlags_AutoResizeX _and_ ImGuiChildFlags_AutoResizeY defeats purpose of a scrolling region and is NOT recommended.
+    // - BeginChild() returns false to indicate the window is collapsed or fully clipped, so you may early out and omit submitting
+    //   anything to the window. Always call a matching EndChild() for each BeginChild() call, regardless of its return value.
+    //   [Important: due to legacy reason, Begin/End and BeginChild/EndChild are inconsistent with all other functions
+    //    such as BeginMenu/EndMenu, BeginPopup/EndPopup, etc. where the EndXXX call should only be called if the corresponding
+    //    BeginXXX function returned true. Begin and BeginChild are the only odd ones out. Will be fixed in a future update.]
 
     public static boolean beginChild(final String strId) {
         return nBeginChild(strId);
@@ -643,36 +652,28 @@ public class ImGui {
         return nBeginChild(strId, sizeX, sizeY);
     }
 
-    public static boolean beginChild(final String strId, final ImVec2 size, final boolean border) {
-        return nBeginChild(strId, size.x, size.y, border);
+    public static boolean beginChild(final String strId, final ImVec2 size, final int childFlags) {
+        return nBeginChild(strId, size.x, size.y, childFlags);
     }
 
-    public static boolean beginChild(final String strId, final float sizeX, final float sizeY, final boolean border) {
-        return nBeginChild(strId, sizeX, sizeY, border);
+    public static boolean beginChild(final String strId, final float sizeX, final float sizeY, final int childFlags) {
+        return nBeginChild(strId, sizeX, sizeY, childFlags);
     }
 
-    public static boolean beginChild(final String strId, final ImVec2 size, final boolean border, final int imGuiWindowFlags) {
-        return nBeginChild(strId, size.x, size.y, border, imGuiWindowFlags);
+    public static boolean beginChild(final String strId, final ImVec2 size, final int childFlags, final int windowFlags) {
+        return nBeginChild(strId, size.x, size.y, childFlags, windowFlags);
     }
 
-    public static boolean beginChild(final String strId, final float sizeX, final float sizeY, final boolean border, final int imGuiWindowFlags) {
-        return nBeginChild(strId, sizeX, sizeY, border, imGuiWindowFlags);
+    public static boolean beginChild(final String strId, final float sizeX, final float sizeY, final int childFlags, final int windowFlags) {
+        return nBeginChild(strId, sizeX, sizeY, childFlags, windowFlags);
     }
 
-    public static boolean beginChild(final String strId, final boolean border, final int imGuiWindowFlags) {
-        return nBeginChild(strId, border, imGuiWindowFlags);
+    public static boolean beginChild(final String strId, final int childFlags, final int windowFlags) {
+        return nBeginChild(strId, childFlags, windowFlags);
     }
 
-    public static boolean beginChild(final String strId, final int imGuiWindowFlags) {
-        return nBeginChild(strId, imGuiWindowFlags);
-    }
-
-    public static boolean beginChild(final String strId, final ImVec2 size, final int imGuiWindowFlags) {
-        return nBeginChild(strId, size.x, size.y, imGuiWindowFlags);
-    }
-
-    public static boolean beginChild(final String strId, final float sizeX, final float sizeY, final int imGuiWindowFlags) {
-        return nBeginChild(strId, sizeX, sizeY, imGuiWindowFlags);
+    public static boolean beginChild(final String strId, final int windowFlags) {
+        return nBeginChild(strId, windowFlags);
     }
 
     private static native boolean nBeginChild(String obj_strId); /*MANUAL
@@ -690,121 +691,179 @@ public class ImGui {
         return _result;
     */
 
+    private static native boolean nBeginChild(String obj_strId, float sizeX, float sizeY, int childFlags); /*MANUAL
+        auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
+        ImVec2 size = ImVec2(sizeX, sizeY);
+        auto _result = ImGui::BeginChild(strId, size, childFlags);
+        if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
+        return _result;
+    */
+
+    private static native boolean nBeginChild(String obj_strId, float sizeX, float sizeY, int childFlags, int windowFlags); /*MANUAL
+        auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
+        ImVec2 size = ImVec2(sizeX, sizeY);
+        auto _result = ImGui::BeginChild(strId, size, childFlags, windowFlags);
+        if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
+        return _result;
+    */
+
+    private static native boolean nBeginChild(String obj_strId, int childFlags, int windowFlags); /*MANUAL
+        auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
+        auto _result = ImGui::BeginChild(strId, ImVec2(0,0), childFlags, windowFlags);
+        if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
+        return _result;
+    */
+
+    private static native boolean nBeginChild(String obj_strId, int windowFlags); /*MANUAL
+        auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
+        auto _result = ImGui::BeginChild(strId, ImVec2(0,0), 0, windowFlags);
+        if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
+        return _result;
+    */
+
+    public static boolean beginChild(final int id) {
+        return nBeginChild(id);
+    }
+
+    public static boolean beginChild(final int id, final ImVec2 size) {
+        return nBeginChild(id, size.x, size.y);
+    }
+
+    public static boolean beginChild(final int id, final float sizeX, final float sizeY) {
+        return nBeginChild(id, sizeX, sizeY);
+    }
+
+    public static boolean beginChild(final int id, final ImVec2 size, final int childFlags) {
+        return nBeginChild(id, size.x, size.y, childFlags);
+    }
+
+    public static boolean beginChild(final int id, final float sizeX, final float sizeY, final int childFlags) {
+        return nBeginChild(id, sizeX, sizeY, childFlags);
+    }
+
+    public static boolean beginChild(final int id, final ImVec2 size, final int childFlags, final int windowFlags) {
+        return nBeginChild(id, size.x, size.y, childFlags, windowFlags);
+    }
+
+    public static boolean beginChild(final int id, final float sizeX, final float sizeY, final int childFlags, final int windowFlags) {
+        return nBeginChild(id, sizeX, sizeY, childFlags, windowFlags);
+    }
+
+    public static boolean beginChild(final int id, final int childFlags, final int windowFlags) {
+        return nBeginChild(id, childFlags, windowFlags);
+    }
+
+    public static boolean beginChild(final int id, final int windowFlags) {
+        return nBeginChild(id, windowFlags);
+    }
+
+    private static native boolean nBeginChild(int id); /*
+        return ImGui::BeginChild(id);
+    */
+
+    private static native boolean nBeginChild(int id, float sizeX, float sizeY); /*MANUAL
+        ImVec2 size = ImVec2(sizeX, sizeY);
+        auto _result = ImGui::BeginChild(id, size);
+        return _result;
+    */
+
+    private static native boolean nBeginChild(int id, float sizeX, float sizeY, int childFlags); /*MANUAL
+        ImVec2 size = ImVec2(sizeX, sizeY);
+        auto _result = ImGui::BeginChild(id, size, childFlags);
+        return _result;
+    */
+
+    private static native boolean nBeginChild(int id, float sizeX, float sizeY, int childFlags, int windowFlags); /*MANUAL
+        ImVec2 size = ImVec2(sizeX, sizeY);
+        auto _result = ImGui::BeginChild(id, size, childFlags, windowFlags);
+        return _result;
+    */
+
+    private static native boolean nBeginChild(int id, int childFlags, int windowFlags); /*
+        return ImGui::BeginChild(id, ImVec2(0,0), childFlags, windowFlags);
+    */
+
+    private static native boolean nBeginChild(int id, int windowFlags); /*
+        return ImGui::BeginChild(id, ImVec2(0,0), 0, windowFlags);
+    */
+
+    public static boolean beginChild(final String strId, final ImVec2 size, final boolean border) {
+        return nBeginChild(strId, size.x, size.y, border);
+    }
+
+    public static boolean beginChild(final String strId, final float sizeX, final float sizeY, final boolean border) {
+        return nBeginChild(strId, sizeX, sizeY, border);
+    }
+
+    public static boolean beginChild(final String strId, final ImVec2 size, final boolean border, final int windowFlags) {
+        return nBeginChild(strId, size.x, size.y, border, windowFlags);
+    }
+
+    public static boolean beginChild(final String strId, final float sizeX, final float sizeY, final boolean border, final int windowFlags) {
+        return nBeginChild(strId, sizeX, sizeY, border, windowFlags);
+    }
+
     private static native boolean nBeginChild(String obj_strId, float sizeX, float sizeY, boolean border); /*MANUAL
         auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
         ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::BeginChild(strId, size, border);
+        auto _result = ImGui::BeginChild(strId, size, static_cast<ImGuiChildFlags>(border));
         if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
         return _result;
     */
 
-    private static native boolean nBeginChild(String obj_strId, float sizeX, float sizeY, boolean border, int imGuiWindowFlags); /*MANUAL
+    private static native boolean nBeginChild(String obj_strId, float sizeX, float sizeY, boolean border, int windowFlags); /*MANUAL
         auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
         ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::BeginChild(strId, size, border, imGuiWindowFlags);
+        auto _result = ImGui::BeginChild(strId, size, static_cast<ImGuiChildFlags>(border), windowFlags);
         if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
         return _result;
     */
 
-    private static native boolean nBeginChild(String obj_strId, boolean border, int imGuiWindowFlags); /*MANUAL
-        auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
-        auto _result = ImGui::BeginChild(strId, ImVec2(0,0), border, imGuiWindowFlags);
-        if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
-        return _result;
-    */
+    /**
+     *
+     * @deprecated Use {@link #beginChild(String, ImVec2, int, int)} instead.
+     */
+    @Deprecated
+    public static boolean beginChild(final int id, final ImVec2 size, final boolean border) {
+        return nBeginChild(id, size.x, size.y, border);
+    }
 
-    private static native boolean nBeginChild(String obj_strId, int imGuiWindowFlags); /*MANUAL
-        auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
-        auto _result = ImGui::BeginChild(strId, ImVec2(0,0), false, imGuiWindowFlags);
-        if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
-        return _result;
-    */
+    /**
+     *
+     * @deprecated Use {@link #beginChild(String, ImVec2, int, int)} instead.
+     */
+    @Deprecated
+    public static boolean beginChild(final int id, final float sizeX, final float sizeY, final boolean border) {
+        return nBeginChild(id, sizeX, sizeY, border);
+    }
 
-    private static native boolean nBeginChild(String obj_strId, float sizeX, float sizeY, int imGuiWindowFlags); /*MANUAL
-        auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
+    /**
+     *
+     * @deprecated Use {@link #beginChild(String, ImVec2, int, int)} instead.
+     */
+    @Deprecated
+    public static boolean beginChild(final int id, final ImVec2 size, final boolean border, final int windowFlags) {
+        return nBeginChild(id, size.x, size.y, border, windowFlags);
+    }
+
+    /**
+     *
+     * @deprecated Use {@link #beginChild(String, ImVec2, int, int)} instead.
+     */
+    @Deprecated
+    public static boolean beginChild(final int id, final float sizeX, final float sizeY, final boolean border, final int windowFlags) {
+        return nBeginChild(id, sizeX, sizeY, border, windowFlags);
+    }
+
+    private static native boolean nBeginChild(int id, float sizeX, float sizeY, boolean border); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::BeginChild(strId, size, false, imGuiWindowFlags);
-        if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
+        auto _result = ImGui::BeginChild(id, size, static_cast<ImGuiChildFlags>(border));
         return _result;
     */
 
-    public static boolean beginChild(final int imGuiID) {
-        return nBeginChild(imGuiID);
-    }
-
-    public static boolean beginChild(final int imGuiID, final ImVec2 size) {
-        return nBeginChild(imGuiID, size.x, size.y);
-    }
-
-    public static boolean beginChild(final int imGuiID, final float sizeX, final float sizeY) {
-        return nBeginChild(imGuiID, sizeX, sizeY);
-    }
-
-    public static boolean beginChild(final int imGuiID, final ImVec2 size, final boolean border) {
-        return nBeginChild(imGuiID, size.x, size.y, border);
-    }
-
-    public static boolean beginChild(final int imGuiID, final float sizeX, final float sizeY, final boolean border) {
-        return nBeginChild(imGuiID, sizeX, sizeY, border);
-    }
-
-    public static boolean beginChild(final int imGuiID, final ImVec2 size, final boolean border, final int imGuiWindowFlags) {
-        return nBeginChild(imGuiID, size.x, size.y, border, imGuiWindowFlags);
-    }
-
-    public static boolean beginChild(final int imGuiID, final float sizeX, final float sizeY, final boolean border, final int imGuiWindowFlags) {
-        return nBeginChild(imGuiID, sizeX, sizeY, border, imGuiWindowFlags);
-    }
-
-    public static boolean beginChild(final int imGuiID, final boolean border, final int imGuiWindowFlags) {
-        return nBeginChild(imGuiID, border, imGuiWindowFlags);
-    }
-
-    public static boolean beginChild(final int imGuiID, final int imGuiWindowFlags) {
-        return nBeginChild(imGuiID, imGuiWindowFlags);
-    }
-
-    public static boolean beginChild(final int imGuiID, final ImVec2 size, final int imGuiWindowFlags) {
-        return nBeginChild(imGuiID, size.x, size.y, imGuiWindowFlags);
-    }
-
-    public static boolean beginChild(final int imGuiID, final float sizeX, final float sizeY, final int imGuiWindowFlags) {
-        return nBeginChild(imGuiID, sizeX, sizeY, imGuiWindowFlags);
-    }
-
-    private static native boolean nBeginChild(int imGuiID); /*
-        return ImGui::BeginChild(imGuiID);
-    */
-
-    private static native boolean nBeginChild(int imGuiID, float sizeX, float sizeY); /*MANUAL
+    private static native boolean nBeginChild(int id, float sizeX, float sizeY, boolean border, int windowFlags); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::BeginChild(imGuiID, size);
-        return _result;
-    */
-
-    private static native boolean nBeginChild(int imGuiID, float sizeX, float sizeY, boolean border); /*MANUAL
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::BeginChild(imGuiID, size, border);
-        return _result;
-    */
-
-    private static native boolean nBeginChild(int imGuiID, float sizeX, float sizeY, boolean border, int imGuiWindowFlags); /*MANUAL
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::BeginChild(imGuiID, size, border, imGuiWindowFlags);
-        return _result;
-    */
-
-    private static native boolean nBeginChild(int imGuiID, boolean border, int imGuiWindowFlags); /*
-        return ImGui::BeginChild(imGuiID, ImVec2(0,0), border, imGuiWindowFlags);
-    */
-
-    private static native boolean nBeginChild(int imGuiID, int imGuiWindowFlags); /*
-        return ImGui::BeginChild(imGuiID, ImVec2(0,0), false, imGuiWindowFlags);
-    */
-
-    private static native boolean nBeginChild(int imGuiID, float sizeX, float sizeY, int imGuiWindowFlags); /*MANUAL
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::BeginChild(imGuiID, size, false, imGuiWindowFlags);
+        auto _result = ImGui::BeginChild(id, size, static_cast<ImGuiChildFlags>(border), windowFlags);
         return _result;
     */
 
@@ -858,18 +917,20 @@ public class ImGui {
     */
 
     /**
-     * Is current window hovered (and typically: not blocked by a popup/modal)? see flags for options.
-     * NB: If you are trying to check whether your mouse should be dispatched to imgui or to your app,
-     * you should use the 'io.WantCaptureMouse' boolean for that! Please read the FAQ!
+     * Is current window hovered and hoverable (e.g. not blocked by a popup/modal)? See ImGuiHoveredFlags_ for options.
+     * IMPORTANT: If you are trying to check whether your mouse should be dispatched to Dear ImGui or to your underlying app,
+     * you should not use this function! Use the 'io.WantCaptureMouse' boolean for that!
+     * Refer to FAQ entry "How can I tell whether to dispatch mouse/keyboard to Dear ImGui or my application?" for details.
      */
     public static boolean isWindowHovered() {
         return nIsWindowHovered();
     }
 
     /**
-     * Is current window hovered (and typically: not blocked by a popup/modal)? see flags for options.
-     * NB: If you are trying to check whether your mouse should be dispatched to imgui or to your app,
-     * you should use the 'io.WantCaptureMouse' boolean for that! Please read the FAQ!
+     * Is current window hovered and hoverable (e.g. not blocked by a popup/modal)? See ImGuiHoveredFlags_ for options.
+     * IMPORTANT: If you are trying to check whether your mouse should be dispatched to Dear ImGui or to your underlying app,
+     * you should not use this function! Use the 'io.WantCaptureMouse' boolean for that!
+     * Refer to FAQ entry "How can I tell whether to dispatch mouse/keyboard to Dear ImGui or my application?" for details.
      */
     public static boolean isWindowHovered(final int imGuiHoveredFlags) {
         return nIsWindowHovered(imGuiHoveredFlags);
@@ -907,7 +968,7 @@ public class ImGui {
 
     /**
      * Get current window position in screen space (note: it is unlikely you need to use this.
-     * Consider using current layout pos instead, GetScreenCursorPos())
+     * Consider using current layout pos instead, GetCursorScreenPos())
      */
     public static ImVec2 getWindowPos() {
         final ImVec2 dst = new ImVec2();
@@ -917,7 +978,7 @@ public class ImGui {
 
     /**
      * Get current window position in screen space (note: it is unlikely you need to use this.
-     * Consider using current layout pos instead, GetScreenCursorPos())
+     * Consider using current layout pos instead, GetCursorScreenPos())
      */
     public static float getWindowPosX() {
         return nGetWindowPosX();
@@ -925,7 +986,7 @@ public class ImGui {
 
     /**
      * Get current window position in screen space (note: it is unlikely you need to use this.
-     * Consider using current layout pos instead, GetScreenCursorPos())
+     * Consider using current layout pos instead, GetCursorScreenPos())
      */
     public static float getWindowPosY() {
         return nGetWindowPosY();
@@ -933,7 +994,7 @@ public class ImGui {
 
     /**
      * Get current window position in screen space (note: it is unlikely you need to use this.
-     * Consider using current layout pos instead, GetScreenCursorPos())
+     * Consider using current layout pos instead, GetCursorScreenPos())
      */
     public static void getWindowPos(final ImVec2 dst) {
         nGetWindowPos(dst);
@@ -952,7 +1013,7 @@ public class ImGui {
     */
 
     /**
-     * Get current window size (note: it is unlikely you need to use this. Consider using GetScreenCursorPos() and e.g. GetContentRegionAvail() instead)
+     * Get current window size (note: it is unlikely you need to use this. Consider using GetCursorScreenPos() and e.g. GetContentRegionAvail() instead)
      */
     public static ImVec2 getWindowSize() {
         final ImVec2 dst = new ImVec2();
@@ -961,21 +1022,21 @@ public class ImGui {
     }
 
     /**
-     * Get current window size (note: it is unlikely you need to use this. Consider using GetScreenCursorPos() and e.g. GetContentRegionAvail() instead)
+     * Get current window size (note: it is unlikely you need to use this. Consider using GetCursorScreenPos() and e.g. GetContentRegionAvail() instead)
      */
     public static float getWindowSizeX() {
         return nGetWindowSizeX();
     }
 
     /**
-     * Get current window size (note: it is unlikely you need to use this. Consider using GetScreenCursorPos() and e.g. GetContentRegionAvail() instead)
+     * Get current window size (note: it is unlikely you need to use this. Consider using GetCursorScreenPos() and e.g. GetContentRegionAvail() instead)
      */
     public static float getWindowSizeY() {
         return nGetWindowSizeY();
     }
 
     /**
-     * Get current window size (note: it is unlikely you need to use this. Consider using GetScreenCursorPos() and e.g. GetContentRegionAvail() instead)
+     * Get current window size (note: it is unlikely you need to use this. Consider using GetCursorScreenPos() and e.g. GetContentRegionAvail() instead)
      */
     public static void getWindowSize(final ImVec2 dst) {
         nGetWindowSize(dst);
@@ -1145,14 +1206,16 @@ public class ImGui {
     */
 
     /**
-     * Set next window size limits. use -1,-1 on either X/Y axis to preserve the current size. Sizes will be rounded down.
+     * Set next window size limits. use 0.0f or FLT_MAX if you don't want limits. Use -1 for both min and max of same axis to preserve current size (which itself is a constraint).
+     * Use callback to apply non-trivial programmatic constraints.
      */
     public static void setNextWindowSizeConstraints(final ImVec2 sizeMin, final ImVec2 sizeMax) {
         nSetNextWindowSizeConstraints(sizeMin.x, sizeMin.y, sizeMax.x, sizeMax.y);
     }
 
     /**
-     * Set next window size limits. use -1,-1 on either X/Y axis to preserve the current size. Sizes will be rounded down.
+     * Set next window size limits. use 0.0f or FLT_MAX if you don't want limits. Use -1 for both min and max of same axis to preserve current size (which itself is a constraint).
+     * Use callback to apply non-trivial programmatic constraints.
      */
     public static void setNextWindowSizeConstraints(final float sizeMinX, final float sizeMinY, final float sizeMaxX, final float sizeMaxY) {
         nSetNextWindowSizeConstraints(sizeMinX, sizeMinY, sizeMaxX, sizeMaxY);
@@ -2198,8 +2261,19 @@ public class ImGui {
         return nGetColorU32i(col);
     }
 
+    /**
+     * Retrieve given color with style alpha applied, packed as a 32-bit value suitable for ImDrawList.
+     */
+    public static int getColorU32i(final int col, final float alphaMul) {
+        return nGetColorU32i(col, alphaMul);
+    }
+
     private static native int nGetColorU32i(int col); /*
         return ImGui::GetColorU32(static_cast<ImU32>(col));
+    */
+
+    private static native int nGetColorU32i(int col, float alphaMul); /*
+        return ImGui::GetColorU32(static_cast<ImU32>(col), alphaMul);
     */
 
     /**
@@ -2272,13 +2346,202 @@ public class ImGui {
         return ImGui::GetStyleColorVec4(imGuiColIdx).w;
     */
 
-    // Cursor / Layout
+    // Layout cursor positioning
     // - By "cursor" we mean the current output position.
     // - The typical widget behavior is to output themselves at the current cursor position, then move the cursor one line down.
     // - You can call SameLine() between widgets to undo the last carriage return and output at the right of the preceding widget.
     // - Attention! We currently have inconsistencies between window-local and absolute positions we will aim to fix with future API:
-    //    Window-local coordinates:   SameLine(), GetCursorPos(), SetCursorPos(), GetCursorStartPos(), GetContentRegionMax(), GetWindowContentRegion*(), PushTextWrapPos()
-    //    Absolute coordinate:        GetCursorScreenPos(), SetCursorScreenPos(), all ImDrawList:: functions.
+    //    - Absolute coordinate:        GetCursorScreenPos(), SetCursorScreenPos(), all ImDrawList:: functions. -> this is the preferred way forward.
+    //    - Window-local coordinates:   SameLine(), GetCursorPos(), SetCursorPos(), GetCursorStartPos(), GetContentRegionMax(), GetWindowContentRegion*(), PushTextWrapPos()
+    // - GetCursorScreenPos() = GetCursorPos() + GetWindowPos(). GetWindowPos() is almost only ever useful to convert from window-local to absolute coordinates.
+
+    /**
+     * Cursor position in absolute coordinates (prefer using this, also more useful to work with ImDrawList API).
+     */
+    public static ImVec2 getCursorScreenPos() {
+        final ImVec2 dst = new ImVec2();
+        nGetCursorScreenPos(dst);
+        return dst;
+    }
+
+    /**
+     * Cursor position in absolute coordinates (prefer using this, also more useful to work with ImDrawList API).
+     */
+    public static float getCursorScreenPosX() {
+        return nGetCursorScreenPosX();
+    }
+
+    /**
+     * Cursor position in absolute coordinates (prefer using this, also more useful to work with ImDrawList API).
+     */
+    public static float getCursorScreenPosY() {
+        return nGetCursorScreenPosY();
+    }
+
+    /**
+     * Cursor position in absolute coordinates (prefer using this, also more useful to work with ImDrawList API).
+     */
+    public static void getCursorScreenPos(final ImVec2 dst) {
+        nGetCursorScreenPos(dst);
+    }
+
+    private static native void nGetCursorScreenPos(ImVec2 dst); /*
+        Jni::ImVec2Cpy(env, ImGui::GetCursorScreenPos(), dst);
+    */
+
+    private static native float nGetCursorScreenPosX(); /*
+        return ImGui::GetCursorScreenPos().x;
+    */
+
+    private static native float nGetCursorScreenPosY(); /*
+        return ImGui::GetCursorScreenPos().y;
+    */
+
+    /**
+     * Cursor position in absolute coordinates.
+     */
+    public static void setCursorScreenPos(final ImVec2 pos) {
+        nSetCursorScreenPos(pos.x, pos.y);
+    }
+
+    /**
+     * Cursor position in absolute coordinates.
+     */
+    public static void setCursorScreenPos(final float posX, final float posY) {
+        nSetCursorScreenPos(posX, posY);
+    }
+
+    private static native void nSetCursorScreenPos(float posX, float posY); /*MANUAL
+        ImVec2 pos = ImVec2(posX, posY);
+        ImGui::SetCursorScreenPos(pos);
+    */
+
+    /**
+     * Cursor position in window coordinates (relative to window position)
+     */
+    public static ImVec2 getCursorPos() {
+        final ImVec2 dst = new ImVec2();
+        nGetCursorPos(dst);
+        return dst;
+    }
+
+    /**
+     * Cursor position in window coordinates (relative to window position)
+     */
+    public static float getCursorPosX() {
+        return nGetCursorPosX();
+    }
+
+    /**
+     * Cursor position in window coordinates (relative to window position)
+     */
+    public static float getCursorPosY() {
+        return nGetCursorPosY();
+    }
+
+    /**
+     * Cursor position in window coordinates (relative to window position)
+     */
+    public static void getCursorPos(final ImVec2 dst) {
+        nGetCursorPos(dst);
+    }
+
+    private static native void nGetCursorPos(ImVec2 dst); /*
+        Jni::ImVec2Cpy(env, ImGui::GetCursorPos(), dst);
+    */
+
+    private static native float nGetCursorPosX(); /*
+        return ImGui::GetCursorPos().x;
+    */
+
+    private static native float nGetCursorPosY(); /*
+        return ImGui::GetCursorPos().y;
+    */
+
+    /**
+     * Cursor position in window coordinates (relative to window position)
+     */
+    public static void setCursorPos(final ImVec2 localPos) {
+        nSetCursorPos(localPos.x, localPos.y);
+    }
+
+    /**
+     * Cursor position in window coordinates (relative to window position)
+     */
+    public static void setCursorPos(final float localPosX, final float localPosY) {
+        nSetCursorPos(localPosX, localPosY);
+    }
+
+    private static native void nSetCursorPos(float localPosX, float localPosY); /*MANUAL
+        ImVec2 localPos = ImVec2(localPosX, localPosY);
+        ImGui::SetCursorPos(localPos);
+    */
+
+    /**
+     * Cursor position in window coordinates (relative to window position)
+     */
+    public static void setCursorPosX(final float localX) {
+        nSetCursorPosX(localX);
+    }
+
+    private static native void nSetCursorPosX(float localX); /*
+        ImGui::SetCursorPosX(localX);
+    */
+
+    /**
+     * Cursor position in window coordinates (relative to window position)
+     */
+    public static void setCursorPosY(final float localY) {
+        nSetCursorPosY(localY);
+    }
+
+    private static native void nSetCursorPosY(float localY); /*
+        ImGui::SetCursorPosY(localY);
+    */
+
+    /**
+     * Initial cursor position in window coordinates
+     */
+    public static ImVec2 getCursorStartPos() {
+        final ImVec2 dst = new ImVec2();
+        nGetCursorStartPos(dst);
+        return dst;
+    }
+
+    /**
+     * Initial cursor position in window coordinates
+     */
+    public static float getCursorStartPosX() {
+        return nGetCursorStartPosX();
+    }
+
+    /**
+     * Initial cursor position in window coordinates
+     */
+    public static float getCursorStartPosY() {
+        return nGetCursorStartPosY();
+    }
+
+    /**
+     * Initial cursor position in window coordinates
+     */
+    public static void getCursorStartPos(final ImVec2 dst) {
+        nGetCursorStartPos(dst);
+    }
+
+    private static native void nGetCursorStartPos(ImVec2 dst); /*
+        Jni::ImVec2Cpy(env, ImGui::GetCursorStartPos(), dst);
+    */
+
+    private static native float nGetCursorStartPosX(); /*
+        return ImGui::GetCursorStartPos().x;
+    */
+
+    private static native float nGetCursorStartPosY(); /*
+        return ImGui::GetCursorStartPos().y;
+    */
+
+    // Other layout functions
 
     /**
      * Separator, generally horizontal. inside a menu bar or in horizontal layout mode, this becomes a vertical separator.
@@ -2435,200 +2698,6 @@ public class ImGui {
     //  other functions such as GetCursorScreenPos or everything in ImDrawList::
     //  are using the main, absolute coordinate system.
     //  GetWindowPos() + GetCursorPos() == GetCursorScreenPos() etc.)
-
-    /**
-     * Cursor position in window coordinates (relative to window position)
-     */
-    public static ImVec2 getCursorPos() {
-        final ImVec2 dst = new ImVec2();
-        nGetCursorPos(dst);
-        return dst;
-    }
-
-    /**
-     * Cursor position in window coordinates (relative to window position)
-     */
-    public static float getCursorPosX() {
-        return nGetCursorPosX();
-    }
-
-    /**
-     * Cursor position in window coordinates (relative to window position)
-     */
-    public static float getCursorPosY() {
-        return nGetCursorPosY();
-    }
-
-    /**
-     * Cursor position in window coordinates (relative to window position)
-     */
-    public static void getCursorPos(final ImVec2 dst) {
-        nGetCursorPos(dst);
-    }
-
-    private static native void nGetCursorPos(ImVec2 dst); /*
-        Jni::ImVec2Cpy(env, ImGui::GetCursorPos(), dst);
-    */
-
-    private static native float nGetCursorPosX(); /*
-        return ImGui::GetCursorPos().x;
-    */
-
-    private static native float nGetCursorPosY(); /*
-        return ImGui::GetCursorPos().y;
-    */
-
-    /**
-     * Cursor position in window coordinates (relative to window position)
-     */
-    public static void setCursorPos(final ImVec2 pos) {
-        nSetCursorPos(pos.x, pos.y);
-    }
-
-    /**
-     * Cursor position in window coordinates (relative to window position)
-     */
-    public static void setCursorPos(final float posX, final float posY) {
-        nSetCursorPos(posX, posY);
-    }
-
-    private static native void nSetCursorPos(float posX, float posY); /*MANUAL
-        ImVec2 pos = ImVec2(posX, posY);
-        ImGui::SetCursorPos(pos);
-    */
-
-    /**
-     * Cursor position in window coordinates (relative to window position)
-     */
-    public static void setCursorPosX(final float x) {
-        nSetCursorPosX(x);
-    }
-
-    private static native void nSetCursorPosX(float x); /*
-        ImGui::SetCursorPosX(x);
-    */
-
-    /**
-     * Cursor position in window coordinates (relative to window position)
-     */
-    public static void setCursorPosY(final float y) {
-        nSetCursorPosY(y);
-    }
-
-    private static native void nSetCursorPosY(float y); /*
-        ImGui::SetCursorPosY(y);
-    */
-
-    /**
-     * Initial cursor position in window coordinates
-     */
-    public static ImVec2 getCursorStartPos() {
-        final ImVec2 dst = new ImVec2();
-        nGetCursorStartPos(dst);
-        return dst;
-    }
-
-    /**
-     * Initial cursor position in window coordinates
-     */
-    public static float getCursorStartPosX() {
-        return nGetCursorStartPosX();
-    }
-
-    /**
-     * Initial cursor position in window coordinates
-     */
-    public static float getCursorStartPosY() {
-        return nGetCursorStartPosY();
-    }
-
-    /**
-     * Initial cursor position in window coordinates
-     */
-    public static void getCursorStartPos(final ImVec2 dst) {
-        nGetCursorStartPos(dst);
-    }
-
-    private static native void nGetCursorStartPos(ImVec2 dst); /*
-        Jni::ImVec2Cpy(env, ImGui::GetCursorStartPos(), dst);
-    */
-
-    private static native float nGetCursorStartPosX(); /*
-        return ImGui::GetCursorStartPos().x;
-    */
-
-    private static native float nGetCursorStartPosY(); /*
-        return ImGui::GetCursorStartPos().y;
-    */
-
-    /**
-     * Cursor position in absolute coordinates (useful to work with ImDrawList API).
-     * Generally top-left == GetMainViewport().Pos == (0,0) in single viewport mode,
-     * and bottom-right == GetMainViewport().Pos+Size == io.DisplaySize in single-viewport mode.
-     */
-    public static ImVec2 getCursorScreenPos() {
-        final ImVec2 dst = new ImVec2();
-        nGetCursorScreenPos(dst);
-        return dst;
-    }
-
-    /**
-     * Cursor position in absolute coordinates (useful to work with ImDrawList API).
-     * Generally top-left == GetMainViewport().Pos == (0,0) in single viewport mode,
-     * and bottom-right == GetMainViewport().Pos+Size == io.DisplaySize in single-viewport mode.
-     */
-    public static float getCursorScreenPosX() {
-        return nGetCursorScreenPosX();
-    }
-
-    /**
-     * Cursor position in absolute coordinates (useful to work with ImDrawList API).
-     * Generally top-left == GetMainViewport().Pos == (0,0) in single viewport mode,
-     * and bottom-right == GetMainViewport().Pos+Size == io.DisplaySize in single-viewport mode.
-     */
-    public static float getCursorScreenPosY() {
-        return nGetCursorScreenPosY();
-    }
-
-    /**
-     * Cursor position in absolute coordinates (useful to work with ImDrawList API).
-     * Generally top-left == GetMainViewport().Pos == (0,0) in single viewport mode,
-     * and bottom-right == GetMainViewport().Pos+Size == io.DisplaySize in single-viewport mode.
-     */
-    public static void getCursorScreenPos(final ImVec2 dst) {
-        nGetCursorScreenPos(dst);
-    }
-
-    private static native void nGetCursorScreenPos(ImVec2 dst); /*
-        Jni::ImVec2Cpy(env, ImGui::GetCursorScreenPos(), dst);
-    */
-
-    private static native float nGetCursorScreenPosX(); /*
-        return ImGui::GetCursorScreenPos().x;
-    */
-
-    private static native float nGetCursorScreenPosY(); /*
-        return ImGui::GetCursorScreenPos().y;
-    */
-
-    /**
-     * Cursor position in absolute coordinates.
-     */
-    public static void setCursorScreenPos(final ImVec2 pos) {
-        nSetCursorScreenPos(pos.x, pos.y);
-    }
-
-    /**
-     * Cursor position in absolute coordinates.
-     */
-    public static void setCursorScreenPos(final float posX, final float posY) {
-        nSetCursorScreenPos(posX, posY);
-    }
-
-    private static native void nSetCursorScreenPos(float posX, float posY); /*MANUAL
-        ImVec2 pos = ImVec2(posX, posY);
-        ImGui::SetCursorScreenPos(pos);
-    */
 
     /**
      * Vertically align upcoming text baseline to FramePadding.y so that it will align properly to regularly framed items (call if you have text on a line before a framed item)
@@ -2991,7 +3060,7 @@ public class ImGui {
     */
 
     /**
-     * Button with FramePadding=(0,0) to easily embed within text
+     * Button with (FramePadding.y == 0) to easily embed within text
      */
     public static boolean smallButton(final String label) {
         return nSmallButton(label);
@@ -3057,7 +3126,7 @@ public class ImGui {
 
     private static native boolean nArrowButton(String obj_strId, int dir); /*MANUAL
         auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
-        auto _result = ImGui::ArrowButton(strId, dir);
+        auto _result = ImGui::ArrowButton(strId, static_cast<ImGuiDir>(dir));
         if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
         return _result;
     */
@@ -3187,167 +3256,167 @@ public class ImGui {
     // Widgets: Images
     // - Read about ImTextureID here: https://github.com/ocornut/imgui/wiki/Image-Loading-and-Displaying-Examples
 
-    public static void image(final long userTextureId, final ImVec2 size) {
-        nImage(userTextureId, size.x, size.y);
+    public static void image(final long userTextureId, final ImVec2 imageSize) {
+        nImage(userTextureId, imageSize.x, imageSize.y);
     }
 
-    public static void image(final long userTextureId, final float sizeX, final float sizeY) {
-        nImage(userTextureId, sizeX, sizeY);
+    public static void image(final long userTextureId, final float imageSizeX, final float imageSizeY) {
+        nImage(userTextureId, imageSizeX, imageSizeY);
     }
 
-    public static void image(final long userTextureId, final ImVec2 size, final ImVec2 uv0) {
-        nImage(userTextureId, size.x, size.y, uv0.x, uv0.y);
+    public static void image(final long userTextureId, final ImVec2 imageSize, final ImVec2 uv0) {
+        nImage(userTextureId, imageSize.x, imageSize.y, uv0.x, uv0.y);
     }
 
-    public static void image(final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y) {
-        nImage(userTextureId, sizeX, sizeY, uv0X, uv0Y);
+    public static void image(final long userTextureId, final float imageSizeX, final float imageSizeY, final float uv0X, final float uv0Y) {
+        nImage(userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y);
     }
 
-    public static void image(final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1) {
-        nImage(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y);
+    public static void image(final long userTextureId, final ImVec2 imageSize, final ImVec2 uv0, final ImVec2 uv1) {
+        nImage(userTextureId, imageSize.x, imageSize.y, uv0.x, uv0.y, uv1.x, uv1.y);
     }
 
-    public static void image(final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y) {
-        nImage(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y);
+    public static void image(final long userTextureId, final float imageSizeX, final float imageSizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y) {
+        nImage(userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y, uv1X, uv1Y);
     }
 
-    public static void image(final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 tintCol) {
-        nImage(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
+    public static void image(final long userTextureId, final ImVec2 imageSize, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 tintCol) {
+        nImage(userTextureId, imageSize.x, imageSize.y, uv0.x, uv0.y, uv1.x, uv1.y, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
     }
 
-    public static void image(final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
-        nImage(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, tintColX, tintColY, tintColZ, tintColW);
+    public static void image(final long userTextureId, final float imageSizeX, final float imageSizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
+        nImage(userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y, uv1X, uv1Y, tintColX, tintColY, tintColZ, tintColW);
     }
 
-    public static void image(final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 tintCol, final ImVec4 borderCol) {
-        nImage(userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, tintCol.x, tintCol.y, tintCol.z, tintCol.w, borderCol.x, borderCol.y, borderCol.z, borderCol.w);
+    public static void image(final long userTextureId, final ImVec2 imageSize, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 tintCol, final ImVec4 borderCol) {
+        nImage(userTextureId, imageSize.x, imageSize.y, uv0.x, uv0.y, uv1.x, uv1.y, tintCol.x, tintCol.y, tintCol.z, tintCol.w, borderCol.x, borderCol.y, borderCol.z, borderCol.w);
     }
 
-    public static void image(final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float tintColX, final float tintColY, final float tintColZ, final float tintColW, final float borderColX, final float borderColY, final float borderColZ, final float borderColW) {
-        nImage(userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, tintColX, tintColY, tintColZ, tintColW, borderColX, borderColY, borderColZ, borderColW);
+    public static void image(final long userTextureId, final float imageSizeX, final float imageSizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float tintColX, final float tintColY, final float tintColZ, final float tintColW, final float borderColX, final float borderColY, final float borderColZ, final float borderColW) {
+        nImage(userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y, uv1X, uv1Y, tintColX, tintColY, tintColZ, tintColW, borderColX, borderColY, borderColZ, borderColW);
     }
 
-    private static native void nImage(long userTextureId, float sizeX, float sizeY); /*MANUAL
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, size);
+    private static native void nImage(long userTextureId, float imageSizeX, float imageSizeY); /*MANUAL
+        ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
+        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, imageSize);
     */
 
-    private static native void nImage(long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y); /*MANUAL
-        ImVec2 size = ImVec2(sizeX, sizeY);
+    private static native void nImage(long userTextureId, float imageSizeX, float imageSizeY, float uv0X, float uv0Y); /*MANUAL
+        ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
-        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, size, uv0);
+        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, imageSize, uv0);
     */
 
-    private static native void nImage(long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*MANUAL
-        ImVec2 size = ImVec2(sizeX, sizeY);
+    private static native void nImage(long userTextureId, float imageSizeX, float imageSizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*MANUAL
+        ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
-        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1);
+        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, imageSize, uv0, uv1);
     */
 
-    private static native void nImage(long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
-        ImVec2 size = ImVec2(sizeX, sizeY);
+    private static native void nImage(long userTextureId, float imageSizeX, float imageSizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
+        ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
         ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
-        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1, tintCol);
+        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, imageSize, uv0, uv1, tintCol);
     */
 
-    private static native void nImage(long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColX, float tintColY, float tintColZ, float tintColW, float borderColX, float borderColY, float borderColZ, float borderColW); /*MANUAL
-        ImVec2 size = ImVec2(sizeX, sizeY);
+    private static native void nImage(long userTextureId, float imageSizeX, float imageSizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColX, float tintColY, float tintColZ, float tintColW, float borderColX, float borderColY, float borderColZ, float borderColW); /*MANUAL
+        ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
         ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
         ImVec4 borderCol = ImVec4(borderColX, borderColY, borderColZ, borderColW);
-        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1, tintCol, borderCol);
+        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, imageSize, uv0, uv1, tintCol, borderCol);
     */
 
-    public static boolean imageButton(final String strId, final long userTextureId, final ImVec2 size) {
-        return nImageButton(strId, userTextureId, size.x, size.y);
+    public static boolean imageButton(final String strId, final long userTextureId, final ImVec2 imageSize) {
+        return nImageButton(strId, userTextureId, imageSize.x, imageSize.y);
     }
 
-    public static boolean imageButton(final String strId, final long userTextureId, final float sizeX, final float sizeY) {
-        return nImageButton(strId, userTextureId, sizeX, sizeY);
+    public static boolean imageButton(final String strId, final long userTextureId, final float imageSizeX, final float imageSizeY) {
+        return nImageButton(strId, userTextureId, imageSizeX, imageSizeY);
     }
 
-    public static boolean imageButton(final String strId, final long userTextureId, final ImVec2 size, final ImVec2 uv0) {
-        return nImageButton(strId, userTextureId, size.x, size.y, uv0.x, uv0.y);
+    public static boolean imageButton(final String strId, final long userTextureId, final ImVec2 imageSize, final ImVec2 uv0) {
+        return nImageButton(strId, userTextureId, imageSize.x, imageSize.y, uv0.x, uv0.y);
     }
 
-    public static boolean imageButton(final String strId, final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y) {
-        return nImageButton(strId, userTextureId, sizeX, sizeY, uv0X, uv0Y);
+    public static boolean imageButton(final String strId, final long userTextureId, final float imageSizeX, final float imageSizeY, final float uv0X, final float uv0Y) {
+        return nImageButton(strId, userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y);
     }
 
-    public static boolean imageButton(final String strId, final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1) {
-        return nImageButton(strId, userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y);
+    public static boolean imageButton(final String strId, final long userTextureId, final ImVec2 imageSize, final ImVec2 uv0, final ImVec2 uv1) {
+        return nImageButton(strId, userTextureId, imageSize.x, imageSize.y, uv0.x, uv0.y, uv1.x, uv1.y);
     }
 
-    public static boolean imageButton(final String strId, final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y) {
-        return nImageButton(strId, userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y);
+    public static boolean imageButton(final String strId, final long userTextureId, final float imageSizeX, final float imageSizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y) {
+        return nImageButton(strId, userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y, uv1X, uv1Y);
     }
 
-    public static boolean imageButton(final String strId, final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 bgCol) {
-        return nImageButton(strId, userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, bgCol.x, bgCol.y, bgCol.z, bgCol.w);
+    public static boolean imageButton(final String strId, final long userTextureId, final ImVec2 imageSize, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 bgCol) {
+        return nImageButton(strId, userTextureId, imageSize.x, imageSize.y, uv0.x, uv0.y, uv1.x, uv1.y, bgCol.x, bgCol.y, bgCol.z, bgCol.w);
     }
 
-    public static boolean imageButton(final String strId, final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float bgColX, final float bgColY, final float bgColZ, final float bgColW) {
-        return nImageButton(strId, userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, bgColX, bgColY, bgColZ, bgColW);
+    public static boolean imageButton(final String strId, final long userTextureId, final float imageSizeX, final float imageSizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float bgColX, final float bgColY, final float bgColZ, final float bgColW) {
+        return nImageButton(strId, userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y, uv1X, uv1Y, bgColX, bgColY, bgColZ, bgColW);
     }
 
-    public static boolean imageButton(final String strId, final long userTextureId, final ImVec2 size, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 bgCol, final ImVec4 tintCol) {
-        return nImageButton(strId, userTextureId, size.x, size.y, uv0.x, uv0.y, uv1.x, uv1.y, bgCol.x, bgCol.y, bgCol.z, bgCol.w, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
+    public static boolean imageButton(final String strId, final long userTextureId, final ImVec2 imageSize, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 bgCol, final ImVec4 tintCol) {
+        return nImageButton(strId, userTextureId, imageSize.x, imageSize.y, uv0.x, uv0.y, uv1.x, uv1.y, bgCol.x, bgCol.y, bgCol.z, bgCol.w, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
     }
 
-    public static boolean imageButton(final String strId, final long userTextureId, final float sizeX, final float sizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float bgColX, final float bgColY, final float bgColZ, final float bgColW, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
-        return nImageButton(strId, userTextureId, sizeX, sizeY, uv0X, uv0Y, uv1X, uv1Y, bgColX, bgColY, bgColZ, bgColW, tintColX, tintColY, tintColZ, tintColW);
+    public static boolean imageButton(final String strId, final long userTextureId, final float imageSizeX, final float imageSizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float bgColX, final float bgColY, final float bgColZ, final float bgColW, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
+        return nImageButton(strId, userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y, uv1X, uv1Y, bgColX, bgColY, bgColZ, bgColW, tintColX, tintColY, tintColZ, tintColW);
     }
 
-    private static native boolean nImageButton(String obj_strId, long userTextureId, float sizeX, float sizeY); /*MANUAL
+    private static native boolean nImageButton(String obj_strId, long userTextureId, float imageSizeX, float imageSizeY); /*MANUAL
         auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::ImageButton(strId, (ImTextureID)(uintptr_t)userTextureId, size);
+        ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
+        auto _result = ImGui::ImageButton(strId, (ImTextureID)(uintptr_t)userTextureId, imageSize);
         if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
         return _result;
     */
 
-    private static native boolean nImageButton(String obj_strId, long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y); /*MANUAL
+    private static native boolean nImageButton(String obj_strId, long userTextureId, float imageSizeX, float imageSizeY, float uv0X, float uv0Y); /*MANUAL
         auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
-        ImVec2 size = ImVec2(sizeX, sizeY);
+        ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
-        auto _result = ImGui::ImageButton(strId, (ImTextureID)(uintptr_t)userTextureId, size, uv0);
+        auto _result = ImGui::ImageButton(strId, (ImTextureID)(uintptr_t)userTextureId, imageSize, uv0);
         if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
         return _result;
     */
 
-    private static native boolean nImageButton(String obj_strId, long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*MANUAL
+    private static native boolean nImageButton(String obj_strId, long userTextureId, float imageSizeX, float imageSizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*MANUAL
         auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
-        ImVec2 size = ImVec2(sizeX, sizeY);
+        ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
-        auto _result = ImGui::ImageButton(strId, (ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1);
+        auto _result = ImGui::ImageButton(strId, (ImTextureID)(uintptr_t)userTextureId, imageSize, uv0, uv1);
         if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
         return _result;
     */
 
-    private static native boolean nImageButton(String obj_strId, long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float bgColX, float bgColY, float bgColZ, float bgColW); /*MANUAL
+    private static native boolean nImageButton(String obj_strId, long userTextureId, float imageSizeX, float imageSizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float bgColX, float bgColY, float bgColZ, float bgColW); /*MANUAL
         auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
-        ImVec2 size = ImVec2(sizeX, sizeY);
+        ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
         ImVec4 bgCol = ImVec4(bgColX, bgColY, bgColZ, bgColW);
-        auto _result = ImGui::ImageButton(strId, (ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1, bgCol);
+        auto _result = ImGui::ImageButton(strId, (ImTextureID)(uintptr_t)userTextureId, imageSize, uv0, uv1, bgCol);
         if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
         return _result;
     */
 
-    private static native boolean nImageButton(String obj_strId, long userTextureId, float sizeX, float sizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float bgColX, float bgColY, float bgColZ, float bgColW, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
+    private static native boolean nImageButton(String obj_strId, long userTextureId, float imageSizeX, float imageSizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float bgColX, float bgColY, float bgColZ, float bgColW, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
         auto strId = obj_strId == NULL ? NULL : (char*)env->GetStringUTFChars(obj_strId, JNI_FALSE);
-        ImVec2 size = ImVec2(sizeX, sizeY);
+        ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
         ImVec4 bgCol = ImVec4(bgColX, bgColY, bgColZ, bgColW);
         ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
-        auto _result = ImGui::ImageButton(strId, (ImTextureID)(uintptr_t)userTextureId, size, uv0, uv1, bgCol, tintCol);
+        auto _result = ImGui::ImageButton(strId, (ImTextureID)(uintptr_t)userTextureId, imageSize, uv0, uv1, bgCol, tintCol);
         if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
         return _result;
     */
@@ -9238,7 +9307,7 @@ public class ImGui {
     */
 
     /**
-     * ~ Indent()+PushId(). Already called by TreeNode() when returning true, but you can call TreePush/TreePop yourself if desired.
+     * ~ Indent()+PushID(). Already called by TreeNode() when returning true, but you can call TreePush/TreePop yourself if desired.
      */
     public static void treePush(final String strId) {
         nTreePush(strId);
@@ -9251,7 +9320,7 @@ public class ImGui {
     */
 
     /**
-     * ~ Indent()+PushId(). Already called by TreeNode() when returning true, but you can call TreePush/TreePop yourself if desired.
+     * ~ Indent()+PushID(). Already called by TreeNode() when returning true, but you can call TreePush/TreePop yourself if desired.
      */
     public static void treePush(final long ptrId) {
         nTreePush(ptrId);
@@ -9262,7 +9331,7 @@ public class ImGui {
     */
 
     /**
-     * ~ Unindent()+PopId()
+     * ~ Unindent()+PopID()
      */
     public static void treePop() {
         nTreePop();
@@ -9531,11 +9600,11 @@ public class ImGui {
     */
 
     // Widgets: List Boxes
-    // - This is essentially a thin wrapper to using BeginChild/EndChild with some stylistic changes.
-    // - The BeginListBox()/EndListBox() api allows you to manage your contents and selection state however you want it, by creating e.g. Selectable() or any items.
+    // - This is essentially a thin wrapper to using BeginChild/EndChild with the ImGuiChildFlags_FrameStyle flag for stylistic changes + displaying a label.
+    // - You can submit contents and manage your selection state however you want it, by creating e.g. Selectable() or any other items.
     // - The simplified/old ListBox() api are helpers over BeginListBox()/EndListBox() which are kept available for convenience purpose. This is analoguous to how Combos are created.
-    // - Choose frame width:   size.x > 0.0f: custom  /  size.{@code x {@code <} 0.0f} or -FLT_MIN: right-align   /  size.x = 0.0f (default): use current ItemWidth
-    // - Choose frame height:  size.y > 0.0f: custom  /  size.y {@code < 0.0f} or -FLT_MIN: bottom-align  /  size.y = 0.0f (default): arbitrary default height which can fit ~7 items
+    // - Choose frame width:   size.x > 0.0f: custom  /  size.x < 0.0f or -FLT_MIN: right-align   /  size.x = 0.0f (default): use current ItemWidth
+    // - Choose frame height:  size.y > 0.0f: custom  /  size.y < 0.0f or -FLT_MIN: bottom-align  /  size.y = 0.0f (default): arbitrary default height which can fit ~7 items
 
     /**
      * Open a framed scrolling region.
@@ -10204,7 +10273,8 @@ public class ImGui {
 
     // Tooltips
     // - Tooltips are windows following the mouse. They do not take focus away.
-    // - A tooltip window can contain items of any types. SetTooltip() is a shortcut for the 'if (BeginTooltip()) { Text(...); EndTooltip(); }' idiom.
+    // - A tooltip window can contain items of any types.
+    // - SetTooltip() is more or less a shortcut for the 'if (BeginTooltip()) { Text(...); EndTooltip(); }' idiom (with a subtlety that it discard any previously submitted tooltip)
 
     /**
      * Begin/append a tooltip window.
@@ -10258,7 +10328,7 @@ public class ImGui {
     */
 
     /**
-     * Set a text-only tooltip if preceeding item was hovered. override any previous call to SetTooltip().
+     * Set a text-only tooltip if preceding item was hovered. override any previous call to SetTooltip().
      */
     public static void setItemTooltip(final String text) {
         nSetItemTooltip(text);
@@ -10278,8 +10348,7 @@ public class ImGui {
     //  - You can bypass the hovering restriction by using ImGuiHoveredFlags_AllowWhenBlockedByPopup when calling IsItemHovered() or IsWindowHovered().
     //  - IMPORTANT: Popup identifiers are relative to the current ID stack, so OpenPopup and BeginPopup generally needs to be at the same level of the stack.
     //    This is sometimes leading to confusing mistakes. May rework this in the future.
-    // Popups: begin/end functions
-    //  - BeginPopup(): query popup state, if open start appending into the window. Call EndPopup() afterwards. ImGuiWindowFlags are forwarded to the window.
+    //  - BeginPopup(): query popup state, if open start appending into the window. Call EndPopup() afterwards if returned true. ImGuiWindowFlags are forwarded to the window.
     //  - BeginPopupModal(): block every interaction behind the window, cannot be closed by user, add a dimming background, has a title bar.
 
     /**
@@ -10704,102 +10773,100 @@ public class ImGui {
     //      TableNextColumn() will automatically wrap-around into the next row if needed.
     //    - IMPORTANT: Comparatively to the old Columns() API, we need to call TableNextColumn() for the first column!
     //    - Summary of possible call flow:
-    //        --------------------------------------------------------------------------------------------------------
-    //        TableNextRow() -> TableSetColumnIndex(0) -> Text("Hello 0") -> TableSetColumnIndex(1) -> Text("Hello 1")  // OK
-    //        TableNextRow() -> TableNextColumn()      -> Text("Hello 0") -> TableNextColumn()      -> Text("Hello 1")  // OK
-    //                          TableNextColumn()      -> Text("Hello 0") -> TableNextColumn()      -> Text("Hello 1")  // OK: TableNextColumn() automatically gets to next row!
-    //        TableNextRow()                           -> Text("Hello 0")                                               // Not OK! Missing TableSetColumnIndex() or TableNextColumn()! Text will not appear!
-    //        --------------------------------------------------------------------------------------------------------
+    //        - TableNextRow() -> TableSetColumnIndex(0) -> Text("Hello 0") -> TableSetColumnIndex(1) -> Text("Hello 1")  // OK
+    //        - TableNextRow() -> TableNextColumn()      -> Text("Hello 0") -> TableNextColumn()      -> Text("Hello 1")  // OK
+    //        -                   TableNextColumn()      -> Text("Hello 0") -> TableNextColumn()      -> Text("Hello 1")  // OK: TableNextColumn() automatically gets to next row!
+    //        - TableNextRow()                           -> Text("Hello 0")                                               // Not OK! Missing TableSetColumnIndex() or TableNextColumn()! Text will not appear!
     // - 5. Call EndTable()
 
-    public static boolean beginTable(final String id, final int column) {
-        return nBeginTable(id, column);
+    public static boolean beginTable(final String id, final int columns) {
+        return nBeginTable(id, columns);
     }
 
-    public static boolean beginTable(final String id, final int column, final int imGuiTableFlags) {
-        return nBeginTable(id, column, imGuiTableFlags);
+    public static boolean beginTable(final String id, final int columns, final int imGuiTableFlags) {
+        return nBeginTable(id, columns, imGuiTableFlags);
     }
 
-    public static boolean beginTable(final String id, final int column, final int imGuiTableFlags, final ImVec2 outerSize) {
-        return nBeginTable(id, column, imGuiTableFlags, outerSize.x, outerSize.y);
+    public static boolean beginTable(final String id, final int columns, final int imGuiTableFlags, final ImVec2 outerSize) {
+        return nBeginTable(id, columns, imGuiTableFlags, outerSize.x, outerSize.y);
     }
 
-    public static boolean beginTable(final String id, final int column, final int imGuiTableFlags, final float outerSizeX, final float outerSizeY) {
-        return nBeginTable(id, column, imGuiTableFlags, outerSizeX, outerSizeY);
+    public static boolean beginTable(final String id, final int columns, final int imGuiTableFlags, final float outerSizeX, final float outerSizeY) {
+        return nBeginTable(id, columns, imGuiTableFlags, outerSizeX, outerSizeY);
     }
 
-    public static boolean beginTable(final String id, final int column, final int imGuiTableFlags, final ImVec2 outerSize, final float innerWidth) {
-        return nBeginTable(id, column, imGuiTableFlags, outerSize.x, outerSize.y, innerWidth);
+    public static boolean beginTable(final String id, final int columns, final int imGuiTableFlags, final ImVec2 outerSize, final float innerWidth) {
+        return nBeginTable(id, columns, imGuiTableFlags, outerSize.x, outerSize.y, innerWidth);
     }
 
-    public static boolean beginTable(final String id, final int column, final int imGuiTableFlags, final float outerSizeX, final float outerSizeY, final float innerWidth) {
-        return nBeginTable(id, column, imGuiTableFlags, outerSizeX, outerSizeY, innerWidth);
+    public static boolean beginTable(final String id, final int columns, final int imGuiTableFlags, final float outerSizeX, final float outerSizeY, final float innerWidth) {
+        return nBeginTable(id, columns, imGuiTableFlags, outerSizeX, outerSizeY, innerWidth);
     }
 
-    public static boolean beginTable(final String id, final int column, final ImVec2 outerSize, final float innerWidth) {
-        return nBeginTable(id, column, outerSize.x, outerSize.y, innerWidth);
+    public static boolean beginTable(final String id, final int columns, final ImVec2 outerSize, final float innerWidth) {
+        return nBeginTable(id, columns, outerSize.x, outerSize.y, innerWidth);
     }
 
-    public static boolean beginTable(final String id, final int column, final float outerSizeX, final float outerSizeY, final float innerWidth) {
-        return nBeginTable(id, column, outerSizeX, outerSizeY, innerWidth);
+    public static boolean beginTable(final String id, final int columns, final float outerSizeX, final float outerSizeY, final float innerWidth) {
+        return nBeginTable(id, columns, outerSizeX, outerSizeY, innerWidth);
     }
 
-    public static boolean beginTable(final String id, final int column, final float innerWidth) {
-        return nBeginTable(id, column, innerWidth);
+    public static boolean beginTable(final String id, final int columns, final float innerWidth) {
+        return nBeginTable(id, columns, innerWidth);
     }
 
-    public static boolean beginTable(final String id, final int column, final int imGuiTableFlags, final float innerWidth) {
-        return nBeginTable(id, column, imGuiTableFlags, innerWidth);
+    public static boolean beginTable(final String id, final int columns, final int imGuiTableFlags, final float innerWidth) {
+        return nBeginTable(id, columns, imGuiTableFlags, innerWidth);
     }
 
-    private static native boolean nBeginTable(String obj_id, int column); /*MANUAL
+    private static native boolean nBeginTable(String obj_id, int columns); /*MANUAL
         auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto _result = ImGui::BeginTable(id, column);
+        auto _result = ImGui::BeginTable(id, columns);
         if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
         return _result;
     */
 
-    private static native boolean nBeginTable(String obj_id, int column, int imGuiTableFlags); /*MANUAL
+    private static native boolean nBeginTable(String obj_id, int columns, int imGuiTableFlags); /*MANUAL
         auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto _result = ImGui::BeginTable(id, column, imGuiTableFlags);
+        auto _result = ImGui::BeginTable(id, columns, imGuiTableFlags);
         if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
         return _result;
     */
 
-    private static native boolean nBeginTable(String obj_id, int column, int imGuiTableFlags, float outerSizeX, float outerSizeY); /*MANUAL
+    private static native boolean nBeginTable(String obj_id, int columns, int imGuiTableFlags, float outerSizeX, float outerSizeY); /*MANUAL
         auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
         ImVec2 outerSize = ImVec2(outerSizeX, outerSizeY);
-        auto _result = ImGui::BeginTable(id, column, imGuiTableFlags, outerSize);
+        auto _result = ImGui::BeginTable(id, columns, imGuiTableFlags, outerSize);
         if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
         return _result;
     */
 
-    private static native boolean nBeginTable(String obj_id, int column, int imGuiTableFlags, float outerSizeX, float outerSizeY, float innerWidth); /*MANUAL
+    private static native boolean nBeginTable(String obj_id, int columns, int imGuiTableFlags, float outerSizeX, float outerSizeY, float innerWidth); /*MANUAL
         auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
         ImVec2 outerSize = ImVec2(outerSizeX, outerSizeY);
-        auto _result = ImGui::BeginTable(id, column, imGuiTableFlags, outerSize, innerWidth);
+        auto _result = ImGui::BeginTable(id, columns, imGuiTableFlags, outerSize, innerWidth);
         if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
         return _result;
     */
 
-    private static native boolean nBeginTable(String obj_id, int column, float outerSizeX, float outerSizeY, float innerWidth); /*MANUAL
+    private static native boolean nBeginTable(String obj_id, int columns, float outerSizeX, float outerSizeY, float innerWidth); /*MANUAL
         auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
         ImVec2 outerSize = ImVec2(outerSizeX, outerSizeY);
-        auto _result = ImGui::BeginTable(id, column, 0, outerSize, innerWidth);
+        auto _result = ImGui::BeginTable(id, columns, 0, outerSize, innerWidth);
         if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
         return _result;
     */
 
-    private static native boolean nBeginTable(String obj_id, int column, float innerWidth); /*MANUAL
+    private static native boolean nBeginTable(String obj_id, int columns, float innerWidth); /*MANUAL
         auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto _result = ImGui::BeginTable(id, column, 0, ImVec2(0,0), innerWidth);
+        auto _result = ImGui::BeginTable(id, columns, 0, ImVec2(0,0), innerWidth);
         if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
         return _result;
     */
 
-    private static native boolean nBeginTable(String obj_id, int column, int imGuiTableFlags, float innerWidth); /*MANUAL
+    private static native boolean nBeginTable(String obj_id, int columns, int imGuiTableFlags, float innerWidth); /*MANUAL
         auto id = obj_id == NULL ? NULL : (char*)env->GetStringUTFChars(obj_id, JNI_FALSE);
-        auto _result = ImGui::BeginTable(id, column, imGuiTableFlags, ImVec2(0,0), innerWidth);
+        auto _result = ImGui::BeginTable(id, columns, imGuiTableFlags, ImVec2(0,0), innerWidth);
         if (id != NULL) env->ReleaseStringUTFChars(obj_id, id);
         return _result;
     */
@@ -10962,6 +11029,19 @@ public class ImGui {
     */
 
     /**
+     * Submit one header cell manually (rarely used)
+     */
+    public static void tableHeader(final String label) {
+        nTableHeader(label);
+    }
+
+    private static native void nTableHeader(String label); /*MANUAL
+        auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
+        ImGui::TableHeader(label);
+        if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
+    */
+
+    /**
      * Submit all headers cells based on data provided to TableSetupColumn() + submit context menu
      */
     public static void tableHeadersRow() {
@@ -10973,16 +11053,14 @@ public class ImGui {
     */
 
     /**
-     * Submit one header cell manually (rarely used)
+     * Submit a row with angled headers for every column with the ImGuiTableColumnFlags_AngledHeader flag. MUST BE FIRST ROW.
      */
-    public static void tableHeader(final String label) {
-        nTableHeader(label);
+    public static void tableAngledHeadersRow() {
+        nTableAngledHeadersRow();
     }
 
-    private static native void nTableHeader(String label); /*MANUAL
-        auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
-        ImGui::TableHeader(label);
-        if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
+    private static native void nTableAngledHeadersRow(); /*
+        ImGui::TableAngledHeadersRow();
     */
 
     // Tables: Sorting & Miscellaneous functions
@@ -11094,6 +11172,17 @@ public class ImGui {
 
     private static native void nTableSetColumnEnabled(int columnN, boolean value); /*
         ImGui::TableSetColumnEnabled(columnN, value);
+    */
+
+    /**
+     * Return hovered column. return -1 when table is not hovered. return columns_count if the unused space at the right of visible columns is hovered. Can also use ({@code TableGetColumnFlags() & ImGuiTableColumnFlags_IsHovered}) instead.
+     */
+    public static int tableGetHoveredColumn() {
+        return nTableGetHoveredColumn();
+    }
+
+    private static native int nTableGetHoveredColumn(); /*
+        return ImGui::TableGetHoveredColumn();
     */
 
     /**
@@ -11438,94 +11527,94 @@ public class ImGui {
     // Docking
     // [BETA API] Enable with io.ConfigFlags |= ImGuiConfigFlags_DockingEnable.
     // Note: You can use most Docking facilities without calling any API. You DO NOT need to call DockSpace() to use Docking!
-    // - Drag from window title bar or their tab to dock/undock. Hold SHIFT to disable docking/undocking.
+    // - Drag from window title bar or their tab to dock/undock. Hold SHIFT to disable docking.
     // - Drag from window menu button (upper-left button) to undock an entire node (all windows).
-    // - When io.ConfigDockingWithShift == true, you instead need to hold SHIFT to _enable_ docking/undocking.
+    // - When io.ConfigDockingWithShift == true, you instead need to hold SHIFT to enable docking.
     // About dockspaces:
-    // - Use DockSpaceOverViewport() to create an explicit dock node covering the screen or a specific viewport.
+    // - Use DockSpaceOverViewport() to create a window covering the screen or a specific viewport + a dockspace inside it.
     //   This is often used with ImGuiDockNodeFlags_PassthruCentralNode to make it transparent.
     // - Use DockSpace() to create an explicit dock node _within_ an existing window. See Docking demo for details.
     // - Important: Dockspaces need to be submitted _before_ any window they can host. Submit it early in your frame!
     // - Important: Dockspaces need to be kept alive if hidden, otherwise windows docked into it will be undocked.
     //   e.g. if you have multiple tabs with a dockspace inside each tab: submit the non-visible dockspaces with ImGuiDockNodeFlags_KeepAliveOnly.
 
-    public static int dockSpace(final int imGuiID) {
-        return nDockSpace(imGuiID);
+    public static int dockSpace(final int dockspaceId) {
+        return nDockSpace(dockspaceId);
     }
 
-    public static int dockSpace(final int imGuiID, final ImVec2 size) {
-        return nDockSpace(imGuiID, size.x, size.y);
+    public static int dockSpace(final int dockspaceId, final ImVec2 size) {
+        return nDockSpace(dockspaceId, size.x, size.y);
     }
 
-    public static int dockSpace(final int imGuiID, final float sizeX, final float sizeY) {
-        return nDockSpace(imGuiID, sizeX, sizeY);
+    public static int dockSpace(final int dockspaceId, final float sizeX, final float sizeY) {
+        return nDockSpace(dockspaceId, sizeX, sizeY);
     }
 
-    public static int dockSpace(final int imGuiID, final ImVec2 size, final int imGuiDockNodeFlags) {
-        return nDockSpace(imGuiID, size.x, size.y, imGuiDockNodeFlags);
+    public static int dockSpace(final int dockspaceId, final ImVec2 size, final int imGuiDockNodeFlags) {
+        return nDockSpace(dockspaceId, size.x, size.y, imGuiDockNodeFlags);
     }
 
-    public static int dockSpace(final int imGuiID, final float sizeX, final float sizeY, final int imGuiDockNodeFlags) {
-        return nDockSpace(imGuiID, sizeX, sizeY, imGuiDockNodeFlags);
+    public static int dockSpace(final int dockspaceId, final float sizeX, final float sizeY, final int imGuiDockNodeFlags) {
+        return nDockSpace(dockspaceId, sizeX, sizeY, imGuiDockNodeFlags);
     }
 
-    public static int dockSpace(final int imGuiID, final ImVec2 size, final int imGuiDockNodeFlags, final ImGuiWindowClass windowClass) {
-        return nDockSpace(imGuiID, size.x, size.y, imGuiDockNodeFlags, windowClass.ptr);
+    public static int dockSpace(final int dockspaceId, final ImVec2 size, final int imGuiDockNodeFlags, final ImGuiWindowClass windowClass) {
+        return nDockSpace(dockspaceId, size.x, size.y, imGuiDockNodeFlags, windowClass.ptr);
     }
 
-    public static int dockSpace(final int imGuiID, final float sizeX, final float sizeY, final int imGuiDockNodeFlags, final ImGuiWindowClass windowClass) {
-        return nDockSpace(imGuiID, sizeX, sizeY, imGuiDockNodeFlags, windowClass.ptr);
+    public static int dockSpace(final int dockspaceId, final float sizeX, final float sizeY, final int imGuiDockNodeFlags, final ImGuiWindowClass windowClass) {
+        return nDockSpace(dockspaceId, sizeX, sizeY, imGuiDockNodeFlags, windowClass.ptr);
     }
 
-    public static int dockSpace(final int imGuiID, final int imGuiDockNodeFlags, final ImGuiWindowClass windowClass) {
-        return nDockSpace(imGuiID, imGuiDockNodeFlags, windowClass.ptr);
+    public static int dockSpace(final int dockspaceId, final int imGuiDockNodeFlags, final ImGuiWindowClass windowClass) {
+        return nDockSpace(dockspaceId, imGuiDockNodeFlags, windowClass.ptr);
     }
 
-    public static int dockSpace(final int imGuiID, final ImGuiWindowClass windowClass) {
-        return nDockSpace(imGuiID, windowClass.ptr);
+    public static int dockSpace(final int dockspaceId, final ImGuiWindowClass windowClass) {
+        return nDockSpace(dockspaceId, windowClass.ptr);
     }
 
-    public static int dockSpace(final int imGuiID, final ImVec2 size, final ImGuiWindowClass windowClass) {
-        return nDockSpace(imGuiID, size.x, size.y, windowClass.ptr);
+    public static int dockSpace(final int dockspaceId, final ImVec2 size, final ImGuiWindowClass windowClass) {
+        return nDockSpace(dockspaceId, size.x, size.y, windowClass.ptr);
     }
 
-    public static int dockSpace(final int imGuiID, final float sizeX, final float sizeY, final ImGuiWindowClass windowClass) {
-        return nDockSpace(imGuiID, sizeX, sizeY, windowClass.ptr);
+    public static int dockSpace(final int dockspaceId, final float sizeX, final float sizeY, final ImGuiWindowClass windowClass) {
+        return nDockSpace(dockspaceId, sizeX, sizeY, windowClass.ptr);
     }
 
-    private static native int nDockSpace(int imGuiID); /*
-        return ImGui::DockSpace(imGuiID);
+    private static native int nDockSpace(int dockspaceId); /*
+        return ImGui::DockSpace(dockspaceId);
     */
 
-    private static native int nDockSpace(int imGuiID, float sizeX, float sizeY); /*MANUAL
+    private static native int nDockSpace(int dockspaceId, float sizeX, float sizeY); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::DockSpace(imGuiID, size);
+        auto _result = ImGui::DockSpace(dockspaceId, size);
         return _result;
     */
 
-    private static native int nDockSpace(int imGuiID, float sizeX, float sizeY, int imGuiDockNodeFlags); /*MANUAL
+    private static native int nDockSpace(int dockspaceId, float sizeX, float sizeY, int imGuiDockNodeFlags); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::DockSpace(imGuiID, size, imGuiDockNodeFlags);
+        auto _result = ImGui::DockSpace(dockspaceId, size, imGuiDockNodeFlags);
         return _result;
     */
 
-    private static native int nDockSpace(int imGuiID, float sizeX, float sizeY, int imGuiDockNodeFlags, long windowClass); /*MANUAL
+    private static native int nDockSpace(int dockspaceId, float sizeX, float sizeY, int imGuiDockNodeFlags, long windowClass); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::DockSpace(imGuiID, size, imGuiDockNodeFlags, reinterpret_cast<ImGuiWindowClass*>(windowClass));
+        auto _result = ImGui::DockSpace(dockspaceId, size, imGuiDockNodeFlags, reinterpret_cast<ImGuiWindowClass*>(windowClass));
         return _result;
     */
 
-    private static native int nDockSpace(int imGuiID, int imGuiDockNodeFlags, long windowClass); /*
-        return ImGui::DockSpace(imGuiID, ImVec2(0,0), imGuiDockNodeFlags, reinterpret_cast<ImGuiWindowClass*>(windowClass));
+    private static native int nDockSpace(int dockspaceId, int imGuiDockNodeFlags, long windowClass); /*
+        return ImGui::DockSpace(dockspaceId, ImVec2(0,0), imGuiDockNodeFlags, reinterpret_cast<ImGuiWindowClass*>(windowClass));
     */
 
-    private static native int nDockSpace(int imGuiID, long windowClass); /*
-        return ImGui::DockSpace(imGuiID, ImVec2(0,0), 0, reinterpret_cast<ImGuiWindowClass*>(windowClass));
+    private static native int nDockSpace(int dockspaceId, long windowClass); /*
+        return ImGui::DockSpace(dockspaceId, ImVec2(0,0), 0, reinterpret_cast<ImGuiWindowClass*>(windowClass));
     */
 
-    private static native int nDockSpace(int imGuiID, float sizeX, float sizeY, long windowClass); /*MANUAL
+    private static native int nDockSpace(int dockspaceId, float sizeX, float sizeY, long windowClass); /*MANUAL
         ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::DockSpace(imGuiID, size, 0, reinterpret_cast<ImGuiWindowClass*>(windowClass));
+        auto _result = ImGui::DockSpace(dockspaceId, size, 0, reinterpret_cast<ImGuiWindowClass*>(windowClass));
         return _result;
     */
 
@@ -11533,40 +11622,56 @@ public class ImGui {
         return nDockSpaceOverViewport();
     }
 
-    public static int dockSpaceOverViewport(final ImGuiViewport viewport) {
-        return nDockSpaceOverViewport(viewport.ptr);
+    public static int dockSpaceOverViewport(final int dockspaceId) {
+        return nDockSpaceOverViewport(dockspaceId);
     }
 
-    public static int dockSpaceOverViewport(final ImGuiViewport viewport, final int imGuiDockNodeFlags) {
-        return nDockSpaceOverViewport(viewport.ptr, imGuiDockNodeFlags);
+    public static int dockSpaceOverViewport(final int dockspaceId, final ImGuiViewport viewport) {
+        return nDockSpaceOverViewport(dockspaceId, viewport.ptr);
+    }
+
+    public static int dockSpaceOverViewport(final int dockspaceId, final ImGuiViewport viewport, final int imGuiDockNodeFlags) {
+        return nDockSpaceOverViewport(dockspaceId, viewport.ptr, imGuiDockNodeFlags);
+    }
+
+    public static int dockSpaceOverViewport(final int dockspaceId, final ImGuiViewport viewport, final int imGuiDockNodeFlags, final ImGuiWindowClass windowClass) {
+        return nDockSpaceOverViewport(dockspaceId, viewport.ptr, imGuiDockNodeFlags, windowClass.ptr);
     }
 
     public static int dockSpaceOverViewport(final ImGuiViewport viewport, final int imGuiDockNodeFlags, final ImGuiWindowClass windowClass) {
         return nDockSpaceOverViewport(viewport.ptr, imGuiDockNodeFlags, windowClass.ptr);
     }
 
-    public static int dockSpaceOverViewport(final ImGuiViewport viewport, final ImGuiWindowClass windowClass) {
-        return nDockSpaceOverViewport(viewport.ptr, windowClass.ptr);
+    public static int dockSpaceOverViewport(final int dockspaceId, final ImGuiViewport viewport, final ImGuiWindowClass windowClass) {
+        return nDockSpaceOverViewport(dockspaceId, viewport.ptr, windowClass.ptr);
     }
 
     private static native int nDockSpaceOverViewport(); /*
         return ImGui::DockSpaceOverViewport();
     */
 
-    private static native int nDockSpaceOverViewport(long viewport); /*
-        return ImGui::DockSpaceOverViewport(reinterpret_cast<ImGuiViewport*>(viewport));
+    private static native int nDockSpaceOverViewport(int dockspaceId); /*
+        return ImGui::DockSpaceOverViewport(dockspaceId);
     */
 
-    private static native int nDockSpaceOverViewport(long viewport, int imGuiDockNodeFlags); /*
-        return ImGui::DockSpaceOverViewport(reinterpret_cast<ImGuiViewport*>(viewport), imGuiDockNodeFlags);
+    private static native int nDockSpaceOverViewport(int dockspaceId, long viewport); /*
+        return ImGui::DockSpaceOverViewport(dockspaceId, reinterpret_cast<ImGuiViewport*>(viewport));
+    */
+
+    private static native int nDockSpaceOverViewport(int dockspaceId, long viewport, int imGuiDockNodeFlags); /*
+        return ImGui::DockSpaceOverViewport(dockspaceId, reinterpret_cast<ImGuiViewport*>(viewport), imGuiDockNodeFlags);
+    */
+
+    private static native int nDockSpaceOverViewport(int dockspaceId, long viewport, int imGuiDockNodeFlags, long windowClass); /*
+        return ImGui::DockSpaceOverViewport(dockspaceId, reinterpret_cast<ImGuiViewport*>(viewport), imGuiDockNodeFlags, reinterpret_cast<ImGuiWindowClass*>(windowClass));
     */
 
     private static native int nDockSpaceOverViewport(long viewport, int imGuiDockNodeFlags, long windowClass); /*
-        return ImGui::DockSpaceOverViewport(reinterpret_cast<ImGuiViewport*>(viewport), imGuiDockNodeFlags, reinterpret_cast<ImGuiWindowClass*>(windowClass));
+        return ImGui::DockSpaceOverViewport(0, reinterpret_cast<ImGuiViewport*>(viewport), imGuiDockNodeFlags, reinterpret_cast<ImGuiWindowClass*>(windowClass));
     */
 
-    private static native int nDockSpaceOverViewport(long viewport, long windowClass); /*
-        return ImGui::DockSpaceOverViewport(reinterpret_cast<ImGuiViewport*>(viewport), 0, reinterpret_cast<ImGuiWindowClass*>(windowClass));
+    private static native int nDockSpaceOverViewport(int dockspaceId, long viewport, long windowClass); /*
+        return ImGui::DockSpaceOverViewport(dockspaceId, reinterpret_cast<ImGuiViewport*>(viewport), 0, reinterpret_cast<ImGuiWindowClass*>(windowClass));
     */
 
     /**
@@ -11911,7 +12016,7 @@ public class ImGui {
     */
 
     /**
-     * Peek directly into the current payload from anywhere. May return NULL.
+     * Peek directly into the current payload from anywhere. returns NULL when drag and drop is finished or inactive. use ImGuiPayload::IsDataType() to test for the payload type.
      */
     @SuppressWarnings("unchecked")
     public static <T> T getDragDropPayload() {
@@ -11954,6 +12059,12 @@ public class ImGui {
         const ImGuiPayload* payload = ImGui::GetDragDropPayload();
         return payload != NULL && payload->IsDataType(dataType);
     */
+
+    // Disabling [BETA API]
+    // - Disable all user interactions and dim items visuals (applying style.DisabledAlpha over current colors)
+    // - Those can be nested but it cannot be used to enable an already disabled section (a single BeginDisabled(true) in the stack is enough to keep everything disabled)
+    // - Tooltips windows by exception are opted out of disabling.
+    // - BeginDisabled(false) essentially does nothing useful but is provided to facilitate use of boolean expressions. If you can avoid calling BeginDisabled(False)/EndDisabled() best to avoid it.
 
     /**
      * Disable all user interactions and dim items visuals (applying style.DisabledAlpha over current colors)
@@ -12398,7 +12509,7 @@ public class ImGui {
     // Background/Foreground Draw Lists
 
     /**
-     * Get background draw list for the viewport associated to the current window.
+     * Get background draw list for the given viewport or viewport associated to the current window.
      * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
      */
     public static ImDrawList getBackgroundDrawList() {
@@ -12406,7 +12517,7 @@ public class ImGui {
     }
 
     /**
-     * Get background draw list for the viewport associated to the current window.
+     * Get background draw list for the given viewport or viewport associated to the current window.
      * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
      */
     public static ImDrawList getBackgroundDrawList(final ImGuiViewport viewport) {
@@ -12422,16 +12533,16 @@ public class ImGui {
     */
 
     /**
-     * Get foreground draw list for the viewport associated to the current window.
-     * This draw list will be the last rendered one. Useful to quickly draw shapes/text over dear imgui contents.
+     * Get foreground draw list for the given viewport or viewport associated to the current window.
+     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
      */
     public static ImDrawList getForegroundDrawList() {
         return new ImDrawList(nGetForegroundDrawList());
     }
 
     /**
-     * Get foreground draw list for the viewport associated to the current window.
-     * This draw list will be the last rendered one. Useful to quickly draw shapes/text over dear imgui contents.
+     * Get foreground draw list for the given viewport or viewport associated to the current window.
+     * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
      */
     public static ImDrawList getForegroundDrawList(final ImGuiViewport viewport) {
         return new ImDrawList(nGetForegroundDrawList(viewport.ptr));
@@ -12542,57 +12653,6 @@ public class ImGui {
 
     private static native long nGetStateStorage(); /*
         return (uintptr_t)ImGui::GetStateStorage();
-    */
-
-    /**
-     * Helper to create a child window / scrolling region that looks like a normal widget frame
-     */
-    public static boolean beginChildFrame(final int id, final ImVec2 size) {
-        return nBeginChildFrame(id, size.x, size.y);
-    }
-
-    /**
-     * Helper to create a child window / scrolling region that looks like a normal widget frame
-     */
-    public static boolean beginChildFrame(final int id, final float sizeX, final float sizeY) {
-        return nBeginChildFrame(id, sizeX, sizeY);
-    }
-
-    /**
-     * Helper to create a child window / scrolling region that looks like a normal widget frame
-     */
-    public static boolean beginChildFrame(final int id, final ImVec2 size, final int imGuiWindowFlags) {
-        return nBeginChildFrame(id, size.x, size.y, imGuiWindowFlags);
-    }
-
-    /**
-     * Helper to create a child window / scrolling region that looks like a normal widget frame
-     */
-    public static boolean beginChildFrame(final int id, final float sizeX, final float sizeY, final int imGuiWindowFlags) {
-        return nBeginChildFrame(id, sizeX, sizeY, imGuiWindowFlags);
-    }
-
-    private static native boolean nBeginChildFrame(int id, float sizeX, float sizeY); /*MANUAL
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::BeginChildFrame(id, size);
-        return _result;
-    */
-
-    private static native boolean nBeginChildFrame(int id, float sizeX, float sizeY, int imGuiWindowFlags); /*MANUAL
-        ImVec2 size = ImVec2(sizeX, sizeY);
-        auto _result = ImGui::BeginChildFrame(id, size, imGuiWindowFlags);
-        return _result;
-    */
-
-    /**
-     * Always call EndChildFrame() regardless of BeginChildFrame() return values (which indicates a collapsed/clipped window)
-     */
-    public static void endChildFrame() {
-        nEndChildFrame();
-    }
-
-    private static native void nEndChildFrame(); /*
-        ImGui::EndChildFrame();
     */
 
     // Text Utilities
@@ -12834,18 +12894,6 @@ public class ImGui {
     //  - with    IMGUI_DISABLE_OBSOLETE_KEYIO (this is the way forward): any use of ImGuiKey will assert with key < 512. GetKeyIndex() is pass-through and therefore deprecated (gone if IMGUI_DISABLE_OBSOLETE_KEYIO is defined).
 
     /**
-     * Map ImGuiKey_* values into user's key index. == io.KeyMap[key]
-     */
-    @Deprecated
-    public static int getKeyIndex(final int key) {
-        return nGetKeyIndex(key);
-    }
-
-    private static native int nGetKeyIndex(int key); /*
-        return ImGui::GetKeyIndex(static_cast<ImGuiKey>(key));
-    */
-
-    /**
      * Is key being held. == io.KeysDown[user_key_index].
      */
     public static boolean isKeyDown(final int key) {
@@ -12890,6 +12938,18 @@ public class ImGui {
     */
 
     /**
+     * Was key chord (mods + key) pressed, e.g. you can pass 'ImGuiMod_Ctrl | ImGuiKey_S' as a key-chord.
+     * This doesn't do any routing or focus check, please consider using Shortcut() function instead.
+     */
+    public static boolean isKeyChordPressed(final int keyChord) {
+        return nIsKeyChordPressed(keyChord);
+    }
+
+    private static native boolean nIsKeyChordPressed(int keyChord); /*
+        return ImGui::IsKeyChordPressed(static_cast<ImGuiKeyChord>(keyChord));
+    */
+
+    /**
      * Uses provided repeat rate/delay.
      * Return a count, most often 0 or 1 but might be {@code >1} if RepeatRate is small enough that {@code DeltaTime > RepeatRate}
      */
@@ -12923,6 +12983,54 @@ public class ImGui {
 
     private static native void nSetNextFrameWantCaptureKeyboard(boolean wantCaptureKeyboard); /*
         ImGui::SetNextFrameWantCaptureKeyboard(wantCaptureKeyboard);
+    */
+
+    // Inputs Utilities: Shortcut Testing & Routing [BETA]
+    // - ImGuiKeyChord = a ImGuiKey + optional ImGuiMod_Alt/ImGuiMod_Ctrl/ImGuiMod_Shift/ImGuiMod_Super.
+    //       ImGuiKey_C                          // Accepted by functions taking ImGuiKey or ImGuiKeyChord arguments)
+    //       ImGuiMod_Ctrl | ImGuiKey_C          // Accepted by functions taking ImGuiKeyChord arguments)
+    //   only ImGuiMod_XXX values are legal to combine with an ImGuiKey. You CANNOT combine two ImGuiKey values.
+    // - The general idea is that several callers may register interest in a shortcut, and only one owner gets it.
+    //      Parent   -> call Shortcut(Ctrl+S)    // When Parent is focused, Parent gets the shortcut.
+    //        Child1 -> call Shortcut(Ctrl+S)    // When Child1 is focused, Child1 gets the shortcut (Child1 overrides Parent shortcuts)
+    //        Child2 -> no call                  // When Child2 is focused, Parent gets the shortcut.
+    //   The whole system is order independent, so if Child1 makes its calls before Parent, results will be identical.
+    //   This is an important property as it facilitate working with foreign code or larger codebase.
+    // - To understand the difference:
+    //   - IsKeyChordPressed() compares mods and call IsKeyPressed() -> function has no side-effect.
+    //   - Shortcut() submits a route, routes are resolved, if it currently can be routed it calls IsKeyChordPressed() -> function has (desirable) side-effects as it can prevents another call from getting the route.
+    // - Visualize registered routes in 'Metrics/Debugger->Inputs'.
+
+    public static boolean shortcut(final int keyChord) {
+        return nShortcut(keyChord);
+    }
+
+    public static boolean shortcut(final int keyChord, final int flags) {
+        return nShortcut(keyChord, flags);
+    }
+
+    private static native boolean nShortcut(int keyChord); /*
+        return ImGui::Shortcut(static_cast<ImGuiKeyChord>(keyChord));
+    */
+
+    private static native boolean nShortcut(int keyChord, int flags); /*
+        return ImGui::Shortcut(static_cast<ImGuiKeyChord>(keyChord), flags);
+    */
+
+    public static void setNextItemShortcut(final int keyChord) {
+        nSetNextItemShortcut(keyChord);
+    }
+
+    public static void setNextItemShortcut(final int keyChord, final int flags) {
+        nSetNextItemShortcut(keyChord, flags);
+    }
+
+    private static native void nSetNextItemShortcut(int keyChord); /*
+        ImGui::SetNextItemShortcut(static_cast<ImGuiKeyChord>(keyChord));
+    */
+
+    private static native void nSetNextItemShortcut(int keyChord, int flags); /*
+        ImGui::SetNextItemShortcut(static_cast<ImGuiKeyChord>(keyChord), flags);
     */
 
     // Inputs Utilities: Mouse specific
@@ -13165,14 +13273,14 @@ public class ImGui {
     */
 
     /**
-     * Is mouse dragging. if lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold
+     * Is mouse dragging? (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static boolean isMouseDragging(final int button) {
         return nIsMouseDragging(button);
     }
 
     /**
-     * Is mouse dragging. if lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold
+     * Is mouse dragging? (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static boolean isMouseDragging(final int button, final float lockThreshold) {
         return nIsMouseDragging(button, lockThreshold);
@@ -13188,7 +13296,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static ImVec2 getMouseDragDelta() {
         final ImVec2 dst = new ImVec2();
@@ -13198,7 +13306,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static float getMouseDragDeltaX() {
         return nGetMouseDragDeltaX();
@@ -13206,7 +13314,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static float getMouseDragDeltaY() {
         return nGetMouseDragDeltaY();
@@ -13214,7 +13322,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static void getMouseDragDelta(final ImVec2 dst) {
         nGetMouseDragDelta(dst);
@@ -13222,7 +13330,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static ImVec2 getMouseDragDelta(final int button) {
         final ImVec2 dst = new ImVec2();
@@ -13232,7 +13340,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static float getMouseDragDeltaX(final int button) {
         return nGetMouseDragDeltaX(button);
@@ -13240,7 +13348,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static float getMouseDragDeltaY(final int button) {
         return nGetMouseDragDeltaY(button);
@@ -13248,7 +13356,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static void getMouseDragDelta(final ImVec2 dst, final int button) {
         nGetMouseDragDelta(dst, button);
@@ -13256,7 +13364,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static ImVec2 getMouseDragDelta(final int button, final float lockThreshold) {
         final ImVec2 dst = new ImVec2();
@@ -13266,7 +13374,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static float getMouseDragDeltaX(final int button, final float lockThreshold) {
         return nGetMouseDragDeltaX(button, lockThreshold);
@@ -13274,7 +13382,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static float getMouseDragDeltaY(final int button, final float lockThreshold) {
         return nGetMouseDragDeltaY(button, lockThreshold);
@@ -13282,7 +13390,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once. If lockThreshold {@code < -1.0f} uses io.MouseDraggingThreshold.
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static void getMouseDragDelta(final ImVec2 dst, final int button, final float lockThreshold) {
         nGetMouseDragDelta(dst, button, lockThreshold);
@@ -13478,6 +13586,7 @@ public class ImGui {
     */
 
     // Debug Utilities
+    // - Your main debugging friend is the ShowMetricsWindow() function, which is also accessible from Demo->Tools->Metrics Debugger
 
     public static void debugTextEncoding(final String text) {
         nDebugTextEncoding(text);
@@ -13487,6 +13596,22 @@ public class ImGui {
         auto text = obj_text == NULL ? NULL : (char*)env->GetStringUTFChars(obj_text, JNI_FALSE);
         ImGui::DebugTextEncoding(text);
         if (text != NULL) env->ReleaseStringUTFChars(obj_text, text);
+    */
+
+    public static void debugFlashStyleColor(final int idx) {
+        nDebugFlashStyleColor(idx);
+    }
+
+    private static native void nDebugFlashStyleColor(int idx); /*
+        ImGui::DebugFlashStyleColor(static_cast<ImGuiCol>(idx));
+    */
+
+    public static void debugStartItemPicker() {
+        nDebugStartItemPicker();
+    }
+
+    private static native void nDebugStartItemPicker(); /*
+        ImGui::DebugStartItemPicker();
     */
 
     public static boolean debugCheckVersionAndDataLayout(final String versionStr, final int szIo, final int szStyle, final int szVec2, final int szVec4, final int szDrawVert, final int szDrawIdx) {

@@ -917,6 +917,34 @@ public final class ImGuiIO extends ImGuiStruct {
     //------------------------------------------------------------------
 
     /**
+     * Option to enable various debug tools showing buttons that will call the IM_DEBUG_BREAK() macro.
+     * - The Item Picker tool will be available regardless of this being enabled, in order to maximize its discoverability.
+     * - Requires a debugger being attached, otherwise IM_DEBUG_BREAK() options will appear to crash your application.
+     * e.g. io.ConfigDebugIsDebuggerPresent = ::IsDebuggerPresent() on Win32, or refer to ImOsIsDebuggerPresent() imgui_test_engine/imgui_te_utils.cpp for a Unix compatible version).
+     */
+    public boolean getConfigDebugIsDebuggerPresent() {
+        return nGetConfigDebugIsDebuggerPresent();
+    }
+
+    /**
+     * Option to enable various debug tools showing buttons that will call the IM_DEBUG_BREAK() macro.
+     * - The Item Picker tool will be available regardless of this being enabled, in order to maximize its discoverability.
+     * - Requires a debugger being attached, otherwise IM_DEBUG_BREAK() options will appear to crash your application.
+     * e.g. io.ConfigDebugIsDebuggerPresent = ::IsDebuggerPresent() on Win32, or refer to ImOsIsDebuggerPresent() imgui_test_engine/imgui_te_utils.cpp for a Unix compatible version).
+     */
+    public void setConfigDebugIsDebuggerPresent(final boolean value) {
+        nSetConfigDebugIsDebuggerPresent(value);
+    }
+
+    private native boolean nGetConfigDebugIsDebuggerPresent(); /*
+        return THIS->ConfigDebugIsDebuggerPresent;
+    */
+
+    private native void nSetConfigDebugIsDebuggerPresent(boolean value); /*
+        THIS->ConfigDebugIsDebuggerPresent = value;
+    */
+
+    /**
      * Tools to test correct Begin/End and BeginChild/EndChild behaviors.
      * Presently Begin()/End() and BeginChild()/EndChild() needs to ALWAYS be called in tandem, regardless of return value of BeginXXX()
      * This is inconsistent with other BeginXXX functions and create confusion for many users.
@@ -1301,6 +1329,28 @@ public final class ImGuiIO extends ImGuiStruct {
         THIS->ClearEventsQueue();
     */
 
+    /**
+     * Clear current keyboard/gamepad state + current frame text input buffer. Equivalent to releasing all keys/buttons.
+     */
+    public void clearInputKeys() {
+        nClearInputKeys();
+    }
+
+    private native void nClearInputKeys(); /*
+        THIS->ClearInputKeys();
+    */
+
+    /**
+     * Clear current mouse state.
+     */
+    public void clearInputMouse() {
+        nClearInputMouse();
+    }
+
+    private native void nClearInputMouse(); /*
+        THIS->ClearInputMouse();
+    */
+
     //------------------------------------------------------------------
     // Output - Updated by NewFrame() or EndFrame()/Render()
     // (when reading from the io.WantCaptureMouse, io.WantCaptureKeyboard flags to dispatch your inputs, it is
@@ -1590,28 +1640,6 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
-     * Number of active allocations, updated by MemAlloc/MemFree based on current context. May be off if you have multiple imgui contexts.
-     */
-    public int getMetricsActiveAllocations() {
-        return nGetMetricsActiveAllocations();
-    }
-
-    /**
-     * Number of active allocations, updated by MemAlloc/MemFree based on current context. May be off if you have multiple imgui contexts.
-     */
-    public void setMetricsActiveAllocations(final int value) {
-        nSetMetricsActiveAllocations(value);
-    }
-
-    private native int nGetMetricsActiveAllocations(); /*
-        return THIS->MetricsActiveAllocations;
-    */
-
-    private native void nSetMetricsActiveAllocations(int value); /*
-        THIS->MetricsActiveAllocations = value;
-    */
-
-    /**
      * Mouse delta. Note that this is zero if either current or previous position are invalid (-FLT_MAX,-FLT_MAX), so a disappearing/reappearing mouse won't have a huge delta.
      */
     public ImVec2 getMouseDelta() {
@@ -1670,176 +1698,6 @@ public final class ImGuiIO extends ImGuiStruct {
     private native void nSetMouseDelta(float valueX, float valueY); /*MANUAL
         ImVec2 value = ImVec2(valueX, valueY);
         THIS->MouseDelta = value;
-    */
-
-    /**
-     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
-     */
-    @Deprecated
-    public int[] getKeyMap() {
-        return nGetKeyMap();
-    }
-
-    /**
-     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
-     */
-    @Deprecated
-    public int getKeyMap(final int idx) {
-        return nGetKeyMap(idx);
-    }
-
-    /**
-     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
-     */
-    @Deprecated
-    public void setKeyMap(final int[] value) {
-        nSetKeyMap(value);
-    }
-
-    /**
-     * Map of indices into the KeysDown[512] entries array which represent your "native" keyboard state.
-     */
-    @Deprecated
-    public void setKeyMap(final int idx, final int value) {
-        nSetKeyMap(idx, value);
-    }
-
-    @Deprecated
-    private native int[] nGetKeyMap(); /*
-        jint jBuf[ImGuiKey_COUNT];
-        for (int i = 0; i < ImGuiKey_COUNT; i++)
-            jBuf[i] = THIS->KeyMap[i];
-        jintArray result = env->NewIntArray(ImGuiKey_COUNT);
-        env->SetIntArrayRegion(result, 0, ImGuiKey_COUNT, jBuf);
-        return result;
-    */
-
-    @Deprecated
-    private native int nGetKeyMap(int idx); /*
-        return THIS->KeyMap[idx];
-    */
-
-    @Deprecated
-    private native void nSetKeyMap(int[] value); /*
-        for (int i = 0; i < ImGuiKey_COUNT; i++)
-            THIS->KeyMap[i] = value[i];
-    */
-
-    @Deprecated
-    private native void nSetKeyMap(int idx, int value); /*
-        THIS->KeyMap[idx] = value;
-    */
-
-    /**
-     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
-     * This used to be [512] sized. It is now ImGuiKey_COUNT to allow legacy io.KeysDown[GetKeyIndex(...)] to work without an overflow.
-     */
-    @Deprecated
-    public boolean[] getKeysDown() {
-        return nGetKeysDown();
-    }
-
-    /**
-     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
-     * This used to be [512] sized. It is now ImGuiKey_COUNT to allow legacy io.KeysDown[GetKeyIndex(...)] to work without an overflow.
-     */
-    @Deprecated
-    public boolean getKeysDown(final int idx) {
-        return nGetKeysDown(idx);
-    }
-
-    /**
-     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
-     * This used to be [512] sized. It is now ImGuiKey_COUNT to allow legacy io.KeysDown[GetKeyIndex(...)] to work without an overflow.
-     */
-    @Deprecated
-    public void setKeysDown(final boolean[] value) {
-        nSetKeysDown(value);
-    }
-
-    /**
-     * Keyboard keys that are pressed (ideally left in the "native" order your engine has access to keyboard keys, so you can use your own defines/enums for keys).
-     * This used to be [512] sized. It is now ImGuiKey_COUNT to allow legacy io.KeysDown[GetKeyIndex(...)] to work without an overflow.
-     */
-    @Deprecated
-    public void setKeysDown(final int idx, final boolean value) {
-        nSetKeysDown(idx, value);
-    }
-
-    @Deprecated
-    private native boolean[] nGetKeysDown(); /*
-        jboolean jBuf[ImGuiKey_COUNT];
-        for (int i = 0; i < ImGuiKey_COUNT; i++)
-            jBuf[i] = THIS->KeysDown[i];
-        jbooleanArray result = env->NewBooleanArray(ImGuiKey_COUNT);
-        env->SetBooleanArrayRegion(result, 0, ImGuiKey_COUNT, jBuf);
-        return result;
-    */
-
-    @Deprecated
-    private native boolean nGetKeysDown(int idx); /*
-        return THIS->KeysDown[idx];
-    */
-
-    @Deprecated
-    private native void nSetKeysDown(boolean[] value); /*
-        for (int i = 0; i < ImGuiKey_COUNT; i++)
-            THIS->KeysDown[i] = value[i];
-    */
-
-    @Deprecated
-    private native void nSetKeysDown(int idx, boolean value); /*
-        THIS->KeysDown[idx] = value;
-    */
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    public float[] getNavInputs() {
-        return nGetNavInputs();
-    }
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    public float getNavInputs(final int idx) {
-        return nGetNavInputs(idx);
-    }
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    public void setNavInputs(final float[] value) {
-        nSetNavInputs(value);
-    }
-
-    /**
-     * Gamepad inputs. Cleared back to zero by EndFrame(). Keyboard keys will be auto-mapped and be written here by NewFrame().
-     */
-    public void setNavInputs(final int idx, final float value) {
-        nSetNavInputs(idx, value);
-    }
-
-    private native float[] nGetNavInputs(); /*
-        jfloat jBuf[512];
-        for (int i = 0; i < 512; i++)
-            jBuf[i] = THIS->NavInputs[i];
-        jfloatArray result = env->NewFloatArray(512);
-        env->SetFloatArrayRegion(result, 0, 512, jBuf);
-        return result;
-    */
-
-    private native float nGetNavInputs(int idx); /*
-        return THIS->NavInputs[idx];
-    */
-
-    private native void nSetNavInputs(float[] value); /*
-        for (int i = 0; i < 512; i++)
-            THIS->NavInputs[i] = value[i];
-    */
-
-    private native void nSetNavInputs(int idx, float value); /*
-        THIS->NavInputs[idx] = value;
     */
 
     //------------------------------------------------------------------
@@ -2717,6 +2575,28 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nSetMouseWheelRequestAxisSwap(boolean value); /*
         THIS->MouseWheelRequestAxisSwap = value;
+    */
+
+    /**
+     * (OSX) Set to true when the current click was a ctrl-click that spawned a simulated right click.
+     */
+    public boolean getMouseCtrlLeftAsRightClick() {
+        return nGetMouseCtrlLeftAsRightClick();
+    }
+
+    /**
+     * (OSX) Set to true when the current click was a ctrl-click that spawned a simulated right click.
+     */
+    public void setMouseCtrlLeftAsRightClick(final boolean value) {
+        nSetMouseCtrlLeftAsRightClick(value);
+    }
+
+    private native boolean nGetMouseCtrlLeftAsRightClick(); /*
+        return THIS->MouseCtrlLeftAsRightClick;
+    */
+
+    private native void nSetMouseCtrlLeftAsRightClick(boolean value); /*
+        THIS->MouseCtrlLeftAsRightClick = value;
     */
 
     /**

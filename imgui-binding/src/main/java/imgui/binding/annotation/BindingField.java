@@ -31,4 +31,9 @@ public @interface BindingField {
      * Name of the method which will be used to call native API.
      */
     String callName() default "";
+
+    /**
+     * Defines a value to cast with "static_cast" function.
+     */
+    String staticCast() default "";
 }

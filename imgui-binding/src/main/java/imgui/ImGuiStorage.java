@@ -65,16 +65,16 @@ public final class ImGuiStorage extends ImGuiStructDestroyable {
     public native void SetFloat(int key, float val);
 
     /**
-     * Use on your own storage if you know only integer are being stored (open/close all tree nodes)
-     */
-    @BindingMethod
-    public native void SetAllInt(int val);
-
-    /**
      * For quicker full rebuild of a storage (instead of an incremental one), you may add all your contents and then sort once.
      */
     @BindingMethod
     public native void BuildSortByKey();
+
+    /**
+     * Use on your own storage if you know only integer are being stored (open/close all tree nodes)
+     */
+    @BindingMethod
+    public native void SetAllInt(int val);
 
     /*JNI
         #undef THIS

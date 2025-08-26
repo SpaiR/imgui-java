@@ -172,6 +172,7 @@ public class ImGuiImplGl3 {
         protected int elementsHandle = 0;
         // protected int vertexBufferSize;
         // protected int indexBufferSize;
+        // protected boolean hasPolygonMode;
         protected boolean hasClipOrigin;
     }
 
@@ -262,11 +263,11 @@ public class ImGuiImplGl3 {
         io.setBackendRendererName("imgui-java_impl_opengl3");
 
         { // Desktop or GLES 3
+            final String glVersion = glGetString(GL_VERSION);
             int major = glGetInteger(GL_MAJOR_VERSION);
             int minor = glGetInteger(GL_MINOR_VERSION);
             if (major == 0 && minor == 0) {
                 // Query GL_VERSION in desktop GL 2.x, the string will start with "<major>.<minor>"
-                final String glVersion = glGetString(GL_VERSION);
                 if (glVersion != null) {
                     final String[] glVersions = glVersion.split("\\.");
                     major = Integer.parseInt(glVersions[0]);
@@ -336,6 +337,9 @@ public class ImGuiImplGl3 {
     public void newFrame() {
         if (data.shaderHandle == 0) {
             createDeviceObjects();
+        }
+        if (data.fontTexture == 0) {
+            createFontsTexture();
         }
     }
 

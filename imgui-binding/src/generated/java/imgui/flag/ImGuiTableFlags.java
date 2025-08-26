@@ -276,6 +276,13 @@ public final class ImGuiTableFlags {
     public static final int SortTristate = 134217728;
 
     /**
+     * Highlight column headers when hovered (may evolve into a fuller highlight)
+     *
+     * <p>Definition: {@code 1 << 28}
+     */
+    public static final int HighlightHoveredColumn = 268435456;
+
+    /**
      * [Internal] Combinations and masks
      *
      * <p>Definition: {@code ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_SizingFixedSame | ImGuiTableFlags_SizingStretchProp | ImGuiTableFlags_SizingStretchSame}

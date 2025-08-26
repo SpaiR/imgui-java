@@ -126,44 +126,37 @@ public final class ImGuiWindowFlags {
     public static final int AlwaysHorizontalScrollbar = 32768;
 
     /**
-     * Ensure child windows without border uses style.WindowPadding (ignored by default for non-bordered child windows, because more convenient)
+     * No gamepad/keyboard navigation within the window
      *
      * <p>Definition: {@code 1 << 16}
      */
-    public static final int AlwaysUseWindowPadding = 65536;
-
-    /**
-     * No gamepad/keyboard navigation within the window
-     *
-     * <p>Definition: {@code 1 << 18}
-     */
-    public static final int NoNavInputs = 262144;
+    public static final int NoNavInputs = 65536;
 
     /**
      * No focusing toward this window with gamepad/keyboard navigation (e.g. skipped by CTRL+TAB)
      *
-     * <p>Definition: {@code 1 << 19}
+     * <p>Definition: {@code 1 << 17}
      */
-    public static final int NoNavFocus = 524288;
+    public static final int NoNavFocus = 131072;
 
     /**
      * Display a dot next to the title. When used in a tab/docking context, tab is selected when clicking the X + closure is not assumed (will wait for user to stop submitting the tab). Otherwise closure is assumed when pressing the X, so if you keep submitting the tab may reappear at end of tab bar.
      *
-     * <p>Definition: {@code 1 << 20}
+     * <p>Definition: {@code 1 << 18}
      */
-    public static final int UnsavedDocument = 1048576;
+    public static final int UnsavedDocument = 262144;
 
     /**
      * Disable docking of this window
      *
-     * <p>Definition: {@code 1 << 21}
+     * <p>Definition: {@code 1 << 19}
      */
-    public static final int NoDocking = 2097152;
+    public static final int NoDocking = 524288;
 
     /**
      * Definition: {@code ImGuiWindowFlags_NoNavInputs | ImGuiWindowFlags_NoNavFocus}
      */
-    public static final int NoNav = 786432;
+    public static final int NoNav = 196608;
 
     /**
      * Definition: {@code ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse}
@@ -173,14 +166,7 @@ public final class ImGuiWindowFlags {
     /**
      * Definition: {@code ImGuiWindowFlags_NoMouseInputs | ImGuiWindowFlags_NoNavInputs | ImGuiWindowFlags_NoNavFocus}
      */
-    public static final int NoInputs = 786944;
-
-    /**
-     * [BETA] On child window: allow gamepad/keyboard navigation to cross over parent border to this child or between sibling child windows.
-     *
-     * <p>Definition: {@code 1 << 23}
-     */
-    public static final int NavFlattened = 8388608;
+    public static final int NoInputs = 197120;
 
     /**
      * Don't use! For internal use by BeginChild()
@@ -223,4 +209,18 @@ public final class ImGuiWindowFlags {
      * <p>Definition: {@code 1 << 29}
      */
     public static final int DockNodeHost = 536870912;
+
+    /**
+     * Obsoleted in 1.90: Use ImGuiChildFlags_AlwaysUseWindowPadding in BeginChild() call.
+     *
+     * <p>Definition: {@code 1 << 30}
+     */
+    public static final int AlwaysUseWindowPadding = 1073741824;
+
+    /**
+     * Obsoleted in 1.90.9: Use ImGuiChildFlags_NavFlattened in BeginChild() call.
+     *
+     * <p>Definition: {@code 1 << 31}
+     */
+    public static final int NavFlattened = -2147483648;
 }

@@ -11,6 +11,6 @@ public final class ImGuiDir {
     private ImGuiDir() {
     }
 
-    @BindingAstEnum(file = "ast-imgui.json", qualType = "ImGuiDir_")
+    @BindingAstEnum(file = "ast-imgui.json", qualType = "ImGuiDir", sanitizeName = "ImGuiDir_")
     public Void __;
 }

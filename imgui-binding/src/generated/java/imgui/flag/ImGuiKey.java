@@ -168,294 +168,325 @@ public final class ImGuiKey {
 
     public static final int F12 = 583;
 
+    public static final int F13 = 584;
+
+    public static final int F14 = 585;
+
+    public static final int F15 = 586;
+
+    public static final int F16 = 587;
+
+    public static final int F17 = 588;
+
+    public static final int F18 = 589;
+
+    public static final int F19 = 590;
+
+    public static final int F20 = 591;
+
+    public static final int F21 = 592;
+
+    public static final int F22 = 593;
+
+    public static final int F23 = 594;
+
+    public static final int F24 = 595;
+
     /**
      * '
      */
-    public static final int Apostrophe = 584;
+    public static final int Apostrophe = 596;
 
     /**
      * ,
      */
-    public static final int Comma = 585;
+    public static final int Comma = 597;
 
     /**
      * -
      */
-    public static final int Minus = 586;
+    public static final int Minus = 598;
 
     /**
      * .
      */
-    public static final int Period = 587;
+    public static final int Period = 599;
 
     /**
      * /
      */
-    public static final int Slash = 588;
+    public static final int Slash = 600;
 
     /**
      * ;
      */
-    public static final int Semicolon = 589;
+    public static final int Semicolon = 601;
 
     /**
      * =
      */
-    public static final int Equal = 590;
+    public static final int Equal = 602;
 
     /**
      * [
      */
-    public static final int LeftBracket = 591;
+    public static final int LeftBracket = 603;
 
     /**
      * \ (this text inhibit multiline comment caused by backslash)
      */
-    public static final int Backslash = 592;
+    public static final int Backslash = 604;
 
     /**
      * ]
      */
-    public static final int RightBracket = 593;
+    public static final int RightBracket = 605;
 
     /**
      * `
      */
-    public static final int GraveAccent = 594;
+    public static final int GraveAccent = 606;
 
-    public static final int CapsLock = 595;
+    public static final int CapsLock = 607;
 
-    public static final int ScrollLock = 596;
+    public static final int ScrollLock = 608;
 
-    public static final int NumLock = 597;
+    public static final int NumLock = 609;
 
-    public static final int PrintScreen = 598;
+    public static final int PrintScreen = 610;
 
-    public static final int Pause = 599;
+    public static final int Pause = 611;
 
-    public static final int Keypad0 = 600;
+    public static final int Keypad0 = 612;
 
-    public static final int Keypad1 = 601;
+    public static final int Keypad1 = 613;
 
-    public static final int Keypad2 = 602;
+    public static final int Keypad2 = 614;
 
-    public static final int Keypad3 = 603;
+    public static final int Keypad3 = 615;
 
-    public static final int Keypad4 = 604;
+    public static final int Keypad4 = 616;
 
-    public static final int Keypad5 = 605;
+    public static final int Keypad5 = 617;
 
-    public static final int Keypad6 = 606;
+    public static final int Keypad6 = 618;
 
-    public static final int Keypad7 = 607;
+    public static final int Keypad7 = 619;
 
-    public static final int Keypad8 = 608;
+    public static final int Keypad8 = 620;
 
-    public static final int Keypad9 = 609;
+    public static final int Keypad9 = 621;
 
-    public static final int KeypadDecimal = 610;
+    public static final int KeypadDecimal = 622;
 
-    public static final int KeypadDivide = 611;
+    public static final int KeypadDivide = 623;
 
-    public static final int KeypadMultiply = 612;
+    public static final int KeypadMultiply = 624;
 
-    public static final int KeypadSubtract = 613;
+    public static final int KeypadSubtract = 625;
 
-    public static final int KeypadAdd = 614;
+    public static final int KeypadAdd = 626;
 
-    public static final int KeypadEnter = 615;
+    public static final int KeypadEnter = 627;
 
-    public static final int KeypadEqual = 616;
+    public static final int KeypadEqual = 628;
+
+    /**
+     * Available on some keyboard/mouses. Often referred as "Browser Back"
+     */
+    public static final int AppBack = 629;
+
+    public static final int AppForward = 630;
 
     /**
      * Menu (Xbox)      + (Switch)   Start/Options (PS)
      */
-    public static final int GamepadStart = 617;
+    public static final int GamepadStart = 631;
 
     /**
      * View (Xbox)      - (Switch)   Share (PS)
      */
-    public static final int GamepadBack = 618;
+    public static final int GamepadBack = 632;
 
     /**
      * X (Xbox)         Y (Switch)   Square (PS)        // Tap: Toggle Menu. Hold: Windowing mode (Focus/Move/Resize windows)
      */
-    public static final int GamepadFaceLeft = 619;
+    public static final int GamepadFaceLeft = 633;
 
     /**
      * B (Xbox)         A (Switch)   Circle (PS)        // Cancel / Close / Exit
      */
-    public static final int GamepadFaceRight = 620;
+    public static final int GamepadFaceRight = 634;
 
     /**
      * Y (Xbox)         X (Switch)   Triangle (PS)      // Text Input / On-screen Keyboard
      */
-    public static final int GamepadFaceUp = 621;
+    public static final int GamepadFaceUp = 635;
 
     /**
      * A (Xbox)         B (Switch)   Cross (PS)         // Activate / Open / Toggle / Tweak
      */
-    public static final int GamepadFaceDown = 622;
+    public static final int GamepadFaceDown = 636;
 
     /**
      * D-pad Left                                       // Move / Tweak / Resize Window (in Windowing mode)
      */
-    public static final int GamepadDpadLeft = 623;
+    public static final int GamepadDpadLeft = 637;
 
     /**
      * D-pad Right                                      // Move / Tweak / Resize Window (in Windowing mode)
      */
-    public static final int GamepadDpadRight = 624;
+    public static final int GamepadDpadRight = 638;
 
     /**
      * D-pad Up                                         // Move / Tweak / Resize Window (in Windowing mode)
      */
-    public static final int GamepadDpadUp = 625;
+    public static final int GamepadDpadUp = 639;
 
     /**
      * D-pad Down                                       // Move / Tweak / Resize Window (in Windowing mode)
      */
-    public static final int GamepadDpadDown = 626;
+    public static final int GamepadDpadDown = 640;
 
     /**
      * L Bumper (Xbox)  L (Switch)   L1 (PS)            // Tweak Slower / Focus Previous (in Windowing mode)
      */
-    public static final int GamepadL1 = 627;
+    public static final int GamepadL1 = 641;
 
     /**
      * R Bumper (Xbox)  R (Switch)   R1 (PS)            // Tweak Faster / Focus Next (in Windowing mode)
      */
-    public static final int GamepadR1 = 628;
+    public static final int GamepadR1 = 642;
 
     /**
      * L Trig. (Xbox)   ZL (Switch)  L2 (PS) [Analog]
      */
-    public static final int GamepadL2 = 629;
+    public static final int GamepadL2 = 643;
 
     /**
      * R Trig. (Xbox)   ZR (Switch)  R2 (PS) [Analog]
      */
-    public static final int GamepadR2 = 630;
+    public static final int GamepadR2 = 644;
 
     /**
      * L Stick (Xbox)   L3 (Switch)  L3 (PS)
      */
-    public static final int GamepadL3 = 631;
+    public static final int GamepadL3 = 645;
 
     /**
      * R Stick (Xbox)   R3 (Switch)  R3 (PS)
      */
-    public static final int GamepadR3 = 632;
+    public static final int GamepadR3 = 646;
 
     /**
      * [Analog]                                         // Move Window (in Windowing mode)
      */
-    public static final int GamepadLStickLeft = 633;
+    public static final int GamepadLStickLeft = 647;
 
     /**
      * [Analog]                                         // Move Window (in Windowing mode)
      */
-    public static final int GamepadLStickRight = 634;
+    public static final int GamepadLStickRight = 648;
 
     /**
      * [Analog]                                         // Move Window (in Windowing mode)
      */
-    public static final int GamepadLStickUp = 635;
+    public static final int GamepadLStickUp = 649;
 
     /**
      * [Analog]                                         // Move Window (in Windowing mode)
      */
-    public static final int GamepadLStickDown = 636;
+    public static final int GamepadLStickDown = 650;
 
     /**
      * [Analog]
      */
-    public static final int GamepadRStickLeft = 637;
+    public static final int GamepadRStickLeft = 651;
 
     /**
      * [Analog]
      */
-    public static final int GamepadRStickRight = 638;
+    public static final int GamepadRStickRight = 652;
 
     /**
      * [Analog]
      */
-    public static final int GamepadRStickUp = 639;
+    public static final int GamepadRStickUp = 653;
 
     /**
      * [Analog]
      */
-    public static final int GamepadRStickDown = 640;
+    public static final int GamepadRStickDown = 654;
 
     /**
      * Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls) - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
      */
-    public static final int MouseLeft = 641;
+    public static final int MouseLeft = 655;
 
     /**
      * Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls) - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
      */
-    public static final int MouseRight = 642;
+    public static final int MouseRight = 656;
 
     /**
      * Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls) - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
      */
-    public static final int MouseMiddle = 643;
+    public static final int MouseMiddle = 657;
 
     /**
      * Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls) - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
      */
-    public static final int MouseX1 = 644;
+    public static final int MouseX1 = 658;
 
     /**
      * Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls) - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
      */
-    public static final int MouseX2 = 645;
+    public static final int MouseX2 = 659;
 
     /**
      * Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls) - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
      */
-    public static final int MouseWheelX = 646;
+    public static final int MouseWheelX = 660;
 
     /**
      * Aliases: Mouse Buttons (auto-submitted from AddMouseButtonEvent() calls) - This is mirroring the data also written to io.MouseDown[], io.MouseWheel, in a format allowing them to be accessed via standard key API.
      */
-    public static final int MouseWheelY = 647;
+    public static final int MouseWheelY = 661;
 
     /**
      * [Internal] Reserved for mod storage
      */
-    public static final int ReservedForModCtrl = 648;
+    public static final int ReservedForModCtrl = 662;
 
     /**
      * [Internal] Reserved for mod storage
      */
-    public static final int ReservedForModShift = 649;
+    public static final int ReservedForModShift = 663;
 
     /**
      * [Internal] Reserved for mod storage
      */
-    public static final int ReservedForModAlt = 650;
+    public static final int ReservedForModAlt = 664;
 
     /**
      * [Internal] Reserved for mod storage
      */
-    public static final int ReservedForModSuper = 651;
+    public static final int ReservedForModSuper = 665;
 
     /**
      * [Internal] Reserved for mod storage
      */
-    public static final int COUNT = 652;
+    public static final int COUNT = 666;
 
     /**
-     * Keyboard Modifiers (explicitly submitted by backend via AddKeyEvent() calls) - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every key (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiMod_Ctrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...
+     * Keyboard Modifiers (explicitly submitted by backend via AddKeyEvent() calls) - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc. - Code polling every key (e.g. an interface to detect a key press for input mapping) might want to ignore those and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiMod_Ctrl). - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys. In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user... - On macOS, we swap Cmd(Super) and Ctrl keys at the time of the io.AddKeyEvent() call.
      *
      * <p>Definition: {@code 0}
      */
     public static final int ImGuiMod_None = 0;
 
     /**
-     * Ctrl
+     * Ctrl (non-macOS), Cmd (macOS)
      *
      * <p>Definition: {@code 1 << 12}
      */
@@ -476,25 +507,18 @@ public final class ImGuiKey {
     public static final int ImGuiMod_Alt = 16384;
 
     /**
-     * Cmd/Super/Windows
+     * Windows/Super (non-macOS), Ctrl (macOS)
      *
      * <p>Definition: {@code 1 << 15}
      */
     public static final int ImGuiMod_Super = 32768;
 
     /**
-     * Alias for Ctrl (non-macOS) _or_ Super (macOS).
+     * 4-bits
      *
-     * <p>Definition: {@code 1 << 11}
+     * <p>Definition: {@code 0xF000}
      */
-    public static final int ImGuiMod_Shortcut = 2048;
-
-    /**
-     * 5-bits
-     *
-     * <p>Definition: {@code 0xF800}
-     */
-    public static final int ImGuiMod_Mask_ = 63488;
+    public static final int ImGuiMod_Mask_ = 61440;
 
     /**
      * [Internal] Prior to 1.87 we required user to fill io.KeysDown[512] using their own native index + the io.KeyMap[] array. We are ditching this method but keeping a legacy path for user code doing e.g. IsKeyPressed(MY_NATIVE_KEY_CODE) If you need to iterate all keys (for e.g. an input mapper) you may use ImGuiKey_NamedKey_BEGIN..ImGuiKey_NamedKey_END.
@@ -508,21 +532,21 @@ public final class ImGuiKey {
      *
      * <p>Definition: {@code ImGuiKey_COUNT}
      */
-    public static final int NamedKey_END = 652;
+    public static final int NamedKey_END = 666;
 
     /**
      * [Internal] Prior to 1.87 we required user to fill io.KeysDown[512] using their own native index + the io.KeyMap[] array. We are ditching this method but keeping a legacy path for user code doing e.g. IsKeyPressed(MY_NATIVE_KEY_CODE) If you need to iterate all keys (for e.g. an input mapper) you may use ImGuiKey_NamedKey_BEGIN..ImGuiKey_NamedKey_END.
      *
      * <p>Definition: {@code ImGuiKey_NamedKey_END - ImGuiKey_NamedKey_BEGIN}
      */
-    public static final int NamedKey_COUNT = 140;
+    public static final int NamedKey_COUNT = 154;
 
     /**
      * Size of KeysData[]: hold legacy 0..512 keycodes + named keys
      *
      * <p>Definition: {@code ImGuiKey_COUNT}
      */
-    public static final int KeysData_SIZE = 652;
+    public static final int KeysData_SIZE = 666;
 
     /**
      * Accesses to io.KeysData[] must use (key - ImGuiKey_KeysData_OFFSET) index.
@@ -530,6 +554,13 @@ public final class ImGuiKey {
      * <p>Definition: {@code 0}
      */
     public static final int KeysData_OFFSET = 0;
+
+    /**
+     * Removed in 1.90.7, you can now simply use ImGuiMod_Ctrl
+     *
+     * <p>Definition: {@code ImGuiMod_Ctrl}
+     */
+    public static final int ImGuiMod_Shortcut = 4096;
 
     /**
      * Renamed in 1.89
@@ -558,11 +589,4 @@ public final class ImGuiKey {
      * <p>Definition: {@code ImGuiMod_Super}
      */
     public static final int ModSuper = 32768;
-
-    /**
-     * Renamed in 1.87
-     *
-     * <p>Definition: {@code ImGuiKey_KeypadEnter}
-     */
-    public static final int KeyPadEnter = 615;
 }

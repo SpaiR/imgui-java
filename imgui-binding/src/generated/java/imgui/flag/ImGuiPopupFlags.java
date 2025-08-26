@@ -50,35 +50,42 @@ public final class ImGuiPopupFlags {
     public static final int MouseButtonDefault_ = 1;
 
     /**
-     * For OpenPopup*(), BeginPopupContext*(): don't open if there's already a popup at the same level of the popup stack
+     * For OpenPopup*(), BeginPopupContext*(): don't reopen same popup if already open (won't reposition, won't reinitialize navigation)
      *
      * <p>Definition: {@code 1 << 5}
      */
-    public static final int NoOpenOverExistingPopup = 32;
+    public static final int NoReopen = 32;
+
+    /**
+     * For OpenPopup*(), BeginPopupContext*(): don't open if there's already a popup at the same level of the popup stack
+     *
+     * <p>Definition: {@code 1 << 7}
+     */
+    public static final int NoOpenOverExistingPopup = 128;
 
     /**
      * For BeginPopupContextWindow(): don't return true when hovering items, only when hovering empty space
      *
-     * <p>Definition: {@code 1 << 6}
+     * <p>Definition: {@code 1 << 8}
      */
-    public static final int NoOpenOverItems = 64;
+    public static final int NoOpenOverItems = 256;
 
     /**
      * For IsPopupOpen(): ignore the ImGuiID parameter and test for any popup.
      *
-     * <p>Definition: {@code 1 << 7}
+     * <p>Definition: {@code 1 << 10}
      */
-    public static final int AnyPopupId = 128;
+    public static final int AnyPopupId = 1024;
 
     /**
      * For IsPopupOpen(): search/test at any level of the popup stack (default test in the current level)
      *
-     * <p>Definition: {@code 1 << 8}
+     * <p>Definition: {@code 1 << 11}
      */
-    public static final int AnyPopupLevel = 256;
+    public static final int AnyPopupLevel = 2048;
 
     /**
      * Definition: {@code ImGuiPopupFlags_AnyPopupId | ImGuiPopupFlags_AnyPopupLevel}
      */
-    public static final int AnyPopup = 384;
+    public static final int AnyPopup = 3072;
 }

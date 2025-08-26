@@ -42,7 +42,7 @@ public final class ImGuiConfigFlags {
     public static final int NavNoCaptureKeyboard = 8;
 
     /**
-     * Instruct imgui to clear mouse position/buttons in NewFrame(). This allows ignoring the mouse information set by the backend.
+     * Instruct dear imgui to disable mouse inputs and interactions.
      *
      * <p>Definition: {@code 1 << 4}
      */
@@ -56,11 +56,18 @@ public final class ImGuiConfigFlags {
     public static final int NoMouseCursorChange = 32;
 
     /**
-     * Docking enable flags.
+     * Instruct dear imgui to disable keyboard inputs and interactions. This is done by ignoring keyboard events and clearing existing states.
      *
      * <p>Definition: {@code 1 << 6}
      */
-    public static final int DockingEnable = 64;
+    public static final int NoKeyboard = 64;
+
+    /**
+     * Docking enable flags.
+     *
+     * <p>Definition: {@code 1 << 7}
+     */
+    public static final int DockingEnable = 128;
 
     /**
      * Viewport enable flags (require both ImGuiBackendFlags_PlatformHasViewports + ImGuiBackendFlags_RendererHasViewports set by the respective backends)

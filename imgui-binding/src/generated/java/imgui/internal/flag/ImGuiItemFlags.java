@@ -92,4 +92,11 @@ public final class ImGuiItemFlags {
      * <p>Definition: {@code 1 << 10}
      */
     public static final int Inputable = 1024;
+
+    /**
+     * false     // Set by SetNextItemSelectionUserData()
+     *
+     * <p>Definition: {@code 1 << 11}
+     */
+    public static final int HasSelectionUserData = 2048;
 }
