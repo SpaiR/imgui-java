@@ -11175,7 +11175,7 @@ public class ImGui {
     */
 
     /**
-     * Return hovered column. return -1 when table is not hovered. return columns_count if the unused space at the right of visible columns is hovered. Can also use (TableGetColumnFlags() & ImGuiTableColumnFlags_IsHovered) instead.
+     * Return hovered column. return -1 when table is not hovered. return columns_count if the unused space at the right of visible columns is hovered. Can also use ({@code TableGetColumnFlags() & ImGuiTableColumnFlags_IsHovered}) instead.
      */
     public static int tableGetHoveredColumn() {
         return nTableGetHoveredColumn();
@@ -13273,14 +13273,14 @@ public class ImGui {
     */
 
     /**
-     * Is mouse dragging? (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * Is mouse dragging? (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static boolean isMouseDragging(final int button) {
         return nIsMouseDragging(button);
     }
 
     /**
-     * Is mouse dragging? (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * Is mouse dragging? (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static boolean isMouseDragging(final int button, final float lockThreshold) {
         return nIsMouseDragging(button, lockThreshold);
@@ -13296,7 +13296,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static ImVec2 getMouseDragDelta() {
         final ImVec2 dst = new ImVec2();
@@ -13306,7 +13306,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static float getMouseDragDeltaX() {
         return nGetMouseDragDeltaX();
@@ -13314,7 +13314,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static float getMouseDragDeltaY() {
         return nGetMouseDragDeltaY();
@@ -13322,7 +13322,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static void getMouseDragDelta(final ImVec2 dst) {
         nGetMouseDragDelta(dst);
@@ -13330,7 +13330,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static ImVec2 getMouseDragDelta(final int button) {
         final ImVec2 dst = new ImVec2();
@@ -13340,7 +13340,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static float getMouseDragDeltaX(final int button) {
         return nGetMouseDragDeltaX(button);
@@ -13348,7 +13348,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static float getMouseDragDeltaY(final int button) {
         return nGetMouseDragDeltaY(button);
@@ -13356,7 +13356,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static void getMouseDragDelta(final ImVec2 dst, final int button) {
         nGetMouseDragDelta(dst, button);
@@ -13364,7 +13364,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static ImVec2 getMouseDragDelta(final int button, final float lockThreshold) {
         final ImVec2 dst = new ImVec2();
@@ -13374,7 +13374,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static float getMouseDragDeltaX(final int button, final float lockThreshold) {
         return nGetMouseDragDeltaX(button, lockThreshold);
@@ -13382,7 +13382,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static float getMouseDragDeltaY(final int button, final float lockThreshold) {
         return nGetMouseDragDeltaY(button, lockThreshold);
@@ -13390,7 +13390,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
      */
     public static void getMouseDragDelta(final ImVec2 dst, final int button, final float lockThreshold) {
         nGetMouseDragDelta(dst, button, lockThreshold);
