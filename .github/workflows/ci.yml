@@ -43,7 +43,7 @@ jobs:
           cp imgui-lwjgl3/build/libs/*.jar tmp/
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: java-libraries
           path: tmp/*.jar
@@ -90,7 +90,7 @@ jobs:
           buildSrc/scripts/build.sh ${{ matrix.target.type }}
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: native-library-${{ matrix.target.type }}
           path: /tmp/imgui/dst/
@@ -102,7 +102,7 @@ jobs:
     needs: build-natives
     steps:
       - name: Merge Artifacts
-        uses: actions/upload-artifact/merge@v5
+        uses: actions/upload-artifact/merge@v6
         with:
           name: native-libraries
           pattern: native-library-*
