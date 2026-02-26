@@ -1,237 +1,40 @@
 package imgui.sdl3;
 
+// this is the dumbest check i have ever seen
+// without star imports, there is around 250 lines of imports
+// why do java people do this to themselves
+// CHECKSTYLE:OFF AvoidStarImport
 import static org.lwjgl.sdl.SDLClipboard.SDL_GetClipboardText;
 import static org.lwjgl.sdl.SDLClipboard.SDL_HasClipboardText;
 import static org.lwjgl.sdl.SDLClipboard.SDL_SetClipboardText;
-import static org.lwjgl.sdl.SDLEvents.SDL_EVENT_GAMEPAD_ADDED;
-import static org.lwjgl.sdl.SDLEvents.SDL_EVENT_GAMEPAD_REMOVED;
-import static org.lwjgl.sdl.SDLEvents.SDL_EVENT_KEY_DOWN;
-import static org.lwjgl.sdl.SDLEvents.SDL_EVENT_KEY_UP;
-import static org.lwjgl.sdl.SDLEvents.SDL_EVENT_MOUSE_BUTTON_DOWN;
-import static org.lwjgl.sdl.SDLEvents.SDL_EVENT_MOUSE_BUTTON_UP;
-import static org.lwjgl.sdl.SDLEvents.SDL_EVENT_MOUSE_MOTION;
-import static org.lwjgl.sdl.SDLEvents.SDL_EVENT_MOUSE_WHEEL;
-import static org.lwjgl.sdl.SDLEvents.SDL_EVENT_TEXT_INPUT;
-import static org.lwjgl.sdl.SDLEvents.SDL_EVENT_WINDOW_FOCUS_GAINED;
-import static org.lwjgl.sdl.SDLEvents.SDL_EVENT_WINDOW_FOCUS_LOST;
-import static org.lwjgl.sdl.SDLEvents.SDL_EVENT_WINDOW_MOUSE_ENTER;
-import static org.lwjgl.sdl.SDLEvents.SDL_EVENT_WINDOW_MOUSE_LEAVE;
-import static org.lwjgl.sdl.SDLGamepad.SDL_CloseGamepad;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_AXIS_LEFTX;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_AXIS_LEFTY;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_AXIS_LEFT_TRIGGER;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_AXIS_RIGHTX;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_AXIS_RIGHTY;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_AXIS_RIGHT_TRIGGER;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_BUTTON_BACK;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_BUTTON_DPAD_DOWN;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_BUTTON_DPAD_LEFT;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_BUTTON_DPAD_RIGHT;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_BUTTON_DPAD_UP;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_BUTTON_EAST;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_BUTTON_LEFT_SHOULDER;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_BUTTON_LEFT_STICK;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_BUTTON_NORTH;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_BUTTON_RIGHT_SHOULDER;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_BUTTON_RIGHT_STICK;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_BUTTON_SOUTH;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_BUTTON_START;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GAMEPAD_BUTTON_WEST;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GetGamepadAxis;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GetGamepadButton;
-import static org.lwjgl.sdl.SDLGamepad.SDL_GetGamepads;
-import static org.lwjgl.sdl.SDLGamepad.SDL_OpenGamepad;
+import static org.lwjgl.sdl.SDLEvents.*;
+import static org.lwjgl.sdl.SDLGamepad.*;
 import static org.lwjgl.sdl.SDLHints.SDL_HINT_MOUSE_AUTO_CAPTURE;
 import static org.lwjgl.sdl.SDLHints.SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH;
 import static org.lwjgl.sdl.SDLHints.SDL_SetHint;
 import static org.lwjgl.sdl.SDLKeyboard.SDL_GetKeyboardFocus;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_0;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_1;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_2;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_3;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_4;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_5;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_6;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_7;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_8;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_9;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_A;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_AC_BACK;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_AC_FORWARD;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_APPLICATION;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_B;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_BACKSPACE;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_C;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_CAPSLOCK;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_COMMA;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_D;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_DELETE;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_DOWN;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_E;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_END;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_ESCAPE;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F1;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F10;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F11;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F12;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F13;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F14;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F15;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F16;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F17;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F18;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F19;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F2;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F20;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F21;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F22;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F23;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F24;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F3;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F4;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F5;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F6;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F7;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F8;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_F9;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_G;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_H;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_HOME;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_I;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_INSERT;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_J;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_K;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_L;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_LALT;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_LCTRL;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_LEFT;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_LGUI;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_LSHIFT;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_M;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_N;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_NUMLOCKCLEAR;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_O;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_P;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_PAGEDOWN;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_PAGEUP;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_PAUSE;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_PERIOD;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_PRINTSCREEN;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_Q;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_R;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_RALT;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_RCTRL;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_RETURN;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_RGUI;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_RIGHT;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_RSHIFT;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_S;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_SCROLLLOCK;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_SEMICOLON;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_SPACE;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_T;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_TAB;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_U;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_UP;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_V;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_W;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_X;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_Y;
-import static org.lwjgl.sdl.SDLKeycode.SDLK_Z;
-import static org.lwjgl.sdl.SDLKeycode.SDL_KMOD_ALT;
-import static org.lwjgl.sdl.SDLKeycode.SDL_KMOD_CTRL;
-import static org.lwjgl.sdl.SDLKeycode.SDL_KMOD_GUI;
-import static org.lwjgl.sdl.SDLKeycode.SDL_KMOD_SHIFT;
-import static org.lwjgl.sdl.SDLMouse.SDL_BUTTON_LEFT;
-import static org.lwjgl.sdl.SDLMouse.SDL_BUTTON_MIDDLE;
-import static org.lwjgl.sdl.SDLMouse.SDL_BUTTON_RIGHT;
-import static org.lwjgl.sdl.SDLMouse.SDL_BUTTON_X1;
-import static org.lwjgl.sdl.SDLMouse.SDL_BUTTON_X2;
-import static org.lwjgl.sdl.SDLMouse.SDL_CaptureMouse;
-import static org.lwjgl.sdl.SDLMouse.SDL_CreateSystemCursor;
-import static org.lwjgl.sdl.SDLMouse.SDL_DestroyCursor;
-import static org.lwjgl.sdl.SDLMouse.SDL_GetGlobalMouseState;
-import static org.lwjgl.sdl.SDLMouse.SDL_GetMouseFocus;
-import static org.lwjgl.sdl.SDLMouse.SDL_GetWindowRelativeMouseMode;
-import static org.lwjgl.sdl.SDLMouse.SDL_HideCursor;
-import static org.lwjgl.sdl.SDLMouse.SDL_SYSTEM_CURSOR_DEFAULT;
-import static org.lwjgl.sdl.SDLMouse.SDL_SYSTEM_CURSOR_EW_RESIZE;
-import static org.lwjgl.sdl.SDLMouse.SDL_SYSTEM_CURSOR_MOVE;
-import static org.lwjgl.sdl.SDLMouse.SDL_SYSTEM_CURSOR_NESW_RESIZE;
-import static org.lwjgl.sdl.SDLMouse.SDL_SYSTEM_CURSOR_NOT_ALLOWED;
-import static org.lwjgl.sdl.SDLMouse.SDL_SYSTEM_CURSOR_NS_RESIZE;
-import static org.lwjgl.sdl.SDLMouse.SDL_SYSTEM_CURSOR_NWSE_RESIZE;
-import static org.lwjgl.sdl.SDLMouse.SDL_SYSTEM_CURSOR_POINTER;
-import static org.lwjgl.sdl.SDLMouse.SDL_SYSTEM_CURSOR_TEXT;
-import static org.lwjgl.sdl.SDLMouse.SDL_SetCursor;
-import static org.lwjgl.sdl.SDLMouse.SDL_ShowCursor;
-import static org.lwjgl.sdl.SDLMouse.SDL_WarpMouseInWindow;
+import static org.lwjgl.sdl.SDLKeycode.*;
+import static org.lwjgl.sdl.SDLMouse.*;
 import static org.lwjgl.sdl.SDLProperties.SDL_GetPointerProperty;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_APOSTROPHE;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_BACKSLASH;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_COMMA;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_EQUALS;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_GRAVE;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_0;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_1;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_2;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_3;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_4;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_5;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_6;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_7;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_8;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_9;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_DIVIDE;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_ENTER;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_EQUALS;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_MINUS;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_MULTIPLY;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_PERIOD;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_KP_PLUS;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_LEFTBRACKET;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_MINUS;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_PERIOD;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_RIGHTBRACKET;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_SEMICOLON;
-import static org.lwjgl.sdl.SDLScancode.SDL_SCANCODE_SLASH;
+import static org.lwjgl.sdl.SDLScancode.*;
 import static org.lwjgl.sdl.SDLTimer.SDL_GetPerformanceCounter;
 import static org.lwjgl.sdl.SDLTimer.SDL_GetPerformanceFrequency;
 import static org.lwjgl.sdl.SDLTouch.SDL_TOUCH_MOUSEID;
-import static org.lwjgl.sdl.SDLVideo.SDL_GetCurrentVideoDriver;
-import static org.lwjgl.sdl.SDLVideo.SDL_GetWindowDisplayScale;
-import static org.lwjgl.sdl.SDLVideo.SDL_GetWindowFlags;
-import static org.lwjgl.sdl.SDLVideo.SDL_GetWindowID;
-import static org.lwjgl.sdl.SDLVideo.SDL_GetWindowPosition;
-import static org.lwjgl.sdl.SDLVideo.SDL_GetWindowProperties;
-import static org.lwjgl.sdl.SDLVideo.SDL_GetWindowSize;
-import static org.lwjgl.sdl.SDLVideo.SDL_GetWindowSizeInPixels;
-import static org.lwjgl.sdl.SDLVideo.SDL_PROP_WINDOW_COCOA_WINDOW_POINTER;
-import static org.lwjgl.sdl.SDLVideo.SDL_PROP_WINDOW_WIN32_HWND_POINTER;
-import static org.lwjgl.sdl.SDLVideo.SDL_WINDOW_MINIMIZED;
+import static org.lwjgl.sdl.SDLVideo.*;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import imgui.*;
+import imgui.callback.*;
+import imgui.flag.*;
+import imgui.lwjgl3.glfw.ImGuiImplGlfwNative;
 import org.lwjgl.sdl.SDL_Event;
+import org.lwjgl.sdl.SDL_Rect;
 import org.lwjgl.system.MemoryStack;
-
-import imgui.ImGui;
-import imgui.ImGuiIO;
-import imgui.ImGuiViewport;
-import imgui.ImVec2;
-import imgui.ImVec4;
-import imgui.callback.ImStrConsumer;
-import imgui.callback.ImStrSupplier;
-import imgui.flag.ImGuiBackendFlags;
-import imgui.flag.ImGuiConfigFlags;
-import imgui.flag.ImGuiKey;
-import imgui.flag.ImGuiMouseButton;
-import imgui.flag.ImGuiMouseCursor;
-import imgui.flag.ImGuiMouseSource;
+// CHECKSTYLE:ON AvoidStarImport
 
 @SuppressWarnings({ "checkstyle:DesignForExtension" })
 public class ImGuiImplSdl3 {
@@ -239,25 +42,36 @@ public class ImGuiImplSdl3 {
     protected static final boolean IS_WINDOWS = OS.contains("win");
     protected static final boolean IS_APPLE = OS.contains("mac") || OS.contains("darwin");
 
-    private static class SDL3Data {
-        public long window = -1;
-        public long windowID = -1;
-        public long time = 0;
-        public String clipboardTextData;
+    private static class Data {
+        long window = -1;
+        long windowID = -1;
+        long time = 0;
+        boolean useVulkan;
+        String clipboardTextData;
 
         // mouse handling
-        public int mouseButtonsDown;
-        public long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
-        public long mouseLastCursor;
-        public int mousePendingLeaveFrame;
-        public boolean mouseCanUseGlobalState;
-        public MouseCaptureMode mouseCaptureMode;
+        long mouseWindowID;
+        int mouseButtonsDown;
+        long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
+        long mouseLastCursor;
+        int mousePendingLeaveFrame;
+        boolean mouseCanUseGlobalState;
+        MouseCaptureMode mouseCaptureMode;
 
         // gamepad handling
-        public List<Long> gamepads;
-        public GamepadMode gamepadMode;
-        public boolean wantUpdateGamepadsList;
-    };
+        List<Long> gamepads;
+        GamepadMode gamepadMode;
+        boolean wantUpdateGamepadsList;
+
+        boolean wantUpdateMonitors;
+    }
+
+    private static class ViewportData {
+        long window;
+        long windowID;
+        boolean windowOwned;
+        long glContext;
+    }
 
     private enum MouseCaptureMode {
         Enabled, EnabledAfterDrag, Disabled
@@ -267,7 +81,7 @@ public class ImGuiImplSdl3 {
         AutoFirst, AutoAll, Manual
     }
 
-    private SDL3Data data;
+    private Data data;
 
     private ImStrSupplier getClipboardText() {
         return new ImStrSupplier() {
@@ -649,10 +463,18 @@ public class ImGuiImplSdl3 {
                 io.addKeyEvent(key, (event.type() == SDL_EVENT_KEY_DOWN));
                 io.setKeyEventNativeData(key, event.key().key(), event.key().scancode(), event.key().scancode());
                 return true;
+            case SDL_EVENT_DISPLAY_ORIENTATION:
+            case SDL_EVENT_DISPLAY_ADDED:
+            case SDL_EVENT_DISPLAY_REMOVED:
+            case SDL_EVENT_DISPLAY_MOVED:
+            case SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED:
+                data.wantUpdateMonitors = true;
+                return true;
             case SDL_EVENT_WINDOW_MOUSE_ENTER:
                 if (getViewportForWindowID(event.window().windowID()) == null) {
                     return false;
                 }
+                data.mouseWindowID = event.window().windowID();
                 data.mousePendingLeaveFrame = 0;
                 return true;
             // - In some cases, when detaching a window from main viewport SDL may send
@@ -698,7 +520,7 @@ public class ImGuiImplSdl3 {
 
     public boolean init(final long window) {
         final ImGuiIO io = ImGui.getIO();
-        data = new SDL3Data();
+        data = new Data();
         data.gamepads = new ArrayList<>();
 
         // Setup backend capabilities flags
@@ -861,6 +683,18 @@ public class ImGuiImplSdl3 {
                     io.addMousePosEvent(mouse.x, mouse.y);
                 }
             }
+        }
+
+        if (io.hasBackendFlags(ImGuiBackendFlags.HasMouseHoveredViewport)) {
+            int mouseViewportID = 0;
+            final long sdlMouseWindow = SDL_GetWindowFromID((int) data.mouseWindowID);
+            if (sdlMouseWindow != 0) {
+                final ImGuiViewport mouseViewport = ImGui.findViewportByPlatformHandle(sdlMouseWindow);
+                if (mouseViewport != null) {
+                    mouseViewportID = mouseViewport.getID();
+                }
+            }
+            io.addMouseViewportEvent(mouseViewportID);
         }
     }
 
@@ -1027,6 +861,39 @@ public class ImGuiImplSdl3 {
         }
     }
 
+    void updateMonitors() {
+        final ImGuiPlatformIO platformIO = ImGui.getPlatformIO();
+        platformIO.resizeMonitors(0);
+        data.wantUpdateMonitors = false;
+
+        final IntBuffer displays = SDL_GetDisplays();
+        for (int n = 0; n < displays.capacity(); n++) {
+            // Warning: the validity of monitor DPI information on Windows depends on the
+            // application DPI awareness settings, which generally needs to be set in the
+            // manifest or at runtime.
+            final int displayID = displays.get(n);
+            final SDL_Rect disp = null;
+            SDL_GetDisplayBounds(displayID, disp);
+            final SDL_Rect usable = null;
+            SDL_GetDisplayUsableBounds(displayID, usable);
+
+            final float mainPosX = disp.x();
+            final float mainPosY = disp.y();
+            final float workPosX = disp.x();
+            final float workPosY = disp.y();
+
+            final float mainSizeX = disp.w();
+            final float mainSizeY = disp.h();
+            final float workSizeX = disp.w();
+            final float workSizeY = disp.h();
+
+            final float dpiScale = SDL_GetDisplayContentScale(displayID);
+
+            platformIO.pushMonitors(displayID, mainPosX, mainPosY, mainSizeX, mainSizeY, workPosX, workPosY,
+                    workSizeX, workSizeY, dpiScale);
+        }
+    }
+
     public void newFrame() {
         if (data == null) {
             return;
@@ -1039,6 +906,10 @@ public class ImGuiImplSdl3 {
         final ImVec2 scale = new ImVec2(sizeScale.z, sizeScale.w);
         io.setDisplaySize(size);
         io.setDisplayFramebufferScale(scale);
+
+        if (data.wantUpdateMonitors) {
+            updateMonitors();
+        }
 
         // Setup time step (we could also use SDL_GetTicksNS() available since SDL3)
         // (Accept SDL_GetPerformanceCounter() not returning a monotonically increasing
@@ -1054,6 +925,7 @@ public class ImGuiImplSdl3 {
 
         if (data.mousePendingLeaveFrame != 0 && data.mousePendingLeaveFrame >= ImGui.getFrameCount()
                 && data.mouseButtonsDown == 0) {
+            data.mouseWindowID = 0;
             data.mousePendingLeaveFrame = 0;
             io.addMousePosEvent(-Float.MAX_VALUE, -Float.MAX_VALUE);
         }
@@ -1063,5 +935,222 @@ public class ImGuiImplSdl3 {
 
         // Update game controllers (if enabled and available)
         updateGamepads();
+    }
+
+    private class CreateWindowFunction extends ImPlatformFuncViewport {
+        @Override
+        public void accept(final ImGuiViewport viewport) {
+            final ViewportData vd = new ViewportData();
+            viewport.setPlatformUserData(vd);
+
+            final ImGuiViewport mainViewport = ImGui.getMainViewport();
+            final ViewportData mainViewportData = (ViewportData) mainViewport.getPlatformUserData();
+
+            // Share GL resources with main context
+            final boolean useOpenGL = (mainViewportData.glContext != 0);
+            long backupContext = 0;
+            if (useOpenGL) {
+                backupContext = SDL_GL_GetCurrentContext();
+                SDL_GL_SetAttribute(SDL_GL_SHARE_WITH_CURRENT_CONTEXT, 1);
+                SDL_GL_MakeCurrent(mainViewportData.window, mainViewportData.glContext);
+            }
+
+            int sdlFlags = 0;
+            sdlFlags |= useOpenGL ? SDL_WINDOW_OPENGL : (data.useVulkan ? SDL_WINDOW_VULKAN : 0);
+            sdlFlags |= SDL_GetWindowFlags(data.window);
+            sdlFlags |= ((viewport.getFlags() & ImGuiViewportFlags.NoDecoration) != 0) ? SDL_WINDOW_BORDERLESS : 0;
+            sdlFlags |= ((viewport.getFlags() & ImGuiViewportFlags.NoDecoration) != 0) ? 0 : SDL_WINDOW_RESIZABLE;
+            if (!IS_WINDOWS) {
+                // See SDL hack in ImGui_ImplSDL3_ShowWindow().
+                sdlFlags |= ((viewport.getFlags() & ImGuiViewportFlags.NoTaskBarIcon) != 0) ? SDL_WINDOW_UTILITY : 0;
+            }
+            sdlFlags |= ((viewport.getFlags() & ImGuiViewportFlags.TopMost) != 0) ? SDL_WINDOW_ALWAYS_ON_TOP : 0;
+            vd.window = SDL_CreateWindow("No Title Yet", (int) viewport.getSize().x, (int) viewport.getSize().y,
+                    sdlFlags);
+            SDL_SetWindowPosition(vd.window, (int) viewport.getPos().x, (int) viewport.getPos().y);
+            vd.windowOwned = true;
+            if (useOpenGL) {
+                vd.glContext = SDL_GL_CreateContext(vd.window);
+                SDL_GL_SetSwapInterval(0);
+            }
+            if (useOpenGL && backupContext != 0) {
+                SDL_GL_MakeCurrent(vd.window, backupContext);
+            }
+
+            setupPlatformHandles(viewport, vd.window);
+        }
+    }
+
+    private static class DestroyWindowFunction extends ImPlatformFuncViewport {
+        @Override
+        public void accept(final ImGuiViewport viewport) {
+            final ViewportData vd = (ViewportData) viewport.getPlatformUserData();
+            if (vd != null) {
+                if (vd.glContext != 0 && vd.windowOwned) {
+                    SDL_GL_DestroyContext(vd.glContext);
+                }
+                if (vd.window != 0 && vd.windowOwned) {
+                    SDL_DestroyWindow(vd.window);
+                }
+                vd.glContext = 0;
+                vd.window = 0;
+            }
+            viewport.setPlatformUserData(null);
+            viewport.setPlatformHandle(0);
+        }
+    }
+
+    private static class ShowWindowFunction extends ImPlatformFuncViewport {
+        @Override
+        public void accept(final ImGuiViewport viewport) {
+            final ViewportData vd = (ViewportData) viewport.getPlatformUserData();
+            if (IS_WINDOWS) {
+                ImGuiImplGlfwNative.win32hideFromTaskBar(viewport.getPlatformHandleRaw());
+            }
+
+            SDL_ShowWindow(vd.window);
+        }
+    }
+
+    private static class GetWindowPosFunction extends ImPlatformFuncViewportSuppImVec2 {
+        public void get(final ImGuiViewport viewport, final ImVec2 dst) {
+            final ViewportData vd = (ViewportData) viewport.getPlatformUserData();
+            try (MemoryStack stack = MemoryStack.stackPush()) {
+                final IntBuffer x = stack.mallocInt(1);
+                final IntBuffer y = stack.mallocInt(1);
+                SDL_GetWindowPosition(vd.window, x, y);
+
+                dst.x = x.get(0);
+                dst.y = y.get(0);
+            }
+        }
+    }
+
+    private static class SetWindowPosFunction extends ImPlatformFuncViewportImVec2 {
+        @Override
+        public void accept(final ImGuiViewport viewport, final ImVec2 pos) {
+            final ViewportData vd = (ViewportData) viewport.getPlatformUserData();
+            SDL_SetWindowPosition(vd.window, (int) pos.x, (int) pos.y);
+        }
+    }
+
+    private static class GetWindowSizeFunction extends ImPlatformFuncViewportSuppImVec2 {
+        @Override
+        public void get(final ImGuiViewport viewport, final ImVec2 dst) {
+            final ViewportData vd = (ViewportData) viewport.getPlatformUserData();
+            try (MemoryStack stack = MemoryStack.stackPush()) {
+                final IntBuffer w = stack.mallocInt(1);
+                final IntBuffer h = stack.mallocInt(1);
+                SDL_GetWindowSize(vd.window, w, h);
+
+                dst.x = w.get(0);
+                dst.y = h.get(0);
+            }
+        }
+
+    }
+
+    private static class SetWindowSizeFunction extends ImPlatformFuncViewportImVec2 {
+        public void accept(final ImGuiViewport viewport, final ImVec2 size) {
+            final ViewportData vd = (ViewportData) viewport.getPlatformUserData();
+            SDL_SetWindowSize(vd.window, (int) size.x, (int) size.y);
+        }
+    }
+
+    private static class SetWindowTitleFunction extends ImPlatformFuncViewportString {
+        @Override
+        public void accept(final ImGuiViewport viewport, final String title) {
+            final ViewportData vd = (ViewportData) viewport.getPlatformUserData();
+            SDL_SetWindowTitle(vd.window, title);
+        }
+    }
+
+    private static class SetWindowAlphaFunction extends ImPlatformFuncViewportFloat {
+        @Override
+        public void accept(final ImGuiViewport viewport, final float alpha) {
+            final ViewportData vd = (ViewportData) viewport.getPlatformUserData();
+            SDL_SetWindowOpacity(vd.window, alpha);
+        }
+    }
+
+    private static class SetWindowFocusFunction extends ImPlatformFuncViewport {
+        @Override
+        public void accept(final ImGuiViewport viewport) {
+            final ViewportData vd = (ViewportData) viewport.getPlatformUserData();
+            SDL_RaiseWindow(vd.window);
+        }
+    }
+
+    private static class GetWindowFocusFunction extends ImPlatformFuncViewportSuppBoolean {
+        @Override
+        public boolean get(final ImGuiViewport viewport) {
+            final ViewportData vd = (ViewportData) viewport.getPlatformUserData();
+            return (SDL_GetWindowFlags(vd.window) & SDL_WINDOW_INPUT_FOCUS) != 0;
+        }
+    }
+
+    private static class GetWindowMinimizedFunction extends ImPlatformFuncViewportSuppBoolean {
+        @Override
+        public boolean get(final ImGuiViewport viewport) {
+            final ViewportData vd = (ViewportData) viewport.getPlatformUserData();
+            return (SDL_GetWindowFlags(vd.window) & SDL_WINDOW_MINIMIZED) != 0;
+        }
+    }
+
+    private static class RenderWindowFunction extends ImPlatformFuncViewport {
+        @Override
+        public void accept(final ImGuiViewport viewport) {
+            final ViewportData vd = (ViewportData) viewport.getPlatformUserData();
+            if (vd.glContext != 0) {
+                SDL_GL_MakeCurrent(vd.window, vd.glContext);
+            }
+        }
+    }
+
+    private static class SwapBuffersFunction extends ImPlatformFuncViewport {
+        @Override
+        public void accept(final ImGuiViewport viewport) {
+            final ViewportData vd = (ViewportData) viewport.getPlatformUserData();
+            if (vd.glContext != 0) {
+                SDL_GL_MakeCurrent(vd.window, vd.glContext);
+                SDL_GL_SwapWindow(vd.window);
+            }
+        }
+    }
+
+    void initPlatformInterface(final long window, final long sdlGlContext) {
+        // Register platform interface (will be coupled with a renderer interface)
+        final ImGuiPlatformIO platformIO = ImGui.getPlatformIO();
+        platformIO.setPlatformCreateWindow(new CreateWindowFunction());
+        platformIO.setPlatformDestroyWindow(new DestroyWindowFunction());
+        platformIO.setPlatformShowWindow(new ShowWindowFunction());
+        platformIO.setPlatformSetWindowPos(new SetWindowPosFunction());
+        platformIO.setPlatformGetWindowPos(new GetWindowPosFunction());
+        platformIO.setPlatformSetWindowSize(new SetWindowSizeFunction());
+        platformIO.setPlatformGetWindowSize(new GetWindowSizeFunction());
+        platformIO.setPlatformSetWindowFocus(new SetWindowFocusFunction());
+        platformIO.setPlatformGetWindowFocus(new GetWindowFocusFunction());
+        platformIO.setPlatformGetWindowMinimized(new GetWindowMinimizedFunction());
+        platformIO.setPlatformSetWindowTitle(new SetWindowTitleFunction());
+        platformIO.setPlatformRenderWindow(new RenderWindowFunction());
+        platformIO.setPlatformSwapBuffers(new SwapBuffersFunction());
+        platformIO.setPlatformSetWindowAlpha(new SetWindowAlphaFunction());
+
+        // Register main window handle (which is owned by the main application, not by
+        // us)
+        // This is mostly for simplicity and consistency, so that our code (e.g. mouse
+        // handling etc.) can use same logic for main and secondary viewports.
+        final ImGuiViewport mainViewport = ImGui.getMainViewport();
+        final ViewportData vd = new ViewportData();
+        vd.window = window;
+        vd.windowID = SDL_GetWindowID(window);
+        vd.windowOwned = false;
+        vd.glContext = sdlGlContext;
+        mainViewport.setPlatformUserData(vd);
+        mainViewport.setPlatformHandle(vd.window);
+    }
+
+    void shutdownPlatformInterface() {
+        ImGui.destroyPlatformWindows();
     }
 }
