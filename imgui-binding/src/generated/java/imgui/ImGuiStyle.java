@@ -1223,6 +1223,166 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     /**
+     * Rounding of Image() calls (since imgui 1.92).
+     */
+    public float getImageRounding() {
+        return nGetImageRounding();
+    }
+
+    /**
+     * Rounding of Image() calls (since imgui 1.92).
+     */
+    public void setImageRounding(final float value) {
+        nSetImageRounding(value);
+    }
+
+    private native float nGetImageRounding(); /*
+        return THIS->ImageRounding;
+    */
+
+    private native void nSetImageRounding(float value); /*
+        THIS->ImageRounding = value;
+    */
+
+    /**
+     * Thickness of border around Image() calls (since imgui 1.92).
+     */
+    public float getImageBorderSize() {
+        return nGetImageBorderSize();
+    }
+
+    /**
+     * Thickness of border around Image() calls (since imgui 1.92).
+     */
+    public void setImageBorderSize(final float value) {
+        nSetImageBorderSize(value);
+    }
+
+    private native float nGetImageBorderSize(); /*
+        return THIS->ImageBorderSize;
+    */
+
+    private native void nSetImageBorderSize(float value); /*
+        THIS->ImageBorderSize = value;
+    */
+
+    /**
+     * Default way to draw lines connecting TreeNode hierarchy (since imgui 1.92).
+     * One of {@code ImGuiTreeNodeFlags_DrawLinesNone} / {@code DrawLinesFull} / {@code DrawLinesToNodes}.
+     */
+    public int getTreeLinesFlags() {
+        return nGetTreeLinesFlags();
+    }
+
+    /**
+     * Default way to draw lines connecting TreeNode hierarchy (since imgui 1.92).
+     * One of {@code ImGuiTreeNodeFlags_DrawLinesNone} / {@code DrawLinesFull} / {@code DrawLinesToNodes}.
+     */
+    public void setTreeLinesFlags(final int value) {
+        nSetTreeLinesFlags(value);
+    }
+
+    /**
+     * Default way to draw lines connecting TreeNode hierarchy (since imgui 1.92).
+     * One of {@code ImGuiTreeNodeFlags_DrawLinesNone} / {@code DrawLinesFull} / {@code DrawLinesToNodes}.
+     */
+    public void addTreeLinesFlags(final int flags) {
+        setTreeLinesFlags(getTreeLinesFlags() | flags);
+    }
+
+    /**
+     * Default way to draw lines connecting TreeNode hierarchy (since imgui 1.92).
+     * One of {@code ImGuiTreeNodeFlags_DrawLinesNone} / {@code DrawLinesFull} / {@code DrawLinesToNodes}.
+     */
+    public void removeTreeLinesFlags(final int flags) {
+        setTreeLinesFlags(getTreeLinesFlags() & ~(flags));
+    }
+
+    /**
+     * Default way to draw lines connecting TreeNode hierarchy (since imgui 1.92).
+     * One of {@code ImGuiTreeNodeFlags_DrawLinesNone} / {@code DrawLinesFull} / {@code DrawLinesToNodes}.
+     */
+    public boolean hasTreeLinesFlags(final int flags) {
+        return (getTreeLinesFlags() & flags) != 0;
+    }
+
+    private native int nGetTreeLinesFlags(); /*
+        return THIS->TreeLinesFlags;
+    */
+
+    private native void nSetTreeLinesFlags(int value); /*
+        THIS->TreeLinesFlags = value;
+    */
+
+    /**
+     * Thickness of outlines when using {@code ImGuiTreeNodeFlags_DrawLines} (since imgui 1.92).
+     */
+    public float getTreeLinesSize() {
+        return nGetTreeLinesSize();
+    }
+
+    /**
+     * Thickness of outlines when using {@code ImGuiTreeNodeFlags_DrawLines} (since imgui 1.92).
+     */
+    public void setTreeLinesSize(final float value) {
+        nSetTreeLinesSize(value);
+    }
+
+    private native float nGetTreeLinesSize(); /*
+        return THIS->TreeLinesSize;
+    */
+
+    private native void nSetTreeLinesSize(float value); /*
+        THIS->TreeLinesSize = value;
+    */
+
+    /**
+     * Radius of lines connecting child nodes to the vertical line (since imgui 1.92).
+     */
+    public float getTreeLinesRounding() {
+        return nGetTreeLinesRounding();
+    }
+
+    /**
+     * Radius of lines connecting child nodes to the vertical line (since imgui 1.92).
+     */
+    public void setTreeLinesRounding(final float value) {
+        nSetTreeLinesRounding(value);
+    }
+
+    private native float nGetTreeLinesRounding(); /*
+        return THIS->TreeLinesRounding;
+    */
+
+    private native void nSetTreeLinesRounding(float value); /*
+        THIS->TreeLinesRounding = value;
+    */
+
+    /**
+     * Size of R/G/B/A color markers for {@code ColorEdit4()} and for Drags/Sliders when using
+     * {@code ImGuiSliderFlags_ColorMarkers} (since imgui 1.92.7). Set to 0 to disable globally.
+     */
+    public float getColorMarkerSize() {
+        return nGetColorMarkerSize();
+    }
+
+    /**
+     * Size of R/G/B/A color markers for {@code ColorEdit4()} and for Drags/Sliders when using
+     * {@code ImGuiSliderFlags_ColorMarkers} (since imgui 1.92.7). Set to 0 to disable globally.
+     */
+    public void setColorMarkerSize(final float value) {
+        nSetColorMarkerSize(value);
+    }
+
+    private native float nGetColorMarkerSize(); /*
+        return THIS->ColorMarkerSize;
+    */
+
+    private native void nSetColorMarkerSize(float value); /*
+        THIS->ColorMarkerSize = value;
+    */
+
+    /**
      * Thickness of the separator line rendered by Separator() (new in imgui 1.92.7).
      */
     public float getSeparatorSize() {

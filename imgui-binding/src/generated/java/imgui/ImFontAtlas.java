@@ -84,6 +84,52 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
         return (uintptr_t)THIS->AddFontDefault(reinterpret_cast<ImFontConfig*>(imFontConfig));
     */
 
+    /**
+     * Embedded scalable (vector) default font — recommended at any higher size. (since imgui 1.92)
+     */
+    public ImFont addFontDefaultVector() {
+        return new ImFont(nAddFontDefaultVector());
+    }
+
+    /**
+     * Embedded scalable (vector) default font — recommended at any higher size. (since imgui 1.92)
+     */
+    public ImFont addFontDefaultVector(final ImFontConfig imFontConfig) {
+        return new ImFont(nAddFontDefaultVector(imFontConfig.ptr));
+    }
+
+    private native long nAddFontDefaultVector(); /*
+        return (uintptr_t)THIS->AddFontDefaultVector();
+    */
+
+    private native long nAddFontDefaultVector(long imFontConfig); /*
+        return (uintptr_t)THIS->AddFontDefaultVector(reinterpret_cast<ImFontConfig*>(imFontConfig));
+    */
+
+    /**
+     * Embedded classic pixel-clean bitmap default font — recommended at size 13px with no scaling.
+     * (since imgui 1.92)
+     */
+    public ImFont addFontDefaultBitmap() {
+        return new ImFont(nAddFontDefaultBitmap());
+    }
+
+    /**
+     * Embedded classic pixel-clean bitmap default font — recommended at size 13px with no scaling.
+     * (since imgui 1.92)
+     */
+    public ImFont addFontDefaultBitmap(final ImFontConfig imFontConfig) {
+        return new ImFont(nAddFontDefaultBitmap(imFontConfig.ptr));
+    }
+
+    private native long nAddFontDefaultBitmap(); /*
+        return (uintptr_t)THIS->AddFontDefaultBitmap();
+    */
+
+    private native long nAddFontDefaultBitmap(long imFontConfig); /*
+        return (uintptr_t)THIS->AddFontDefaultBitmap(reinterpret_cast<ImFontConfig*>(imFontConfig));
+    */
+
     public ImFont addFontFromFileTTF(final String filename, final float sizePixels) {
         return new ImFont(nAddFontFromFileTTF(filename, sizePixels));
     }

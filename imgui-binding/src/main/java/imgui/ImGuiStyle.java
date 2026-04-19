@@ -258,6 +258,44 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     public ImVec2 SelectableTextAlign;
 
     /**
+     * Rounding of Image() calls (since imgui 1.92).
+     */
+    @BindingField
+    public float ImageRounding;
+
+    /**
+     * Thickness of border around Image() calls (since imgui 1.92).
+     */
+    @BindingField
+    public float ImageBorderSize;
+
+    /**
+     * Default way to draw lines connecting TreeNode hierarchy (since imgui 1.92).
+     * One of {@code ImGuiTreeNodeFlags_DrawLinesNone} / {@code DrawLinesFull} / {@code DrawLinesToNodes}.
+     */
+    @BindingField(isFlag = true)
+    public int TreeLinesFlags;
+
+    /**
+     * Thickness of outlines when using {@code ImGuiTreeNodeFlags_DrawLines} (since imgui 1.92).
+     */
+    @BindingField
+    public float TreeLinesSize;
+
+    /**
+     * Radius of lines connecting child nodes to the vertical line (since imgui 1.92).
+     */
+    @BindingField
+    public float TreeLinesRounding;
+
+    /**
+     * Size of R/G/B/A color markers for {@code ColorEdit4()} and for Drags/Sliders when using
+     * {@code ImGuiSliderFlags_ColorMarkers} (since imgui 1.92.7). Set to 0 to disable globally.
+     */
+    @BindingField
+    public float ColorMarkerSize;
+
+    /**
      * Thickness of the separator line rendered by Separator() (new in imgui 1.92.7).
      */
     @BindingField

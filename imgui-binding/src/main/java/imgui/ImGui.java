@@ -2598,6 +2598,21 @@ public class ImGui {
     public static native boolean IsItemToggledOpen();
 
     /**
+     * Was the last item's selection state toggled? (since imgui 1.91 multi-select).
+     * Useful if you need per-item information <em>before</em> reaching {@code EndMultiSelect()}.
+     */
+    @BindingMethod
+    public static native boolean IsItemToggledSelection();
+
+    /**
+     * Set selection user data for the next item, used by {@code BeginMultiSelect}/{@code EndMultiSelect()}
+     * and inside {@code ImGuiMultiSelectIO}. Opaque 64-bit value (e.g. an index, a pointer,
+     * a hash) unique to your item identity (since imgui 1.91).
+     */
+    @BindingMethod
+    public static native void SetNextItemSelectionUserData(long selectionUserData);
+
+    /**
      * Is any item hovered?
      */
     @BindingMethod
@@ -2619,6 +2634,12 @@ public class ImGui {
      */
     @BindingMethod
     public static native int GetItemID();
+
+    /**
+     * Get generic flags of last item (since imgui 1.91). Returns an {@code ImGuiItemFlags} mask.
+     */
+    @BindingMethod
+    public static native int GetItemFlags();
 
     /**
      * Get upper-left bounding rectangle of the last item (screen space)

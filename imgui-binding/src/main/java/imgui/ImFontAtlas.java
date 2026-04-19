@@ -72,6 +72,19 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
     @BindingMethod
     public native ImFont AddFontDefault(@OptArg ImFontConfig imFontConfig);
 
+    /**
+     * Embedded scalable (vector) default font — recommended at any higher size. (since imgui 1.92)
+     */
+    @BindingMethod
+    public native ImFont AddFontDefaultVector(@OptArg ImFontConfig imFontConfig);
+
+    /**
+     * Embedded classic pixel-clean bitmap default font — recommended at size 13px with no scaling.
+     * (since imgui 1.92)
+     */
+    @BindingMethod
+    public native ImFont AddFontDefaultBitmap(@OptArg ImFontConfig imFontConfig);
+
     @BindingMethod
     public native ImFont AddFontFromFileTTF(String filename, float sizePixels, @OptArg(callValue = "NULL") ImFontConfig fontConfig, @OptArg @ArgValue(callPrefix = "(ImWchar*)") short[] glyphRanges);
 

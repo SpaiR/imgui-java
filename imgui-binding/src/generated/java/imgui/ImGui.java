@@ -12414,6 +12414,31 @@ public class ImGui {
     */
 
     /**
+     * Was the last item's selection state toggled? (since imgui 1.91 multi-select).
+     * Useful if you need per-item information <em>before</em> reaching {@code EndMultiSelect()}.
+     */
+    public static boolean isItemToggledSelection() {
+        return nIsItemToggledSelection();
+    }
+
+    private static native boolean nIsItemToggledSelection(); /*
+        return ImGui::IsItemToggledSelection();
+    */
+
+    /**
+     * Set selection user data for the next item, used by {@code BeginMultiSelect}/{@code EndMultiSelect()}
+     * and inside {@code ImGuiMultiSelectIO}. Opaque 64-bit value (e.g. an index, a pointer,
+     * a hash) unique to your item identity (since imgui 1.91).
+     */
+    public static void setNextItemSelectionUserData(final long selectionUserData) {
+        nSetNextItemSelectionUserData(selectionUserData);
+    }
+
+    private static native void nSetNextItemSelectionUserData(long selectionUserData); /*
+        ImGui::SetNextItemSelectionUserData(selectionUserData);
+    */
+
+    /**
      * Is any item hovered?
      */
     public static boolean isAnyItemHovered() {
@@ -12454,6 +12479,17 @@ public class ImGui {
 
     private static native int nGetItemID(); /*
         return ImGui::GetItemID();
+    */
+
+    /**
+     * Get generic flags of last item (since imgui 1.91). Returns an {@code ImGuiItemFlags} mask.
+     */
+    public static int getItemFlags() {
+        return nGetItemFlags();
+    }
+
+    private static native int nGetItemFlags(); /*
+        return ImGui::GetItemFlags();
     */
 
     /**

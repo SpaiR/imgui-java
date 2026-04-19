@@ -153,6 +153,49 @@ public final class ImGuiIO extends ImGuiStruct {
     @BindingField
     public boolean ConfigViewportsNoDefaultParent;
 
+    /**
+     * [EXPERIMENTAL] Automatically overwrite {@code style.FontScaleDpi} when monitor DPI changes.
+     * Scales fonts but NOT sizes/padding (for now). Docking branch only. (since imgui 1.92)
+     */
+    @BindingField
+    public boolean ConfigDpiScaleFonts;
+
+    /**
+     * [EXPERIMENTAL] Scale Dear ImGui and platform windows when monitor DPI changes. Docking branch only. (since imgui 1.92)
+     */
+    @BindingField
+    public boolean ConfigDpiScaleViewports;
+
+    /**
+     * Enable error recovery support. Some errors won't be detected and lead to direct crashes if recovery is disabled. (since imgui 1.91.6)
+     */
+    @BindingField
+    public boolean ConfigErrorRecovery;
+
+    /**
+     * Enable asserts on recoverable errors. By default calls IM_ASSERT() when returning from a failing IM_ASSERT_USER_ERROR(). (since imgui 1.91.6)
+     */
+    @BindingField
+    public boolean ConfigErrorRecoveryEnableAssert;
+
+    /**
+     * Enable debug log output on recoverable errors. (since imgui 1.91.6)
+     */
+    @BindingField
+    public boolean ConfigErrorRecoveryEnableDebugLog;
+
+    /**
+     * Enable tooltip on recoverable errors. The tooltip includes a way to enable asserts if they were disabled. (since imgui 1.91.6)
+     */
+    @BindingField
+    public boolean ConfigErrorRecoveryEnableTooltip;
+
+    /**
+     * Highlight and show an error message popup when multiple items have conflicting identifiers. (since imgui 1.91.0)
+     */
+    @BindingField
+    public boolean ConfigDebugHighlightIdConflicts;
+
     // Miscellaneous options
 
     /**
