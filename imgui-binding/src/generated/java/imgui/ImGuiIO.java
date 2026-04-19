@@ -439,6 +439,30 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
+     * Simplified docking mode: disable window merging into the same tab-bar, so docking is limited to splitting windows.
+     * (new in imgui 1.92)
+     */
+    public boolean getConfigDockingNoDockingOver() {
+        return nGetConfigDockingNoDockingOver();
+    }
+
+    /**
+     * Simplified docking mode: disable window merging into the same tab-bar, so docking is limited to splitting windows.
+     * (new in imgui 1.92)
+     */
+    public void setConfigDockingNoDockingOver(final boolean value) {
+        nSetConfigDockingNoDockingOver(value);
+    }
+
+    private native boolean nGetConfigDockingNoDockingOver(); /*
+        return THIS->ConfigDockingNoDockingOver;
+    */
+
+    private native void nSetConfigDockingNoDockingOver(boolean value); /*
+        THIS->ConfigDockingNoDockingOver = value;
+    */
+
+    /**
      * Enable docking with holding Shift key (reduce visual noise, allows dropping in wider space)
      */
     public boolean getConfigDockingWithShift() {

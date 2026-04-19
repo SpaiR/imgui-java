@@ -113,6 +113,13 @@ public final class ImGuiIO extends ImGuiStruct {
     public boolean ConfigDockingNoSplit;
 
     /**
+     * Simplified docking mode: disable window merging into the same tab-bar, so docking is limited to splitting windows.
+     * (new in imgui 1.92)
+     */
+    @BindingField
+    public boolean ConfigDockingNoDockingOver;
+
+    /**
      * Enable docking with holding Shift key (reduce visual noise, allows dropping in wider space)
      */
     @BindingField
