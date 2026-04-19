@@ -8,9 +8,16 @@ public final class ImPlotMarker {
     /**
      * no marker
      *
+     * <p>Definition: {@code -2}
+     */
+    public static final int None = -2;
+
+    /**
+     * automatic marker selection
+     *
      * <p>Definition: {@code -1}
      */
-    public static final int None = -1;
+    public static final int Auto = -1;
 
     /**
      * a circle marker (default)
@@ -48,17 +55,17 @@ public final class ImPlotMarker {
     public static final int Right = 6;
 
     /**
-     * a cross marker (not fillable)
+     * a cross marker (not fill-able)
      */
     public static final int Cross = 7;
 
     /**
-     * a plus marker (not fillable)
+     * a plus marker (not fill-able)
      */
     public static final int Plus = 8;
 
     /**
-     * a asterisk marker (not fillable)
+     * a asterisk marker (not fill-able)
      */
     public static final int Asterisk = 9;
 

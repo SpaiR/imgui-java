@@ -32,33 +32,6 @@ public final class ImPlotStyle extends ImGuiStructDestroyable {
     */
 
     @BindingField
-    public float LineWeight;
-
-    @BindingField
-    public int Marker;
-
-    @BindingField
-    public float MarkerSize;
-
-    @BindingField
-    public float MarkerWeight;
-
-    @BindingField
-    public float FillAlpha;
-
-    @BindingField
-    public float ErrorBarSize;
-
-    @BindingField
-    public float ErrorBarWeight;
-
-    @BindingField
-    public float DigitalBitHeight;
-
-    @BindingField
-    public float DigitalBitGap;
-
-    @BindingField
     public float PlotBorderSize;
 
     @BindingField
@@ -111,6 +84,12 @@ public final class ImPlotStyle extends ImGuiStructDestroyable {
 
     @BindingField
     public ImVec2 PlotMinSize;
+
+    @BindingField
+    public float DigitalPadding;
+
+    @BindingField
+    public float DigitalSpacing;
 
     @BindingField
     @TypeArray(type = "ImVec4", size = "ImPlotCol_COUNT")

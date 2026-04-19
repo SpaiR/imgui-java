@@ -27,150 +27,6 @@ public final class ImPlotStyle extends ImGuiStructDestroyable {
         return (uintptr_t)(new ImPlotStyle());
     */
 
-    public float getLineWeight() {
-        return nGetLineWeight();
-    }
-
-    public void setLineWeight(final float value) {
-        nSetLineWeight(value);
-    }
-
-    private native float nGetLineWeight(); /*
-        return THIS->LineWeight;
-    */
-
-    private native void nSetLineWeight(float value); /*
-        THIS->LineWeight = value;
-    */
-
-    public int getMarker() {
-        return nGetMarker();
-    }
-
-    public void setMarker(final int value) {
-        nSetMarker(value);
-    }
-
-    private native int nGetMarker(); /*
-        return THIS->Marker;
-    */
-
-    private native void nSetMarker(int value); /*
-        THIS->Marker = value;
-    */
-
-    public float getMarkerSize() {
-        return nGetMarkerSize();
-    }
-
-    public void setMarkerSize(final float value) {
-        nSetMarkerSize(value);
-    }
-
-    private native float nGetMarkerSize(); /*
-        return THIS->MarkerSize;
-    */
-
-    private native void nSetMarkerSize(float value); /*
-        THIS->MarkerSize = value;
-    */
-
-    public float getMarkerWeight() {
-        return nGetMarkerWeight();
-    }
-
-    public void setMarkerWeight(final float value) {
-        nSetMarkerWeight(value);
-    }
-
-    private native float nGetMarkerWeight(); /*
-        return THIS->MarkerWeight;
-    */
-
-    private native void nSetMarkerWeight(float value); /*
-        THIS->MarkerWeight = value;
-    */
-
-    public float getFillAlpha() {
-        return nGetFillAlpha();
-    }
-
-    public void setFillAlpha(final float value) {
-        nSetFillAlpha(value);
-    }
-
-    private native float nGetFillAlpha(); /*
-        return THIS->FillAlpha;
-    */
-
-    private native void nSetFillAlpha(float value); /*
-        THIS->FillAlpha = value;
-    */
-
-    public float getErrorBarSize() {
-        return nGetErrorBarSize();
-    }
-
-    public void setErrorBarSize(final float value) {
-        nSetErrorBarSize(value);
-    }
-
-    private native float nGetErrorBarSize(); /*
-        return THIS->ErrorBarSize;
-    */
-
-    private native void nSetErrorBarSize(float value); /*
-        THIS->ErrorBarSize = value;
-    */
-
-    public float getErrorBarWeight() {
-        return nGetErrorBarWeight();
-    }
-
-    public void setErrorBarWeight(final float value) {
-        nSetErrorBarWeight(value);
-    }
-
-    private native float nGetErrorBarWeight(); /*
-        return THIS->ErrorBarWeight;
-    */
-
-    private native void nSetErrorBarWeight(float value); /*
-        THIS->ErrorBarWeight = value;
-    */
-
-    public float getDigitalBitHeight() {
-        return nGetDigitalBitHeight();
-    }
-
-    public void setDigitalBitHeight(final float value) {
-        nSetDigitalBitHeight(value);
-    }
-
-    private native float nGetDigitalBitHeight(); /*
-        return THIS->DigitalBitHeight;
-    */
-
-    private native void nSetDigitalBitHeight(float value); /*
-        THIS->DigitalBitHeight = value;
-    */
-
-    public float getDigitalBitGap() {
-        return nGetDigitalBitGap();
-    }
-
-    public void setDigitalBitGap(final float value) {
-        nSetDigitalBitGap(value);
-    }
-
-    private native float nGetDigitalBitGap(); /*
-        return THIS->DigitalBitGap;
-    */
-
-    private native void nSetDigitalBitGap(float value); /*
-        THIS->DigitalBitGap = value;
-    */
-
     public float getPlotBorderSize() {
         return nGetPlotBorderSize();
     }
@@ -889,6 +745,38 @@ public final class ImPlotStyle extends ImGuiStructDestroyable {
     private native void nSetPlotMinSize(float valueX, float valueY); /*MANUAL
         ImVec2 value = ImVec2(valueX, valueY);
         THIS->PlotMinSize = value;
+    */
+
+    public float getDigitalPadding() {
+        return nGetDigitalPadding();
+    }
+
+    public void setDigitalPadding(final float value) {
+        nSetDigitalPadding(value);
+    }
+
+    private native float nGetDigitalPadding(); /*
+        return THIS->DigitalPadding;
+    */
+
+    private native void nSetDigitalPadding(float value); /*
+        THIS->DigitalPadding = value;
+    */
+
+    public float getDigitalSpacing() {
+        return nGetDigitalSpacing();
+    }
+
+    public void setDigitalSpacing(final float value) {
+        nSetDigitalSpacing(value);
+    }
+
+    private native float nGetDigitalSpacing(); /*
+        return THIS->DigitalSpacing;
+    */
+
+    private native void nSetDigitalSpacing(float value); /*
+        THIS->DigitalSpacing = value;
     */
 
     public ImVec4[] getColors() {
