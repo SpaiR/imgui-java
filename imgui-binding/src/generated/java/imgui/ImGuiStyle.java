@@ -75,6 +75,56 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     /**
+     * Main global scale factor applied on top of font size. Replaces {@code io.FontGlobalScale} (moved
+     * from io to style in imgui 1.92). May be set by application once or exposed to end-users.
+     */
+    public float getFontScaleMain() {
+        return nGetFontScaleMain();
+    }
+
+    /**
+     * Main global scale factor applied on top of font size. Replaces {@code io.FontGlobalScale} (moved
+     * from io to style in imgui 1.92). May be set by application once or exposed to end-users.
+     */
+    public void setFontScaleMain(final float value) {
+        nSetFontScaleMain(value);
+    }
+
+    private native float nGetFontScaleMain(); /*
+        return THIS->FontScaleMain;
+    */
+
+    private native void nSetFontScaleMain(float value); /*
+        THIS->FontScaleMain = value;
+    */
+
+    /**
+     * Additional global scale factor from viewport/monitor contents scale (since imgui 1.92). In the
+     * docking branch: when {@code io.ConfigDpiScaleFonts} is enabled, this is automatically overwritten
+     * when changing monitor DPI.
+     */
+    public float getFontScaleDpi() {
+        return nGetFontScaleDpi();
+    }
+
+    /**
+     * Additional global scale factor from viewport/monitor contents scale (since imgui 1.92). In the
+     * docking branch: when {@code io.ConfigDpiScaleFonts} is enabled, this is automatically overwritten
+     * when changing monitor DPI.
+     */
+    public void setFontScaleDpi(final float value) {
+        nSetFontScaleDpi(value);
+    }
+
+    private native float nGetFontScaleDpi(); /*
+        return THIS->FontScaleDpi;
+    */
+
+    private native void nSetFontScaleDpi(float value); /*
+        THIS->FontScaleDpi = value;
+    */
+
+    /**
      * Padding within a window.
      */
     public ImVec2 getWindowPadding() {
@@ -1170,6 +1220,28 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     private native void nSetSelectableTextAlign(float valueX, float valueY); /*MANUAL
         ImVec2 value = ImVec2(valueX, valueY);
         THIS->SelectableTextAlign = value;
+    */
+
+    /**
+     * Thickness of the separator line rendered by Separator() (new in imgui 1.92.7).
+     */
+    public float getSeparatorSize() {
+        return nGetSeparatorSize();
+    }
+
+    /**
+     * Thickness of the separator line rendered by Separator() (new in imgui 1.92.7).
+     */
+    public void setSeparatorSize(final float value) {
+        nSetSeparatorSize(value);
+    }
+
+    private native float nGetSeparatorSize(); /*
+        return THIS->SeparatorSize;
+    */
+
+    private native void nSetSeparatorSize(float value); /*
+        THIS->SeparatorSize = value;
     */
 
     /**
