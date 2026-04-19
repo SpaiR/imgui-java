@@ -34,7 +34,7 @@ public final class ImPlotHistogramFlags {
     public static final int Density = 4096;
 
     /**
-     * exclude values outside the specifed histogram range from the count toward normalizing and cumulative counts
+     * exclude values outside the specified histogram range from the count toward normalizing and cumulative counts
      *
      * <p>Definition: {@code 1 << 13}
      */

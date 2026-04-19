@@ -5,7 +5,7 @@ package imgui.flag;
  * Flags for ImGui::BeginChild()
  * (Legacy: bit 0 must always correspond to ImGuiChildFlags_Border to be backward compatible with old API using 'bool border = false'.
  * About using AutoResizeX/AutoResizeY flags:
- * - May be combined with SetNextWindowSizeConstraints() to set a min/max size for each axis (see {@code Demo->Child->Auto-resize with Constraints}).
+ * - May be combined with SetNextWindowSizeConstraints() to set a min/max size for each axis (see "Demo->Child->Auto-resize with Constraints").
  * - Size measurement for a given axis is only performed when the child window is within visible boundaries, or is just appearing.
  *   - This allows BeginChild() to return false when not within boundaries (e.g. when scrolling), which is more optimal. BUT it won't update its auto-size while clipped.
  *     While not perfect, it is a better default behavior as the always-on performance gain is more valuable than the occasional "resizing after becoming visible again" glitch.
@@ -26,7 +26,7 @@ public final class ImGuiChildFlags {
      *
      * <p>Definition: {@code 1 << 0}
      */
-    public static final int Border = 1;
+    public static final int Borders = 1;
 
     /**
      * Pad with style.WindowPadding even if no border are drawn (no padding by default for non-bordered child windows because it makes more sense)
@@ -78,7 +78,7 @@ public final class ImGuiChildFlags {
     public static final int FrameStyle = 128;
 
     /**
-     * Share focus scope, allow gamepad/keyboard navigation to cross over parent border to this child or between sibling child windows.
+     * [BETA] Share focus scope, allow keyboard/gamepad navigation to cross over parent border to this child or between sibling child windows.
      *
      * <p>Definition: {@code 1 << 8}
      */

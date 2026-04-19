@@ -967,27 +967,59 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     /**
-     * Minimum width for close button to appear on an unselected tab when hovered.
-     * Set to 0.0f to always show when hovering, set to FLT_MAX to never show close button unless selected.
+     * Minimum width for close button to appear on a selected tab when hovered.
+     * {@code -1}: always visible; {@code 0}: visible when hovered; {@code >0}: visible when hovered if
+     * tab width is at least this wide. (Since imgui 1.91.9 this field split into
+     * {@code TabCloseButtonMinWidthSelected} and {@code TabCloseButtonMinWidthUnselected}.)
      */
-    public float getTabMinWidthForCloseButton() {
-        return nGetTabMinWidthForCloseButton();
+    public float getTabCloseButtonMinWidthSelected() {
+        return nGetTabCloseButtonMinWidthSelected();
+    }
+
+    /**
+     * Minimum width for close button to appear on a selected tab when hovered.
+     * {@code -1}: always visible; {@code 0}: visible when hovered; {@code >0}: visible when hovered if
+     * tab width is at least this wide. (Since imgui 1.91.9 this field split into
+     * {@code TabCloseButtonMinWidthSelected} and {@code TabCloseButtonMinWidthUnselected}.)
+     */
+    public void setTabCloseButtonMinWidthSelected(final float value) {
+        nSetTabCloseButtonMinWidthSelected(value);
+    }
+
+    private native float nGetTabCloseButtonMinWidthSelected(); /*
+        return THIS->TabCloseButtonMinWidthSelected;
+    */
+
+    private native void nSetTabCloseButtonMinWidthSelected(float value); /*
+        THIS->TabCloseButtonMinWidthSelected = value;
+    */
+
+    /**
+     * Minimum width for close button to appear on an unselected tab when hovered.
+     * {@code -1}: always visible; {@code 0}: visible when hovered; {@code >0}: visible when hovered if
+     * tab width is at least this wide; {@code FLT_MAX}: never show close button when unselected.
+     * (Since imgui 1.91.9; renamed from {@code TabMinWidthForCloseButton}.)
+     */
+    public float getTabCloseButtonMinWidthUnselected() {
+        return nGetTabCloseButtonMinWidthUnselected();
     }
 
     /**
      * Minimum width for close button to appear on an unselected tab when hovered.
-     * Set to 0.0f to always show when hovering, set to FLT_MAX to never show close button unless selected.
+     * {@code -1}: always visible; {@code 0}: visible when hovered; {@code >0}: visible when hovered if
+     * tab width is at least this wide; {@code FLT_MAX}: never show close button when unselected.
+     * (Since imgui 1.91.9; renamed from {@code TabMinWidthForCloseButton}.)
      */
-    public void setTabMinWidthForCloseButton(final float value) {
-        nSetTabMinWidthForCloseButton(value);
+    public void setTabCloseButtonMinWidthUnselected(final float value) {
+        nSetTabCloseButtonMinWidthUnselected(value);
     }
 
-    private native float nGetTabMinWidthForCloseButton(); /*
-        return THIS->TabMinWidthForCloseButton;
+    private native float nGetTabCloseButtonMinWidthUnselected(); /*
+        return THIS->TabCloseButtonMinWidthUnselected;
     */
 
-    private native void nSetTabMinWidthForCloseButton(float value); /*
-        THIS->TabMinWidthForCloseButton = value;
+    private native void nSetTabCloseButtonMinWidthUnselected(float value); /*
+        THIS->TabCloseButtonMinWidthUnselected = value;
     */
 
     /**

@@ -1,9 +1,9 @@
 {
   "info" : {
     "source" : "include/imgui-node-editor/imgui_node_editor.h",
-    "hash" : "22122655801cd34b78703e44a74d5ee9",
+    "hash" : "dc12135522738cbd4dbe5d2575829dc9",
     "url" : "https://github.com/thedmd/imgui-node-editor",
-    "revision" : "b302971455b3719ec9b5fb94b2f92d27c62b9ff0"
+    "revision" : "021aa0ea4da13fed864bafb2a92d4c5205076866"
   },
   "decls" : [ {
     "@type" : "AstNamespaceDecl",

@@ -58,7 +58,7 @@ public final class ImGuiInputTextFlags {
     public static final int AllowTabInput = 32;
 
     /**
-     * Return 'true' when Enter is pressed (as opposed to every time the value was modified). Consider looking at the IsItemDeactivatedAfterEdit() function.
+     * Return 'true' when Enter is pressed (as opposed to every time the value was modified). Consider using IsItemDeactivatedAfterEdit() instead!
      *
      * <p>Definition: {@code 1 << 6}
      */
@@ -72,7 +72,7 @@ public final class ImGuiInputTextFlags {
     public static final int EscapeClearsAll = 128;
 
     /**
-     * In multi-line mode, validate with Enter, add new line with Ctrl+Enter (default is opposite: validate with Ctrl+Enter, add line with Enter).
+     * In multi-line mode: validate with Enter, add new line with Ctrl+Enter (default is opposite: validate with Ctrl+Enter, add line with Enter). Note that Shift+Enter always enter a new line either way.
      *
      * <p>Definition: {@code 1 << 8}
      */
@@ -135,44 +135,58 @@ public final class ImGuiInputTextFlags {
     public static final int NoUndoRedo = 65536;
 
     /**
-     * Callback on pressing TAB (for completion handling)
+     * When text doesn't fit, elide left side to ensure right side stays visible. Useful for path/filenames. Single-line only!
      *
      * <p>Definition: {@code 1 << 17}
      */
-    public static final int CallbackCompletion = 131072;
+    public static final int ElideLeft = 131072;
+
+    /**
+     * Callback on pressing TAB (for completion handling)
+     *
+     * <p>Definition: {@code 1 << 18}
+     */
+    public static final int CallbackCompletion = 262144;
 
     /**
      * Callback on pressing Up/Down arrows (for history handling)
      *
-     * <p>Definition: {@code 1 << 18}
+     * <p>Definition: {@code 1 << 19}
      */
-    public static final int CallbackHistory = 262144;
+    public static final int CallbackHistory = 524288;
 
     /**
      * Callback on each iteration. User code may query cursor position, modify text buffer.
      *
-     * <p>Definition: {@code 1 << 19}
+     * <p>Definition: {@code 1 << 20}
      */
-    public static final int CallbackAlways = 524288;
+    public static final int CallbackAlways = 1048576;
 
     /**
      * Callback on character inputs to replace or discard them. Modify 'EventChar' to replace or discard, or return 1 in callback to discard.
      *
-     * <p>Definition: {@code 1 << 20}
+     * <p>Definition: {@code 1 << 21}
      */
-    public static final int CallbackCharFilter = 1048576;
+    public static final int CallbackCharFilter = 2097152;
 
     /**
      * Callback on buffer capacity changes request (beyond 'buf_size' parameter value), allowing the string to grow. Notify when the string wants to be resized (for string types which hold a cache of their Size). You will be provided a new BufSize in the callback and NEED to honor it. (see misc/cpp/imgui_stdlib.h for an example of using this)
      *
-     * <p>Definition: {@code 1 << 21}
-     */
-    public static final int CallbackResize = 2097152;
-
-    /**
-     * Callback on any edit (note that InputText() already returns true on edit, the callback is useful mainly to manipulate the underlying buffer while focus is active)
-     *
      * <p>Definition: {@code 1 << 22}
      */
-    public static final int CallbackEdit = 4194304;
+    public static final int CallbackResize = 4194304;
+
+    /**
+     * Callback on any edit. Note that InputText() already returns true on edit + you can always use IsItemEdited(). The callback is useful to manipulate the underlying buffer while focus is active.
+     *
+     * <p>Definition: {@code 1 << 23}
+     */
+    public static final int CallbackEdit = 8388608;
+
+    /**
+     * InputTextMultiline(): word-wrap lines that are too long.
+     *
+     * <p>Definition: {@code 1 << 24}
+     */
+    public static final int WordWrap = 16777216;
 }

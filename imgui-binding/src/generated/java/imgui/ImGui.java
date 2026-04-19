@@ -1911,12 +1911,17 @@ public class ImGui {
 
     // Parameters stacks (shared)
 
-    public static void pushFont(final ImFont font) {
-        nPushFont(font.ptr);
+    /**
+     * Push a font onto the stack. Since imgui 1.92 the {@code size} parameter is required:
+     * pass {@code 0.0f} to keep the current size; pass {@code font.LegacySize} to restore
+     * pre-1.92 behavior of using the font's original AddFont size.
+     */
+    public static void pushFont(final ImFont font, final float size) {
+        nPushFont(font.ptr, size);
     }
 
-    private static native void nPushFont(long font); /*
-        ImGui::PushFont(reinterpret_cast<ImFont*>(font));
+    private static native void nPushFont(long font, float size); /*
+        ImGui::PushFont(reinterpret_cast<ImFont*>(font), size);
     */
 
     public static void popFont() {
@@ -3255,6 +3260,8 @@ public class ImGui {
 
     // Widgets: Images
     // - Read about ImTextureID here: https://github.com/ocornut/imgui/wiki/Image-Loading-and-Displaying-Examples
+    // - Since imgui 1.91.9 the 'tint_col' and 'border_col' params were removed from Image(); use
+    //   ImageWithBg() for tinting, and ImGuiCol_ImageBorder style colour for the border (imgui 1.92+).
 
     public static void image(final long userTextureId, final ImVec2 imageSize) {
         nImage(userTextureId, imageSize.x, imageSize.y);
@@ -3280,22 +3287,6 @@ public class ImGui {
         nImage(userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y, uv1X, uv1Y);
     }
 
-    public static void image(final long userTextureId, final ImVec2 imageSize, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 tintCol) {
-        nImage(userTextureId, imageSize.x, imageSize.y, uv0.x, uv0.y, uv1.x, uv1.y, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
-    }
-
-    public static void image(final long userTextureId, final float imageSizeX, final float imageSizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
-        nImage(userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y, uv1X, uv1Y, tintColX, tintColY, tintColZ, tintColW);
-    }
-
-    public static void image(final long userTextureId, final ImVec2 imageSize, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 tintCol, final ImVec4 borderCol) {
-        nImage(userTextureId, imageSize.x, imageSize.y, uv0.x, uv0.y, uv1.x, uv1.y, tintCol.x, tintCol.y, tintCol.z, tintCol.w, borderCol.x, borderCol.y, borderCol.z, borderCol.w);
-    }
-
-    public static void image(final long userTextureId, final float imageSizeX, final float imageSizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float tintColX, final float tintColY, final float tintColZ, final float tintColW, final float borderColX, final float borderColY, final float borderColZ, final float borderColW) {
-        nImage(userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y, uv1X, uv1Y, tintColX, tintColY, tintColZ, tintColW, borderColX, borderColY, borderColZ, borderColW);
-    }
-
     private static native void nImage(long userTextureId, float imageSizeX, float imageSizeY); /*MANUAL
         ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
         ImGui::Image((ImTextureID)(uintptr_t)userTextureId, imageSize);
@@ -3314,21 +3305,79 @@ public class ImGui {
         ImGui::Image((ImTextureID)(uintptr_t)userTextureId, imageSize, uv0, uv1);
     */
 
-    private static native void nImage(long userTextureId, float imageSizeX, float imageSizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
+    public static void imageWithBg(final long userTextureId, final ImVec2 imageSize) {
+        nImageWithBg(userTextureId, imageSize.x, imageSize.y);
+    }
+
+    public static void imageWithBg(final long userTextureId, final float imageSizeX, final float imageSizeY) {
+        nImageWithBg(userTextureId, imageSizeX, imageSizeY);
+    }
+
+    public static void imageWithBg(final long userTextureId, final ImVec2 imageSize, final ImVec2 uv0) {
+        nImageWithBg(userTextureId, imageSize.x, imageSize.y, uv0.x, uv0.y);
+    }
+
+    public static void imageWithBg(final long userTextureId, final float imageSizeX, final float imageSizeY, final float uv0X, final float uv0Y) {
+        nImageWithBg(userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y);
+    }
+
+    public static void imageWithBg(final long userTextureId, final ImVec2 imageSize, final ImVec2 uv0, final ImVec2 uv1) {
+        nImageWithBg(userTextureId, imageSize.x, imageSize.y, uv0.x, uv0.y, uv1.x, uv1.y);
+    }
+
+    public static void imageWithBg(final long userTextureId, final float imageSizeX, final float imageSizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y) {
+        nImageWithBg(userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y, uv1X, uv1Y);
+    }
+
+    public static void imageWithBg(final long userTextureId, final ImVec2 imageSize, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 bgCol) {
+        nImageWithBg(userTextureId, imageSize.x, imageSize.y, uv0.x, uv0.y, uv1.x, uv1.y, bgCol.x, bgCol.y, bgCol.z, bgCol.w);
+    }
+
+    public static void imageWithBg(final long userTextureId, final float imageSizeX, final float imageSizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float bgColX, final float bgColY, final float bgColZ, final float bgColW) {
+        nImageWithBg(userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y, uv1X, uv1Y, bgColX, bgColY, bgColZ, bgColW);
+    }
+
+    public static void imageWithBg(final long userTextureId, final ImVec2 imageSize, final ImVec2 uv0, final ImVec2 uv1, final ImVec4 bgCol, final ImVec4 tintCol) {
+        nImageWithBg(userTextureId, imageSize.x, imageSize.y, uv0.x, uv0.y, uv1.x, uv1.y, bgCol.x, bgCol.y, bgCol.z, bgCol.w, tintCol.x, tintCol.y, tintCol.z, tintCol.w);
+    }
+
+    public static void imageWithBg(final long userTextureId, final float imageSizeX, final float imageSizeY, final float uv0X, final float uv0Y, final float uv1X, final float uv1Y, final float bgColX, final float bgColY, final float bgColZ, final float bgColW, final float tintColX, final float tintColY, final float tintColZ, final float tintColW) {
+        nImageWithBg(userTextureId, imageSizeX, imageSizeY, uv0X, uv0Y, uv1X, uv1Y, bgColX, bgColY, bgColZ, bgColW, tintColX, tintColY, tintColZ, tintColW);
+    }
+
+    private static native void nImageWithBg(long userTextureId, float imageSizeX, float imageSizeY); /*MANUAL
         ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
-        ImVec2 uv0 = ImVec2(uv0X, uv0Y);
-        ImVec2 uv1 = ImVec2(uv1X, uv1Y);
-        ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
-        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, imageSize, uv0, uv1, tintCol);
+        ImGui::ImageWithBg((ImTextureID)(uintptr_t)userTextureId, imageSize);
     */
 
-    private static native void nImage(long userTextureId, float imageSizeX, float imageSizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float tintColX, float tintColY, float tintColZ, float tintColW, float borderColX, float borderColY, float borderColZ, float borderColW); /*MANUAL
+    private static native void nImageWithBg(long userTextureId, float imageSizeX, float imageSizeY, float uv0X, float uv0Y); /*MANUAL
+        ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
+        ImVec2 uv0 = ImVec2(uv0X, uv0Y);
+        ImGui::ImageWithBg((ImTextureID)(uintptr_t)userTextureId, imageSize, uv0);
+    */
+
+    private static native void nImageWithBg(long userTextureId, float imageSizeX, float imageSizeY, float uv0X, float uv0Y, float uv1X, float uv1Y); /*MANUAL
         ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
         ImVec2 uv0 = ImVec2(uv0X, uv0Y);
         ImVec2 uv1 = ImVec2(uv1X, uv1Y);
+        ImGui::ImageWithBg((ImTextureID)(uintptr_t)userTextureId, imageSize, uv0, uv1);
+    */
+
+    private static native void nImageWithBg(long userTextureId, float imageSizeX, float imageSizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float bgColX, float bgColY, float bgColZ, float bgColW); /*MANUAL
+        ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
+        ImVec2 uv0 = ImVec2(uv0X, uv0Y);
+        ImVec2 uv1 = ImVec2(uv1X, uv1Y);
+        ImVec4 bgCol = ImVec4(bgColX, bgColY, bgColZ, bgColW);
+        ImGui::ImageWithBg((ImTextureID)(uintptr_t)userTextureId, imageSize, uv0, uv1, bgCol);
+    */
+
+    private static native void nImageWithBg(long userTextureId, float imageSizeX, float imageSizeY, float uv0X, float uv0Y, float uv1X, float uv1Y, float bgColX, float bgColY, float bgColZ, float bgColW, float tintColX, float tintColY, float tintColZ, float tintColW); /*MANUAL
+        ImVec2 imageSize = ImVec2(imageSizeX, imageSizeY);
+        ImVec2 uv0 = ImVec2(uv0X, uv0Y);
+        ImVec2 uv1 = ImVec2(uv1X, uv1Y);
+        ImVec4 bgCol = ImVec4(bgColX, bgColY, bgColZ, bgColW);
         ImVec4 tintCol = ImVec4(tintColX, tintColY, tintColZ, tintColW);
-        ImVec4 borderCol = ImVec4(borderColX, borderColY, borderColZ, borderColW);
-        ImGui::Image((ImTextureID)(uintptr_t)userTextureId, imageSize, uv0, uv1, tintCol, borderCol);
+        ImGui::ImageWithBg((ImTextureID)(uintptr_t)userTextureId, imageSize, uv0, uv1, bgCol, tintCol);
     */
 
     public static boolean imageButton(final String strId, final long userTextureId, final ImVec2 imageSize) {
@@ -11175,7 +11224,7 @@ public class ImGui {
     */
 
     /**
-     * Return hovered column. return -1 when table is not hovered. return columns_count if the unused space at the right of visible columns is hovered. Can also use ({@code TableGetColumnFlags() & ImGuiTableColumnFlags_IsHovered}) instead.
+     * Return hovered column. return -1 when table is not hovered. return columns_count if the unused space at the right of visible columns is hovered. Can also use (TableGetColumnFlags() & ImGuiTableColumnFlags_IsHovered) instead.
      */
     public static int tableGetHoveredColumn() {
         return nTableGetHoveredColumn();
@@ -13273,14 +13322,14 @@ public class ImGui {
     */
 
     /**
-     * Is mouse dragging? (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
+     * Is mouse dragging? (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     public static boolean isMouseDragging(final int button) {
         return nIsMouseDragging(button);
     }
 
     /**
-     * Is mouse dragging? (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
+     * Is mouse dragging? (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     public static boolean isMouseDragging(final int button, final float lockThreshold) {
         return nIsMouseDragging(button, lockThreshold);
@@ -13296,7 +13345,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     public static ImVec2 getMouseDragDelta() {
         final ImVec2 dst = new ImVec2();
@@ -13306,7 +13355,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     public static float getMouseDragDeltaX() {
         return nGetMouseDragDeltaX();
@@ -13314,7 +13363,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     public static float getMouseDragDeltaY() {
         return nGetMouseDragDeltaY();
@@ -13322,7 +13371,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     public static void getMouseDragDelta(final ImVec2 dst) {
         nGetMouseDragDelta(dst);
@@ -13330,7 +13379,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     public static ImVec2 getMouseDragDelta(final int button) {
         final ImVec2 dst = new ImVec2();
@@ -13340,7 +13389,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     public static float getMouseDragDeltaX(final int button) {
         return nGetMouseDragDeltaX(button);
@@ -13348,7 +13397,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     public static float getMouseDragDeltaY(final int button) {
         return nGetMouseDragDeltaY(button);
@@ -13356,7 +13405,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     public static void getMouseDragDelta(final ImVec2 dst, final int button) {
         nGetMouseDragDelta(dst, button);
@@ -13364,7 +13413,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     public static ImVec2 getMouseDragDelta(final int button, final float lockThreshold) {
         final ImVec2 dst = new ImVec2();
@@ -13374,7 +13423,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     public static float getMouseDragDeltaX(final int button, final float lockThreshold) {
         return nGetMouseDragDeltaX(button, lockThreshold);
@@ -13382,7 +13431,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     public static float getMouseDragDeltaY(final int button, final float lockThreshold) {
         return nGetMouseDragDeltaY(button, lockThreshold);
@@ -13390,7 +13439,7 @@ public class ImGui {
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses {@code io.MouseDraggingThreshold if lock_threshold < 0.0f})
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
      */
     public static void getMouseDragDelta(final ImVec2 dst, final int button, final float lockThreshold) {
         nGetMouseDragDelta(dst, button, lockThreshold);

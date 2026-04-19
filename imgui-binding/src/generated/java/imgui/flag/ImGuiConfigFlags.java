@@ -14,7 +14,7 @@ public final class ImGuiConfigFlags {
     public static final int None = 0;
 
     /**
-     * Master keyboard navigation enable flag. Enable full Tabbing + directional arrows + space/enter to activate.
+     * Master keyboard navigation enable flag. Enable full Tabbing + directional arrows + Space/Enter to activate. Note: some features such as basic Tabbing and CtrL+Tab are enabled by regardless of this flag (and may be disabled via other means, see #4828, #9218).
      *
      * <p>Definition: {@code 1 << 0}
      */
@@ -26,20 +26,6 @@ public final class ImGuiConfigFlags {
      * <p>Definition: {@code 1 << 1}
      */
     public static final int NavEnableGamepad = 2;
-
-    /**
-     * Instruct navigation to move the mouse cursor. May be useful on TV/console systems where moving a virtual mouse is awkward. Will update io.MousePos and set io.WantSetMousePos=true. If enabled you MUST honor io.WantSetMousePos requests in your backend, otherwise ImGui will react as if the mouse is jumping around back and forth.
-     *
-     * <p>Definition: {@code 1 << 2}
-     */
-    public static final int NavEnableSetMousePos = 4;
-
-    /**
-     * Instruct navigation to not set the io.WantCaptureKeyboard flag when io.NavActive is set.
-     *
-     * <p>Definition: {@code 1 << 3}
-     */
-    public static final int NavNoCaptureKeyboard = 8;
 
     /**
      * Instruct dear imgui to disable mouse inputs and interactions.
@@ -77,20 +63,6 @@ public final class ImGuiConfigFlags {
     public static final int ViewportsEnable = 1024;
 
     /**
-     * [BETA: Don't use] FIXME-DPI: Reposition and resize imgui windows when the DpiScale of a viewport changed (mostly useful for the main viewport hosting other window). Note that resizing the main window itself is up to your application.
-     *
-     * <p>Definition: {@code 1 << 14}
-     */
-    public static final int DpiEnableScaleViewports = 16384;
-
-    /**
-     * [BETA: Don't use] FIXME-DPI: Request bitmap-scaled fonts to match DpiScale. This is a very low-quality workaround. The correct way to handle DPI is _currently_ to replace the atlas and/or fonts in the Platform_OnChangedViewport callback, but this is all early work in progress.
-     *
-     * <p>Definition: {@code 1 << 15}
-     */
-    public static final int DpiEnableScaleFonts = 32768;
-
-    /**
      * Application is SRGB-aware.
      *
      * <p>Definition: {@code 1 << 20}
@@ -103,4 +75,32 @@ public final class ImGuiConfigFlags {
      * <p>Definition: {@code 1 << 21}
      */
     public static final int IsTouchScreen = 2097152;
+
+    /**
+     * [moved/renamed in 1.91.4] {@code ->} use bool io.ConfigNavMoveSetMousePos
+     *
+     * <p>Definition: {@code 1 << 2}
+     */
+    public static final int NavEnableSetMousePos = 4;
+
+    /**
+     * [moved/renamed in 1.91.4] {@code ->} use bool io.ConfigNavCaptureKeyboard
+     *
+     * <p>Definition: {@code 1 << 3}
+     */
+    public static final int NavNoCaptureKeyboard = 8;
+
+    /**
+     * [moved/renamed in 1.92.0] {@code ->} use bool io.ConfigDpiScaleFonts
+     *
+     * <p>Definition: {@code 1 << 14}
+     */
+    public static final int DpiEnableScaleFonts = 16384;
+
+    /**
+     * [moved/renamed in 1.92.0] {@code ->} use bool io.ConfigDpiScaleViewports
+     *
+     * <p>Definition: {@code 1 << 15}
+     */
+    public static final int DpiEnableScaleViewports = 32768;
 }

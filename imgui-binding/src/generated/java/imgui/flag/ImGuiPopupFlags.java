@@ -19,35 +19,25 @@ public final class ImGuiPopupFlags {
     public static final int None = 0;
 
     /**
-     * For BeginPopupContext*(): open on Left Mouse release. Guaranteed to always be == 0 (same as ImGuiMouseButton_Left)
+     * For BeginPopupContext*(): open on Left Mouse release. Only one button allowed!
      *
-     * <p>Definition: {@code 0}
+     * <p>Definition: {@code 1 << 2}
      */
-    public static final int MouseButtonLeft = 0;
+    public static final int MouseButtonLeft = 4;
 
     /**
-     * For BeginPopupContext*(): open on Right Mouse release. Guaranteed to always be == 1 (same as ImGuiMouseButton_Right)
+     * For BeginPopupContext*(): open on Right Mouse release. Only one button allowed! (default)
      *
-     * <p>Definition: {@code 1}
+     * <p>Definition: {@code 2 << 2}
      */
-    public static final int MouseButtonRight = 1;
+    public static final int MouseButtonRight = 8;
 
     /**
-     * For BeginPopupContext*(): open on Middle Mouse release. Guaranteed to always be == 2 (same as ImGuiMouseButton_Middle)
+     * For BeginPopupContext*(): open on Middle Mouse release. Only one button allowed!
      *
-     * <p>Definition: {@code 2}
+     * <p>Definition: {@code 3 << 2}
      */
-    public static final int MouseButtonMiddle = 2;
-
-    /**
-     * Definition: {@code 0x1F}
-     */
-    public static final int MouseButtonMask_ = 31;
-
-    /**
-     * Definition: {@code 1}
-     */
-    public static final int MouseButtonDefault_ = 1;
+    public static final int MouseButtonMiddle = 12;
 
     /**
      * For OpenPopup*(), BeginPopupContext*(): don't reopen same popup if already open (won't reposition, won't reinitialize navigation)
@@ -88,4 +78,25 @@ public final class ImGuiPopupFlags {
      * Definition: {@code ImGuiPopupFlags_AnyPopupId | ImGuiPopupFlags_AnyPopupLevel}
      */
     public static final int AnyPopup = 3072;
+
+    /**
+     * [Internal]
+     *
+     * <p>Definition: {@code 2}
+     */
+    public static final int MouseButtonShift_ = 2;
+
+    /**
+     * [Internal]
+     *
+     * <p>Definition: {@code 0x0C}
+     */
+    public static final int MouseButtonMask_ = 12;
+
+    /**
+     * [Internal] Reserve legacy bits 0-1 to detect incorrectly passing 1 or 2 to the function.
+     *
+     * <p>Definition: {@code 0x03}
+     */
+    public static final int InvalidMask_ = 3;
 }

@@ -1132,29 +1132,8 @@ public final class ImGuiIO extends ImGuiStruct {
         THIS->GetClipboardTextFn = getClipboardTextStub;
     */
 
-    /**
-     * Optional: Platform locale
-     * [Experimental] Configure decimal point e.g. '.' or ',' useful for some languages (e.g. German), generally pulled from {@code *localeconv()->decimal_point}
-     */
-    public short getPlatformLocaleDecimalPoint() {
-        return nGetPlatformLocaleDecimalPoint();
-    }
-
-    /**
-     * Optional: Platform locale
-     * [Experimental] Configure decimal point e.g. '.' or ',' useful for some languages (e.g. German), generally pulled from {@code *localeconv()->decimal_point}
-     */
-    public void setPlatformLocaleDecimalPoint(final short value) {
-        nSetPlatformLocaleDecimalPoint(value);
-    }
-
-    private native short nGetPlatformLocaleDecimalPoint(); /*
-        return THIS->PlatformLocaleDecimalPoint;
-    */
-
-    private native void nSetPlatformLocaleDecimalPoint(short value); /*
-        THIS->PlatformLocaleDecimalPoint = value;
-    */
+    // PlatformLocaleDecimalPoint was removed from ImGuiIO in imgui 1.92; the equivalent is
+    // now 'style.LocaleDecimalPoint' (not currently surfaced in the Java binding).
 
     //------------------------------------------------------------------
     // Input - Call before calling NewFrame()
@@ -2041,11 +2020,11 @@ public final class ImGuiIO extends ImGuiStruct {
     }
 
     private native ImGuiKeyData[] nGetKeysData(); /*
-        return Jni::NewImGuiKeyDataArray(env, THIS->KeysData, ImGuiKey_KeysData_SIZE);
+        return Jni::NewImGuiKeyDataArray(env, THIS->KeysData, ImGuiKey_NamedKey_COUNT);
     */
 
     private native void nSetKeysData(ImGuiKeyData[] value); /*
-        Jni::ImGuiKeyDataArrayCpy(env, value, THIS->KeysData, ImGuiKey_KeysData_SIZE);
+        Jni::ImGuiKeyDataArrayCpy(env, value, THIS->KeysData, ImGuiKey_NamedKey_COUNT);
     */
 
     /**
@@ -2815,49 +2794,8 @@ public final class ImGuiIO extends ImGuiStruct {
         return THIS->AppAcceptingEvents;
     */
 
-    /**
-     * -1: unknown, 0: using AddKeyEvent(), 1: using legacy io.KeysDown[]
-     */
-    public short getBackendUsingLegacyKeyArrays() {
-        return nGetBackendUsingLegacyKeyArrays();
-    }
-
-    /**
-     * -1: unknown, 0: using AddKeyEvent(), 1: using legacy io.KeysDown[]
-     */
-    public void setBackendUsingLegacyKeyArrays(final short value) {
-        nSetBackendUsingLegacyKeyArrays(value);
-    }
-
-    private native short nGetBackendUsingLegacyKeyArrays(); /*
-        return THIS->BackendUsingLegacyKeyArrays;
-    */
-
-    private native void nSetBackendUsingLegacyKeyArrays(short value); /*
-        THIS->BackendUsingLegacyKeyArrays = value;
-    */
-
-    /**
-     * 0: using AddKeyAnalogEvent(), 1: writing to legacy io.NavInputs[] directly
-     */
-    public boolean getBackendUsingLegacyNavInputArray() {
-        return nGetBackendUsingLegacyNavInputArray();
-    }
-
-    /**
-     * 0: using AddKeyAnalogEvent(), 1: writing to legacy io.NavInputs[] directly
-     */
-    public void setBackendUsingLegacyNavInputArray(final boolean value) {
-        nSetBackendUsingLegacyNavInputArray(value);
-    }
-
-    private native boolean nGetBackendUsingLegacyNavInputArray(); /*
-        return THIS->BackendUsingLegacyNavInputArray;
-    */
-
-    private native void nSetBackendUsingLegacyNavInputArray(boolean value); /*
-        THIS->BackendUsingLegacyNavInputArray = value;
-    */
+    // BackendUsingLegacyKeyArrays and BackendUsingLegacyNavInputArray were removed from ImGuiIO
+    // in imgui 1.92 (the legacy code paths those fields gated are gone).
 
     /**
      * For AddInputCharacterUTF16

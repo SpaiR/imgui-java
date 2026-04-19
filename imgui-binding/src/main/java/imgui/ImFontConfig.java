@@ -94,10 +94,11 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
     public boolean PixelSnapH;
 
     /**
-     * Extra spacing (in pixels) between glyphs. Only X axis is supported for now.
+     * Extra spacing (in pixels) between glyphs (added to glyph AdvanceX). Since imgui 1.92 this is a
+     * scalar X-only value; the previous {@code GlyphExtraSpacing} ImVec2 was removed as largely obsolete.
      */
     @BindingField
-    public ImVec2 GlyphExtraSpacing;
+    public float GlyphExtraAdvanceX;
 
     /**
      * Offset all glyphs from this font input.
@@ -148,10 +149,11 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
     public boolean MergeMode;
 
     /**
-     * Settings for custom font builder. THIS IS BUILDER IMPLEMENTATION DEPENDENT. Leave as zero if unsure.
+     * Settings for custom font loader. THIS IS LOADER IMPLEMENTATION DEPENDENT. Leave as zero if unsure.
+     * (Renamed from {@code FontBuilderFlags} in imgui 1.92.)
      */
     @BindingField(isFlag = true)
-    public int FontBuilderFlags;
+    public int FontLoaderFlags;
 
     /**
      * Brighten ({@code >}1.0f) or darken ({@code <}1.0f) font output. Brightening small fonts may be a good workaround to make them more readable.

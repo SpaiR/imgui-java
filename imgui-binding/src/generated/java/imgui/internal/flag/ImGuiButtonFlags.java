@@ -39,6 +39,20 @@ public final class ImGuiButtonFlags {
     public static final int MouseButtonMask_ = 7;
 
     /**
+     * InvisibleButton(): do not disable navigation/tabbing. Otherwise disabled by default.
+     *
+     * <p>Definition: {@code 1 << 3}
+     */
+    public static final int EnableNav = 8;
+
+    /**
+     * Hit testing will allow subsequent widgets to overlap this one. Require previous frame HoveredId to match before being usable. Shortcut to calling SetNextItemAllowOverlap().
+     *
+     * <p>Definition: {@code 1 << 12}
+     */
+    public static final int AllowOverlap = 4096;
+
+    /**
      * return true on click (mouse down event)
      *
      * <p>Definition: {@code 1 << 4}
@@ -60,7 +74,7 @@ public final class ImGuiButtonFlags {
     public static final int PressedOnClickReleaseAnywhere = 64;
 
     /**
-     * return true on release (default requires click+release)
+     * return true on release (default requires click+release). Prior to 2026/03/20 this implied ImGuiButtonFlags_NoHoldingActiveId but they are separate now.
      *
      * <p>Definition: {@code 1 << 7}
      */
@@ -81,32 +95,11 @@ public final class ImGuiButtonFlags {
     public static final int PressedOnDragDropHold = 512;
 
     /**
-     * hold to repeat
-     *
-     * <p>Definition: {@code 1 << 10}
-     */
-    public static final int Repeat = 1024;
-
-    /**
      * allow interactions even if a child window is overlapping
      *
      * <p>Definition: {@code 1 << 11}
      */
     public static final int FlattenChildren = 2048;
-
-    /**
-     * require previous frame HoveredId to either match id or be null before being usable.
-     *
-     * <p>Definition: {@code 1 << 12}
-     */
-    public static final int AllowOverlap = 4096;
-
-    /**
-     * disable automatically closing parent popup on press // [UNUSED]
-     *
-     * <p>Definition: {@code 1 << 13}
-     */
-    public static final int DontClosePopups = 8192;
 
     /**
      * vertically align button to match text baseline - ButtonEx() only // FIXME: Should be removed and handled by SmallButton(), not possible currently because of DC.CursorPosPrevLine
@@ -120,7 +113,7 @@ public final class ImGuiButtonFlags {
      *
      * <p>Definition: {@code 1 << 16}
      */
-    public static final int NoKeyModifiers = 65536;
+    public static final int NoKeyModsAllowed = 65536;
 
     /**
      * don't set ActiveId while holding the mouse (ImGuiButtonFlags_PressedOnClick only)
@@ -130,7 +123,7 @@ public final class ImGuiButtonFlags {
     public static final int NoHoldingActiveId = 131072;
 
     /**
-     * don't override navigation focus when activated (FIXME: this is essentially used every time an item uses ImGuiItemFlags_NoNav, but because legacy specs don't requires LastItemData to be set ButtonBehavior(), we can't poll g.LastItemData.InFlags)
+     * don't override navigation focus when activated (FIXME: this is essentially used every time an item uses ImGuiItemFlags_NoNav, but because legacy specs don't requires LastItemData to be set ButtonBehavior(), we can't poll g.LastItemData.ItemFlags)
      *
      * <p>Definition: {@code 1 << 18}
      */
@@ -156,6 +149,13 @@ public final class ImGuiButtonFlags {
      * <p>Definition: {@code 1 << 21}
      */
     public static final int NoTestKeyOwner = 2097152;
+
+    /**
+     * [EXPERIMENTAL: Not very well specced]. Don't focus parent window when clicking.
+     *
+     * <p>Definition: {@code 1 << 22}
+     */
+    public static final int NoFocus = 4194304;
 
     /**
      * Definition: {@code ImGuiButtonFlags_PressedOnClick | ImGuiButtonFlags_PressedOnClickRelease | ImGuiButtonFlags_PressedOnClickReleaseAnywhere | ImGuiButtonFlags_PressedOnRelease | ImGuiButtonFlags_PressedOnDoubleClick | ImGuiButtonFlags_PressedOnDragDropHold}

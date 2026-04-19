@@ -71,7 +71,7 @@ public final class ImPlotCol {
     public static final int InlayText = 12;
 
     /**
-     * axis label and tick lables color (defaults to ImGuiCol_Text)
+     * axis label and tick labels color (defaults to ImGuiCol_Text)
      */
     public static final int AxisText = 13;
 

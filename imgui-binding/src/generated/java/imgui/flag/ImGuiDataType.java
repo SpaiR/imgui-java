@@ -58,5 +58,15 @@ public final class ImGuiDataType {
      */
     public static final int Double = 9;
 
-    public static final int COUNT = 10;
+    /**
+     * bool (provided for user convenience, not supported by scalar widgets)
+     */
+    public static final int Bool = 10;
+
+    /**
+     * char* (provided for user convenience, not supported by scalar widgets)
+     */
+    public static final int String = 11;
+
+    public static final int COUNT = 12;
 }

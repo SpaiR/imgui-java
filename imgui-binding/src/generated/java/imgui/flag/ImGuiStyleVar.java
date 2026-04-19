@@ -115,69 +115,114 @@ public final class ImGuiStyleVar {
     public static final int ScrollbarRounding = 19;
 
     /**
+     * float     ScrollbarPadding
+     */
+    public static final int ScrollbarPadding = 20;
+
+    /**
      * float     GrabMinSize
      */
-    public static final int GrabMinSize = 20;
+    public static final int GrabMinSize = 21;
 
     /**
      * float     GrabRounding
      */
-    public static final int GrabRounding = 21;
+    public static final int GrabRounding = 22;
+
+    /**
+     * float     ImageRounding
+     */
+    public static final int ImageRounding = 23;
+
+    /**
+     * float     ImageBorderSize
+     */
+    public static final int ImageBorderSize = 24;
 
     /**
      * float     TabRounding
      */
-    public static final int TabRounding = 22;
+    public static final int TabRounding = 25;
 
     /**
      * float     TabBorderSize
      */
-    public static final int TabBorderSize = 23;
+    public static final int TabBorderSize = 26;
+
+    /**
+     * float     TabMinWidthBase
+     */
+    public static final int TabMinWidthBase = 27;
+
+    /**
+     * float     TabMinWidthShrink
+     */
+    public static final int TabMinWidthShrink = 28;
 
     /**
      * float     TabBarBorderSize
      */
-    public static final int TabBarBorderSize = 24;
+    public static final int TabBarBorderSize = 29;
+
+    /**
+     * float     TabBarOverlineSize
+     */
+    public static final int TabBarOverlineSize = 30;
 
     /**
      * float     TableAngledHeadersAngle
      */
-    public static final int TableAngledHeadersAngle = 25;
+    public static final int TableAngledHeadersAngle = 31;
 
     /**
      * ImVec2  TableAngledHeadersTextAlign
      */
-    public static final int TableAngledHeadersTextAlign = 26;
+    public static final int TableAngledHeadersTextAlign = 32;
+
+    /**
+     * float     TreeLinesSize
+     */
+    public static final int TreeLinesSize = 33;
+
+    /**
+     * float     TreeLinesRounding
+     */
+    public static final int TreeLinesRounding = 34;
 
     /**
      * ImVec2    ButtonTextAlign
      */
-    public static final int ButtonTextAlign = 27;
+    public static final int ButtonTextAlign = 35;
 
     /**
      * ImVec2    SelectableTextAlign
      */
-    public static final int SelectableTextAlign = 28;
+    public static final int SelectableTextAlign = 36;
+
+    /**
+     * float     SeparatorSize
+     */
+    public static final int SeparatorSize = 37;
 
     /**
      * float     SeparatorTextBorderSize
      */
-    public static final int SeparatorTextBorderSize = 29;
+    public static final int SeparatorTextBorderSize = 38;
 
     /**
      * ImVec2    SeparatorTextAlign
      */
-    public static final int SeparatorTextAlign = 30;
+    public static final int SeparatorTextAlign = 39;
 
     /**
      * ImVec2    SeparatorTextPadding
      */
-    public static final int SeparatorTextPadding = 31;
+    public static final int SeparatorTextPadding = 40;
 
     /**
      * float     DockingSeparatorSize
      */
-    public static final int DockingSeparatorSize = 32;
+    public static final int DockingSeparatorSize = 41;
 
-    public static final int COUNT = 33;
+    public static final int COUNT = 42;
 }

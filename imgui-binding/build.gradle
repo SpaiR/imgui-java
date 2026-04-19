@@ -44,6 +44,7 @@ tasks.register('generateApi', GenerateApi)
 
 tasks.register('generateLibs', GenerateLibs) {
     it.dependsOn assemble
+    it.dependsOn rootProject.tasks.named('applyVendorPatches')
 }
 
 apply from: "$rootDir/publish.gradle"

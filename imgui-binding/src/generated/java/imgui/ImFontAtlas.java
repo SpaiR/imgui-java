@@ -771,29 +771,9 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
 
     // TexID implemented as SetTexID function
 
-    /**
-     * Texture width desired by user before Build(). Must be a power-of-two.
-     * If have many glyphs your graphics API have texture size restrictions you may want to increase texture width to decrease height.
-     */
-    public int getTexDesiredWidth() {
-        return nGetTexDesiredWidth();
-    }
-
-    /**
-     * Texture width desired by user before Build(). Must be a power-of-two.
-     * If have many glyphs your graphics API have texture size restrictions you may want to increase texture width to decrease height.
-     */
-    public void setTexDesiredWidth(final int value) {
-        nSetTexDesiredWidth(value);
-    }
-
-    private native int nGetTexDesiredWidth(); /*
-        return THIS->TexDesiredWidth;
-    */
-
-    private native void nSetTexDesiredWidth(int value); /*
-        THIS->TexDesiredWidth = value;
-    */
+    // Note: TexDesiredWidth was removed in imgui 1.92. Use TexMinWidth / TexMaxWidth
+    // on the C++ side if you need to clamp atlas dimensions; these are not currently
+    // surfaced in the Java binding.
 
     /**
      * Padding between glyphs within texture in pixels. Defaults to 1.

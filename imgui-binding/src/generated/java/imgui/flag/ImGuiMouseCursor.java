@@ -55,9 +55,19 @@ public final class ImGuiMouseCursor {
     public static final int Hand = 7;
 
     /**
+     * When waiting for something to process/load.
+     */
+    public static final int Wait = 8;
+
+    /**
+     * When waiting for something to process/load, but application is still interactive.
+     */
+    public static final int Progress = 9;
+
+    /**
      * When hovering something with disallowed interaction. Usually a crossed circle.
      */
-    public static final int NotAllowed = 8;
+    public static final int NotAllowed = 10;
 
-    public static final int COUNT = 9;
+    public static final int COUNT = 11;
 }

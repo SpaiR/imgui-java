@@ -3,8 +3,11 @@ package imgui;
 import imgui.binding.ImGuiStructDestroyable;
 
 /**
- * Font runtime data and rendering
- * ImFontAtlas automatically loads a default embedded font for you when you call GetTexDataAsAlpha8() or GetTexDataAsRGBA32().
+ * Font runtime data. A single logical font that can be baked at multiple sizes (see ImFontBaked via {@code getFontBaked}).
+ *
+ * <p>In Dear ImGui 1.92 the font subsystem was reworked: {@code ImFont} now represents the font source set,
+ * while size-specific data (glyphs, ascent/descent, character metrics) lives on {@code ImFontBaked}.
+ * Many previously-exposed fields moved there and are no longer reachable through {@code ImFont}.
  */
 public final class ImFont extends ImGuiStructDestroyable {
     public ImFont() {
@@ -29,103 +32,28 @@ public final class ImFont extends ImGuiStructDestroyable {
         return (uintptr_t)(new ImFont());
     */
 
-    // TODO IndexAdvanceX
-
     /**
-     * = FallbackGlyph.AdvanceX
+     * Font size passed to {@code AddFontXXX()}. Use for legacy code calling {@link imgui.ImGui#pushFont(ImFont)}
+     * that expected the original size (use {@code ImGui::GetFontBaked()} in new code).
      */
-    public float getFallbackAdvanceX() {
-        return nGetFallbackAdvanceX();
+    public float getLegacySize() {
+        return nGetLegacySize();
     }
 
     /**
-     * = FallbackGlyph.AdvanceX
+     * Font size passed to {@code AddFontXXX()}. Use for legacy code calling {@link imgui.ImGui#pushFont(ImFont)}
+     * that expected the original size (use {@code ImGui::GetFontBaked()} in new code).
      */
-    public void setFallbackAdvanceX(final float value) {
-        nSetFallbackAdvanceX(value);
+    public void setLegacySize(final float value) {
+        nSetLegacySize(value);
     }
 
-    private native float nGetFallbackAdvanceX(); /*
-        return THIS->FallbackAdvanceX;
+    private native float nGetLegacySize(); /*
+        return THIS->LegacySize;
     */
 
-    private native void nSetFallbackAdvanceX(float value); /*
-        THIS->FallbackAdvanceX = value;
-    */
-
-    /**
-     * Height of characters/line, set during loading (don't change after loading)
-     */
-    public float getFontSize() {
-        return nGetFontSize();
-    }
-
-    /**
-     * Height of characters/line, set during loading (don't change after loading)
-     */
-    public void setFontSize(final float value) {
-        nSetFontSize(value);
-    }
-
-    private native float nGetFontSize(); /*
-        return THIS->FontSize;
-    */
-
-    private native void nSetFontSize(float value); /*
-        THIS->FontSize = value;
-    */
-
-    // TODO IndexLookup, Glyphs
-
-    private static final ImFontGlyph _GETFALLBACKGLYPH_1 = new ImFontGlyph(0);
-
-    /**
-     * = FindGlyph(FontFallbackChar)
-     */
-    public ImFontGlyph getFallbackGlyph() {
-        _GETFALLBACKGLYPH_1.ptr = nGetFallbackGlyph();
-        return _GETFALLBACKGLYPH_1;
-    }
-
-    /**
-     * = FindGlyph(FontFallbackChar)
-     */
-    public void setFallbackGlyph(final ImFontGlyph value) {
-        nSetFallbackGlyph(value.ptr);
-    }
-
-    private native long nGetFallbackGlyph(); /*
-        return (uintptr_t)THIS->FallbackGlyph;
-    */
-
-    private native void nSetFallbackGlyph(long value); /*
-        THIS->FallbackGlyph = reinterpret_cast<ImFontGlyph*>(value);
-    */
-
-    // TODO ContainerAtlas, ConfigData
-
-    /**
-     * Number of ImFontConfig involved in creating this font.
-     * Bigger than 1 when merging multiple font sources into one ImFont.
-     */
-    public short getConfigDataCount() {
-        return nGetConfigDataCount();
-    }
-
-    /**
-     * Number of ImFontConfig involved in creating this font.
-     * Bigger than 1 when merging multiple font sources into one ImFont.
-     */
-    public void setConfigDataCount(final short value) {
-        nSetConfigDataCount(value);
-    }
-
-    private native short nGetConfigDataCount(); /*
-        return THIS->ConfigDataCount;
-    */
-
-    private native void nSetConfigDataCount(short value); /*
-        THIS->ConfigDataCount = value;
+    private native void nSetLegacySize(float value); /*
+        THIS->LegacySize = value;
     */
 
     /**
@@ -150,79 +78,39 @@ public final class ImFont extends ImGuiStructDestroyable {
         THIS->EllipsisChar = value;
     */
 
-    public short getEllipsisCharCount() {
-        return nGetEllipsisCharCount();
+    /**
+     * Character used if a glyph isn't found (U+FFFD, '?').
+     */
+    public short getFallbackChar() {
+        return nGetFallbackChar();
     }
 
-    public void setEllipsisCharCount(final short value) {
-        nSetEllipsisCharCount(value);
+    /**
+     * Character used if a glyph isn't found (U+FFFD, '?').
+     */
+    public void setFallbackChar(final short value) {
+        nSetFallbackChar(value);
     }
 
-    private native short nGetEllipsisCharCount(); /*
-        return THIS->EllipsisCharCount;
+    private native short nGetFallbackChar(); /*
+        return THIS->FallbackChar;
     */
 
-    private native void nSetEllipsisCharCount(short value); /*
-        THIS->EllipsisCharCount = value;
-    */
-
-    public float getEllipsisWidth() {
-        return nGetEllipsisWidth();
-    }
-
-    public void setEllipsisWidth(final float value) {
-        nSetEllipsisWidth(value);
-    }
-
-    private native float nGetEllipsisWidth(); /*
-        return THIS->EllipsisWidth;
-    */
-
-    private native void nSetEllipsisWidth(float value); /*
-        THIS->EllipsisWidth = value;
-    */
-
-    public float getEllipsisCharStep() {
-        return nGetEllipsisCharStep();
-    }
-
-    public void setEllipsisCharStep(final float value) {
-        nSetEllipsisCharStep(value);
-    }
-
-    private native float nGetEllipsisCharStep(); /*
-        return THIS->EllipsisCharStep;
-    */
-
-    private native void nSetEllipsisCharStep(float value); /*
-        THIS->EllipsisCharStep = value;
-    */
-
-    public boolean getDirtyLookupTables() {
-        return nGetDirtyLookupTables();
-    }
-
-    public void setDirtyLookupTables(final boolean value) {
-        nSetDirtyLookupTables(value);
-    }
-
-    private native boolean nGetDirtyLookupTables(); /*
-        return THIS->DirtyLookupTables;
-    */
-
-    private native void nSetDirtyLookupTables(boolean value); /*
-        THIS->DirtyLookupTables = value;
+    private native void nSetFallbackChar(short value); /*
+        THIS->FallbackChar = value;
     */
 
     /**
-     * Base font scale, multiplied by the per-window font scale which you can adjust with SetWindowFontScale()
+     * Legacy base font scale (~1.0f), multiplied by the per-window font scale which you can adjust with SetWindowFontScale().
+     * Obsolete since 1.92; kept behind {@code IMGUI_DISABLE_OBSOLETE_FUNCTIONS}.
      */
     public float getScale() {
         return nGetScale();
     }
 
     /**
-     * Base font scale, multiplied by the per-window font scale which you can adjust with SetWindowFontScale()
+     * Legacy base font scale (~1.0f), multiplied by the per-window font scale which you can adjust with SetWindowFontScale().
+     * Obsolete since 1.92; kept behind {@code IMGUI_DISABLE_OBSOLETE_FUNCTIONS}.
      */
     public void setScale(final float value) {
         nSetScale(value);
@@ -236,91 +124,7 @@ public final class ImFont extends ImGuiStructDestroyable {
         THIS->Scale = value;
     */
 
-    /**
-     * Ascent: distance from top to bottom of e.g. 'A' [0..FontSize]
-     */
-    public float getAscent() {
-        return nGetAscent();
-    }
-
-    /**
-     * Ascent: distance from top to bottom of e.g. 'A' [0..FontSize]
-     */
-    public void setAscent(final float value) {
-        nSetAscent(value);
-    }
-
-    private native float nGetAscent(); /*
-        return THIS->Ascent;
-    */
-
-    private native void nSetAscent(float value); /*
-        THIS->Ascent = value;
-    */
-
-    public float getDescent() {
-        return nGetDescent();
-    }
-
-    public void setDescent(final float value) {
-        nSetDescent(value);
-    }
-
-    private native float nGetDescent(); /*
-        return THIS->Descent;
-    */
-
-    private native void nSetDescent(float value); /*
-        THIS->Descent = value;
-    */
-
-    /**
-     * Total surface in pixels to get an idea of the font rasterization/texture cost (not exact, we approximate the cost of padding between glyphs)
-     */
-    public int getMetricsTotalSurface() {
-        return nGetMetricsTotalSurface();
-    }
-
-    /**
-     * Total surface in pixels to get an idea of the font rasterization/texture cost (not exact, we approximate the cost of padding between glyphs)
-     */
-    public void setMetricsTotalSurface(final int value) {
-        nSetMetricsTotalSurface(value);
-    }
-
-    private native int nGetMetricsTotalSurface(); /*
-        return THIS->MetricsTotalSurface;
-    */
-
-    private native void nSetMetricsTotalSurface(int value); /*
-        THIS->MetricsTotalSurface = value;
-    */
-
     // Methods
-
-    public ImFontGlyph findGlyph(final int c) {
-        return new ImFontGlyph(nFindGlyph(c));
-    }
-
-    private native long nFindGlyph(int c); /*
-        return (uintptr_t)THIS->FindGlyph((ImWchar)c);
-    */
-
-    public ImFontGlyph findGlyphNoFallback(final int c) {
-        return new ImFontGlyph(nFindGlyphNoFallback(c));
-    }
-
-    private native long nFindGlyphNoFallback(int c); /*
-        return (uintptr_t)THIS->FindGlyphNoFallback((ImWchar)c);
-    */
-
-    public float getCharAdvance(final int c) {
-        return nGetCharAdvance(c);
-    }
-
-    private native float nGetCharAdvance(int c); /*
-        return THIS->GetCharAdvance((ImWchar)c);
-    */
 
     public boolean isLoaded() {
         return nIsLoaded();
@@ -452,6 +256,12 @@ public final class ImFont extends ImGuiStructDestroyable {
         return _result;
     */
 
+    /**
+     *
+     * @deprecated since imgui 1.92; prefer {@code CalcWordWrapPosition(size, ...)}. This overload is kept as a
+    legacy redirect; internally it passes {@code LegacySize * scale} as the size.
+     */
+    @Deprecated
     public String calcWordWrapPositionA(final float scale, final String text, final String textEnd, final float wrapWidth) {
         return nCalcWordWrapPositionA(scale, text, textEnd, wrapWidth);
     }
@@ -478,36 +288,60 @@ public final class ImFont extends ImGuiStructDestroyable {
         THIS->RenderChar(reinterpret_cast<ImDrawList*>(drawList), size, pos, col, (ImWchar)c);
     */
 
+    /**
+     * The {@code flags} parameter is {@code ImDrawTextFlags} (since imgui 1.92; previously a {@code bool cpu_fine_clip}).
+     */
     public void renderText(final ImDrawList drawList, final float size, final ImVec2 pos, final int col, final ImVec4 clipRect, final String textBegin, final String textEnd) {
         nRenderText(drawList.ptr, size, pos.x, pos.y, col, clipRect.x, clipRect.y, clipRect.z, clipRect.w, textBegin, textEnd);
     }
 
+    /**
+     * The {@code flags} parameter is {@code ImDrawTextFlags} (since imgui 1.92; previously a {@code bool cpu_fine_clip}).
+     */
     public void renderText(final ImDrawList drawList, final float size, final float posX, final float posY, final int col, final float clipRectX, final float clipRectY, final float clipRectZ, final float clipRectW, final String textBegin, final String textEnd) {
         nRenderText(drawList.ptr, size, posX, posY, col, clipRectX, clipRectY, clipRectZ, clipRectW, textBegin, textEnd);
     }
 
+    /**
+     * The {@code flags} parameter is {@code ImDrawTextFlags} (since imgui 1.92; previously a {@code bool cpu_fine_clip}).
+     */
     public void renderText(final ImDrawList drawList, final float size, final ImVec2 pos, final int col, final ImVec4 clipRect, final String textBegin, final String textEnd, final float wrapWidth) {
         nRenderText(drawList.ptr, size, pos.x, pos.y, col, clipRect.x, clipRect.y, clipRect.z, clipRect.w, textBegin, textEnd, wrapWidth);
     }
 
+    /**
+     * The {@code flags} parameter is {@code ImDrawTextFlags} (since imgui 1.92; previously a {@code bool cpu_fine_clip}).
+     */
     public void renderText(final ImDrawList drawList, final float size, final float posX, final float posY, final int col, final float clipRectX, final float clipRectY, final float clipRectZ, final float clipRectW, final String textBegin, final String textEnd, final float wrapWidth) {
         nRenderText(drawList.ptr, size, posX, posY, col, clipRectX, clipRectY, clipRectZ, clipRectW, textBegin, textEnd, wrapWidth);
     }
 
-    public void renderText(final ImDrawList drawList, final float size, final ImVec2 pos, final int col, final ImVec4 clipRect, final String textBegin, final String textEnd, final float wrapWidth, final boolean cpuFineClip) {
-        nRenderText(drawList.ptr, size, pos.x, pos.y, col, clipRect.x, clipRect.y, clipRect.z, clipRect.w, textBegin, textEnd, wrapWidth, cpuFineClip);
+    /**
+     * The {@code flags} parameter is {@code ImDrawTextFlags} (since imgui 1.92; previously a {@code bool cpu_fine_clip}).
+     */
+    public void renderText(final ImDrawList drawList, final float size, final ImVec2 pos, final int col, final ImVec4 clipRect, final String textBegin, final String textEnd, final float wrapWidth, final int flags) {
+        nRenderText(drawList.ptr, size, pos.x, pos.y, col, clipRect.x, clipRect.y, clipRect.z, clipRect.w, textBegin, textEnd, wrapWidth, flags);
     }
 
-    public void renderText(final ImDrawList drawList, final float size, final float posX, final float posY, final int col, final float clipRectX, final float clipRectY, final float clipRectZ, final float clipRectW, final String textBegin, final String textEnd, final float wrapWidth, final boolean cpuFineClip) {
-        nRenderText(drawList.ptr, size, posX, posY, col, clipRectX, clipRectY, clipRectZ, clipRectW, textBegin, textEnd, wrapWidth, cpuFineClip);
+    /**
+     * The {@code flags} parameter is {@code ImDrawTextFlags} (since imgui 1.92; previously a {@code bool cpu_fine_clip}).
+     */
+    public void renderText(final ImDrawList drawList, final float size, final float posX, final float posY, final int col, final float clipRectX, final float clipRectY, final float clipRectZ, final float clipRectW, final String textBegin, final String textEnd, final float wrapWidth, final int flags) {
+        nRenderText(drawList.ptr, size, posX, posY, col, clipRectX, clipRectY, clipRectZ, clipRectW, textBegin, textEnd, wrapWidth, flags);
     }
 
-    public void renderText(final ImDrawList drawList, final float size, final ImVec2 pos, final int col, final ImVec4 clipRect, final String textBegin, final String textEnd, final boolean cpuFineClip) {
-        nRenderText(drawList.ptr, size, pos.x, pos.y, col, clipRect.x, clipRect.y, clipRect.z, clipRect.w, textBegin, textEnd, cpuFineClip);
+    /**
+     * The {@code flags} parameter is {@code ImDrawTextFlags} (since imgui 1.92; previously a {@code bool cpu_fine_clip}).
+     */
+    public void renderText(final ImDrawList drawList, final float size, final ImVec2 pos, final int col, final ImVec4 clipRect, final String textBegin, final String textEnd, final int flags) {
+        nRenderText(drawList.ptr, size, pos.x, pos.y, col, clipRect.x, clipRect.y, clipRect.z, clipRect.w, textBegin, textEnd, flags);
     }
 
-    public void renderText(final ImDrawList drawList, final float size, final float posX, final float posY, final int col, final float clipRectX, final float clipRectY, final float clipRectZ, final float clipRectW, final String textBegin, final String textEnd, final boolean cpuFineClip) {
-        nRenderText(drawList.ptr, size, posX, posY, col, clipRectX, clipRectY, clipRectZ, clipRectW, textBegin, textEnd, cpuFineClip);
+    /**
+     * The {@code flags} parameter is {@code ImDrawTextFlags} (since imgui 1.92; previously a {@code bool cpu_fine_clip}).
+     */
+    public void renderText(final ImDrawList drawList, final float size, final float posX, final float posY, final int col, final float clipRectX, final float clipRectY, final float clipRectZ, final float clipRectW, final String textBegin, final String textEnd, final int flags) {
+        nRenderText(drawList.ptr, size, posX, posY, col, clipRectX, clipRectY, clipRectZ, clipRectW, textBegin, textEnd, flags);
     }
 
     private native void nRenderText(long drawList, float size, float posX, float posY, int col, float clipRectX, float clipRectY, float clipRectZ, float clipRectW, String textBegin, String textEnd); /*MANUAL
@@ -530,22 +364,22 @@ public final class ImFont extends ImGuiStructDestroyable {
         if (textEnd != NULL) env->ReleaseStringUTFChars(obj_textEnd, textEnd);
     */
 
-    private native void nRenderText(long drawList, float size, float posX, float posY, int col, float clipRectX, float clipRectY, float clipRectZ, float clipRectW, String textBegin, String textEnd, float wrapWidth, boolean cpuFineClip); /*MANUAL
+    private native void nRenderText(long drawList, float size, float posX, float posY, int col, float clipRectX, float clipRectY, float clipRectZ, float clipRectW, String textBegin, String textEnd, float wrapWidth, int flags); /*MANUAL
         auto textBegin = obj_textBegin == NULL ? NULL : (char*)env->GetStringUTFChars(obj_textBegin, JNI_FALSE);
         auto textEnd = obj_textEnd == NULL ? NULL : (char*)env->GetStringUTFChars(obj_textEnd, JNI_FALSE);
         ImVec2 pos = ImVec2(posX, posY);
         ImVec4 clipRect = ImVec4(clipRectX, clipRectY, clipRectZ, clipRectW);
-        THIS->RenderText(reinterpret_cast<ImDrawList*>(drawList), size, pos, col, clipRect, textBegin, textEnd, wrapWidth, cpuFineClip);
+        THIS->RenderText(reinterpret_cast<ImDrawList*>(drawList), size, pos, col, clipRect, textBegin, textEnd, wrapWidth, flags);
         if (textBegin != NULL) env->ReleaseStringUTFChars(obj_textBegin, textBegin);
         if (textEnd != NULL) env->ReleaseStringUTFChars(obj_textEnd, textEnd);
     */
 
-    private native void nRenderText(long drawList, float size, float posX, float posY, int col, float clipRectX, float clipRectY, float clipRectZ, float clipRectW, String textBegin, String textEnd, boolean cpuFineClip); /*MANUAL
+    private native void nRenderText(long drawList, float size, float posX, float posY, int col, float clipRectX, float clipRectY, float clipRectZ, float clipRectW, String textBegin, String textEnd, int flags); /*MANUAL
         auto textBegin = obj_textBegin == NULL ? NULL : (char*)env->GetStringUTFChars(obj_textBegin, JNI_FALSE);
         auto textEnd = obj_textEnd == NULL ? NULL : (char*)env->GetStringUTFChars(obj_textEnd, JNI_FALSE);
         ImVec2 pos = ImVec2(posX, posY);
         ImVec4 clipRect = ImVec4(clipRectX, clipRectY, clipRectZ, clipRectW);
-        THIS->RenderText(reinterpret_cast<ImDrawList*>(drawList), size, pos, col, clipRect, textBegin, textEnd, 0.0f, cpuFineClip);
+        THIS->RenderText(reinterpret_cast<ImDrawList*>(drawList), size, pos, col, clipRect, textBegin, textEnd, 0.0f, flags);
         if (textBegin != NULL) env->ReleaseStringUTFChars(obj_textBegin, textBegin);
         if (textEnd != NULL) env->ReleaseStringUTFChars(obj_textEnd, textEnd);
     */

@@ -13,7 +13,7 @@ public final class ImPlotFlags {
     public static final int None = 0;
 
     /**
-     * the plot title will not be displayed (titles are also hidden if preceeded by double hashes, e.g. "##MyPlot")
+     * the plot title will not be displayed (titles are also hidden if preceded by double hashes, e.g. "##MyPlot")
      *
      * <p>Definition: {@code 1 << 0}
      */

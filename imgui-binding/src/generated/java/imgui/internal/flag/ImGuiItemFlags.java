@@ -10,93 +10,58 @@ public final class ImGuiItemFlags {
     }
 
     /**
-     * Controlled by user
+     * (Default)
      *
-     * <p>Definition: {@code 0}
+     * <p>Definition: {@code o}
      */
     public static final int None = 0;
 
     /**
-     * false     // Disable keyboard tabbing. This is a "lighter" version of ImGuiItemFlags_NoNav.
+     * false    // Disable keyboard tabbing. This is a "lighter" version of ImGuiItemFlags_NoNav.
      *
-     * <p>Definition: {@code 1 << 0}
+     * <p>Definition: {@code dler);}
      */
     public static final int NoTabStop = 1;
 
     /**
-     * false     // Button() will return true multiple times based on io.KeyRepeatDelay and io.KeyRepeatRate settings.
+     * false    // Disable any form of focusing (keyboard/gamepad directional navigation and SetKeyboardFocusHere() calls).
      *
-     * <p>Definition: {@code 1 << 1}
+     * <p>Definition: {@code }
      */
-    public static final int ButtonRepeat = 2;
+    public static final int NoNav = 2;
 
     /**
-     * false     // Disable interactions but doesn't affect visuals. See BeginDisabled()/EndDisabled(). See github.com/ocornut/imgui/issues/211
+     * false    // Disable item being a candidate for default focus (e.g. used by title bar items).
      *
-     * <p>Definition: {@code 1 << 2}
+     * <p>Definition: {@code me);}
      */
-    public static final int Disabled = 4;
+    public static final int NoNavDefaultFocus = 4;
 
     /**
-     * false     // Disable any form of focusing (keyboard/gamepad directional navigation and SetKeyboardFocusHere() calls)
+     * false    // Any button-like behavior will have repeat mode enabled (based on io.KeyRepeatDelay and io.KeyRepeatRate values). Note that you can also call IsItemActive() after any button to tell if it is being held.
      *
-     * <p>Definition: {@code 1 << 3}
+     * <p>Definition: {@code sHandl}
      */
-    public static final int NoNav = 8;
+    public static final int ButtonRepeat = 8;
 
     /**
-     * false     // Disable item being a candidate for default focus (e.g. used by title bar items)
+     * true     // MenuItem()/Selectable() automatically close their parent popup window.
      *
-     * <p>Definition: {@code 1 << 4}
+     * <p>Definition: {@code r)}
      */
-    public static final int NoNavDefaultFocus = 16;
+    public static final int AutoClosePopups = 16;
 
     /**
-     * false     // Disable MenuItem/Selectable() automatically closing their popup window
+     * false    // Allow submitting an item with the same identifier as an item already submitted this frame without triggering a warning tooltip if io.ConfigDebugHighlightIdConflicts is set.
      *
-     * <p>Definition: {@code 1 << 5}
+     * <p>Definition: {@code ies in}
      */
-    public static final int SelectableDontClosePopup = 32;
+    public static final int AllowDuplicateId = 32;
 
     /**
-     * false     // [BETA] Represent a mixed/indeterminate value, generally multi-selection where values differ. Currently only supported by Checkbox() (later should support all sorts of widgets)
+     * false    // [Internal] Disable interactions. DOES NOT affect visuals. This is used by BeginDisabled()/EndDisabled() and only provided here so you can read back via GetItemFlags().
      *
-     * <p>Definition: {@code 1 << 6}
+     * <p>Definition: {@code ------}
      */
-    public static final int MixedValue = 64;
-
-    /**
-     * false     // [ALPHA] Allow hovering interactions but underlying value is not changed.
-     *
-     * <p>Definition: {@code 1 << 7}
-     */
-    public static final int ReadOnly = 128;
-
-    /**
-     * false     // Disable hoverable check in ItemHoverable()
-     *
-     * <p>Definition: {@code 1 << 8}
-     */
-    public static final int NoWindowHoverableCheck = 256;
-
-    /**
-     * false     // Allow being overlapped by another widget. Not-hovered to Hovered transition deferred by a frame.
-     *
-     * <p>Definition: {@code 1 << 9}
-     */
-    public static final int AllowOverlap = 512;
-
-    /**
-     * false     // [WIP] Auto-activate input mode when tab focused. Currently only used and supported by a few items before it becomes a generic feature.
-     *
-     * <p>Definition: {@code 1 << 10}
-     */
-    public static final int Inputable = 1024;
-
-    /**
-     * false     // Set by SetNextItemSelectionUserData()
-     *
-     * <p>Definition: {@code 1 << 11}
-     */
-    public static final int HasSelectionUserData = 2048;
+    public static final int Disabled = 64;
 }

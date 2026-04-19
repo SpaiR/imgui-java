@@ -206,11 +206,22 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     public float TabBorderSize;
 
     /**
-     * Minimum width for close button to appear on an unselected tab when hovered.
-     * Set to 0.0f to always show when hovering, set to FLT_MAX to never show close button unless selected.
+     * Minimum width for close button to appear on a selected tab when hovered.
+     * {@code -1}: always visible; {@code 0}: visible when hovered; {@code >0}: visible when hovered if
+     * tab width is at least this wide. (Since imgui 1.91.9 this field split into
+     * {@code TabCloseButtonMinWidthSelected} and {@code TabCloseButtonMinWidthUnselected}.)
      */
     @BindingField
-    public float TabMinWidthForCloseButton;
+    public float TabCloseButtonMinWidthSelected;
+
+    /**
+     * Minimum width for close button to appear on an unselected tab when hovered.
+     * {@code -1}: always visible; {@code 0}: visible when hovered; {@code >0}: visible when hovered if
+     * tab width is at least this wide; {@code FLT_MAX}: never show close button when unselected.
+     * (Since imgui 1.91.9; renamed from {@code TabMinWidthForCloseButton}.)
+     */
+    @BindingField
+    public float TabCloseButtonMinWidthUnselected;
 
     /**
      * Side of the color button in the ColorEdit4 widget (left/right). Defaults to ImGuiDir_Right.

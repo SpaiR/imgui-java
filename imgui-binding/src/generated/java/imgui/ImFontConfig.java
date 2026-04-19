@@ -207,64 +207,27 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
     */
 
     /**
-     * Extra spacing (in pixels) between glyphs. Only X axis is supported for now.
+     * Extra spacing (in pixels) between glyphs (added to glyph AdvanceX). Since imgui 1.92 this is a
+     * scalar X-only value; the previous {@code GlyphExtraSpacing} ImVec2 was removed as largely obsolete.
      */
-    public ImVec2 getGlyphExtraSpacing() {
-        final ImVec2 dst = new ImVec2();
-        nGetGlyphExtraSpacing(dst);
-        return dst;
+    public float getGlyphExtraAdvanceX() {
+        return nGetGlyphExtraAdvanceX();
     }
 
     /**
-     * Extra spacing (in pixels) between glyphs. Only X axis is supported for now.
+     * Extra spacing (in pixels) between glyphs (added to glyph AdvanceX). Since imgui 1.92 this is a
+     * scalar X-only value; the previous {@code GlyphExtraSpacing} ImVec2 was removed as largely obsolete.
      */
-    public float getGlyphExtraSpacingX() {
-        return nGetGlyphExtraSpacingX();
+    public void setGlyphExtraAdvanceX(final float value) {
+        nSetGlyphExtraAdvanceX(value);
     }
 
-    /**
-     * Extra spacing (in pixels) between glyphs. Only X axis is supported for now.
-     */
-    public float getGlyphExtraSpacingY() {
-        return nGetGlyphExtraSpacingY();
-    }
-
-    /**
-     * Extra spacing (in pixels) between glyphs. Only X axis is supported for now.
-     */
-    public void getGlyphExtraSpacing(final ImVec2 dst) {
-        nGetGlyphExtraSpacing(dst);
-    }
-
-    /**
-     * Extra spacing (in pixels) between glyphs. Only X axis is supported for now.
-     */
-    public void setGlyphExtraSpacing(final ImVec2 value) {
-        nSetGlyphExtraSpacing(value.x, value.y);
-    }
-
-    /**
-     * Extra spacing (in pixels) between glyphs. Only X axis is supported for now.
-     */
-    public void setGlyphExtraSpacing(final float valueX, final float valueY) {
-        nSetGlyphExtraSpacing(valueX, valueY);
-    }
-
-    private native void nGetGlyphExtraSpacing(ImVec2 dst); /*
-        Jni::ImVec2Cpy(env, THIS->GlyphExtraSpacing, dst);
+    private native float nGetGlyphExtraAdvanceX(); /*
+        return THIS->GlyphExtraAdvanceX;
     */
 
-    private native float nGetGlyphExtraSpacingX(); /*
-        return THIS->GlyphExtraSpacing.x;
-    */
-
-    private native float nGetGlyphExtraSpacingY(); /*
-        return THIS->GlyphExtraSpacing.y;
-    */
-
-    private native void nSetGlyphExtraSpacing(float valueX, float valueY); /*MANUAL
-        ImVec2 value = ImVec2(valueX, valueY);
-        THIS->GlyphExtraSpacing = value;
+    private native void nSetGlyphExtraAdvanceX(float value); /*
+        THIS->GlyphExtraAdvanceX = value;
     */
 
     /**
@@ -420,46 +383,51 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
     */
 
     /**
-     * Settings for custom font builder. THIS IS BUILDER IMPLEMENTATION DEPENDENT. Leave as zero if unsure.
+     * Settings for custom font loader. THIS IS LOADER IMPLEMENTATION DEPENDENT. Leave as zero if unsure.
+     * (Renamed from {@code FontBuilderFlags} in imgui 1.92.)
      */
-    public int getFontBuilderFlags() {
-        return nGetFontBuilderFlags();
+    public int getFontLoaderFlags() {
+        return nGetFontLoaderFlags();
     }
 
     /**
-     * Settings for custom font builder. THIS IS BUILDER IMPLEMENTATION DEPENDENT. Leave as zero if unsure.
+     * Settings for custom font loader. THIS IS LOADER IMPLEMENTATION DEPENDENT. Leave as zero if unsure.
+     * (Renamed from {@code FontBuilderFlags} in imgui 1.92.)
      */
-    public void setFontBuilderFlags(final int value) {
-        nSetFontBuilderFlags(value);
+    public void setFontLoaderFlags(final int value) {
+        nSetFontLoaderFlags(value);
     }
 
     /**
-     * Settings for custom font builder. THIS IS BUILDER IMPLEMENTATION DEPENDENT. Leave as zero if unsure.
+     * Settings for custom font loader. THIS IS LOADER IMPLEMENTATION DEPENDENT. Leave as zero if unsure.
+     * (Renamed from {@code FontBuilderFlags} in imgui 1.92.)
      */
-    public void addFontBuilderFlags(final int flags) {
-        setFontBuilderFlags(getFontBuilderFlags() | flags);
+    public void addFontLoaderFlags(final int flags) {
+        setFontLoaderFlags(getFontLoaderFlags() | flags);
     }
 
     /**
-     * Settings for custom font builder. THIS IS BUILDER IMPLEMENTATION DEPENDENT. Leave as zero if unsure.
+     * Settings for custom font loader. THIS IS LOADER IMPLEMENTATION DEPENDENT. Leave as zero if unsure.
+     * (Renamed from {@code FontBuilderFlags} in imgui 1.92.)
      */
-    public void removeFontBuilderFlags(final int flags) {
-        setFontBuilderFlags(getFontBuilderFlags() & ~(flags));
+    public void removeFontLoaderFlags(final int flags) {
+        setFontLoaderFlags(getFontLoaderFlags() & ~(flags));
     }
 
     /**
-     * Settings for custom font builder. THIS IS BUILDER IMPLEMENTATION DEPENDENT. Leave as zero if unsure.
+     * Settings for custom font loader. THIS IS LOADER IMPLEMENTATION DEPENDENT. Leave as zero if unsure.
+     * (Renamed from {@code FontBuilderFlags} in imgui 1.92.)
      */
-    public boolean hasFontBuilderFlags(final int flags) {
-        return (getFontBuilderFlags() & flags) != 0;
+    public boolean hasFontLoaderFlags(final int flags) {
+        return (getFontLoaderFlags() & flags) != 0;
     }
 
-    private native int nGetFontBuilderFlags(); /*
-        return THIS->FontBuilderFlags;
+    private native int nGetFontLoaderFlags(); /*
+        return THIS->FontLoaderFlags;
     */
 
-    private native void nSetFontBuilderFlags(int value); /*
-        THIS->FontBuilderFlags = value;
+    private native void nSetFontLoaderFlags(int value); /*
+        THIS->FontLoaderFlags = value;
     */
 
     /**

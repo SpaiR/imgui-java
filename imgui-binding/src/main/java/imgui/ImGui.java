@@ -643,8 +643,13 @@ public class ImGui {
 
     // Parameters stacks (shared)
 
+    /**
+     * Push a font onto the stack. Since imgui 1.92 the {@code size} parameter is required:
+     * pass {@code 0.0f} to keep the current size; pass {@code font.LegacySize} to restore
+     * pre-1.92 behavior of using the font's original AddFont size.
+     */
     @BindingMethod
-    public static native void PushFont(ImFont font);
+    public static native void PushFont(ImFont font, float size);
 
     @BindingMethod
     public static native void PopFont();
@@ -1123,9 +1128,14 @@ public class ImGui {
 
     // Widgets: Images
     // - Read about ImTextureID here: https://github.com/ocornut/imgui/wiki/Image-Loading-and-Displaying-Examples
+    // - Since imgui 1.91.9 the 'tint_col' and 'border_col' params were removed from Image(); use
+    //   ImageWithBg() for tinting, and ImGuiCol_ImageBorder style colour for the border (imgui 1.92+).
 
     @BindingMethod
-    public static native void Image(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 imageSize, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg ImVec4 tintCol, @OptArg ImVec4 borderCol);
+    public static native void Image(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 imageSize, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1);
+
+    @BindingMethod
+    public static native void ImageWithBg(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 imageSize, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg ImVec4 bgCol, @OptArg ImVec4 tintCol);
 
     @BindingMethod
     public static native boolean ImageButton(String strId, @ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 imageSize, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg ImVec4 bgCol, @OptArg ImVec4 tintCol);
