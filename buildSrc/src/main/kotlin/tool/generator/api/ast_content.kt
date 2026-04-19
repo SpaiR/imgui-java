@@ -1,6 +1,11 @@
 package tool.generator.api
 
+import spoon.reflect.code.CtRHSReceiver
 import spoon.reflect.declaration.CtAnnotation
+import spoon.reflect.declaration.CtElement
+import spoon.reflect.declaration.CtModifiable
+import spoon.reflect.declaration.CtNamedElement
+import spoon.reflect.declaration.CtTypedElement
 import spoon.reflect.declaration.ModifierKind
 import tool.generator.ast.AstEnumConstantDecl
 import tool.generator.ast.AstParser
@@ -19,11 +24,11 @@ fun astEnumContent(markerAnnotation: CtAnnotation<*>): List<String> {
     val factory = markerAnnotation.factory
 
     enums.forEach { e ->
-        val f = factory.createField<Nothing>()
+        val f = factory.createField<Any>()
 
-        f.setModifiers<Nothing>(setOf(ModifierKind.PUBLIC, ModifierKind.STATIC, ModifierKind.FINAL))
-        f.setType<Nothing>(factory.createTypeParam("int"))
-        f.setSimpleName<Nothing>(sanitizeName(markerAnnotation.getValueSanitizeName(qualType), e.name))
+        f.setModifiers<CtModifiable>(setOf(ModifierKind.PUBLIC, ModifierKind.STATIC, ModifierKind.FINAL))
+        f.setType<CtTypedElement<Any>>(factory.createTypeParam("int"))
+        f.setSimpleName<CtNamedElement>(sanitizeName(markerAnnotation.getValueSanitizeName(qualType), e.name))
         buildString {
             if (e.docComment != null) {
                 appendLine(e.docComment)
@@ -37,10 +42,10 @@ fun astEnumContent(markerAnnotation: CtAnnotation<*>): List<String> {
             }
         }.let {
             if (it.isNotEmpty()) {
-                f.setDocComment<Nothing>(sanitizeDocComment(it))
+                f.setDocComment<CtElement>(sanitizeDocComment(it))
             }
         }
-        f.setAssignment<Nothing>(factory.createCodeSnippetExpression((e.evaluatedValue ?: e.order).toString()))
+        f.setAssignment<CtRHSReceiver<Any>>(factory.createCodeSnippetExpression((e.evaluatedValue ?: e.order).toString()))
 
         result += f.prettyprint()
     }

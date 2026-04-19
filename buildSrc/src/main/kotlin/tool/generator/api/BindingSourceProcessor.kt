@@ -4,7 +4,9 @@ import spoon.reflect.code.CtJavaDoc
 import spoon.reflect.declaration.CtElement
 import spoon.reflect.declaration.CtField
 import spoon.reflect.declaration.CtMethod
+import spoon.reflect.declaration.CtNamedElement
 import spoon.reflect.declaration.CtType
+import spoon.reflect.declaration.CtTypedElement
 import kotlin.math.max
 
 class BindingSourceProcessor(
@@ -135,13 +137,13 @@ class BindingSourceProcessor(
 
             for (i in 0 until variantsCount) {
                 val m = method.clone()
-                m.setParent<Nothing>(method.parent)
+                m.setParent<CtElement>(method.parent)
                 variantsMap.values.forEach { vList ->
                     val v = vList[i]
                     val p = m.parameters[v.idx]
-                    p.setAnnotations<Nothing>(p.annotations.filterNot { it.name == A_NAME_ARG_VARIANT })
-                    p.setType<Nothing>(m.factory.createTypeParameterReference(v.type))
-                    p.setSimpleName<Nothing>(v.name)
+                    p.setAnnotations<CtElement>(p.annotations.filterNot { it.name == A_NAME_ARG_VARIANT })
+                    p.setType<CtTypedElement<Any>>(m.factory.createTypeParameterReference(v.type))
+                    p.setSimpleName<CtNamedElement>(v.name)
                 }
                 content += jvmMethodContent(m) + jniMethodContent(m)
             }
