@@ -44,16 +44,16 @@ public final class MemoryEditorSizes extends ImGuiStructDestroyable {
     public float SpacingBetweenMidCols;
 
     @BindingField
-    public float PosHexStart;
+    public float OffsetHexMinX;
 
     @BindingField
-    public float PosHexEnd;
+    public float OffsetHexMaxX;
 
     @BindingField
-    public float PosAsciiStart;
+    public float OffsetAsciiMinX;
 
     @BindingField
-    public float PosAsciiEnd;
+    public float OffsetAsciiMaxX;
 
     @BindingField
     public float WindowWidth;

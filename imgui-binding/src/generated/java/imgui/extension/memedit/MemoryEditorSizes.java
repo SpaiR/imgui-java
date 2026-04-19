@@ -105,68 +105,68 @@ public final class MemoryEditorSizes extends ImGuiStructDestroyable {
         THIS->SpacingBetweenMidCols = value;
     */
 
-    public float getPosHexStart() {
-        return nGetPosHexStart();
+    public float getOffsetHexMinX() {
+        return nGetOffsetHexMinX();
     }
 
-    public void setPosHexStart(final float value) {
-        nSetPosHexStart(value);
+    public void setOffsetHexMinX(final float value) {
+        nSetOffsetHexMinX(value);
     }
 
-    private native float nGetPosHexStart(); /*
-        return THIS->PosHexStart;
+    private native float nGetOffsetHexMinX(); /*
+        return THIS->OffsetHexMinX;
     */
 
-    private native void nSetPosHexStart(float value); /*
-        THIS->PosHexStart = value;
+    private native void nSetOffsetHexMinX(float value); /*
+        THIS->OffsetHexMinX = value;
     */
 
-    public float getPosHexEnd() {
-        return nGetPosHexEnd();
+    public float getOffsetHexMaxX() {
+        return nGetOffsetHexMaxX();
     }
 
-    public void setPosHexEnd(final float value) {
-        nSetPosHexEnd(value);
+    public void setOffsetHexMaxX(final float value) {
+        nSetOffsetHexMaxX(value);
     }
 
-    private native float nGetPosHexEnd(); /*
-        return THIS->PosHexEnd;
+    private native float nGetOffsetHexMaxX(); /*
+        return THIS->OffsetHexMaxX;
     */
 
-    private native void nSetPosHexEnd(float value); /*
-        THIS->PosHexEnd = value;
+    private native void nSetOffsetHexMaxX(float value); /*
+        THIS->OffsetHexMaxX = value;
     */
 
-    public float getPosAsciiStart() {
-        return nGetPosAsciiStart();
+    public float getOffsetAsciiMinX() {
+        return nGetOffsetAsciiMinX();
     }
 
-    public void setPosAsciiStart(final float value) {
-        nSetPosAsciiStart(value);
+    public void setOffsetAsciiMinX(final float value) {
+        nSetOffsetAsciiMinX(value);
     }
 
-    private native float nGetPosAsciiStart(); /*
-        return THIS->PosAsciiStart;
+    private native float nGetOffsetAsciiMinX(); /*
+        return THIS->OffsetAsciiMinX;
     */
 
-    private native void nSetPosAsciiStart(float value); /*
-        THIS->PosAsciiStart = value;
+    private native void nSetOffsetAsciiMinX(float value); /*
+        THIS->OffsetAsciiMinX = value;
     */
 
-    public float getPosAsciiEnd() {
-        return nGetPosAsciiEnd();
+    public float getOffsetAsciiMaxX() {
+        return nGetOffsetAsciiMaxX();
     }
 
-    public void setPosAsciiEnd(final float value) {
-        nSetPosAsciiEnd(value);
+    public void setOffsetAsciiMaxX(final float value) {
+        nSetOffsetAsciiMaxX(value);
     }
 
-    private native float nGetPosAsciiEnd(); /*
-        return THIS->PosAsciiEnd;
+    private native float nGetOffsetAsciiMaxX(); /*
+        return THIS->OffsetAsciiMaxX;
     */
 
-    private native void nSetPosAsciiEnd(float value); /*
-        THIS->PosAsciiEnd = value;
+    private native void nSetOffsetAsciiMaxX(float value); /*
+        THIS->OffsetAsciiMaxX = value;
     */
 
     public float getWindowWidth() {

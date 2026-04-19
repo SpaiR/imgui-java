@@ -1,9 +1,9 @@
 {
   "info" : {
     "source" : "include/imguizmo/ImGuizmo.h",
-    "hash" : "330da82032707d5d2f3bd3f474934613",
+    "hash" : "2f33204f2525b4020b351801ba051c26",
     "url" : "https://github.com/CedricGuillemet/ImGuizmo.git",
-    "revision" : "bcdd86bb8a8019b373e46921c52ef7f2fdaa8b16"
+    "revision" : "a15acd87a3f3241a29ea1363ceafc680dca3a96b"
   },
   "decls" : [ {
     "@type" : "AstNamespaceDecl",
@@ -17,7 +17,7 @@
         "name" : "drawlist",
         "qualType" : "int *",
         "desugaredQualType" : "int *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -98,6 +98,34 @@
           "decls" : [ {
             "@type" : "AstTextComment",
             "text" : " return true if mouse IsOver or if the gizmo is in moving state"
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "IsUsingViewManipulate",
+      "resultType" : "bool",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " return true if the view gizmo is in moving state"
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "IsViewManipulateHovered",
+      "resultType" : "bool",
+      "decls" : [ {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " only check if your mouse is over the view manipulator - no matter whether it's active or not"
           } ]
         } ]
       } ]
@@ -344,7 +372,7 @@
             "text" : " call it when you want a gizmo"
           }, {
             "@type" : "AstTextComment",
-            "text" : " Needs view and projection matrices. "
+            "text" : " Needs view and projection matrices."
           }, {
             "@type" : "AstTextComment",
             "text" : " matrix parameter is the source matrix (where will be gizmo be drawn) and might be transformed by the function. Return deltaMatrix is optional"
@@ -661,6 +689,16 @@
             "text" : " use this version if you did not call Manipulate before and you are just using ViewManipulate"
           } ]
         } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "SetAlternativeWindow",
+      "resultType" : "void",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "window",
+        "qualType" : "ImGuiWindow *",
+        "desugaredQualType" : "ImGuiWindow *"
       } ]
     }, {
       "@type" : "AstFunctionDecl",

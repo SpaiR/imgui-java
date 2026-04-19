@@ -34,7 +34,7 @@ public final class ImGuiKnobs {
      * @param steps   determines the number of steps draw, it is only used for the ImGuiKnobVariant_Stepped variant.
      */
     @BindingMethod
-    public static native boolean Knob(String label, ImFloat pValue, float vMin, float vMax, @OptArg(callValue = "0") float speed, @OptArg(callValue = "NULL") String format, @OptArg(callValue = "ImGuiKnobVariant_Tick") int variant, @OptArg(callValue = "0") float size, @OptArg(callValue = "0") int flags, @OptArg int steps);
+    public static native boolean Knob(String label, ImFloat pValue, float vMin, float vMax, @OptArg(callValue = "0") float speed, @OptArg(callValue = "\"%.3f\"") String format, @OptArg(callValue = "ImGuiKnobVariant_Tick") int variant, @OptArg(callValue = "0") float size, @OptArg(callValue = "0") int flags, @OptArg int steps);
 
     /**
      * Create a knob with int values
@@ -51,5 +51,5 @@ public final class ImGuiKnobs {
      * @param steps   determines the number of steps draw, it is only used for the ImGuiKnobVariant_Stepped variant.
      */
     @BindingMethod(callName = "KnobInt")
-    public static native boolean Knob(String label, ImInt pValue, int vMin, int vMax, @OptArg(callValue = "0") float speed, @OptArg(callValue = "NULL") String format, @OptArg(callValue = "ImGuiKnobVariant_Tick") int variant, @OptArg(callValue = "0") float size, @OptArg(callValue = "0") int flags, @OptArg int steps);
+    public static native boolean Knob(String label, ImInt pValue, int vMin, int vMax, @OptArg(callValue = "0") float speed, @OptArg(callValue = "\"%i\"") String format, @OptArg(callValue = "ImGuiKnobVariant_Tick") int variant, @OptArg(callValue = "0") float size, @OptArg(callValue = "0") int flags, @OptArg int steps);
 }
