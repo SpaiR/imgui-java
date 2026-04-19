@@ -3012,6 +3012,52 @@ public class ImGui {
     */
 
     /**
+     * Hyperlink text button; returns true when clicked (new in imgui 1.91). Style via {@code ImGuiCol_TextLink}.
+     */
+    public static boolean textLink(final String label) {
+        return nTextLink(label);
+    }
+
+    private static native boolean nTextLink(String obj_label); /*MANUAL
+        auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
+        auto _result = ImGui::TextLink(label);
+        if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
+        return _result;
+    */
+
+    /**
+     * Hyperlink text button that automatically opens the given file/URL on click (new in imgui 1.91).
+     * Uses {@code io.PlatformOpenInShellFn} (with OS defaults on Windows/Linux/macOS).
+     */
+    public static boolean textLinkOpenURL(final String label) {
+        return nTextLinkOpenURL(label);
+    }
+
+    /**
+     * Hyperlink text button that automatically opens the given file/URL on click (new in imgui 1.91).
+     * Uses {@code io.PlatformOpenInShellFn} (with OS defaults on Windows/Linux/macOS).
+     */
+    public static boolean textLinkOpenURL(final String label, final String url) {
+        return nTextLinkOpenURL(label, url);
+    }
+
+    private static native boolean nTextLinkOpenURL(String obj_label); /*MANUAL
+        auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
+        auto _result = ImGui::TextLinkOpenURL(label);
+        if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
+        return _result;
+    */
+
+    private static native boolean nTextLinkOpenURL(String obj_label, String obj_url); /*MANUAL
+        auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
+        auto url = obj_url == NULL ? NULL : (char*)env->GetStringUTFChars(obj_url, JNI_FALSE);
+        auto _result = ImGui::TextLinkOpenURL(label, url);
+        if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
+        if (url != NULL) env->ReleaseStringUTFChars(obj_url, url);
+        return _result;
+    */
+
+    /**
      * Currently: formatted text with an horizontal line
      */
     public static void separatorText(final String label) {

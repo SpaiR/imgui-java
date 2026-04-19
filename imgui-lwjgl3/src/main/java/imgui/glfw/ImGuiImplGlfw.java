@@ -909,7 +909,12 @@ public class ImGuiImplGlfw {
         }
 
         for (int cursorN = 0; cursorN < ImGuiMouseCursor.COUNT; cursorN++) {
-            glfwDestroyCursor(data.mouseCursors[cursorN]);
+            // Skip unpopulated slots (e.g. Wait/Progress, added in imgui 1.91; GLFW has no
+            // corresponding standard cursor). Upstream C code is tolerant of NULL here but
+            // LWJGL's glfwDestroyCursor asserts non-null.
+            if (data.mouseCursors[cursorN] != 0) {
+                glfwDestroyCursor(data.mouseCursors[cursorN]);
+            }
         }
 
         io.setBackendPlatformName(null);

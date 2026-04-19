@@ -1057,6 +1057,19 @@ public class ImGui {
     public static native void BulletText(String text, Void NULL);
 
     /**
+     * Hyperlink text button; returns true when clicked (new in imgui 1.91). Style via {@code ImGuiCol_TextLink}.
+     */
+    @BindingMethod
+    public static native boolean TextLink(String label);
+
+    /**
+     * Hyperlink text button that automatically opens the given file/URL on click (new in imgui 1.91).
+     * Uses {@code io.PlatformOpenInShellFn} (with OS defaults on Windows/Linux/macOS).
+     */
+    @BindingMethod
+    public static native boolean TextLinkOpenURL(String label, @OptArg String url);
+
+    /**
      * Currently: formatted text with an horizontal line
      */
     @BindingMethod

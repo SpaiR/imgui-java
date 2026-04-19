@@ -129,6 +129,31 @@ public final class ImFontConfig extends ImGuiStructDestroyable {
         THIS->GlyphRanges = glyphRanges != NULL ? (ImWchar*)&glyphRanges[0] : NULL;
     */
 
+    private short[] glyphExcludeRanges;
+
+    /**
+     * Exclude ranges (list of Unicode range pairs, zero-terminated) from this font source when merging
+     * multiple fonts -- useful to avoid one font's glyphs masking another's. New in imgui 1.92.
+     * THE ARRAY DATA NEEDS TO PERSIST AS LONG AS THE FONT IS ALIVE.
+     */
+    public short[] getGlyphExcludeRanges() {
+        return glyphExcludeRanges;
+    }
+
+    /**
+     * Exclude ranges (list of Unicode range pairs, zero-terminated) from this font source when merging
+     * multiple fonts. New in imgui 1.92.
+     * THE ARRAY DATA NEEDS TO PERSIST AS LONG AS THE FONT IS ALIVE.
+     */
+    public void setGlyphExcludeRanges(final short[] glyphExcludeRanges) {
+        this.glyphExcludeRanges = glyphExcludeRanges;
+        nSetGlyphExcludeRanges(glyphExcludeRanges);
+    }
+
+    private native void nSetGlyphExcludeRanges(short[] glyphExcludeRanges); /*
+        THIS->GlyphExcludeRanges = glyphExcludeRanges != NULL ? (ImWchar*)&glyphExcludeRanges[0] : NULL;
+    */
+
     /**
      * Minimum AdvanceX for glyphs, set Min to align font icons, set both Min/Max to enforce mono-space font
      */
