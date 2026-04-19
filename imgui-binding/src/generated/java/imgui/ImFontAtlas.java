@@ -817,9 +817,99 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
 
     // TexID implemented as SetTexID function
 
-    // Note: TexDesiredWidth was removed in imgui 1.92. Use TexMinWidth / TexMaxWidth
-    // on the C++ side if you need to clamp atlas dimensions; these are not currently
-    // surfaced in the Java binding.
+    /**
+     * Minimum desired atlas texture width (must be power of two). Default 512. (since imgui 1.92 —
+     * replaces the old TexDesiredWidth; set TexMinWidth = TexMaxWidth to pin a specific width.)
+     */
+    public int getTexMinWidth() {
+        return nGetTexMinWidth();
+    }
+
+    /**
+     * Minimum desired atlas texture width (must be power of two). Default 512. (since imgui 1.92 —
+     * replaces the old TexDesiredWidth; set TexMinWidth = TexMaxWidth to pin a specific width.)
+     */
+    public void setTexMinWidth(final int value) {
+        nSetTexMinWidth(value);
+    }
+
+    private native int nGetTexMinWidth(); /*
+        return THIS->TexMinWidth;
+    */
+
+    private native void nSetTexMinWidth(int value); /*
+        THIS->TexMinWidth = value;
+    */
+
+    /**
+     * Minimum desired atlas texture height (must be power of two). Default 128. (since imgui 1.92)
+     */
+    public int getTexMinHeight() {
+        return nGetTexMinHeight();
+    }
+
+    /**
+     * Minimum desired atlas texture height (must be power of two). Default 128. (since imgui 1.92)
+     */
+    public void setTexMinHeight(final int value) {
+        nSetTexMinHeight(value);
+    }
+
+    private native int nGetTexMinHeight(); /*
+        return THIS->TexMinHeight;
+    */
+
+    private native void nSetTexMinHeight(int value); /*
+        THIS->TexMinHeight = value;
+    */
+
+    /**
+     * Maximum desired atlas texture width (must be power of two). Default 8192. (since imgui 1.92)
+     * Increase when loading large glyph sets (e.g. full CJK) on legacy backends without
+     * {@code ImGuiBackendFlags_RendererHasTextures} support.
+     */
+    public int getTexMaxWidth() {
+        return nGetTexMaxWidth();
+    }
+
+    /**
+     * Maximum desired atlas texture width (must be power of two). Default 8192. (since imgui 1.92)
+     * Increase when loading large glyph sets (e.g. full CJK) on legacy backends without
+     * {@code ImGuiBackendFlags_RendererHasTextures} support.
+     */
+    public void setTexMaxWidth(final int value) {
+        nSetTexMaxWidth(value);
+    }
+
+    private native int nGetTexMaxWidth(); /*
+        return THIS->TexMaxWidth;
+    */
+
+    private native void nSetTexMaxWidth(int value); /*
+        THIS->TexMaxWidth = value;
+    */
+
+    /**
+     * Maximum desired atlas texture height (must be power of two). Default 8192. (since imgui 1.92)
+     */
+    public int getTexMaxHeight() {
+        return nGetTexMaxHeight();
+    }
+
+    /**
+     * Maximum desired atlas texture height (must be power of two). Default 8192. (since imgui 1.92)
+     */
+    public void setTexMaxHeight(final int value) {
+        nSetTexMaxHeight(value);
+    }
+
+    private native int nGetTexMaxHeight(); /*
+        return THIS->TexMaxHeight;
+    */
+
+    private native void nSetTexMaxHeight(int value); /*
+        THIS->TexMaxHeight = value;
+    */
 
     /**
      * Padding between glyphs within texture in pixels. Defaults to 1.

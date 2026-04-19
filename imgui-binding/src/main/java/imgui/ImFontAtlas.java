@@ -379,9 +379,32 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
 
     // TexID implemented as SetTexID function
 
-    // Note: TexDesiredWidth was removed in imgui 1.92. Use TexMinWidth / TexMaxWidth
-    // on the C++ side if you need to clamp atlas dimensions; these are not currently
-    // surfaced in the Java binding.
+    /**
+     * Minimum desired atlas texture width (must be power of two). Default 512. (since imgui 1.92 —
+     * replaces the old TexDesiredWidth; set TexMinWidth = TexMaxWidth to pin a specific width.)
+     */
+    @BindingField
+    public int TexMinWidth;
+
+    /**
+     * Minimum desired atlas texture height (must be power of two). Default 128. (since imgui 1.92)
+     */
+    @BindingField
+    public int TexMinHeight;
+
+    /**
+     * Maximum desired atlas texture width (must be power of two). Default 8192. (since imgui 1.92)
+     * Increase when loading large glyph sets (e.g. full CJK) on legacy backends without
+     * {@code ImGuiBackendFlags_RendererHasTextures} support.
+     */
+    @BindingField
+    public int TexMaxWidth;
+
+    /**
+     * Maximum desired atlas texture height (must be power of two). Default 8192. (since imgui 1.92)
+     */
+    @BindingField
+    public int TexMaxHeight;
 
     /**
      * Padding between glyphs within texture in pixels. Defaults to 1.
