@@ -409,9 +409,14 @@ public final class ImPlotSpec extends ImGuiStructDestroyable {
 
     // Per-index color array for lines (ImU32 packed RGBA). Pass null to clear.
     // Ownership: the backing buffer is allocated in native memory and freed on destroy()
-    // or when reassigned.
+    // or when reassigned. The (arr, len) overloads mirror the plot methods and let
+    // callers reuse a backing array larger than the logical count.
     public void setLineColors(final int[] colors) {
         nSetLineColors(colors, colors != null ? colors.length : 0);
+    }
+
+    public void setLineColors(final int[] colors, final int len) {
+        nSetLineColors(colors, len);
     }
 
     private native void nSetLineColors(int[] colors, int len); /*
@@ -427,6 +432,10 @@ public final class ImPlotSpec extends ImGuiStructDestroyable {
         nSetFillColors(colors, colors != null ? colors.length : 0);
     }
 
+    public void setFillColors(final int[] colors, final int len) {
+        nSetFillColors(colors, len);
+    }
+
     private native void nSetFillColors(int[] colors, int len); /*
         if (THIS->FillColors) { ImGui::MemFree(THIS->FillColors); THIS->FillColors = NULL; }
         if (colors != NULL && len > 0) {
@@ -438,6 +447,10 @@ public final class ImPlotSpec extends ImGuiStructDestroyable {
 
     public void setMarkerSizes(final float[] sizes) {
         nSetMarkerSizes(sizes, sizes != null ? sizes.length : 0);
+    }
+
+    public void setMarkerSizes(final float[] sizes, final int len) {
+        nSetMarkerSizes(sizes, len);
     }
 
     private native void nSetMarkerSizes(float[] sizes, int len); /*
@@ -453,6 +466,10 @@ public final class ImPlotSpec extends ImGuiStructDestroyable {
         nSetMarkerLineColors(colors, colors != null ? colors.length : 0);
     }
 
+    public void setMarkerLineColors(final int[] colors, final int len) {
+        nSetMarkerLineColors(colors, len);
+    }
+
     private native void nSetMarkerLineColors(int[] colors, int len); /*
         if (THIS->MarkerLineColors) { ImGui::MemFree(THIS->MarkerLineColors); THIS->MarkerLineColors = NULL; }
         if (colors != NULL && len > 0) {
@@ -464,6 +481,10 @@ public final class ImPlotSpec extends ImGuiStructDestroyable {
 
     public void setMarkerFillColors(final int[] colors) {
         nSetMarkerFillColors(colors, colors != null ? colors.length : 0);
+    }
+
+    public void setMarkerFillColors(final int[] colors, final int len) {
+        nSetMarkerFillColors(colors, len);
     }
 
     private native void nSetMarkerFillColors(int[] colors, int len); /*
