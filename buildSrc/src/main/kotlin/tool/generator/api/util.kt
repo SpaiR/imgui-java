@@ -6,6 +6,7 @@ import spoon.reflect.code.CtFieldRead
 import spoon.reflect.code.CtNewArray
 import spoon.reflect.declaration.*
 import spoon.reflect.factory.Factory
+import spoon.reflect.reference.CtReference
 import spoon.reflect.reference.CtTypeParameterReference
 import tool.generator.ast.Decl
 import tool.generator.ast.DeclContainer
@@ -103,11 +104,11 @@ fun CtAnnotation<*>.containsValue(annotationField: String, value: String): Boole
 }
 
 fun Factory.createTypeParam(name: String): CtTypeParameterReference = createTypeParameterReference().apply {
-    setSimpleName<Nothing>(name)
+    setSimpleName<CtReference>(name)
 }
 
 fun Factory.createCodeSnippet(code: String): CtCodeSnippetStatement = createCodeSnippetStatement().apply {
-    setValue<Nothing>(code)
+    setValue<CtCodeSnippet>(code)
 }
 
 fun CtTypedElement<*>.isType(type: String): Boolean = this.type.simpleName == type

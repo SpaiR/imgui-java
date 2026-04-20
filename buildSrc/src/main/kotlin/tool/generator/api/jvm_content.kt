@@ -1,10 +1,18 @@
 package tool.generator.api
 
+import spoon.reflect.code.CtBodyHolder
 import spoon.reflect.code.CtJavaDoc
 import spoon.reflect.code.CtJavaDocTag
+import spoon.reflect.reference.CtReference
+import spoon.reflect.declaration.CtCodeSnippet
+import spoon.reflect.declaration.CtElement
+import spoon.reflect.declaration.CtExecutable
 import spoon.reflect.declaration.CtField
 import spoon.reflect.declaration.CtMethod
+import spoon.reflect.declaration.CtModifiable
+import spoon.reflect.declaration.CtNamedElement
 import spoon.reflect.declaration.CtParameter
+import spoon.reflect.declaration.CtTypedElement
 import spoon.reflect.declaration.ModifierKind
 import kotlin.math.absoluteValue
 
@@ -105,22 +113,22 @@ private fun createBodyDstReturn(
 
 private fun createMethod(origM: CtMethod<*>, params: List<CtParameter<*>>, defaults: IntArray): CtMethod<*> {
     val f = origM.factory
-    val newM = f.createMethod<Nothing>()
+    val newM = f.createMethod<Any>()
 
     if (origM.isPublic) {
-        newM.addModifier<Nothing>(ModifierKind.PUBLIC)
+        newM.addModifier<CtModifiable>(ModifierKind.PUBLIC)
     }
     if (origM.isStatic) {
-        newM.addModifier<Nothing>(ModifierKind.STATIC)
+        newM.addModifier<CtModifiable>(ModifierKind.STATIC)
     }
 
     if (origM.docComment.isNotBlank()) {
-        newM.setDocComment<Nothing>(origM.docComment)
+        newM.setDocComment<CtElement>(origM.docComment)
     }
 
-    newM.setAnnotations<Nothing>(origM.annotations)
-    newM.setType<Nothing>(origM.type)
-    newM.setSimpleName<Nothing>(origM.getName())
+    newM.setAnnotations<CtElement>(origM.annotations)
+    newM.setType<CtTypedElement<Any>>(origM.type)
+    newM.setSimpleName<CtNamedElement>(origM.getName())
 
     for ((index, p) in params.withIndex()) {
         if (defaults.isNotEmpty() && !defaults.contains(index)) {
@@ -129,17 +137,17 @@ private fun createMethod(origM: CtMethod<*>, params: List<CtParameter<*>>, defau
         if (p.isType("Void")) {
             continue
         }
-        newM.addParameter<Nothing>(f.createParameter<Nothing>().apply {
-            addModifier<Nothing>(ModifierKind.FINAL)
-            setType<Nothing>(p.type)
-            setSimpleName<Nothing>(p.simpleName)
+        newM.addParameter<CtMethod<Any>>(f.createParameter<Any>().apply {
+            addModifier<CtModifiable>(ModifierKind.FINAL)
+            setType<CtTypedElement<Any>>(p.type)
+            setSimpleName<CtNamedElement>(p.simpleName)
         })
     }
 
     sanitizeDocComment(newM)
     sanitizeAnnotations(newM)
 
-    newM.setBody<Nothing>(f.createCodeSnippet(
+    newM.setBody<CtBodyHolder>(f.createCodeSnippet(
         buildString {
             if (origM.isStaticStructReturnValue()) {
                 append(createBodyStaticStructReturn(origM, params, defaults))
@@ -162,7 +170,7 @@ private fun createMethod(origM: CtMethod<*>, params: List<CtParameter<*>>, defau
 }
 
 private fun methodVecUnwrappedContent(method: CtMethod<*>, fromIndex: Int): String {
-    val newMethod = method.clone()
+    @Suppress("UNCHECKED_CAST") val newMethod = method.clone() as CtMethod<Any>
     val newParams = mutableListOf<CtParameter<*>>()
     val vecParamNames = mutableSetOf<String>()
 
@@ -170,22 +178,22 @@ private fun methodVecUnwrappedContent(method: CtMethod<*>, fromIndex: Int): Stri
         if ((p.isType("ImVec2") || p.isType("ImVec4")) && idx >= fromIndex) {
             vecParamNames += p.simpleName
 
-            val paramX = p.factory.createParameter<Nothing>()
-            paramX.addModifier<Nothing>(ModifierKind.FINAL)
-            paramX.setType<Nothing>(p.factory.createTypeParam("float"))
-            paramX.setSimpleName<Nothing>("${p.simpleName}X")
+            val paramX = p.factory.createParameter<Any>()
+            paramX.addModifier<CtModifiable>(ModifierKind.FINAL)
+            paramX.setType<CtTypedElement<Any>>(p.factory.createTypeParam("float"))
+            paramX.setSimpleName<CtNamedElement>("${p.simpleName}X")
 
             val paramY = paramX.clone()
-            paramY.setSimpleName<Nothing>("${p.simpleName}Y")
+            paramY.setSimpleName<CtNamedElement>("${p.simpleName}Y")
 
             newParams += paramX
             newParams += paramY
 
             if (p.isType("ImVec4")) {
                 val paramZ = paramX.clone()
-                paramZ.setSimpleName<Nothing>("${p.simpleName}Z")
+                paramZ.setSimpleName<CtNamedElement>("${p.simpleName}Z")
                 val paramW = paramX.clone()
-                paramW.setSimpleName<Nothing>("${p.simpleName}W")
+                paramW.setSimpleName<CtNamedElement>("${p.simpleName}W")
 
                 newParams += paramZ
                 newParams += paramW
@@ -194,7 +202,7 @@ private fun methodVecUnwrappedContent(method: CtMethod<*>, fromIndex: Int): Stri
             getJDoc(newMethod)?.let { jDoc ->
                 val tagIdx = jDoc.tags.indexOfFirst { it.param == p.simpleName }
                 if (tagIdx != -1) {
-                    jDoc.removeTag<Nothing>(tagIdx)
+                    jDoc.removeTag<CtJavaDoc>(tagIdx)
                 }
             }
         } else {
@@ -202,7 +210,7 @@ private fun methodVecUnwrappedContent(method: CtMethod<*>, fromIndex: Int): Stri
         }
     }
 
-    newMethod.setParameters<Nothing>(newParams)
+    newMethod.setParameters<CtMethod<Any>>(newParams)
 
     val mContentOrig = method.prettyprint()
     val mContent = newMethod.prettyprint().let {
@@ -222,7 +230,7 @@ private fun methodVecUnwrappedContent(method: CtMethod<*>, fromIndex: Int): Stri
 }
 
 private fun methodRectUnwrappedContent(method: CtMethod<*>, fromIndex: Int): String {
-    val newMethod = method.clone()
+    @Suppress("UNCHECKED_CAST") val newMethod = method.clone() as CtMethod<Any>
     val newParams = mutableListOf<CtParameter<*>>()
     val paramNames = mutableSetOf<String>()
 
@@ -230,21 +238,21 @@ private fun methodRectUnwrappedContent(method: CtMethod<*>, fromIndex: Int): Str
         if (p.isType("ImRect") && idx >= fromIndex) {
             paramNames += p.simpleName
 
-            val paramMinX = p.factory.createParameter<Nothing>()
-            paramMinX.addModifier<Nothing>(ModifierKind.FINAL)
-            paramMinX.setType<Nothing>(p.factory.createTypeParam("float"))
-            paramMinX.setSimpleName<Nothing>("${p.simpleName}MinX")
+            val paramMinX = p.factory.createParameter<Any>()
+            paramMinX.addModifier<CtModifiable>(ModifierKind.FINAL)
+            paramMinX.setType<CtTypedElement<Any>>(p.factory.createTypeParam("float"))
+            paramMinX.setSimpleName<CtNamedElement>("${p.simpleName}MinX")
 
             val paramMinY = paramMinX.clone()
-            paramMinY.setSimpleName<Nothing>("${p.simpleName}MinY")
+            paramMinY.setSimpleName<CtNamedElement>("${p.simpleName}MinY")
 
             newParams += paramMinX
             newParams += paramMinY
 
             val paramMaxX = paramMinX.clone()
-            paramMaxX.setSimpleName<Nothing>("${p.simpleName}MaxX")
+            paramMaxX.setSimpleName<CtNamedElement>("${p.simpleName}MaxX")
             val paramMaxY = paramMinX.clone()
-            paramMaxY.setSimpleName<Nothing>("${p.simpleName}MaxY")
+            paramMaxY.setSimpleName<CtNamedElement>("${p.simpleName}MaxY")
 
             newParams += paramMaxX
             newParams += paramMaxY
@@ -253,7 +261,7 @@ private fun methodRectUnwrappedContent(method: CtMethod<*>, fromIndex: Int): Str
         }
     }
 
-    newMethod.setParameters<Nothing>(newParams)
+    newMethod.setParameters<CtMethod<Any>>(newParams)
 
     val mContentOrig = method.prettyprint()
     val mContent = newMethod.prettyprint().let {
@@ -275,7 +283,7 @@ private fun methodRectUnwrappedContent(method: CtMethod<*>, fromIndex: Int): Str
 }
 
 private fun methodPlotPointUnwrappedContent(method: CtMethod<*>, fromIndex: Int): String {
-    val newMethod = method.clone()
+    @Suppress("UNCHECKED_CAST") val newMethod = method.clone() as CtMethod<Any>
     val newParams = mutableListOf<CtParameter<*>>()
     val paramNames = mutableSetOf<String>()
 
@@ -283,13 +291,13 @@ private fun methodPlotPointUnwrappedContent(method: CtMethod<*>, fromIndex: Int)
         if (p.isType("ImPlotPoint") && idx >= fromIndex) {
             paramNames += p.simpleName
 
-            val paramX = p.factory.createParameter<Nothing>()
-            paramX.addModifier<Nothing>(ModifierKind.FINAL)
-            paramX.setType<Nothing>(p.factory.createTypeParam("double"))
-            paramX.setSimpleName<Nothing>("${p.simpleName}X")
+            val paramX = p.factory.createParameter<Any>()
+            paramX.addModifier<CtModifiable>(ModifierKind.FINAL)
+            paramX.setType<CtTypedElement<Any>>(p.factory.createTypeParam("double"))
+            paramX.setSimpleName<CtNamedElement>("${p.simpleName}X")
 
             val paramY = paramX.clone()
-            paramY.setSimpleName<Nothing>("${p.simpleName}Y")
+            paramY.setSimpleName<CtNamedElement>("${p.simpleName}Y")
 
             newParams += paramX
             newParams += paramY
@@ -298,7 +306,7 @@ private fun methodPlotPointUnwrappedContent(method: CtMethod<*>, fromIndex: Int)
         }
     }
 
-    newMethod.setParameters<Nothing>(newParams)
+    newMethod.setParameters<CtMethod<Any>>(newParams)
 
     val mContentOrig = method.prettyprint()
     val mContent = newMethod.prettyprint().let {
@@ -317,7 +325,7 @@ private fun methodPlotPointUnwrappedContent(method: CtMethod<*>, fromIndex: Int)
 }
 
 private fun methodPlotRangeUnwrappedContent(method: CtMethod<*>, fromIndex: Int): String {
-    val newMethod = method.clone()
+    @Suppress("UNCHECKED_CAST") val newMethod = method.clone() as CtMethod<Any>
     val newParams = mutableListOf<CtParameter<*>>()
     val paramNames = mutableSetOf<String>()
 
@@ -325,13 +333,13 @@ private fun methodPlotRangeUnwrappedContent(method: CtMethod<*>, fromIndex: Int)
         if (p.isType("ImPlotRange") && idx >= fromIndex) {
             paramNames += p.simpleName
 
-            val paramX = p.factory.createParameter<Nothing>()
-            paramX.addModifier<Nothing>(ModifierKind.FINAL)
-            paramX.setType<Nothing>(p.factory.createTypeParam("double"))
-            paramX.setSimpleName<Nothing>("${p.simpleName}Min")
+            val paramX = p.factory.createParameter<Any>()
+            paramX.addModifier<CtModifiable>(ModifierKind.FINAL)
+            paramX.setType<CtTypedElement<Any>>(p.factory.createTypeParam("double"))
+            paramX.setSimpleName<CtNamedElement>("${p.simpleName}Min")
 
             val paramY = paramX.clone()
-            paramY.setSimpleName<Nothing>("${p.simpleName}Max")
+            paramY.setSimpleName<CtNamedElement>("${p.simpleName}Max")
 
             newParams += paramX
             newParams += paramY
@@ -340,7 +348,7 @@ private fun methodPlotRangeUnwrappedContent(method: CtMethod<*>, fromIndex: Int)
         }
     }
 
-    newMethod.setParameters<Nothing>(newParams)
+    newMethod.setParameters<CtMethod<Any>>(newParams)
 
     val mContentOrig = method.prettyprint()
     val mContent = newMethod.prettyprint().let {
@@ -359,7 +367,7 @@ private fun methodPlotRangeUnwrappedContent(method: CtMethod<*>, fromIndex: Int)
 }
 
 private fun methodPlotLimitsUnwrappedContent(method: CtMethod<*>, fromIndex: Int): String {
-    val newMethod = method.clone()
+    @Suppress("UNCHECKED_CAST") val newMethod = method.clone() as CtMethod<Any>
     val newParams = mutableListOf<CtParameter<*>>()
     val paramNames = mutableSetOf<String>()
 
@@ -367,21 +375,21 @@ private fun methodPlotLimitsUnwrappedContent(method: CtMethod<*>, fromIndex: Int
         if (p.isType("ImPlotRect") && idx >= fromIndex) {
             paramNames += p.simpleName
 
-            val paramMinX = p.factory.createParameter<Nothing>()
-            paramMinX.addModifier<Nothing>(ModifierKind.FINAL)
-            paramMinX.setType<Nothing>(p.factory.createTypeParam("double"))
-            paramMinX.setSimpleName<Nothing>("${p.simpleName}MinX")
+            val paramMinX = p.factory.createParameter<Any>()
+            paramMinX.addModifier<CtModifiable>(ModifierKind.FINAL)
+            paramMinX.setType<CtTypedElement<Any>>(p.factory.createTypeParam("double"))
+            paramMinX.setSimpleName<CtNamedElement>("${p.simpleName}MinX")
 
             val paramMinY = paramMinX.clone()
-            paramMinY.setSimpleName<Nothing>("${p.simpleName}MinY")
+            paramMinY.setSimpleName<CtNamedElement>("${p.simpleName}MinY")
 
             newParams += paramMinX
             newParams += paramMinY
 
             val paramMaxX = paramMinX.clone()
-            paramMaxX.setSimpleName<Nothing>("${p.simpleName}MaxX")
+            paramMaxX.setSimpleName<CtNamedElement>("${p.simpleName}MaxX")
             val paramMaxY = paramMinX.clone()
-            paramMaxY.setSimpleName<Nothing>("${p.simpleName}MaxY")
+            paramMaxY.setSimpleName<CtNamedElement>("${p.simpleName}MaxY")
 
             newParams += paramMaxX
             newParams += paramMaxY
@@ -390,7 +398,7 @@ private fun methodPlotLimitsUnwrappedContent(method: CtMethod<*>, fromIndex: Int
         }
     }
 
-    newMethod.setParameters<Nothing>(newParams)
+    newMethod.setParameters<CtMethod<Any>>(newParams)
 
     val mContentOrig = method.prettyprint()
     val mContent = newMethod.prettyprint().let {
@@ -412,7 +420,7 @@ private fun methodPlotLimitsUnwrappedContent(method: CtMethod<*>, fromIndex: Int
 }
 
 private fun methodCoordinatesUnwrappedContent(method: CtMethod<*>, fromIndex: Int): String {
-    val newMethod = method.clone()
+    @Suppress("UNCHECKED_CAST") val newMethod = method.clone() as CtMethod<Any>
     val newParams = mutableListOf<CtParameter<*>>()
     val paramNames = mutableSetOf<String>()
 
@@ -420,13 +428,13 @@ private fun methodCoordinatesUnwrappedContent(method: CtMethod<*>, fromIndex: In
         if (p.isType("TextEditorCoordinates") && idx >= fromIndex) {
             paramNames += p.simpleName
 
-            val paramX = p.factory.createParameter<Nothing>()
-            paramX.addModifier<Nothing>(ModifierKind.FINAL)
-            paramX.setType<Nothing>(p.factory.createTypeParam("int"))
-            paramX.setSimpleName<Nothing>("${p.simpleName}Line")
+            val paramX = p.factory.createParameter<Any>()
+            paramX.addModifier<CtModifiable>(ModifierKind.FINAL)
+            paramX.setType<CtTypedElement<Any>>(p.factory.createTypeParam("int"))
+            paramX.setSimpleName<CtNamedElement>("${p.simpleName}Line")
 
             val paramY = paramX.clone()
-            paramY.setSimpleName<Nothing>("${p.simpleName}Column")
+            paramY.setSimpleName<CtNamedElement>("${p.simpleName}Column")
 
             newParams += paramX
             newParams += paramY
@@ -435,7 +443,7 @@ private fun methodCoordinatesUnwrappedContent(method: CtMethod<*>, fromIndex: In
         }
     }
 
-    newMethod.setParameters<Nothing>(newParams)
+    newMethod.setParameters<CtMethod<Any>>(newParams)
 
     val mContentOrig = method.prettyprint()
     val mContent = newMethod.prettyprint().let {
@@ -458,14 +466,14 @@ private fun createMethodDstReturn(
     params: List<CtParameter<*>>,
     defaults: IntArray
 ): CtMethod<*> {
-    val mNew = mOrig.clone()
-    mNew.setType<Nothing>(mNew.factory.createTypeParam("void"))
-    mNew.addParameterAt<Nothing>(0, mOrig.factory.createParameter<Nothing>().apply {
-        addModifier<Nothing>(ModifierKind.FINAL)
-        setType<Nothing>(factory.createTypeParam(mOrig.type.simpleName))
-        setSimpleName<Nothing>("dst")
+    @Suppress("UNCHECKED_CAST") val mNew = mOrig.clone() as CtMethod<Any>
+    mNew.setType<CtTypedElement<Any>>(mNew.factory.createTypeParam("void"))
+    mNew.addParameterAt<CtMethod<Any>>(0, mOrig.factory.createParameter<Any>().apply {
+        addModifier<CtModifiable>(ModifierKind.FINAL)
+        setType<CtTypedElement<Any>>(factory.createTypeParam(mOrig.type.simpleName))
+        setSimpleName<CtNamedElement>("dst")
     })
-    mNew.setBody<Nothing>(mOrig.factory.createCodeSnippet(
+    mNew.setBody<CtBodyHolder>(mOrig.factory.createCodeSnippet(
         buildString {
             append("${mOrig.getJniName()}(dst")
             joinInBodyParams(params, defaults).let {
@@ -485,11 +493,11 @@ private fun createMethodVecValueReturn(
     params: List<CtParameter<*>>,
     defaults: IntArray
 ): CtMethod<*> {
-    val mNew = mOrig.clone()
-    mNew.setSimpleName<Nothing>(mOrig.getName() + vecVal.capitalize())
-    mNew.type.setSimpleName<Nothing>("float")
-    mNew.setBody<Nothing>(mOrig.factory.createCodeSnippetStatement().apply {
-        setValue<Nothing>(buildString {
+    @Suppress("UNCHECKED_CAST") val mNew = mOrig.clone() as CtMethod<Any>
+    mNew.setSimpleName<CtNamedElement>(mOrig.getName() + vecVal.capitalize())
+    mNew.type.setSimpleName<CtReference>("float")
+    mNew.setBody<CtBodyHolder>(mOrig.factory.createCodeSnippetStatement().apply {
+        setValue<CtCodeSnippet>(buildString {
             append("return ")
             append("${mNew.getJniName()}(")
             append(joinInBodyParams(params, defaults))
@@ -580,13 +588,13 @@ private fun CtMethod<*>.isStaticStructReturnValue(): Boolean {
 private fun createFieldGetContent(field: CtField<*>): List<String> {
     val f = field.factory
 
-    val getAccessor = f.createMethod<Nothing>()
-    getAccessor.setParent<Nothing>(field.parent)
-    getAccessor.setSimpleName<Nothing>("get${field.simpleName}")
-    getAccessor.setType<Nothing>(field.type)
-    getAccessor.addModifier<Nothing>(ModifierKind.PUBLIC)
-    getAccessor.setDocComment<Nothing>(field.docComment)
-    getAccessor.setAnnotations<Nothing>(field.annotations)
+    val getAccessor = f.createMethod<Any>()
+    getAccessor.setParent<CtElement>(field.parent)
+    getAccessor.setSimpleName<CtNamedElement>("get${field.simpleName}")
+    getAccessor.setType<CtTypedElement<Any>>(field.type)
+    getAccessor.addModifier<CtModifiable>(ModifierKind.PUBLIC)
+    getAccessor.setDocComment<CtElement>(field.docComment)
+    getAccessor.setAnnotations<CtElement>(field.annotations)
 
     val result = jvmMethodContent(getAccessor).toMutableList()
 
@@ -594,10 +602,10 @@ private fun createFieldGetContent(field: CtField<*>): List<String> {
         when (val arrayType = field.getAnnotation(A_NAME_TYPE_ARRAY)!!.getValueAsString(A_VALUE_TYPE)) {
             "boolean", "short", "int", "float", "double", "long" -> {
                 val newM = getAccessor.clone()
-                newM.setType<Nothing>(f.createTypeParam(arrayType))
-                newM.addParameter<Nothing>(f.createParameter<Nothing>().apply {
-                    setType<Nothing>(f.createTypeParam("int"))
-                    setSimpleName<Nothing>("idx")
+                newM.setType<CtTypedElement<Any>>(f.createTypeParam(arrayType))
+                newM.addParameter<CtMethod<Any>>(f.createParameter<Any>().apply {
+                    setType<CtTypedElement<Any>>(f.createTypeParam("int"))
+                    setSimpleName<CtNamedElement>("idx")
                 })
                 result += jvmMethodContent(newM)
             }
@@ -610,17 +618,17 @@ private fun createFieldGetContent(field: CtField<*>): List<String> {
 private fun createFieldSetContent(field: CtField<*>): List<String> {
     val f = field.factory
 
-    val setAccessor = f.createMethod<Nothing>()
-    setAccessor.setType<Nothing>(f.createTypeParam("void"))
-    setAccessor.setParent<Nothing>(field.parent)
-    setAccessor.setSimpleName<Nothing>("set${field.simpleName}")
-    setAccessor.addModifier<Nothing>(ModifierKind.PUBLIC)
-    setAccessor.setDocComment<Nothing>(field.docComment)
-    setAccessor.setAnnotations<Nothing>(field.annotations)
+    val setAccessor = f.createMethod<Any>()
+    setAccessor.setType<CtTypedElement<Any>>(f.createTypeParam("void"))
+    setAccessor.setParent<CtElement>(field.parent)
+    setAccessor.setSimpleName<CtNamedElement>("set${field.simpleName}")
+    setAccessor.addModifier<CtModifiable>(ModifierKind.PUBLIC)
+    setAccessor.setDocComment<CtElement>(field.docComment)
+    setAccessor.setAnnotations<CtElement>(field.annotations)
 
-    val valueParam = f.createParameter<Nothing>().apply {
-        setType<Nothing>(field.type)
-        setSimpleName<Nothing>("value")
+    val valueParam = f.createParameter<Any>().apply {
+        setType<CtTypedElement<Any>>(field.type)
+        setSimpleName<CtNamedElement>("value")
     }
 
     val result = transformMethodToContent(setAccessor, listOf(valueParam)).toMutableList()
@@ -630,13 +638,13 @@ private fun createFieldSetContent(field: CtField<*>): List<String> {
             "boolean", "short", "int", "float", "double", "long" -> {
                 val newM = setAccessor.clone()
                 newM.parameters.clear()
-                newM.addParameter<Nothing>(f.createParameter<Nothing>().apply {
-                    setType<Nothing>(f.createTypeParam("int"))
-                    setSimpleName<Nothing>("idx")
+                newM.addParameter<CtMethod<Any>>(f.createParameter<Any>().apply {
+                    setType<CtTypedElement<Any>>(f.createTypeParam("int"))
+                    setSimpleName<CtNamedElement>("idx")
                 })
-                newM.addParameter<Nothing>(f.createParameter<Nothing>().apply {
-                    setType<Nothing>(f.createTypeParam(arrayType))
-                    setSimpleName<Nothing>("value")
+                newM.addParameter<CtMethod<Any>>(f.createParameter<Any>().apply {
+                    setType<CtTypedElement<Any>>(f.createTypeParam(arrayType))
+                    setSimpleName<CtNamedElement>("value")
                 })
                 result += transformMethodToContent(newM, newM.parameters)
             }
@@ -647,26 +655,26 @@ private fun createFieldSetContent(field: CtField<*>): List<String> {
 }
 
 private fun createFieldFlagUtils(field: CtField<*>): List<String> {
-    val mAdd = field.factory.createMethod<Nothing>()
-    mAdd.setSimpleName<Nothing>("add${field.simpleName}")
-    mAdd.setType<Nothing>(field.factory.createTypeParam("void"))
-    mAdd.addModifier<Nothing>(ModifierKind.PUBLIC)
-    mAdd.setDocComment<Nothing>(field.docComment)
-    mAdd.addParameter<Nothing>(field.factory.createParameter<Nothing>().apply {
-        addModifier<Nothing>(ModifierKind.FINAL)
-        setType<Nothing>(field.factory.createTypeParam("int"))
-        setSimpleName<Nothing>("flags")
+    val mAdd = field.factory.createMethod<Any>()
+    mAdd.setSimpleName<CtNamedElement>("add${field.simpleName}")
+    mAdd.setType<CtTypedElement<Any>>(field.factory.createTypeParam("void"))
+    mAdd.addModifier<CtModifiable>(ModifierKind.PUBLIC)
+    mAdd.setDocComment<CtElement>(field.docComment)
+    mAdd.addParameter<CtMethod<Any>>(field.factory.createParameter<Any>().apply {
+        addModifier<CtModifiable>(ModifierKind.FINAL)
+        setType<CtTypedElement<Any>>(field.factory.createTypeParam("int"))
+        setSimpleName<CtNamedElement>("flags")
     })
-    mAdd.setBody<Nothing>(field.factory.createCodeSnippet("set${field.simpleName}(get${field.simpleName}() | flags)"))
+    mAdd.setBody<CtBodyHolder>(field.factory.createCodeSnippet("set${field.simpleName}(get${field.simpleName}() | flags)"))
 
     val mRemove = mAdd.clone()
-    mRemove.setSimpleName<Nothing>("remove${field.simpleName}")
-    mRemove.setBody<Nothing>(field.factory.createCodeSnippet("set${field.simpleName}(get${field.simpleName}() & ~(flags))"))
+    mRemove.setSimpleName<CtNamedElement>("remove${field.simpleName}")
+    mRemove.setBody<CtBodyHolder>(field.factory.createCodeSnippet("set${field.simpleName}(get${field.simpleName}() & ~(flags))"))
 
     val mHas = mAdd.clone()
-    mHas.setSimpleName<Nothing>("has${field.simpleName}")
-    mHas.setType<Nothing>(field.factory.createTypeParam("boolean"))
-    mHas.setBody<Nothing>(field.factory.createCodeSnippet("return (get${field.simpleName}() & flags) != 0"))
+    mHas.setSimpleName<CtNamedElement>("has${field.simpleName}")
+    mHas.setType<CtTypedElement<Any>>(field.factory.createTypeParam("boolean"))
+    mHas.setBody<CtBodyHolder>(field.factory.createCodeSnippet("return (get${field.simpleName}() & flags) != 0"))
 
     val utilMethods = mutableListOf<String>()
     val bindingFieldAnnotation = field.getAnnotation(A_NAME_BINDING_FIELD)
@@ -705,9 +713,9 @@ private fun getJDoc(method: CtMethod<*>): CtJavaDoc? {
 private fun sanitizeDocComment(method: CtMethod<*>) {
     val jDoc = getJDoc(method) ?: return
     val paramNames = method.parameters.map { it.simpleName }
-    jDoc.setTags<Nothing>(jDoc.tags.filter { it.type != CtJavaDocTag.TagType.PARAM || paramNames.contains(it.param) })
+    jDoc.setTags<CtJavaDoc>(jDoc.tags.filter { it.type != CtJavaDocTag.TagType.PARAM || paramNames.contains(it.param) })
 }
 
 private fun sanitizeAnnotations(method: CtMethod<*>) {
-    method.setAnnotations<Nothing>(method.annotations.filter { !CLEANUP_ANNOTATIONS_LIST.contains(it.name) })
+    method.setAnnotations<CtElement>(method.annotations.filter { !CLEANUP_ANNOTATIONS_LIST.contains(it.name) })
 }

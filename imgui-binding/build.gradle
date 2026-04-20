@@ -10,8 +10,12 @@ plugins {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release.set(8)
 }
 
 dependencies {
@@ -51,10 +55,14 @@ jar {
     }
 }
 
+// Capture project.version at configuration time so the closure below does not
+// reference the Project model at execution time -- Gradle 9 configuration cache
+// requirement.
+def processVersion = project.version.toString()
 processResources {
     filesMatching('**/imgui-java.properties') {
         filter(ReplaceTokens, tokens: [
-                'version': version
+                'version': processVersion
         ])
     }
 }
