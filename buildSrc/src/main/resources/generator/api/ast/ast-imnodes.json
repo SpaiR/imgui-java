@@ -3,7 +3,7 @@
     "source" : "include/imnodes/imnodes.h",
     "hash" : "4ea12e1472e9f121b5084ac0b72237de",
     "url" : "https://github.com/Nelarius/imnodes",
-    "revision" : "8563e1655bd9bb1f249e6552cc6274d506ee788b"
+    "revision" : "b2ec254ce576ac3d42dfb7aef61deadbff8e7211"
   },
   "decls" : [ {
     "@type" : "AstEnumDecl",

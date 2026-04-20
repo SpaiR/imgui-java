@@ -26,4 +26,19 @@ public final class ImGuiKnobFlags {
      * Definition: {@code 1 << 3}
      */
     public static final int DragHorizontal = 8;
+
+    /**
+     * Definition: {@code 1 << 4}
+     */
+    public static final int DragVertical = 16;
+
+    /**
+     * Definition: {@code 1 << 5}
+     */
+    public static final int Logarithmic = 32;
+
+    /**
+     * Definition: {@code 1 << 6}
+     */
+    public static final int AlwaysClamp = 64;
 }

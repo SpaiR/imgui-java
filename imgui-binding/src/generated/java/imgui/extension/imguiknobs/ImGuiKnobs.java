@@ -438,7 +438,7 @@ public final class ImGuiKnobs {
     private static native boolean nKnob(String obj_label, float[] obj_pValue, float vMin, float vMax, int variant, float size, int flags, int steps); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pValue = obj_pValue == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_pValue, JNI_FALSE);
-        auto _result = ImGuiKnobs::Knob(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, 0, NULL, variant, size, flags, steps);
+        auto _result = ImGuiKnobs::Knob(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, 0, "%.3f", variant, size, flags, steps);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pValue != NULL) env->ReleasePrimitiveArrayCritical(obj_pValue, pValue, JNI_FALSE);
         return _result;
@@ -447,7 +447,7 @@ public final class ImGuiKnobs {
     private static native boolean nKnob(String obj_label, float[] obj_pValue, float vMin, float vMax, float speed, int variant, float size, int flags, int steps); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pValue = obj_pValue == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_pValue, JNI_FALSE);
-        auto _result = ImGuiKnobs::Knob(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, NULL, variant, size, flags, steps);
+        auto _result = ImGuiKnobs::Knob(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, "%.3f", variant, size, flags, steps);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pValue != NULL) env->ReleasePrimitiveArrayCritical(obj_pValue, pValue, JNI_FALSE);
         return _result;
@@ -456,7 +456,7 @@ public final class ImGuiKnobs {
     private static native boolean nKnob(String obj_label, float[] obj_pValue, float vMin, float vMax, float speed, float size, int flags, int steps); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pValue = obj_pValue == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_pValue, JNI_FALSE);
-        auto _result = ImGuiKnobs::Knob(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, NULL, ImGuiKnobVariant_Tick, size, flags, steps);
+        auto _result = ImGuiKnobs::Knob(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, "%.3f", ImGuiKnobVariant_Tick, size, flags, steps);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pValue != NULL) env->ReleasePrimitiveArrayCritical(obj_pValue, pValue, JNI_FALSE);
         return _result;
@@ -465,7 +465,7 @@ public final class ImGuiKnobs {
     private static native boolean nKnob(String obj_label, float[] obj_pValue, float vMin, float vMax, float speed, int flags, int steps); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pValue = obj_pValue == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_pValue, JNI_FALSE);
-        auto _result = ImGuiKnobs::Knob(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, NULL, ImGuiKnobVariant_Tick, 0, flags, steps);
+        auto _result = ImGuiKnobs::Knob(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, "%.3f", ImGuiKnobVariant_Tick, 0, flags, steps);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pValue != NULL) env->ReleasePrimitiveArrayCritical(obj_pValue, pValue, JNI_FALSE);
         return _result;
@@ -474,7 +474,7 @@ public final class ImGuiKnobs {
     private static native boolean nKnob(String obj_label, float[] obj_pValue, float vMin, float vMax, float speed, int steps); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pValue = obj_pValue == NULL ? NULL : (float*)env->GetPrimitiveArrayCritical(obj_pValue, JNI_FALSE);
-        auto _result = ImGuiKnobs::Knob(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, NULL, ImGuiKnobVariant_Tick, 0, 0, steps);
+        auto _result = ImGuiKnobs::Knob(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, "%.3f", ImGuiKnobVariant_Tick, 0, 0, steps);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pValue != NULL) env->ReleasePrimitiveArrayCritical(obj_pValue, pValue, JNI_FALSE);
         return _result;
@@ -936,7 +936,7 @@ public final class ImGuiKnobs {
     private static native boolean nKnob(String obj_label, int[] obj_pValue, int vMin, int vMax, int variant, float size, int flags, int steps); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pValue = obj_pValue == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_pValue, JNI_FALSE);
-        auto _result = ImGuiKnobs::KnobInt(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, 0, NULL, variant, size, flags, steps);
+        auto _result = ImGuiKnobs::KnobInt(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, 0, "%i", variant, size, flags, steps);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pValue != NULL) env->ReleasePrimitiveArrayCritical(obj_pValue, pValue, JNI_FALSE);
         return _result;
@@ -945,7 +945,7 @@ public final class ImGuiKnobs {
     private static native boolean nKnob(String obj_label, int[] obj_pValue, int vMin, int vMax, float speed, int variant, float size, int flags, int steps); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pValue = obj_pValue == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_pValue, JNI_FALSE);
-        auto _result = ImGuiKnobs::KnobInt(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, NULL, variant, size, flags, steps);
+        auto _result = ImGuiKnobs::KnobInt(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, "%i", variant, size, flags, steps);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pValue != NULL) env->ReleasePrimitiveArrayCritical(obj_pValue, pValue, JNI_FALSE);
         return _result;
@@ -954,7 +954,7 @@ public final class ImGuiKnobs {
     private static native boolean nKnob(String obj_label, int[] obj_pValue, int vMin, int vMax, float speed, float size, int flags, int steps); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pValue = obj_pValue == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_pValue, JNI_FALSE);
-        auto _result = ImGuiKnobs::KnobInt(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, NULL, ImGuiKnobVariant_Tick, size, flags, steps);
+        auto _result = ImGuiKnobs::KnobInt(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, "%i", ImGuiKnobVariant_Tick, size, flags, steps);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pValue != NULL) env->ReleasePrimitiveArrayCritical(obj_pValue, pValue, JNI_FALSE);
         return _result;
@@ -963,7 +963,7 @@ public final class ImGuiKnobs {
     private static native boolean nKnob(String obj_label, int[] obj_pValue, int vMin, int vMax, float speed, int flags, int steps); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pValue = obj_pValue == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_pValue, JNI_FALSE);
-        auto _result = ImGuiKnobs::KnobInt(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, NULL, ImGuiKnobVariant_Tick, 0, flags, steps);
+        auto _result = ImGuiKnobs::KnobInt(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, "%i", ImGuiKnobVariant_Tick, 0, flags, steps);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pValue != NULL) env->ReleasePrimitiveArrayCritical(obj_pValue, pValue, JNI_FALSE);
         return _result;
@@ -972,7 +972,7 @@ public final class ImGuiKnobs {
     private static native boolean nKnob(String obj_label, int[] obj_pValue, int vMin, int vMax, float speed, int steps); /*MANUAL
         auto label = obj_label == NULL ? NULL : (char*)env->GetStringUTFChars(obj_label, JNI_FALSE);
         auto pValue = obj_pValue == NULL ? NULL : (int*)env->GetPrimitiveArrayCritical(obj_pValue, JNI_FALSE);
-        auto _result = ImGuiKnobs::KnobInt(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, NULL, ImGuiKnobVariant_Tick, 0, 0, steps);
+        auto _result = ImGuiKnobs::KnobInt(label, (pValue != NULL ? &pValue[0] : NULL), vMin, vMax, speed, "%i", ImGuiKnobVariant_Tick, 0, 0, steps);
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
         if (pValue != NULL) env->ReleasePrimitiveArrayCritical(obj_pValue, pValue, JNI_FALSE);
         return _result;
