@@ -11,6 +11,6 @@ public final class ImGuiFreeTypeLoaderFlags {
     private ImGuiFreeTypeLoaderFlags() {
     }
 
-    @BindingAstEnum(file = "ast-imgui_freetype.json", qualType = "ImGuiFreeTypeLoaderFlags", sanitizeName = "ImGuiFreeTypeLoaderFlags_")
+    @BindingAstEnum(file = "ast-imgui_freetype.json", qualType = "ImGuiFreeTypeLoaderFlags_", sanitizeName = "ImGuiFreeTypeLoaderFlags_")
     public Void __;
 }
