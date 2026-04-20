@@ -39,7 +39,7 @@ public final class ImFont extends ImGuiStructDestroyable {
     */
 
     /**
-     * Font size passed to {@code AddFontXXX()}. Use for legacy code calling {@link imgui.ImGui#pushFont(ImFont)}
+     * Font size passed to {@code AddFontXXX()}. Use for legacy code calling {@link imgui.ImGui#pushFont(ImFont, float)}
      * that expected the original size (use {@code ImGui::GetFontBaked()} in new code).
      */
     @BindingField

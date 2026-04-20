@@ -2127,7 +2127,7 @@ public class ImGui {
     public static native void TableSetColumnEnabled(int columnN, boolean value);
 
     /**
-     * Return hovered column. return -1 when table is not hovered. return columns_count if the unused space at the right of visible columns is hovered. Can also use (TableGetColumnFlags() & ImGuiTableColumnFlags_IsHovered) instead.
+     * Return hovered column. return -1 when table is not hovered. return columns_count if the unused space at the right of visible columns is hovered. Can also use {@code (TableGetColumnFlags() & ImGuiTableColumnFlags_IsHovered)} instead.
      */
     @BindingMethod
     public static native int TableGetHoveredColumn();
@@ -2901,14 +2901,14 @@ public class ImGui {
     public static native ImVec2 GetMousePosOnOpeningCurrentPopup();
 
     /**
-     * Is mouse dragging? (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * Is mouse dragging? {@code (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)}
      */
     @BindingMethod
     public static native boolean IsMouseDragging(int button, @OptArg float lockThreshold);
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once {@code (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)}
      */
     @BindingMethod
     public static native ImVec2 GetMouseDragDelta(@OptArg final int button, @OptArg final float lockThreshold);
