@@ -524,10 +524,11 @@ public final class ImFontAtlas extends ImGuiStructDestroyable {
      */
     public native void setFreeTypeRenderer(boolean enabled); /*
         #ifdef IMGUI_ENABLE_FREETYPE
+        extern const ImFontLoader* ImFontAtlasGetFontLoaderForStbTruetype();
         if (enabled) {
-            THIS->FontBuilderIO = ImGuiFreeType::GetBuilderForFreeType();
+            THIS->SetFontLoader(ImGuiFreeType::GetFontLoader());
         } else {
-            THIS->FontBuilderIO = NULL;
+            THIS->SetFontLoader(ImFontAtlasGetFontLoaderForStbTruetype());
         }
         #endif
     */
