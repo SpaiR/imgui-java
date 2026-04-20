@@ -51,7 +51,7 @@ ae803d26bd4c8c5a57460147014c96013e8a77a6  imgui-binding/src/main/java/imgui/call
 7c055198ff09d4eeb92026aa998b1e8047160314  imgui-binding/src/main/java/imgui/extension/imguifiledialog/ImGuiFileDialog.java
 50188afc5a1f968fbad2bfe9c6bcc52cdf8b6e43  imgui-binding/src/main/java/imgui/extension/imguifiledialog/callback/ImGuiFileDialogPaneFun.java
 a8d4aad5a68e840967c030a4b66c3f5aaf0a4226  imgui-binding/src/main/java/imgui/extension/imguifiledialog/flag/ImGuiFileDialogFlags.java
-0878ea44efdc9a1aef2e122bba5d20721a593b39  imgui-binding/src/main/java/imgui/extension/imguiknobs/ImGuiKnobs.java
+61f18e3aa99649a6aab426a0e20b96d2038fd4ae  imgui-binding/src/main/java/imgui/extension/imguiknobs/ImGuiKnobs.java
 3cfa1faa0e7d5cd1a2191db03368d6f22b961084  imgui-binding/src/main/java/imgui/extension/imguiknobs/flag/ImGuiKnobFlags.java
 c554290feb55e66c195ce71ab8931182d6772f38  imgui-binding/src/main/java/imgui/extension/imguiknobs/flag/ImGuiKnobVariant.java
 e6069f1cdd8a662464e6d925ea249f950d1c370f  imgui-binding/src/main/java/imgui/extension/imguizmo/ImGuizmo.java
@@ -103,7 +103,7 @@ bf37050240506839f961bfe375f0029b32ffd531  imgui-binding/src/main/java/imgui/exte
 4b2cc972fd7cf2298392d154ab625dc2efcb2b7e  imgui-binding/src/main/java/imgui/extension/implot/flag/ImPlotStyleVar.java
 17d04019acb7d512e7ecb82b6bc7a9c43c574fc9  imgui-binding/src/main/java/imgui/extension/implot/flag/ImPlotTextFlags.java
 79ac3cf4e4835b0e9f9ecc209d4071e41b1f6991  imgui-binding/src/main/java/imgui/extension/memedit/MemoryEditor.java
-ac426fcc3cf377a4dd837588edd4aa67927644a7  imgui-binding/src/main/java/imgui/extension/memedit/MemoryEditorSizes.java
+8974fa8f66a2b9e0c4c0818794bb4b4a8fa31a32  imgui-binding/src/main/java/imgui/extension/memedit/MemoryEditorSizes.java
 2abfa9cbebbf902bb425ee4619f50699aabef7b4  imgui-binding/src/main/java/imgui/extension/nodeditor/NodeEditor.java
 2239b18ba1aedb7c301b2ca42f3946a4d24aa336  imgui-binding/src/main/java/imgui/extension/nodeditor/NodeEditorConfig.java
 be6d044a49743d72ad2a6eb80b855378001b1616  imgui-binding/src/main/java/imgui/extension/nodeditor/NodeEditorContext.java
@@ -245,8 +245,8 @@ da23c429ca5d187d897254dbfa8667a7bc42f03f  imgui-binding/src/generated/java/imgui
 5e85edbef6ed664a5c3d1c012fccc394a11a4db5  imgui-binding/src/generated/java/imgui/callback/ImPlatformFuncViewportSuppImVec2.java
 edf6350a062c899e4eea0b1e5cf40fc31b208265  imgui-binding/src/generated/java/imgui/callback/ImStrConsumer.java
 ae803d26bd4c8c5a57460147014c96013e8a77a6  imgui-binding/src/generated/java/imgui/callback/ImStrSupplier.java
-1f8b2381c537f8fcaf08bc160ad1b6b248de33e9  imgui-binding/src/generated/java/imgui/extension/imguiknobs/ImGuiKnobs.java
-5a5e95988bd0841716fe64b9fea1981e501c480a  imgui-binding/src/generated/java/imgui/extension/imguiknobs/flag/ImGuiKnobFlags.java
+1f3d1e08d7b67dad2d4a4e88b734e063d5ba5b0f  imgui-binding/src/generated/java/imgui/extension/imguiknobs/ImGuiKnobs.java
+d90e338326db3283187aeebdac3bbb0692f64809  imgui-binding/src/generated/java/imgui/extension/imguiknobs/flag/ImGuiKnobFlags.java
 51e9961520257e28e8956696916d18bba240a4a3  imgui-binding/src/generated/java/imgui/extension/imguiknobs/flag/ImGuiKnobVariant.java
 8edf7e57703f62ba396c48ceb37e81d452c31ac0  imgui-binding/src/generated/java/imgui/extension/imguizmo/ImGuizmo.java
 fecf429a0f9da3a39920afc44df5a2db2b034a26  imgui-binding/src/generated/java/imgui/extension/imguizmo/flag/Mode.java
@@ -297,7 +297,7 @@ a708d3ca7a7641abd9cc04c47365af4cdb992a78  imgui-binding/src/generated/java/imgui
 66818c363b7a4d0ee01a07f3d1df470d73ce5c8e  imgui-binding/src/generated/java/imgui/extension/implot/flag/ImPlotStyleVar.java
 7bde2a2ec1f53dcd57137a025f3667c09bcfafdb  imgui-binding/src/generated/java/imgui/extension/implot/flag/ImPlotTextFlags.java
 8329a2d969580286af07a8f676595eb90c8a7ac7  imgui-binding/src/generated/java/imgui/extension/memedit/MemoryEditor.java
-e3e4e33715f9d7234f60e3e0515d698f14db866d  imgui-binding/src/generated/java/imgui/extension/memedit/MemoryEditorSizes.java
+b447175033fe1944c56bcba8e8250a512613df4f  imgui-binding/src/generated/java/imgui/extension/memedit/MemoryEditorSizes.java
 7e05779b33619161d86aa4f0971af0147716a04e  imgui-binding/src/generated/java/imgui/extension/nodeditor/NodeEditor.java
 c79a57d14334f100a66ffdaed70c32f47d9b45f2  imgui-binding/src/generated/java/imgui/extension/nodeditor/NodeEditorConfig.java
 be6d044a49743d72ad2a6eb80b855378001b1616  imgui-binding/src/generated/java/imgui/extension/nodeditor/NodeEditorContext.java
