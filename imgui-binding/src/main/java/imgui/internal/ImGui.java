@@ -116,7 +116,7 @@ public final class ImGui extends imgui.ImGui {
     // Fonts, drawing
 
     @BindingMethod
-    public static native void SetCurrentFont(ImFont font);
+    public static native void SetCurrentFont(ImFont font, float fontSizeBeforeScaling, float fontSizeAfterScaling);
 
     @BindingMethod
     public static native ImFont GetDefaultFont();
@@ -138,7 +138,7 @@ public final class ImGui extends imgui.ImGui {
     public static native void UpdateInputEvents(boolean trickleFastInputs);
 
     @BindingMethod
-    public static native void UpdateHoveredWindowAndCaptureFlags();
+    public static native void UpdateHoveredWindowAndCaptureFlags(ImVec2 mousePos);
 
     @BindingMethod
     public static native void StartMouseMovingWindow(ImGuiWindow window);
@@ -264,8 +264,8 @@ public final class ImGui extends imgui.ImGui {
     @BindingMethod
     public static native boolean IsItemToggledSelection();
 
-    @BindingMethod
-    public static native ImVec2 GetContentRegionMaxAbs();
+    // GetContentRegionMaxAbs was removed from imgui_internal in imgui 1.92; the equivalent
+    // is now '(window->Pos - window->Scroll + window->ContentRegionRect.Max)'.
 
     // TODO: ShrinkWidths
 

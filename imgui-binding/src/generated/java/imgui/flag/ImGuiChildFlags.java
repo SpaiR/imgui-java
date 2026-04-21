@@ -26,7 +26,7 @@ public final class ImGuiChildFlags {
      *
      * <p>Definition: {@code 1 << 0}
      */
-    public static final int Border = 1;
+    public static final int Borders = 1;
 
     /**
      * Pad with style.WindowPadding even if no border are drawn (no padding by default for non-bordered child windows because it makes more sense)
@@ -78,7 +78,7 @@ public final class ImGuiChildFlags {
     public static final int FrameStyle = 128;
 
     /**
-     * Share focus scope, allow gamepad/keyboard navigation to cross over parent border to this child or between sibling child windows.
+     * [BETA] Share focus scope, allow keyboard/gamepad navigation to cross over parent border to this child or between sibling child windows.
      *
      * <p>Definition: {@code 1 << 8}
      */

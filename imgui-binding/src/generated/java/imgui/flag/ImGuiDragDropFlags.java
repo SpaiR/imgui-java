@@ -91,6 +91,13 @@ public final class ImGuiDragDropFlags {
     public static final int AcceptNoPreviewTooltip = 4096;
 
     /**
+     * Accepting item will render as if hovered. Useful for e.g. a Button() used as a drop target.
+     *
+     * <p>Definition: {@code 1 << 13}
+     */
+    public static final int AcceptDrawAsHovered = 8192;
+
+    /**
      * For peeking ahead and inspecting the payload before delivery.
      *
      * <p>Definition: {@code ImGuiDragDropFlags_AcceptBeforeDelivery | ImGuiDragDropFlags_AcceptNoDrawDefaultRect}

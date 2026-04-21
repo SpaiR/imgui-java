@@ -88,7 +88,7 @@ public final class ImGuiHoveredFlags {
     public static final int AllowWhenDisabled = 1024;
 
     /**
-     * IsItemHovered() only: Disable using gamepad/keyboard navigation state when active, always query mouse
+     * IsItemHovered() only: Disable using keyboard/gamepad navigation state when active, always query mouse
      *
      * <p>Definition: {@code 1 << 11}
      */

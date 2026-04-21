@@ -1,9 +1,9 @@
 {
   "info" : {
     "source" : "include/implot/implot.h",
-    "hash" : "26beb5cb000f8e7982b3d2e46693fc78",
+    "hash" : "12fbbac559018475f060bca386b45ed6",
     "url" : "https://github.com/epezent/implot.git",
-    "revision" : "1f7a8c0314d838a76695bccebe0f66864f507bc0"
+    "revision" : "4707b245fbcd69075b1a8a74fa8d2435561b3134"
   },
   "decls" : [ {
     "@type" : "AstRecordDecl",
@@ -76,7 +76,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImAxis_COUNT",
-      "docComment" : "bookeeping",
+      "docComment" : "bookkeeping",
       "qualType" : "ImAxis_",
       "order" : 6,
       "evaluatedValue" : 6
@@ -104,7 +104,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotFlags_NoTitle",
-      "docComment" : "the plot title will not be displayed (titles are also hidden if preceeded by double hashes, e.g. \"##MyPlot\")",
+      "docComment" : "the plot title will not be displayed (titles are also hidden if preceded by double hashes, e.g. \"##MyPlot\")",
       "qualType" : "ImPlotFlags_",
       "order" : 1,
       "value" : "1 << 0",
@@ -374,7 +374,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotSubplotFlags_NoTitle",
-      "docComment" : "the subplot title will not be displayed (titles are also hidden if preceeded by double hashes, e.g. \"##MySubplot\")",
+      "docComment" : "the subplot title will not be displayed (titles are also hidden if preceded by double hashes, e.g. \"##MySubplot\")",
       "qualType" : "ImPlotSubplotFlags_",
       "order" : 1,
       "value" : "1 << 0",
@@ -536,6 +536,14 @@
       "order" : 7,
       "value" : "1 << 6",
       "evaluatedValue" : 64
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotLegendFlags_Reverse",
+      "docComment" : "legend entries will be displayed in reverse order",
+      "qualType" : "ImPlotLegendFlags_",
+      "order" : 8,
+      "value" : "1 << 7",
+      "evaluatedValue" : 128
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -1053,6 +1061,14 @@
       "order" : 2,
       "value" : "1 << 11",
       "evaluatedValue" : 2048
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImPlotPieChartFlags_Exploding",
+      "docComment" : "Explode legend-hovered slice",
+      "qualType" : "ImPlotPieChartFlags_",
+      "order" : 3,
+      "value" : "1 << 12",
+      "evaluatedValue" : 4096
     } ]
   }, {
     "@type" : "AstEnumDecl",
@@ -1130,7 +1146,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotHistogramFlags_NoOutliers",
-      "docComment" : "exclude values outside the specifed histogram range from the count toward normalizing and cumulative counts",
+      "docComment" : "exclude values outside the specified histogram range from the count toward normalizing and cumulative counts",
       "qualType" : "ImPlotHistogramFlags_",
       "order" : 4,
       "value" : "1 << 13",
@@ -1376,7 +1392,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotCol_AxisText",
-      "docComment" : "axis label and tick lables color (defaults to ImGuiCol_Text)",
+      "docComment" : "axis label and tick labels color (defaults to ImGuiCol_Text)",
       "qualType" : "ImPlotCol_",
       "order" : 13,
       "evaluatedValue" : 13
@@ -1674,7 +1690,7 @@
     }, {
       "@type" : "AstEnumConstantDecl",
       "name" : "ImPlotScale_Log10",
-      "docComment" : "base 10 logartithmic scale",
+      "docComment" : "base 10 logarithmic scale",
       "qualType" : "ImPlotScale_",
       "order" : 2,
       "evaluatedValue" : 2
@@ -2481,7 +2497,7 @@
         "name" : "ctx",
         "qualType" : "ImPlotContext *",
         "desugaredQualType" : "ImPlotContext *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -2681,13 +2697,13 @@
         "name" : "row_ratios",
         "qualType" : "float *",
         "desugaredQualType" : "float *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "col_ratios",
         "qualType" : "float *",
         "desugaredQualType" : "float *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -2700,7 +2716,7 @@
             "text" : " EndSubplots() MUST be called! Call BeginPlot/EndPlot AT MOST [rows*cols]"
           }, {
             "@type" : "AstTextComment",
-            "text" : " times in  between the begining and end of the subplot context. Plots are"
+            "text" : " times in  between the beginning and end of the subplot context. Plots are"
           }, {
             "@type" : "AstTextComment",
             "text" : " added in row major order."
@@ -2867,7 +2883,7 @@
         "name" : "label",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "flags",
@@ -2991,7 +3007,7 @@
         "name" : "data",
         "qualType" : "void *",
         "desugaredQualType" : "void *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -3026,7 +3042,7 @@
         "name" : "labels",
         "qualType" : "const char *const *",
         "desugaredQualType" : "const char *const *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "keep_default",
@@ -3072,7 +3088,7 @@
         "name" : "labels",
         "qualType" : "const char *const *",
         "desugaredQualType" : "const char *const *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "keep_default",
@@ -3137,14 +3153,14 @@
         "name" : "data",
         "qualType" : "void *",
         "desugaredQualType" : "void *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Sets an axis' scale using user supplied forward and inverse transfroms."
+            "text" : " Sets an axis' scale using user supplied forward and inverse transforms."
           } ]
         } ]
       } ]
@@ -3698,7 +3714,7 @@
         "desugaredQualType" : "const char *"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "user_texture_id",
+        "name" : "tex_ref",
         "qualType" : "int",
         "desugaredQualType" : "int"
       }, {
@@ -3735,15 +3751,6 @@
         "qualType" : "ImPlotImageFlags",
         "desugaredQualType" : "int",
         "defaultValue" : "0"
-      }, {
-        "@type" : "AstFullComment",
-        "decls" : [ {
-          "@type" : "AstParagraphComment",
-          "decls" : [ {
-            "@type" : "AstTextComment",
-            "text" : " Plots an axis-aligned image. #bounds_min/bounds_max are in plot coordinates (y-up) and #uv0/uv1 are in texture coordinates (y-down)."
-          } ]
-        } ]
       } ]
     }, {
       "@type" : "AstFunctionDecl",
@@ -3852,19 +3859,19 @@
         "name" : "out_clicked",
         "qualType" : "bool *",
         "desugaredQualType" : "bool *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "out_hovered",
         "qualType" : "bool *",
         "desugaredQualType" : "bool *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "held",
+        "name" : "out_held",
         "qualType" : "bool *",
         "desugaredQualType" : "bool *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -3911,19 +3918,19 @@
         "name" : "out_clicked",
         "qualType" : "bool *",
         "desugaredQualType" : "bool *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "out_hovered",
         "qualType" : "bool *",
         "desugaredQualType" : "bool *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "held",
+        "name" : "out_held",
         "qualType" : "bool *",
         "desugaredQualType" : "bool *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -3970,19 +3977,19 @@
         "name" : "out_clicked",
         "qualType" : "bool *",
         "desugaredQualType" : "bool *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "out_hovered",
         "qualType" : "bool *",
         "desugaredQualType" : "bool *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "held",
+        "name" : "out_held",
         "qualType" : "bool *",
         "desugaredQualType" : "bool *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -4038,19 +4045,19 @@
         "name" : "out_clicked",
         "qualType" : "bool *",
         "desugaredQualType" : "bool *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "out_hovered",
         "qualType" : "bool *",
         "desugaredQualType" : "bool *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstParmVarDecl",
-        "name" : "held",
+        "name" : "out_held",
         "qualType" : "bool *",
         "desugaredQualType" : "bool *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -4340,7 +4347,7 @@
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Get the curent Plot size in pixels."
+            "text" : " Get the current Plot size in pixels."
           } ]
         } ]
       } ]
@@ -4781,7 +4788,7 @@
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Provides access to plot style structure for permanant modifications to colors, sizes, etc."
+            "text" : " Provides access to plot style structure for permanent modifications to colors, sizes, etc."
           } ]
         } ]
       } ]
@@ -4794,7 +4801,7 @@
         "name" : "dst",
         "qualType" : "ImPlotStyle *",
         "desugaredQualType" : "ImPlotStyle *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -4814,7 +4821,7 @@
         "name" : "dst",
         "qualType" : "ImPlotStyle *",
         "desugaredQualType" : "ImPlotStyle *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -4834,7 +4841,7 @@
         "name" : "dst",
         "qualType" : "ImPlotStyle *",
         "desugaredQualType" : "ImPlotStyle *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -4854,7 +4861,7 @@
         "name" : "dst",
         "qualType" : "ImPlotStyle *",
         "desugaredQualType" : "ImPlotStyle *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -5538,7 +5545,7 @@
         "name" : "out",
         "qualType" : "int *",
         "desugaredQualType" : "int *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstParmVarDecl",
         "name" : "format",
@@ -5588,7 +5595,7 @@
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Shows a button with a colormap gradient brackground."
+            "text" : " Shows a button with a colormap gradient background."
           } ]
         } ]
       } ]
@@ -5601,7 +5608,7 @@
         "name" : "plot_title_id",
         "qualType" : "const char *",
         "desugaredQualType" : "const char *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -5611,7 +5618,7 @@
             "text" : " When items in a plot sample their color from a colormap, the color is cached and does not change"
           }, {
             "@type" : "AstTextComment",
-            "text" : " unless explicitly overriden. Therefore, if you change the colormap after the item has already been plotted,"
+            "text" : " unless explicitly overridden. Therefore, if you change the colormap after the item has already been plotted,"
           }, {
             "@type" : "AstTextComment",
             "text" : " item colors will NOT update. If you need item colors to resample the new colormap, then use this"
@@ -5640,7 +5647,7 @@
           "@type" : "AstParagraphComment",
           "decls" : [ {
             "@type" : "AstTextComment",
-            "text" : " Provides access to input mapping structure for permanant modifications to controls for pan, select, etc."
+            "text" : " Provides access to input mapping structure for permanent modifications to controls for pan, select, etc."
           } ]
         } ]
       } ]
@@ -5653,7 +5660,7 @@
         "name" : "dst",
         "qualType" : "ImPlotInputMap *",
         "desugaredQualType" : "ImPlotInputMap *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -5673,7 +5680,7 @@
         "name" : "dst",
         "qualType" : "ImPlotInputMap *",
         "desugaredQualType" : "ImPlotInputMap *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -5837,7 +5844,7 @@
         "name" : "ref",
         "qualType" : "ImPlotStyle *",
         "desugaredQualType" : "ImPlotStyle *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -5871,7 +5878,7 @@
         "name" : "p_popen",
         "qualType" : "bool *",
         "desugaredQualType" : "bool *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -5891,7 +5898,7 @@
         "name" : "p_open",
         "qualType" : "bool *",
         "desugaredQualType" : "bool *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -5991,6 +5998,15 @@
         "qualType" : "const char *",
         "desugaredQualType" : "const char *",
         "defaultValue" : "IMPLOT_DEPRECATED"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " OBSOLETED in v0.13 -> PLANNED REMOVAL in v1.0"
+          } ]
+        } ]
       } ]
     } ]
   } ]

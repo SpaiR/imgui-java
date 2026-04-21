@@ -48,6 +48,21 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     public float DisabledAlpha;
 
     /**
+     * Main global scale factor applied on top of font size. Replaces {@code io.FontGlobalScale} (moved
+     * from io to style in imgui 1.92). May be set by application once or exposed to end-users.
+     */
+    @BindingField
+    public float FontScaleMain;
+
+    /**
+     * Additional global scale factor from viewport/monitor contents scale (since imgui 1.92). In the
+     * docking branch: when {@code io.ConfigDpiScaleFonts} is enabled, this is automatically overwritten
+     * when changing monitor DPI.
+     */
+    @BindingField
+    public float FontScaleDpi;
+
+    /**
      * Padding within a window.
      */
     @BindingField
@@ -206,11 +221,22 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     public float TabBorderSize;
 
     /**
-     * Minimum width for close button to appear on an unselected tab when hovered.
-     * Set to 0.0f to always show when hovering, set to FLT_MAX to never show close button unless selected.
+     * Minimum width for close button to appear on a selected tab when hovered.
+     * {@code -1}: always visible; {@code 0}: visible when hovered; {@code >0}: visible when hovered if
+     * tab width is at least this wide. (Since imgui 1.91.9 this field split into
+     * {@code TabCloseButtonMinWidthSelected} and {@code TabCloseButtonMinWidthUnselected}.)
      */
     @BindingField
-    public float TabMinWidthForCloseButton;
+    public float TabCloseButtonMinWidthSelected;
+
+    /**
+     * Minimum width for close button to appear on an unselected tab when hovered.
+     * {@code -1}: always visible; {@code 0}: visible when hovered; {@code >0}: visible when hovered if
+     * tab width is at least this wide; {@code FLT_MAX}: never show close button when unselected.
+     * (Since imgui 1.91.9; renamed from {@code TabMinWidthForCloseButton}.)
+     */
+    @BindingField
+    public float TabCloseButtonMinWidthUnselected;
 
     /**
      * Side of the color button in the ColorEdit4 widget (left/right). Defaults to ImGuiDir_Right.
@@ -230,6 +256,50 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
      */
     @BindingField
     public ImVec2 SelectableTextAlign;
+
+    /**
+     * Rounding of Image() calls (since imgui 1.92).
+     */
+    @BindingField
+    public float ImageRounding;
+
+    /**
+     * Thickness of border around Image() calls (since imgui 1.92).
+     */
+    @BindingField
+    public float ImageBorderSize;
+
+    /**
+     * Default way to draw lines connecting TreeNode hierarchy (since imgui 1.92).
+     * One of {@code ImGuiTreeNodeFlags_DrawLinesNone} / {@code DrawLinesFull} / {@code DrawLinesToNodes}.
+     */
+    @BindingField(isFlag = true)
+    public int TreeLinesFlags;
+
+    /**
+     * Thickness of outlines when using {@code ImGuiTreeNodeFlags_DrawLines} (since imgui 1.92).
+     */
+    @BindingField
+    public float TreeLinesSize;
+
+    /**
+     * Radius of lines connecting child nodes to the vertical line (since imgui 1.92).
+     */
+    @BindingField
+    public float TreeLinesRounding;
+
+    /**
+     * Size of R/G/B/A color markers for {@code ColorEdit4()} and for Drags/Sliders when using
+     * {@code ImGuiSliderFlags_ColorMarkers} (since imgui 1.92.7). Set to 0 to disable globally.
+     */
+    @BindingField
+    public float ColorMarkerSize;
+
+    /**
+     * Thickness of the separator line rendered by Separator() (new in imgui 1.92.7).
+     */
+    @BindingField
+    public float SeparatorSize;
 
     /**
      * Thickkness of border in SeparatorText()

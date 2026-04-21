@@ -25,4 +25,11 @@ public final class ImPlotPieChartFlags {
      * <p>Definition: {@code 1 << 11}
      */
     public static final int IgnoreHidden = 2048;
+
+    /**
+     * Explode legend-hovered slice
+     *
+     * <p>Definition: {@code 1 << 12}
+     */
+    public static final int Exploding = 4096;
 }

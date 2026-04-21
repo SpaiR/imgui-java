@@ -113,6 +113,13 @@ public final class ImGuiIO extends ImGuiStruct {
     public boolean ConfigDockingNoSplit;
 
     /**
+     * Simplified docking mode: disable window merging into the same tab-bar, so docking is limited to splitting windows.
+     * (new in imgui 1.92)
+     */
+    @BindingField
+    public boolean ConfigDockingNoDockingOver;
+
+    /**
      * Enable docking with holding Shift key (reduce visual noise, allows dropping in wider space)
      */
     @BindingField
@@ -152,6 +159,49 @@ public final class ImGuiIO extends ImGuiStruct {
      */
     @BindingField
     public boolean ConfigViewportsNoDefaultParent;
+
+    /**
+     * [EXPERIMENTAL] Automatically overwrite {@code style.FontScaleDpi} when monitor DPI changes.
+     * Scales fonts but NOT sizes/padding (for now). Docking branch only. (since imgui 1.92)
+     */
+    @BindingField
+    public boolean ConfigDpiScaleFonts;
+
+    /**
+     * [EXPERIMENTAL] Scale Dear ImGui and platform windows when monitor DPI changes. Docking branch only. (since imgui 1.92)
+     */
+    @BindingField
+    public boolean ConfigDpiScaleViewports;
+
+    /**
+     * Enable error recovery support. Some errors won't be detected and lead to direct crashes if recovery is disabled. (since imgui 1.91.6)
+     */
+    @BindingField
+    public boolean ConfigErrorRecovery;
+
+    /**
+     * Enable asserts on recoverable errors. By default calls IM_ASSERT() when returning from a failing IM_ASSERT_USER_ERROR(). (since imgui 1.91.6)
+     */
+    @BindingField
+    public boolean ConfigErrorRecoveryEnableAssert;
+
+    /**
+     * Enable debug log output on recoverable errors. (since imgui 1.91.6)
+     */
+    @BindingField
+    public boolean ConfigErrorRecoveryEnableDebugLog;
+
+    /**
+     * Enable tooltip on recoverable errors. The tooltip includes a way to enable asserts if they were disabled. (since imgui 1.91.6)
+     */
+    @BindingField
+    public boolean ConfigErrorRecoveryEnableTooltip;
+
+    /**
+     * Highlight and show an error message popup when multiple items have conflicting identifiers. (since imgui 1.91.0)
+     */
+    @BindingField
+    public boolean ConfigDebugHighlightIdConflicts;
 
     // Miscellaneous options
 
@@ -342,12 +392,8 @@ public final class ImGuiIO extends ImGuiStruct {
         THIS->GetClipboardTextFn = getClipboardTextStub;
     */
 
-    /**
-     * Optional: Platform locale
-     * [Experimental] Configure decimal point e.g. '.' or ',' useful for some languages (e.g. German), generally pulled from {@code *localeconv()->decimal_point}
-     */
-    @BindingField
-    public short PlatformLocaleDecimalPoint;
+    // PlatformLocaleDecimalPoint was removed from ImGuiIO in imgui 1.92; the equivalent is
+    // now 'style.LocaleDecimalPoint' (not currently surfaced in the Java binding).
 
     //------------------------------------------------------------------
     // Input - Call before calling NewFrame()
@@ -625,7 +671,7 @@ public final class ImGuiIO extends ImGuiStruct {
      * Key state for all known keys. Use IsKeyXXX() functions to access this.
      */
     @BindingField
-    @TypeArray(type = "ImGuiKeyData", size = "ImGuiKey_KeysData_SIZE")
+    @TypeArray(type = "ImGuiKeyData", size = "ImGuiKey_NamedKey_COUNT")
     public ImGuiKeyData[] KeysData;
 
     /**
@@ -762,17 +808,8 @@ public final class ImGuiIO extends ImGuiStruct {
     @BindingField(accessors = BindingField.Accessor.GETTER)
     public boolean AppAcceptingEvents;
 
-    /**
-     * -1: unknown, 0: using AddKeyEvent(), 1: using legacy io.KeysDown[]
-     */
-    @BindingField
-    public short BackendUsingLegacyKeyArrays;
-
-    /**
-     * 0: using AddKeyAnalogEvent(), 1: writing to legacy io.NavInputs[] directly
-     */
-    @BindingField
-    public boolean BackendUsingLegacyNavInputArray;
+    // BackendUsingLegacyKeyArrays and BackendUsingLegacyNavInputArray were removed from ImGuiIO
+    // in imgui 1.92 (the legacy code paths those fields gated are gone).
 
     /**
      * For AddInputCharacterUTF16

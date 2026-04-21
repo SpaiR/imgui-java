@@ -37,4 +37,18 @@ public final class ImGuiButtonFlags {
      * <p>Definition: {@code ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight | ImGuiButtonFlags_MouseButtonMiddle}
      */
     public static final int MouseButtonMask_ = 7;
+
+    /**
+     * InvisibleButton(): do not disable navigation/tabbing. Otherwise disabled by default.
+     *
+     * <p>Definition: {@code 1 << 3}
+     */
+    public static final int EnableNav = 8;
+
+    /**
+     * Hit testing will allow subsequent widgets to overlap this one. Require previous frame HoveredId to match before being usable. Shortcut to calling SetNextItemAllowOverlap().
+     *
+     * <p>Definition: {@code 1 << 12}
+     */
+    public static final int AllowOverlap = 4096;
 }

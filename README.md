@@ -316,13 +316,13 @@ If using Java 9 modules, ImGui Java has Automatic Module Names:
 All extensions are already included in the binding and can be used as it is.
 See examples in the `example` module for more information about how to use them.
 
-- [ImNodes](https://github.com/Nelarius/imnodes/tree/857cc860af05ac0f6a4039c2af33d982377b6cf4) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImNodes.java) <br>
+- [ImNodes](https://github.com/Nelarius/imnodes/tree/b2ec254ce576ac3d42dfb7aef61deadbff8e7211) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImNodes.java) <br>
   A small, dependency-free node editor for Dear ImGui. (A good choice for simple start.)
-- [imgui-node-editor](https://github.com/thedmd/imgui-node-editor/tree/687a72f940c76cf5064e13fe55fa0408c18fcbe4) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuiNodeEditor.java) <br>
+- [imgui-node-editor](https://github.com/thedmd/imgui-node-editor/tree/021aa0ea4da13fed864bafb2a92d4c5205076866) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuiNodeEditor.java) <br>
   Node Editor using ImGui. (A bit more complex than ImNodes, but has more features.)
 - [ImGuizmo](https://github.com/CedricGuillemet/ImGuizmo/tree/f7bbbe39971d9d45816417a70e9b53a0f698c56e) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuizmo.java) <br>
   Immediate mode 3D gizmo for scene editing and other controls based on Dear ImGui.
-- [implot](https://github.com/epezent/implot/tree/555ff688a8134bc0c602123149abe9c17d577475) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImPlot.java) <br>
+- [implot](https://github.com/epezent/implot/tree/v0.17) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImPlot.java) <br>
   Advanced 2D Plotting for Dear ImGui.  
 - [ImGuiColorTextEdit](https://github.com/BalazsJako/ImGuiColorTextEdit/tree/0a88824f7de8d0bd11d8419066caa7d3469395c4) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuiColorTextEdit.java) <br>
   Syntax highlighting text editor for ImGui.

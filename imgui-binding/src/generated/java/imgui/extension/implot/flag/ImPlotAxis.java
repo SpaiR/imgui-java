@@ -38,7 +38,7 @@ public final class ImPlotAxis {
     public static final int Y3 = 5;
 
     /**
-     * bookeeping
+     * bookkeeping
      */
     public static final int COUNT = 6;
 }

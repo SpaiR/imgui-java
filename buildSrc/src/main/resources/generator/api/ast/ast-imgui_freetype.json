@@ -1,9 +1,9 @@
 {
   "info" : {
     "source" : "include/imgui/misc/freetype/imgui_freetype.h",
-    "hash" : "b08898b2e1013c180b4ee5b2846938bf",
+    "hash" : "fda5fd9d652f6c2e7809442df117a02e",
     "url" : "https://github.com/ocornut/imgui",
-    "revision" : "3369cbd2776d7567ac198b1a3017a4fa2d547cc3"
+    "revision" : "b1bcb12a624af7509894c8e77dd47416997777fa"
   },
   "decls" : [ {
     "@type" : "AstRecordDecl",
@@ -20,113 +20,156 @@
     } ]
   }, {
     "@type" : "AstEnumDecl",
-    "name" : "ImGuiFreeTypeBuilderFlags",
+    "name" : "ImGuiFreeTypeLoaderFlags_",
     "decls" : [ {
-      "@type" : "AstFullComment",
-      "decls" : [ {
-        "@type" : "AstParagraphComment",
-        "decls" : [ {
-          "@type" : "AstTextComment",
-          "text" : " Hinting greatly impacts visuals (and glyph sizes)."
-        }, {
-          "@type" : "AstTextComment",
-          "text" : " - By default, hinting is enabled and the font's native hinter is preferred over the auto-hinter."
-        }, {
-          "@type" : "AstTextComment",
-          "text" : " - When disabled, FreeType generates blurrier glyphs, more or less matches the stb_truetype.h"
-        }, {
-          "@type" : "AstTextComment",
-          "text" : " - The Default hinting mode usually looks good, but may distort glyphs in an unusual way."
-        }, {
-          "@type" : "AstTextComment",
-          "text" : " - The Light hinting mode generates fuzzier glyphs but better matches Microsoft's rasterizer."
-        }, {
-          "@type" : "AstTextComment",
-          "text" : " You can set those flags globaly in ImFontAtlas::FontBuilderFlags"
-        }, {
-          "@type" : "AstTextComment",
-          "text" : " You can set those flags on a per font basis in ImFontConfig::FontBuilderFlags"
-        } ]
-      } ]
-    }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiFreeTypeBuilderFlags_NoHinting",
+      "name" : "ImGuiFreeTypeLoaderFlags_NoHinting",
       "docComment" : "Disable hinting. This generally generates 'blurrier' bitmap glyphs when the glyph are rendered in any of the anti-aliased modes.",
-      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
       "order" : 0,
       "value" : "1 << 0",
       "evaluatedValue" : 1
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiFreeTypeBuilderFlags_NoAutoHint",
+      "name" : "ImGuiFreeTypeLoaderFlags_NoAutoHint",
       "docComment" : "Disable auto-hinter.",
-      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
       "order" : 1,
       "value" : "1 << 1",
       "evaluatedValue" : 2
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiFreeTypeBuilderFlags_ForceAutoHint",
+      "name" : "ImGuiFreeTypeLoaderFlags_ForceAutoHint",
       "docComment" : "Indicates that the auto-hinter is preferred over the font's native hinter.",
-      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
       "order" : 2,
       "value" : "1 << 2",
       "evaluatedValue" : 4
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiFreeTypeBuilderFlags_LightHinting",
+      "name" : "ImGuiFreeTypeLoaderFlags_LightHinting",
       "docComment" : "A lighter hinting algorithm for gray-level modes. Many generated glyphs are fuzzier but better resemble their original shape. This is achieved by snapping glyphs to the pixel grid only vertically (Y-axis), as is done by Microsoft's ClearType and Adobe's proprietary font renderer. This preserves inter-glyph spacing in horizontal text.",
-      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
       "order" : 3,
       "value" : "1 << 3",
       "evaluatedValue" : 8
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiFreeTypeBuilderFlags_MonoHinting",
+      "name" : "ImGuiFreeTypeLoaderFlags_MonoHinting",
       "docComment" : "Strong hinting algorithm that should only be used for monochrome output.",
-      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
       "order" : 4,
       "value" : "1 << 4",
       "evaluatedValue" : 16
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiFreeTypeBuilderFlags_Bold",
+      "name" : "ImGuiFreeTypeLoaderFlags_Bold",
       "docComment" : "Styling: Should we artificially embolden the font?",
-      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
       "order" : 5,
       "value" : "1 << 5",
       "evaluatedValue" : 32
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiFreeTypeBuilderFlags_Oblique",
+      "name" : "ImGuiFreeTypeLoaderFlags_Oblique",
       "docComment" : "Styling: Should we slant the font, emulating italic style?",
-      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
       "order" : 6,
       "value" : "1 << 6",
       "evaluatedValue" : 64
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiFreeTypeBuilderFlags_Monochrome",
+      "name" : "ImGuiFreeTypeLoaderFlags_Monochrome",
       "docComment" : "Disable anti-aliasing. Combine this with MonoHinting for best results!",
-      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
       "order" : 7,
       "value" : "1 << 7",
       "evaluatedValue" : 128
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiFreeTypeBuilderFlags_LoadColor",
+      "name" : "ImGuiFreeTypeLoaderFlags_LoadColor",
       "docComment" : "Enable FreeType color-layered glyphs",
-      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
       "order" : 8,
       "value" : "1 << 8",
       "evaluatedValue" : 256
     }, {
       "@type" : "AstEnumConstantDecl",
-      "name" : "ImGuiFreeTypeBuilderFlags_Bitmap",
+      "name" : "ImGuiFreeTypeLoaderFlags_Bitmap",
       "docComment" : "Enable FreeType bitmap glyphs",
-      "qualType" : "ImGuiFreeTypeBuilderFlags",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
       "order" : 9,
       "value" : "1 << 9",
+      "evaluatedValue" : 512
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_NoHinting",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
+      "order" : 10,
+      "value" : "ImGuiFreeTypeLoaderFlags_NoHinting",
+      "evaluatedValue" : 1
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_NoAutoHint",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
+      "order" : 11,
+      "value" : "ImGuiFreeTypeLoaderFlags_NoAutoHint",
+      "evaluatedValue" : 2
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_ForceAutoHint",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
+      "order" : 12,
+      "value" : "ImGuiFreeTypeLoaderFlags_ForceAutoHint",
+      "evaluatedValue" : 4
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_LightHinting",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
+      "order" : 13,
+      "value" : "ImGuiFreeTypeLoaderFlags_LightHinting",
+      "evaluatedValue" : 8
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_MonoHinting",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
+      "order" : 14,
+      "value" : "ImGuiFreeTypeLoaderFlags_MonoHinting",
+      "evaluatedValue" : 16
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_Bold",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
+      "order" : 15,
+      "value" : "ImGuiFreeTypeLoaderFlags_Bold",
+      "evaluatedValue" : 32
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_Oblique",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
+      "order" : 16,
+      "value" : "ImGuiFreeTypeLoaderFlags_Oblique",
+      "evaluatedValue" : 64
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_Monochrome",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
+      "order" : 17,
+      "value" : "ImGuiFreeTypeLoaderFlags_Monochrome",
+      "evaluatedValue" : 128
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_LoadColor",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
+      "order" : 18,
+      "value" : "ImGuiFreeTypeLoaderFlags_LoadColor",
+      "evaluatedValue" : 256
+    }, {
+      "@type" : "AstEnumConstantDecl",
+      "name" : "ImGuiFreeTypeBuilderFlags_Bitmap",
+      "qualType" : "ImGuiFreeTypeLoaderFlags_",
+      "order" : 19,
+      "value" : "ImGuiFreeTypeLoaderFlags_Bitmap",
       "evaluatedValue" : 512
     } ]
   }, {
@@ -151,7 +194,7 @@
         "name" : "user_data",
         "qualType" : "void *",
         "desugaredQualType" : "void *",
-        "defaultValue" : "="
+        "defaultValue" : "nullptr"
       }, {
         "@type" : "AstFullComment",
         "decls" : [ {
@@ -162,6 +205,25 @@
           }, {
             "@type" : "AstTextComment",
             "text" : " However, as FreeType does lots of allocations we provide a way for the user to redirect it to a separate memory heap if desired."
+          } ]
+        } ]
+      } ]
+    }, {
+      "@type" : "AstFunctionDecl",
+      "name" : "DebugEditFontLoaderFlags",
+      "resultType" : "int",
+      "decls" : [ {
+        "@type" : "AstParmVarDecl",
+        "name" : "p_font_loader_flags",
+        "qualType" : "ImGuiFreeTypeLoaderFlags *",
+        "desugaredQualType" : "ImGuiFreeTypeLoaderFlags *"
+      }, {
+        "@type" : "AstFullComment",
+        "decls" : [ {
+          "@type" : "AstParagraphComment",
+          "decls" : [ {
+            "@type" : "AstTextComment",
+            "text" : " Display UI to edit ImFontAtlas::FontLoaderFlags (shared) or ImFontConfig::FontLoaderFlags (single source)"
           } ]
         } ]
       } ]

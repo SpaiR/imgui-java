@@ -28,7 +28,7 @@ public final class ImGuiBackendFlags {
     public static final int HasMouseCursors = 2;
 
     /**
-     * Backend Platform supports io.WantSetMousePos requests to reposition the OS mouse position (only used if ImGuiConfigFlags_NavEnableSetMousePos is set).
+     * Backend Platform supports io.WantSetMousePos requests to reposition the OS mouse position (only used if io.ConfigNavMoveSetMousePos is set).
      *
      * <p>Definition: {@code 1 << 2}
      */
@@ -42,23 +42,37 @@ public final class ImGuiBackendFlags {
     public static final int RendererHasVtxOffset = 8;
 
     /**
-     * Backend Platform supports multiple viewports.
+     * Backend Renderer supports ImTextureData requests to create/update/destroy textures. This enables incremental texture updates and texture reloads. See https://github.com/ocornut/imgui/blob/master/docs/BACKENDS.md for instructions on how to upgrade your custom backend.
      *
-     * <p>Definition: {@code 1 << 10}
+     * <p>Definition: {@code 1 << 4}
      */
-    public static final int PlatformHasViewports = 1024;
-
-    /**
-     * Backend Platform supports calling io.AddMouseViewportEvent() with the viewport under the mouse. IF POSSIBLE, ignore viewports with the ImGuiViewportFlags_NoInputs flag (Win32 backend, GLFW 3.30+ backend can do this, SDL backend cannot). If this cannot be done, Dear ImGui needs to use a flawed heuristic to find the viewport under.
-     *
-     * <p>Definition: {@code 1 << 11}
-     */
-    public static final int HasMouseHoveredViewport = 2048;
+    public static final int RendererHasTextures = 16;
 
     /**
      * Backend Renderer supports multiple viewports.
      *
+     * <p>Definition: {@code 1 << 10}
+     */
+    public static final int RendererHasViewports = 1024;
+
+    /**
+     * Backend Platform supports multiple viewports.
+     *
+     * <p>Definition: {@code 1 << 11}
+     */
+    public static final int PlatformHasViewports = 2048;
+
+    /**
+     * Backend Platform supports calling io.AddMouseViewportEvent() with the viewport under the mouse. IF POSSIBLE, ignore viewports with the ImGuiViewportFlags_NoInputs flag (Win32 backend, GLFW 3.30+ backend can do this, SDL backend cannot). If this cannot be done, Dear ImGui needs to use a flawed heuristic to find the viewport under.
+     *
      * <p>Definition: {@code 1 << 12}
      */
-    public static final int RendererHasViewports = 4096;
+    public static final int HasMouseHoveredViewport = 4096;
+
+    /**
+     * Backend Platform supports honoring viewport{@code ->}ParentViewport/ParentViewportId value, by applying the corresponding parent/child relation at the Platform level.
+     *
+     * <p>Definition: {@code 1 << 13}
+     */
+    public static final int HasParentViewport = 8192;
 }

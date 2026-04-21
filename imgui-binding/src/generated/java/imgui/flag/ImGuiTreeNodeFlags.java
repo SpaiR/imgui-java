@@ -28,7 +28,7 @@ public final class ImGuiTreeNodeFlags {
     public static final int Framed = 2;
 
     /**
-     * Hit testing to allow subsequent widgets to overlap this one
+     * Hit testing will allow subsequent widgets to overlap this one. Require previous frame HoveredId to match before being usable. Shortcut to calling SetNextItemAllowOverlap().
      *
      * <p>Definition: {@code 1 << 2}
      */
@@ -56,21 +56,21 @@ public final class ImGuiTreeNodeFlags {
     public static final int DefaultOpen = 32;
 
     /**
-     * Need double-click to open node
+     * Open on double-click instead of simple click (default for multi-select unless any _OpenOnXXX behavior is set explicitly). Both behaviors may be combined.
      *
      * <p>Definition: {@code 1 << 6}
      */
     public static final int OpenOnDoubleClick = 64;
 
     /**
-     * Only open when clicking on the arrow part. If ImGuiTreeNodeFlags_OpenOnDoubleClick is also set, single-click arrow or double-click all box to open.
+     * Open when clicking on the arrow part (default for multi-select unless any _OpenOnXXX behavior is set explicitly). Both behaviors may be combined.
      *
      * <p>Definition: {@code 1 << 7}
      */
     public static final int OpenOnArrow = 128;
 
     /**
-     * No collapsing, no arrow (use as a convenience for leaf nodes).
+     * No collapsing, no arrow (use as a convenience for leaf nodes). Note: will always open a tree/id scope and return true. If you never use that scope, add ImGuiTreeNodeFlags_NoTreePushOnOpen.
      *
      * <p>Definition: {@code 1 << 8}
      */
@@ -109,33 +109,66 @@ public final class ImGuiTreeNodeFlags {
      *
      * <p>Definition: {@code 1 << 13}
      */
-    public static final int SpanTextWidth = 8192;
+    public static final int SpanLabelWidth = 8192;
 
     /**
-     * Frame will span all columns of its container table (text will still fit in current column)
+     * Frame will span all columns of its container table (label will still fit in current column)
      *
      * <p>Definition: {@code 1 << 14}
      */
     public static final int SpanAllColumns = 16384;
 
     /**
-     * (WIP) Nav: left direction may move to this TreeNode() from any of its child (items submitted between TreeNode and TreePop)
+     * Label will span all columns of its container table
      *
      * <p>Definition: {@code 1 << 15}
      */
-    public static final int NavLeftJumpsBackHere = 32768;
+    public static final int LabelSpanAllColumns = 32768;
 
     /**
-     * ImGuiTreeNodeFlags_NoScrollOnOpen     = 1 {@code <<} 16,  // FIXME: TODO: Disable automatic scroll on TreePop() if node got just open and contents is not visible
+     * Nav: left arrow moves back to parent. This is processed in TreePop() when there's an unfulfilled Left nav request remaining.
      *
-     * <p>Definition: {@code ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_NoAutoOpenOnLog}
+     * <p>Definition: {@code 1 << 17}
+     */
+    public static final int NavLeftJumpsToParent = 131072;
+
+    /**
+     * Definition: {@code ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_NoAutoOpenOnLog}
      */
     public static final int CollapsingHeader = 26;
 
     /**
-     * Renamed in 1.89.7
+     * No lines drawn
      *
-     * <p>Definition: {@code ImGuiTreeNodeFlags_AllowOverlap}
+     * <p>Definition: {@code 1 << 18}
      */
-    public static final int AllowItemOverlap = 4;
+    public static final int DrawLinesNone = 262144;
+
+    /**
+     * Horizontal lines to child nodes. Vertical line drawn down to TreePop() position: cover full contents. Faster (for large trees).
+     *
+     * <p>Definition: {@code 1 << 19}
+     */
+    public static final int DrawLinesFull = 524288;
+
+    /**
+     * Horizontal lines to child nodes. Vertical line drawn down to bottom-most child node. Slower (for large trees).
+     *
+     * <p>Definition: {@code 1 << 20}
+     */
+    public static final int DrawLinesToNodes = 1048576;
+
+    /**
+     * Renamed in 1.92.0
+     *
+     * <p>Definition: {@code ImGuiTreeNodeFlags_NavLeftJumpsToParent}
+     */
+    public static final int NavLeftJumpsBackHere = 131072;
+
+    /**
+     * Renamed in 1.90.7
+     *
+     * <p>Definition: {@code ImGuiTreeNodeFlags_SpanLabelWidth}
+     */
+    public static final int SpanTextWidth = 8192;
 }

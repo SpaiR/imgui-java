@@ -80,3 +80,12 @@ tasks.register('generateAst', GenerateAst) {
             file('include/ImGuiColorTextEdit/TextEditor.h'),
     ]
 }
+
+// imgui-node-editor has an unreleased fix pending for imgui 1.92's new
+// 'operator*(float, ImVec2)'. Apply a small patch file to the vendored
+// submodule before native compile. The script is idempotent.
+tasks.register('applyVendorPatches', Exec) {
+    group = 'build'
+    description = 'Apply patches to vendored submodules (e.g. imgui-node-editor imgui 1.92 compat).'
+    commandLine 'bash', 'buildSrc/scripts/apply_vendor_patches.sh'
+}

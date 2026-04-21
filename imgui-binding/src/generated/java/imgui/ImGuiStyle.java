@@ -75,6 +75,56 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     /**
+     * Main global scale factor applied on top of font size. Replaces {@code io.FontGlobalScale} (moved
+     * from io to style in imgui 1.92). May be set by application once or exposed to end-users.
+     */
+    public float getFontScaleMain() {
+        return nGetFontScaleMain();
+    }
+
+    /**
+     * Main global scale factor applied on top of font size. Replaces {@code io.FontGlobalScale} (moved
+     * from io to style in imgui 1.92). May be set by application once or exposed to end-users.
+     */
+    public void setFontScaleMain(final float value) {
+        nSetFontScaleMain(value);
+    }
+
+    private native float nGetFontScaleMain(); /*
+        return THIS->FontScaleMain;
+    */
+
+    private native void nSetFontScaleMain(float value); /*
+        THIS->FontScaleMain = value;
+    */
+
+    /**
+     * Additional global scale factor from viewport/monitor contents scale (since imgui 1.92). In the
+     * docking branch: when {@code io.ConfigDpiScaleFonts} is enabled, this is automatically overwritten
+     * when changing monitor DPI.
+     */
+    public float getFontScaleDpi() {
+        return nGetFontScaleDpi();
+    }
+
+    /**
+     * Additional global scale factor from viewport/monitor contents scale (since imgui 1.92). In the
+     * docking branch: when {@code io.ConfigDpiScaleFonts} is enabled, this is automatically overwritten
+     * when changing monitor DPI.
+     */
+    public void setFontScaleDpi(final float value) {
+        nSetFontScaleDpi(value);
+    }
+
+    private native float nGetFontScaleDpi(); /*
+        return THIS->FontScaleDpi;
+    */
+
+    private native void nSetFontScaleDpi(float value); /*
+        THIS->FontScaleDpi = value;
+    */
+
+    /**
      * Padding within a window.
      */
     public ImVec2 getWindowPadding() {
@@ -967,27 +1017,59 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     */
 
     /**
-     * Minimum width for close button to appear on an unselected tab when hovered.
-     * Set to 0.0f to always show when hovering, set to FLT_MAX to never show close button unless selected.
+     * Minimum width for close button to appear on a selected tab when hovered.
+     * {@code -1}: always visible; {@code 0}: visible when hovered; {@code >0}: visible when hovered if
+     * tab width is at least this wide. (Since imgui 1.91.9 this field split into
+     * {@code TabCloseButtonMinWidthSelected} and {@code TabCloseButtonMinWidthUnselected}.)
      */
-    public float getTabMinWidthForCloseButton() {
-        return nGetTabMinWidthForCloseButton();
+    public float getTabCloseButtonMinWidthSelected() {
+        return nGetTabCloseButtonMinWidthSelected();
+    }
+
+    /**
+     * Minimum width for close button to appear on a selected tab when hovered.
+     * {@code -1}: always visible; {@code 0}: visible when hovered; {@code >0}: visible when hovered if
+     * tab width is at least this wide. (Since imgui 1.91.9 this field split into
+     * {@code TabCloseButtonMinWidthSelected} and {@code TabCloseButtonMinWidthUnselected}.)
+     */
+    public void setTabCloseButtonMinWidthSelected(final float value) {
+        nSetTabCloseButtonMinWidthSelected(value);
+    }
+
+    private native float nGetTabCloseButtonMinWidthSelected(); /*
+        return THIS->TabCloseButtonMinWidthSelected;
+    */
+
+    private native void nSetTabCloseButtonMinWidthSelected(float value); /*
+        THIS->TabCloseButtonMinWidthSelected = value;
+    */
+
+    /**
+     * Minimum width for close button to appear on an unselected tab when hovered.
+     * {@code -1}: always visible; {@code 0}: visible when hovered; {@code >0}: visible when hovered if
+     * tab width is at least this wide; {@code FLT_MAX}: never show close button when unselected.
+     * (Since imgui 1.91.9; renamed from {@code TabMinWidthForCloseButton}.)
+     */
+    public float getTabCloseButtonMinWidthUnselected() {
+        return nGetTabCloseButtonMinWidthUnselected();
     }
 
     /**
      * Minimum width for close button to appear on an unselected tab when hovered.
-     * Set to 0.0f to always show when hovering, set to FLT_MAX to never show close button unless selected.
+     * {@code -1}: always visible; {@code 0}: visible when hovered; {@code >0}: visible when hovered if
+     * tab width is at least this wide; {@code FLT_MAX}: never show close button when unselected.
+     * (Since imgui 1.91.9; renamed from {@code TabMinWidthForCloseButton}.)
      */
-    public void setTabMinWidthForCloseButton(final float value) {
-        nSetTabMinWidthForCloseButton(value);
+    public void setTabCloseButtonMinWidthUnselected(final float value) {
+        nSetTabCloseButtonMinWidthUnselected(value);
     }
 
-    private native float nGetTabMinWidthForCloseButton(); /*
-        return THIS->TabMinWidthForCloseButton;
+    private native float nGetTabCloseButtonMinWidthUnselected(); /*
+        return THIS->TabCloseButtonMinWidthUnselected;
     */
 
-    private native void nSetTabMinWidthForCloseButton(float value); /*
-        THIS->TabMinWidthForCloseButton = value;
+    private native void nSetTabCloseButtonMinWidthUnselected(float value); /*
+        THIS->TabCloseButtonMinWidthUnselected = value;
     */
 
     /**
@@ -1138,6 +1220,188 @@ public final class ImGuiStyle extends ImGuiStructDestroyable {
     private native void nSetSelectableTextAlign(float valueX, float valueY); /*MANUAL
         ImVec2 value = ImVec2(valueX, valueY);
         THIS->SelectableTextAlign = value;
+    */
+
+    /**
+     * Rounding of Image() calls (since imgui 1.92).
+     */
+    public float getImageRounding() {
+        return nGetImageRounding();
+    }
+
+    /**
+     * Rounding of Image() calls (since imgui 1.92).
+     */
+    public void setImageRounding(final float value) {
+        nSetImageRounding(value);
+    }
+
+    private native float nGetImageRounding(); /*
+        return THIS->ImageRounding;
+    */
+
+    private native void nSetImageRounding(float value); /*
+        THIS->ImageRounding = value;
+    */
+
+    /**
+     * Thickness of border around Image() calls (since imgui 1.92).
+     */
+    public float getImageBorderSize() {
+        return nGetImageBorderSize();
+    }
+
+    /**
+     * Thickness of border around Image() calls (since imgui 1.92).
+     */
+    public void setImageBorderSize(final float value) {
+        nSetImageBorderSize(value);
+    }
+
+    private native float nGetImageBorderSize(); /*
+        return THIS->ImageBorderSize;
+    */
+
+    private native void nSetImageBorderSize(float value); /*
+        THIS->ImageBorderSize = value;
+    */
+
+    /**
+     * Default way to draw lines connecting TreeNode hierarchy (since imgui 1.92).
+     * One of {@code ImGuiTreeNodeFlags_DrawLinesNone} / {@code DrawLinesFull} / {@code DrawLinesToNodes}.
+     */
+    public int getTreeLinesFlags() {
+        return nGetTreeLinesFlags();
+    }
+
+    /**
+     * Default way to draw lines connecting TreeNode hierarchy (since imgui 1.92).
+     * One of {@code ImGuiTreeNodeFlags_DrawLinesNone} / {@code DrawLinesFull} / {@code DrawLinesToNodes}.
+     */
+    public void setTreeLinesFlags(final int value) {
+        nSetTreeLinesFlags(value);
+    }
+
+    /**
+     * Default way to draw lines connecting TreeNode hierarchy (since imgui 1.92).
+     * One of {@code ImGuiTreeNodeFlags_DrawLinesNone} / {@code DrawLinesFull} / {@code DrawLinesToNodes}.
+     */
+    public void addTreeLinesFlags(final int flags) {
+        setTreeLinesFlags(getTreeLinesFlags() | flags);
+    }
+
+    /**
+     * Default way to draw lines connecting TreeNode hierarchy (since imgui 1.92).
+     * One of {@code ImGuiTreeNodeFlags_DrawLinesNone} / {@code DrawLinesFull} / {@code DrawLinesToNodes}.
+     */
+    public void removeTreeLinesFlags(final int flags) {
+        setTreeLinesFlags(getTreeLinesFlags() & ~(flags));
+    }
+
+    /**
+     * Default way to draw lines connecting TreeNode hierarchy (since imgui 1.92).
+     * One of {@code ImGuiTreeNodeFlags_DrawLinesNone} / {@code DrawLinesFull} / {@code DrawLinesToNodes}.
+     */
+    public boolean hasTreeLinesFlags(final int flags) {
+        return (getTreeLinesFlags() & flags) != 0;
+    }
+
+    private native int nGetTreeLinesFlags(); /*
+        return THIS->TreeLinesFlags;
+    */
+
+    private native void nSetTreeLinesFlags(int value); /*
+        THIS->TreeLinesFlags = value;
+    */
+
+    /**
+     * Thickness of outlines when using {@code ImGuiTreeNodeFlags_DrawLines} (since imgui 1.92).
+     */
+    public float getTreeLinesSize() {
+        return nGetTreeLinesSize();
+    }
+
+    /**
+     * Thickness of outlines when using {@code ImGuiTreeNodeFlags_DrawLines} (since imgui 1.92).
+     */
+    public void setTreeLinesSize(final float value) {
+        nSetTreeLinesSize(value);
+    }
+
+    private native float nGetTreeLinesSize(); /*
+        return THIS->TreeLinesSize;
+    */
+
+    private native void nSetTreeLinesSize(float value); /*
+        THIS->TreeLinesSize = value;
+    */
+
+    /**
+     * Radius of lines connecting child nodes to the vertical line (since imgui 1.92).
+     */
+    public float getTreeLinesRounding() {
+        return nGetTreeLinesRounding();
+    }
+
+    /**
+     * Radius of lines connecting child nodes to the vertical line (since imgui 1.92).
+     */
+    public void setTreeLinesRounding(final float value) {
+        nSetTreeLinesRounding(value);
+    }
+
+    private native float nGetTreeLinesRounding(); /*
+        return THIS->TreeLinesRounding;
+    */
+
+    private native void nSetTreeLinesRounding(float value); /*
+        THIS->TreeLinesRounding = value;
+    */
+
+    /**
+     * Size of R/G/B/A color markers for {@code ColorEdit4()} and for Drags/Sliders when using
+     * {@code ImGuiSliderFlags_ColorMarkers} (since imgui 1.92.7). Set to 0 to disable globally.
+     */
+    public float getColorMarkerSize() {
+        return nGetColorMarkerSize();
+    }
+
+    /**
+     * Size of R/G/B/A color markers for {@code ColorEdit4()} and for Drags/Sliders when using
+     * {@code ImGuiSliderFlags_ColorMarkers} (since imgui 1.92.7). Set to 0 to disable globally.
+     */
+    public void setColorMarkerSize(final float value) {
+        nSetColorMarkerSize(value);
+    }
+
+    private native float nGetColorMarkerSize(); /*
+        return THIS->ColorMarkerSize;
+    */
+
+    private native void nSetColorMarkerSize(float value); /*
+        THIS->ColorMarkerSize = value;
+    */
+
+    /**
+     * Thickness of the separator line rendered by Separator() (new in imgui 1.92.7).
+     */
+    public float getSeparatorSize() {
+        return nGetSeparatorSize();
+    }
+
+    /**
+     * Thickness of the separator line rendered by Separator() (new in imgui 1.92.7).
+     */
+    public void setSeparatorSize(final float value) {
+        nSetSeparatorSize(value);
+    }
+
+    private native float nGetSeparatorSize(); /*
+        return THIS->SeparatorSize;
+    */
+
+    private native void nSetSeparatorSize(float value); /*
+        THIS->SeparatorSize = value;
     */
 
     /**

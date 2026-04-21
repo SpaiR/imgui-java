@@ -1,8 +1,11 @@
 package imgui.flag;
 
 
-public final class ImGuiFreeTypeBuilderFlags {
-    private ImGuiFreeTypeBuilderFlags() {
+/**
+ * Renamed from {@code ImGuiFreeTypeBuilderFlags} in imgui 1.92.
+ */
+public final class ImGuiFreeTypeLoaderFlags {
+    private ImGuiFreeTypeLoaderFlags() {
     }
 
     /**
@@ -74,4 +77,54 @@ public final class ImGuiFreeTypeBuilderFlags {
      * <p>Definition: {@code 1 << 9}
      */
     public static final int Bitmap = 512;
+
+    /**
+     * Definition: {@code ImGuiFreeTypeLoaderFlags_NoHinting}
+     */
+    public static final int ImGuiFreeTypeBuilderFlags_NoHinting = 1;
+
+    /**
+     * Definition: {@code ImGuiFreeTypeLoaderFlags_NoAutoHint}
+     */
+    public static final int ImGuiFreeTypeBuilderFlags_NoAutoHint = 2;
+
+    /**
+     * Definition: {@code ImGuiFreeTypeLoaderFlags_ForceAutoHint}
+     */
+    public static final int ImGuiFreeTypeBuilderFlags_ForceAutoHint = 4;
+
+    /**
+     * Definition: {@code ImGuiFreeTypeLoaderFlags_LightHinting}
+     */
+    public static final int ImGuiFreeTypeBuilderFlags_LightHinting = 8;
+
+    /**
+     * Definition: {@code ImGuiFreeTypeLoaderFlags_MonoHinting}
+     */
+    public static final int ImGuiFreeTypeBuilderFlags_MonoHinting = 16;
+
+    /**
+     * Definition: {@code ImGuiFreeTypeLoaderFlags_Bold}
+     */
+    public static final int ImGuiFreeTypeBuilderFlags_Bold = 32;
+
+    /**
+     * Definition: {@code ImGuiFreeTypeLoaderFlags_Oblique}
+     */
+    public static final int ImGuiFreeTypeBuilderFlags_Oblique = 64;
+
+    /**
+     * Definition: {@code ImGuiFreeTypeLoaderFlags_Monochrome}
+     */
+    public static final int ImGuiFreeTypeBuilderFlags_Monochrome = 128;
+
+    /**
+     * Definition: {@code ImGuiFreeTypeLoaderFlags_LoadColor}
+     */
+    public static final int ImGuiFreeTypeBuilderFlags_LoadColor = 256;
+
+    /**
+     * Definition: {@code ImGuiFreeTypeLoaderFlags_Bitmap}
+     */
+    public static final int ImGuiFreeTypeBuilderFlags_Bitmap = 512;
 }

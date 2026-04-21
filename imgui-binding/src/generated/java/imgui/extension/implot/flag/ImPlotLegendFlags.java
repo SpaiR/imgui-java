@@ -60,4 +60,11 @@ public final class ImPlotLegendFlags {
      * <p>Definition: {@code 1 << 6}
      */
     public static final int Sort = 64;
+
+    /**
+     * legend entries will be displayed in reverse order
+     *
+     * <p>Definition: {@code 1 << 7}
+     */
+    public static final int Reverse = 128;
 }

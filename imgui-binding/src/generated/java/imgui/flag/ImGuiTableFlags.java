@@ -45,7 +45,7 @@ public final class ImGuiTableFlags {
     public static final int Resizable = 1;
 
     /**
-     * Enable reordering columns in header row (need calling TableSetupColumn() + TableHeadersRow() to display headers)
+     * Enable reordering columns in header row. (Need calling TableSetupColumn() + TableHeadersRow() to display headers, or using ImGuiTableFlags_ContextMenuInBody to access context-menu without headers).
      *
      * <p>Definition: {@code 1 << 1}
      */
@@ -66,14 +66,14 @@ public final class ImGuiTableFlags {
     public static final int Sortable = 8;
 
     /**
-     * Disable persisting columns order, width and sort settings in the .ini file.
+     * Disable persisting columns order, width, visibility and sort settings in the .ini file.
      *
      * <p>Definition: {@code 1 << 4}
      */
     public static final int NoSavedSettings = 16;
 
     /**
-     * Right-click on columns body/contents will display table context menu. By default it is available in TableHeadersRow().
+     * Right-click on columns body/contents will also display table context menu. By default it is available in TableHeadersRow().
      *
      * <p>Definition: {@code 1 << 5}
      */

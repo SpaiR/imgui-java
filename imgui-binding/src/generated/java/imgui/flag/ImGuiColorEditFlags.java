@@ -70,7 +70,7 @@ public final class ImGuiColorEditFlags {
     public static final int NoSidePreview = 256;
 
     /**
-     * ColorEdit: disable drag and drop target. ColorButton: disable drag and drop source.
+     * ColorEdit: disable drag and drop target/source. ColorButton: disable drag and drop source.
      *
      * <p>Definition: {@code 1 << 9}
      */
@@ -84,25 +84,39 @@ public final class ImGuiColorEditFlags {
     public static final int NoBorder = 1024;
 
     /**
+     * ColorEdit: disable rendering R/G/B/A color marker. May also be disabled globally by setting style.ColorMarkerSize = 0.
+     *
+     * <p>Definition: {@code 1 << 11}
+     */
+    public static final int NoColorMarkers = 2048;
+
+    /**
+     * ColorEdit, ColorPicker, ColorButton: disable alpha in the preview,. Contrary to _NoAlpha it may still be edited when calling ColorEdit4()/ColorPicker4(). For ColorButton() this does the same as _NoAlpha.
+     *
+     * <p>Definition: {@code 1 << 12}
+     */
+    public static final int AlphaOpaque = 4096;
+
+    /**
+     * ColorEdit, ColorPicker, ColorButton: disable rendering a checkerboard background behind transparent color.
+     *
+     * <p>Definition: {@code 1 << 13}
+     */
+    public static final int AlphaNoBg = 8192;
+
+    /**
+     * ColorEdit, ColorPicker, ColorButton: display half opaque / half transparent preview.
+     *
+     * <p>Definition: {@code 1 << 14}
+     */
+    public static final int AlphaPreviewHalf = 16384;
+
+    /**
      * ColorEdit, ColorPicker: show vertical alpha bar/gradient in picker.
-     *
-     * <p>Definition: {@code 1 << 16}
-     */
-    public static final int AlphaBar = 65536;
-
-    /**
-     * ColorEdit, ColorPicker, ColorButton: display preview as a transparent color over a checkerboard, instead of opaque.
-     *
-     * <p>Definition: {@code 1 << 17}
-     */
-    public static final int AlphaPreview = 131072;
-
-    /**
-     * ColorEdit, ColorPicker, ColorButton: display half opaque / half checkerboard, instead of opaque.
      *
      * <p>Definition: {@code 1 << 18}
      */
-    public static final int AlphaPreviewHalf = 262144;
+    public static final int AlphaBar = 262144;
 
     /**
      * (WIP) ColorEdit: Currently only disable 0.0f..1.0f limits in RGBA edition (note: you probably want to use ImGuiColorEditFlags_Float flag as well).
@@ -184,6 +198,13 @@ public final class ImGuiColorEditFlags {
     /**
      * [Internal] Masks
      *
+     * <p>Definition: {@code ImGuiColorEditFlags_NoAlpha | ImGuiColorEditFlags_AlphaOpaque | ImGuiColorEditFlags_AlphaNoBg | ImGuiColorEditFlags_AlphaPreviewHalf}
+     */
+    public static final int AlphaMask_ = 28674;
+
+    /**
+     * [Internal] Masks
+     *
      * <p>Definition: {@code ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_DisplayHSV | ImGuiColorEditFlags_DisplayHex}
      */
     public static final int DisplayMask_ = 7340032;
@@ -208,4 +229,11 @@ public final class ImGuiColorEditFlags {
      * <p>Definition: {@code ImGuiColorEditFlags_InputRGB | ImGuiColorEditFlags_InputHSV}
      */
     public static final int InputMask_ = 402653184;
+
+    /**
+     * Removed in 1.91.8. This is the default now. Will display a checkerboard unless ImGuiColorEditFlags_AlphaNoBg is set.
+     *
+     * <p>Definition: {@code 0}
+     */
+    public static final int AlphaPreview = 0;
 }

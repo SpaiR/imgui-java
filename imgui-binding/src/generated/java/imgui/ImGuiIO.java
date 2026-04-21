@@ -439,6 +439,30 @@ public final class ImGuiIO extends ImGuiStruct {
     */
 
     /**
+     * Simplified docking mode: disable window merging into the same tab-bar, so docking is limited to splitting windows.
+     * (new in imgui 1.92)
+     */
+    public boolean getConfigDockingNoDockingOver() {
+        return nGetConfigDockingNoDockingOver();
+    }
+
+    /**
+     * Simplified docking mode: disable window merging into the same tab-bar, so docking is limited to splitting windows.
+     * (new in imgui 1.92)
+     */
+    public void setConfigDockingNoDockingOver(final boolean value) {
+        nSetConfigDockingNoDockingOver(value);
+    }
+
+    private native boolean nGetConfigDockingNoDockingOver(); /*
+        return THIS->ConfigDockingNoDockingOver;
+    */
+
+    private native void nSetConfigDockingNoDockingOver(boolean value); /*
+        THIS->ConfigDockingNoDockingOver = value;
+    */
+
+    /**
      * Enable docking with holding Shift key (reduce visual noise, allows dropping in wider space)
      */
     public boolean getConfigDockingWithShift() {
@@ -586,6 +610,162 @@ public final class ImGuiIO extends ImGuiStruct {
 
     private native void nSetConfigViewportsNoDefaultParent(boolean value); /*
         THIS->ConfigViewportsNoDefaultParent = value;
+    */
+
+    /**
+     * [EXPERIMENTAL] Automatically overwrite {@code style.FontScaleDpi} when monitor DPI changes.
+     * Scales fonts but NOT sizes/padding (for now). Docking branch only. (since imgui 1.92)
+     */
+    public boolean getConfigDpiScaleFonts() {
+        return nGetConfigDpiScaleFonts();
+    }
+
+    /**
+     * [EXPERIMENTAL] Automatically overwrite {@code style.FontScaleDpi} when monitor DPI changes.
+     * Scales fonts but NOT sizes/padding (for now). Docking branch only. (since imgui 1.92)
+     */
+    public void setConfigDpiScaleFonts(final boolean value) {
+        nSetConfigDpiScaleFonts(value);
+    }
+
+    private native boolean nGetConfigDpiScaleFonts(); /*
+        return THIS->ConfigDpiScaleFonts;
+    */
+
+    private native void nSetConfigDpiScaleFonts(boolean value); /*
+        THIS->ConfigDpiScaleFonts = value;
+    */
+
+    /**
+     * [EXPERIMENTAL] Scale Dear ImGui and platform windows when monitor DPI changes. Docking branch only. (since imgui 1.92)
+     */
+    public boolean getConfigDpiScaleViewports() {
+        return nGetConfigDpiScaleViewports();
+    }
+
+    /**
+     * [EXPERIMENTAL] Scale Dear ImGui and platform windows when monitor DPI changes. Docking branch only. (since imgui 1.92)
+     */
+    public void setConfigDpiScaleViewports(final boolean value) {
+        nSetConfigDpiScaleViewports(value);
+    }
+
+    private native boolean nGetConfigDpiScaleViewports(); /*
+        return THIS->ConfigDpiScaleViewports;
+    */
+
+    private native void nSetConfigDpiScaleViewports(boolean value); /*
+        THIS->ConfigDpiScaleViewports = value;
+    */
+
+    /**
+     * Enable error recovery support. Some errors won't be detected and lead to direct crashes if recovery is disabled. (since imgui 1.91.6)
+     */
+    public boolean getConfigErrorRecovery() {
+        return nGetConfigErrorRecovery();
+    }
+
+    /**
+     * Enable error recovery support. Some errors won't be detected and lead to direct crashes if recovery is disabled. (since imgui 1.91.6)
+     */
+    public void setConfigErrorRecovery(final boolean value) {
+        nSetConfigErrorRecovery(value);
+    }
+
+    private native boolean nGetConfigErrorRecovery(); /*
+        return THIS->ConfigErrorRecovery;
+    */
+
+    private native void nSetConfigErrorRecovery(boolean value); /*
+        THIS->ConfigErrorRecovery = value;
+    */
+
+    /**
+     * Enable asserts on recoverable errors. By default calls IM_ASSERT() when returning from a failing IM_ASSERT_USER_ERROR(). (since imgui 1.91.6)
+     */
+    public boolean getConfigErrorRecoveryEnableAssert() {
+        return nGetConfigErrorRecoveryEnableAssert();
+    }
+
+    /**
+     * Enable asserts on recoverable errors. By default calls IM_ASSERT() when returning from a failing IM_ASSERT_USER_ERROR(). (since imgui 1.91.6)
+     */
+    public void setConfigErrorRecoveryEnableAssert(final boolean value) {
+        nSetConfigErrorRecoveryEnableAssert(value);
+    }
+
+    private native boolean nGetConfigErrorRecoveryEnableAssert(); /*
+        return THIS->ConfigErrorRecoveryEnableAssert;
+    */
+
+    private native void nSetConfigErrorRecoveryEnableAssert(boolean value); /*
+        THIS->ConfigErrorRecoveryEnableAssert = value;
+    */
+
+    /**
+     * Enable debug log output on recoverable errors. (since imgui 1.91.6)
+     */
+    public boolean getConfigErrorRecoveryEnableDebugLog() {
+        return nGetConfigErrorRecoveryEnableDebugLog();
+    }
+
+    /**
+     * Enable debug log output on recoverable errors. (since imgui 1.91.6)
+     */
+    public void setConfigErrorRecoveryEnableDebugLog(final boolean value) {
+        nSetConfigErrorRecoveryEnableDebugLog(value);
+    }
+
+    private native boolean nGetConfigErrorRecoveryEnableDebugLog(); /*
+        return THIS->ConfigErrorRecoveryEnableDebugLog;
+    */
+
+    private native void nSetConfigErrorRecoveryEnableDebugLog(boolean value); /*
+        THIS->ConfigErrorRecoveryEnableDebugLog = value;
+    */
+
+    /**
+     * Enable tooltip on recoverable errors. The tooltip includes a way to enable asserts if they were disabled. (since imgui 1.91.6)
+     */
+    public boolean getConfigErrorRecoveryEnableTooltip() {
+        return nGetConfigErrorRecoveryEnableTooltip();
+    }
+
+    /**
+     * Enable tooltip on recoverable errors. The tooltip includes a way to enable asserts if they were disabled. (since imgui 1.91.6)
+     */
+    public void setConfigErrorRecoveryEnableTooltip(final boolean value) {
+        nSetConfigErrorRecoveryEnableTooltip(value);
+    }
+
+    private native boolean nGetConfigErrorRecoveryEnableTooltip(); /*
+        return THIS->ConfigErrorRecoveryEnableTooltip;
+    */
+
+    private native void nSetConfigErrorRecoveryEnableTooltip(boolean value); /*
+        THIS->ConfigErrorRecoveryEnableTooltip = value;
+    */
+
+    /**
+     * Highlight and show an error message popup when multiple items have conflicting identifiers. (since imgui 1.91.0)
+     */
+    public boolean getConfigDebugHighlightIdConflicts() {
+        return nGetConfigDebugHighlightIdConflicts();
+    }
+
+    /**
+     * Highlight and show an error message popup when multiple items have conflicting identifiers. (since imgui 1.91.0)
+     */
+    public void setConfigDebugHighlightIdConflicts(final boolean value) {
+        nSetConfigDebugHighlightIdConflicts(value);
+    }
+
+    private native boolean nGetConfigDebugHighlightIdConflicts(); /*
+        return THIS->ConfigDebugHighlightIdConflicts;
+    */
+
+    private native void nSetConfigDebugHighlightIdConflicts(boolean value); /*
+        THIS->ConfigDebugHighlightIdConflicts = value;
     */
 
     // Miscellaneous options
@@ -1132,29 +1312,8 @@ public final class ImGuiIO extends ImGuiStruct {
         THIS->GetClipboardTextFn = getClipboardTextStub;
     */
 
-    /**
-     * Optional: Platform locale
-     * [Experimental] Configure decimal point e.g. '.' or ',' useful for some languages (e.g. German), generally pulled from {@code *localeconv()->decimal_point}
-     */
-    public short getPlatformLocaleDecimalPoint() {
-        return nGetPlatformLocaleDecimalPoint();
-    }
-
-    /**
-     * Optional: Platform locale
-     * [Experimental] Configure decimal point e.g. '.' or ',' useful for some languages (e.g. German), generally pulled from {@code *localeconv()->decimal_point}
-     */
-    public void setPlatformLocaleDecimalPoint(final short value) {
-        nSetPlatformLocaleDecimalPoint(value);
-    }
-
-    private native short nGetPlatformLocaleDecimalPoint(); /*
-        return THIS->PlatformLocaleDecimalPoint;
-    */
-
-    private native void nSetPlatformLocaleDecimalPoint(short value); /*
-        THIS->PlatformLocaleDecimalPoint = value;
-    */
+    // PlatformLocaleDecimalPoint was removed from ImGuiIO in imgui 1.92; the equivalent is
+    // now 'style.LocaleDecimalPoint' (not currently surfaced in the Java binding).
 
     //------------------------------------------------------------------
     // Input - Call before calling NewFrame()
@@ -2041,11 +2200,11 @@ public final class ImGuiIO extends ImGuiStruct {
     }
 
     private native ImGuiKeyData[] nGetKeysData(); /*
-        return Jni::NewImGuiKeyDataArray(env, THIS->KeysData, ImGuiKey_KeysData_SIZE);
+        return Jni::NewImGuiKeyDataArray(env, THIS->KeysData, ImGuiKey_NamedKey_COUNT);
     */
 
     private native void nSetKeysData(ImGuiKeyData[] value); /*
-        Jni::ImGuiKeyDataArrayCpy(env, value, THIS->KeysData, ImGuiKey_KeysData_SIZE);
+        Jni::ImGuiKeyDataArrayCpy(env, value, THIS->KeysData, ImGuiKey_NamedKey_COUNT);
     */
 
     /**
@@ -2815,49 +2974,8 @@ public final class ImGuiIO extends ImGuiStruct {
         return THIS->AppAcceptingEvents;
     */
 
-    /**
-     * -1: unknown, 0: using AddKeyEvent(), 1: using legacy io.KeysDown[]
-     */
-    public short getBackendUsingLegacyKeyArrays() {
-        return nGetBackendUsingLegacyKeyArrays();
-    }
-
-    /**
-     * -1: unknown, 0: using AddKeyEvent(), 1: using legacy io.KeysDown[]
-     */
-    public void setBackendUsingLegacyKeyArrays(final short value) {
-        nSetBackendUsingLegacyKeyArrays(value);
-    }
-
-    private native short nGetBackendUsingLegacyKeyArrays(); /*
-        return THIS->BackendUsingLegacyKeyArrays;
-    */
-
-    private native void nSetBackendUsingLegacyKeyArrays(short value); /*
-        THIS->BackendUsingLegacyKeyArrays = value;
-    */
-
-    /**
-     * 0: using AddKeyAnalogEvent(), 1: writing to legacy io.NavInputs[] directly
-     */
-    public boolean getBackendUsingLegacyNavInputArray() {
-        return nGetBackendUsingLegacyNavInputArray();
-    }
-
-    /**
-     * 0: using AddKeyAnalogEvent(), 1: writing to legacy io.NavInputs[] directly
-     */
-    public void setBackendUsingLegacyNavInputArray(final boolean value) {
-        nSetBackendUsingLegacyNavInputArray(value);
-    }
-
-    private native boolean nGetBackendUsingLegacyNavInputArray(); /*
-        return THIS->BackendUsingLegacyNavInputArray;
-    */
-
-    private native void nSetBackendUsingLegacyNavInputArray(boolean value); /*
-        THIS->BackendUsingLegacyNavInputArray = value;
-    */
+    // BackendUsingLegacyKeyArrays and BackendUsingLegacyNavInputArray were removed from ImGuiIO
+    // in imgui 1.92 (the legacy code paths those fields gated are gone).
 
     /**
      * For AddInputCharacterUTF16

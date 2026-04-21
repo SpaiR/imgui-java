@@ -28,7 +28,7 @@ public final class ImGuiViewportFlags {
     public static final int IsPlatformMonitor = 2;
 
     /**
-     * Platform Window: Was created/managed by the user application? (rather than our backend)
+     * Platform Window: Is created/managed by the user application? (rather than our backend)
      *
      * <p>Definition: {@code 1 << 2}
      */

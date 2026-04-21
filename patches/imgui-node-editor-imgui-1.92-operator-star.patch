@@ -1,0 +1,31 @@
+diff --git a/imgui_extra_math.h b/imgui_extra_math.h
+index 3df615a..cc3612a 100644
+--- a/imgui_extra_math.h
++++ b/imgui_extra_math.h
+@@ -34,7 +34,9 @@ struct ImLine
+ inline bool operator==(const ImVec2& lhs, const ImVec2& rhs);
+ inline bool operator!=(const ImVec2& lhs, const ImVec2& rhs);
+ # endif
++# if IMGUI_VERSION_NUM < 19200
+ inline ImVec2 operator*(const float lhs, const ImVec2& rhs);
++# endif
+ # if IMGUI_VERSION_NUM < 18955
+ inline ImVec2 operator-(const ImVec2& lhs);
+ # endif
+diff --git a/imgui_extra_math.inl b/imgui_extra_math.inl
+index 8e2347f..06de556 100644
+--- a/imgui_extra_math.inl
++++ b/imgui_extra_math.inl
+@@ -31,10 +31,12 @@ inline bool operator!=(const ImVec2& lhs, const ImVec2& rhs)
+ }
+ # endif
+ 
++# if IMGUI_VERSION_NUM < 19200
+ inline ImVec2 operator*(const float lhs, const ImVec2& rhs)
+ {
+     return ImVec2(lhs * rhs.x, lhs * rhs.y);
+ }
++# endif
+ 
+ # if IMGUI_VERSION_NUM < 18955
+ inline ImVec2 operator-(const ImVec2& lhs)

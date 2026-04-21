@@ -345,12 +345,12 @@ public final class ImGui extends imgui.ImGui {
 
     // Fonts, drawing
 
-    public static void setCurrentFont(final ImFont font) {
-        nSetCurrentFont(font.ptr);
+    public static void setCurrentFont(final ImFont font, final float fontSizeBeforeScaling, final float fontSizeAfterScaling) {
+        nSetCurrentFont(font.ptr, fontSizeBeforeScaling, fontSizeAfterScaling);
     }
 
-    private static native void nSetCurrentFont(long font); /*
-        ImGui::SetCurrentFont(reinterpret_cast<ImFont*>(font));
+    private static native void nSetCurrentFont(long font, float fontSizeBeforeScaling, float fontSizeAfterScaling); /*
+        ImGui::SetCurrentFont(reinterpret_cast<ImFont*>(font), fontSizeBeforeScaling, fontSizeAfterScaling);
     */
 
     public static ImFont getDefaultFont() {
@@ -397,12 +397,17 @@ public final class ImGui extends imgui.ImGui {
         ImGui::UpdateInputEvents(trickleFastInputs);
     */
 
-    public static void updateHoveredWindowAndCaptureFlags() {
-        nUpdateHoveredWindowAndCaptureFlags();
+    public static void updateHoveredWindowAndCaptureFlags(final ImVec2 mousePos) {
+        nUpdateHoveredWindowAndCaptureFlags(mousePos.x, mousePos.y);
     }
 
-    private static native void nUpdateHoveredWindowAndCaptureFlags(); /*
-        ImGui::UpdateHoveredWindowAndCaptureFlags();
+    public static void updateHoveredWindowAndCaptureFlags(final float mousePosX, final float mousePosY) {
+        nUpdateHoveredWindowAndCaptureFlags(mousePosX, mousePosY);
+    }
+
+    private static native void nUpdateHoveredWindowAndCaptureFlags(float mousePosX, float mousePosY); /*MANUAL
+        ImVec2 mousePos = ImVec2(mousePosX, mousePosY);
+        ImGui::UpdateHoveredWindowAndCaptureFlags(mousePos);
     */
 
     public static void startMouseMovingWindow(final ImGuiWindow window) {
@@ -904,35 +909,8 @@ public final class ImGui extends imgui.ImGui {
         return ImGui::IsItemToggledSelection();
     */
 
-    public static ImVec2 getContentRegionMaxAbs() {
-        final ImVec2 dst = new ImVec2();
-        nGetContentRegionMaxAbs(dst);
-        return dst;
-    }
-
-    public static float getContentRegionMaxAbsX() {
-        return nGetContentRegionMaxAbsX();
-    }
-
-    public static float getContentRegionMaxAbsY() {
-        return nGetContentRegionMaxAbsY();
-    }
-
-    public static void getContentRegionMaxAbs(final ImVec2 dst) {
-        nGetContentRegionMaxAbs(dst);
-    }
-
-    private static native void nGetContentRegionMaxAbs(ImVec2 dst); /*
-        Jni::ImVec2Cpy(env, ImGui::GetContentRegionMaxAbs(), dst);
-    */
-
-    private static native float nGetContentRegionMaxAbsX(); /*
-        return ImGui::GetContentRegionMaxAbs().x;
-    */
-
-    private static native float nGetContentRegionMaxAbsY(); /*
-        return ImGui::GetContentRegionMaxAbs().y;
-    */
+    // GetContentRegionMaxAbs was removed from imgui_internal in imgui 1.92; the equivalent
+    // is now '(window->Pos - window->Scroll + window->ContentRegionRect.Max)'.
 
     // TODO: ShrinkWidths
 

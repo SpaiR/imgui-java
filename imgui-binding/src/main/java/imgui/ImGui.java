@@ -643,8 +643,13 @@ public class ImGui {
 
     // Parameters stacks (shared)
 
+    /**
+     * Push a font onto the stack. Since imgui 1.92 the {@code size} parameter is required:
+     * pass {@code 0.0f} to keep the current size; pass {@code font.LegacySize} to restore
+     * pre-1.92 behavior of using the font's original AddFont size.
+     */
     @BindingMethod
-    public static native void PushFont(ImFont font);
+    public static native void PushFont(ImFont font, float size);
 
     @BindingMethod
     public static native void PopFont();
@@ -1052,6 +1057,19 @@ public class ImGui {
     public static native void BulletText(String text, Void NULL);
 
     /**
+     * Hyperlink text button; returns true when clicked (new in imgui 1.91). Style via {@code ImGuiCol_TextLink}.
+     */
+    @BindingMethod
+    public static native boolean TextLink(String label);
+
+    /**
+     * Hyperlink text button that automatically opens the given file/URL on click (new in imgui 1.91).
+     * Uses {@code io.PlatformOpenInShellFn} (with OS defaults on Windows/Linux/macOS).
+     */
+    @BindingMethod
+    public static native boolean TextLinkOpenURL(String label, @OptArg String url);
+
+    /**
      * Currently: formatted text with an horizontal line
      */
     @BindingMethod
@@ -1123,9 +1141,14 @@ public class ImGui {
 
     // Widgets: Images
     // - Read about ImTextureID here: https://github.com/ocornut/imgui/wiki/Image-Loading-and-Displaying-Examples
+    // - Since imgui 1.91.9 the 'tint_col' and 'border_col' params were removed from Image(); use
+    //   ImageWithBg() for tinting, and ImGuiCol_ImageBorder style colour for the border (imgui 1.92+).
 
     @BindingMethod
-    public static native void Image(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 imageSize, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg ImVec4 tintCol, @OptArg ImVec4 borderCol);
+    public static native void Image(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 imageSize, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1);
+
+    @BindingMethod
+    public static native void ImageWithBg(@ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 imageSize, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg ImVec4 bgCol, @OptArg ImVec4 tintCol);
 
     @BindingMethod
     public static native boolean ImageButton(String strId, @ArgValue(callPrefix = "(ImTextureID)(uintptr_t)") long userTextureId, ImVec2 imageSize, @OptArg ImVec2 uv0, @OptArg ImVec2 uv1, @OptArg ImVec4 bgCol, @OptArg ImVec4 tintCol);
@@ -2104,7 +2127,7 @@ public class ImGui {
     public static native void TableSetColumnEnabled(int columnN, boolean value);
 
     /**
-     * Return hovered column. return -1 when table is not hovered. return columns_count if the unused space at the right of visible columns is hovered. Can also use (TableGetColumnFlags() & ImGuiTableColumnFlags_IsHovered) instead.
+     * Return hovered column. return -1 when table is not hovered. return columns_count if the unused space at the right of visible columns is hovered. Can also use {@code (TableGetColumnFlags() & ImGuiTableColumnFlags_IsHovered)} instead.
      */
     @BindingMethod
     public static native int TableGetHoveredColumn();
@@ -2575,6 +2598,21 @@ public class ImGui {
     public static native boolean IsItemToggledOpen();
 
     /**
+     * Was the last item's selection state toggled? (since imgui 1.91 multi-select).
+     * Useful if you need per-item information <em>before</em> reaching {@code EndMultiSelect()}.
+     */
+    @BindingMethod
+    public static native boolean IsItemToggledSelection();
+
+    /**
+     * Set selection user data for the next item, used by {@code BeginMultiSelect}/{@code EndMultiSelect()}
+     * and inside {@code ImGuiMultiSelectIO}. Opaque 64-bit value (e.g. an index, a pointer,
+     * a hash) unique to your item identity (since imgui 1.91).
+     */
+    @BindingMethod
+    public static native void SetNextItemSelectionUserData(long selectionUserData);
+
+    /**
      * Is any item hovered?
      */
     @BindingMethod
@@ -2596,6 +2634,12 @@ public class ImGui {
      */
     @BindingMethod
     public static native int GetItemID();
+
+    /**
+     * Get generic flags of last item (since imgui 1.91). Returns an {@code ImGuiItemFlags} mask.
+     */
+    @BindingMethod
+    public static native int GetItemFlags();
 
     /**
      * Get upper-left bounding rectangle of the last item (screen space)
@@ -2857,14 +2901,14 @@ public class ImGui {
     public static native ImVec2 GetMousePosOnOpeningCurrentPopup();
 
     /**
-     * Is mouse dragging? (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * Is mouse dragging? {@code (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)}
      */
     @BindingMethod
     public static native boolean IsMouseDragging(int button, @OptArg float lockThreshold);
 
     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
-     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)
+     * This is locked and return 0.0f until the mouse moves past a distance threshold at least once {@code (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)}
      */
     @BindingMethod
     public static native ImVec2 GetMouseDragDelta(@OptArg final int button, @OptArg final float lockThreshold);
