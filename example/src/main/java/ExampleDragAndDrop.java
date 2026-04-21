@@ -34,20 +34,26 @@ public class ExampleDragAndDrop {
             ImGui.separator();
 
             ImGui.text("Drop here any:");
+            ImGui.pushID("any");
             ImGui.button(data, 100, 50);
             setupTarget();
+            ImGui.popID();
 
             ImGui.separator();
 
             ImGui.text("Drop here string payload only");
+            ImGui.pushID("string");
             ImGui.button(data, 100, 50);
             setupStringPayloadTarget();
+            ImGui.popID();
 
             ImGui.separator();
 
             ImGui.text("Drop here class specific payload only");
+            ImGui.pushID("class");
             ImGui.button(data, 100, 50);
             setupClassSpecificPayloadTarget();
+            ImGui.popID();
         }
         ImGui.end();
     }
