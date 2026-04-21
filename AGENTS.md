@@ -42,6 +42,14 @@ Gradle's toolchain pins JDK 17 regardless of the system JDK.
 ./gradlew build                             # full build + tests
 ```
 
+**Visual smoke test** — backend, font, texture, or example changes need a runtime run; static checks can't catch blank atlases or assertion loops:
+
+```bash
+buildSrc/scripts/build.sh <macos|linux|windows>   # builds freetype + generateLibs
+cp /tmp/imgui/dst/libimgui-java64.<so|dylib|dll> bin/
+./gradlew :example:run -PlibPath=$PWD/bin
+```
+
 **Fast javadoc iteration without Gradle:**
 
 ```bash
@@ -115,6 +123,10 @@ Only enum-constant docs are auto-sanitized (via `ast_content.kt`'s `sanitizeDocC
 
 Some submodules need local patches to compile against current imgui (e.g., `imgui-node-editor`'s `operator*` overload colliding with imgui's). Patches live in `patches/`, applied idempotently by `buildSrc/scripts/apply_vendor_patches.sh` (wired into `generateLibs`). When bumping a patched submodule, re-check the patch still applies; drop if upstream fixed the issue.
 
+### Native source rewrites in `GenerateLibs.groovy`
+
+`buildSrc/.../GenerateLibs.groovy` does literal-string rewrites against vendored C++ sources (e.g., swapping the default font loader in `imgui_draw.cpp`). When imgui renames the anchor symbol across versions, the rewrite silently no-ops and the native build ships unpatched — grep `replaceSourceFileContent(` on every submodule bump and refresh each anchor.
+
 ### AST regeneration drift
 
 `./gradlew generateAst` may update JSONs unrelated to your bump (e.g., `ast-ImGuiFileDialog.json`, `ast-TextEditor.json`) because clang picks up different system headers per machine. **Revert those** — keep the diff scoped.
@@ -123,11 +135,23 @@ Some submodules need local patches to compile against current imgui (e.g., `imgu
 
 Conflict markers inside generated files or AST JSONs are a false fight. Take your side, then re-run `generateAst` / `generateApi` on the rebased tree. Hand-merging codegen output just produces drift.
 
+### Submodule sync after branch switch
+
+`git checkout <branch>` doesn't update submodules. If `include/*` pointers differ between branches you'll compile against the wrong headers with mystifying errors. After any branch/rebase touching `include/`: `git submodule update --init --recursive`.
+
 ### Don't commit build artifacts
 
-Native libs under repo-root `bin/` are committed by CI after merge; never commit your local `generateLibs` output there.
+Never commit `bin/libimgui-java64.*` or anything staged from `/tmp/imgui/` — `bin/` is owned by the post-merge CI update job. Prefer explicit `git add <path>` over `-A` to avoid picking these up.
+
+## Design conventions
+
+### Dual font loader (stb_truetype + FreeType)
+
+Native build ships both loaders. `GenerateLibs.groovy` rewrites `imgui_draw.cpp` so the compile-time default is stb_truetype even when `IMGUI_ENABLE_FREETYPE` is set; `ImFontAtlas#setFreeTypeRenderer(boolean)` flips between them at runtime. When refactoring font-related code or bumping imgui, preserve this: the patch anchor (see Gotchas) and the Java toggle must stay in sync with imgui's current loader-selection API.
 
 ## Codegen conventions (when editing `buildSrc/`)
+
+Only relevant if you're changing the generator itself (`buildSrc/src/main/kotlin/tool/generator/**`); routine source edits under `imgui-binding/src/main/java/` don't need this section.
 
 ### Don't use `<Nothing>` as a generic type arg in Spoon calls
 
@@ -172,4 +196,4 @@ When multiple PRs are open, suggest a merge order:
 
 Offer to rebase after each preceding merge.
 
-For CI failures, use `gh run view <run-id> --log-failed` and reproduce locally — don't iterate on CI.
+For CI failures, start with `gh pr checks <n>` to identify the failing job, then `gh run view --job <job-id> --log` for focused output. Reproduce locally — don't iterate on CI.
