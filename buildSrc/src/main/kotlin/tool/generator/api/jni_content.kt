@@ -97,7 +97,7 @@ private fun convertParams2jni(f: Factory, params: List<CtParameter<*>>, defaults
                 setType<CtTypedElement<Any>>(f.createTypeParam("double"))
                 setSimpleName<CtNamedElement>("${p.simpleName}MaxY")
             }
-        } else if (p.isType("TextEditorCoordinates")) {
+        } else if (p.isType("TextEditorCursorPosition")) {
             result += f.createParameter<Any>().apply {
                 setType<CtTypedElement<Any>>(f.createTypeParam("int"))
                 setSimpleName<CtNamedElement>("${p.simpleName}Line")
@@ -167,8 +167,8 @@ private fun joinInBodyParams(params: List<CtParameter<*>>, defaults: IntArray): 
                     "ImPlotRect(${p.simpleName}MinX, ${p.simpleName}MinY, ${p.simpleName}MaxX, ${p.simpleName}MaxY)"
                 }
 
-                "TextEditorCoordinates" -> {
-                    "TextEditor::Coordinates(${p.simpleName}Line, ${p.simpleName}Column)"
+                "TextEditorCursorPosition" -> {
+                    "TextEditor::CursorPosition(${p.simpleName}Line, ${p.simpleName}Column)"
                 }
 
                 else -> p.simpleName

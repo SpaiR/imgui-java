@@ -324,7 +324,7 @@ See examples in the `example` module for more information about how to use them.
   Immediate mode 3D gizmo for scene editing and other controls based on Dear ImGui.
 - [implot](https://github.com/epezent/implot/tree/v1.0) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImPlot.java) <br>
   Advanced 2D Plotting for Dear ImGui.  
-- [ImGuiColorTextEdit](https://github.com/BalazsJako/ImGuiColorTextEdit/tree/0a88824f7de8d0bd11d8419066caa7d3469395c4) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuiColorTextEdit.java) <br>
+- [ImGuiColorTextEdit](https://github.com/goossens/ImGuiColorTextEdit/tree/0a88824f7de8d0bd11d8419066caa7d3469395c4) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuiColorTextEdit.java) <br>
   Syntax highlighting text editor for ImGui.
 - [ImGuiFileDialog](https://github.com/aiekick/ImGuiFileDialog/tree/4d42dfba125cbd4780a90fbc5f75e7dfbae64060) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuiFileDialog.java) <br>
   A file selection dialog built for ImGui.

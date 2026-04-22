@@ -42,7 +42,7 @@ private fun joinInBodyParams(params: List<CtParameter<*>>, defaults: IntArray): 
                 "ImPlotRange" -> "${p.simpleName}.min, ${p.simpleName}.max"
                 "ImPlotRect" -> "${p.simpleName}.x.min, ${p.simpleName}.y.min, ${p.simpleName}.x.max, ${p.simpleName}.y.max"
 
-                "TextEditorCoordinates" -> "${p.simpleName}.mLine, ${p.simpleName}.mColumn"
+                "TextEditorCursorPosition" -> "${p.simpleName}.line, ${p.simpleName}.column"
 
                 "String[]" -> "${p.simpleName}, ${p.simpleName}.length"
 
@@ -425,7 +425,7 @@ private fun methodCoordinatesUnwrappedContent(method: CtMethod<*>, fromIndex: In
     val paramNames = mutableSetOf<String>()
 
     for ((idx, p) in newMethod.parameters.withIndex()) {
-        if (p.isType("TextEditorCoordinates") && idx >= fromIndex) {
+        if (p.isType("TextEditorCursorPosition") && idx >= fromIndex) {
             paramNames += p.simpleName
 
             val paramX = p.factory.createParameter<Any>()
@@ -529,7 +529,7 @@ private fun transformMethodToContent(
         if (params.find { it.isType("ImPlotRect") } != null) {
             methodPlotLimitsUnwrappedContent(method, fromIndex).takeIf(String::isNotEmpty)?.run(result::add)
         }
-        if (params.find { it.isType("TextEditorCoordinates") } != null) {
+        if (params.find { it.isType("TextEditorCursorPosition") } != null) {
             methodCoordinatesUnwrappedContent(method, fromIndex).takeIf(String::isNotEmpty)?.run(result::add)
         }
         return result

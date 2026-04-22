@@ -81,7 +81,8 @@ val DST_RETURN_TYPE_SET = setOf(
     "ImPlotPoint",
     "ImPlotRange",
     "ImPlotRect",
-    "TextEditorCoordinates",
+    "TextEditorCursorPosition",
+    "TextEditorCursorSelection",
 )
 
 fun CtElement.hasAnnotation(annotationName: String): Boolean {

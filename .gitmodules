@@ -12,7 +12,7 @@
 	url = https://github.com/epezent/implot.git
 [submodule "include/ImGuiColorTextEdit"]
 	path = include/ImGuiColorTextEdit
-	url = https://github.com/BalazsJako/ImGuiColorTextEdit
+	url = https://github.com/goossens/ImGuiColorTextEdit
 [submodule "include/ImGuiFileDialog"]
 	path = include/ImGuiFileDialog
 	url = https://github.com/aiekick/ImGuiFileDialog
