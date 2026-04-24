@@ -2,7 +2,7 @@
   "info" : {
     "source" : "include/ImGuiColorTextEdit/TextEditor.h",
     "hash" : "1e5c6cd321f415c393ab30d4800a0dc2",
-    "url" : "https://github.com/BalazsJako/ImGuiColorTextEdit",
+    "url" : "https://github.com/goossens/ImGuiColorTextEdit",
     "revision" : "0a88824f7de8d0bd11d8419066caa7d3469395c4"
   },
   "decls" : [ {

@@ -1,11 +1,10 @@
 #pragma once
 
 #include "jni.h"
-//#include "TextEditor.h"
+#include "TextEditor.h"
 
 namespace Jni
 {
-//    void TextEditorCoordinatesCpy(JNIEnv* env, TextEditor::Coordinates* src, jobject dst);
-//    void TextEditorCoordinatesCpy(JNIEnv* env, TextEditor::Coordinates src, jobject dst);
-//    void TextEditorCoordinatesCpy(JNIEnv* env, jobject src, TextEditor::Coordinates* dst);
+    void TextEditorCursorPositionCpy(JNIEnv* env, TextEditor::CursorPosition src, jobject dst);
+    void TextEditorCursorSelectionCpy(JNIEnv* env, TextEditor::CursorSelection src, jobject dst);
 }
