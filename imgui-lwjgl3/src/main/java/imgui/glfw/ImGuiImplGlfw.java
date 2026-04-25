@@ -40,6 +40,7 @@ import org.lwjgl.system.MemoryUtil;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.GLFW.GLFW_ARROW_CURSOR;
 import static org.lwjgl.glfw.GLFW.GLFW_CURSOR;
@@ -192,11 +193,14 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_U;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_V;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_W;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_WORLD_1;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_WORLD_2;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_X;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_Y;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_Z;
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_PASSTHROUGH;
 import static org.lwjgl.glfw.GLFW.GLFW_NOT_ALLOWED_CURSOR;
+import static org.lwjgl.glfw.GLFW.GLFW_PLATFORM_WAYLAND;
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 import static org.lwjgl.glfw.GLFW.GLFW_RESIZE_ALL_CURSOR;
@@ -224,12 +228,14 @@ import static org.lwjgl.glfw.GLFW.glfwGetJoystickButtons;
 import static org.lwjgl.glfw.GLFW.glfwGetKey;
 import static org.lwjgl.glfw.GLFW.glfwGetKeyName;
 import static org.lwjgl.glfw.GLFW.glfwGetMonitorContentScale;
+import static org.lwjgl.glfw.GLFW.glfwGetPlatform;
 import static org.lwjgl.glfw.GLFW.glfwGetMonitorPos;
 import static org.lwjgl.glfw.GLFW.glfwGetMonitorWorkarea;
 import static org.lwjgl.glfw.GLFW.glfwGetMonitors;
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
 import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowAttrib;
+import static org.lwjgl.glfw.GLFW.glfwGetWindowContentScale;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowPos;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
@@ -262,7 +268,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 /**
  * This class is a straightforward port of the
- * <a href="https://raw.githubusercontent.com/ocornut/imgui/1ee252772ae9c0a971d06257bb5c89f628fa696a/backends/imgui_impl_glfw.cpp">imgui_impl_glfw.cpp</a>.
+ * <a href="https://raw.githubusercontent.com/ocornut/imgui/32f4c234a8edd9a85b32a91c9e29afac15c50028/backends/imgui_impl_glfw.cpp">imgui_impl_glfw.cpp</a>.
  * <p>
  * It supports clipboard, gamepad, mouse and keyboard in the same way the original Dear ImGui code does. You can copy-paste this class in your codebase and
  * modify the rendering routine in the way you'd like.
@@ -272,6 +278,7 @@ public class ImGuiImplGlfw {
     protected static final String OS = System.getProperty("os.name", "generic").toLowerCase();
     protected static final boolean IS_WINDOWS = OS.contains("win");
     protected static final boolean IS_APPLE = OS.contains("mac") || OS.contains("darwin");
+    protected static final boolean IS_LINUX = OS.contains("linux");
 
     /**
      * Data class to store implementation specific fields.
@@ -279,14 +286,18 @@ public class ImGuiImplGlfw {
      */
     protected static class Data {
         protected long window = -1;
+        protected GlfwClientApi clientApi = GlfwClientApi.UNKNOWN;
         protected double time = 0.0;
         protected long mouseWindow = -1;
         protected long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
+        protected long lastMouseCursor = -1;
+        protected boolean mouseIgnoreButtonUpWaitForFocusLoss = false;
+        protected boolean mouseIgnoreButtonUp = false;
         protected ImVec2 lastValidMousePos = new ImVec2();
         protected long[] keyOwnerWindows = new long[GLFW_KEY_LAST];
+        protected boolean isWayland = false;
         protected boolean installedCallbacks = false;
         protected boolean callbacksChainForAllWindows = false;
-        protected boolean wantUpdateMonitors = true;
 
         // Chain GLFW callbacks: our callbacks will call the user's previously installed callbacks, if any.
         protected GLFWWindowFocusCallback prevUserCallbackWindowFocus = null;
@@ -321,6 +332,10 @@ public class ImGuiImplGlfw {
         private final double[] mouseX = new double[1];
         private final double[] mouseY = new double[1];
 
+        // Scratch ImVec2 outputs for getWindowSizeAndFramebufferScale
+        private final ImVec2 tmpDisplaySize = new ImVec2();
+        private final ImVec2 tmpFbScale = new ImVec2();
+
         // Monitor properties
         private final int[] monitorX = new int[1];
         private final int[] monitorY = new int[1];
@@ -344,8 +359,10 @@ public class ImGuiImplGlfw {
     private final Properties props = new Properties();
 
     // We gather version tests as define in order to easily see which features are version-dependent.
+    // In C++: GLFW_HAS_X11/GLFW_HAS_WAYLAND derive from compile-time _GLFW_X11/_GLFW_WAYLAND macros.
+    // In Java: detect Wayland at runtime via glfwGetPlatform() (see isWayland helper), since LWJGL does not expose GLFW's compile-time flags.
     protected static final int glfwVersionCombined = GLFW_VERSION_MAJOR * 1000 + GLFW_VERSION_MINOR * 100 + GLFW_VERSION_REVISION;
-    protected static final boolean glfwHawWindowTopmost = glfwVersionCombined >= 3200; // 3.2+ GLFW_FLOATING
+    protected static final boolean glfwHasWindowTopmost = glfwVersionCombined >= 3200; // 3.2+ GLFW_FLOATING
     protected static final boolean glfwHasWindowHovered = glfwVersionCombined >= 3300; // 3.3+ GLFW_HOVERED
     protected static final boolean glfwHasWindowAlpha = glfwVersionCombined >= 3300; // 3.3+ glfwSetWindowOpacity
     protected static final boolean glfwHasPerMonitorDpi = glfwVersionCombined >= 3300; // 3.3+ glfwGetMonitorContentScale
@@ -359,6 +376,7 @@ public class ImGuiImplGlfw {
     protected static final boolean glfwHasGamepadApi = glfwVersionCombined >= 3300; // 3.3+ glfwGetGamepadState() new api
     protected static final boolean glfwHasGetKeyName = glfwVersionCombined >= 3200; // 3.2+ glfwGetKeyName()
     protected static final boolean glfwHasGetError = glfwVersionCombined >= 3300; // 3.3+ glfwGetError()
+    protected static final boolean glfwHasGetPlatform = glfwVersionCombined >= 3400; // 3.4+ glfwGetPlatform()
 
     protected ImStrSupplier getClipboardTextFn() {
         return new ImStrSupplier() {
@@ -429,6 +447,10 @@ public class ImGuiImplGlfw {
                 return ImGuiKey.LeftBracket;
             case GLFW_KEY_BACKSLASH:
                 return ImGuiKey.Backslash;
+            case GLFW_KEY_WORLD_1:
+                return ImGuiKey.Oem102;
+            case GLFW_KEY_WORLD_2:
+                return ImGuiKey.Oem102;
             case GLFW_KEY_RIGHT_BRACKET:
                 return ImGuiKey.RightBracket;
             case GLFW_KEY_GRAVE_ACCENT:
@@ -639,6 +661,11 @@ public class ImGuiImplGlfw {
             data.prevUserCallbackMousebutton.invoke(window, button, action, mods);
         }
 
+        // Workaround for Linux: ignore mouse up events which are following an focus loss following a viewport creation
+        if (data.mouseIgnoreButtonUp && action == GLFW_RELEASE) {
+            return;
+        }
+
         updateKeyModifiers(window);
 
         final ImGuiIO io = ImGui.getIO();
@@ -671,9 +698,13 @@ public class ImGuiImplGlfw {
         }
 
         int resultKey = key;
+        final GLFWErrorCallback prevErrorCallback = glfwSetErrorCallback(null);
         final String keyName = glfwGetKeyName(key, scancode);
+        glfwSetErrorCallback(prevErrorCallback);
         eatErrors();
-        if (keyName != null && keyName.length() > 2 && keyName.charAt(0) != 0 && keyName.charAt(1) == 0) {
+        // C++ checks key_name[0] != 0 && key_name[1] == 0 (NUL-terminated single char). In Java strings have no
+        // trailing NUL, so the equivalent is "exactly one character".
+        if (keyName != null && keyName.length() == 1) {
             if (keyName.charAt(0) >= '0' && keyName.charAt(0) <= '9') {
                 resultKey = GLFW_KEY_0 + (keyName.charAt(0) - '0');
             } else if (keyName.charAt(0) >= 'A' && keyName.charAt(0) <= 'Z') {
@@ -727,6 +758,10 @@ public class ImGuiImplGlfw {
             data.prevUserCallbackWindowFocus.invoke(window, focused);
         }
 
+        // Workaround for Linux: when losing focus with mouseIgnoreButtonUpWaitForFocusLoss set, we will temporarily ignore subsequent Mouse Up events
+        data.mouseIgnoreButtonUp = data.mouseIgnoreButtonUpWaitForFocusLoss && !focused;
+        data.mouseIgnoreButtonUpWaitForFocusLoss = false;
+
         ImGui.getIO().addFocusEvent(focused);
     }
 
@@ -765,7 +800,7 @@ public class ImGuiImplGlfw {
         } else if (data.mouseWindow == window) {
             io.getMousePos(data.lastValidMousePos);
             data.mouseWindow = -1;
-            io.addMousePosEvent(Float.MIN_VALUE, Float.MIN_VALUE);
+            io.addMousePosEvent(-Float.MAX_VALUE, -Float.MAX_VALUE);
         }
     }
 
@@ -778,7 +813,7 @@ public class ImGuiImplGlfw {
     }
 
     public void monitorCallback(final long window, final int event) {
-        data.wantUpdateMonitors = true;
+        // This function is technically part of the API even if we stopped using the callback, so leaving it around.
     }
 
     public void installCallbacks(final long window) {
@@ -834,19 +869,57 @@ public class ImGuiImplGlfw {
     }
 
     public boolean init(final long window, final boolean installCallbacks) {
-        final ImGuiIO io = ImGui.getIO();
+        // Backward-compatible entry point: historically the binding was used with OpenGL only.
+        return initImpl(window, installCallbacks, GlfwClientApi.OPENGL);
+    }
 
-        io.setBackendPlatformName("imgui-java_impl_glfw");
-        io.addBackendFlags(ImGuiBackendFlags.HasMouseCursors | ImGuiBackendFlags.HasSetMousePos | ImGuiBackendFlags.PlatformHasViewports);
-        if (glfwHasMousePassthrough || (glfwHasWindowHovered && IS_WINDOWS)) {
-            io.addBackendFlags(ImGuiBackendFlags.HasMouseHoveredViewport);
-        }
+    public boolean initForOpenGL(final long window, final boolean installCallbacks) {
+        return initImpl(window, installCallbacks, GlfwClientApi.OPENGL);
+    }
+
+    public boolean initForVulkan(final long window, final boolean installCallbacks) {
+        return initImpl(window, installCallbacks, GlfwClientApi.VULKAN);
+    }
+
+    public boolean initForOther(final long window, final boolean installCallbacks) {
+        return initImpl(window, installCallbacks, GlfwClientApi.OTHER);
+    }
+
+    private boolean initImpl(final long window, final boolean installCallbacks, final GlfwClientApi clientApi) {
+        final ImGuiIO io = ImGui.getIO();
 
         data = newData();
         data.window = window;
         data.time = 0.0;
-        data.wantUpdateMonitors = true;
+        data.isWayland = isWayland();
 
+        // Compute runtime GLFW version so the backend name matches the actually-loaded library.
+        final IntBuffer verMajor = MemoryUtil.memAllocInt(1);
+        final IntBuffer verMinor = MemoryUtil.memAllocInt(1);
+        final IntBuffer verRev = MemoryUtil.memAllocInt(1);
+        try {
+            org.lwjgl.glfw.GLFW.glfwGetVersion(verMajor, verMinor, verRev);
+            final int versionCombined = verMajor.get(0) * 1000 + verMinor.get(0) * 100 + verRev.get(0);
+            io.setBackendPlatformName("imgui_impl_glfw (" + versionCombined + ")");
+        } finally {
+            MemoryUtil.memFree(verMajor);
+            MemoryUtil.memFree(verMinor);
+            MemoryUtil.memFree(verRev);
+        }
+
+        io.addBackendFlags(ImGuiBackendFlags.HasMouseCursors | ImGuiBackendFlags.HasSetMousePos);
+        // In C++ (1.92+): viewports are gated purely on platform support (disabled on Wayland).
+        // In Java: ImGuiConfigFlags.ViewportsEnable is also required from the user — this is set by the
+        //          application and is intentionally preserved as a divergence from upstream.
+        if (!data.isWayland) {
+            io.addBackendFlags(ImGuiBackendFlags.PlatformHasViewports);
+        }
+        if (glfwHasMousePassthrough || (glfwHasWindowHovered && IS_WINDOWS)) {
+            io.addBackendFlags(ImGuiBackendFlags.HasMouseHoveredViewport);
+        }
+
+        // In C++ (1.92+): Platform_GetClipboardTextFn / Platform_SetClipboardTextFn are installed on ImGuiPlatformIO.
+        // In Java: still wired via legacy ImGuiIO.setGet/SetClipboardTextFn — migration requires JNI work (see follow-up in review.md).
         io.setGetClipboardTextFn(getClipboardTextFn());
         io.setSetClipboardTextFn(setClipboardTextFn());
 
@@ -896,7 +969,22 @@ public class ImGuiImplGlfw {
             initPlatformInterface();
         }
 
+        // In C++: on Windows a WndProc hook is registered (SetPropA "IMGUI_BACKEND_DATA" + SetWindowLongPtrW)
+        //         to surface MouseSourceEvent (touch/pen) and to handle WM_NCHITTEST for NoInputs.
+        // In Java: this needs a JNI/JNA layer (see follow-up in review.md). Without it, only the passthrough
+        //          branches of multi-viewport handling are correct.
+        data.clientApi = clientApi;
         return true;
+    }
+
+    private static boolean isWayland() {
+        // In C++ a third fallback parses glfwGetVersionString() and checks glfwGetX11Display() when GLFW < 3.4 is
+        // compiled without glfwGetPlatform(). LWJGL 3.4.x always exposes glfwGetPlatform, so we omit that path; if
+        // we ever downgrade to a 3.3.x LWJGL, Wayland would silently report as non-Wayland here.
+        if (glfwHasGetPlatform) {
+            return glfwGetPlatform() == GLFW_PLATFORM_WAYLAND;
+        }
+        return false;
     }
 
     public void shutdown() {
@@ -917,10 +1005,15 @@ public class ImGuiImplGlfw {
             }
         }
 
+        // In C++: the Windows WndProc hook installed during init is unhooked here (SetPropA + SetWindowLongPtrW).
+        // In Java: the hook is never installed (see follow-up), so there is nothing to unhook.
+
         io.setBackendPlatformName(null);
-        data = null;
         io.removeBackendFlags(ImGuiBackendFlags.HasMouseCursors | ImGuiBackendFlags.HasSetMousePos | ImGuiBackendFlags.HasGamepad
             | ImGuiBackendFlags.PlatformHasViewports | ImGuiBackendFlags.HasMouseHoveredViewport);
+        // In C++: ImGui::GetPlatformIO().ClearPlatformHandlers() resets the Platform_* handlers.
+        // In Java: the method is not exposed on ImGuiPlatformIO — see follow-up in review.md.
+        data = null;
     }
 
     protected void updateMouseData() {
@@ -970,12 +1063,12 @@ public class ImGuiImplGlfw {
             // FIXME: This is currently only correct on Win32. See what we do below with the WM_NCHITTEST, missing an equivalent for other systems.
             // See https://github.com/glfw/glfw/issues/1236 if you want to help in making this a GLFW feature.
 
-            if (glfwHasMousePassthrough || (glfwHasWindowHovered && IS_WINDOWS)) {
-                boolean windowNoInput = viewport.hasFlags(ImGuiViewportFlags.NoInputs);
-                if (glfwHasMousePassthrough) {
-                    glfwSetWindowAttrib(window, GLFW_MOUSE_PASSTHROUGH, windowNoInput ? GLFW_TRUE : GLFW_FALSE);
-                }
-                if (glfwGetWindowAttrib(window, GLFW_HOVERED) == GLFW_TRUE && !windowNoInput) {
+            if (glfwHasMousePassthrough) {
+                final boolean windowNoInput = viewport.hasFlags(ImGuiViewportFlags.NoInputs);
+                glfwSetWindowAttrib(window, GLFW_MOUSE_PASSTHROUGH, windowNoInput ? GLFW_TRUE : GLFW_FALSE);
+            }
+            if (glfwHasMousePassthrough || glfwHasWindowHovered) {
+                if (glfwGetWindowAttrib(window, GLFW_HOVERED) != 0) {
                     mouseViewportId = viewport.getID();
                 }
             }
@@ -992,6 +1085,7 @@ public class ImGuiImplGlfw {
         final ImGuiIO io = ImGui.getIO();
 
         if (io.hasConfigFlags(ImGuiConfigFlags.NoMouseCursorChange) || glfwGetInputMode(data.window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED) {
+            data.lastMouseCursor = -1; // Invalidate so that if user changes underlying cursor we will update it next time we can.
             return;
         }
 
@@ -1002,12 +1096,19 @@ public class ImGuiImplGlfw {
             final long windowPtr = platformIO.getViewports(n).getPlatformHandle();
 
             if (imguiCursor == ImGuiMouseCursor.None || io.getMouseDrawCursor()) {
-                // Hide OS mouse cursor if imgui is drawing it or if it wants no cursor
-                glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+                if (data.lastMouseCursor != -1) {
+                    // Hide OS mouse cursor if imgui is drawing it or if it wants no cursor
+                    glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+                    data.lastMouseCursor = -1;
+                }
             } else {
                 // Show OS mouse cursor
                 // FIXME-PLATFORM: Unfocused windows seems to fail changing the mouse cursor with GLFW 3.2, but 3.3 works here.
-                glfwSetCursor(windowPtr, data.mouseCursors[imguiCursor] != 0 ? data.mouseCursors[imguiCursor] : data.mouseCursors[ImGuiMouseCursor.Arrow]);
+                final long cursor = data.mouseCursors[imguiCursor] != 0 ? data.mouseCursors[imguiCursor] : data.mouseCursors[ImGuiMouseCursor.Arrow];
+                if (data.lastMouseCursor != cursor) {
+                    glfwSetCursor(windowPtr, cursor);
+                    data.lastMouseCursor = cursor;
+                }
                 glfwSetInputMode(windowPtr, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
             }
         }
@@ -1095,25 +1196,22 @@ public class ImGuiImplGlfw {
 
     protected void updateMonitors() {
         final ImGuiPlatformIO platformIO = ImGui.getPlatformIO();
-        data.wantUpdateMonitors = false;
 
         final PointerBuffer monitors = glfwGetMonitors();
         if (monitors == null) {
-            System.err.println("Unable to get monitors!");
-            return;
-        }
-        if (monitors.limit() == 0) { // Preserve existing monitor list if there are none. Happens on macOS sleeping (#5683)
             return;
         }
 
-        platformIO.resizeMonitors(0);
-
+        boolean updatedMonitors = false;
         for (int n = 0; n < monitors.limit(); n++) {
             final long monitor = monitors.get(n);
 
             final GLFWVidMode vidMode = glfwGetVideoMode(monitor);
             if (vidMode == null) {
-                continue;
+                continue; // Failed to get Video mode (e.g. Emscripten does not support this function)
+            }
+            if (vidMode.width() <= 0 || vidMode.height() <= 0) {
+                continue; // Failed to query suitable monitor info (#9195)
             }
 
             glfwGetMonitorPos(monitor, props.monitorX, props.monitorY);
@@ -1123,10 +1221,10 @@ public class ImGuiImplGlfw {
             final float mainSizeX = vidMode.width();
             final float mainSizeY = vidMode.height();
 
-            float workPosX = 0;
-            float workPosY = 0;
-            float workSizeX = 0;
-            float workSizeY = 0;
+            float workPosX = mainPosX;
+            float workPosY = mainPosY;
+            float workSizeX = mainSizeX;
+            float workSizeY = mainSizeY;
 
             // Workaround a small GLFW issue reporting zero on monitor changes: https://github.com/glfw/glfw/pull/1761
             if (glfwHasMonitorWorkArea) {
@@ -1139,35 +1237,86 @@ public class ImGuiImplGlfw {
                 }
             }
 
-            float dpiScale = 0;
-
             // Warning: the validity of monitor DPI information on Windows depends on the application DPI awareness settings,
             // which generally needs to be set in the manifest or at runtime.
-            if (glfwHasPerMonitorDpi) {
-                glfwGetMonitorContentScale(monitor, props.monitorContentScaleX, props.monitorContentScaleY);
-                dpiScale = props.monitorContentScaleX[0];
+            final float dpiScale = getContentScaleForMonitor(monitor);
+            if (dpiScale == 0.0f) {
+                continue; // Some accessibility applications are declaring virtual monitors with a DPI of 0 (#7902)
+            }
+
+            // Preserve existing monitor list until a valid one is added.
+            // Happens on macOS sleeping (#5683) and seemingly occasionally on Windows (#9195)
+            if (!updatedMonitors) {
+                platformIO.resizeMonitors(0);
+                updatedMonitors = true;
             }
 
             platformIO.pushMonitors(monitor, mainPosX, mainPosY, mainSizeX, mainSizeY, workPosX, workPosY, workSizeX, workSizeY, dpiScale);
         }
     }
 
+    // - On Windows the process needs to be marked DPI-aware. You can call SetProcessDPIAware() or call ImGui_ImplWin32_EnableDpiAwareness() from Win32 backend.
+    // - Apple platforms use FramebufferScale so we always return 1.0f.
+    // - Some accessibility applications are declaring virtual monitors with a DPI of 0.0f, see #7902. We preserve this value for caller to handle.
+    public static float getContentScaleForWindow(final long window) {
+        if (IS_APPLE) {
+            return 1.0f;
+        }
+        if (glfwHasGetPlatform && glfwGetPlatform() == GLFW_PLATFORM_WAYLAND) {
+            return 1.0f;
+        }
+        if (glfwHasPerMonitorDpi) {
+            final float[] xScale = new float[1];
+            final float[] yScale = new float[1];
+            glfwGetWindowContentScale(window, xScale, yScale);
+            return xScale[0];
+        }
+        return 1.0f;
+    }
+
+    public static float getContentScaleForMonitor(final long monitor) {
+        if (IS_APPLE) {
+            return 1.0f;
+        }
+        if (glfwHasGetPlatform && glfwGetPlatform() == GLFW_PLATFORM_WAYLAND) {
+            return 1.0f;
+        }
+        if (glfwHasPerMonitorDpi) {
+            final float[] xScale = new float[1];
+            final float[] yScale = new float[1];
+            glfwGetMonitorContentScale(monitor, xScale, yScale);
+            return xScale[0];
+        }
+        return 1.0f;
+    }
+
+    private void getWindowSizeAndFramebufferScale(final long window, final ImVec2 outSize, final ImVec2 outFbScale) {
+        glfwGetWindowSize(window, props.windowW, props.windowH);
+        glfwGetFramebufferSize(window, props.displayW, props.displayH);
+        final float fbScaleX = (props.windowW[0] > 0) ? (float) props.displayW[0] / (float) props.windowW[0] : 1.0f;
+        final float fbScaleY = (props.windowH[0] > 0) ? (float) props.displayH[0] / (float) props.windowH[0] : 1.0f;
+        // In C++ (1.92+): when GLFW_HAS_WAYLAND is compiled in (Linux builds only), fb_scale is forced to (1, 1) on
+        //                 non-Wayland sessions. The new imgui_impl_opengl3 handles DPI internally and no longer uses
+        //                 DisplayFramebufferScale to size the GL viewport, so reporting (1, 1) is correct there.
+        // In Java: the OpenGL backend (ImGuiImplGl3.java) has not been resynced yet and still multiplies the GL
+        //          viewport by DisplayFramebufferScale. Keep the real ratio across all platforms — forcing it to
+        //          (1, 1) shrinks the rendered output on macOS Retina to roughly 1/4 of the framebuffer.
+        if (outSize != null) {
+            outSize.set(props.windowW[0], props.windowH[0]);
+        }
+        if (outFbScale != null) {
+            outFbScale.set(fbScaleX, fbScaleY);
+        }
+    }
+
     public void newFrame() {
         final ImGuiIO io = ImGui.getIO();
 
-        // Setup display size (every frame to accommodate for window resizing)
-        glfwGetWindowSize(data.window, props.windowW, props.windowH);
-        glfwGetFramebufferSize(data.window, props.displayW, props.displayH);
-        io.setDisplaySize((float) props.windowW[0], (float) props.windowH[0]);
-        if (props.windowW[0] > 0 && props.windowH[0] > 0) {
-            final float scaleX = (float) props.displayW[0] / props.windowW[0];
-            final float scaleY = (float) props.displayH[0] / props.windowH[0];
-            io.setDisplayFramebufferScale(scaleX, scaleY);
-        }
-
-        if (data.wantUpdateMonitors) {
-            updateMonitors();
-        }
+        // Setup main viewport size (every frame to accommodate for window resizing)
+        getWindowSizeAndFramebufferScale(data.window, props.tmpDisplaySize, props.tmpFbScale);
+        io.setDisplaySize(props.tmpDisplaySize.x, props.tmpDisplaySize.y);
+        io.setDisplayFramebufferScale(props.tmpFbScale.x, props.tmpFbScale.y);
+        updateMonitors();
 
         // Setup time step
         // (Accept glfwGetTime() not returning a monotonically increasing value. Seems to happens on disconnecting peripherals and probably on VMs and Emscripten, see #6491, #6189, #6114, #3644)
@@ -1178,11 +1327,21 @@ public class ImGuiImplGlfw {
         io.setDeltaTime(data.time > 0.0 ? (float) (currentTime - data.time) : 1.0f / 60.0f);
         data.time = currentTime;
 
+        data.mouseIgnoreButtonUp = false;
         updateMouseData();
         updateMouseCursor();
 
         // Update game controllers (if enabled and available)
         updateGamepads();
+    }
+
+    // GLFW doesn't provide a portable sleep function.
+    public static void sleep(final long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (final InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -1251,6 +1410,11 @@ public class ImGuiImplGlfw {
             final ViewportData vd = new ViewportData();
             vp.setPlatformUserData(vd);
 
+            // Workaround for Linux: ignore mouse up events corresponding to losing focus of the previously focused window (#7733, #3158, #7922)
+            if (IS_LINUX) {
+                data.mouseIgnoreButtonUpWaitForFocusLoss = true;
+            }
+
             // GLFW 3.2 unfortunately always set focus on glfwCreateWindow() if GLFW_VISIBLE is set, regardless of GLFW_FOCUSED
             // With GLFW 3.3, the hint GLFW_FOCUS_ON_SHOW fixes this problem
             glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
@@ -1259,17 +1423,22 @@ public class ImGuiImplGlfw {
                 glfwWindowHint(GLFW_FOCUS_ON_SHOW, GLFW_FALSE);
             }
             glfwWindowHint(GLFW_DECORATED, vp.hasFlags(ImGuiViewportFlags.NoDecoration) ? GLFW_FALSE : GLFW_TRUE);
-            if (glfwHawWindowTopmost) {
+            if (glfwHasWindowTopmost) {
                 glfwWindowHint(GLFW_FLOATING, vp.hasFlags(ImGuiViewportFlags.TopMost) ? GLFW_TRUE : GLFW_FALSE);
             }
 
-            vd.window = glfwCreateWindow((int) vp.getSizeX(), (int) vp.getSizeY(), "No Title Yet", NULL, data.window);
+            final long shareWindow = (data.clientApi == GlfwClientApi.OPENGL) ? data.window : NULL;
+            vd.window = glfwCreateWindow((int) vp.getSizeX(), (int) vp.getSizeY(), "No Title Yet", NULL, shareWindow);
             vd.windowOwned = true;
 
             vp.setPlatformHandle(vd.window);
 
+            // In C++: on Linux/X11, ImGui_ImplGlfw_SetWindowFloating is called (dynamic libX11 load + _NET_WM_WINDOW_TYPE change).
+            // In Java: LWJGL does not expose X11 atoms — feature omitted, see follow-up in review.md.
             if (IS_WINDOWS) {
                 vp.setPlatformHandleRaw(GLFWNativeWin32.glfwGetWin32Window(vd.window));
+                // In C++: SetPropA(hwnd, "IMGUI_BACKEND_DATA", bd) — needed for the shared WndProc hook.
+                // In Java: WndProc hook is not implemented, see follow-up in review.md.
             } else if (IS_APPLE) {
                 vp.setPlatformHandleRaw(GLFWNativeCocoa.glfwGetCocoaWindow(vd.window));
             }
@@ -1288,8 +1457,10 @@ public class ImGuiImplGlfw {
             glfwSetWindowPosCallback(vd.window, ImGuiImplGlfw.this::windowPosCallback);
             glfwSetWindowSizeCallback(vd.window, ImGuiImplGlfw.this::windowSizeCallback);
 
-            glfwMakeContextCurrent(vd.window);
-            glfwSwapInterval(0);
+            if (data.clientApi == GlfwClientApi.OPENGL) {
+                glfwMakeContextCurrent(vd.window);
+                glfwSwapInterval(0);
+            }
         }
     }
 
@@ -1299,8 +1470,10 @@ public class ImGuiImplGlfw {
             final ViewportData vd = (ViewportData) vp.getPlatformUserData();
 
             if (vd != null && vd.windowOwned) {
+                // In C++ (Win32, !GLFW_HAS_MOUSE_PASSTHROUGH && GLFW_HAS_WINDOW_HOVERED): RemovePropA(hwnd, "IMGUI_VIEWPORT").
+                // In Java: no WndProc hook means there is no prop to remove — see follow-up in review.md.
                 if (!glfwHasMousePassthrough && glfwHasWindowHovered && IS_WINDOWS) {
-                    // TODO: RemovePropA
+                    // intentionally empty — see comment above.
                 }
 
                 // Release any keys that were pressed in the window being destroyed and are still held down,
@@ -1335,6 +1508,10 @@ public class ImGuiImplGlfw {
                 ImGuiImplGlfwNative.win32hideFromTaskBar(vp.getPlatformHandleRaw());
             }
 
+            // In C++ (Win32): SetPropA + SetWindowLongPtrW(hwnd, GWLP_WNDPROC, ImGui_ImplGlfw_WndProc) — for MouseSourceEvent (touch/pen) and WM_NCHITTEST/HTTRANSPARENT.
+            // In Java: WndProc hook is not implemented (requires JNI/JNA), see follow-up in review.md.
+            // In C++ (GLFW < 3.3 fallback for NoFocusOnAppearing): workaround uses ::ShowWindow(hwnd, SW_SHOWNA).
+            // In Java: LWJGL 3.x requires GLFW >= 3.3, this branch does not apply.
             glfwShowWindow(vd.window);
         }
     }
@@ -1469,21 +1646,21 @@ public class ImGuiImplGlfw {
         }
     }
 
-    private static final class RenderWindowFunction extends ImPlatformFuncViewport {
+    private final class RenderWindowFunction extends ImPlatformFuncViewport {
         @Override
         public void accept(final ImGuiViewport vp) {
             final ViewportData vd = (ViewportData) vp.getPlatformUserData();
-            if (vd != null) {
+            if (vd != null && data.clientApi == GlfwClientApi.OPENGL) {
                 glfwMakeContextCurrent(vd.window);
             }
         }
     }
 
-    private static final class SwapBuffersFunction extends ImPlatformFuncViewport {
+    private final class SwapBuffersFunction extends ImPlatformFuncViewport {
         @Override
         public void accept(final ImGuiViewport vp) {
             final ViewportData vd = (ViewportData) vp.getPlatformUserData();
-            if (vd != null) {
+            if (vd != null && data.clientApi == GlfwClientApi.OPENGL) {
                 glfwMakeContextCurrent(vd.window);
                 glfwSwapBuffers(vd.window);
             }
@@ -1491,6 +1668,10 @@ public class ImGuiImplGlfw {
     }
 
     protected void initPlatformInterface() {
+        // In C++: when GLFW_HAS_VULKAN is set, Platform_CreateVkSurface is registered — a helper for the Vulkan renderer.
+        // In Java: the Vulkan branch is intentionally omitted (no Vulkan binding in this project).
+        // In C++ (1.92+): Platform_GetWindowFramebufferScale is installed on ImGuiPlatformIO for per-viewport DPI.
+        // In Java: ImGuiPlatformIO does not expose the corresponding setter — see follow-up in review.md.
         final ImGuiPlatformIO platformIO = ImGui.getPlatformIO();
 
         // Register platform interface (will be coupled with a renderer interface)
@@ -1521,5 +1702,13 @@ public class ImGuiImplGlfw {
 
     protected void shutdownPlatformInterface() {
         ImGui.destroyPlatformWindows();
+    }
+
+    // Mirrors C++ enum GlfwClientApi. UNKNOWN matches C++'s GlfwClientApi_Unknown ("anything else").
+    enum GlfwClientApi {
+        UNKNOWN,
+        OPENGL,
+        VULKAN,
+        OTHER
     }
 }
