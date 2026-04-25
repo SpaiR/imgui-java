@@ -1293,14 +1293,19 @@ public class ImGuiImplGlfw {
     private void getWindowSizeAndFramebufferScale(final long window, final ImVec2 outSize, final ImVec2 outFbScale) {
         glfwGetWindowSize(window, props.windowW, props.windowH);
         glfwGetFramebufferSize(window, props.displayW, props.displayH);
-        final float fbScaleX = (props.windowW[0] > 0) ? (float) props.displayW[0] / (float) props.windowW[0] : 1.0f;
-        final float fbScaleY = (props.windowH[0] > 0) ? (float) props.displayH[0] / (float) props.windowH[0] : 1.0f;
-        // In C++ (1.92+): when GLFW_HAS_WAYLAND is compiled in (Linux builds only), fb_scale is forced to (1, 1) on
-        //                 non-Wayland sessions. The new imgui_impl_opengl3 handles DPI internally and no longer uses
-        //                 DisplayFramebufferScale to size the GL viewport, so reporting (1, 1) is correct there.
-        // In Java: the OpenGL backend (ImGuiImplGl3.java) has not been resynced yet and still multiplies the GL
-        //          viewport by DisplayFramebufferScale. Keep the real ratio across all platforms — forcing it to
-        //          (1, 1) shrinks the rendered output on macOS Retina to roughly 1/4 of the framebuffer.
+        float fbScaleX = (props.windowW[0] > 0) ? (float) props.displayW[0] / (float) props.windowW[0] : 1.0f;
+        float fbScaleY = (props.windowH[0] > 0) ? (float) props.displayH[0] / (float) props.windowH[0] : 1.0f;
+        // In C++ (1.92+): #if GLFW_HAS_WAYLAND && !bd->IsWayland forces fb_scale to (1, 1). GLFW_HAS_WAYLAND is a
+        //                 compile-time guard that is only ever true on Linux GLFW builds, so in practice this overrides
+        //                 the ratio on Linux non-Wayland sessions only. The companion change is in imgui_impl_opengl3:
+        //                 the renderer no longer multiplies glViewport by DisplayFramebufferScale, it uses DisplaySize
+        //                 directly, so reporting (1, 1) does not shrink the output.
+        // In Java: ImGuiImplGl3.java has been resynced to mirror the new renderer, so we restore the override here.
+        //          Translate the compile-time GLFW_HAS_WAYLAND guard to the runtime check IS_LINUX && !data.isWayland.
+        if (IS_LINUX && !data.isWayland) {
+            fbScaleX = 1.0f;
+            fbScaleY = 1.0f;
+        }
         if (outSize != null) {
             outSize.set(props.windowW[0], props.windowH[0]);
         }
