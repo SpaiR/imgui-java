@@ -2,32 +2,52 @@
 
 Guidance for AI coding agents working on `imgui-java`.
 
+This file is the operational guide: what the repo is, how to build it, the procedure for
+upgrading submodules, and the codegen-internals conventions. The everyday conventions and
+"don't"s live in companion files — read them too:
+
+- **`.claude/rules/guardrails.md`** — what *not* to do. Covers the golden rules (never
+  edit `src/generated/java/`, never commit `bin/` natives), the JNI contract, Java 8
+  compatibility on consumed classes, doclint pitfalls, dependency hygiene, AST drift,
+  and the rule against mixing submodule bumps with feature work.
+- **`.claude/rules/codestyle.md`** — Java style for `imgui-binding/`, `imgui-lwjgl3/`,
+  `imgui-app/` (formatting, naming, modifiers, imports, javadoc, wrapper class shape,
+  binding-source annotations). Authoritative copy is `config/checkstyle/checkstyle.xml`.
+- **`.claude/docs/patterns.md`** — recurring patterns when adding to the binding (the
+  codegen loop, annotated stubs, struct wrappers, out-parameter `Im*` wrappers, module
+  boundaries, application lifecycle).
+- **`docs/CONTRIBUTING.md`** — PR/commit workflow. Includes the conventional-commit
+  format and, importantly, the **`Co-authored-by` trailer rule for AI-assisted commits**
+  and the "you are responsible for the change" rule. Read it before opening a PR.
+
+If anything below conflicts with those files, the dedicated file wins — update it
+there, not here.
+
 ## What this repo is
 
 JNI-based Java binding for [Dear ImGui](https://github.com/ocornut/imgui) + extensions (ImPlot, ImNodes, ImGuizmo, imgui-node-editor, imgui-knobs, imgui-file-dialog, imgui-text-edit, imgui-club). Multi-module Gradle build, published as `io.github.spair:imgui-java-{binding,lwjgl3,app}`. Java is **codegen-driven**: annotated stubs in `imgui-binding/src/main/java/`, expanded by the Spoon-based generator in `buildSrc/` into `imgui-binding/src/generated/java/` — both trees committed.
 
-## Golden rule: never edit generated code directly
-
-`imgui-binding/src/generated/java/` is codegen output. `imgui-binding/src/main/java/` is the **single source of truth**. Workflow is always: edit source → `./gradlew :imgui-binding:generateApi` → commit both trees in one commit.
-
-If the generator produces something you "just need to fix in the generated file" — that's a generator bug. Fix it in `buildSrc/`. Hand-edits to `src/generated/` are silently reverted on the next regen.
+The most important rule to internalize before doing anything else: **never edit
+`imgui-binding/src/generated/java/` by hand** — it is regenerated from the annotated
+sources in `imgui-binding/src/main/java/`. See `.claude/rules/guardrails.md` for the
+full statement and the workflow.
 
 ## Project layout
 
-| Path | What's there |
-|---|---|
-| `imgui-binding/` | Core JNI binding + codegen |
-| `imgui-binding/src/main/java/` | Hand-written annotated sources (`@BindingSource`, `@BindingField`, `@BindingMethod`, `@BindingAstEnum`) |
-| `imgui-binding/src/generated/java/` | Codegen output; committed. See Golden rule |
-| `imgui-binding/src/main/native/` | Hand-written JNI `.cpp` / `.h` (struct marshaling etc.) |
-| `imgui-lwjgl3/` | LWJGL backend (GLFW + OpenGL) |
-| `imgui-app/` | Convenience wrapper bundling natives + an `Application` entry-point |
-| `include/` | Git submodules: imgui, implot, imnodes, imguizmo, etc. |
-| `bin/` | Native libs (`.so/.dylib/.dll`), committed by CI |
-| `buildSrc/` | Gradle plugin: codegen tasks, JNI build, AST parser |
-| `buildSrc/src/main/resources/generator/api/ast/*.json` | Clang-dumped AST data, consumed by `@BindingAstEnum` |
-| `example/` | Example apps |
-| `patches/` | Local patches against vendored submodules |
+| Path                                                   | What's there                                                                                            |
+|--------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| `imgui-binding/`                                       | Core JNI binding + codegen                                                                              |
+| `imgui-binding/src/main/java/`                         | Hand-written annotated sources (`@BindingSource`, `@BindingField`, `@BindingMethod`, `@BindingAstEnum`) |
+| `imgui-binding/src/generated/java/`                    | Codegen output; committed. See `.claude/rules/guardrails.md`                                            |
+| `imgui-binding/src/main/native/`                       | Hand-written JNI `.cpp` / `.h` (struct marshaling etc.)                                                 |
+| `imgui-lwjgl3/`                                        | LWJGL backend (GLFW + OpenGL)                                                                           |
+| `imgui-app/`                                           | Convenience wrapper bundling natives + an `Application` entry-point                                     |
+| `include/`                                             | Git submodules: imgui, implot, imnodes, imguizmo, etc.                                                  |
+| `bin/`                                                 | Native libs (`.so/.dylib/.dll`), committed by CI                                                        |
+| `buildSrc/`                                            | Gradle plugin: codegen tasks, JNI build, AST parser                                                     |
+| `buildSrc/src/main/resources/generator/api/ast/*.json` | Clang-dumped AST data, consumed by `@BindingAstEnum`                                                    |
+| `example/`                                             | Example apps                                                                                            |
+| `patches/`                                             | Local patches against vendored submodules                                                               |
 
 ## Build & test
 
@@ -106,18 +126,9 @@ Use this reading to write a meaningful commit message and PR description. A one-
 
 ## Gotchas (what bites on a submodule bump)
 
-### Javadoc doclint rejects C++ comment patterns
-
-Dear ImGui's C++ headers use `<`, `>`, `&`, `->` as operators in doc comments; strict doclint (JDK 17+) treats them as malformed HTML and fails. Wrap offending text in `{@code ...}` in source, then regen. Examples:
-
-| Bad | Good |
-|---|---|
-| `(flags & X)` | `{@code (flags & X)}` |
-| `if threshold < 0.0f` | `{@code if threshold < 0.0f}` |
-| `"Demo->Child->X"` | `{@code Demo->Child->X}` |
-| `{@link ImGui#pushFont(ImFont)}` after rename | `{@link ImGui#pushFont(ImFont, float)}` |
-
-Only enum-constant docs are auto-sanitized (via `ast_content.kt`'s `sanitizeDocComment`); class- and method-level Javadoc is copied verbatim. Extending the sanitizer to cover those too would eliminate this step — open opportunity. Run javadoc locally before pushing.
+The general "don't"s — javadoc doclint, AST drift, committing `bin/` artifacts — are
+all spelled out in `.claude/rules/guardrails.md`. The items below are submodule-bump
+specifics that aren't covered there.
 
 ### Vendor patches
 
@@ -127,10 +138,6 @@ Some submodules need local patches to compile against current imgui (e.g., `imgu
 
 `buildSrc/.../GenerateLibs.groovy` does literal-string rewrites against vendored C++ sources (e.g., swapping the default font loader in `imgui_draw.cpp`). When imgui renames the anchor symbol across versions, the rewrite silently no-ops and the native build ships unpatched — grep `replaceSourceFileContent(` on every submodule bump and refresh each anchor.
 
-### AST regeneration drift
-
-`./gradlew generateAst` may update JSONs unrelated to your bump (e.g., `ast-ImGuiFileDialog.json`, `ast-TextEditor.json`) because clang picks up different system headers per machine. **Revert those** — keep the diff scoped.
-
 ### Rebasing: regenerate, don't hand-merge
 
 Conflict markers inside generated files or AST JSONs are a false fight. Take your side, then re-run `generateAst` / `generateApi` on the rebased tree. Hand-merging codegen output just produces drift.
@@ -139,9 +146,12 @@ Conflict markers inside generated files or AST JSONs are a false fight. Take you
 
 `git checkout <branch>` doesn't update submodules. If `include/*` pointers differ between branches you'll compile against the wrong headers with mystifying errors. After any branch/rebase touching `include/`: `git submodule update --init --recursive`.
 
-### Don't commit build artifacts
+### Doclint sanitizer coverage gap
 
-Never commit `bin/libimgui-java64.*` or anything staged from `/tmp/imgui/` — `bin/` is owned by the post-merge CI update job. Prefer explicit `git add <path>` over `-A` to avoid picking these up.
+Only enum-constant docs are auto-sanitized (via `ast_content.kt`'s `sanitizeDocComment`); class- and method-level
+Javadoc is copied verbatim from upstream C++ headers. Extending the sanitizer to cover those too would eliminate the
+manual `{@code ...}` step on bumps — open opportunity. Until then, run javadoc locally before pushing (see
+`.claude/rules/guardrails.md` → "Don't break the doclint build" for the fix patterns).
 
 ## Design conventions
 
@@ -186,14 +196,18 @@ Use `providers.exec { ... }` for shell-outs, never `.execute()`. Capture resolve
 
 ## PR workflow
 
-Keep submodule bumps, Gradle/deps bumps, and codegen changes as separate commits and separate PRs.
+The full commit-message format, the conventional-commit types/scopes, and the
+mandatory `Co-authored-by` trailer for AI-assisted commits are documented in
+`docs/CONTRIBUTING.md` — follow that. The rule that submodule bumps, Gradle/deps
+bumps, and codegen-tooling changes each go in their own PR is in
+`.claude/rules/guardrails.md` ("Don't merge submodule bumps with feature work").
 
-When multiple PRs are open, suggest a merge order:
+Operational guidance on top of those:
 
-1. Infrastructure (Gradle, build tooling) — unblocks everything else.
-2. Independent changes (submodule refresh) — low risk, fast review.
-3. Larger API bumps, in dependency order.
-
-Offer to rebase after each preceding merge.
-
-For CI failures, start with `gh pr checks <n>` to identify the failing job, then `gh run view --job <job-id> --log` for focused output. Reproduce locally — don't iterate on CI.
+- When multiple PRs are open, suggest a merge order:
+    1. Infrastructure (Gradle, build tooling) — unblocks everything else.
+    2. Independent changes (submodule refresh) — low risk, fast review.
+    3. Larger API bumps, in dependency order.
+- Offer to rebase after each preceding merge.
+- For CI failures, start with `gh pr checks <n>` to identify the failing job, then `gh run view --job <job-id> --log`
+  for focused output. Reproduce locally — don't iterate on CI.

@@ -125,6 +125,56 @@ Breaking Change section should start with the phrase "BREAKING CHANGE: " followe
 
 Similarly, a Deprecation section should start with "DEPRECATED: " followed by a short description of what is deprecated, a blank line, and a detailed description of the deprecation that also mentions the recommended update path.
 
+## Contributing with AI Agents
+
+AI coding agents (Claude Code, Copilot, Cursor, Codex, Gemini, etc.) are welcome to assist with contributions.
+See [AGENTS.md](../AGENTS.md) for the canonical guidance on how AI agents should work in this repo (golden rules,
+codegen workflow, build commands, gotchas).
+
+Two extra rules apply on top of the regular contribution flow:
+
+1. **You are responsible for the change.** The agent is a tool — review the diff, run the build, and make sure the PR
+   meets the same bar as a hand-written one. "The agent did it" is not a defense for a broken or low-quality patch.
+2. **Every AI-assisted commit must be attributed via a `Co-authored-by` trailer** (see below). This applies whether the
+   agent wrote the whole commit or just a substantial part of it.
+
+### `Co-authored-by` trailer for AI-assisted commits
+
+Add a `Co-authored-by` line to the [commit message footer](#commit-footer) for any commit that an AI agent helped
+produce. Use the **short, family-level name** of the model — not the specific version — followed by the standard
+vendor noreply email.
+
+Format:
+
+```
+Co-authored-by: <Model Family> <<vendor-noreply-email>>
+```
+
+Examples (use the family name, drop the version/tier suffix):
+
+| Model used                                 | Trailer                                          |
+|--------------------------------------------|--------------------------------------------------|
+| Claude Opus / Sonnet / Haiku (any version) | `Co-authored-by: Claude <noreply@anthropic.com>` |
+| GitHub Copilot                             | `Co-authored-by: Copilot <copilot@github.com>`   |
+| OpenAI Codex / GPT                         | `Co-authored-by: Codex <noreply@openai.com>`     |
+| Google Gemini                              | `Co-authored-by: Gemini <noreply@google.com>`    |
+
+Full commit message example:
+
+```
+fix(api): correct ImVec2 swap signature
+
+The previous overload reversed x and y when round-tripping through
+the native bridge. Restore the upstream argument order.
+
+Fixes #123
+
+Co-authored-by: Claude <noreply@anthropic.com>
+```
+
+If multiple agents contributed, add one `Co-authored-by` line per agent. Place the trailer(s) at the very end of the
+commit message, separated from the body by a blank line.
+
 ## Any contributions you make will be under the MIT License
 In short, when you submit code changes, your submissions are understood to be under the same [MIT License](https://choosealicense.com/licenses/mit/) that covers the project. Feel free to contact the maintainers if that's a concern.
 

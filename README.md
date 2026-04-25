@@ -10,69 +10,59 @@
 [![binding javadoc](https://javadoc.io/badge2/io.github.spair/imgui-java-binding/javadoc_binding.svg?logo=java)](https://javadoc.io/doc/io.github.spair/imgui-java-binding)
 [![app javadoc](https://javadoc.io/badge2/io.github.spair/imgui-java-app/javadoc_app.svg?logo=java)](https://javadoc.io/doc/io.github.spair/imgui-java-app)
 
+Tracks **Dear ImGui v1.92.7** (docking branch).
+
 </div>
 
 ---
 
 ### Features
 
-- **JNI based**<br>
-  Native communication layer made with generated JNI code. No dependencies, no problems.
-- **Small and Efficient**<br>
-  Binding has a small memory footprint and uses direct native calls to work.<br>
-- **Fully Featured**<br>
-  All public API was carefully implemented with Java usage in mind.<br>
-- **Multi-Viewports / Docking Branch**<br>
-  Binding has a full support of [Multi-Viewports](https://github.com/ocornut/imgui/wiki/Multi-Viewports) and [Docking](https://github.com/ocornut/imgui/wiki/Docking). <br>
-- **FreeType Font Renderer**<br>
-  FreeType font renderer provides a much better fonts quality. [See how to use](#freetype).<br>
-- **Extensions**<br>
-  Binding includes several useful [extensions](https://github.com/ocornut/imgui/wiki/Useful-Extensions) for Dear ImGui. [See full list](#extensions).
+- Generated JNI code with no third-party runtime dependencies.
+- Small footprint, direct native calls.
+- Full coverage of the public Dear ImGui API, adapted for idiomatic Java usage.
+- [Multi-Viewports](https://github.com/ocornut/imgui/wiki/Multi-Viewports)
+  and [Docking](https://github.com/ocornut/imgui/wiki/Docking) support (docking branch).
+- Optional [FreeType font renderer](#freetype) for higher-quality text.
+- Bundled [extensions](#extensions): ImPlot, ImNodes, imgui-node-editor, ImGuizmo, ImGuiColorTextEdit, ImGuiFileDialog,
+  ImGui Club MemoryEditor, imgui-knobs.
 
-To understand how to use ImGui Java - read official [documentation](https://github.com/ocornut/imgui#usage) and [wiki](https://github.com/ocornut/imgui/wiki).
-Binding adopts C++ API for Java, but almost everything can be used in the same manner. 
+The repo ships three Maven artifacts:
 
-ImGui Java has a ready to use implementation for GLFW and OpenGL API using [LWJGL3](https://www.lwjgl.org/) library. See `imgui-lwjgl3` module.<br>
-Implementation is optional to use. Advantage of Dear ImGui is total portability, so feel free to copy-paste classes or write your own implementations.
+- **`imgui-java-app`** — high-level wrapper with bundled GLFW + OpenGL + native libs. Subclass `Application`, override
+  `process()`.
+- **`imgui-java-binding`** — the binding itself, no backend included.
+- **`imgui-java-lwjgl3`** — ready-made GLFW/OpenGL backend on top of [LWJGL3](https://www.lwjgl.org/) for use with
+  `imgui-java-binding`.
 
-Additionally, there is an `imgui-app` module, which provides **a high abstraction layer**.<br>
-It hides all low-level code under one class to extend. With it, you can build your GUI application instantly.
-
-# Support
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P5BF17Q)
-
-You can support the project to motivate its further development.
+Backends are optional — Dear ImGui is renderer-agnostic, so feel free to copy `imgui-lwjgl3` as a starting point and
+adapt it to your stack.
 
 # How to Try
 
-_**Make sure you have installed <u>JDK 8</u> or higher.**_
-
-<p align="center"><img src="https://i.imgur.com/JjhR9in.png"/></p>
-
-### [Demo](https://i.imgur.com/c0ds1EZ.gif)
-
-You can try binding by yourself in three simple steps:
+JDK 17+ is required to run the build (Gradle's toolchain pins it). Published artifacts target Java 8 bytecode, so
+consuming them as a dependency only needs JDK 8+ at runtime.
 
 ```
-git clone git@github.com:SpaiR/imgui-java.git
+git clone --recurse-submodules https://github.com/SpaiR/imgui-java.git
 cd imgui-java
 ./gradlew :example:run
 ```
 
-See `example` module to try other widgets in action.
+`example/src/main/java/` contains a runnable showcase for every widget and extension — start with `Main.java`, then
+explore the per-extension `Example*.java` files.
 
 # How to Use
 
-**[ImGui in LWJGL YouTube video](https://youtu.be/Xq-eVcNtUbw)** by [GamesWithGabe](https://www.youtube.com/channel/UCQP4qSCj1eHMHisDDR4iPzw).<br>
-You can use this video as a basic step-by-step tutorial. It shows how to integrate binding with the usage of jar files.<br>
-Gradle and Maven dependencies could be used for this purpose as well.
+Pick a module based on how much control you need:
 
-Take a note, that integration itself is a very flexible process. It could be done in one way or another. If you just need a framework for your GUI - use [Application](#application) module. 
-Otherwise, if you need more control, the best way is not just to repeat steps, but to understand what each step does.
+- **`imgui-app`** — one-jar batteries-included setup (GLFW + OpenGL + Dear ImGui + native libs). Extend `Application`,
+  override `process()`, you're done.
+- **`imgui-binding`** + **`imgui-lwjgl3`** — bring your own backend wiring. Use this when you want to integrate ImGui
+  into an existing render loop or a non-default GLFW/OpenGL setup.
 
-### For macOS M-chip users
-
-The macOS version of the binding is compiled as a universal binary. This means you can use it on both x86_64 and aarch64 platforms without any additional actions.
+On Apple Silicon nothing extra is needed: the published macOS native is a universal binary covering both `x86_64` and
+`aarch64`.
 
 ## Application
 
@@ -192,7 +182,7 @@ repositories {
 }
 
 ext {
-    lwjglVersion = '3.3.3'
+    lwjglVersion = '3.4.1'
     imguiVersion = "${version}"
 }
 
@@ -217,7 +207,7 @@ dependencies {
 
 ```
 <properties>
-    <lwjgl.version>3.3.1</lwjgl.version>
+    <lwjgl.version>3.4.1</lwjgl.version>
     <imgui.java.version>${version}</imgui.java.version>
 </properties>
 
@@ -311,92 +301,150 @@ If using Java 9 modules, ImGui Java has Automatic Module Names:
 | imgui-java-natives-linux       | imgui.natives.linux       |
 | imgui-java-natives-macos       | imgui.natives.macos       |
 
-## Extensions
+# Extensions
 
-All extensions are already included in the binding and can be used as it is.
-See examples in the `example` module for more information about how to use them.
+All extensions are already included in the binding and can be used as is. See `example/src/main/java/` for runnable
+demos of each.
 
-- [ImNodes](https://github.com/Nelarius/imnodes/tree/857cc860af05ac0f6a4039c2af33d982377b6cf4) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImNodes.java) <br>
+- [ImNodes](https://github.com/Nelarius/imnodes) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImNodes.java) <br>
   A small, dependency-free node editor for Dear ImGui. (A good choice for simple start.)
-- [imgui-node-editor](https://github.com/thedmd/imgui-node-editor/tree/687a72f940c76cf5064e13fe55fa0408c18fcbe4) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuiNodeEditor.java) <br>
+- [imgui-node-editor](https://github.com/thedmd/imgui-node-editor) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuiNodeEditor.java) <br>
   Node Editor using ImGui. (A bit more complex than ImNodes, but has more features.)
-- [ImGuizmo](https://github.com/CedricGuillemet/ImGuizmo/tree/f7bbbe39971d9d45816417a70e9b53a0f698c56e) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuizmo.java) <br>
+- [ImGuizmo](https://github.com/CedricGuillemet/ImGuizmo) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuizmo.java) <br>
   Immediate mode 3D gizmo for scene editing and other controls based on Dear ImGui.
-- [implot](https://github.com/epezent/implot/tree/v1.0) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImPlot.java) <br>
-  Advanced 2D Plotting for Dear ImGui.  
-- [ImGuiColorTextEdit](https://github.com/goossens/ImGuiColorTextEdit/tree/0a88824f7de8d0bd11d8419066caa7d3469395c4) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuiColorTextEdit.java) <br>
+- [implot](https://github.com/epezent/implot) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImPlot.java) <br>
+  Advanced 2D Plotting for Dear ImGui.
+- [ImGuiColorTextEdit](https://github.com/goossens/ImGuiColorTextEdit) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuiColorTextEdit.java) <br>
   Syntax highlighting text editor for ImGui.
-- [ImGuiFileDialog](https://github.com/aiekick/ImGuiFileDialog/tree/4d42dfba125cbd4780a90fbc5f75e7dfbae64060) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuiFileDialog.java) <br>
+- [ImGuiFileDialog](https://github.com/aiekick/ImGuiFileDialog) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuiFileDialog.java) <br>
   A file selection dialog built for ImGui.
-- [ImGui Club MemoryEditor](https://github.com/ocornut/imgui_club/tree/d4cd9896e15a03e92702a578586c3f91bbde01e8) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuiMemoryEditor.java) <br>
+- [ImGui Club MemoryEditor](https://github.com/ocornut/imgui_club) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleImGuiMemoryEditor.java) <br>
   Memory editor and viewer for ImGui.
+- [imgui-knobs](https://github.com/altschuler/imgui-knobs) | [Example](https://github.com/SpaiR/imgui-java/blob/main/example/src/main/java/ExampleKnobs.java) <br>
+  A collection of knob widgets for Dear ImGui.
 
-## Freetype
+# FreeType
 
-By default, Dear ImGui uses stb-truetype to render fonts. However, there is an option to use the FreeType font renderer.
-To learn about the differences, visit the [imgui_freetype](https://github.com/ocornut/imgui/tree/256594575d95d56dda616c544c509740e74906b4/misc/freetype) page.
+By default, Dear ImGui uses stb-truetype to render fonts. There is an option to use the FreeType font renderer instead —
+see [imgui_freetype](https://github.com/ocornut/imgui/tree/master/misc/freetype) for the differences.
 
-This binding also supports the FreeType option. 
-FreeType is statically pre-compiled into the library, meaning it is **included by default**.
-To enable it use `ImFontAtlas#setFreeTypeRenderer(true)` method. This should be done before fonts atlas generation.
-https://github.com/SpaiR/imgui-java/blob/e822240115bb27ef0f399ccdf39613fb746f46be/example/src/main/java/Main.java#L46-L47
-Therefore, you can freely use `ImGuiFreeTypeBuilderFlags` in your font configuration.
+This binding also supports the FreeType option.
+FreeType is statically pre-compiled into the published native libraries, meaning it is **included by default**.
+The compile-time default font loader stays stb_truetype; the renderer is switched at runtime via
+`ImFontAtlas#setFreeTypeRenderer(true)`, which must be called before fonts atlas generation. After that you can freely
+use `ImGuiFreeTypeBuilderFlags` in your font configuration.
 
-If you prefer not to use the FreeType font renderer, you will need to build your own binaries and use them instead.
+See `example/src/main/java/Main.java` for a working example.
 
-# Binding Notice
+If you prefer not to ship FreeType, you will need to build your own binaries (omit `-Dfreetype=true` when invoking
+`generateLibs`).
 
-Binding was made with Java usage in mind. Some places of the original library were adapted for that.<br>
-For example, in places where in C++ you need to pass a reference value, in Java you pass primitive wrappers: `ImInt`, `ImFloat` etc.<br>
+# API Conventions
 
-One important thing is how natives structs work. All of them have a public field with a pointer to the natively allocated memory.<br>
-By changing the pointer it's possible to use the same Java instance to work with different native structs.<br>
-Most of the time you can ignore this fact and just work with objects in a common way.
+The binding adapts the C++ API for Java; almost everything maps directly, but two patterns differ:
 
-Read [javadoc](https://javadoc.io/doc/io.github.spair/imgui-java-binding) and source comments to get more info about how to do specific stuff.
+- **Out-parameters**: where C++ takes a reference, Java takes a primitive wrapper — `ImInt`, `ImFloat`, `ImBoolean`,
+  etc.
+- **Native structs**: every wrapper holds a public pointer to its native memory. You can usually ignore this, but
+  reassigning the pointer lets one Java instance address different native structs — useful for iteration over native
+  arrays.
+
+For everything else, follow upstream Dear ImGui's [documentation](https://github.com/ocornut/imgui#usage)
+and [wiki](https://github.com/ocornut/imgui/wiki);
+the [binding javadoc](https://javadoc.io/doc/io.github.spair/imgui-java-binding) covers Java-specific details.
 
 # How to Build Native Libraries
 
+Native binaries shipped on Maven Central are built by CI; you only need to build them yourself when bumping a vendored
+submodule, hacking on the JNI layer, or producing a binary without FreeType.
+
 Ensure you've downloaded git submodules. That could be achieved:
 - When cloning the repository: `git clone --recurse-submodules https://github.com/SpaiR/imgui-java.git`
-- When the repository cloned: `git submodule init` and `git submodule update`
+- When the repository already cloned: `git submodule update --init --recursive`
+
+The Gradle toolchain pins **JDK 17** for the build regardless of your system JDK. You only need a JVM that can launch
+`gradlew`.
+
+## Recommended: `buildSrc/scripts/build.sh`
+
+This is the path CI uses. It vendors FreeType, runs `generateLibs`, and lays the resulting binary under
+`/tmp/imgui/dst/`:
+
+```
+buildSrc/scripts/build.sh <windows|linux|macos>
+```
+
+For `macos` it builds both `x86_64` and `arm64` slices and combines them into a single universal `libimgui-java64.dylib`
+via `lipo`.
+
+To use the freshly-built binary with the example:
+
+```
+cp /tmp/imgui/dst/libimgui-java64.<so|dylib|dll> bin/
+./gradlew :example:run -PlibPath=$PWD/bin
+```
+
+## Direct Gradle invocation
+
+If you don't need FreeType or want a stock build under the project tree, call `generateLibs` directly:
 
 ### Windows
 
- - Make sure you have installed and **available in PATH**:
-    * JDK 8 or higher
-    * Ant
-    * Mingw-w64 (recommended way: use [MSYS2](https://www.msys2.org/) and install [mingw-w64-x86_64-toolchain](https://packages.msys2.org/group/mingw-w64-x86_64-toolchain) group)
- - Build with: `./gradlew imgui-binding:generateLibs -Denvs=windows -Dlocal`
- - Run with: `./gradlew example:run -PlibPath="../imgui-binding/build/libsNative/windows64"`
- - Always use `-Dlocal` flag.
- 
+- Required on PATH: Ant, Mingw-w64 (recommended via [MSYS2](https://www.msys2.org/) — install
+  the [mingw-w64-x86_64-toolchain](https://packages.msys2.org/group/mingw-w64-x86_64-toolchain) group).
+- Build: `./gradlew imgui-binding:generateLibs -Denvs=windows -Dlocal`
+- Run example: `./gradlew example:run -PlibPath="../imgui-binding/build/libsNative/windows64"`
+
 ### Linux
 
- - Install dependencies: `openjdk8`, `mingw-w64-gcc`, `ant`. (Package names could vary from system to system.)
- - Build with: `./gradlew imgui-binding:generateLibs -Denvs=linux -Dlocal`
- - Run with: `./gradlew example:run -PlibPath=../imgui-binding/build/libsNative/linux64`
- 
+- Install dependencies: `mingw-w64-gcc`, `ant`. (Package names vary by distro.)
+- Build: `./gradlew imgui-binding:generateLibs -Denvs=linux -Dlocal`
+- Run example: `./gradlew example:run -PlibPath=../imgui-binding/build/libsNative/linux64`
+
 ### macOS
 
- - Check dependencies from "Linux" section and make sure you have them installed.
- - Build with: `./gradlew imgui-binding:generateLibs -Denvs=macos -Dlocal`
- - Run with: `./gradlew example:run -PlibPath=../imgui-binding/build/libsNative/macosx64`
- 
-### macOS (arm64)
+- Same toolchain dependencies as Linux.
+- Build (universal): `./gradlew imgui-binding:generateLibs -Denvs=macos,macosarm64 -Dlocal` — produces `macosx64/` and
+  `macosxarm64/` outputs that the Maven Central artifact bundles together via `lipo` (see `buildSrc/scripts/build.sh`).
+- Single slice: pass only `-Denvs=macos` or `-Denvs=macosarm64`.
+- Run example (Intel slice): `./gradlew example:run -PlibPath=../imgui-binding/build/libsNative/macosx64`
 
- - Check dependencies from "Linux" section and make sure you have them installed.
- - Build with: `./gradlew imgui-binding:generateLibs -Denvs=macosarm64 -Dlocal`
- - Run with: `./gradlew example:run -PlibPath=../imgui-binding/build/libsNative/macosxarm64`
+### Flags
 
-In `envs` parameter next values could be used `windows`, `linux` or `macos` or `macosarm64`.
+| Flag              | Effect                                                                                                                        |
+|-------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| `-Denvs=<csv>`    | Target platforms — any of `windows`, `linux`, `macos`, `macosarm64`                                                           |
+| `-Dlocal`         | Output to `imgui-binding/build/libsNative/` instead of `/tmp/imgui/`                                                          |
+| `-Dfreetype=true` | Compile FreeType statically into the binary (requires `vendor_freetype.sh` to have been run; `build.sh` handles this for you) |
 
-`-Dlocal` is optional and means that natives will be built under the `./imgui-binding/build/` folder. Otherwise `/tmp/imgui` folder will be used.
+## Vendored patches
 
-## Freetype
+A few submodules need local fixups to compile against the current Dear ImGui (e.g. `imgui-node-editor` against imgui
+1.92's new `operator*` overload). Patches live under `patches/` and are applied idempotently by the `applyVendorPatches`
+task, which `generateLibs` runs automatically — no manual step required.
 
-To build a version of the libraries with FreeType, you need to run the `buildSrc/scripts/vendor_freetype.sh` script first. 
-This script configures the FreeType library to be statically compiled into your project.
+# For Contributors
+
+The Java side of the binding is **codegen-driven**. Annotated stubs live under `imgui-binding/src/main/java/`; the
+generator in `buildSrc/` expands them into `imgui-binding/src/generated/java/` (both trees are committed). Never
+hand-edit `src/generated/`: it is regenerated and your changes will be lost. The workflow is always:
+
+```
+# edit imgui-binding/src/main/java/...
+./gradlew :imgui-binding:generateApi
+# commit both src/main/java and src/generated/java in one commit
+```
+
+[`AGENTS.md`](AGENTS.md) is the canonical contributor and AI-agent guide. It documents the codegen workflow, the
+procedure for upgrading Dear ImGui or any extension submodule, javadoc/doclint pitfalls when copying C++ comments, the
+dual font-loader design, codegen internals (Spoon generic-type bounds, Gradle 9 configuration cache requirements), and
+the PR/merge-order conventions used in this repo. Read it before bumping a submodule or touching the generator.
+
+# Support
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P5BF17Q)
+
+If you find the project useful, you can support it on Ko-fi to motivate further development.
 
 # License
 
