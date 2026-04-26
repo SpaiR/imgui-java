@@ -233,6 +233,7 @@ import static org.lwjgl.glfw.GLFW.glfwGetMonitorPos;
 import static org.lwjgl.glfw.GLFW.glfwGetMonitorWorkarea;
 import static org.lwjgl.glfw.GLFW.glfwGetMonitors;
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
+import static org.lwjgl.glfw.GLFW.glfwGetVersion;
 import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowAttrib;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowContentScale;
@@ -898,7 +899,7 @@ public class ImGuiImplGlfw {
         final IntBuffer verMinor = MemoryUtil.memAllocInt(1);
         final IntBuffer verRev = MemoryUtil.memAllocInt(1);
         try {
-            org.lwjgl.glfw.GLFW.glfwGetVersion(verMajor, verMinor, verRev);
+            glfwGetVersion(verMajor, verMinor, verRev);
             final int versionCombined = verMajor.get(0) * 1000 + verMinor.get(0) * 100 + verRev.get(0);
             io.setBackendPlatformName("imgui_impl_glfw (" + versionCombined + ")");
         } finally {

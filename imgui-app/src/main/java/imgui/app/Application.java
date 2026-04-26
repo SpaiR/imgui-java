@@ -1,24 +1,28 @@
 package imgui.app;
 
+import imgui.ImGui;
+
 /**
  * Application class from which ImGui applications extend.
  * Serves as an abstraction layer to hide all low-level details about window creation and rendering routine.
  *
  * <h2>Life-cycle</h2>
  * <p>The entry point for ImGui applications is the Application class and {@link #launch(Application)} method.
- * It initializes application instance and starts the main application loop.
+ * It builds a {@link Configuration}, lets the user customize it (including selecting a {@link Backend}), then
+ * instantiates the matching {@link Window} subclass ({@link WindowGlfw} or {@link WindowSdl}) and drives the
+ * application loop:
  *
  * <ol>
  *     <li>{@link #configure(Configuration)} It's called before window creation, so only basic application setups are expected.</li>
- *     <li>{@link #initWindow(Configuration)} Method creates application window.</li>
- *     <li>{@link #initImGui(Configuration)} Method initializes Dear ImGui context. Could be used to do Dear ImGui setup as well.</li>
+ *     <li>{@link Window#init(Configuration)} The window's {@code init} creates the OS window and triggers
+ *         {@link #initImGui(Configuration)} to set up the Dear ImGui context.</li>
  *     <li>{@link #preRun()} Method called once, before application loop.</li>
  *     <li>{@link #preProcess()} Method called every frame, before {@link #process()}.</li>
  *     <li>{@link #process()} Method is meant to be overridden with user application logic.</li>
  *     <li>{@link #postProcess()} Method called every frame, after {@link #process()}.</li>
  *     <li>{@link #postRun()} Method called once, after application loop.</li>
  *     <li>{@link #disposeImGui()} Destroys Dear ImGui context.</li>
- *     <li>{@link #disposeWindow()} Destroys application window.</li>
+ *     <li>{@link Window#dispose()} The window's {@code dispose} releases platform/renderer resources.</li>
  * </ol>
  *
  * <p>As it could be seen, ImGui application differs from the classic one in the way of its life-cycle flow.
@@ -52,7 +56,9 @@ package imgui.app;
  * For example, large list of computations could be separated between application ticks. {@link #process()} method is called constantly.
  * Use that wisely and remember that all GUI should be in the main thread.
  */
-public abstract class Application extends Window {
+public abstract class Application {
+    private Window window;
+
     /**
      * Method called before window creation. Could be used to provide basic window information, like title name etc.
      *
@@ -60,6 +66,32 @@ public abstract class Application extends Window {
      */
     protected void configure(final Configuration config) {
     }
+
+    /**
+     * Method to initialize Dear ImGui context. Could be overridden to do custom Dear ImGui setup before application start.
+     *
+     * @param config configuration object with basic window information
+     */
+    protected void initImGui(final Configuration config) {
+        ImGui.createContext();
+    }
+
+    /**
+     * Method called every frame, before calling {@link #process()} method.
+     */
+    protected void preProcess() {
+    }
+
+    /**
+     * Method called every frame, after calling {@link #process()} method.
+     */
+    protected void postProcess() {
+    }
+
+    /**
+     * Method to be overridden by user to provide main application logic.
+     */
+    public abstract void process();
 
     /**
      * Method called once, before application run loop.
@@ -74,21 +106,40 @@ public abstract class Application extends Window {
     }
 
     /**
+     * Method to destroy Dear ImGui context.
+     */
+    protected void disposeImGui() {
+        ImGui.destroyContext();
+    }
+
+    /**
+     * @return the {@link Window} backing this application
+     */
+    public final Window getWindow() {
+        return window;
+    }
+
+    /**
+     * @return {@link Color} instance, which represents background color for the window
+     */
+    public final Color getColorBg() {
+        return window.getColorBg();
+    }
+
+    /**
      * Entry point of any ImGui application. Use it to start the application loop.
      *
      * @param app application instance to run
      */
     public static void launch(final Application app) {
-        initialize(app);
-        app.preRun();
-        app.run();
-        app.postRun();
-        app.dispose();
-    }
-
-    private static void initialize(final Application app) {
         final Configuration config = new Configuration();
         app.configure(config);
-        app.init(config);
+        app.window = (config.getBackend() == Backend.SDL) ? new WindowSdl() : new WindowGlfw();
+        app.window.setOwner(app);
+        app.window.init(config);
+        app.preRun();
+        app.window.run();
+        app.postRun();
+        app.window.dispose();
     }
 }
