@@ -9,7 +9,7 @@ java {
 }
 
 application {
-    mainClass = 'Main'
+    mainClass = (findProperty('mainClass') ?: 'Main') as String
     try {
         if (libPath) {
             applicationDefaultJvmArgs = ["-Dimgui.library.path=$libPath"]

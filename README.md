@@ -47,6 +47,8 @@ consuming them as a dependency only needs JDK 8+ at runtime.
 git clone --recurse-submodules https://github.com/SpaiR/imgui-java.git
 cd imgui-java
 ./gradlew :example:run
+# SDL3 + SDL_GPU backend smoke test:
+./gradlew :example:run -PmainClass=MainSdl
 ```
 
 `example/src/main/java/` contains a runnable showcase for every widget and extension — start with `Main.java`, then
@@ -63,6 +65,30 @@ Pick a module based on how much control you need:
 
 On Apple Silicon nothing extra is needed: the published macOS native is a universal binary covering both `x86_64` and
 `aarch64`.
+
+### SDL3 backend (imgui-app)
+
+`imgui-app` now supports two backends via `Configuration#setBackend(...)`:
+
+- `Backend.GLFW` (default)
+- `Backend.SDL` (SDL3 + SDL_GPU)
+
+Use SDL3 by switching backend in `configure(...)`:
+
+```
+@Override
+protected void configure(final Configuration config) {
+    config.setBackend(Backend.SDL);
+}
+```
+
+For a ready smoke-test entry point, run `MainSdl`:
+
+```
+./gradlew :example:run -PmainClass=MainSdl
+```
+
+At the moment, SDL backend in `imgui-app` is focused on single-window flow (multi-viewport is not supported).
 
 ## Application
 
