@@ -46,11 +46,11 @@ public final class ImGuiImplSdlGpu3Shaders {
 
     private static byte[] load(final String name) {
         final String resource = "/imgui/sdl3/shaders/" + name;
-        try (final InputStream in = ImGuiImplSdlGpu3Shaders.class.getResourceAsStream(resource)) {
+        try (InputStream in = ImGuiImplSdlGpu3Shaders.class.getResourceAsStream(resource)) {
             if (in == null) {
                 throw new IllegalStateException("Missing classpath resource: " + resource);
             }
-            try (final ByteArrayOutputStream buf = new ByteArrayOutputStream()) {
+            try (ByteArrayOutputStream buf = new ByteArrayOutputStream()) {
                 final byte[] chunk = new byte[4096];
                 int n;
                 while ((n = in.read(chunk)) > 0) {

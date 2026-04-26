@@ -585,7 +585,7 @@ public class ImGuiImplSdlGpu3 {
         if (indexTransferBuffer != 0L) {
             SDL_ReleaseGPUTransferBuffer(device, indexTransferBuffer);
         }
-        try (final MemoryStack stack = MemoryStack.stackPush()) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             indexBuffer = SDL_CreateGPUBuffer(device, SDL_GPUBufferCreateInfo.calloc(stack)
                     .usage(SDL_GPU_BUFFERUSAGE_INDEX)
                     .size(newSize)
@@ -619,7 +619,7 @@ public class ImGuiImplSdlGpu3 {
 
         final long usePipeline = pipelineOverride != 0L ? pipelineOverride : pipeline;
 
-        try (final MemoryStack stack = MemoryStack.stackPush()) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             // Viewport
             final SDL_GPUViewport viewport = SDL_GPUViewport.calloc(stack)
                     .x(0.0f).y(0.0f).w(fbWidth).h(fbHeight).min_depth(0.0f).max_depth(1.0f);

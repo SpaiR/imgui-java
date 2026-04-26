@@ -146,7 +146,7 @@ public class WindowSdl extends Window {
         if (commandBuffer != 0L) {
             imGuiSdlGpu3.prepareDrawData(ImGui.getDrawData().ptr, commandBuffer);
 
-            try (final MemoryStack stack = MemoryStack.stackPush()) {
+            try (MemoryStack stack = MemoryStack.stackPush()) {
                 final PointerBuffer pSwapchain = stack.callocPointer(1);
                 final IntBuffer pW = stack.mallocInt(1);
                 final IntBuffer pH = stack.mallocInt(1);

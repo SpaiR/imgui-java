@@ -247,6 +247,7 @@ import java.util.List;
  * {@code ImGuiPlatformIO} are not ported — they require C function pointers (see
  * {@code // NOTE: not ported} markers below). Single-viewport mode covers the visual smoke test.
  */
+@SuppressWarnings("checkstyle:DesignForExtension")
 public class ImGuiImplSdl3 {
     /**
      * Manual gamepad list mode: {@link #setGamepadMode(int, long[])} accepts gamepad handles directly.
