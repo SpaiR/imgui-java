@@ -2,11 +2,16 @@ import imgui.ImFontConfig;
 import imgui.ImFontGlyphRangesBuilder;
 import imgui.ImGui;
 import imgui.ImGuiIO;
+import imgui.ImGuiPlatformIO;
+import imgui.ImTextureData;
 import imgui.app.Application;
 import imgui.app.Configuration;
+import imgui.flag.ImGuiBackendFlags;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiInputTextFlags;
 import imgui.flag.ImGuiWindowFlags;
+import imgui.flag.ImTextureFormat;
+import imgui.flag.ImTextureStatus;
 import imgui.type.ImString;
 
 import java.io.IOException;
@@ -100,8 +105,71 @@ public class Main extends Application {
             ImGui.separator();
             ImGui.text("Extra");
             Extra.show(this);
+
+            ImGui.separator();
+            showTextureManagement();
         }
         ImGui.end();
+    }
+
+    /**
+     * Demonstrates Dear ImGui 1.92's texture-management system (ImGuiBackendFlags_RendererHasTextures).
+     * <p>
+     * The GL3 backend now drives texture create/update/destroy through {@link ImTextureData}, so the font atlas is
+     * uploaded (and incrementally updated) automatically each frame. Here we simply inspect the live texture list that
+     * the backend maintains and render the managed atlas texture inline.
+     */
+    private void showTextureManagement() {
+        if (!ImGui.collapsingHeader("Texture Management")) {
+            return;
+        }
+
+        final ImGuiIO io = ImGui.getIO();
+        final boolean hasTextures = io.hasBackendFlags(ImGuiBackendFlags.RendererHasTextures);
+        ImGui.text("RendererHasTextures: " + (hasTextures ? "enabled" : "disabled"));
+
+        final ImGuiPlatformIO platformIO = ImGui.getPlatformIO();
+        final int texturesCount = platformIO.getTexturesSize();
+        ImGui.text("Textures managed by Dear ImGui: " + texturesCount);
+
+        for (int i = 0; i < texturesCount; i++) {
+            final ImTextureData tex = platformIO.getTextures(i);
+            ImGui.bulletText(String.format(
+                "#%d  %dx%d  %s  status=%s  texID=%d",
+                tex.getUniqueID(), tex.getWidth(), tex.getHeight(),
+                formatName(tex.getFormat()), statusName(tex.getStatus()), tex.getTexID()));
+
+            // Render any RGBA texture that has already been uploaded (the font atlas is the usual one).
+            if (tex.getStatus() == ImTextureStatus.OK && tex.getTexID() != 0 && tex.getFormat() == ImTextureFormat.RGBA32) {
+                final float preview = 256.0f;
+                final float aspect = tex.getHeight() / (float) tex.getWidth();
+                ImGui.image(tex.getTexID(), preview, preview * aspect);
+            }
+        }
+    }
+
+    private static String formatName(final int format) {
+        if (format == ImTextureFormat.RGBA32) {
+            return "RGBA32";
+        } else if (format == ImTextureFormat.Alpha8) {
+            return "Alpha8";
+        }
+        return "Unknown(" + format + ")";
+    }
+
+    private static String statusName(final int status) {
+        if (status == ImTextureStatus.OK) {
+            return "OK";
+        } else if (status == ImTextureStatus.WantCreate) {
+            return "WantCreate";
+        } else if (status == ImTextureStatus.WantUpdates) {
+            return "WantUpdates";
+        } else if (status == ImTextureStatus.WantDestroy) {
+            return "WantDestroy";
+        } else if (status == ImTextureStatus.Destroyed) {
+            return "Destroyed";
+        }
+        return "Unknown(" + status + ")";
     }
 
     private static byte[] loadFromResources(String name) {
