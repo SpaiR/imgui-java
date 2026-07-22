@@ -642,8 +642,13 @@ public class ImGuiImplGl3 {
     public void updateTexture(final ImTextureData tex) {
         final int status = tex.getStatus();
 
-        if (status == ImTextureStatus.WantCreate || status == ImTextureStatus.WantUpdates) {
-            glPixelStorei(GL_UNPACK_ROW_LENGTH, 0); // Not on WebGL/ES
+        // Backup GL_UNPACK state that we modify, restore on exit (mirrors the C++ backend).
+        final int[] lastUnpackRowLength = new int[1];
+        final int[] lastUnpackAlignment = new int[1];
+        final boolean unpackStateSaveAndRestore = status == ImTextureStatus.WantCreate || status == ImTextureStatus.WantUpdates;
+        if (unpackStateSaveAndRestore) {
+            glGetIntegerv(GL_UNPACK_ROW_LENGTH, lastUnpackRowLength); // Not on WebGL/ES
+            glGetIntegerv(GL_UNPACK_ALIGNMENT, lastUnpackAlignment);
             glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         }
 
@@ -659,6 +664,7 @@ public class ImGuiImplGl3 {
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            glPixelStorei(GL_UNPACK_ROW_LENGTH, 0); // Not on WebGL/ES
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex.getWidth(), tex.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, tex.getPixels());
 
             // Store identifiers back into the shared ImTextureData so draw commands resolve to this texture.
@@ -684,16 +690,22 @@ public class ImGuiImplGl3 {
                 final int ry = r.getY();
                 final int rw = r.getW();
                 final int rh = r.getH();
-                // Point the buffer at the upper-left pixel of the region; UNPACK_ROW_LENGTH handles the stride.
+                // Mirror tex->GetPixelsAt(r.x, r.y): point the buffer at the region's upper-left pixel;
+                // UNPACK_ROW_LENGTH handles the source stride.
                 pixels.position((rx + ry * width) * bytesPerPixel);
                 glTexSubImage2D(GL_TEXTURE_2D, 0, rx, ry, rw, rh, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
             }
-            glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 
             tex.setStatus(ImTextureStatus.OK);
             glBindTexture(GL_TEXTURE_2D, lastTexture[0]);
         } else if (status == ImTextureStatus.WantDestroy && tex.getUnusedFrames() > 0) {
             destroyTexture(tex);
+        }
+
+        // Restore GL_UNPACK state.
+        if (unpackStateSaveAndRestore) {
+            glPixelStorei(GL_UNPACK_ROW_LENGTH, lastUnpackRowLength[0]);
+            glPixelStorei(GL_UNPACK_ALIGNMENT, lastUnpackAlignment[0]);
         }
     }
 
