@@ -21,7 +21,7 @@ public final class ImDrawData extends ImGuiStruct {
     private static final int RESIZE_FACTOR = 5_000;
     private static ByteBuffer dataBuffer = ByteBuffer.allocateDirect(25_000).order(ByteOrder.nativeOrder());
 
-    private static final ImTextureData TMP_TEXTURE_DATA = new ImTextureData(0);
+    private static final ImTextureData _GETTEXTURES_1 = new ImTextureData(0);
 
     public ImDrawData(final long ptr) {
         super(ptr);
@@ -156,8 +156,8 @@ public final class ImDrawData extends ImGuiStruct {
      * @param idx index in {@code [0, getTexturesSize())}
      */
     public ImTextureData getTextures(final int idx) {
-        TMP_TEXTURE_DATA.ptr = nGetTextures(idx);
-        return TMP_TEXTURE_DATA;
+        _GETTEXTURES_1.ptr = nGetTextures(idx);
+        return _GETTEXTURES_1;
     }
 
     private native long nGetTextures(int idx); /*
