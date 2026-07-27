@@ -128,7 +128,7 @@ Similarly, a Deprecation section should start with "DEPRECATED: " followed by a 
 ## Contributing with AI Agents
 
 AI coding agents (Claude Code, Copilot, Cursor, Codex, Gemini, etc.) are welcome to assist with contributions.
-See [AGENTS.md](../AGENTS.md) for the canonical guidance on how AI agents should work in this repo (golden rules,
+See [AGENTS.md](AGENTS.md) for the canonical guidance on how AI agents should work in this repo (golden rules,
 codegen workflow, build commands, gotchas).
 
 Two extra rules apply on top of the regular contribution flow:

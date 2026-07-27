@@ -16,7 +16,7 @@ upgrading submodules, and the codegen-internals conventions. The everyday conven
 - **`.claude/docs/patterns.md`** — recurring patterns when adding to the binding (the
   codegen loop, annotated stubs, struct wrappers, out-parameter `Im*` wrappers, module
   boundaries, application lifecycle).
-- **`docs/CONTRIBUTING.md`** — PR/commit workflow. Includes the conventional-commit
+- **`CONTRIBUTING.md`** — PR/commit workflow. Includes the conventional-commit
   format and, importantly, the **`Co-authored-by` trailer rule for AI-assisted commits**
   and the "you are responsible for the change" rule. Read it before opening a PR.
 
@@ -198,7 +198,7 @@ Use `providers.exec { ... }` for shell-outs, never `.execute()`. Capture resolve
 
 The full commit-message format, the conventional-commit types/scopes, and the
 mandatory `Co-authored-by` trailer for AI-assisted commits are documented in
-`docs/CONTRIBUTING.md` — follow that. The rule that submodule bumps, Gradle/deps
+`CONTRIBUTING.md` — follow that. The rule that submodule bumps, Gradle/deps
 bumps, and codegen-tooling changes each go in their own PR is in
 `.claude/rules/guardrails.md` ("Don't merge submodule bumps with feature work").
 
