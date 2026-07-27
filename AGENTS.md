@@ -214,10 +214,10 @@ Use `providers.exec { ... }` for shell-outs, never `.execute()`. Capture resolve
 - **AI-assisted commits** → the `Co-authored-by` trailer is mandatory, family-level model name
   only. Strip versioned model names, session URLs, and "Generated with …" lines that tooling
   adds by default, and check the trailer survives the squash.
-- **Releases** → "Releases". Tag-driven (`git describe` is the version of record), version
-  tracks Dear ImGui's `MAJOR.MINOR`, so a breaking change is only ever visible via `!`, the
-  footer, the `breaking-change` label, and the release notes. Never cut a release on stale
-  `bin/` natives.
+- **Releases** → "Releases". Tag-driven (`git describe` is the version of record), version is
+  the full Dear ImGui version plus an imgui-java counter (`v1.92.7.1` = second release on Dear
+  ImGui `1.92.7`), so a breaking change is only ever visible via `!`, the footer, the
+  `breaking-change` label, and the release notes. Never cut a release on stale `bin/` natives.
 
 The rule that submodule bumps, Gradle/deps bumps, and codegen-tooling changes each go in their
 own PR is in `.claude/rules/guardrails.md` ("Don't merge submodule bumps with feature work")

@@ -348,17 +348,26 @@ put in commit messages.
 
 ### Versioning
 
-The project version **tracks Dear ImGui**, it is not independent SemVer:
+The project version **tracks Dear ImGui**, it is not independent SemVer. A tag is the upstream version followed by an
+imgui-java counter — `v<dear-imgui-version>.<build>`:
 
-- `MAJOR.MINOR` mirrors the Dear ImGui release the binding tracks.
-- `PATCH` counts imgui-java's own releases on top of that upstream version.
+- The first three segments mirror the Dear ImGui release the binding ships, patch included.
+- The fourth counts imgui-java's own releases on that upstream version, starting at `0`.
+
+So `v1.92.7.1` is the second imgui-java release built on Dear ImGui `1.92.7`.
 
 | imgui-java tag | Dear ImGui   |
 |----------------|--------------|
+| `v1.92.7.1`    | `1.92.7`     |
 | `v1.92.0`      | `1.92.7`     |
 | `v1.90.0`      | `1.90.9`     |
 | `v1.89.0`      | `1.89.9`     |
 | `v1.87.0` … `v1.87.7` | `1.87` — eight imgui-java releases on one upstream version |
+
+Tags up to and including `v1.92.0` used a three-segment form in which only `MAJOR.MINOR` mirrored upstream and `PATCH`
+counted imgui-java releases — which is why `v1.92.0` does not reveal that it ships Dear ImGui `1.92.7`. The fourth
+segment closes that gap, at the cost of the third segment changing meaning from `v1.92.7.1` onwards. Ordering is
+unaffected: Maven ranks `1.92.0 < 1.92.7.1 < 1.93.0.0`.
 
 Consequence: **the version number cannot signal a breaking change.** Breaking changes are signalled by `!` in the commit
 header, a `BREAKING CHANGE:` footer, the [`breaking-change` label](#labels) on the PR, and a dedicated section in the
@@ -373,8 +382,8 @@ so **the tag is the version of record**.
    Releasing on stale natives ships a library whose Java and native sides disagree.
 2. Tag and push:
    ```bash
-   git tag v1.92.1
-   git push origin v1.92.1
+   git tag v1.92.7.1
+   git push origin v1.92.7.1
    ```
 3. The `release` job runs on the tag: builds Java, builds all three natives, publishes every module and native
    classifier to Maven Central via `buildSrc/scripts/publish.sh`, then opens a **draft** GitHub release with
