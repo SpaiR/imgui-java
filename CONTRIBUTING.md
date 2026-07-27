@@ -380,17 +380,23 @@ so **the tag is the version of record**.
 
 1. Make sure `main` is green and `bin/` is current — the `update-bin` job must have run after the last binding change.
    Releasing on stale natives ships a library whose Java and native sides disagree.
-2. Tag and push:
+2. Create an empty commit named after the version and push it. Every release tag points at one of these, so the release
+   gets a commit of its own instead of riding on whatever change happened to land last.
+   ```bash
+   git commit --allow-empty -m v1.92.7.1
+   git push origin main
+   ```
+3. Tag that commit and push the tag:
    ```bash
    git tag v1.92.7.1
    git push origin v1.92.7.1
    ```
-3. The `release` job runs on the tag: builds Java, builds all three natives, publishes every module and native
+4. The `release` job runs on the tag: builds Java, builds all three natives, publishes every module and native
    classifier to Maven Central via `buildSrc/scripts/publish.sh`, then opens a **draft** GitHub release with
    `java-libraries.zip` and `native-libraries.zip` attached.
-4. Write the release notes on the draft and publish it. Group by `feat` / `fix` / `build`, and give breaking changes
+5. Write the release notes on the draft and publish it. Group by `feat` / `fix` / `build`, and give breaking changes
    their own section at the top with migration instructions.
-5. Verify the artifacts appear on Maven Central under `io.github.spair`.
+6. Verify the artifacts appear on Maven Central under `io.github.spair`.
 
 ## Contributing with AI agents
 
