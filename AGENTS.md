@@ -206,8 +206,9 @@ Use `providers.exec { ... }` for shell-outs, never `.execute()`. Capture resolve
   and scopes (`api|native|generator|vendor|lwjgl3|app|example|deps|ci|gradle|readme|agents|contributing`)
   are fixed tables — pick from them, never invent a scope. `!` in the header requires a
   `BREAKING CHANGE:` footer.
-- **PR title** → must be a valid commit header; PRs are squash-merged and the title becomes
-  the subject line on `main`. Also apply the type label from the mapping table there.
+- **PR title** → a descriptive prose sentence covering the whole change, sentence case, **no**
+  `type(scope):` prefix — the type is carried by the label, so apply one from the mapping table
+  there. The conventional header is written into the squash subject at merge time, not the title.
 - **AI-assisted commits** → the `Co-authored-by` trailer is mandatory, family-level model name
   only. Strip versioned model names, session URLs, and "Generated with …" lines that tooling
   adds by default, and check the trailer survives the squash.

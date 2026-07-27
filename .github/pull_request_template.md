@@ -1,6 +1,7 @@
 <!--
-PR titles become the commit subject on `main` (PRs are squash-merged), so write the title
-as a conventional-commit header: `feat(lwjgl3): add SDL3 backend`.
+Title: a short descriptive sentence covering the whole change — sentence case, no trailing
+period, no `type(scope):` prefix. "Add an SDL3 backend to imgui-lwjgl3", not
+"feat(lwjgl3): add SDL3 backend". The type is carried by the label.
 See CONTRIBUTING.md → "Pull requests".
 -->
 

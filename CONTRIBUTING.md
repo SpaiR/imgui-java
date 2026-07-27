@@ -272,16 +272,20 @@ the `@Deprecated` annotation and a `{@link ...}` in the Javadoc.
 
 ### Title
 
-PRs are **squash-merged**, so the PR title becomes the commit subject on `main`. Write it as a valid
-[commit header](#commit-message-header):
+Write a short, **descriptive** title for the whole change — do **not** paste the first commit's header. The title is
+what a reviewer scans in the PR list, so it should read as plain prose describing the outcome, not as a
+`<type>(<scope>): …` commit line.
 
-```
-feat(lwjgl3): add SDL3 backend
-fix(api): correct ImVec2 swap signature
-build(deps): bump Gradle wrapper to 9.5.1
-```
+- Sentence case, no trailing period, aim for under ~72 characters.
+- Describe the whole PR, not just its first or largest commit.
+- No `type(scope):` prefix — the **type is carried by the [label](#labels)**, not the title.
 
-Not `Add SDL3 support`, not `SDL3 stuff`, not the raw branch name.
+Examples — `feat(lwjgl3): add SDL3 backend` (commit) becomes **"Add an SDL3 backend to imgui-lwjgl3"** (PR title);
+`fix(api): correct ImVec2 swap signature` becomes **"Fix reversed x/y in the ImVec2 swap overload"**.
+
+PRs are squash-merged, so the maintainer writes the squash subject as a proper
+[commit header](#commit-message-header) at merge time — the PR title is for humans reading the list, the commit subject
+is for the history.
 
 ### Body
 
