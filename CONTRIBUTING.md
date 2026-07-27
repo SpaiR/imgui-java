@@ -298,19 +298,29 @@ is for the history.
 
 ### Labels
 
-Apply one type label, derived from the commit type:
+Apply exactly one **type** label. There is one per commit type, so the mapping is direct:
 
-| Commit type                                   | Label            |
-|-----------------------------------------------|------------------|
-| `feat`                                        | `feat`           |
-| `fix`                                         | `fix`            |
-| `docs`                                        | `docs`           |
-| `perf` / `refactor` / `test` / `chore` / `build` | `chore`       |
-| `build(deps)`                                 | `deps`           |
-| `revert`                                      | *(label of the change being reverted)* |
+| Commit type | Label      |
+|-------------|------------|
+| `feat`      | `feat`     |
+| `fix`       | `fix`      |
+| `perf`      | `perf`     |
+| `refactor`  | `refactor` |
+| `docs`      | `docs`     |
+| `test`      | `test`     |
+| `build`     | `build`    |
+| `chore`     | `chore`    |
+| `revert`    | `revert`   |
 
-Dependabot applies `deps` on its own. `bug`, `question`, `missing binding`, `invalid`, and `wontfix` are issue-triage
-labels — not for PRs. Don't invent labels; add one to the repo first if a genuinely new category shows up.
+`build(deps)` takes **`deps`** instead of `build` — dependency bumps are their own review category, and Dependabot
+applies that label on its own.
+
+Then add **`breaking-change`** on top of the type label whenever the PR carries a `BREAKING CHANGE:` footer or a `!` in
+the header. The version number can't signal a break (see [Releases](#releases)), so this label is how a breaking change
+stays visible in the PR list and in the release notes.
+
+`bug`, `question`, `missing binding`, `invalid`, and `wontfix` are issue-triage labels — not for PRs. Don't invent
+labels; add one to the repo first if a genuinely new category shows up.
 
 ### What CI does
 
@@ -351,7 +361,8 @@ The project version **tracks Dear ImGui**, it is not independent SemVer:
 | `v1.87.0` … `v1.87.7` | `1.87` — eight imgui-java releases on one upstream version |
 
 Consequence: **the version number cannot signal a breaking change.** Breaking changes are signalled by `!` in the commit
-header, a `BREAKING CHANGE:` footer, and an explicit entry in the GitHub release notes. Nothing else surfaces them.
+header, a `BREAKING CHANGE:` footer, the [`breaking-change` label](#labels) on the PR, and a dedicated section in the
+GitHub release notes. Nothing else surfaces them.
 
 There is no version file to bump. `build.gradle` derives the version from `git describe --tags` (leading `v` stripped),
 so **the tag is the version of record**.

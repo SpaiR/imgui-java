@@ -207,14 +207,17 @@ Use `providers.exec { ... }` for shell-outs, never `.execute()`. Capture resolve
   are fixed tables — pick from them, never invent a scope. `!` in the header requires a
   `BREAKING CHANGE:` footer.
 - **PR title** → a descriptive prose sentence covering the whole change, sentence case, **no**
-  `type(scope):` prefix — the type is carried by the label, so apply one from the mapping table
-  there. The conventional header is written into the squash subject at merge time, not the title.
+  `type(scope):` prefix — the type is carried by the label, so apply exactly one from the mapping
+  table there (one label per commit type; `build(deps)` takes `deps`), plus `breaking-change` on
+  top whenever the header carries `!`. The conventional header is written into the squash subject
+  at merge time, not the title.
 - **AI-assisted commits** → the `Co-authored-by` trailer is mandatory, family-level model name
   only. Strip versioned model names, session URLs, and "Generated with …" lines that tooling
   adds by default, and check the trailer survives the squash.
 - **Releases** → "Releases". Tag-driven (`git describe` is the version of record), version
   tracks Dear ImGui's `MAJOR.MINOR`, so a breaking change is only ever visible via `!`, the
-  footer, and the release notes. Never cut a release on stale `bin/` natives.
+  footer, the `breaking-change` label, and the release notes. Never cut a release on stale
+  `bin/` natives.
 
 The rule that submodule bumps, Gradle/deps bumps, and codegen-tooling changes each go in their
 own PR is in `.claude/rules/guardrails.md` ("Don't merge submodule bumps with feature work")
