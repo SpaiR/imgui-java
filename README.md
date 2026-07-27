@@ -461,10 +461,13 @@ hand-edit `src/generated/`: it is regenerated and your changes will be lost. The
 # commit both src/main/java and src/generated/java in one commit
 ```
 
-[`AGENTS.md`](AGENTS.md) is the canonical contributor and AI-agent guide. It documents the codegen workflow, the
-procedure for upgrading Dear ImGui or any extension submodule, javadoc/doclint pitfalls when copying C++ comments, the
-dual font-loader design, codegen internals (Spoon generic-type bounds, Gradle 9 configuration cache requirements), and
-the PR/merge-order conventions used in this repo. Read it before bumping a submodule or touching the generator.
+[`CONTRIBUTING.md`](CONTRIBUTING.md) is the contributor guide: build prerequisites, the checks to run before pushing,
+the commit-message format with its type/scope tables, PR and label conventions, and how releases are cut. Start there.
+
+[`AGENTS.md`](AGENTS.md) is the deep operational guide, written for AI agents but equally useful to humans. It documents
+the codegen workflow, the procedure for upgrading Dear ImGui or any extension submodule, javadoc/doclint pitfalls when
+copying C++ comments, the dual font-loader design, and codegen internals (Spoon generic-type bounds, Gradle 9
+configuration cache requirements). Read it before bumping a submodule or touching the generator.
 
 # Support
 
