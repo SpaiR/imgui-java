@@ -16,9 +16,13 @@ upgrading submodules, and the codegen-internals conventions. The everyday conven
 - **`.claude/docs/patterns.md`** — recurring patterns when adding to the binding (the
   codegen loop, annotated stubs, struct wrappers, out-parameter `Im*` wrappers, module
   boundaries, application lifecycle).
-- **`docs/CONTRIBUTING.md`** — PR/commit workflow. Includes the conventional-commit
-  format and, importantly, the **`Co-authored-by` trailer rule for AI-assisted commits**
-  and the "you are responsible for the change" rule. Read it before opening a PR.
+- **`CONTRIBUTING.md`** — the human-facing contributor guide, and the authority on
+  everything commit- and release-shaped: the conventional-commit types/scopes tables, PR
+  title and body rules (PRs are squash-merged, so the **PR title must be a valid commit
+  header**), label mapping, the versioning scheme (version tracks Dear ImGui, so it can
+  never signal a break), the release procedure, and — importantly — the **`Co-authored-by`
+  trailer rule for AI-assisted commits** plus the "you are responsible for the change"
+  rule. Read it before writing a commit message or opening a PR.
 
 If anything below conflicts with those files, the dedicated file wins — update it
 there, not here.
@@ -196,11 +200,28 @@ Use `providers.exec { ... }` for shell-outs, never `.execute()`. Capture resolve
 
 ## PR workflow
 
-The full commit-message format, the conventional-commit types/scopes, and the
-mandatory `Co-authored-by` trailer for AI-assisted commits are documented in
-`docs/CONTRIBUTING.md` — follow that. The rule that submodule bumps, Gradle/deps
-bumps, and codegen-tooling changes each go in their own PR is in
-`.claude/rules/guardrails.md` ("Don't merge submodule bumps with feature work").
+`CONTRIBUTING.md` is the authority here — follow it, don't paraphrase it:
+
+- **Commit messages** → "Commit message format". Types (`feat|fix|perf|refactor|docs|test|build|chore|revert`)
+  and scopes (`api|native|generator|vendor|lwjgl3|app|example|deps|ci|gradle|readme|agents|contributing`)
+  are fixed tables — pick from them, never invent a scope. `!` in the header requires a
+  `BREAKING CHANGE:` footer.
+- **PR title** → a descriptive prose sentence covering the whole change, sentence case, **no**
+  `type(scope):` prefix — the type is carried by the label, so apply exactly one from the mapping
+  table there (one label per commit type; `build(deps)` takes `deps`), plus `breaking-change` on
+  top whenever the header carries `!`. The conventional header is written into the squash subject
+  at merge time, not the title.
+- **AI-assisted commits** → the `Co-authored-by` trailer is mandatory, family-level model name
+  only. Strip versioned model names, session URLs, and "Generated with …" lines that tooling
+  adds by default, and check the trailer survives the squash.
+- **Releases** → "Releases". Tag-driven (`git describe` is the version of record), version
+  tracks Dear ImGui's `MAJOR.MINOR`, so a breaking change is only ever visible via `!`, the
+  footer, the `breaking-change` label, and the release notes. Never cut a release on stale
+  `bin/` natives.
+
+The rule that submodule bumps, Gradle/deps bumps, and codegen-tooling changes each go in their
+own PR is in `.claude/rules/guardrails.md` ("Don't merge submodule bumps with feature work")
+and restated in `CONTRIBUTING.md` § "Before you start".
 
 Operational guidance on top of those:
 
