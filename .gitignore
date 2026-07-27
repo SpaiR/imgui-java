@@ -16,6 +16,10 @@ logs/
 *.iws
 .idea/
 
+# Eclipse / VS Code Java (Buildship) compile output.
+# Only per-module bin/ — the root bin/ holds tracked native libs.
+/*/bin/
+
 # Package Files #
 *.jar
 *.war
