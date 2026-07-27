@@ -376,6 +376,51 @@ GitHub release notes. Nothing else surfaces them.
 There is no version file to bump. `build.gradle` derives the version from `git describe --tags` (leading `v` stripped),
 so **the tag is the version of record**.
 
+### Release notes
+
+Every release gets hand-written notes on the draft. Start from GitHub's **Generate release notes** button and rewrite
+what it produces — ship it raw only on a pure patch release with no user-visible change.
+
+Sections, in this order. Only `What's Changed`, `List of changes`, `Thanks` and the changelog line are mandatory; the
+rest appear when there is something to put in them.
+
+| Section                     | When                                                              |
+|-----------------------------|-------------------------------------------------------------------|
+| `## What's Changed` + lead   | always — 1–3 sentences, and the lead always names the Dear ImGui version the release ships |
+| `### ⚠️ Breaking changes`    | if anything breaks callers — always first, with migration instructions |
+| `### Highlights`             | when the release has a headline; bold lead-in per bullet, detail nested underneath |
+| `### Known limitations`      | when something notable is deliberately not implemented; if unchanged from the previous release, say so and link it rather than repeating |
+| `### Migration notes`        | when calling code must change — before/after table, plus links to upstream release notes and the compare range |
+| `### List of changes`        | always — one line per merged PR |
+| `### Contributors`           | when someone outside the maintainer contributed; name what each person did |
+| `## New Contributors`        | keep GitHub's auto-generated block verbatim when it produced one |
+| `### Thanks`                 | always — fixed block, see below |
+| `**Full Changelog**: <compare link>` | always — last line of the notes |
+
+Writing rules:
+
+- **Write for the consumer, not the committer.** "Native artifacts target Java 8 again", not "fix release target in
+  `build.gradle`". Each line answers what changes for someone who depends on the library.
+- **Change lines** read `* <what changed> by @user in <full PR url>`. Credit external contributors; drop `by @` on the
+  maintainer's own PRs. Use full URLs, not `#123` — that is what the generator emits.
+- **Breaking changes** get ⚠️ on the change line *and* the dedicated section. The version number cannot signal them,
+  see [Versioning](#versioning).
+- **Build and tooling bumps** go in a `<details>` block, with an explicit note that they do not reach the published
+  artifacts and that `imgui-binding` still ships with zero runtime dependencies. Collapse repeated bumps of one
+  dependency into a single line with the full range.
+- **Submodule bumps** always link both the upstream release notes and the compare range.
+- **Thanks** is a fixed block — reproduce it verbatim, in every release:
+  ```md
+  ### Thanks
+
+  **Thanks to all contributors and users for your valuable feedback and support!
+  You can support the project's development with a donation - your contribution helps keep it growing and improving.**
+
+  [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P5BF17Q)
+  ```
+
+The release title is the tag (`v1.92.7.1`). The draft stays a draft until the notes are proofread.
+
 ### Cutting a release
 
 1. Make sure `main` is green and `bin/` is current — the `update-bin` job must have run after the last binding change.
@@ -394,8 +439,7 @@ so **the tag is the version of record**.
 4. The `release` job runs on the tag: builds Java, builds all three natives, publishes every module and native
    classifier to Maven Central via `buildSrc/scripts/publish.sh`, then opens a **draft** GitHub release with
    `java-libraries.zip` and `native-libraries.zip` attached.
-5. Write the release notes on the draft and publish it. Group by `feat` / `fix` / `build`, and give breaking changes
-   their own section at the top with migration instructions.
+5. Write the release notes on the draft following [Release notes](#release-notes), proofread them, then publish.
 6. Verify the artifacts appear on Maven Central under `io.github.spair`.
 
 ## Contributing with AI agents
