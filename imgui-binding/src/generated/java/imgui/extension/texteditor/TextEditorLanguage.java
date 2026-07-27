@@ -2,11 +2,6 @@ package imgui.extension.texteditor;
 
 import imgui.binding.ImGuiStruct;
 
-
-
-
-
-
 public final class TextEditorLanguage extends ImGuiStruct {
     public TextEditorLanguage(final long ptr) {
         super(ptr);

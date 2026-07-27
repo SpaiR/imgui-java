@@ -2,6 +2,7 @@ package imgui;
 
 import imgui.binding.ImGuiStruct;
 
+
 /**
  * Coordinates of a rectangle within a texture.
  * <p>
@@ -20,30 +21,46 @@ public final class ImTextureRect extends ImGuiStruct {
      */
 
     /**
-     * Upper-left x coordinate of rectangle to update.
+     * Upper-left x coordinate of rectangle
      */
-    public native int getX(); /*
+    public int getX() {
+        return nGetX();
+    }
+
+    private native int nGetX(); /*
         return THIS->x;
     */
 
     /**
-     * Upper-left y coordinate of rectangle to update.
+     * Upper-left y coordinate of rectangle
      */
-    public native int getY(); /*
+    public int getY() {
+        return nGetY();
+    }
+
+    private native int nGetY(); /*
         return THIS->y;
     */
 
     /**
-     * Width of rectangle to update (in pixels).
+     * Width of rectangle (in pixels).
      */
-    public native int getW(); /*
+    public int getW() {
+        return nGetW();
+    }
+
+    private native int nGetW(); /*
         return THIS->w;
     */
 
     /**
-     * Height of rectangle to update (in pixels).
+     * Height of rectangle (in pixels).
      */
-    public native int getH(); /*
+    public int getH() {
+        return nGetH();
+    }
+
+    private native int nGetH(); /*
         return THIS->h;
     */
 

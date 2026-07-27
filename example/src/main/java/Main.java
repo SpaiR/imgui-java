@@ -138,7 +138,7 @@ public class Main extends Application {
             final ImTextureData tex = platformIO.getTextures(i);
             ImGui.bulletText(String.format(
                 "#%d  %dx%d  %s  status=%s  texID=%d",
-                tex.getUniqueID(), tex.getWidth(), tex.getHeight(),
+                tex.getUniqueId(), tex.getWidth(), tex.getHeight(),
                 formatName(tex.getFormat()), statusName(tex.getStatus()), tex.getTexID()));
 
             // Render any RGBA texture that has already been uploaded (the font atlas is the usual one).

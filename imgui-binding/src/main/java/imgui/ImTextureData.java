@@ -1,10 +1,16 @@
 package imgui;
 
 import imgui.binding.ImGuiStruct;
+import imgui.binding.annotation.ArgValue;
+import imgui.binding.annotation.BindingField;
+import imgui.binding.annotation.BindingMethod;
+import imgui.binding.annotation.BindingSource;
 import imgui.flag.ImTextureFormat;
 import imgui.flag.ImTextureStatus;
 
 import java.nio.ByteBuffer;
+
+import static imgui.binding.annotation.BindingField.Accessor.*;
 
 /**
  * Specs and pixel storage for a texture used by Dear ImGui.
@@ -16,6 +22,7 @@ import java.nio.ByteBuffer;
  * A texture stores two identifiers: {@code TexID} (the lower-level backend identifier stored in draw commands) and
  * {@code BackendUserData} (higher-level opaque storage for the backend's own book-keeping).
  */
+@BindingSource
 public final class ImTextureData extends ImGuiStruct {
     private static final ImTextureRect TMP_USED_RECT = new ImTextureRect(0);
     private static final ImTextureRect TMP_UPDATE_RECT = new ImTextureRect(0);
@@ -30,30 +37,28 @@ public final class ImTextureData extends ImGuiStruct {
         #define THIS ((ImTextureData*)STRUCT_PTR)
      */
 
+
     /**
      * [DEBUG] Sequential index to facilitate identifying a texture when debugging/printing. Unique per atlas.
      */
-    public native int getUniqueID(); /*
-        return THIS->UniqueID;
-    */
+    @BindingField(accessors = GETTER, callName = "UniqueID")
+    public int UniqueId;
+
+
 
     /**
      * Texture status, one of the {@link ImTextureStatus} values. Always use {@link #setStatus(int)} to modify!
-     *
-     * @return one of the {@link ImTextureStatus} values
      */
-    public native int getStatus(); /*
-        return THIS->Status;
-    */
+    @BindingField(accessors = GETTER)
+    public int Status;
 
     /**
      * Set the texture status. Called by the renderer backend after honoring a texture request.
      *
      * @param status one of the {@link ImTextureStatus} values
      */
-    public native void setStatus(int status); /*
-        THIS->SetStatus((ImTextureStatus)status);
-    */
+    @BindingMethod(callName = "SetStatus")
+    public native void setStatus(@ArgValue(staticCast = "ImTextureStatus") int status);
 
     /**
      * Convenience storage for the backend. Some backends may have enough with {@code TexID}.
@@ -80,39 +85,34 @@ public final class ImTextureData extends ImGuiStruct {
     /**
      * Set the backend-specific texture identifier. Called by the renderer backend after uploading the texture.
      */
-    public native void setTexID(long texID); /*
-        THIS->SetTexID((ImTextureID)(uintptr_t)texID);
-    */
+    @BindingMethod(callName = "SetTexID")
+    public native void setTexID(long texID);
 
     /**
      * Texture format, one of the {@link ImTextureFormat} values.
-     *
-     * @return one of the {@link ImTextureFormat} values
      */
-    public native int getFormat(); /*
-        return THIS->Format;
-    */
+    @BindingField(accessors = GETTER)
+    public int Format;
+
 
     /**
      * Texture width, in pixels.
      */
-    public native int getWidth(); /*
-        return THIS->Width;
-    */
+    @BindingField(accessors = GETTER)
+    public int Width;
 
     /**
      * Texture height, in pixels.
      */
-    public native int getHeight(); /*
-        return THIS->Height;
-    */
+    @BindingField(accessors = GETTER)
+    public int Height;
+
 
     /**
      * Bytes per pixel: 4 for {@code ImTextureFormat_RGBA32} or 1 for {@code ImTextureFormat_Alpha8}.
      */
-    public native int getBytesPerPixel(); /*
-        return THIS->BytesPerPixel;
-    */
+    @BindingField(accessors = GETTER)
+    public int BytesPerPixel;
 
     /**
      * Direct view over the CPU-side pixel buffer holding {@code Width*Height} pixels
@@ -131,16 +131,14 @@ public final class ImTextureData extends ImGuiStruct {
     /**
      * Total size of the pixel buffer in bytes ({@code Width*Height*BytesPerPixel}).
      */
-    public native int getSizeInBytes(); /*
-        return THIS->GetSizeInBytes();
-    */
+    @BindingMethod(callName = "GetSizeInBytes")
+    public native int getSizeInBytes();
 
     /**
      * Row pitch in bytes ({@code Width*BytesPerPixel}).
      */
-    public native int getPitch(); /*
-        return THIS->GetPitch();
-    */
+    @BindingMethod(callName = "GetPitch")
+    public native int getPitch();
 
     /**
      * Bounding box encompassing all past and queued updates.
@@ -192,30 +190,26 @@ public final class ImTextureData extends ImGuiStruct {
      * Count of successive frames where the texture was not used. Always {@code > 0} when the status is
      * {@code ImTextureStatus_WantDestroy}.
      */
-    public native int getUnusedFrames(); /*
-        return THIS->UnusedFrames;
-    */
+    @BindingField(accessors = GETTER)
+    public int UnusedFrames;
 
     /**
      * Number of contexts using this texture. Used during backend shutdown.
      */
-    public native int getRefCount(); /*
-        return THIS->RefCount;
-    */
+    @BindingField(accessors = GETTER)
+    public int RefCount;
 
     /**
      * Whether the texture data is known to use colors (rather than just white + alpha).
      */
-    public native boolean getUseColors(); /*
-        return THIS->UseColors;
-    */
+    @BindingField(accessors = GETTER)
+    public boolean UseColors;
 
     /**
      * [Internal] Whether the texture is queued to be destroyed next frame. May still be used in the current frame.
      */
-    public native boolean getWantDestroyNextFrame(); /*
-        return THIS->WantDestroyNextFrame;
-    */
+    @BindingField(accessors = GETTER)
+    public boolean WantDestroyNextFrame;
 
     /**
      * Allocate the CPU-side pixel buffer for the given format and size. Generally called by the core library.
@@ -224,16 +218,14 @@ public final class ImTextureData extends ImGuiStruct {
      * @param width  texture width in pixels
      * @param height texture height in pixels
      */
-    public native void create(int format, int width, int height); /*
-        THIS->Create((ImTextureFormat)format, width, height);
-    */
+    @BindingMethod(callName = "Create")
+    public native void create(@ArgValue(staticCast = "ImTextureFormat") int format, int width, int height);
 
     /**
      * Free the CPU-side pixel buffer.
      */
-    public native void destroyPixels(); /*
-        THIS->DestroyPixels();
-    */
+    @BindingMethod(callName = "DestroyPixels")
+    public native void destroyPixels();
 
     /*JNI
         #undef THIS

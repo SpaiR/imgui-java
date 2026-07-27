@@ -1,6 +1,10 @@
 package imgui;
 
 import imgui.binding.ImGuiStruct;
+import imgui.binding.annotation.BindingField;
+import imgui.binding.annotation.BindingSource;
+
+import static imgui.binding.annotation.BindingField.Accessor.*;
 
 /**
  * Coordinates of a rectangle within a texture.
@@ -9,6 +13,7 @@ import imgui.binding.ImGuiStruct;
  * the graphics system. You may use {@link ImTextureData#getUpdates(int)} for the list, or
  * {@link ImTextureData#getUpdateRect()} for a single bounding box.
  */
+@BindingSource
 public final class ImTextureRect extends ImGuiStruct {
     public ImTextureRect(final long ptr) {
         super(ptr);
@@ -20,32 +25,28 @@ public final class ImTextureRect extends ImGuiStruct {
      */
 
     /**
-     * Upper-left x coordinate of rectangle to update.
+     * Upper-left x coordinate of rectangle
      */
-    public native int getX(); /*
-        return THIS->x;
-    */
+    @BindingField(accessors = GETTER, callName = "x")
+    public int X;
 
     /**
-     * Upper-left y coordinate of rectangle to update.
+     * Upper-left y coordinate of rectangle
      */
-    public native int getY(); /*
-        return THIS->y;
-    */
+    @BindingField(accessors = GETTER, callName = "y")
+    public int Y;
 
     /**
-     * Width of rectangle to update (in pixels).
+     * Width of rectangle (in pixels).
      */
-    public native int getW(); /*
-        return THIS->w;
-    */
+    @BindingField(accessors = GETTER, callName = "w")
+    public int W;
 
     /**
-     * Height of rectangle to update (in pixels).
+     * Height of rectangle (in pixels).
      */
-    public native int getH(); /*
-        return THIS->h;
-    */
+    @BindingField(accessors = GETTER, callName = "h")
+    public int H;
 
     /*JNI
         #undef THIS

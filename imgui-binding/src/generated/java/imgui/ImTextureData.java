@@ -6,6 +6,7 @@ import imgui.flag.ImTextureStatus;
 
 import java.nio.ByteBuffer;
 
+
 /**
  * Specs and pixel storage for a texture used by Dear ImGui.
  * <p>
@@ -30,29 +31,43 @@ public final class ImTextureData extends ImGuiStruct {
         #define THIS ((ImTextureData*)STRUCT_PTR)
      */
 
+
     /**
      * [DEBUG] Sequential index to facilitate identifying a texture when debugging/printing. Unique per atlas.
      */
-    public native int getUniqueID(); /*
+    public int getUniqueId() {
+        return nGetUniqueId();
+    }
+
+    private native int nGetUniqueId(); /*
         return THIS->UniqueID;
     */
 
+
+
     /**
      * Texture status, one of the {@link ImTextureStatus} values. Always use {@link #setStatus(int)} to modify!
-     *
-     * @return one of the {@link ImTextureStatus} values
      */
-    public native int getStatus(); /*
+    public int getStatus() {
+        return nGetStatus();
+    }
+
+    private native int nGetStatus(); /*
         return THIS->Status;
     */
 
     /**
      * Set the texture status. Called by the renderer backend after honoring a texture request.
      *
-     * @param status one of the {@link ImTextureStatus} values
+     * @param status
+     * 		one of the {@link ImTextureStatus} values
      */
-    public native void setStatus(int status); /*
-        THIS->SetStatus((ImTextureStatus)status);
+    public void setStatus(final int status) {
+        nSetStatus(status);
+    }
+
+    private native void nSetStatus(int status); /*
+        THIS->SetStatus(static_cast<ImTextureStatus>(status));
     */
 
     /**
@@ -80,37 +95,57 @@ public final class ImTextureData extends ImGuiStruct {
     /**
      * Set the backend-specific texture identifier. Called by the renderer backend after uploading the texture.
      */
-    public native void setTexID(long texID); /*
-        THIS->SetTexID((ImTextureID)(uintptr_t)texID);
+    public void setTexID(final long texID) {
+        nSetTexID(texID);
+    }
+
+    private native void nSetTexID(long texID); /*
+        THIS->SetTexID(texID);
     */
 
     /**
      * Texture format, one of the {@link ImTextureFormat} values.
-     *
-     * @return one of the {@link ImTextureFormat} values
      */
-    public native int getFormat(); /*
+    public int getFormat() {
+        return nGetFormat();
+    }
+
+    private native int nGetFormat(); /*
         return THIS->Format;
     */
+
 
     /**
      * Texture width, in pixels.
      */
-    public native int getWidth(); /*
+    public int getWidth() {
+        return nGetWidth();
+    }
+
+    private native int nGetWidth(); /*
         return THIS->Width;
     */
 
     /**
      * Texture height, in pixels.
      */
-    public native int getHeight(); /*
+    public int getHeight() {
+        return nGetHeight();
+    }
+
+    private native int nGetHeight(); /*
         return THIS->Height;
     */
+
 
     /**
      * Bytes per pixel: 4 for {@code ImTextureFormat_RGBA32} or 1 for {@code ImTextureFormat_Alpha8}.
      */
-    public native int getBytesPerPixel(); /*
+    public int getBytesPerPixel() {
+        return nGetBytesPerPixel();
+    }
+
+    private native int nGetBytesPerPixel(); /*
         return THIS->BytesPerPixel;
     */
 
@@ -131,14 +166,22 @@ public final class ImTextureData extends ImGuiStruct {
     /**
      * Total size of the pixel buffer in bytes ({@code Width*Height*BytesPerPixel}).
      */
-    public native int getSizeInBytes(); /*
+    public int getSizeInBytes() {
+        return nGetSizeInBytes();
+    }
+
+    private native int nGetSizeInBytes(); /*
         return THIS->GetSizeInBytes();
     */
 
     /**
      * Row pitch in bytes ({@code Width*BytesPerPixel}).
      */
-    public native int getPitch(); /*
+    public int getPitch() {
+        return nGetPitch();
+    }
+
+    private native int nGetPitch(); /*
         return THIS->GetPitch();
     */
 
@@ -192,46 +235,73 @@ public final class ImTextureData extends ImGuiStruct {
      * Count of successive frames where the texture was not used. Always {@code > 0} when the status is
      * {@code ImTextureStatus_WantDestroy}.
      */
-    public native int getUnusedFrames(); /*
+    public int getUnusedFrames() {
+        return nGetUnusedFrames();
+    }
+
+    private native int nGetUnusedFrames(); /*
         return THIS->UnusedFrames;
     */
 
     /**
      * Number of contexts using this texture. Used during backend shutdown.
      */
-    public native int getRefCount(); /*
+    public int getRefCount() {
+        return nGetRefCount();
+    }
+
+    private native int nGetRefCount(); /*
         return THIS->RefCount;
     */
 
     /**
      * Whether the texture data is known to use colors (rather than just white + alpha).
      */
-    public native boolean getUseColors(); /*
+    public boolean getUseColors() {
+        return nGetUseColors();
+    }
+
+    private native boolean nGetUseColors(); /*
         return THIS->UseColors;
     */
 
     /**
      * [Internal] Whether the texture is queued to be destroyed next frame. May still be used in the current frame.
      */
-    public native boolean getWantDestroyNextFrame(); /*
+    public boolean getWantDestroyNextFrame() {
+        return nGetWantDestroyNextFrame();
+    }
+
+    private native boolean nGetWantDestroyNextFrame(); /*
         return THIS->WantDestroyNextFrame;
     */
 
     /**
      * Allocate the CPU-side pixel buffer for the given format and size. Generally called by the core library.
      *
-     * @param format one of the {@link ImTextureFormat} values
-     * @param width  texture width in pixels
-     * @param height texture height in pixels
+     * @param format
+     * 		one of the {@link ImTextureFormat} values
+     * @param width
+     * 		texture width in pixels
+     * @param height
+     * 		texture height in pixels
      */
-    public native void create(int format, int width, int height); /*
-        THIS->Create((ImTextureFormat)format, width, height);
+    public void create(final int format, final int width, final int height) {
+        nCreate(format, width, height);
+    }
+
+    private native void nCreate(int format, int width, int height); /*
+        THIS->Create(static_cast<ImTextureFormat>(format), width, height);
     */
 
     /**
      * Free the CPU-side pixel buffer.
      */
-    public native void destroyPixels(); /*
+    public void destroyPixels() {
+        nDestroyPixels();
+    }
+
+    private native void nDestroyPixels(); /*
         THIS->DestroyPixels();
     */
 
