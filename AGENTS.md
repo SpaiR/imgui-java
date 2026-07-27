@@ -218,6 +218,9 @@ Use `providers.exec { ... }` for shell-outs, never `.execute()`. Capture resolve
   the full Dear ImGui version plus an imgui-java counter (`v1.92.7.1` = second release on Dear
   ImGui `1.92.7`), so a breaking change is only ever visible via `!`, the footer, the
   `breaking-change` label, and the release notes. Never cut a release on stale `bin/` natives.
+- **Release notes** → "Release notes". Fixed section order, and the `### Thanks` block with the
+  ko-fi button is reproduced verbatim in every release — don't reword it or drop it. Start from
+  GitHub's generated notes, then rewrite them for the consumer.
 
 The rule that submodule bumps, Gradle/deps bumps, and codegen-tooling changes each go in their
 own PR is in `.claude/rules/guardrails.md` ("Don't merge submodule bumps with feature work")
