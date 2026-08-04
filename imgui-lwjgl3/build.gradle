@@ -22,6 +22,7 @@ dependencies {
     implementation 'org.lwjgl:lwjgl-glfw'
     implementation 'org.lwjgl:lwjgl-opengl'
     implementation 'org.lwjgl:lwjgl-sdl'
+    implementation 'org.lwjgl:lwjgl-vulkan'
 
     implementation project(':imgui-binding')
 }
