@@ -83,12 +83,10 @@ import static org.lwjgl.vulkan.VK10.VK_COLOR_COMPONENT_R_BIT;
 import static org.lwjgl.vulkan.VK10.VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
 import static org.lwjgl.vulkan.VK10.VK_CULL_MODE_NONE;
 import static org.lwjgl.vulkan.VK10.VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
-import static org.lwjgl.vulkan.VK10.VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
-import static org.lwjgl.vulkan.VK10.VK_DESCRIPTOR_TYPE_SAMPLER;
+import static org.lwjgl.vulkan.VK10.VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
 import static org.lwjgl.vulkan.VK10.VK_DYNAMIC_STATE_SCISSOR;
 import static org.lwjgl.vulkan.VK10.VK_DYNAMIC_STATE_VIEWPORT;
 import static org.lwjgl.vulkan.VK10.VK_FILTER_LINEAR;
-import static org.lwjgl.vulkan.VK10.VK_FILTER_NEAREST;
 import static org.lwjgl.vulkan.VK10.VK_FORMAT_R32G32_SFLOAT;
 import static org.lwjgl.vulkan.VK10.VK_FORMAT_R8G8B8A8_UNORM;
 import static org.lwjgl.vulkan.VK10.VK_FRONT_FACE_COUNTER_CLOCKWISE;
@@ -114,7 +112,6 @@ import static org.lwjgl.vulkan.VK10.VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
 import static org.lwjgl.vulkan.VK10.VK_QUEUE_FAMILY_IGNORED;
 import static org.lwjgl.vulkan.VK10.VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
 import static org.lwjgl.vulkan.VK10.VK_SAMPLER_MIPMAP_MODE_LINEAR;
-import static org.lwjgl.vulkan.VK10.VK_SAMPLER_MIPMAP_MODE_NEAREST;
 import static org.lwjgl.vulkan.VK10.VK_SAMPLE_COUNT_1_BIT;
 import static org.lwjgl.vulkan.VK10.VK_SHADER_STAGE_FRAGMENT_BIT;
 import static org.lwjgl.vulkan.VK10.VK_SHADER_STAGE_VERTEX_BIT;
@@ -160,8 +157,7 @@ import static org.lwjgl.vulkan.VK10.VK_WHOLE_SIZE;
 @SuppressWarnings({"checkstyle:DesignForExtension", "checkstyle:NeedBraces", "checkstyle:LocalVariableName", "checkstyle:FinalLocalVariable", "checkstyle:ParameterName", "checkstyle:EmptyBlock", "checkstyle:AvoidNestedBlocks"})
 public class ImGuiImplVulkan {
 
-    public static final int MINIMUM_SAMPLED_IMAGE_POOL_SIZE = 8;
-    public static final int MINIMUM_SAMPLER_POOL_SIZE = 2;
+    public static final int MINIMUM_IMAGE_SAMPLER_POOL_SIZE = 8;
 
     // -------------------------------------------------------------------------
     // Public types
@@ -242,8 +238,7 @@ public class ImGuiImplVulkan {
     private InitInfo initInfo;
     private long bufferMemoryAlignment = 256;
     private long nonCoherentAtomSize = 64;
-    private long descriptorSetLayoutTexture;
-    private long descriptorSetLayoutSampler;
+    private long descriptorSetLayout;
     private long pipelineLayout;
     private long pipeline;
     private int pipelineCreateFlags;
@@ -252,9 +247,6 @@ public class ImGuiImplVulkan {
     private long descriptorPool;
     private boolean descriptorPoolOwned;
     private long samplerLinear;
-    private long samplerNearest;
-    private long samplerLinearDS;
-    private long samplerNearestDS;
     private long texCommandPool;
     private long texCommandBuffer;
     private long fontImage;
@@ -308,7 +300,7 @@ public class ImGuiImplVulkan {
     // Texture management
     // -------------------------------------------------------------------------
 
-    public long addTexture(final long imageView, final int imageLayout) {
+    public long addTexture(final long sampler, final long imageView, final int imageLayout) {
         if (initInfo == null) {
             return 0;
         }
@@ -324,7 +316,7 @@ public class ImGuiImplVulkan {
             allocInfo.sType(VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO);
             allocInfo.descriptorPool(pool);
             VkDescriptorSetAllocateInfo.ndescriptorSetCount(allocInfo.address(), 1);
-            allocInfo.pSetLayouts(stack.longs(descriptorSetLayoutTexture));
+            allocInfo.pSetLayouts(stack.longs(descriptorSetLayout));
 
             int err = VK10.vkAllocateDescriptorSets(initInfo.device, allocInfo, pDescriptorSet);
             checkVkResult(err);
@@ -334,6 +326,7 @@ public class ImGuiImplVulkan {
             final long descriptorSet = pDescriptorSet.get(0);
 
             final VkDescriptorImageInfo.Buffer imageInfo = VkDescriptorImageInfo.calloc(1, stack);
+            imageInfo.sampler(sampler);
             imageInfo.imageView(imageView);
             imageInfo.imageLayout(imageLayout);
 
@@ -341,7 +334,7 @@ public class ImGuiImplVulkan {
             writeDesc.sType(VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET);
             writeDesc.dstSet(descriptorSet);
             writeDesc.descriptorCount(1);
-            writeDesc.descriptorType(VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE);
+            writeDesc.descriptorType(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
             writeDesc.pImageInfo(imageInfo);
 
             VK10.vkUpdateDescriptorSets(initInfo.device, writeDesc, null);
@@ -359,11 +352,6 @@ public class ImGuiImplVulkan {
             return;
         }
         VK10.vkFreeDescriptorSets(initInfo.device, pool, descriptorSet);
-    }
-
-    @Deprecated
-    public long addTexture(final long sampler, final long imageView, final int imageLayout) {
-        return addTexture(imageView, imageLayout);
     }
 
     // -------------------------------------------------------------------------
@@ -562,18 +550,6 @@ public class ImGuiImplVulkan {
         }
         destroyFontsTexture();
 
-        if (samplerNearestDS != 0) {
-            VK10.vkFreeDescriptorSets(initInfo.device, descriptorPool, samplerNearestDS);
-            samplerNearestDS = 0;
-        }
-        if (samplerLinearDS != 0) {
-            VK10.vkFreeDescriptorSets(initInfo.device, descriptorPool, samplerLinearDS);
-            samplerLinearDS = 0;
-        }
-        if (samplerNearest != 0) {
-            VK10.vkDestroySampler(initInfo.device, samplerNearest, null);
-            samplerNearest = 0;
-        }
         if (samplerLinear != 0) {
             VK10.vkDestroySampler(initInfo.device, samplerLinear, null);
             samplerLinear = 0;
@@ -586,13 +562,9 @@ public class ImGuiImplVulkan {
             VK10.vkDestroyPipelineLayout(initInfo.device, pipelineLayout, null);
             pipelineLayout = 0;
         }
-        if (descriptorSetLayoutSampler != 0) {
-            VK10.vkDestroyDescriptorSetLayout(initInfo.device, descriptorSetLayoutSampler, null);
-            descriptorSetLayoutSampler = 0;
-        }
-        if (descriptorSetLayoutTexture != 0) {
-            VK10.vkDestroyDescriptorSetLayout(initInfo.device, descriptorSetLayoutTexture, null);
-            descriptorSetLayoutTexture = 0;
+        if (descriptorSetLayout != 0) {
+            VK10.vkDestroyDescriptorSetLayout(initInfo.device, descriptorSetLayout, null);
+            descriptorSetLayout = 0;
         }
         if (descriptorPoolOwned && descriptorPool != 0) {
             VK10.vkDestroyDescriptorPool(initInfo.device, descriptorPool, null);
@@ -709,65 +681,32 @@ public class ImGuiImplVulkan {
     }
 
     private boolean createDescriptorSetLayouts() {
-        {
-            final VkDescriptorSetLayoutBinding.Buffer bindings =
-                    VkDescriptorSetLayoutBinding.calloc(1);
-            bindings.binding(0);
-            bindings.descriptorType(VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE);
-            bindings.descriptorCount(1);
-            bindings.stageFlags(VK_SHADER_STAGE_FRAGMENT_BIT);
+        final VkDescriptorSetLayoutBinding.Buffer bindings =
+                VkDescriptorSetLayoutBinding.calloc(1);
+        bindings.binding(0);
+        bindings.descriptorType(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
+        bindings.descriptorCount(1);
+        bindings.stageFlags(VK_SHADER_STAGE_FRAGMENT_BIT);
 
-            final VkDescriptorSetLayoutCreateInfo layoutInfo =
-                    VkDescriptorSetLayoutCreateInfo.calloc();
-            layoutInfo.sType(VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO);
-            VkDescriptorSetLayoutCreateInfo.nbindingCount(layoutInfo.address(), 1);
-            layoutInfo.pBindings(bindings);
+        final VkDescriptorSetLayoutCreateInfo layoutInfo =
+                VkDescriptorSetLayoutCreateInfo.calloc();
+        layoutInfo.sType(VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO);
+        VkDescriptorSetLayoutCreateInfo.nbindingCount(layoutInfo.address(), 1);
+        layoutInfo.pBindings(bindings);
 
-            final LongBuffer pLayout = MemoryUtil.memAllocLong(1);
-            final int err = VK10.vkCreateDescriptorSetLayout(initInfo.device, layoutInfo, null, pLayout);
-            descriptorSetLayoutTexture = pLayout.get(0);
-            MemoryUtil.memFree(pLayout);
-            bindings.free();
-            layoutInfo.free();
-            checkVkResult(err);
-            if (err != VK_SUCCESS) {
-                return false;
-            }
-        }
-
-        {
-            final VkDescriptorSetLayoutBinding.Buffer bindings =
-                    VkDescriptorSetLayoutBinding.calloc(1);
-            bindings.binding(0);
-            bindings.descriptorType(VK_DESCRIPTOR_TYPE_SAMPLER);
-            bindings.descriptorCount(1);
-            bindings.stageFlags(VK_SHADER_STAGE_FRAGMENT_BIT);
-
-            final VkDescriptorSetLayoutCreateInfo layoutInfo =
-                    VkDescriptorSetLayoutCreateInfo.calloc();
-            layoutInfo.sType(VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO);
-            VkDescriptorSetLayoutCreateInfo.nbindingCount(layoutInfo.address(), 1);
-            layoutInfo.pBindings(bindings);
-
-            final LongBuffer pLayout = MemoryUtil.memAllocLong(1);
-            final int err = VK10.vkCreateDescriptorSetLayout(initInfo.device, layoutInfo, null, pLayout);
-            descriptorSetLayoutSampler = pLayout.get(0);
-            MemoryUtil.memFree(pLayout);
-            bindings.free();
-            layoutInfo.free();
-            checkVkResult(err);
-            if (err != VK_SUCCESS) {
-                return false;
-            }
-        }
-
-        return true;
+        final LongBuffer pLayout = MemoryUtil.memAllocLong(1);
+        final int err = VK10.vkCreateDescriptorSetLayout(initInfo.device, layoutInfo, null, pLayout);
+        descriptorSetLayout = pLayout.get(0);
+        MemoryUtil.memFree(pLayout);
+        bindings.free();
+        layoutInfo.free();
+        checkVkResult(err);
+        return err == VK_SUCCESS;
     }
 
     private boolean createPipelineLayout() {
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            final LongBuffer setLayouts = stack.longs(
-                    descriptorSetLayoutTexture, descriptorSetLayoutSampler);
+            final LongBuffer setLayouts = stack.longs(descriptorSetLayout);
 
             final VkPushConstantRange.Buffer pushConstantRange =
                     VkPushConstantRange.calloc(1, stack);
@@ -778,7 +717,7 @@ public class ImGuiImplVulkan {
             final VkPipelineLayoutCreateInfo layoutInfo =
                     VkPipelineLayoutCreateInfo.calloc(stack);
             layoutInfo.sType(VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO);
-            layoutInfo.setLayoutCount(2);
+            layoutInfo.setLayoutCount(1);
             layoutInfo.pSetLayouts(setLayouts);
             VkPipelineLayoutCreateInfo.npushConstantRangeCount(layoutInfo.address(), 1);
             layoutInfo.pPushConstantRanges(pushConstantRange);
@@ -995,18 +934,16 @@ public class ImGuiImplVulkan {
     private boolean createDescriptorPool() {
         final int poolSize = initInfo.descriptorPoolSize > 0
                 ? initInfo.descriptorPoolSize
-                : MINIMUM_SAMPLED_IMAGE_POOL_SIZE + MINIMUM_SAMPLER_POOL_SIZE;
+                : MINIMUM_IMAGE_SAMPLER_POOL_SIZE;
 
-        final VkDescriptorPoolSize.Buffer poolSizes = VkDescriptorPoolSize.calloc(2);
-        poolSizes.get(0).type(VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE);
+        final VkDescriptorPoolSize.Buffer poolSizes = VkDescriptorPoolSize.calloc(1);
+        poolSizes.get(0).type(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER);
         poolSizes.get(0).descriptorCount(poolSize);
-        poolSizes.get(1).type(VK_DESCRIPTOR_TYPE_SAMPLER);
-        poolSizes.get(1).descriptorCount(MINIMUM_SAMPLER_POOL_SIZE);
 
         final VkDescriptorPoolCreateInfo poolInfo = VkDescriptorPoolCreateInfo.calloc();
         poolInfo.sType(VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO);
         poolInfo.flags(VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT);
-        poolInfo.maxSets(poolSize + MINIMUM_SAMPLER_POOL_SIZE);
+        poolInfo.maxSets(poolSize);
         poolInfo.pPoolSizes(poolSizes);
 
         final LongBuffer pPool = MemoryUtil.memAllocLong(1);
@@ -1020,103 +957,24 @@ public class ImGuiImplVulkan {
     }
 
     private boolean createSamplers() {
-        {
-            final VkSamplerCreateInfo samplerInfo = VkSamplerCreateInfo.calloc();
-            samplerInfo.sType(VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO);
-            samplerInfo.magFilter(VK_FILTER_LINEAR);
-            samplerInfo.minFilter(VK_FILTER_LINEAR);
-            samplerInfo.mipmapMode(VK_SAMPLER_MIPMAP_MODE_LINEAR);
-            samplerInfo.addressModeU(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
-            samplerInfo.addressModeV(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
-            samplerInfo.addressModeW(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
-            samplerInfo.minLod(-1000);
-            samplerInfo.maxLod(1000);
+        final VkSamplerCreateInfo samplerInfo = VkSamplerCreateInfo.calloc();
+        samplerInfo.sType(VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO);
+        samplerInfo.magFilter(VK_FILTER_LINEAR);
+        samplerInfo.minFilter(VK_FILTER_LINEAR);
+        samplerInfo.mipmapMode(VK_SAMPLER_MIPMAP_MODE_LINEAR);
+        samplerInfo.addressModeU(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+        samplerInfo.addressModeV(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+        samplerInfo.addressModeW(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+        samplerInfo.minLod(-1000);
+        samplerInfo.maxLod(1000);
 
-            final LongBuffer pSampler = MemoryUtil.memAllocLong(1);
-            final int err = VK10.vkCreateSampler(initInfo.device, samplerInfo, null, pSampler);
-            samplerLinear = pSampler.get(0);
-            MemoryUtil.memFree(pSampler);
-            samplerInfo.free();
-            checkVkResult(err);
-            if (err != VK_SUCCESS) {
-                return false;
-            }
-        }
-
-        {
-            final VkSamplerCreateInfo samplerInfo = VkSamplerCreateInfo.calloc();
-            samplerInfo.sType(VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO);
-            samplerInfo.magFilter(VK_FILTER_NEAREST);
-            samplerInfo.minFilter(VK_FILTER_NEAREST);
-            samplerInfo.mipmapMode(VK_SAMPLER_MIPMAP_MODE_NEAREST);
-            samplerInfo.addressModeU(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
-            samplerInfo.addressModeV(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
-            samplerInfo.addressModeW(VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
-            samplerInfo.minLod(-1000);
-            samplerInfo.maxLod(1000);
-
-            final LongBuffer pSampler = MemoryUtil.memAllocLong(1);
-            final int err = VK10.vkCreateSampler(initInfo.device, samplerInfo, null, pSampler);
-            samplerNearest = pSampler.get(0);
-            MemoryUtil.memFree(pSampler);
-            samplerInfo.free();
-            checkVkResult(err);
-            if (err != VK_SUCCESS) {
-                return false;
-            }
-        }
-
-        samplerLinearDS = allocateSamplerDescriptorSet(samplerLinear);
-        if (samplerLinearDS == 0) {
-            return false;
-        }
-        samplerNearestDS = allocateSamplerDescriptorSet(samplerNearest);
-        if (samplerNearestDS == 0) {
-            return false;
-        }
-
-        return true;
-    }
-
-    private long allocateSamplerDescriptorSet(final long sampler) {
-        final LongBuffer pDescriptorSet = MemoryUtil.memAllocLong(1);
-
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            final VkDescriptorSetAllocateInfo allocInfo =
-                    VkDescriptorSetAllocateInfo.calloc(stack);
-            allocInfo.sType(VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO);
-            allocInfo.descriptorPool(descriptorPool);
-            VkDescriptorSetAllocateInfo.ndescriptorSetCount(allocInfo.address(), 1);
-            allocInfo.pSetLayouts(stack.longs(descriptorSetLayoutSampler));
-
-            int err = VK10.vkAllocateDescriptorSets(initInfo.device, allocInfo, pDescriptorSet);
-            checkVkResult(err);
-            if (err != VK_SUCCESS) {
-                MemoryUtil.memFree(pDescriptorSet);
-                return 0;
-            }
-        }
-
-        final long descriptorSet = pDescriptorSet.get(0);
-        MemoryUtil.memFree(pDescriptorSet);
-
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            final VkDescriptorImageInfo.Buffer imageInfo =
-                    VkDescriptorImageInfo.calloc(1, stack);
-            imageInfo.sampler(sampler);
-
-            final VkWriteDescriptorSet.Buffer writeDesc =
-                    VkWriteDescriptorSet.calloc(1, stack);
-            writeDesc.sType(VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET);
-            writeDesc.dstSet(descriptorSet);
-            writeDesc.descriptorCount(1);
-            writeDesc.descriptorType(VK_DESCRIPTOR_TYPE_SAMPLER);
-            writeDesc.pImageInfo(imageInfo);
-
-            VK10.vkUpdateDescriptorSets(initInfo.device, writeDesc, null);
-        }
-
-        return descriptorSet;
+        final LongBuffer pSampler = MemoryUtil.memAllocLong(1);
+        final int err = VK10.vkCreateSampler(initInfo.device, samplerInfo, null, pSampler);
+        samplerLinear = pSampler.get(0);
+        MemoryUtil.memFree(pSampler);
+        samplerInfo.free();
+        checkVkResult(err);
+        return err == VK_SUCCESS;
     }
 
     private boolean createTextureUploadCommandPool() {
@@ -1231,10 +1089,6 @@ public class ImGuiImplVulkan {
             MemoryUtil.memFree(pData);
         }
 
-        long fontImage;
-        long fontMemory;
-        long fontImageView;
-        long fontDescriptorSet;
         {
             final VkImageCreateInfo imageInfo = VkImageCreateInfo.calloc();
             imageInfo.sType(VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO);
@@ -1388,7 +1242,7 @@ public class ImGuiImplVulkan {
             checkVkResult(err);
         }
 
-        fontDescriptorSet = addTexture(fontImageView, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+        fontDescriptorSet = addTexture(samplerLinear, fontImageView, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
         if (fontDescriptorSet == 0) {
             VK10.vkDestroyImageView(initInfo.device, fontImageView, null);
             VK10.vkDestroyImage(initInfo.device, fontImage, null);
@@ -1577,8 +1431,6 @@ public class ImGuiImplVulkan {
         VK10.vkCmdSetViewport(commandBuffer, 0, viewport);
         viewport.free();
 
-        VK10.vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
-                pipelineLayout, 1, new long[] {samplerLinearDS}, new int[0]);
     }
 
     // -------------------------------------------------------------------------
