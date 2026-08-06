@@ -10,7 +10,12 @@ import imgui.flag.ImGuiKey;
 import imgui.flag.ImGuiMouseCursor;
 import imgui.flag.ImGuiMouseSource;
 import org.lwjgl.sdl.SDL_Event;
+import org.lwjgl.sdl.SDLVulkan;
 import org.lwjgl.system.MemoryStack;
+import org.lwjgl.system.MemoryUtil;
+import org.lwjgl.vulkan.VK10;
+import org.lwjgl.vulkan.VkInstance;
+import org.lwjgl.vulkan.VkInstanceCreateInfo;
 import org.lwjgl.sdl.SDL_KeyboardEvent;
 import org.lwjgl.sdl.SDL_MouseButtonEvent;
 import org.lwjgl.sdl.SDL_MouseMotionEvent;
@@ -232,6 +237,7 @@ import static org.lwjgl.sdl.SDLVideo.SDL_GetWindowSizeInPixels;
 import static org.lwjgl.sdl.SDLVideo.SDL_WINDOW_INPUT_FOCUS;
 
 import java.nio.IntBuffer;
+import java.nio.LongBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -387,6 +393,33 @@ public class ImGuiImplSdl3 {
 
     public final boolean initForVulkan(final long sdlWindow) {
         return init(sdlWindow);
+    }
+
+    /**
+     * Create a Vulkan surface for the given SDL window.
+     * <p>This is a convenience wrapper around {@code SDLVulkan.SDL_Vulkan_CreateSurface}.
+     * @param sdlWindow the SDL window handle
+     * @param vkInstance the Vulkan instance handle
+     * @return the VkSurfaceKHR handle, or 0 on failure
+     */
+    public static long createVulkanSurface(final long sdlWindow, final VkInstance vkInstance) {
+        final LongBuffer pSurface = MemoryUtil.memAllocLong(1);
+        final boolean ok = SDLVulkan.SDL_Vulkan_CreateSurface(sdlWindow, vkInstance, null, pSurface);
+        final long surface = ok ? pSurface.get(0) : 0;
+        MemoryUtil.memFree(pSurface);
+        return surface;
+    }
+
+    /**
+     * Create a Vulkan surface for the given SDL window, using a raw instance handle.
+     * @return the VkSurfaceKHR handle, or 0 on failure
+     */
+    public static long createVulkanSurface(final long sdlWindow, final long vkInstance) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            final VkInstanceCreateInfo createInfo = VkInstanceCreateInfo.calloc(stack);
+            createInfo.sType(VK10.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO);
+            return createVulkanSurface(sdlWindow, new VkInstance(vkInstance, createInfo));
+        }
     }
 
     public final boolean initForD3D(final long sdlWindow) {
