@@ -2,15 +2,9 @@ package imgui.extension.texteditor;
 
 import imgui.ImVec2;
 import imgui.binding.ImGuiStructDestroyable;
-
-
-
-
-
 import imgui.extension.texteditor.flag.TextEditorColor;
 import imgui.extension.texteditor.flag.TextEditorScroll;
 import imgui.internal.ImGuiContext;
-
 
 public final class TextEditor extends ImGuiStructDestroyable {
     public TextEditor() {
