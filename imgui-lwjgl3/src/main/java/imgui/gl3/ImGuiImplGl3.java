@@ -247,6 +247,10 @@ public class ImGuiImplGl3 {
      * Method to do an initialization of the {@link ImGuiImplGl3} state.
      * It SHOULD be called before calling of the {@link ImGuiImplGl3#renderDrawData(ImDrawData)} method.
      * <p>
+     * GL device objects (shader, buffers, font texture) are <b>not</b> created here; they are
+     * created lazily on the first {@link #newFrame()} or {@link #renderDrawData(ImDrawData)} call
+     * (behavior since 1.87, matching upstream). Prefer calling {@link #newFrame()} every frame.
+     * <p>
      * Method takes an argument, which should be a valid GLSL string with the version to use.
      * <pre>
      * ----------------------------------------
@@ -378,7 +382,25 @@ public class ImGuiImplGl3 {
         data = null;
     }
 
+    /**
+     * Prepare per-frame GL resources.
+     * <p>
+     * Since Dear ImGui 1.87 / imgui-java 1.87, shader program, buffers and the font
+     * texture are created lazily here (not in {@link #init(String)}). Call this every
+     * frame before {@link ImGui#newFrame()}, or at least once after {@code init} and
+     * before the first {@link #renderDrawData(ImDrawData)}.
+     */
     public void newFrame() {
+        ensureDeviceObjects();
+    }
+
+    /**
+     * Create shader/program/VBO and font texture if they are not yet available.
+     * Shared by {@link #newFrame()} and {@link #renderDrawData(ImDrawData)} so that
+     * integrators that only call {@code init} + {@code renderDrawData} (the pre-1.87
+     * pattern) do not hit a native NULL dereference in {@code glDrawElementsBaseVertex}.
+     */
+    protected void ensureDeviceObjects() {
         if (data.shaderHandle == 0) {
             createDeviceObjects();
         }
@@ -483,6 +505,12 @@ public class ImGuiImplGl3 {
         if (drawData.getCmdListsCount() <= 0) {
             return;
         }
+
+        // Device objects used to be created in init() (imgui-java <= 1.86). Since 1.87 they are
+        // created lazily in newFrame() to match upstream imgui_impl_opengl3. Ensure them here as
+        // well so call sites that skip newFrame() (common after upgrades; see #361) do not crash
+        // with a native NULL pointer inside glDrawElementsBaseVertex.
+        ensureDeviceObjects();
 
         glGetIntegerv(GL_ACTIVE_TEXTURE, props.lastActiveTexture);
         glActiveTexture(GL_TEXTURE0);
