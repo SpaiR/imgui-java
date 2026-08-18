@@ -43,7 +43,7 @@ adapt it to your stack.
 JDK 17+ is required to run the build (Gradle's toolchain pins it). Published artifacts target Java 8 bytecode, so
 consuming them as a dependency only needs JDK 8+ at runtime.
 
-```
+```bash
 git clone --recurse-submodules https://github.com/SpaiR/imgui-java.git
 cd imgui-java
 ./gradlew :example:run
@@ -75,7 +75,7 @@ On Apple Silicon nothing extra is needed: the published macOS native is a univer
 
 Use SDL3 by switching backend in `configure(...)`:
 
-```
+```java
 @Override
 protected void configure(final Configuration config) {
     config.setBackend(Backend.SDL);
@@ -84,7 +84,7 @@ protected void configure(final Configuration config) {
 
 For a ready smoke-test entry point, run `MainSdl`:
 
-```
+```bash
 ./gradlew :example:run -PmainClass=MainSdl
 ```
 
@@ -105,7 +105,8 @@ That means that if you are seeking for a bit more low-level control - you can ga
 ### Example
 
 A very simple application may look like this:
-```
+
+```java
 import imgui.ImGui;
 import imgui.app.Application;
 import imgui.app.Configuration;
@@ -136,7 +137,7 @@ Read `imgui.app.Application` [javadoc](https://javadoc.io/doc/io.github.spair/im
 <details>
         <summary><b>Gradle</b></summary>
 
-```
+```gradle
 repositories {
     mavenCentral()
 }
@@ -150,7 +151,7 @@ dependencies {
 <details>
         <summary><b>Maven</b></summary>
 
-```
+```xml
 <dependencies>
     <dependency>
         <groupId>io.github.spair</groupId>
@@ -202,7 +203,7 @@ Take a note, that you also need to add dependencies to [LWJGL](https://www.lwjgl
 <details>
         <summary><b>Gradle</b></summary>
 
-```
+```gradle
 repositories {
     mavenCentral()
 }
@@ -231,7 +232,7 @@ dependencies {
 <details>
         <summary><b>Maven</b></summary>
 
-```
+```xml
 <properties>
     <lwjgl.version>3.4.1</lwjgl.version>
     <imgui.java.version>${version}</imgui.java.version>
@@ -396,7 +397,7 @@ The Gradle toolchain pins **JDK 17** for the build regardless of your system JDK
 This is the path CI uses. It vendors FreeType, runs `generateLibs`, and lays the resulting binary under
 `/tmp/imgui/dst/`:
 
-```
+```bash
 buildSrc/scripts/build.sh <windows|linux|macos>
 ```
 
@@ -405,7 +406,7 @@ via `lipo`.
 
 To use the freshly-built binary with the example:
 
-```
+```bash
 cp /tmp/imgui/dst/libimgui-java64.<so|dylib|dll> bin/
 ./gradlew :example:run -PlibPath=$PWD/bin
 ```
@@ -455,7 +456,7 @@ The Java side of the binding is **codegen-driven**. Annotated stubs live under `
 generator in `buildSrc/` expands them into `imgui-binding/src/generated/java/` (both trees are committed). Never
 hand-edit `src/generated/`: it is regenerated and your changes will be lost. The workflow is always:
 
-```
+```bash
 # edit imgui-binding/src/main/java/...
 ./gradlew :imgui-binding:generateApi
 # commit both src/main/java and src/generated/java in one commit
