@@ -11,5 +11,9 @@ public enum Backend {
     /**
      * SDL3 platform + SDL_GPU renderer.
      */
-    SDL
+    SDL,
+    /**
+     * SDL3 platform + SDL_Renderer renderer.
+     */
+    SDL_RENDERER
 }

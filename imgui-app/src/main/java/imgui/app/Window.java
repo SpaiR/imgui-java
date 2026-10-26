@@ -2,7 +2,7 @@ package imgui.app;
 
 /**
  * Abstract base for an application window. Subclasses bind a specific platform/renderer pair
- * (see {@link WindowGlfw}, {@link WindowSdl}) and forward lifecycle hooks back to the owning
+ * (see {@link WindowGlfw}, {@link WindowSdl}, {@link WindowSdlRenderer}) and forward lifecycle hooks back to the owning
  * {@link Application} via {@link #owner}.
  *
  * <p>Direct subclassing is supported but the supported integration path is to extend
