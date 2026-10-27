@@ -30,3 +30,9 @@ apply_patch_idempotent() {
 apply_patch_idempotent \
     "$(pwd)/patches/imgui-node-editor-imgui-1.92-operator-star.patch" \
     include/imgui-node-editor
+
+# LLVM-MinGW's libc++ does not transitively include <exception>, so the
+# Windows ARM64 build needs the explicit include for std::terminate().
+apply_patch_idempotent \
+    "$(pwd)/patches/imgui-node-editor-libcxx-exception.patch" \
+    include/imgui-node-editor
