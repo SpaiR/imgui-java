@@ -1143,17 +1143,16 @@ public class ImGuiImplGlfw {
         final MapAnalog mapAnalog;
 
         if (glfwHasGamepadApi) {
-            try (GLFWGamepadState gamepad = GLFWGamepadState.create()) {
-                if (!glfwGetGamepadState(GLFW_JOYSTICK_1, gamepad)) {
-                    return;
-                }
-                mapButton = (keyNo, buttonNo, _unused) -> io.addKeyEvent(keyNo, gamepad.buttons(buttonNo) != 0);
-                mapAnalog = (keyNo, axisNo, _unused, v0, v1) -> {
-                    float v = gamepad.axes(axisNo);
-                    v = (v - v0) / (v1 - v0);
-                    io.addKeyAnalogEvent(keyNo, v > 0.10f, saturate(v));
-                };
+            GLFWGamepadState gamepad = GLFWGamepadState.create();
+            if (!glfwGetGamepadState(GLFW_JOYSTICK_1, gamepad)) {
+                return;
             }
+            mapButton = (keyNo, buttonNo, _unused) -> io.addKeyEvent(keyNo, gamepad.buttons(buttonNo) != 0);
+            mapAnalog = (keyNo, axisNo, _unused, v0, v1) -> {
+                float v = gamepad.axes(axisNo);
+                v = (v - v0) / (v1 - v0);
+                io.addKeyAnalogEvent(keyNo, v > 0.10f, saturate(v));
+            };
         } else {
             final FloatBuffer axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1);
             final ByteBuffer buttons = glfwGetJoystickButtons(GLFW_JOYSTICK_1);
