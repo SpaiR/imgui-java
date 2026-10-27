@@ -49,6 +49,8 @@ cd imgui-java
 ./gradlew :example:run
 # SDL3 + SDL_GPU backend smoke test:
 ./gradlew :example:run -PmainClass=MainSdl
+# SDL3 + SDL_Renderer backend smoke test:
+./gradlew :example:run -PmainClass=MainSdlRenderer
 ```
 
 `example/src/main/java/` contains a runnable showcase for every widget and extension — start with `Main.java`, then
@@ -68,10 +70,11 @@ On Apple Silicon nothing extra is needed: the published macOS native is a univer
 
 ### SDL3 backend (imgui-app)
 
-`imgui-app` now supports two backends via `Configuration#setBackend(...)`:
+`imgui-app` now supports three backends via `Configuration#setBackend(...)`:
 
 - `Backend.GLFW` (default)
 - `Backend.SDL` (SDL3 + SDL_GPU)
+- `Backend.SDL_RENDERER` (SDL3 + `SDL_Renderer`)
 
 Use SDL3 by switching backend in `configure(...)`:
 
@@ -88,7 +91,13 @@ For a ready smoke-test entry point, run `MainSdl`:
 ./gradlew :example:run -PmainClass=MainSdl
 ```
 
-At the moment, SDL backend in `imgui-app` is focused on single-window flow (multi-viewport is not supported).
+The SDL_Renderer variant is available through `Backend.SDL_RENDERER` and the `MainSdlRenderer` smoke test:
+
+```
+./gradlew :example:run -PmainClass=MainSdlRenderer
+```
+
+At the moment, SDL backends in `imgui-app` are focused on single-window flow (multi-viewport is not supported).
 
 ## Application
 
