@@ -134,7 +134,18 @@ public abstract class Application {
     public static void launch(final Application app) {
         final Configuration config = new Configuration();
         app.configure(config);
-        app.window = (config.getBackend() == Backend.SDL) ? new WindowSdl() : new WindowGlfw();
+        switch (config.getBackend()) {
+            case SDL:
+                app.window = new WindowSdl();
+                break;
+            case VULKAN:
+                app.window = new WindowVulkan();
+                break;
+            case GLFW:
+            default:
+                app.window = new WindowGlfw();
+                break;
+        }
         app.window.setOwner(app);
         app.window.init(config);
         app.preRun();

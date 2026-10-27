@@ -35,12 +35,18 @@ import org.lwjgl.glfw.GLFWNativeWin32;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowFocusCallback;
+import org.lwjgl.glfw.GLFWVulkan;
 import org.lwjgl.system.Callback;
+import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
+import org.lwjgl.vulkan.VK10;
+import org.lwjgl.vulkan.VkInstance;
+import org.lwjgl.vulkan.VkInstanceCreateInfo;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.nio.LongBuffer;
 
 import static org.lwjgl.glfw.GLFW.GLFW_ARROW_CURSOR;
 import static org.lwjgl.glfw.GLFW.GLFW_CURSOR;
@@ -1716,5 +1722,39 @@ public class ImGuiImplGlfw {
         OPENGL,
         VULKAN,
         OTHER
+    }
+
+    /**
+     * Create a Vulkan surface for the given GLFW window.
+     * <p>This is a convenience wrapper around {@code GLFWVulkan.glfwCreateWindowSurface}.
+     * @param window the GLFW window handle
+     * @param instance the Vulkan instance handle
+     * @param allocator the Vulkan allocation callbacks (may be null)
+     * @return the VkSurfaceKHR handle, or 0 on failure
+     */
+    public static long createVulkanSurface(final long window, final long instance, final long allocator) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            final VkInstanceCreateInfo createInfo = VkInstanceCreateInfo.calloc(stack);
+            createInfo.sType(VK10.VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO);
+            final VkInstance vkInstance = new VkInstance(instance, createInfo);
+
+            final LongBuffer pSurface = MemoryUtil.memAllocLong(1);
+            final int err = GLFWVulkan.glfwCreateWindowSurface(vkInstance,
+                    window, null, pSurface);
+            final long surface = pSurface.get(0);
+            MemoryUtil.memFree(pSurface);
+            return err == VK10.VK_SUCCESS ? surface : 0;
+        }
+    }
+
+    /**
+     * Create a Vulkan surface for the given GLFW window with LWJGL types.
+     */
+    public static long createVulkanSurface(final long window, final VkInstance instance) {
+        final LongBuffer pSurface = MemoryUtil.memAllocLong(1);
+        final int err = GLFWVulkan.glfwCreateWindowSurface(instance, window, null, pSurface);
+        final long surface = pSurface.get(0);
+        MemoryUtil.memFree(pSurface);
+        return err == VK10.VK_SUCCESS ? surface : 0;
     }
 }
