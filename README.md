@@ -421,6 +421,15 @@ If you don't need FreeType or want a stock build under the project tree, call `g
 - Build: `./gradlew imgui-binding:generateLibs -Denvs=windows -Dlocal`
 - Run example: `./gradlew example:run -PlibPath="../imgui-binding/build/libsNative/windows64"`
 
+### Windows ARM64
+
+- Required on PATH: Ant, [LLVM-MinGW](https://github.com/mstorsjo/llvm-mingw) (the `aarch64-w64-mingw32-*`
+  wrappers).
+- Build: `./gradlew imgui-binding:generateLibs -Denvs=windowsarm64 -Dlocal`
+- Output: `imgui-binding/build/libsNative/windowsarm64/imgui-java64.dll`
+- Run example: `./gradlew example:run -PlibPath="../imgui-binding/build/libsNative/windowsarm64"`
+- The direct Gradle path builds without FreeType by default, matching the other platforms.
+
 ### Linux
 
 - Install dependencies: `mingw-w64-gcc`, `ant`. (Package names vary by distro.)
@@ -439,7 +448,7 @@ If you don't need FreeType or want a stock build under the project tree, call `g
 
 | Flag              | Effect                                                                                                                        |
 |-------------------|-------------------------------------------------------------------------------------------------------------------------------|
-| `-Denvs=<csv>`    | Target platforms — any of `windows`, `linux`, `macos`, `macosarm64`                                                           |
+| `-Denvs=<csv>`    | Target platforms — any of `windows`, `windowsarm64`, `linux`, `linuxarm64`, `macos`, `macosarm64`                             |
 | `-Dlocal`         | Output to `imgui-binding/build/libsNative/` instead of `/tmp/imgui/`                                                          |
 | `-Dfreetype=true` | Compile FreeType statically into the binary (requires `vendor_freetype.sh` to have been run; `build.sh` handles this for you) |
 
