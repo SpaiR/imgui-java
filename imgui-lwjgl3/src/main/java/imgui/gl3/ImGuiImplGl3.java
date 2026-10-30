@@ -4,12 +4,16 @@ import imgui.ImDrawData;
 import imgui.ImFontAtlas;
 import imgui.ImGui;
 import imgui.ImGuiIO;
+import imgui.ImGuiPlatformIO;
 import imgui.ImGuiViewport;
+import imgui.ImTextureData;
+import imgui.ImTextureRect;
 import imgui.ImVec4;
 import imgui.callback.ImPlatformFuncViewport;
 import imgui.flag.ImGuiBackendFlags;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiViewportFlags;
+import imgui.flag.ImTextureStatus;
 import imgui.type.ImInt;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GLCapabilities;
@@ -130,6 +134,7 @@ import static org.lwjgl.opengl.GL32.glScissor;
 import static org.lwjgl.opengl.GL32.glShaderSource;
 import static org.lwjgl.opengl.GL32.glTexImage2D;
 import static org.lwjgl.opengl.GL32.glTexParameteri;
+import static org.lwjgl.opengl.GL32.glTexSubImage2D;
 import static org.lwjgl.opengl.GL32.glUniform1i;
 import static org.lwjgl.opengl.GL32.glUniformMatrix4fv;
 import static org.lwjgl.opengl.GL32.glUseProgram;
@@ -320,15 +325,17 @@ public class ImGuiImplGl3 {
             io.addBackendFlags(ImGuiBackendFlags.RendererHasVtxOffset);
         }
 
-        // In C++: io.BackendFlags |= ImGuiBackendFlags_RendererHasTextures — the renderer drives per-frame ImTextureData uploads.
-        // In Java: ImTextureData is not exposed in imgui-binding yet, so we keep the legacy createFontsTexture path
-        //          and intentionally do not advertise the flag (follow-up: expose ImTextureData in the binding).
+        // We can honor ImGuiPlatformIO::Textures[] requests during render: the renderer drives per-frame
+        // ImTextureData create/update/destroy (see updateTexture / renderDrawData).
+        io.addBackendFlags(ImGuiBackendFlags.RendererHasTextures);
 
         // We can create multi-viewports on the Renderer side (optional)
         io.addBackendFlags(ImGuiBackendFlags.RendererHasViewports);
 
-        // In C++: platform_io.Renderer_TextureMaxWidth = platform_io.Renderer_TextureMaxHeight = bd->MaxTextureSize.
-        // In Java: setters are not exposed on ImGuiPlatformIO in imgui-binding (follow-up). data.maxTextureSize is queried above for parity.
+        // Advertise the maximum texture size so the core library can split large font atlases accordingly.
+        final ImGuiPlatformIO platformIO = ImGui.getPlatformIO();
+        platformIO.setRendererTextureMaxWidth(data.maxTextureSize);
+        platformIO.setRendererTextureMaxHeight(data.maxTextureSize);
 
         if (glslVersion == null) {
             if (IS_APPLE) {
@@ -369,9 +376,9 @@ public class ImGuiImplGl3 {
         destroyDeviceObjects();
 
         io.setBackendRendererName(null);
-        // In C++: io.BackendFlags also clears RendererHasTextures, then platform_io.ClearRendererHandlers() runs.
-        // In Java: RendererHasTextures is never set (see init), and ClearRendererHandlers is not exposed in imgui-binding (follow-up).
-        io.removeBackendFlags(ImGuiBackendFlags.RendererHasVtxOffset | ImGuiBackendFlags.RendererHasViewports);
+        // In C++: platform_io.ClearRendererHandlers() also runs here.
+        // In Java: ClearRendererHandlers is not exposed in imgui-binding (follow-up).
+        io.removeBackendFlags(ImGuiBackendFlags.RendererHasVtxOffset | ImGuiBackendFlags.RendererHasTextures | ImGuiBackendFlags.RendererHasViewports);
         data = null;
     }
 
@@ -396,9 +403,6 @@ public class ImGuiImplGl3 {
     protected void ensureDeviceObjects() {
         if (data.shaderHandle == 0) {
             createDeviceObjects();
-        }
-        if (data.fontTexture == 0) {
-            createFontsTexture();
         }
     }
 
@@ -488,6 +492,16 @@ public class ImGuiImplGl3 {
             return;
         }
 
+        // Catch up with texture updates. Most of the time the list has one element with an OK status (nothing to do).
+        // This almost always mirrors ImGui::GetPlatformIO().Textures[], but is carried on ImDrawData to allow
+        // overriding or disabling texture updates (in which case getTexturesSize() returns 0).
+        for (int i = 0; i < drawData.getTexturesSize(); i++) {
+            final ImTextureData tex = drawData.getTextures(i);
+            if (tex.getStatus() != ImTextureStatus.OK) {
+                updateTexture(tex);
+            }
+        }
+
         if (drawData.getCmdListsCount() <= 0) {
             return;
         }
@@ -497,10 +511,6 @@ public class ImGuiImplGl3 {
         // well so call sites that skip newFrame() (common after upgrades; see #361) do not crash
         // with a native NULL pointer inside glDrawElementsBaseVertex.
         ensureDeviceObjects();
-
-        // In C++: iterates draw_data->Textures and calls ImGui_ImplOpenGL3_UpdateTexture for each non-OK status.
-        // In Java: ImTextureData is not exposed in imgui-binding (follow-up); we keep the legacy createFontsTexture
-        //          path triggered from newFrame(), so dynamic atlas updates are not honored here yet.
 
         glGetIntegerv(GL_ACTIVE_TEXTURE, props.lastActiveTexture);
         glActiveTexture(GL_TEXTURE0);
@@ -650,8 +660,106 @@ public class ImGuiImplGl3 {
         glScissor(props.lastScissorBox[0], props.lastScissorBox[1], props.lastScissorBox[2], props.lastScissorBox[3]);
     }
 
-    // In C++: the legacy CreateFontsTexture has been removed in favor of UpdateTexture(WantCreate), driven by ImGuiPlatformIO::Textures.
-    // In Java: ImTextureData is not exposed in imgui-binding yet, so we keep the legacy path here (follow-up: migrate once exposed).
+    /**
+     * Honor a single texture request coming from Dear ImGui. Called for every {@link ImTextureData} whose status is not
+     * {@code ImTextureStatus_OK} at the start of {@link #renderDrawData(ImDrawData)}. Creates, updates or destroys the
+     * backing OpenGL texture and reports the new state back to the core library.
+     *
+     * @param tex the texture data to reconcile with the GPU
+     */
+    public void updateTexture(final ImTextureData tex) {
+        final int status = tex.getStatus();
+
+        // Backup GL_UNPACK state that we modify, restore on exit (mirrors the C++ backend).
+        final int[] lastUnpackRowLength = new int[1];
+        final int[] lastUnpackAlignment = new int[1];
+        final boolean unpackStateSaveAndRestore = status == ImTextureStatus.WantCreate || status == ImTextureStatus.WantUpdates;
+        if (unpackStateSaveAndRestore) {
+            glGetIntegerv(GL_UNPACK_ROW_LENGTH, lastUnpackRowLength); // Not on WebGL/ES
+            glGetIntegerv(GL_UNPACK_ALIGNMENT, lastUnpackAlignment);
+            glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        }
+
+        if (status == ImTextureStatus.WantCreate) {
+            // Create and upload a new texture to the graphics system.
+            // (Bilinear sampling is required by default. Set 'io.Fonts.Flags |= ImFontAtlasFlags_NoBakedLines' or
+            //  'style.AntiAliasedLinesUseTex = false' to allow point/nearest sampling.)
+            final int[] lastTexture = new int[1];
+            glGetIntegerv(GL_TEXTURE_BINDING_2D, lastTexture);
+            final int glTextureId = glGenTextures();
+            glBindTexture(GL_TEXTURE_2D, glTextureId);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            glPixelStorei(GL_UNPACK_ROW_LENGTH, 0); // Not on WebGL/ES
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex.getWidth(), tex.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, tex.getPixels());
+
+            // Store identifiers back into the shared ImTextureData so draw commands resolve to this texture.
+            tex.setTexID(glTextureId);
+            tex.setStatus(ImTextureStatus.OK);
+
+            glBindTexture(GL_TEXTURE_2D, lastTexture[0]);
+        } else if (status == ImTextureStatus.WantUpdates) {
+            // Update selected blocks. We only ever write to texture regions which have never been used before.
+            // This backend uses tex.getUpdates(), but tex.getUpdateRect() could be used to upload a single region.
+            final int[] lastTexture = new int[1];
+            glGetIntegerv(GL_TEXTURE_BINDING_2D, lastTexture);
+            glBindTexture(GL_TEXTURE_2D, (int) tex.getTexID());
+
+            final int width = tex.getWidth();
+            final int bytesPerPixel = tex.getBytesPerPixel();
+            final ByteBuffer pixels = tex.getPixels();
+
+            glPixelStorei(GL_UNPACK_ROW_LENGTH, width); // Not on WebGL/ES
+            for (int i = 0; i < tex.getUpdatesSize(); i++) {
+                final ImTextureRect r = tex.getUpdates(i);
+                final int rx = r.getX();
+                final int ry = r.getY();
+                final int rw = r.getW();
+                final int rh = r.getH();
+                // Mirror tex->GetPixelsAt(r.x, r.y): point the buffer at the region's upper-left pixel;
+                // UNPACK_ROW_LENGTH handles the source stride.
+                pixels.position((rx + ry * width) * bytesPerPixel);
+                glTexSubImage2D(GL_TEXTURE_2D, 0, rx, ry, rw, rh, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+            }
+
+            tex.setStatus(ImTextureStatus.OK);
+            glBindTexture(GL_TEXTURE_2D, lastTexture[0]);
+        } else if (status == ImTextureStatus.WantDestroy && tex.getUnusedFrames() > 0) {
+            destroyTexture(tex);
+        }
+
+        // Restore GL_UNPACK state.
+        if (unpackStateSaveAndRestore) {
+            glPixelStorei(GL_UNPACK_ROW_LENGTH, lastUnpackRowLength[0]);
+            glPixelStorei(GL_UNPACK_ALIGNMENT, lastUnpackAlignment[0]);
+        }
+    }
+
+    /**
+     * Destroy the OpenGL texture backing the given {@link ImTextureData} and mark it as destroyed so the core library
+     * may release it (or re-create it on demand).
+     *
+     * @param tex the texture data whose GPU resource should be freed
+     */
+    public void destroyTexture(final ImTextureData tex) {
+        glDeleteTextures((int) tex.getTexID());
+
+        // Clear identifiers and mark as destroyed (allows e.g. destroying device objects while running).
+        tex.setTexID(0); // ImTextureID_Invalid
+        tex.setStatus(ImTextureStatus.Destroyed);
+    }
+
+    /**
+     * Legacy single-texture font-atlas upload.
+     *
+     * @deprecated Since Dear ImGui 1.92 the font atlas is uploaded through {@link #updateTexture(ImTextureData)} driven
+     *     by {@code ImGuiBackendFlags_RendererHasTextures}. This method is retained only for source compatibility and is
+     *     no longer called by the backend.
+     * @return true when the texture was created
+     */
+    @Deprecated
     public boolean createFontsTexture() {
         final ImFontAtlas fontAtlas = ImGui.getIO().getFonts();
 
@@ -684,6 +792,13 @@ public class ImGuiImplGl3 {
         return true;
     }
 
+    /**
+     * Legacy font-atlas texture teardown.
+     *
+     * @deprecated Since Dear ImGui 1.92 textures are destroyed through {@link #destroyTexture(ImTextureData)}. This
+     *     method is retained only for source compatibility and is no longer called by the backend.
+     */
+    @Deprecated
     public void destroyFontsTexture() {
         final ImGuiIO io = ImGui.getIO();
         if (data.fontTexture != 0) {
@@ -801,10 +916,8 @@ public class ImGuiImplGl3 {
         data.vboHandle = glGenBuffers();
         data.elementsHandle = glGenBuffers();
 
-        // In C++: the font texture is now created lazily through ImGui_ImplOpenGL3_UpdateTexture(WantCreate),
-        //         driven by the platform_io.Textures iteration in RenderDrawData.
-        // In Java: ImTextureData is not exposed in imgui-binding (follow-up); keep the legacy createFontsTexture call here.
-        createFontsTexture();
+        // The font texture is created lazily through updateTexture(WantCreate), driven by the per-frame texture
+        // iteration in renderDrawData(); nothing to upload here.
 
         // Restore modified GL state
         glBindTexture(GL_TEXTURE_2D, lastTexture[0]);
@@ -830,9 +943,15 @@ public class ImGuiImplGl3 {
             glDeleteProgram(data.shaderHandle);
             data.shaderHandle = 0;
         }
-        // In C++: iterates ImGui::GetPlatformIO().Textures and calls ImGui_ImplOpenGL3_DestroyTexture for each entry with RefCount == 1.
-        // In Java: ImTextureData is not exposed in imgui-binding (follow-up); we delete the legacy fontTexture directly.
-        destroyFontsTexture();
+        // Destroy all textures we still own. RefCount == 1 means this context is the last user, so it is safe to free
+        // the GPU resource (mirrors ImGui_ImplOpenGL3_DestroyDeviceObjects).
+        final ImGuiPlatformIO platformIO = ImGui.getPlatformIO();
+        for (int i = 0; i < platformIO.getTexturesSize(); i++) {
+            final ImTextureData tex = platformIO.getTextures(i);
+            if (tex.getRefCount() == 1) {
+                destroyTexture(tex);
+            }
+        }
     }
 
     //--------------------------------------------------------------------------------------------------------

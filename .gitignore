@@ -40,3 +40,5 @@ out/
 
 # Dear ImGui runtime layout file (written by ImGui on exit)
 imgui.ini
+
+bin/libimgui-java64.so

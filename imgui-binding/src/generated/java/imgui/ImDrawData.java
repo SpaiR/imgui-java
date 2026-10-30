@@ -17,6 +17,8 @@ public final class ImDrawData extends ImGuiStruct {
     private static final int RESIZE_FACTOR = 5_000;
     private static ByteBuffer dataBuffer = ByteBuffer.allocateDirect(25_000).order(ByteOrder.nativeOrder());
 
+    private static final ImTextureData _GETTEXTURES_1 = new ImTextureData(0);
+
     public ImDrawData(final long ptr) {
         super(ptr);
     }
@@ -132,6 +134,30 @@ public final class ImDrawData extends ImGuiStruct {
 
     private native void nGetCmdListVtxBufferData(int cmdListIdx, ByteBuffer vtxBuffer, int vtxBufferCapacity); /*
         memcpy(vtxBuffer, THIS->CmdLists[cmdListIdx]->VtxBuffer.Data, vtxBufferCapacity);
+    */
+
+    /**
+     * Number of textures to update before rendering this draw data. Most of the time the list is shared by all
+     * ImDrawData, has only one texture and does not need any update. This almost always mirrors
+     * {@link ImGuiPlatformIO#getTexturesSize()}. May be zero if texture updates are disabled (list set to NULL).
+     */
+    public native int getTexturesSize(); /*
+        return THIS->Textures != NULL ? THIS->Textures->Size : 0;
+    */
+
+    /**
+     * Texture to update at the given index. The returned value is a shared instance, valid only until the next call to
+     * this method.
+     *
+     * @param idx index in {@code [0, getTexturesSize())}
+     */
+    public ImTextureData getTextures(final int idx) {
+        _GETTEXTURES_1.ptr = nGetTextures(idx);
+        return _GETTEXTURES_1;
+    }
+
+    private native long nGetTextures(int idx); /*
+        return (uintptr_t)(*THIS->Textures)[idx];
     */
 
     public static native int sizeOfImDrawVert(); /*

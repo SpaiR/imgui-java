@@ -73,6 +73,7 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
     private static final ImGuiViewport TMP_VIEWPORT = new ImGuiViewport(0);
     private static final ImGuiPlatformMonitor TMP_MONITOR = new ImGuiPlatformMonitor(0);
     private static final ImVec2 TMP_IM_VEC2 = new ImVec2();
+    private static final ImTextureData TMP_TEXTURE_DATA = new ImTextureData(0);
 
     public ImGuiPlatformIO(final long ptr) {
         super(ptr);
@@ -544,5 +545,64 @@ public final class ImGuiPlatformIO extends ImGuiStruct {
 
     private native long nGetViewports(int idx); /*
         return (uintptr_t)IMGUI_PLATFORM_IO->Viewports[idx];
+    */
+
+    //------------------------------------------------------------------
+    // Textures list (updated by dear imgui, honored by the renderer backend)
+    //------------------------------------------------------------------
+
+    /**
+     * Maximum texture width the renderer backend supports. Set by the renderer backend during initialization so the
+     * core library can split the font atlas accordingly. Zero means unbounded.
+     */
+    public native int getRendererTextureMaxWidth(); /*
+        return IMGUI_PLATFORM_IO->Renderer_TextureMaxWidth;
+    */
+
+    /**
+     * Maximum texture width the renderer backend supports. Set by the renderer backend during initialization so the
+     * core library can split the font atlas accordingly. Zero means unbounded.
+     */
+    public native void setRendererTextureMaxWidth(int value); /*
+        IMGUI_PLATFORM_IO->Renderer_TextureMaxWidth = value;
+    */
+
+    /**
+     * Maximum texture height the renderer backend supports. Set by the renderer backend during initialization so the
+     * core library can split the font atlas accordingly. Zero means unbounded.
+     */
+    public native int getRendererTextureMaxHeight(); /*
+        return IMGUI_PLATFORM_IO->Renderer_TextureMaxHeight;
+    */
+
+    /**
+     * Maximum texture height the renderer backend supports. Set by the renderer backend during initialization so the
+     * core library can split the font atlas accordingly. Zero means unbounded.
+     */
+    public native void setRendererTextureMaxHeight(int value); /*
+        IMGUI_PLATFORM_IO->Renderer_TextureMaxHeight = value;
+    */
+
+    /**
+     * Number of textures used by Dear ImGui (most often one). The renderer backend iterates this list to
+     * create/update/destroy textures.
+     */
+    public native int getTexturesSize(); /*
+        return IMGUI_PLATFORM_IO->Textures.Size;
+    */
+
+    /**
+     * Texture at the given index. The returned value is a shared instance, valid only until the next call to this
+     * method.
+     *
+     * @param idx index in {@code [0, getTexturesSize())}
+     */
+    public ImTextureData getTextures(final int idx) {
+        TMP_TEXTURE_DATA.ptr = nGetTextures(idx);
+        return TMP_TEXTURE_DATA;
+    }
+
+    private native long nGetTextures(int idx); /*
+        return (uintptr_t)IMGUI_PLATFORM_IO->Textures[idx];
     */
 }
