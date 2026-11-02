@@ -9,7 +9,8 @@ import imgui.ImGui;
  * <h2>Life-cycle</h2>
  * <p>The entry point for ImGui applications is the Application class and {@link #launch(Application)} method.
  * It builds a {@link Configuration}, lets the user customize it (including selecting a {@link Backend}), then
- * instantiates the matching {@link Window} subclass ({@link WindowGlfw} or {@link WindowSdl}) and drives the
+ * instantiates the matching {@link Window} subclass ({@link WindowGlfw}, {@link WindowSdl} or
+ * {@link WindowSdlRenderer}) and drives the
  * application loop:
  *
  * <ol>
@@ -134,7 +135,18 @@ public abstract class Application {
     public static void launch(final Application app) {
         final Configuration config = new Configuration();
         app.configure(config);
-        app.window = (config.getBackend() == Backend.SDL) ? new WindowSdl() : new WindowGlfw();
+        switch (config.getBackend()) {
+            case SDL:
+                app.window = new WindowSdl();
+                break;
+            case SDL_RENDERER:
+                app.window = new WindowSdlRenderer();
+                break;
+            case GLFW:
+            default:
+                app.window = new WindowGlfw();
+                break;
+        }
         app.window.setOwner(app);
         app.window.init(config);
         app.preRun();
