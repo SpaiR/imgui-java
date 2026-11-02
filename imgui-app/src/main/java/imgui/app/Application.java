@@ -9,9 +9,8 @@ import imgui.ImGui;
  * <h2>Life-cycle</h2>
  * <p>The entry point for ImGui applications is the Application class and {@link #launch(Application)} method.
  * It builds a {@link Configuration}, lets the user customize it (including selecting a {@link Backend}), then
- * instantiates the matching {@link Window} subclass ({@link WindowGlfw}, {@link WindowSdl} or
- * {@link WindowSdlRenderer}) and drives the
- * application loop:
+ * instantiates the matching {@link Window} subclass ({@link WindowGlfw}, {@link WindowSdl},
+ * {@link WindowSdlRenderer} or {@link WindowVulkan}) and drives the application loop:
  *
  * <ol>
  *     <li>{@link #configure(Configuration)} It's called before window creation, so only basic application setups are expected.</li>
@@ -141,6 +140,9 @@ public abstract class Application {
                 break;
             case SDL_RENDERER:
                 app.window = new WindowSdlRenderer();
+                break;
+            case VULKAN:
+                app.window = new WindowVulkan();
                 break;
             case GLFW:
             default:

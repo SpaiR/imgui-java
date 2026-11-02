@@ -15,5 +15,9 @@ public enum Backend {
     /**
      * SDL3 platform + SDL_Renderer renderer.
      */
-    SDL_RENDERER
+    SDL_RENDERER,
+    /**
+     * GLFW platform + Vulkan renderer.
+     */
+    VULKAN
 }
