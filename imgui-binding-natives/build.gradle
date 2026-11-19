@@ -43,7 +43,7 @@ switch (findProperty('deployType')) {
 
 jar {
     from(fromDir) {
-        include "$libName" // this is fine
+        include "**/$libName" // this is fine
         into 'io/imgui/java/native-bin/'
     }
     manifest {

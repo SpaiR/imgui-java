@@ -94,7 +94,16 @@ public class ImGui {
 
     // This method tries to unpack the library binary from classpath into the temp dir.
     private static String tryLoadFromClasspath(final String fullLibName) {
-        try (InputStream is = ImGui.class.getClassLoader().getResourceAsStream("io/imgui/java/native-bin/" + fullLibName)) {
+        final String osArch = System.getProperty("os.arch").toLowerCase();
+        String archDir = null;
+        if (osArch.contains("amd64") || osArch.contains("x86_64"))
+            archDir = "x64";
+        else if (osArch.contains("arm64") || osArch.contains("aarch64"))
+            archDir = "arm64";
+        else
+            throw new RuntimeException("Unsupported os.arch: " + osArch);
+
+        try (InputStream is = ImGui.class.getClassLoader().getResourceAsStream("io/imgui/java/native-bin/" + archDir + "/" + fullLibName)) {
             if (is == null) {
                 return null;
             }
