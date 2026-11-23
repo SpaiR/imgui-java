@@ -55,8 +55,12 @@ jobs:
         target:
           - os: ubuntu-latest
             type: linux
+          - os: ubuntu-24.04-arm
+            type: linuxarm64
           - os: ubuntu-latest
             type: windows
+          - os: ubuntu-latest
+            type: windowsarm64
           - os: macos-latest
             type: macos
     runs-on: ${{ matrix.target.os }}
@@ -79,6 +83,18 @@ jobs:
       - name: Install Dependencies (for Windows build)
         if: matrix.target.type == 'windows'
         run: sudo apt install mingw-w64
+
+      - name: Install Dependencies (for Windows ARM64 build)
+        if: matrix.target.type == 'windowsarm64'
+        run: |
+          # Use LLVM-MinGW compiler to cross-compile to Windows ARM64
+          # (download from the original repo, as Ubuntu doesn't provide a package for it)
+          LLVM_VERSION=20261104
+          LLVM_UBUNTU=llvm-mingw-${LLVM_VERSION}-ucrt-ubuntu-22.04-x86_64
+          LLVM_URL=https://github.com/mstorsjo/llvm-mingw/releases/download/${LLVM_VERSION}/${LLVM_UBUNTU}.tar.xz
+          wget -c -O llvm-mingw.tar.xz $LLVM_URL
+          tar -xf llvm-mingw.tar.xz
+          echo "$GITHUB_WORKSPACE/$LLVM_UBUNTU/bin" >> $GITHUB_PATH
 
       - name: Build
         run: |

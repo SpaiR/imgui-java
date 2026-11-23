@@ -1,6 +1,12 @@
 package imgui;
 
 import imgui.assertion.ImAssertCallback;
+
+
+
+
+
+
 import imgui.callback.ImGuiInputTextCallback;
 import imgui.internal.ImGuiContext;
 import imgui.type.ImBoolean;
@@ -22,6 +28,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import java.util.Properties;
+
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class ImGui {
@@ -87,7 +94,16 @@ public class ImGui {
 
     // This method tries to unpack the library binary from classpath into the temp dir.
     private static String tryLoadFromClasspath(final String fullLibName) {
-        try (InputStream is = ImGui.class.getClassLoader().getResourceAsStream("io/imgui/java/native-bin/" + fullLibName)) {
+        final String osArch = System.getProperty("os.arch").toLowerCase();
+        String archDir = null;
+        if (osArch.contains("amd64") || osArch.contains("x86_64"))
+            archDir = "x64";
+        else if (osArch.contains("arm64") || osArch.contains("aarch64"))
+            archDir = "arm64";
+        else
+            throw new RuntimeException("Unsupported os.arch: " + osArch);
+
+        try (InputStream is = ImGui.class.getClassLoader().getResourceAsStream("io/imgui/java/native-bin/" + archDir + "/" + fullLibName)) {
             if (is == null) {
                 return null;
             }
@@ -213,7 +229,7 @@ public class ImGui {
 
     // Main
 
-    private static final ImGuiIO _GETIO_1 = new ImGuiIO(0);
+     private static final ImGuiIO _GETIO_1 = new ImGuiIO(0);
 
     /**
      * Access the IO structure (mouse/keyboard/gamepad inputs, time, various configuration options/flags).
@@ -227,7 +243,7 @@ public class ImGui {
         return (uintptr_t)&ImGui::GetIO();
     */
 
-    private static final ImGuiStyle _GETSTYLE_1 = new ImGuiStyle(0);
+     private static final ImGuiStyle _GETSTYLE_1 = new ImGuiStyle(0);
 
     /**
      * Access the Style structure (colors, sizes). Always use PushStyleColor(), PushStyleVar() to modify style mid-frame!
@@ -241,7 +257,7 @@ public class ImGui {
         return (uintptr_t)&ImGui::GetStyle();
     */
 
-    /**
+     /**
      * Start a new Dear ImGui frame, you can submit any command from this point until Render()/EndFrame().
      */
     public static void newFrame() {
@@ -252,7 +268,7 @@ public class ImGui {
         ImGui::NewFrame();
     */
 
-    /**
+     /**
      * Ends the Dear ImGui frame. automatically called by Render(). If you don't need to render data (skipping rendering) you may call EndFrame() without
      * Render()... but you'll have wasted CPU already! If you don't need to render, better to not create any windows and not call NewFrame() at all!
      */
@@ -264,7 +280,7 @@ public class ImGui {
         ImGui::EndFrame();
     */
 
-    /**
+     /**
      * Ends the Dear ImGui frame, finalize the draw data. You can then get call GetDrawData().
      */
     public static void render() {
@@ -275,7 +291,7 @@ public class ImGui {
         ImGui::Render();
     */
 
-    private static final ImDrawData _GETDRAWDATA_1 = new ImDrawData(0);
+     private static final ImDrawData _GETDRAWDATA_1 = new ImDrawData(0);
 
     /**
      * Valid after Render() and until the next call to NewFrame(). this is what you have to render.
@@ -291,7 +307,7 @@ public class ImGui {
 
     // Demo, Debug, Information
 
-    /**
+     /**
      * Create Demo window. Demonstrate most ImGui features. Call this to learn about the library!
      */
     public static void showDemoWindow() {
@@ -315,7 +331,7 @@ public class ImGui {
         if (pOpen != NULL) env->ReleasePrimitiveArrayCritical(obj_pOpen, pOpen, JNI_FALSE);
     */
 
-    /**
+     /**
      * Create Metrics/Debugger window. display Dear ImGui internals: windows, draw commands, various internal state, etc.
      */
     public static void showMetricsWindow() {
@@ -339,7 +355,7 @@ public class ImGui {
         if (pOpen != NULL) env->ReleasePrimitiveArrayCritical(obj_pOpen, pOpen, JNI_FALSE);
     */
 
-    /**
+     /**
      * Create Debug Log window. display a simplified log of important dear imgui events.
      */
     public static void showDebugLogWindow() {
@@ -363,7 +379,7 @@ public class ImGui {
         if (pOpen != NULL) env->ReleasePrimitiveArrayCritical(obj_pOpen, pOpen, JNI_FALSE);
     */
 
-    /**
+     /**
      * Create Stack Tool window. hover items with mouse to query information about the source of their unique ID.
      */
     public static void showIDStackToolWindow() {
@@ -387,7 +403,7 @@ public class ImGui {
         if (pOpen != NULL) env->ReleasePrimitiveArrayCritical(obj_pOpen, pOpen, JNI_FALSE);
     */
 
-    /**
+     /**
      * Create About window. display Dear ImGui version, credits and build/system information.
      */
     public static void showAboutWindow() {
@@ -411,7 +427,7 @@ public class ImGui {
         if (pOpen != NULL) env->ReleasePrimitiveArrayCritical(obj_pOpen, pOpen, JNI_FALSE);
     */
 
-    /**
+     /**
      * Add style editor block (not a window).
      * You can pass in a reference ImGuiStyle structure to compare to, revert to and save to (else it uses the default style)
      */
@@ -435,7 +451,7 @@ public class ImGui {
         ImGui::ShowStyleEditor(reinterpret_cast<ImGuiStyle*>(ref));
     */
 
-    /**
+     /**
      * Add style selector block (not a window), essentially a combo listing the default styles.
      */
     public static boolean showStyleSelector(final String label) {
@@ -449,7 +465,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Add font selector block (not a window), essentially a combo listing the loaded fonts.
      */
     public static void showFontSelector(final String label) {
@@ -462,7 +478,7 @@ public class ImGui {
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
     */
 
-    /**
+     /**
      * Add basic help/info block (not a window): how to manipulate ImGui as an end-user (mouse/keyboard controls).
      */
     public static void showUserGuide() {
@@ -473,7 +489,7 @@ public class ImGui {
         ImGui::ShowUserGuide();
     */
 
-    /**
+     /**
      * Get the compiled version string e.g. "1.80 WIP" (essentially the value for IMGUI_VERSION from the compiled version of imgui.cpp)
      */
     public static String getVersion() {
@@ -486,7 +502,7 @@ public class ImGui {
 
     // Styles
 
-    /**
+     /**
      * New, recommended style (default)
      */
     public static void styleColorsDark() {
@@ -508,7 +524,7 @@ public class ImGui {
         ImGui::StyleColorsDark(reinterpret_cast<ImGuiStyle*>(style));
     */
 
-    /**
+     /**
      * Best used with borders and a custom, thicker font
      */
     public static void styleColorsLight() {
@@ -530,7 +546,7 @@ public class ImGui {
         ImGui::StyleColorsLight(reinterpret_cast<ImGuiStyle*>(style));
     */
 
-    /**
+     /**
      * Classic imgui style
      */
     public static void styleColorsClassic() {
@@ -819,7 +835,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      *
      * @deprecated Use {@link #beginChild(String, ImVec2, int, int)} instead.
      */
@@ -894,7 +910,7 @@ public class ImGui {
         return ImGui::IsWindowCollapsed();
     */
 
-    /**
+     /**
      * Is current window focused? or its root/child, depending on flags. see flags for options.
      */
     public static boolean isWindowFocused() {
@@ -916,7 +932,7 @@ public class ImGui {
         return ImGui::IsWindowFocused(imGuiFocusedFlags);
     */
 
-    /**
+     /**
      * Is current window hovered and hoverable (e.g. not blocked by a popup/modal)? See ImGuiHoveredFlags_ for options.
      * IMPORTANT: If you are trying to check whether your mouse should be dispatched to Dear ImGui or to your underlying app,
      * you should not use this function! Use the 'io.WantCaptureMouse' boolean for that!
@@ -944,7 +960,7 @@ public class ImGui {
         return ImGui::IsWindowHovered(imGuiHoveredFlags);
     */
 
-    /**
+     /**
      * Get draw list associated to the current window, to append your own drawing primitives
      */
     public static ImDrawList getWindowDrawList() {
@@ -955,7 +971,7 @@ public class ImGui {
         return (uintptr_t)ImGui::GetWindowDrawList();
     */
 
-    /**
+     /**
      * Get DPI scale currently associated to the current window's viewport.
      */
     public static float getWindowDpiScale() {
@@ -966,7 +982,7 @@ public class ImGui {
         return ImGui::GetWindowDpiScale();
     */
 
-    /**
+     /**
      * Get current window position in screen space (note: it is unlikely you need to use this.
      * Consider using current layout pos instead, GetCursorScreenPos())
      */
@@ -1012,7 +1028,7 @@ public class ImGui {
         return ImGui::GetWindowPos().y;
     */
 
-    /**
+     /**
      * Get current window size (note: it is unlikely you need to use this. Consider using GetCursorScreenPos() and e.g. GetContentRegionAvail() instead)
      */
     public static ImVec2 getWindowSize() {
@@ -1054,7 +1070,7 @@ public class ImGui {
         return ImGui::GetWindowSize().y;
     */
 
-    /**
+     /**
      * Get current window width (shortcut for GetWindowSize().x)
      */
     public static float getWindowWidth() {
@@ -1065,7 +1081,7 @@ public class ImGui {
         return ImGui::GetWindowWidth();
     */
 
-    /**
+     /**
      * Get current window height (shortcut for GetWindowSize().y)
      */
     public static float getWindowHeight() {
@@ -1076,7 +1092,7 @@ public class ImGui {
         return ImGui::GetWindowHeight();
     */
 
-    /**
+     /**
      * Get viewport currently associated to the current window.
      */
     public static ImGuiViewport getWindowViewport() {
@@ -1089,7 +1105,7 @@ public class ImGui {
 
     // Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin).
 
-    /**
+     /**
      * Set next window position. call before Begin(). use pivot=(0.5f,0.5f) to center on given point, etc.
      */
     public static void setNextWindowPos(final ImVec2 pos) {
@@ -1167,7 +1183,7 @@ public class ImGui {
         ImGui::SetNextWindowPos(pos, ImGuiCond_None, pivot);
     */
 
-    /**
+     /**
      * Set next window size. set axis to 0.0f to force an auto-fit on this axis. call before Begin()
      */
     public static void setNextWindowSize(final ImVec2 size) {
@@ -1205,7 +1221,7 @@ public class ImGui {
         ImGui::SetNextWindowSize(size, cond);
     */
 
-    /**
+     /**
      * Set next window size limits. use 0.0f or FLT_MAX if you don't want limits. Use -1 for both min and max of same axis to preserve current size (which itself is a constraint).
      * Use callback to apply non-trivial programmatic constraints.
      */
@@ -1227,7 +1243,7 @@ public class ImGui {
         ImGui::SetNextWindowSizeConstraints(sizeMin, sizeMax);
     */
 
-    /**
+     /**
      * Set next window content size (~ scrollable client area, which enforce the range of scrollbars).
      * Not including window decorations (title bar, menu bar, etc.) nor WindowPadding. set an axis to 0.0f to leave it automatic. call before Begin()
      */
@@ -1248,7 +1264,7 @@ public class ImGui {
         ImGui::SetNextWindowContentSize(size);
     */
 
-    /**
+     /**
      * Set next window collapsed state. call before Begin()
      */
     public static void setNextWindowCollapsed(final boolean collapsed) {
@@ -1270,7 +1286,7 @@ public class ImGui {
         ImGui::SetNextWindowCollapsed(collapsed, cond);
     */
 
-    /**
+     /**
      * Set next window to be focused / top-most. call before Begin()
      */
     public static void setNextWindowFocus() {
@@ -1281,7 +1297,7 @@ public class ImGui {
         ImGui::SetNextWindowFocus();
     */
 
-    /**
+     /**
      * Set next window scrolling value (use {@code < 0.0f} to not affect a given axis).
      */
     public static void setNextWindowScroll(final ImVec2 scroll) {
@@ -1300,7 +1316,7 @@ public class ImGui {
         ImGui::SetNextWindowScroll(scroll);
     */
 
-    /**
+     /**
      * Set next window background color alpha. helper to easily override the Alpha component of ImGuiCol_WindowBg/ChildBg/PopupBg.
      * You may also use ImGuiWindowFlags_NoBackground.
      */
@@ -1312,7 +1328,7 @@ public class ImGui {
         ImGui::SetNextWindowBgAlpha(alpha);
     */
 
-    /**
+     /**
      * Set next window viewport.
      */
     public static void setNextWindowViewport(final int viewportId) {
@@ -1323,7 +1339,7 @@ public class ImGui {
         ImGui::SetNextWindowViewport(viewportId);
     */
 
-    /**
+     /**
      * (not recommended) set current window position - call within Begin()/End().
      * Prefer using SetNextWindowPos(), as this may incur tearing and side-effects.
      */
@@ -1365,7 +1381,7 @@ public class ImGui {
         ImGui::SetWindowPos(pos, cond);
     */
 
-    /**
+     /**
      * (not recommended) set current window size - call within Begin()/End(). set to ImVec2(0,0) to force an auto-fit.
      * Prefer using SetNextWindowSize(), as this may incur tearing and minor side-effects.
      */
@@ -1407,7 +1423,7 @@ public class ImGui {
         ImGui::SetWindowSize(size, cond);
     */
 
-    /**
+     /**
      * (not recommended) set current window collapsed state. prefer using SetNextWindowCollapsed().
      */
     public static void setWindowCollapsed(final boolean collapsed) {
@@ -1429,7 +1445,7 @@ public class ImGui {
         ImGui::SetWindowCollapsed(collapsed, cond);
     */
 
-    /**
+     /**
      * (not recommended) set current window to be focused / top-most. prefer using SetNextWindowFocus().
      */
     public static void setWindowFocus() {
@@ -1440,7 +1456,7 @@ public class ImGui {
         ImGui::SetWindowFocus();
     */
 
-    /**
+     /**
      * Set font scale. Adjust IO.FontGlobalScale if you want to scale all windows.
      * This is an old API! For correct scaling, prefer to reload font + rebuild ImFontAtlas + call style.ScaleAllSizes().
      */
@@ -1452,7 +1468,7 @@ public class ImGui {
         ImGui::SetWindowFontScale(scale);
     */
 
-    /**
+     /**
      * Set named window position.
      */
     public static void setWindowPos(final String name, final ImVec2 pos) {
@@ -1494,7 +1510,7 @@ public class ImGui {
         if (name != NULL) env->ReleaseStringUTFChars(obj_name, name);
     */
 
-    /**
+     /**
      * Set named window size. set axis to 0.0f to force an auto-fit on this axis.
      */
     public static void setWindowSize(final String name, final ImVec2 size) {
@@ -1536,7 +1552,7 @@ public class ImGui {
         if (name != NULL) env->ReleaseStringUTFChars(obj_name, name);
     */
 
-    /**
+     /**
      * Set named window collapsed state
      */
     public static void setWindowCollapsed(final String name, final boolean collapsed) {
@@ -1562,7 +1578,7 @@ public class ImGui {
         if (name != NULL) env->ReleaseStringUTFChars(obj_name, name);
     */
 
-    /**
+     /**
      * Set named window to be focused / top-most. Use NULL to remove focus.
      */
     public static void setWindowFocus(final String name) {
@@ -1579,7 +1595,7 @@ public class ImGui {
     // - Retrieve available space from a given point. GetContentRegionAvail() is frequently useful.
     // - Those functions are bound to be redesigned (they are confusing, incomplete and the Min/Max return values are in local window coordinates which increases confusion)
 
-    /**
+     /**
      * == GetContentRegionMax() - GetCursorPos()
      */
     public static ImVec2 getContentRegionAvail() {
@@ -1621,7 +1637,7 @@ public class ImGui {
         return ImGui::GetContentRegionAvail().y;
     */
 
-    /**
+     /**
      * Current content boundaries (typically window boundaries including scrolling, or current column boundaries), in windows coordinates
      */
     public static ImVec2 getContentRegionMax() {
@@ -1663,7 +1679,7 @@ public class ImGui {
         return ImGui::GetContentRegionMax().y;
     */
 
-    /**
+     /**
      * Content boundaries min for the full window (roughly (0,0)-Scroll), in window coordinates
      */
     public static ImVec2 getWindowContentRegionMin() {
@@ -1705,7 +1721,7 @@ public class ImGui {
         return ImGui::GetWindowContentRegionMin().y;
     */
 
-    /**
+     /**
      * Content boundaries max for the full window (roughly (0,0)+Size-Scroll) where Size can be overridden with SetNextWindowContentSize(), in window coordinates
      */
     public static ImVec2 getWindowContentRegionMax() {
@@ -1751,7 +1767,7 @@ public class ImGui {
     // - Any change of Scroll will be applied at the beginning of next frame in the first call to Begin().
     // - You may instead use SetNextWindowScroll() prior to calling Begin() to avoid this delay, as an alternative to using SetScrollX()/SetScrollY().
 
-    /**
+     /**
      * Get scrolling amount [0 .. GetScrollMaxX()]
      */
     public static float getScrollX() {
@@ -1762,7 +1778,7 @@ public class ImGui {
         return ImGui::GetScrollX();
     */
 
-    /**
+     /**
      * Get scrolling amount [0 .. GetScrollMaxY()]
      */
     public static float getScrollY() {
@@ -1773,7 +1789,7 @@ public class ImGui {
         return ImGui::GetScrollY();
     */
 
-    /**
+     /**
      * Set scrolling amount [0 .. GetScrollMaxX()]
      */
     public static void setScrollX(final float scrollX) {
@@ -1784,7 +1800,7 @@ public class ImGui {
         ImGui::SetScrollX(scrollX);
     */
 
-    /**
+     /**
      * Set scrolling amount [0..GetScrollMaxY()]
      */
     public static void setScrollY(final float scrollY) {
@@ -1795,7 +1811,7 @@ public class ImGui {
         ImGui::SetScrollY(scrollY);
     */
 
-    /**
+     /**
      * Get maximum scrolling amount ~~ ContentSize.x - WindowSize.x - DecorationsSize.x
      */
     public static float getScrollMaxX() {
@@ -1806,7 +1822,7 @@ public class ImGui {
         return ImGui::GetScrollMaxX();
     */
 
-    /**
+     /**
      * Get maximum scrolling amount ~~ ContentSize.y - WindowSize.y - DecorationsSize.y
      */
     public static float getScrollMaxY() {
@@ -1817,7 +1833,7 @@ public class ImGui {
         return ImGui::GetScrollMaxY();
     */
 
-    /**
+     /**
      * Adjust scrolling amount to make current cursor position visible. center_x_ratio=0.0: left, 0.5: center, 1.0: right.
      * When using to make a "default/current item" visible, consider using SetItemDefaultFocus() instead.
      */
@@ -1841,7 +1857,7 @@ public class ImGui {
         ImGui::SetScrollHereX(centerXRatio);
     */
 
-    /**
+     /**
      * Adjust scrolling amount to make current cursor position visible. center_y_ratio=0.0: top, 0.5: center, 1.0: bottom.
      * When using to make a "default/current item" visible, consider using SetItemDefaultFocus() instead.
      */
@@ -1865,7 +1881,7 @@ public class ImGui {
         ImGui::SetScrollHereY(centerYRatio);
     */
 
-    /**
+     /**
      * Adjust scrolling amount to make given position visible. Generally GetCursorStartPos() + offset to compute a valid position.
      */
     public static void setScrollFromPosX(final float localX) {
@@ -1887,7 +1903,7 @@ public class ImGui {
         ImGui::SetScrollFromPosX(localX, centerXRatio);
     */
 
-    /**
+     /**
      * Adjust scrolling amount to make given position visible. Generally GetCursorStartPos() + offset to compute a valid position.
      */
     public static void setScrollFromPosY(final float localY) {
@@ -1911,7 +1927,7 @@ public class ImGui {
 
     // Parameters stacks (shared)
 
-    /**
+     /**
      * Push a font onto the stack. Since imgui 1.92 the {@code size} parameter is required:
      * pass {@code 0.0f} to keep the current size; pass {@code font.LegacySize} to restore
      * pre-1.92 behavior of using the font's original AddFont size.
@@ -1939,7 +1955,7 @@ public class ImGui {
         ImGui::PushStyleColor(imGuiCol, (ImU32)ImColor((int)r, (int)g, (int)b, (int)a));
     */
 
-    /**
+     /**
      * Modify a style color. always use this if you modify the style after NewFrame().
      */
     public static void pushStyleColor(final int imGuiCol, final ImVec4 col) {
@@ -1958,7 +1974,7 @@ public class ImGui {
         ImGui::PushStyleColor(imGuiCol, col);
     */
 
-    /**
+     /**
      * Modify a style color. always use this if you modify the style after NewFrame().
      */
     public static void pushStyleColor(final int imGuiCol, final int col) {
@@ -1985,7 +2001,7 @@ public class ImGui {
         ImGui::PopStyleColor(count);
     */
 
-    /**
+     /**
      * Modify a style float variable. always use this if you modify the style after NewFrame().
      */
     public static void pushStyleVar(final int imGuiStyleVar, final float val) {
@@ -1996,7 +2012,7 @@ public class ImGui {
         ImGui::PushStyleVar(imGuiStyleVar, val);
     */
 
-    /**
+     /**
      * Modify a style ImVec2 variable. always use this if you modify the style after NewFrame().
      */
     public static void pushStyleVar(final int imGuiStyleVar, final ImVec2 val) {
@@ -2031,7 +2047,7 @@ public class ImGui {
         ImGui::PopStyleVar(count);
     */
 
-    /**
+     /**
      * Tab stop enable. Allow focusing using TAB/Shift-TAB, enabled by default but you can disable it for certain widgets
      */
     public static void pushTabStop(final boolean tabStop) {
@@ -2050,7 +2066,7 @@ public class ImGui {
         ImGui::PopTabStop();
     */
 
-    /**
+     /**
      * In 'repeat' mode, Button*() functions return repeated true in a typematic manner (using io.KeyRepeatDelay/io.KeyRepeatRate setting).
      * Note that you can call IsItemActive() after any Button() to tell if the button is held in the current frame.
      */
@@ -2072,7 +2088,7 @@ public class ImGui {
 
     // Parameters stacks (current window)
 
-    /**
+     /**
      * Push width of items for common large "item+label" widgets. {@code > 0.0f}: width in pixels,
      * {@code <0.0f} align xx pixels to the right of window (so -1.0f always align width to the right side).
      */
@@ -2092,7 +2108,7 @@ public class ImGui {
         ImGui::PopItemWidth();
     */
 
-    /**
+     /**
      * Set width of the _next_ common large "item+label" widget. {@code > 0.0f}: width in pixels,
      * {@code <0.0f} align xx pixels to the right of window (so -1.0f always align width to the right side)
      */
@@ -2104,7 +2120,7 @@ public class ImGui {
         ImGui::SetNextItemWidth(itemWidth);
     */
 
-    /**
+     /**
      * Width of item given pushed settings and current cursor position. NOT necessarily the width of last item unlike most 'Item' functions.
      */
     public static float calcItemWidth() {
@@ -2115,7 +2131,7 @@ public class ImGui {
         return ImGui::CalcItemWidth();
     */
 
-    /**
+     /**
      * Push Word-wrapping positions for Text*() commands. {@code < 0.0f}: no wrapping; 0.0f: wrap to end of window (or column); {@code > 0.0f}: wrap at
      * 'wrap_posX' position in window local space
      */
@@ -2150,7 +2166,7 @@ public class ImGui {
     // Style read access
     // - Use the ShowStyleEditor() function to interactively see/edit the colors.
 
-    private static final ImFont _GETFONT_1 = new ImFont(0);
+     private static final ImFont _GETFONT_1 = new ImFont(0);
 
     /**
      * Get current font.
@@ -2164,7 +2180,7 @@ public class ImGui {
         return (uintptr_t)ImGui::GetFont();
     */
 
-    /**
+     /**
      * Get current font size (= height in pixels) of current font with current scale applied
      */
     public static int getFontSize() {
@@ -2175,7 +2191,7 @@ public class ImGui {
         return ImGui::GetFontSize();
     */
 
-    /**
+     /**
      * Get UV coordinate for a while pixel, useful to draw custom shapes via the ImDrawList API
      */
     public static ImVec2 getFontTexUvWhitePixel() {
@@ -2217,7 +2233,7 @@ public class ImGui {
         return ImGui::GetFontTexUvWhitePixel().y;
     */
 
-    /**
+     /**
      * Retrieve given style color with style alpha applied and optional extra alpha multiplier, packed as a 32-bit value suitable for ImDrawList.
      */
     public static int getColorU32(final int idx) {
@@ -2239,7 +2255,7 @@ public class ImGui {
         return ImGui::GetColorU32(static_cast<ImGuiCol>(idx), alphaMul);
     */
 
-    /**
+     /**
      * Retrieve given color with style alpha applied, packed as a 32-bit value suitable for ImDrawList.
      */
     public static int getColorU32(final ImVec4 col) {
@@ -2259,7 +2275,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Retrieve given color with style alpha applied, packed as a 32-bit value suitable for ImDrawList.
      */
     public static int getColorU32i(final int col) {
@@ -2281,7 +2297,7 @@ public class ImGui {
         return ImGui::GetColorU32(static_cast<ImU32>(col), alphaMul);
     */
 
-    /**
+     /**
      * Retrieve style color as stored in ImGuiStyle structure. use to feed back into PushStyleColor(),
      * otherwise use GetColorU32() to get style color with style alpha baked in.
      */
@@ -2360,7 +2376,7 @@ public class ImGui {
     //    - Window-local coordinates:   SameLine(), GetCursorPos(), SetCursorPos(), GetCursorStartPos(), GetContentRegionMax(), GetWindowContentRegion*(), PushTextWrapPos()
     // - GetCursorScreenPos() = GetCursorPos() + GetWindowPos(). GetWindowPos() is almost only ever useful to convert from window-local to absolute coordinates.
 
-    /**
+     /**
      * Cursor position in absolute coordinates (prefer using this, also more useful to work with ImDrawList API).
      */
     public static ImVec2 getCursorScreenPos() {
@@ -2402,7 +2418,7 @@ public class ImGui {
         return ImGui::GetCursorScreenPos().y;
     */
 
-    /**
+     /**
      * Cursor position in absolute coordinates.
      */
     public static void setCursorScreenPos(final ImVec2 pos) {
@@ -2421,7 +2437,7 @@ public class ImGui {
         ImGui::SetCursorScreenPos(pos);
     */
 
-    /**
+     /**
      * Cursor position in window coordinates (relative to window position)
      */
     public static ImVec2 getCursorPos() {
@@ -2463,7 +2479,7 @@ public class ImGui {
         return ImGui::GetCursorPos().y;
     */
 
-    /**
+     /**
      * Cursor position in window coordinates (relative to window position)
      */
     public static void setCursorPos(final ImVec2 localPos) {
@@ -2482,7 +2498,7 @@ public class ImGui {
         ImGui::SetCursorPos(localPos);
     */
 
-    /**
+     /**
      * Cursor position in window coordinates (relative to window position)
      */
     public static void setCursorPosX(final float localX) {
@@ -2493,7 +2509,7 @@ public class ImGui {
         ImGui::SetCursorPosX(localX);
     */
 
-    /**
+     /**
      * Cursor position in window coordinates (relative to window position)
      */
     public static void setCursorPosY(final float localY) {
@@ -2504,7 +2520,7 @@ public class ImGui {
         ImGui::SetCursorPosY(localY);
     */
 
-    /**
+     /**
      * Initial cursor position in window coordinates
      */
     public static ImVec2 getCursorStartPos() {
@@ -2548,7 +2564,7 @@ public class ImGui {
 
     // Other layout functions
 
-    /**
+     /**
      * Separator, generally horizontal. inside a menu bar or in horizontal layout mode, this becomes a vertical separator.
      */
     public static void separator() {
@@ -2559,7 +2575,7 @@ public class ImGui {
         ImGui::Separator();
     */
 
-    /**
+     /**
      * Call between widgets or groups to layout them horizontally. X position given in window coordinates.
      */
     public static void sameLine() {
@@ -2592,7 +2608,7 @@ public class ImGui {
         ImGui::SameLine(offsetFromStartX, spacing);
     */
 
-    /**
+     /**
      * Undo a SameLine() or force a new line when in a horizontal-layout context.
      */
     public static void newLine() {
@@ -2603,7 +2619,7 @@ public class ImGui {
         ImGui::NewLine();
     */
 
-    /**
+     /**
      * Add vertical spacing.
      */
     public static void spacing() {
@@ -2614,7 +2630,7 @@ public class ImGui {
         ImGui::Spacing();
     */
 
-    /**
+     /**
      * Add a dummy item of given size. unlike InvisibleButton(), Dummy() won't take the mouse click or be navigable into.
      */
     public static void dummy(final ImVec2 size) {
@@ -2633,7 +2649,7 @@ public class ImGui {
         ImGui::Dummy(size);
     */
 
-    /**
+     /**
      * Move content position toward the right, by indent_w, or style.IndentSpacing if indent_w {@code <= 0}.
      */
     public static void indent() {
@@ -2655,7 +2671,7 @@ public class ImGui {
         ImGui::Indent(indentW);
     */
 
-    /**
+     /**
      * Move content position back to the left, by indent_w, or style.IndentSpacing if indent_w {@code <= 0}.
      */
     public static void unindent() {
@@ -2677,7 +2693,7 @@ public class ImGui {
         ImGui::Unindent(indentW);
     */
 
-    /**
+     /**
      * Lock horizontal starting position
      */
     public static void beginGroup() {
@@ -2688,7 +2704,7 @@ public class ImGui {
         ImGui::BeginGroup();
     */
 
-    /**
+     /**
      * Unlock horizontal starting position + capture the whole group bounding box into one "item" (so you can use IsItemHovered() or layout primitives such as SameLine() on whole group, etc.)
      */
     public static void endGroup() {
@@ -2704,7 +2720,7 @@ public class ImGui {
     //  are using the main, absolute coordinate system.
     //  GetWindowPos() + GetCursorPos() == GetCursorScreenPos() etc.)
 
-    /**
+     /**
      * Vertically align upcoming text baseline to FramePadding.y so that it will align properly to regularly framed items (call if you have text on a line before a framed item)
      */
     public static void alignTextToFramePadding() {
@@ -2715,7 +2731,7 @@ public class ImGui {
         ImGui::AlignTextToFramePadding();
     */
 
-    /**
+     /**
      * ~ FontSize
      */
     public static float getTextLineHeight() {
@@ -2726,7 +2742,7 @@ public class ImGui {
         return ImGui::GetTextLineHeight();
     */
 
-    /**
+     /**
      * ~ FontSize + style.ItemSpacing.y (distance in pixels between 2 consecutive lines of text)
      */
     public static float getTextLineHeightWithSpacing() {
@@ -2737,7 +2753,7 @@ public class ImGui {
         return ImGui::GetTextLineHeightWithSpacing();
     */
 
-    /**
+     /**
      * ~ FontSize + style.FramePadding.y * 2
      */
     public static float getFrameHeight() {
@@ -2748,7 +2764,7 @@ public class ImGui {
         return ImGui::GetFrameHeight();
     */
 
-    /**
+     /**
      * ~ FontSize + style.FramePadding.y * 2 + style.ItemSpacing.y (distance in pixels between 2 consecutive lines of framed widgets)
      */
     public static float getFrameHeightWithSpacing() {
@@ -2771,7 +2787,7 @@ public class ImGui {
     // - In this header file we use the "label"/"name" terminology to denote a string that will be displayed + used as an ID,
     //   whereas "str_id" denote a string that is only used as an ID and not normally displayed.
 
-    /**
+     /**
      * Push string into the ID stack (will hash string).
      */
     public static void pushID(final String strId) {
@@ -2784,7 +2800,7 @@ public class ImGui {
         if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
     */
 
-    /**
+     /**
      * Push string into the ID stack (will hash string).
      */
     public static void pushID(final String strIdBegin, final String strIdEnd) {
@@ -2799,7 +2815,7 @@ public class ImGui {
         if (strIdEnd != NULL) env->ReleaseStringUTFChars(obj_strIdEnd, strIdEnd);
     */
 
-    /**
+     /**
      * Push pointer into the ID stack (will hash pointer).
      */
     public static void pushID(final long ptrId) {
@@ -2810,7 +2826,7 @@ public class ImGui {
         ImGui::PushID((void*)ptrId);
     */
 
-    /**
+     /**
      * Push integer into the ID stack (will hash integer).
      */
     public static void pushID(final int intId) {
@@ -2821,7 +2837,7 @@ public class ImGui {
         ImGui::PushID(intId);
     */
 
-    /**
+     /**
      * Pop from the ID stack.
      */
     public static void popID() {
@@ -2832,7 +2848,7 @@ public class ImGui {
         ImGui::PopID();
     */
 
-    /**
+     /**
      * Calculate unique ID (hash of whole ID stack + given parameter). e.g. if you want to query into ImGuiStorage yourself
      */
     public static int getID(final String strId) {
@@ -2846,7 +2862,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Calculate unique ID (hash of whole ID stack + given parameter). e.g. if you want to query into ImGuiStorage yourself
      */
     public static int getID(final String strIdBegin, final String strIdEnd) {
@@ -2862,7 +2878,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Calculate unique ID (hash of whole ID stack + given parameter). e.g. if you want to query into ImGuiStorage yourself
      */
     public static int getID(final long ptrId) {
@@ -2875,7 +2891,7 @@ public class ImGui {
 
     // Widgets: Text
 
-    /**
+     /**
      * Raw text without formatting. Roughly equivalent to Text("%s", text) but:
      * A) doesn't require null terminated string if 'textEnd' is specified,
      * B) it's faster, no memory copy is done, no buffer size limits, recommended for long chunks of text.
@@ -2907,7 +2923,7 @@ public class ImGui {
         if (textEnd != NULL) env->ReleaseStringUTFChars(obj_textEnd, textEnd);
     */
 
-    /**
+     /**
      * Formatted text
      */
     public static void text(final String text) {
@@ -2920,7 +2936,7 @@ public class ImGui {
         if (text != NULL) env->ReleaseStringUTFChars(obj_text, text);
     */
 
-    /**
+     /**
      * Shortcut for PushStyleColor(ImGuiCol_Text, col); Text(fmt, ...); PopStyleColor();
      */
     public static void textColored(final ImVec4 col, final String text) {
@@ -2955,7 +2971,7 @@ public class ImGui {
         ImGui::TextColored(ImColor(col), text, NULL);
     */
 
-    /**
+     /**
      * Shortcut for PushStyleColor(ImGuiCol_Text, style.Colors[ImGuiCol_TextDisabled]); Text(fmt, ...); PopStyleColor();
      */
     public static void textDisabled(final String text) {
@@ -2968,7 +2984,7 @@ public class ImGui {
         if (text != NULL) env->ReleaseStringUTFChars(obj_text, text);
     */
 
-    /**
+     /**
      * Shortcut for PushTextWrapPos(0.0f); Text(fmt, ...); PopTextWrapPos();.
      * Note that this won't work on an auto-resizing window if there's no other widgets to extend the window width,
      * yoy may need to set a size using SetNextWindowSize().
@@ -2983,7 +2999,7 @@ public class ImGui {
         if (text != NULL) env->ReleaseStringUTFChars(obj_text, text);
     */
 
-    /**
+     /**
      * Display text+label aligned the same way as value+label widgets
      */
     public static void labelText(final String label, final String text) {
@@ -2998,7 +3014,7 @@ public class ImGui {
         if (text != NULL) env->ReleaseStringUTFChars(obj_text, text);
     */
 
-    /**
+     /**
      * Shortcut for Bullet()+Text()
      */
     public static void bulletText(final String text) {
@@ -3011,7 +3027,7 @@ public class ImGui {
         if (text != NULL) env->ReleaseStringUTFChars(obj_text, text);
     */
 
-    /**
+     /**
      * Hyperlink text button; returns true when clicked (new in imgui 1.91). Style via {@code ImGuiCol_TextLink}.
      */
     public static boolean textLink(final String label) {
@@ -3025,7 +3041,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Hyperlink text button that automatically opens the given file/URL on click (new in imgui 1.91).
      * Uses {@code io.PlatformOpenInShellFn} (with OS defaults on Windows/Linux/macOS).
      */
@@ -3057,7 +3073,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Currently: formatted text with an horizontal line
      */
     public static void separatorText(final String label) {
@@ -3074,7 +3090,7 @@ public class ImGui {
     // - Most widgets return true when the value has been changed or when pressed/selected
     // - You may also use one of the many IsItemXXX functions (e.g. IsItemActive, IsItemHovered, etc.) to query widget state.
 
-    /**
+     /**
      * Button
      */
     public static boolean button(final String label) {
@@ -3110,7 +3126,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Button with (FramePadding.y == 0) to easily embed within text
      */
     public static boolean smallButton(final String label) {
@@ -3124,7 +3140,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Flexible button behavior without the visuals, frequently useful to build custom behaviors using the public api (along with IsItemActive, IsItemHovered, etc.)
      */
     public static boolean invisibleButton(final String strId, final ImVec2 size) {
@@ -3168,7 +3184,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Square button with an arrow shape
      */
     public static boolean arrowButton(final String strId, final int dir) {
@@ -3217,7 +3233,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Use with e.g. if (RadioButton("one", my_value==1)) { my_value = 1; }
      */
     public static boolean radioButton(final String label, final boolean active) {
@@ -3231,7 +3247,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Shortcut to handle the above pattern when value is an integer
      */
     public static boolean radioButton(final String label, final ImInt v, final int vButton) {
@@ -3293,7 +3309,7 @@ public class ImGui {
         if (overlay != NULL) env->ReleaseStringUTFChars(obj_overlay, overlay);
     */
 
-    /**
+     /**
      * Draw a small circle + keep the cursor on the same line. advance cursor x position by GetTreeNodeToLabelSpacing(), same distance that TreeNode() uses
      */
     public static void bullet() {
@@ -3547,7 +3563,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Only call EndCombo() if BeginCombo() returns true!
      */
     public static void endCombo() {
@@ -3604,7 +3620,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Separate items with \0 within a string, end item-list with \0\0. e.g. "One\0Two\0Three\0"
      */
     public static boolean combo(final String label, final ImInt currentItem, final String itemsSeparatedByZeros) {
@@ -3653,7 +3669,7 @@ public class ImGui {
     // - Legacy: Pre-1.78 there are DragXXX() function signatures that take a final `float power=1.0f' argument instead of the `ImGuiSliderFlags flags=0' argument.
     //   If you get a warning converting a float to ImGuiSliderFlags, read https://github.com/ocornut/imgui/issues/3361
 
-    /**
+     /**
      * If {@code vMin >= vMax} we have no bound
      */
     public static boolean dragFloat(final String label, final float[] v) {
@@ -4154,7 +4170,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * If {@code vMin >= vMax} we have no bound
      */
     public static boolean dragInt(final String label, final int[] v) {
@@ -5497,7 +5513,7 @@ public class ImGui {
     // - Legacy: Pre-1.78 there are SliderXXX() function signatures that take a final `float power=1.0f' argument instead of the `ImGuiSliderFlags flags=0' argument.
     //   If you get a warning converting a float to ImGuiSliderFlags, read https://github.com/ocornut/imgui/issues/3361
 
-    /**
+     /**
      * Adjust format to decorate the value with a prefix or a suffix for in-slider labels or unit display.
      */
     public static boolean sliderFloat(final String label, final float[] v, final float vMin, final float vMax) {
@@ -9113,7 +9129,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Display a colored square/button, hover for details, return true when pressed.
      */
     public static boolean colorButton(final String descId, final ImVec4 col) {
@@ -9203,7 +9219,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Display a colored square/button, hover for details, return true when pressed.
      *
      * @deprecated use {@link #colorButton(String, ImVec4)} or {@link #colorButton(String, float, float, float, float)} instead
@@ -9301,7 +9317,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Initialize current options (generally on application startup) if you want to select a default format,
      * picker type, etc. User will be able to change many settings, unless you pass the _NoOptions flag to your calls.
      */
@@ -9327,7 +9343,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Helper variation to easily decorelate the id from the displayed string.
      * Read the FAQ about why and how to use ID. to align arbitrary text at the same level as a TreeNode() you can use Bullet().
      */
@@ -9401,7 +9417,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * ~ Indent()+PushID(). Already called by TreeNode() when returning true, but you can call TreePush/TreePop yourself if desired.
      */
     public static void treePush(final String strId) {
@@ -9414,7 +9430,7 @@ public class ImGui {
         if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
     */
 
-    /**
+     /**
      * ~ Indent()+PushID(). Already called by TreeNode() when returning true, but you can call TreePush/TreePop yourself if desired.
      */
     public static void treePush(final long ptrId) {
@@ -9425,7 +9441,7 @@ public class ImGui {
         ImGui::TreePush((void*)ptrId);
     */
 
-    /**
+     /**
      * ~ Unindent()+PopID()
      */
     public static void treePop() {
@@ -9436,7 +9452,7 @@ public class ImGui {
         ImGui::TreePop();
     */
 
-    /**
+     /**
      * Horizontal distance preceding label when using TreeNode*() or Bullet() == (g.FontSize + style.FramePadding.x*2) for a regular unframed TreeNode
      */
     public static float getTreeNodeToLabelSpacing() {
@@ -9447,7 +9463,7 @@ public class ImGui {
         return ImGui::GetTreeNodeToLabelSpacing();
     */
 
-    /**
+     /**
      * If returning 'true' the header is open. doesn't indent nor push on ID stack. user doesn't have to call TreePop().
      */
     public static boolean collapsingHeader(final String label) {
@@ -9475,7 +9491,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * When 'p_visible != NULL': if '*p_visible==true' display an additional small close button on upper right of the header which will set the bool
      * to false when clicked, if '*p_visible==false' don't display the header.
      */
@@ -9509,7 +9525,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Set next TreeNode/CollapsingHeader open state.
      */
     public static void setNextItemOpen(final boolean isOpen) {
@@ -9701,7 +9717,7 @@ public class ImGui {
     // - Choose frame width:   size.x > 0.0f: custom  /  size.x < 0.0f or -FLT_MIN: right-align   /  size.x = 0.0f (default): use current ItemWidth
     // - Choose frame height:  size.y > 0.0f: custom  /  size.y < 0.0f or -FLT_MIN: bottom-align  /  size.y = 0.0f (default): arbitrary default height which can fit ~7 items
 
-    /**
+     /**
      * Open a framed scrolling region.
      */
     public static boolean beginListBox(final String label) {
@@ -9737,7 +9753,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Only call EndListBox() if BeginListBox() returned true!
      */
     public static void endListBox() {
@@ -10157,7 +10173,7 @@ public class ImGui {
     // - Use BeginMainMenuBar() to create a menu bar at the top of the screen and append to it.
     // - Use BeginMenu() to create a menu. You can call BeginMenu() multiple time with the same identifier to append more items to it.
 
-    /**
+     /**
      * Append to menu-bar of current window (requires ImGuiWindowFlags_MenuBar flag set on parent window).
      */
     public static boolean beginMenuBar() {
@@ -10168,7 +10184,7 @@ public class ImGui {
         return ImGui::BeginMenuBar();
     */
 
-    /**
+     /**
      * Only call EndMenuBar() if BeginMenuBar() returns true!
      */
     public static void endMenuBar() {
@@ -10179,7 +10195,7 @@ public class ImGui {
         ImGui::EndMenuBar();
     */
 
-    /**
+     /**
      * Create and append to a full screen menu-bar.
      */
     public static boolean beginMainMenuBar() {
@@ -10190,7 +10206,7 @@ public class ImGui {
         return ImGui::BeginMainMenuBar();
     */
 
-    /**
+     /**
      * Only call EndMainMenuBar() if BeginMainMenuBar() returns true!
      */
     public static void endMainMenuBar() {
@@ -10201,7 +10217,7 @@ public class ImGui {
         ImGui::EndMainMenuBar();
     */
 
-    /**
+     /**
      * Create a sub-menu entry. only call EndMenu() if this returns true!
      */
     public static boolean beginMenu(final String label) {
@@ -10229,7 +10245,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Only call EndMenu() if BeginMenu() returns true!
      */
     public static void endMenu() {
@@ -10240,7 +10256,7 @@ public class ImGui {
         ImGui::EndMenu();
     */
 
-    /**
+     /**
      * Return true when activated. shortcuts are displayed for convenience but not processed by ImGui at the moment
      */
     public static boolean menuItem(final String label) {
@@ -10282,7 +10298,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Return true when activated. shortcuts are displayed for convenience but not processed by ImGui at the moment
      */
     public static boolean menuItem(final String label, final String shortcut) {
@@ -10330,7 +10346,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Return true when activated + toggle (*pSelected) if pSelected != NULL
      */
     public static boolean menuItem(final String label, final String shortcut, final ImBoolean pSelected) {
@@ -10371,7 +10387,7 @@ public class ImGui {
     // - A tooltip window can contain items of any types.
     // - SetTooltip() is more or less a shortcut for the 'if (BeginTooltip()) { Text(...); EndTooltip(); }' idiom (with a subtlety that it discard any previously submitted tooltip)
 
-    /**
+     /**
      * Begin/append a tooltip window.
      */
     public static void beginTooltip() {
@@ -10382,7 +10398,7 @@ public class ImGui {
         ImGui::BeginTooltip();
     */
 
-    /**
+     /**
      * Only call EndTooltip() if BeginTooltip()/BeginItemTooltip() returns true!
      */
     public static void endTooltip() {
@@ -10393,7 +10409,7 @@ public class ImGui {
         ImGui::EndTooltip();
     */
 
-    /**
+     /**
      * Set a text-only tooltip. Often used after a ImGui::IsItemHovered() check. Override any previous call to SetTooltip().
      */
     public static void setTooltip(final String text) {
@@ -10411,7 +10427,7 @@ public class ImGui {
     // - SetItemTooltip() is a shortcut for the 'if (IsItemHovered(ImGuiHoveredFlags_Tooltip)) { SetTooltip(...); }' idiom.
     // - Where 'ImGuiHoveredFlags_Tooltip' itself is a shortcut to use 'style.HoverFlagsForTooltipMouse' or 'style.HoverFlagsForTooltipNav' depending on active input type. For mouse it defaults to 'ImGuiHoveredFlags_Stationary | ImGuiHoveredFlags_DelayShort'.
 
-    /**
+     /**
      * Begin/append a tooltip window if preceding item was hovered.
      */
     public static boolean beginItemTooltip() {
@@ -10422,7 +10438,7 @@ public class ImGui {
         return ImGui::BeginItemTooltip();
     */
 
-    /**
+     /**
      * Set a text-only tooltip if preceding item was hovered. override any previous call to SetTooltip().
      */
     public static void setItemTooltip(final String text) {
@@ -10446,7 +10462,7 @@ public class ImGui {
     //  - BeginPopup(): query popup state, if open start appending into the window. Call EndPopup() afterwards if returned true. ImGuiWindowFlags are forwarded to the window.
     //  - BeginPopupModal(): block every interaction behind the window, cannot be closed by user, add a dimming background, has a title bar.
 
-    /**
+     /**
      * Return true if the popup is open, and you can start outputting to it.
      */
     public static boolean beginPopup(final String strId) {
@@ -10474,7 +10490,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Return true if the popup is open, and you can start outputting to it.
      */
     public static boolean beginPopupModal(final String name) {
@@ -10534,7 +10550,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Only call EndPopup() if BeginPopupXXX() returns true!
      */
     public static void endPopup() {
@@ -10552,7 +10568,7 @@ public class ImGui {
     //  - CloseCurrentPopup() is called by default by Selectable()/MenuItem() when activated (FIXME: need some options).
     //  - Use ImGuiPopupFlags_NoOpenOverExistingPopup to avoid opening a popup if there's already one at the same level. This is equivalent to e.g. testing for !IsAnyPopupOpen() prior to OpenPopup().
 
-    /**
+     /**
      * Call to mark popup as open (don't call every frame!).
      */
     public static void openPopup(final String strId) {
@@ -10578,7 +10594,7 @@ public class ImGui {
         if (strId != NULL) env->ReleaseStringUTFChars(obj_strId, strId);
     */
 
-    /**
+     /**
      * Id overload to facilitate calling from nested stacks.
      */
     public static void openPopup(final int id) {
@@ -10600,7 +10616,7 @@ public class ImGui {
         ImGui::OpenPopup((ImGuiID)id, imGuiPopupFlags);
     */
 
-    /**
+     /**
      * Helper to open popup when clicked on last item. return true when just opened. (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors)
      */
     public static void openPopupOnItemClick() {
@@ -10648,7 +10664,7 @@ public class ImGui {
         ImGui::OpenPopupOnItemClick(NULL, imGuiPopupFlags);
     */
 
-    /**
+     /**
      * Manually close the popup we have begin-ed into.
      */
     public static void closeCurrentPopup() {
@@ -10665,7 +10681,7 @@ public class ImGui {
     //  - IMPORTANT: Notice that BeginPopupContextXXX takes ImGuiPopupFlags just like OpenPopup() and unlike BeginPopup(). For full consistency, we may add ImGuiWindowFlags to the BeginPopupContextXXX functions in the future.
     //  - IMPORTANT: we exceptionally default their flags to 1 (== ImGuiPopupFlags_MouseButtonRight) for backward compatibility with older API taking 'int mouse_button = 1' parameter, so if you add other flags remember to re-add the ImGuiPopupFlags_MouseButtonRight.
 
-    /**
+     /**
      * Open+begin popup when clicked on last item. if you can pass a NULL str_id only if the previous item had an id.
      * If you want to use that on a non-interactive item such as Text() you need to pass in an explicit ID here. read comments in .cpp!
      */
@@ -10719,7 +10735,7 @@ public class ImGui {
         return ImGui::BeginPopupContextItem(NULL, imGuiPopupFlags);
     */
 
-    /**
+     /**
      * Open+begin popup when clicked on current window.
      */
     public static boolean beginPopupContextWindow() {
@@ -10769,7 +10785,7 @@ public class ImGui {
         return ImGui::BeginPopupContextWindow(NULL, imGuiPopupFlags);
     */
 
-    /**
+     /**
      * Open+begin popup when clicked in void (where there are no windows).
      */
     public static boolean beginPopupContextVoid() {
@@ -10824,7 +10840,7 @@ public class ImGui {
     //  - IsPopupOpen() with ImGuiPopupFlags_AnyPopupId: return true if any popup is open at the current BeginPopup() level of the popup stack.
     //  - IsPopupOpen() with ImGuiPopupFlags_AnyPopupId + ImGuiPopupFlags_AnyPopupLevel: return true if any popup is open.
 
-    /**
+     /**
      * Return true if the popup is open.
      */
     public static boolean isPopupOpen(final String strId) {
@@ -10966,7 +10982,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Only call EndTable() if BeginTable() returns true!
      */
     public static void endTable() {
@@ -10977,7 +10993,7 @@ public class ImGui {
         ImGui::EndTable();
     */
 
-    /**
+     /**
      * Append into the first cell of a new row.
      */
     public static void tableNextRow() {
@@ -11021,7 +11037,7 @@ public class ImGui {
         ImGui::TableNextRow(0, minRowHeight);
     */
 
-    /**
+     /**
      * Append into the next column (or first column of next row if currently in last column). Return true when column is visible.
      */
     public static boolean tableNextColumn() {
@@ -11032,7 +11048,7 @@ public class ImGui {
         return ImGui::TableNextColumn();
     */
 
-    /**
+     /**
      * Append into the specified column. Return true when column is visible.
      */
     public static boolean tableSetColumnIndex(final int columnN) {
@@ -11112,7 +11128,7 @@ public class ImGui {
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
     */
 
-    /**
+     /**
      * Lock columns/rows so they stay visible when scrolled.
      */
     public static void tableSetupScrollFreeze(final int cols, final int rows) {
@@ -11123,7 +11139,7 @@ public class ImGui {
         ImGui::TableSetupScrollFreeze(cols, rows);
     */
 
-    /**
+     /**
      * Submit one header cell manually (rarely used)
      */
     public static void tableHeader(final String label) {
@@ -11136,7 +11152,7 @@ public class ImGui {
         if (label != NULL) env->ReleaseStringUTFChars(obj_label, label);
     */
 
-    /**
+     /**
      * Submit all headers cells based on data provided to TableSetupColumn() + submit context menu
      */
     public static void tableHeadersRow() {
@@ -11147,7 +11163,7 @@ public class ImGui {
         ImGui::TableHeadersRow();
     */
 
-    /**
+     /**
      * Submit a row with angled headers for every column with the ImGuiTableColumnFlags_AngledHeader flag. MUST BE FIRST ROW.
      */
     public static void tableAngledHeadersRow() {
@@ -11165,7 +11181,7 @@ public class ImGui {
     //   else you may wastefully sort your data every frame!
     // - Functions args 'int column_n' treat the default value of -1 as the same as passing the current column index.
 
-    /**
+     /**
      * Get latest sort specs for the table (NULL if not sorting).
      * Lifetime: don't hold on this pointer over multiple frames or past any subsequent call to BeginTable().
      */
@@ -11180,7 +11196,7 @@ public class ImGui {
     // Tables: Miscellaneous functions
     // - Functions args 'int column_n' treat the default value of -1 as the same as passing the current column index.
 
-    /**
+     /**
      * Return number of columns (value passed to BeginTable).
      */
     public static int tableGetColumnCount() {
@@ -11191,7 +11207,7 @@ public class ImGui {
         return ImGui::TableGetColumnCount();
     */
 
-    /**
+     /**
      * Return current column index.
      */
     public static int tableGetColumnIndex() {
@@ -11202,7 +11218,7 @@ public class ImGui {
         return ImGui::TableGetColumnIndex();
     */
 
-    /**
+     /**
      * Return current row index.
      */
     public static int tableGetRowIndex() {
@@ -11213,7 +11229,7 @@ public class ImGui {
         return ImGui::TableGetRowIndex();
     */
 
-    /**
+     /**
      * Return "" if column didn't have a name declared by TableSetupColumn(). Pass -1 to use current column.
      */
     public static String tableGetColumnName() {
@@ -11235,7 +11251,7 @@ public class ImGui {
         return env->NewStringUTF(ImGui::TableGetColumnName(columnN));
     */
 
-    /**
+     /**
      * Return column flags, so you can query their Enabled/Visible/Sorted/Hovered status flags. Pass -1 to use current column.
      */
     public static int tableGetColumnFlags() {
@@ -11257,7 +11273,7 @@ public class ImGui {
         return ImGui::TableGetColumnFlags(columnN);
     */
 
-    /**
+     /**
      * change user accessible enabled/disabled state of a column. Set to false to hide the column.
      * User can use the context menu to change this themselves (right-click in headers, or right-click in columns body with ImGuiTableFlags_ContextMenuInBody)
      */
@@ -11269,7 +11285,7 @@ public class ImGui {
         ImGui::TableSetColumnEnabled(columnN, value);
     */
 
-    /**
+     /**
      * Return hovered column. return -1 when table is not hovered. return columns_count if the unused space at the right of visible columns is hovered. Can also use {@code (TableGetColumnFlags() & ImGuiTableColumnFlags_IsHovered)} instead.
      */
     public static int tableGetHoveredColumn() {
@@ -11280,7 +11296,7 @@ public class ImGui {
         return ImGui::TableGetHoveredColumn();
     */
 
-    /**
+     /**
      * Change the color of a cell, row, or column. See ImGuiTableBgTarget_ flags for details.
      */
     public static void tableSetBgColor(final int imGuiTableBgTarget, final int color) {
@@ -11368,7 +11384,7 @@ public class ImGui {
         ImGui::Columns(count, NULL, border);
     */
 
-    /**
+     /**
      * Next column, defaults to current row or next row if the current row is finished
      */
     public static void nextColumn() {
@@ -11379,7 +11395,7 @@ public class ImGui {
         ImGui::NextColumn();
     */
 
-    /**
+     /**
      * Get current column index
      */
     public static int getColumnIndex() {
@@ -11390,7 +11406,7 @@ public class ImGui {
         return ImGui::GetColumnIndex();
     */
 
-    /**
+     /**
      * Get column width (in pixels). pass -1 to use current column
      */
     public static float getColumnWidth() {
@@ -11412,7 +11428,7 @@ public class ImGui {
         return ImGui::GetColumnWidth(columnIndex);
     */
 
-    /**
+     /**
      * Set column width (in pixels). pass -1 to use current column
      */
     public static void setColumnWidth(final int columnIndex, final float width) {
@@ -11423,7 +11439,7 @@ public class ImGui {
         ImGui::SetColumnWidth(columnIndex, width);
     */
 
-    /**
+     /**
      * Get position of column line (in pixels, from the left side of the contents region). pass -1 to use current column, otherwise 0..GetColumnsCount() inclusive. column 0 is typically 0.0f
      */
     public static float getColumnOffset() {
@@ -11445,7 +11461,7 @@ public class ImGui {
         return ImGui::GetColumnOffset(columnIndex);
     */
 
-    /**
+     /**
      * Set position of column line (in pixels, from the left side of the contents region). pass -1 to use current column
      */
     public static void setColumnOffset(final int columnIndex, final float offsetX) {
@@ -11467,7 +11483,7 @@ public class ImGui {
     // Tab Bars, Tabs
     // - Note: Tabs are automatically created by the docking system (when in 'docking' branch). Use this to create tab bars/tabs yourself.
 
-    /**
+     /**
      * Create and append into a TabBar
      */
     public static boolean beginTabBar(final String strId) {
@@ -11495,7 +11511,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Only call EndTabBar() if BeginTabBar() returns true!
      */
     public static void endTabBar() {
@@ -11506,7 +11522,7 @@ public class ImGui {
         ImGui::EndTabBar();
     */
 
-    /**
+     /**
      * Create a Tab. Returns true if the Tab is selected.
      */
     public static boolean beginTabItem(final String label) {
@@ -11566,7 +11582,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Only call EndTabItem() if BeginTabItem() returns true!
      */
     public static void endTabItem() {
@@ -11577,7 +11593,7 @@ public class ImGui {
         ImGui::EndTabItem();
     */
 
-    /**
+     /**
      * Create a Tab behaving like a button. return true when clicked. cannot be selected in the tab bar.
      */
     public static boolean tabItemButton(final String label) {
@@ -11605,7 +11621,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Notify TabBar or Docking system of a closed tab/window ahead (useful to reduce visual flicker on reorderable tab bars).
      * For tab-bar: call after BeginTabBar() and before Tab submissions. Otherwise call with a window name.
      */
@@ -11769,7 +11785,7 @@ public class ImGui {
         return ImGui::DockSpaceOverViewport(dockspaceId, reinterpret_cast<ImGuiViewport*>(viewport), 0, reinterpret_cast<ImGuiWindowClass*>(windowClass));
     */
 
-    /**
+     /**
      * Set next window dock id
      */
     public static void setNextWindowDockID(final int dockId) {
@@ -11791,7 +11807,7 @@ public class ImGui {
         ImGui::SetNextWindowDockID(dockId, imGuiCond);
     */
 
-    /**
+     /**
      * set next window class (rare/advanced uses: provide hints to the platform backend via altered viewport flags and parent/child info)
      */
     public static void setNextWindowClass(final ImGuiWindowClass windowClass) {
@@ -11810,7 +11826,7 @@ public class ImGui {
         return ImGui::GetWindowDockID();
     */
 
-    /**
+     /**
      * Is current window docked into another window?
      */
     public static boolean isWindowDocked() {
@@ -11824,7 +11840,7 @@ public class ImGui {
     // Logging/Capture
     // - All text output from the interface can be captured into tty/file/clipboard. By default, tree nodes are automatically opened during logging.
 
-    /**
+     /**
      * Start logging to tty (stdout)
      */
     public static void logToTTY() {
@@ -11846,7 +11862,7 @@ public class ImGui {
         ImGui::LogToTTY(autoOpenDepth);
     */
 
-    /**
+     /**
      * Start logging to file
      */
     public static void logToFile() {
@@ -11894,7 +11910,7 @@ public class ImGui {
         if (filename != NULL) env->ReleaseStringUTFChars(obj_filename, filename);
     */
 
-    /**
+     /**
      * Start logging to OS clipboard
      */
     public static void logToClipboard() {
@@ -11916,7 +11932,7 @@ public class ImGui {
         ImGui::LogToClipboard(autoOpenDepth);
     */
 
-    /**
+     /**
      * Stop logging (close file, etc.)
      */
     public static void logFinish() {
@@ -11927,7 +11943,7 @@ public class ImGui {
         ImGui::LogFinish();
     */
 
-    /**
+     /**
      * Helper to display buttons for logging to tty/file/clipboard
      */
     public static void logButtons() {
@@ -11938,7 +11954,7 @@ public class ImGui {
         ImGui::LogButtons();
     */
 
-    /**
+     /**
      * Pass text data straight to log (without being displayed)
      */
     public static void logText(final String text) {
@@ -11954,7 +11970,7 @@ public class ImGui {
     // Drag and Drop
     // - If you stop calling BeginDragDropSource() the payload is preserved however it won't have a preview tooltip (we currently display a fallback "..." tooltip as replacement)
 
-    /**
+     /**
      * Call when the current item is active. If this return true, you can call SetDragDropPayload() + EndDragDropSource()
      */
     public static boolean beginDragDropSource() {
@@ -12022,7 +12038,7 @@ public class ImGui {
         return ImGui::SetDragDropPayload(dataType, &data[0], sz, imGuiCond);
     */
 
-    /**
+     /**
      * Only call EndDragDropSource() if BeginDragDropSource() returns true!
      */
     public static void endDragDropSource() {
@@ -12033,7 +12049,7 @@ public class ImGui {
         ImGui::EndDragDropSource();
     */
 
-    /**
+     /**
      * Call after submitting an item that may receive a payload. If this returns true, you can call AcceptDragDropPayload() + EndDragDropTarget()
      */
     public static boolean beginDragDropTarget() {
@@ -12099,7 +12115,7 @@ public class ImGui {
         return ImGui::AcceptDragDropPayload(dataType, imGuiDragDropFlags) != NULL;
     */
 
-    /**
+     /**
      * Only call EndDragDropTarget() if BeginDragDropTarget() returns true!
      */
     public static void endDragDropTarget() {
@@ -12161,7 +12177,7 @@ public class ImGui {
     // - Tooltips windows by exception are opted out of disabling.
     // - BeginDisabled(false) essentially does nothing useful but is provided to facilitate use of boolean expressions. If you can avoid calling BeginDisabled(False)/EndDisabled() best to avoid it.
 
-    /**
+     /**
      * Disable all user interactions and dim items visuals (applying style.DisabledAlpha over current colors)
      * BeginDisabled(false) essentially does nothing useful but is provided to facilitate use of boolean expressions.
      * If you can avoid calling BeginDisabled(False)/EndDisabled() best to avoid it.
@@ -12223,7 +12239,7 @@ public class ImGui {
     // Focus, Activation
     // - Prefer using "SetItemDefaultFocus()" over "if (IsWindowAppearing()) SetScrollHereY()" when applicable to signify "this is the default item"
 
-    /**
+     /**
      * Make last item the default focused item of a window.
      */
     public static void setItemDefaultFocus() {
@@ -12234,7 +12250,7 @@ public class ImGui {
         ImGui::SetItemDefaultFocus();
     */
 
-    /**
+     /**
      * Focus keyboard on the next widget. Use positive 'offset' to access sub components of a multiple component widget. Use -1 to access previous widget.
      */
     public static void setKeyboardFocusHere() {
@@ -12258,7 +12274,7 @@ public class ImGui {
 
     // Overlapping mode
 
-    /**
+     /**
      * Allow next item to be overlapped by a subsequent item.
      * Useful with invisible buttons, selectable, treenode covering an area where subsequent items may need to be added.
      * Note that both Selectable() and TreeNode() have dedicated flags doing this.
@@ -12275,7 +12291,7 @@ public class ImGui {
     // - Most of the functions are referring to the last/previous item we submitted.
     // - See Demo Window under "Widgets->Querying Status" for an interactive visualization of most of those functions.
 
-    /**
+     /**
      * Is the last item hovered? (and usable, aka not blocked by a popup, etc.). See ImGuiHoveredFlags for more options.
      */
     public static boolean isItemHovered() {
@@ -12297,7 +12313,7 @@ public class ImGui {
         return ImGui::IsItemHovered(imGuiHoveredFlags);
     */
 
-    /**
+     /**
      * Is the last item active? (e.g. button being held, text field being edited.
      * This will continuously return true while holding mouse button on an item.
      * Items that don't interact will always return false)
@@ -12310,7 +12326,7 @@ public class ImGui {
         return ImGui::IsItemActive();
     */
 
-    /**
+     /**
      * Is the last item focused for keyboard/gamepad navigation?
      */
     public static boolean isItemFocused() {
@@ -12321,7 +12337,7 @@ public class ImGui {
         return ImGui::IsItemFocused();
     */
 
-    /**
+     /**
      * Is the last item hovered and mouse clicked on? (**)  == {@code IsMouseClicked(mouseButton) && IsItemHovered()}
      * Important. (**) this is NOT equivalent to the behavior of e.g. Button(). Read comments in function definition.
      */
@@ -12345,7 +12361,7 @@ public class ImGui {
         return ImGui::IsItemClicked(mouseButton);
     */
 
-    /**
+     /**
      * Is the last item visible? (items may be out of sight because of clipping/scrolling)
      */
     public static boolean isItemVisible() {
@@ -12356,7 +12372,7 @@ public class ImGui {
         return ImGui::IsItemVisible();
     */
 
-    /**
+     /**
      * Did the last item modify its underlying value this frame? or was pressed? This is generally the same as the "bool" return value of many widgets.
      */
     public static boolean isItemEdited() {
@@ -12367,7 +12383,7 @@ public class ImGui {
         return ImGui::IsItemEdited();
     */
 
-    /**
+     /**
      * Was the last item just made active (item was previously inactive).
      */
     public static boolean isItemActivated() {
@@ -12378,7 +12394,7 @@ public class ImGui {
         return ImGui::IsItemActivated();
     */
 
-    /**
+     /**
      * Was the last item just made inactive (item was previously active). Useful for Undo/Redo patterns with widgets that require continuous editing.
      */
     public static boolean isItemDeactivated() {
@@ -12389,7 +12405,7 @@ public class ImGui {
         return ImGui::IsItemDeactivated();
     */
 
-    /**
+     /**
      * Was the last item just made inactive and made a value change when it was active? (e.g. Slider/Drag moved).
      * Useful for Undo/Redo patterns with widgets that require continuous editing.
      * Note that you may get false positives (some widgets such as Combo()/ListBox()/Selectable() will return true even when clicking an already selected item).
@@ -12402,7 +12418,7 @@ public class ImGui {
         return ImGui::IsItemDeactivatedAfterEdit();
     */
 
-    /**
+     /**
      * Was the last item open state toggled? set by TreeNode().
      */
     public static boolean isItemToggledOpen() {
@@ -12413,7 +12429,7 @@ public class ImGui {
         return ImGui::IsItemToggledOpen();
     */
 
-    /**
+     /**
      * Was the last item's selection state toggled? (since imgui 1.91 multi-select).
      * Useful if you need per-item information <em>before</em> reaching {@code EndMultiSelect()}.
      */
@@ -12425,7 +12441,7 @@ public class ImGui {
         return ImGui::IsItemToggledSelection();
     */
 
-    /**
+     /**
      * Set selection user data for the next item, used by {@code BeginMultiSelect}/{@code EndMultiSelect()}
      * and inside {@code ImGuiMultiSelectIO}. Opaque 64-bit value (e.g. an index, a pointer,
      * a hash) unique to your item identity (since imgui 1.91).
@@ -12438,7 +12454,7 @@ public class ImGui {
         ImGui::SetNextItemSelectionUserData(selectionUserData);
     */
 
-    /**
+     /**
      * Is any item hovered?
      */
     public static boolean isAnyItemHovered() {
@@ -12449,7 +12465,7 @@ public class ImGui {
         return ImGui::IsAnyItemHovered();
     */
 
-    /**
+     /**
      * Is any item active?
      */
     public static boolean isAnyItemActive() {
@@ -12459,7 +12475,7 @@ public class ImGui {
     private static native boolean nIsAnyItemActive(); /*
         return ImGui::IsAnyItemActive();
     */
-    /**
+     /**
      * Is any item focused?
      */
     public static boolean isAnyItemFocused() {
@@ -12470,7 +12486,7 @@ public class ImGui {
         return ImGui::IsAnyItemFocused();
     */
 
-    /**
+     /**
      * Get ID of last item (~~ often same ImGui::GetID(label) beforehand)
      */
     public static int getItemID() {
@@ -12481,7 +12497,7 @@ public class ImGui {
         return ImGui::GetItemID();
     */
 
-    /**
+     /**
      * Get generic flags of last item (since imgui 1.91). Returns an {@code ImGuiItemFlags} mask.
      */
     public static int getItemFlags() {
@@ -12492,7 +12508,7 @@ public class ImGui {
         return ImGui::GetItemFlags();
     */
 
-    /**
+     /**
      * Get upper-left bounding rectangle of the last item (screen space)
      */
     public static ImVec2 getItemRectMin() {
@@ -12534,7 +12550,7 @@ public class ImGui {
         return ImGui::GetItemRectMin().y;
     */
 
-    /**
+     /**
      * Get lower-right bounding rectangle of the last item (screen space)
      */
     public static ImVec2 getItemRectMax() {
@@ -12576,7 +12592,7 @@ public class ImGui {
         return ImGui::GetItemRectMax().y;
     */
 
-    /**
+     /**
      * Get size of last item
      */
     public static ImVec2 getItemRectSize() {
@@ -12623,7 +12639,7 @@ public class ImGui {
     // - In 'docking' branch with multi-viewport enabled, we extend this concept to have multiple active viewports.
     // - In the future we will extend this concept further to also represent Platform Monitor and support a "no main platform window" operation mode.
 
-    private static final ImGuiViewport _GETMAINVIEWPORT_1 = new ImGuiViewport(0);
+     private static final ImGuiViewport _GETMAINVIEWPORT_1 = new ImGuiViewport(0);
 
     /**
      * Return primary/default viewport.
@@ -12639,7 +12655,7 @@ public class ImGui {
 
     // Background/Foreground Draw Lists
 
-    /**
+     /**
      * Get background draw list for the given viewport or viewport associated to the current window.
      * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
      */
@@ -12663,7 +12679,7 @@ public class ImGui {
         return (uintptr_t)ImGui::GetBackgroundDrawList(reinterpret_cast<ImGuiViewport*>(viewport));
     */
 
-    /**
+     /**
      * Get foreground draw list for the given viewport or viewport associated to the current window.
      * This draw list will be the first rendering one. Useful to quickly draw shapes/text behind dear imgui contents.
      */
@@ -12689,7 +12705,7 @@ public class ImGui {
 
     // Miscellaneous Utilities
 
-    /**
+     /**
      * Test if rectangle (of given size, starting from cursor position) is visible / not clipped.
      */
     public static boolean isRectVisible(final ImVec2 size) {
@@ -12709,7 +12725,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Test if rectangle (in screen space) is visible / not clipped. to perform coarse clipping on user's side.
      */
     public static boolean isRectVisible(final ImVec2 rectMin, final ImVec2 rectMax) {
@@ -12730,7 +12746,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Get global imgui time. incremented by io.DeltaTime every frame.
      */
     public static double getTime() {
@@ -12741,7 +12757,7 @@ public class ImGui {
         return ImGui::GetTime();
     */
 
-    /**
+     /**
      * Get global imgui frame count. incremented by 1 every frame.
      */
     public static int getFrameCount() {
@@ -12756,7 +12772,7 @@ public class ImGui {
 
     // TODO GetDrawListSharedData
 
-    /**
+     /**
      * Get a string corresponding to the enum value (for display, saving, etc.).
      */
     public static String getStyleColorName(final int imGuiColIdx) {
@@ -12767,7 +12783,7 @@ public class ImGui {
         return env->NewStringUTF(ImGui::GetStyleColorName(imGuiColIdx));
     */
 
-    /**
+     /**
      * Replace current window storage with our own (if you want to manipulate it yourself, typically clear subsection of it).
      */
     public static void setStateStorage(final ImGuiStorage storage) {
@@ -13024,7 +13040,7 @@ public class ImGui {
     //  - without IMGUI_DISABLE_OBSOLETE_KEYIO (legacy support): you can still use your legacy native/user indices (< 512) according to how your backend/engine stored them in io.KeysDown[], but need to cast them to ImGuiKey.
     //  - with    IMGUI_DISABLE_OBSOLETE_KEYIO (this is the way forward): any use of ImGuiKey will assert with key < 512. GetKeyIndex() is pass-through and therefore deprecated (gone if IMGUI_DISABLE_OBSOLETE_KEYIO is defined).
 
-    /**
+     /**
      * Is key being held. == io.KeysDown[user_key_index].
      */
     public static boolean isKeyDown(final int key) {
@@ -13035,7 +13051,7 @@ public class ImGui {
         return ImGui::IsKeyDown(static_cast<ImGuiKey>(key));
     */
 
-    /**
+     /**
      * Was key pressed (went from !Down to Down)? if repeat=true, uses io.KeyRepeatDelay / KeyRepeatRate
      */
     public static boolean isKeyPressed(final int key) {
@@ -13057,7 +13073,7 @@ public class ImGui {
         return ImGui::IsKeyPressed(static_cast<ImGuiKey>(key), repeat);
     */
 
-    /**
+     /**
      * Was key released (went from Down to !Down)
      */
     public static boolean isKeyReleased(final int key) {
@@ -13068,7 +13084,7 @@ public class ImGui {
         return ImGui::IsKeyReleased(static_cast<ImGuiKey>(key));
     */
 
-    /**
+     /**
      * Was key chord (mods + key) pressed, e.g. you can pass 'ImGuiMod_Ctrl | ImGuiKey_S' as a key-chord.
      * This doesn't do any routing or focus check, please consider using Shortcut() function instead.
      */
@@ -13080,7 +13096,7 @@ public class ImGui {
         return ImGui::IsKeyChordPressed(static_cast<ImGuiKeyChord>(keyChord));
     */
 
-    /**
+     /**
      * Uses provided repeat rate/delay.
      * Return a count, most often 0 or 1 but might be {@code >1} if RepeatRate is small enough that {@code DeltaTime > RepeatRate}
      */
@@ -13092,7 +13108,7 @@ public class ImGui {
         return ImGui::GetKeyPressedAmount(static_cast<ImGuiKey>(key), repeatDelay, rate);
     */
 
-    /**
+     /**
      * [DEBUG] returns English name of the key. Those names a provided for debugging purpose and are not meant to be saved persistently not compared.
      */
     public static String getKeyName(final int key) {
@@ -13103,7 +13119,7 @@ public class ImGui {
         return env->NewStringUTF(ImGui::GetKeyName(static_cast<ImGuiKey>(key)));
     */
 
-    /**
+     /**
      * Override io.WantCaptureKeyboard flag next frame (said flag is left for your application to handle,
      * typically when true it instructs your app to ignore inputs). e.g. force capture keyboard when your widget is being hovered.
      * This is equivalent to setting "io.WantCaptureKeyboard = want_capture_keyboard"; after the next NewFrame() call.
@@ -13169,7 +13185,7 @@ public class ImGui {
     // - You can also use regular integer: it is forever guaranteed that 0=Left, 1=Right, 2=Middle.
     // - Dragging operations are only reported after mouse has moved a certain distance away from the initial clicking position (see 'lock_threshold' and 'io.MouseDraggingThreshold')
 
-    /**
+     /**
      * Is mouse button held (0=left, 1=right, 2=middle)
      */
     public static boolean isMouseDown(final int button) {
@@ -13180,7 +13196,7 @@ public class ImGui {
         return ImGui::IsMouseDown(button);
     */
 
-    /**
+     /**
      * Did mouse button clicked (went from !Down to Down) (0=left, 1=right, 2=middle)
      */
     public static boolean isMouseClicked(final int button) {
@@ -13202,7 +13218,7 @@ public class ImGui {
         return ImGui::IsMouseClicked(button, repeat);
     */
 
-    /**
+     /**
      * Did mouse button released (went from Down to !Down)
      */
     public static boolean isMouseReleased(final int button) {
@@ -13213,7 +13229,7 @@ public class ImGui {
         return ImGui::IsMouseReleased(button);
     */
 
-    /**
+     /**
      * did mouse button double-clicked? (note that a double-click will also report IsMouseClicked() == true).
      */
     public static boolean isMouseDoubleClicked(final int button) {
@@ -13224,7 +13240,7 @@ public class ImGui {
         return ImGui::IsMouseDoubleClicked(button);
     */
 
-    /**
+     /**
      * Return the number of successive mouse-clicks at the time where a click happen (otherwise 0).
      */
     public static int getMouseClickedCount(final int button) {
@@ -13235,7 +13251,7 @@ public class ImGui {
         return ImGui::GetMouseClickedCount(button);
     */
 
-    /**
+     /**
      * Is mouse hovering given bounding rect (in screen space). clipped by current clipping settings, but disregarding of other consideration of focus/window ordering/popup-block.
      */
     public static boolean isMouseHoveringRect(final ImVec2 rMin, final ImVec2 rMax) {
@@ -13277,7 +13293,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * By convention we use (-FLT_MAX,-FLT_MAX) to denote that there is no mouse
      */
     public static boolean isMousePosValid() {
@@ -13308,7 +13324,7 @@ public class ImGui {
         return _result;
     */
 
-    /**
+     /**
      * Is any mouse button held
      */
     public static boolean isAnyMouseDown() {
@@ -13319,7 +13335,7 @@ public class ImGui {
         return ImGui::IsAnyMouseDown();
     */
 
-    /**
+     /**
      * Shortcut to ImGui::GetIO().MousePos provided by user, to be consistent with other calls
      */
     public static ImVec2 getMousePos() {
@@ -13361,7 +13377,7 @@ public class ImGui {
         return ImGui::GetMousePos().y;
     */
 
-    /**
+     /**
      * Retrieve backup of mouse position at the time of opening popup we have BeginPopup() into
      */
     public static ImVec2 getMousePosOnOpeningCurrentPopup() {
@@ -13403,7 +13419,7 @@ public class ImGui {
         return ImGui::GetMousePosOnOpeningCurrentPopup().y;
     */
 
-    /**
+     /**
      * Is mouse dragging? {@code (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)}
      */
     public static boolean isMouseDragging(final int button) {
@@ -13425,7 +13441,7 @@ public class ImGui {
         return ImGui::IsMouseDragging(button, lockThreshold);
     */
 
-    /**
+     /**
      * Return the delta from the initial clicking position while the mouse button is pressed or was just released.
      * This is locked and return 0.0f until the mouse moves past a distance threshold at least once {@code (uses io.MouseDraggingThreshold if lock_threshold < 0.0f)}
      */
@@ -13579,7 +13595,7 @@ public class ImGui {
         ImGui::ResetMouseDragDelta(button);
     */
 
-    /**
+     /**
      * Get desired mouse cursor shape. Important: reset in ImGui::NewFrame(), this is updated during the frame. valid before Render().
      * If you use software rendering by setting io.MouseDrawCursor ImGui will render those for you
      */
@@ -13591,7 +13607,7 @@ public class ImGui {
         return ImGui::GetMouseCursor();
     */
 
-    /**
+     /**
      * Set desired mouse cursor shape
      */
     public static void setMouseCursor(final int type) {
@@ -13602,7 +13618,7 @@ public class ImGui {
         ImGui::SetMouseCursor(type);
     */
 
-    /**
+     /**
      * Override io.WantCaptureMouse flag next frame (said flag is left for your application to handle,
      * typical when true it instucts your app to ignore inputs).
      * This is equivalent to setting "io.WantCaptureMouse = want_capture_mouse;" after the next NewFrame() call.
@@ -13640,7 +13656,7 @@ public class ImGui {
     // - The disk functions are automatically called if io.IniFilename != NULL (default is "imgui.ini").
     // - Set io.IniFilename to NULL to load/save manually. Read io.WantSaveIniSettings description about handling .ini saving manually.
 
-    /**
+     /**
      * Call after CreateContext() and before the first call to NewFrame(). NewFrame() automatically calls LoadIniSettingsFromDisk(io.IniFilename).
      */
     public static void loadIniSettingsFromDisk(final String iniFilename) {
@@ -13653,7 +13669,7 @@ public class ImGui {
         if (iniFilename != NULL) env->ReleaseStringUTFChars(obj_iniFilename, iniFilename);
     */
 
-    /**
+     /**
      * Call after CreateContext() and before the first call to NewFrame() to provide .ini data from your own data source.
      */
     public static void loadIniSettingsFromMemory(final String iniData) {
@@ -13679,7 +13695,7 @@ public class ImGui {
         if (iniData != NULL) env->ReleaseStringUTFChars(obj_iniData, iniData);
     */
 
-    /**
+     /**
      * This is automatically called (if io.IniFilename is not empty) a few seconds after any modification that should be reflected in the .ini file (and also by DestroyContext).
      */
     public static void saveIniSettingsToDisk(final String iniFilename) {
@@ -13692,7 +13708,7 @@ public class ImGui {
         if (iniFilename != NULL) env->ReleaseStringUTFChars(obj_iniFilename, iniFilename);
     */
 
-    /**
+     /**
      * Return a zero-terminated string with the .ini data which you can save by your own mean.
      * Call when io.WantSaveIniSettings is set, then save data by your own mean and clear io.WantSaveIniSettings.
      */
@@ -13760,7 +13776,7 @@ public class ImGui {
     // Read comments around the ImGuiPlatformIO structure for more details.
     // Note: You may use GetWindowViewport() to get the current viewport of the current window.
 
-    private static final ImGuiPlatformIO _GETPLATFORMIO_1 = new ImGuiPlatformIO(0);
+     private static final ImGuiPlatformIO _GETPLATFORMIO_1 = new ImGuiPlatformIO(0);
 
     /**
      * Platform/renderer functions, for backend to setup + viewports list.
@@ -13774,7 +13790,7 @@ public class ImGui {
         return (uintptr_t)&ImGui::GetPlatformIO();
     */
 
-    /**
+     /**
      * Call in main loop. Will call CreateWindow/ResizeWindow/etc. Platform functions for each secondary viewport, and DestroyWindow for each inactive viewport.
      */
     public static void updatePlatformWindows() {
@@ -13785,7 +13801,7 @@ public class ImGui {
         ImGui::UpdatePlatformWindows();
     */
 
-    /**
+     /**
      * Call in main loop. will call RenderWindow/SwapBuffers platform functions for each secondary viewport which doesn't have the ImGuiViewportFlags_Minimized flag set.
      * May be reimplemented by user for custom rendering needs.
      */
@@ -13797,7 +13813,7 @@ public class ImGui {
         ImGui::RenderPlatformWindowsDefault();
     */
 
-    /**
+     /**
      * Call DestroyWindow platform functions for all viewports.
      * Call from backend Shutdown() if you need to close platform windows before imgui shutdown.
      * Otherwise will be called by DestroyContext().
@@ -13810,7 +13826,7 @@ public class ImGui {
         ImGui::DestroyPlatformWindows();
     */
 
-    /**
+     /**
      * This is a helper for backends.
      */
     public static ImGuiViewport findViewportByID(final int imGuiID) {
@@ -13821,7 +13837,7 @@ public class ImGui {
         return (uintptr_t)ImGui::FindViewportByID(imGuiID);
     */
 
-    /**
+     /**
      * This is a helper for backends. The type platform_handle is decided by the backend (e.g. HWND, MyWindow*, GLFWwindow* etc.)
      */
     public static ImGuiViewport findViewportByPlatformHandle(final long platformHandle) {

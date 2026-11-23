@@ -406,17 +406,24 @@ This is the path CI uses. It vendors FreeType, runs `generateLibs`, and lays the
 `/tmp/imgui/dst/`:
 
 ```
-buildSrc/scripts/build.sh <windows|linux|macos>
+buildSrc/scripts/build.sh <windows|windowsarm64|linux|linuxarm64|macos>
 ```
 
 For `macos` it builds both `x86_64` and `arm64` slices and combines them into a single universal `libimgui-java64.dylib`
 via `lipo`.
 
-To use the freshly-built binary with the example:
+To use the freshly-built binary with the example, for instance, for `x64` platforms:
 
 ```
-cp /tmp/imgui/dst/libimgui-java64.<so|dylib|dll> bin/
-./gradlew :example:run -PlibPath=$PWD/bin
+cp /tmp/imgui/dst/x64/libimgui-java64.<so|dylib|dll> bin/x64/
+./gradlew :example:run -Pimgui.library.path=$PWD/bin/x64
+```
+
+and for `arm64` platforms:
+
+```
+cp /tmp/imgui/dst/arm64/libimgui-java64.<so|dylib|dll> bin/arm64/
+./gradlew :example:run -Pimgui.library.path=$PWD/bin/arm64
 ```
 
 ## Direct Gradle invocation
@@ -428,7 +435,7 @@ If you don't need FreeType or want a stock build under the project tree, call `g
 - Required on PATH: Ant, Mingw-w64 (recommended via [MSYS2](https://www.msys2.org/) — install
   the [mingw-w64-x86_64-toolchain](https://packages.msys2.org/group/mingw-w64-x86_64-toolchain) group).
 - Build: `./gradlew imgui-binding:generateLibs -Denvs=windows -Dlocal`
-- Run example: `./gradlew example:run -PlibPath="../imgui-binding/build/libsNative/windows64"`
+- Run example: `./gradlew example:run -Pimgui.library.path="../imgui-binding/build/libsNative/windows64"`
 
 ### Windows ARM64
 
@@ -436,14 +443,20 @@ If you don't need FreeType or want a stock build under the project tree, call `g
   wrappers).
 - Build: `./gradlew imgui-binding:generateLibs -Denvs=windowsarm64 -Dlocal`
 - Output: `imgui-binding/build/libsNative/windowsarm64/imgui-java64.dll`
-- Run example: `./gradlew example:run -PlibPath="../imgui-binding/build/libsNative/windowsarm64"`
+- Run example: `./gradlew example:run -Pimgui.library.path="../imgui-binding/build/libsNative/windowsarm64"`
 - The direct Gradle path builds without FreeType by default, matching the other platforms.
 
 ### Linux
 
-- Install dependencies: `mingw-w64-gcc`, `ant`. (Package names vary by distro.)
+- Install dependencies: `build-essential`, `ant`. (Package names vary by distro.)
 - Build: `./gradlew imgui-binding:generateLibs -Denvs=linux -Dlocal`
-- Run example: `./gradlew example:run -PlibPath=../imgui-binding/build/libsNative/linux64`
+- Run example: `./gradlew example:run -Pimgui.library.path=../imgui-binding/build/libsNative/linux64`
+
+### Linux ARM64
+
+- Install dependencies: `build-essential`, `ant`. (Package names vary by distro.)
+- Build: `./gradlew imgui-binding:generateLibs -Denvs=linuxarm64 -Dlocal`
+- Run example: `./gradlew example:run -Pimgui.library.path=../imgui-binding/build/libsNative/linuxarm64`
 
 ### macOS
 
@@ -451,7 +464,7 @@ If you don't need FreeType or want a stock build under the project tree, call `g
 - Build (universal): `./gradlew imgui-binding:generateLibs -Denvs=macos,macosarm64 -Dlocal` — produces `macosx64/` and
   `macosxarm64/` outputs that the Maven Central artifact bundles together via `lipo` (see `buildSrc/scripts/build.sh`).
 - Single slice: pass only `-Denvs=macos` or `-Denvs=macosarm64`.
-- Run example (Intel slice): `./gradlew example:run -PlibPath=../imgui-binding/build/libsNative/macosx64`
+- Run example (Intel slice): `./gradlew example:run -Pimgui.library.path=../imgui-binding/build/libsNative/macosx64`
 
 ### Flags
 

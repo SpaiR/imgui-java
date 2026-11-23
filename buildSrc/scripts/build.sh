@@ -24,9 +24,10 @@ if [ $? -ne 0 ]; then
 fi
 echo "Vendor FreeType script completed successfully"
 
-# Create the destination directory for imgui libraries
-echo "Creating destination directory for imgui libraries..."
-mkdir -p /tmp/imgui/dst
+# Create the destination directories for imgui libraries
+echo "Creating destination directories for imgui libraries..."
+mkdir -p /tmp/imgui/dst/x64
+mkdir -p /tmp/imgui/dst/arm64
 echo "Directory /tmp/imgui/dst created successfully"
 
 # Function to check if a file exists
@@ -51,12 +52,31 @@ case "$VTYPE" in
         check_file_exists /tmp/imgui/libsNative/windows64/imgui-java64.dll
 
         echo "Copying the generated DLL to the destination directory..."
-        cp /tmp/imgui/libsNative/windows64/imgui-java64.dll /tmp/imgui/dst/imgui-java64.dll
+        cp /tmp/imgui/libsNative/windows64/imgui-java64.dll /tmp/imgui/dst/x64/imgui-java64.dll
         if [ $? -ne 0 ]; then
-            echo "Failed to copy DLL to /tmp/imgui/dst/imgui-java64.dll"
+            echo "Failed to copy DLL to /tmp/imgui/dst/x64/imgui-java64.dll"
             exit 1
         fi
-        echo "DLL copied to /tmp/imgui/dst/imgui-java64.dll successfully"
+        echo "DLL copied to /tmp/imgui/dst/x64/imgui-java64.dll successfully"
+        ;;
+    windowsarm64)
+        echo "Running Gradle task for Windows ARM64..."
+        ./gradlew imgui-binding:generateLibs -Denvs=windowsarm64 -Dfreetype=true
+        if [ $? -ne 0 ]; then
+            echo "Gradle task for Windows ARM64 failed"
+            exit 1
+        fi
+
+        echo "Checking if the generated DLL exists..."
+        check_file_exists /tmp/imgui/libsNative/windowsarm64/imgui-java64.dll
+
+        echo "Copying the generated DLL to the destination directory..."
+        cp /tmp/imgui/libsNative/windowsarm64/imgui-java64.dll /tmp/imgui/dst/arm64/imgui-java64.dll
+        if [ $? -ne 0 ]; then
+            echo "Failed to copy DLL to /tmp/imgui/dst/arm64/imgui-java64.dll"
+            exit 1
+        fi
+        echo "DLL copied to /tmp/imgui/dst/arm64/imgui-java64.dll successfully"
         ;;
     linux)
         echo "Running Gradle task for Linux..."
@@ -70,12 +90,31 @@ case "$VTYPE" in
         check_file_exists /tmp/imgui/libsNative/linux64/libimgui-java64.so
 
         echo "Copying the generated SO file to the destination directory..."
-        cp /tmp/imgui/libsNative/linux64/libimgui-java64.so /tmp/imgui/dst/libimgui-java64.so
+        cp /tmp/imgui/libsNative/linux64/libimgui-java64.so /tmp/imgui/dst/x64/libimgui-java64.so
         if [ $? -ne 0 ]; then
-            echo "Failed to copy SO file to /tmp/imgui/dst/libimgui-java64.so"
+            echo "Failed to copy SO file to /tmp/imgui/dst/x64/libimgui-java64.so"
             exit 1
         fi
-        echo "SO file copied to /tmp/imgui/dst/libimgui-java64.so successfully"
+        echo "SO file copied to /tmp/imgui/dst/x64/libimgui-java64.so successfully"
+        ;;
+    linuxarm64)
+        echo "Running Gradle task for Linux ARM64..."
+        ./gradlew imgui-binding:generateLibs -Denvs=linuxarm64 -Dfreetype=true
+        if [ $? -ne 0 ]; then
+            echo "Gradle task for Linux ARM64 failed"
+            exit 1
+        fi
+
+        echo "Checking if the generated SO file exists..."
+        check_file_exists /tmp/imgui/libsNative/linuxarm64/libimgui-java64.so
+
+        echo "Copying the generated SO file to the destination directory..."
+        cp /tmp/imgui/libsNative/linuxarm64/libimgui-java64.so /tmp/imgui/dst/arm64/libimgui-java64.so
+        if [ $? -ne 0 ]; then
+            echo "Failed to copy SO file to /tmp/imgui/dst/arm64/libimgui-java64.so"
+            exit 1
+        fi
+        echo "SO file copied to /tmp/imgui/dst/arm64/libimgui-java64.so successfully"
         ;;
     macos)
         echo "Running Gradle task for macOS and macOS ARM..."
@@ -90,12 +129,13 @@ case "$VTYPE" in
         check_file_exists /tmp/imgui/libsNative/macosxarm64/libimgui-java64.dylib
 
         echo "Creating a universal library using lipo..."
-        lipo -create -output /tmp/imgui/dst/libimgui-java64.dylib /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib /tmp/imgui/libsNative/macosxarm64/libimgui-java64.dylib
+        lipo -create -output /tmp/imgui/dst/x64/libimgui-java64.dylib /tmp/imgui/libsNative/macosx64/libimgui-java64.dylib /tmp/imgui/libsNative/macosxarm64/libimgui-java64.dylib
         if [ $? -ne 0 ]; then
             echo "Failed to create universal library with lipo"
             exit 1
         fi
-        echo "Universal library created at /tmp/imgui/dst/libimgui-java64.dylib successfully"
+        cp /tmp/imgui/dst/x64/libimgui-java64.dylib /tmp/imgui/dst/arm64/libimgui-java64.dylib
+        echo "Universal library created at /tmp/imgui/dst/**/libimgui-java64.dylib successfully"
         ;;
     *)
         echo "Unknown vendor type: $VTYPE"
